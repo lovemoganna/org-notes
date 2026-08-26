@@ -1,0 +1,3417 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- 2026-08-21 Fri 23:28 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DuckDB Tutorial DuckDB 实战入门：Emacs Package 数据分析</title>
+<meta name="generator" content="Org Mode">
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=b064a8b284f0"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=ea1a93715abf">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="sql" data-page-title="DuckDB 实战入门：Emacs Package 数据分析" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-06-27" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM</a>
+  <time class="museum-today" datetime="2026-08-21" title="导出于 2026.08.21">2026.08.21</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link" href="../../index.html">首页</a>
+    <a class="museum-topbar-link" href="../../graph.html">知识图谱</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-label="打开全部笔记">笔记</button>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为浅色主题"><span aria-hidden="true" data-theme-icon>☀</span><span data-theme-label>浅色</span></button>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">DuckDB 实战入门：Emacs Package 数据分析</a><span class="museum-identity-meta">SQL · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=Sql#recent-updates">SQL</a><span class="museum-status-badge">草稿</span>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-06-27">2026-06-27</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 105 分钟</dd></div>
+    <div><dt>标签</dt><dd>sql</dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a href="../../index.html#recent-updates">← 全部笔记</a>
+    <a href="../../index.html">返回索引</a>
+  </nav>
+</aside>
+<article class="article-container" data-page-id="sql" data-page-title="DuckDB 实战入门：Emacs Package 数据分析" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button>
+<h1 class="title">DuckDB Tutorial DuckDB 实战入门：Emacs Package 数据分析
+<br>
+<span class="subtitle">任务驱动 · 渐进升级 · 可执行验证</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>&#30446;&#24405;</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#overview">1. 📌 教程说明</a>
+<ul>
+<li><a href="#section-918040dcc438">1.1. 学习目标</a></li>
+<li><a href="#section-2832a24540b7">1.2. 适用人群</a></li>
+<li><a href="#section-eb385b27e3b7">1.3. 不适用人群</a></li>
+<li><a href="#section-5ad963a5b5d2">1.4. 执行环境说明</a></li>
+<li><a href="#section-964ce9b35920">1.5. 数据库路径约定</a></li>
+</ul>
+</li>
+<li><a href="#module-0">2. 模块 0：DuckDB 是什么</a>
+<ul>
+<li><a href="#section-ae07afb61add">2.1. 本模块解决的问题</a></li>
+<li><a href="#section-8fa15dbcf453">2.2. 本模块不解决的问题</a></li>
+<li><a href="#section-e80dc6806883">2.3. 一句话定位</a></li>
+<li><a href="#section-50643b515b8a">2.4. 解决什么问题</a></li>
+<li><a href="#section-4939f8fe3f10">2.5. DuckDB vs 常见工具一句话对比</a></li>
+<li><a href="#section-3a4609e62407">2.6. 检查标准（口答）</a></li>
+</ul>
+</li>
+<li><a href="#module-1">3. 模块 1：安装与最小运行</a>
+<ul>
+<li><a href="#section-285310ca2822">3.1. 本模块解决的问题</a></li>
+<li><a href="#section-5f35b4e9d216">3.2. 本模块不解决的问题</a></li>
+<li><a href="#section-cf58484a65f0">3.3. 安装</a></li>
+<li><a href="#section-a10409712664">3.4. 最小可执行 SQL（内存模式，无需数据库文件）</a></li>
+<li><a href="#section-929b5f51d829">3.5. 创建持久化数据库文件</a></li>
+<li><a href="#section-27cf156f356a">3.6. 两种运行模式对比</a></li>
+<li><a href="#section-3e4074e1c7fd">3.7. 交互式 Shell 常用命令</a></li>
+<li><a href="#section-ee1c0236cd21">3.8. 常见错误</a></li>
+<li><a href="#section-fddf6d10a5a8">3.9. 检查标准</a></li>
+</ul>
+</li>
+<li><a href="#module-2">4. 模块 2：数据建模</a>
+<ul>
+<li><a href="#section-df4d5a0b138c">4.1. 本模块解决的问题</a></li>
+<li><a href="#section-eaaaf4dffc8f">4.2. 本模块不解决的问题</a></li>
+<li><a href="#section-ad20e82a63fe">4.3. 从"要回答的问题"推导字段</a></li>
+<li><a href="#section-085a8e69672d">4.4. CREATE TABLE：最小可用 DDL</a></li>
+<li><a href="#section-da869a3af3ba">4.5. 字段类型决策说明</a></li>
+<li><a href="#section-362361ef5917">4.6. 预期输出示例</a></li>
+<li><a href="#section-95eb80db1e71">4.7. 常见错误</a></li>
+<li><a href="#section-5e8df6e397d4">4.8. 检查标准</a></li>
+</ul>
+</li>
+<li><a href="#module-3">5. 模块 3：准备测试数据</a>
+<ul>
+<li><a href="#section-1407f8a0d026">5.1. 本模块解决的问题</a></li>
+<li><a href="#section-2ee845e22a73">5.2. 本模块不解决的问题</a></li>
+<li><a href="#section-cdf1466b8be0">5.3. 步骤 1：生成测试数据 CSV</a></li>
+<li><a href="#section-6cf1cf8ab26d">5.4. 步骤 2：直接查询 CSV（不建表，快速验证数据）</a></li>
+<li><a href="#section-cd51d6fc4549">5.5. 步骤 3：导入到持久化表（推荐方式）</a></li>
+<li><a href="#section-a2e6cccc91db">5.6. 步骤 4：验证数据完整性</a></li>
+<li><a href="#section-94274b5e54e0">5.7. 两种导入方式对比</a></li>
+<li><a href="#section-70099431138b">5.8. 常见错误</a></li>
+<li><a href="#section-b79874985f6e">5.9. 检查标准</a></li>
+</ul>
+</li>
+<li><a href="#module-4">6. 模块 4：基础查询</a>
+<ul>
+<li><a href="#section-7510edbb576e">6.1. 本模块解决的问题</a></li>
+<li><a href="#section-dc1623cb5271">6.2. 本模块不解决的问题</a></li>
+<li><a href="#section-936eded9e8d4">6.3. Q1：这个数据集里一共有多少个包？</a></li>
+<li><a href="#section-d460bddd893b">6.4. Q2：都有哪些分类，按名称排序</a></li>
+<li><a href="#section-ffe5f9b64408">6.5. Q3：下载量超过 50 万的包有哪些？</a></li>
+<li><a href="#section-c08c6504afcd">6.6. Q4：completion 分类下的包，按下载量排序</a></li>
+<li><a href="#section-9d317e463c19">6.7. Q5：名字或描述中包含 "theme" 的包</a></li>
+<li><a href="#section-dfad46e0472a">6.8. Q6：已标记为"不再维护"的包</a></li>
+<li><a href="#section-8666ac80615b">6.9. Q7：组合条件：completion 分类中下载量超过 30 万的包</a></li>
+<li><a href="#section-a0e9e301d359">6.10. SQL 执行顺序（避免错误的关键）</a></li>
+<li><a href="#section-1be69ba5c23a">6.11. 常见错误</a></li>
+<li><a href="#section-9267aac423d3">6.12. 检查标准</a></li>
+</ul>
+</li>
+<li><a href="#module-5">7. 模块 5：聚合统计</a>
+<ul>
+<li><a href="#section-625ed9a3a69f">7.1. 本模块解决的问题</a></li>
+<li><a href="#section-e13d282ed7cc">7.2. 本模块不解决的问题</a></li>
+<li><a href="#section-37e2c8b3454a">7.3. Q1：每个分类有多少个包？</a></li>
+<li><a href="#section-769da64bfffe">7.4. Q2：每个分类的总下载量、平均下载量、最高下载量</a></li>
+<li><a href="#section-75c65aad02c2">7.5. Q3：只看包数量 ≥ 3 的分类（HAVING 过滤聚合结果）</a></li>
+<li><a href="#section-de1a324ca432">7.6. Q4：哪些作者维护的包最多，累计下载量是多少？</a></li>
+<li><a href="#section-33a911e64078">7.7. Q5：数据集整体概况（一次性汇总）</a></li>
+<li><a href="#section-d1943b586eac">7.8. GROUP BY 执行逻辑图解</a></li>
+<li><a href="#section-f908384dc753">7.9. 常见错误</a></li>
+<li><a href="#section-53e50e26accc">7.10. 检查标准</a></li>
+</ul>
+</li>
+<li><a href="#module-6">8. 模块 6：多维分析</a>
+<ul>
+<li><a href="#section-e7b9023c7313">8.1. 本模块解决的问题</a></li>
+<li><a href="#section-794fa986c7cc">8.2. 本模块不解决的问题</a></li>
+<li><a href="#section-bf84b22cce93">8.3. Q1：completion 分类：每位作者的贡献度</a></li>
+<li><a href="#section-820187bd86e3">8.4. Q2：每个分类的"第一名"包（DISTINCT ON）</a></li>
+<li><a href="#section-c4b19f1e9055">8.5. Q3：维护状态 × 分类 交叉分析</a></li>
+<li><a href="#section-1d9173154c43">8.6. Q4：下载量分层（数据分桶，理解分布）</a></li>
+<li><a href="#section-0ef9972790c9">8.7. Q5：作者多包分析报告</a></li>
+<li><a href="#section-c81d9f481ffa">8.8. 常见错误</a></li>
+<li><a href="#section-dbd7664bbed7">8.9. 检查标准</a></li>
+</ul>
+</li>
+<li><a href="#module-7">9. 模块 7：时间分析</a>
+<ul>
+<li><a href="#section-5c9953d87df8">9.1. 本模块解决的问题</a></li>
+<li><a href="#section-4dcae7236acc">9.2. 本模块不解决的问题</a></li>
+<li><a href="#section-4b128ba34d0c">9.3. 核心日期函数速查</a></li>
+<li><a href="#section-9d6d46f0db91">9.4. Q1：每个包距今多少天/月没有更新？</a></li>
+<li><a href="#section-8543e5029f5b">9.5. Q2：最近 6 个月内有更新的活跃包</a></li>
+<li><a href="#section-f3cd89a1659a">9.6. Q3：潜在僵尸包（超过 2 年未更新，但标记为"在维护"）</a></li>
+<li><a href="#section-ddd830018c61">9.7. Q4：按更新年份统计包分布</a></li>
+<li><a href="#section-bf574b6bc5ac">9.8. Q5：四级维护状态分类</a></li>
+<li><a href="#section-1dda50370b3a">9.9. Q6：高风险包（下载量 &gt; 30 万 AND 超过 1 年未更新）</a></li>
+<li><a href="#section-05362b6b0378">9.10. 常见错误</a></li>
+<li><a href="#section-9a880ade583b">9.11. 检查标准</a></li>
+</ul>
+</li>
+<li><a href="#module-8">10. 模块 8：文件读写</a>
+<ul>
+<li><a href="#section-22aa41ea8139">10.1. 本模块解决的问题</a></li>
+<li><a href="#section-ee06168cdb15">10.2. 本模块不解决的问题</a></li>
+<li><a href="#section-c2bcd3e3b3c8">10.3. 读取 CSV：自动推断（快速探索）</a></li>
+<li><a href="#section-0388cc7c5ba2">10.4. 读取 CSV：手动指定选项（生产使用）</a></li>
+<li><a href="#section-396b0483d519">10.5. 导出为 CSV：COPY &hellip; TO &hellip;</a></li>
+<li><a href="#section-14af7e26368d">10.6. 导出为 Parquet（列式格式，更小更快）</a></li>
+<li><a href="#section-4e9eb92768ac">10.7. 直接对文件执行 SQL（不建表）</a></li>
+<li><a href="#section-b4d840f06955">10.8. 读取 Parquet 文件</a></li>
+<li><a href="#section-e22cc1afae45">10.9. 文件操作速查</a></li>
+<li><a href="#section-aa5576c1bfc9">10.10. 常见错误</a></li>
+<li><a href="#section-c38c25f92768">10.11. 检查标准</a></li>
+</ul>
+</li>
+<li><a href="#module-9">11. 模块 9：进阶查询（CTE / 窗口函数 / JOIN）</a>
+<ul>
+<li><a href="#section-5b74d5610997">11.1. 本模块解决的问题</a></li>
+<li><a href="#section-023e7ea6637a">11.2. 本模块不解决的问题</a></li>
+<li><a href="#section-b16bf952e240">11.3. 9.1 CTE（公共表表达式）</a></li>
+<li><a href="#section-ab36b99ec9ab">11.4. 9.2 窗口函数：全局排名（RANK / ROW_NUMBER）</a></li>
+<li><a href="#section-8780f292f29b">11.5. 9.3 窗口函数：组内排名（PARTITION BY）</a></li>
+<li><a href="#section-b829d03387a1">11.6. 9.4 窗口函数：每类 TOP 3（CTE + 窗口函数的经典组合）</a></li>
+<li><a href="#section-e0227fa4c611">11.7. 9.5 窗口函数：组内占比和累计占比</a></li>
+<li><a href="#section-3db0a6771bb8">11.8. 9.6 创建第二张表并 JOIN</a></li>
+<li><a href="#section-45fcb4c3c235">11.9. 9.7 综合查询：完整作者分析报告</a></li>
+<li><a href="#section-6a5c252f8e9a">11.10. 窗口函数语法结构</a></li>
+<li><a href="#section-75c77c5345f9">11.11. 常见错误</a></li>
+<li><a href="#section-8fdc527f6dde">11.12. 检查标准</a></li>
+</ul>
+</li>
+<li><a href="#module-10">12. 模块 10：生成分析报告</a>
+<ul>
+<li><a href="#section-1aeecd49fdcb">12.1. 本模块解决的问题</a></li>
+<li><a href="#section-40ddb27c5fc6">12.2. 分析报告：Emacs Package 生态概览</a>
+<ul>
+<li><a href="#section-2f2c3d3c6d04">12.2.1. 1. 数据集概况</a></li>
+<li><a href="#section-c5720c60f312">12.2.2. 2. 分类生态分布</a></li>
+<li><a href="#section-bb517039556a">12.2.3. 3. 下载量 TOP 10 包</a></li>
+<li><a href="#section-79f26935c645">12.2.4. 4. 维护健康度分析</a></li>
+<li><a href="#section-fb0f224ce581">12.2.5. 5. 高关注点：高人气但长期停滞的包</a></li>
+<li><a href="#section-347ef3982746">12.2.6. 6. 明星作者：Daniel Mendler 生态</a></li>
+<li><a href="#section-ec77f328e33d">12.2.7. 7. 导出完整分析结果</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#module-11">13. 模块 11：可复用分析模板</a>
+<ul>
+<li><a href="#section-97243fd233b2">13.1. 本模块解决的问题</a></li>
+<li><a href="#section-c0e378feeecc">13.2. 通用 DuckDB 数据分析模板</a></li>
+<li><a href="#section-d57b4f3f5faf">13.3. 模板迁移清单</a></li>
+<li><a href="#section-4027b6b29024">13.4. 可扩展方向</a></li>
+</ul>
+</li>
+<li><a href="#appendix-a">14. 附录 A：DuckDB SQL 速查表</a>
+<ul>
+<li><a href="#section-fac0035f60a3">14.1. 数据类型</a></li>
+<li><a href="#section-21e4bc99d497">14.2. 常用函数一览</a></li>
+<li><a href="#section-960612ef4330">14.3. JOIN 类型</a></li>
+</ul>
+</li>
+<li><a href="#appendix-b">15. 附录 B：练习题</a>
+<ul>
+<li><a href="#section-76645dc8569f">15.1. 基础级（模块 4-5）</a></li>
+<li><a href="#section-d310421dfaf2">15.2. 进阶级（模块 6-7）</a></li>
+<li><a href="#section-f161cf60ad4c">15.3. 窗口函数级（模块 9）</a></li>
+<li><a href="#section-4abda50ce72a">15.4. 参考答案</a>
+<ul>
+<li><a href="#section-b0048a5aa246">15.4.1. 练习 3：BETWEEN 用法</a></li>
+<li><a href="#section-21a219785fe7">15.4.2. 练习 9：全局排名 + 百分位</a></li>
+<li><a href="#section-e94375b703a4">15.4.3. 练习 11：CTE + 组内均值过滤</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#appendix-c">16. 附录 C：Org-Babel DuckDB 集成设置</a>
+<ul>
+<li><a href="#section-02a33e32af1d">16.1. 方案 A：ob-shell 调用 CLI（本文件所用方式，零配置）</a></li>
+<li><a href="#section-e2ac664d86a2">16.2. 方案 B：ob-python 调用 DuckDB API（表格输出更好看）</a></li>
+<li><a href="#section-5bf7d755b0e1">16.3. 方案 C：ob-duckdb（如 MELPA 上有对应包）</a></li>
+<li><a href="#section-8e6901217189">16.4. 推荐全局 PROPERTY 配置</a></li>
+</ul>
+</li>
+<li><a href="#progress">17. 学习进度追踪</a></li>
+</ul>
+</div>
+</div>
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><code class="language-lisp">(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((shell . t) (python . t) (emacs-lisp . t)))
+(setq org-confirm-babel-evaluate nil)  ;; 执行前不再询问确认
+</code></pre>
+</div>
+<div id="outline-container-overview" class="outline-2">
+<h2 id="overview"><span class="section-number-2">1.</span> 📌 教程说明</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-section-918040dcc438" class="outline-3">
+<h3 id="section-918040dcc438"><span class="section-number-3">1.1.</span> 学习目标</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+完成本教程后，你将具备：
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">#</th>
+<th scope="col" class="org-left">能力描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">说清楚 DuckDB 适合解决什么问题、不适合什么问题</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">在本地创建数据库文件，执行第一条 SQL</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">为真实数据集设计最小可用表结构，导入数据</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">用 SELECT / WHERE / ORDER BY / LIMIT 回答基本问题</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">用 GROUP BY / HAVING / 聚合函数完成分组统计</td>
+</tr>
+
+<tr>
+<td class="org-right">6</td>
+<td class="org-left">用 CASE WHEN / 日期函数进行多维和时间分析</td>
+</tr>
+
+<tr>
+<td class="org-right">7</td>
+<td class="org-left">用 CTE + 窗口函数完成组内排名与占比计算</td>
+</tr>
+
+<tr>
+<td class="org-right">8</td>
+<td class="org-left">从 CSV/Parquet 读取数据，导出分析结果</td>
+</tr>
+
+<tr>
+<td class="org-right">9</td>
+<td class="org-left">完成一次"数据→分析→结论→导出"的完整闭环</td>
+</tr>
+
+<tr>
+<td class="org-right">10</td>
+<td class="org-left">把本教程沉淀为可迁移到其他数据集的 Org 模板</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-2832a24540b7" class="outline-3">
+<h3 id="section-2832a24540b7"><span class="section-number-3">1.2.</span> 适用人群</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>会基础 SQL（知道 SELECT / WHERE / GROUP BY 是什么）</li>
+<li>使用 Emacs + Org-mode 做技术笔记</li>
+<li>想在本地做轻量数据分析，不想搭数据库服务器</li>
+<li>关心 Emacs 生态，对 MELPA 包数据有好奇心</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-eb385b27e3b7" class="outline-3">
+<h3 id="section-eb385b27e3b7"><span class="section-number-3">1.3.</span> 不适用人群</h3>
+<div class="outline-text-3" id="text-1-3">
+<ul class="org-ul">
+<li>完全没写过 SQL → 先学 SQLZoo / Khan Academy SQL 基础再来</li>
+<li>需要实时事务（用户登录、支付流水）→ 用 SQLite / PostgreSQL</li>
+<li>需要多人并发写入 → 用 PostgreSQL</li>
+<li>处理 TB 级分布式数据 → 用 BigQuery / Snowflake</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-5ad963a5b5d2" class="outline-3">
+<h3 id="section-5ad963a5b5d2"><span class="section-number-3">1.4.</span> 执行环境说明</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+本文件所有代码块通过 <code>ob-shell</code> 调用 DuckDB CLI 执行：
+</p>
+
+<pre class="example" id="org537c8ad"><code class="language-plaintext">
+  安装 DuckDB CLI：   pip install duckdb
+  执行任意代码块：    将光标置于 #+begin_src 行，按 C-c C-c
+  执行全部代码块：    M-x org-babel-execute-buffer（按顺序执行，慎用）
+  展开/折叠章节：     Tab / S-Tab
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-964ce9b35920" class="outline-3">
+<h3 id="section-964ce9b35920"><span class="section-number-3">1.5.</span> 数据库路径约定</h3>
+<div class="outline-text-3" id="text-1-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash"># 初始化工作目录（仅需执行一次）
+mkdir -p "$HOME/duckdb"
+echo "工作目录：$HOME/duckdb"
+duckdb --version
+</code></pre>
+</div>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-0" class="outline-2">
+<h2 id="module-0"><span class="section-number-2">2.</span> 模块 0：DuckDB 是什么</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-section-ae07afb61add" class="outline-3">
+<h3 id="section-ae07afb61add"><span class="section-number-3">2.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-2-1">
+<p>
+建立对 DuckDB 的准确定位：它是什么，用来做什么，不用来做什么。
+</p>
+</div>
+</div>
+<div id="outline-container-section-8fa15dbcf453" class="outline-3">
+<h3 id="section-8fa15dbcf453"><span class="section-number-3">2.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-2-2">
+<p>
+不讲安装，不讲 SQL 语法，不比较所有数据库。
+</p>
+</div>
+</div>
+<div id="outline-container-section-e80dc6806883" class="outline-3">
+<h3 id="section-e80dc6806883"><span class="section-number-3">2.3.</span> 一句话定位</h3>
+<div class="outline-text-3" id="text-2-3">
+<blockquote>
+<p>
+DuckDB 是一个嵌入式列式 OLAP 数据库。
+核心价值：无需服务器，用标准 SQL 分析本地数据文件。
+</p>
+</blockquote>
+
+<p>
+它就像"数据分析界的 SQLite"——单文件，零配置，但专为分析优化。
+</p>
+</div>
+</div>
+<div id="outline-container-section-50643b515b8a" class="outline-3">
+<h3 id="section-50643b515b8a"><span class="section-number-3">2.4.</span> 解决什么问题</h3>
+<div class="outline-text-3" id="text-2-4">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 2"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">场景</th>
+<th scope="col" class="org-left">DuckDB 合适？</th>
+<th scope="col" class="org-left">备注</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">分析一个 CSV / Parquet 文件</td>
+<td class="org-left">✅ 强项</td>
+<td class="org-left">直接 SQL 查询文件，无需导入</td>
+</tr>
+
+<tr>
+<td class="org-left">本地数据探索、ETL</td>
+<td class="org-left">✅ 强项</td>
+<td class="org-left">比 pandas 更快，比搭 PG 更省事</td>
+</tr>
+
+<tr>
+<td class="org-left">复杂 GROUP BY / 窗口函数</td>
+<td class="org-left">✅ 强项</td>
+<td class="org-left">向量化执行，大文件快</td>
+</tr>
+
+<tr>
+<td class="org-left">应用内嵌入式存储</td>
+<td class="org-left">🟡 可以</td>
+<td class="org-left">SQLite 更成熟</td>
+</tr>
+
+<tr>
+<td class="org-left">多人并发写入</td>
+<td class="org-left">❌ 不适合</td>
+<td class="org-left">不支持多进程并发写</td>
+</tr>
+
+<tr>
+<td class="org-left">实时事务（转账、登录）</td>
+<td class="org-left">❌ 不适合</td>
+<td class="org-left">用 MySQL / PostgreSQL</td>
+</tr>
+
+<tr>
+<td class="org-left">分布式大数据</td>
+<td class="org-left">❌ 不适合</td>
+<td class="org-left">用 BigQuery / Snowflake</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-4939f8fe3f10" class="outline-3">
+<h3 id="section-4939f8fe3f10"><span class="section-number-3">2.5.</span> DuckDB vs 常见工具一句话对比</h3>
+<div class="outline-text-3" id="text-2-5">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">对比</th>
+<th scope="col" class="org-left">结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">vs SQLite</td>
+<td class="org-left">SQLite 擅长 OLTP（应用存储），DuckDB 擅长 OLAP（数据分析）</td>
+</tr>
+
+<tr>
+<td class="org-left">vs pandas</td>
+<td class="org-left">DuckDB 用 SQL，pandas 用 Python；100MB+ 文件 DuckDB 更快</td>
+</tr>
+
+<tr>
+<td class="org-left">vs PostgreSQL</td>
+<td class="org-left">PostgreSQL 需要服务器进程，DuckDB 是单文件零配置</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-3a4609e62407" class="outline-3">
+<h3 id="section-3a4609e62407"><span class="section-number-3">2.6.</span> 检查标准（口答）</h3>
+<div class="outline-text-3" id="text-2-6">
+<ol class="org-ol">
+<li>你有一个 50MB 的 Package 下载记录 CSV，想按分类统计数量 → DuckDB 合适吗？
+（合适，这是典型的本地分析场景）</li>
+
+<li>你在开发一个 Emacs 插件，需要在本地存储用户配置 → DuckDB 合适吗？
+（不合适，用 SQLite 更合适）</li>
+</ol>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-1" class="outline-2">
+<h2 id="module-1"><span class="section-number-2">3.</span> 模块 1：安装与最小运行</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-section-285310ca2822" class="outline-3">
+<h3 id="section-285310ca2822"><span class="section-number-3">3.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+在本地安装 DuckDB 并执行第一条有意义的 SQL，验证环境可用。
+</p>
+</div>
+</div>
+<div id="outline-container-section-5f35b4e9d216" class="outline-3">
+<h3 id="section-5f35b4e9d216"><span class="section-number-3">3.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+不讲 Python API 的完整用法，不讲配置文件，不讲 DuckDB 扩展。
+</p>
+</div>
+</div>
+<div id="outline-container-section-cf58484a65f0" class="outline-3">
+<h3 id="section-cf58484a65f0"><span class="section-number-3">3.3.</span> 安装</h3>
+<div class="outline-text-3" id="text-3-3">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash"># 方式 1：通过 pip 安装（同时安装 Python 库和 CLI）
+pip install duckdb --quiet
+echo "安装完成"
+
+# 验证
+duckdb --version
+python3 -c "import duckdb; print('Python DuckDB:', duckdb.__version__)"
+</code></pre>
+</div>
+
+<pre class="example" id="orgf2cf9eb"><code class="language-plaintext">
+如果 duckdb 命令不在 PATH 中，尝试：
+  python3 -m duckdb  （或找到 pip 的 bin 目录并加入 PATH）
+
+方式 2：直接下载 CLI 二进制（无需 Python）：
+  https://duckdb.org/docs/installation/
+  macOS: brew install duckdb
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-a10409712664" class="outline-3">
+<h3 id="section-a10409712664"><span class="section-number-3">3.4.</span> 最小可执行 SQL（内存模式，无需数据库文件）</h3>
+<div class="outline-text-3" id="text-3-4">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash"># -c 参数：直接执行一条 SQL，无需交互
+duckdb -c "SELECT 'DuckDB 就绪' AS status, current_date AS today, 42 AS answer;"
+</code></pre>
+</div>
+
+<pre class="example" id="org75c5474"><code class="language-plaintext">
+┌──────────────┬────────────┬────────┐
+│    status    │   today    │ answer │
+│   varchar    │    date    │ int32  │
+├──────────────┼────────────┼────────┤
+│ DuckDB 就绪  │ 2026-06-08 │     42 │
+└──────────────┴────────────┴────────┘
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-929b5f51d829" class="outline-3">
+<h3 id="section-929b5f51d829"><span class="section-number-3">3.5.</span> 创建持久化数据库文件</h3>
+<div class="outline-text-3" id="text-3-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash"># 指定文件路径：DuckDB 自动创建文件，无需 CREATE DATABASE
+DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" "SELECT '数据库文件已创建' AS msg, current_database() AS db;"
+ls -lh "$HOME/duckdb/"
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-27cf156f356a" class="outline-3">
+<h3 id="section-27cf156f356a"><span class="section-number-3">3.6.</span> 两种运行模式对比</h3>
+<div class="outline-text-3" id="text-3-6">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 4"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">模式</th>
+<th scope="col" class="org-left">命令</th>
+<th scope="col" class="org-left">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">内存模式</td>
+<td class="org-left"><code>duckdb -c "SQL"</code></td>
+<td class="org-left">临时计算，关闭后数据不保留</td>
+</tr>
+
+<tr>
+<td class="org-left">文件模式</td>
+<td class="org-left"><code>duckdb path/to/file.duckdb "SQL"</code></td>
+<td class="org-left">持久化数据分析</td>
+</tr>
+
+<tr>
+<td class="org-left">交互 Shell</td>
+<td class="org-left"><code>duckdb path/to/file.duckdb</code></td>
+<td class="org-left">终端中手动探索</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-3e4074e1c7fd" class="outline-3">
+<h3 id="section-3e4074e1c7fd"><span class="section-number-3">3.7.</span> 交互式 Shell 常用命令</h3>
+<div class="outline-text-3" id="text-3-7">
+<pre class="example" id="org7096b35"><code class="language-plaintext">
+.help          -- 帮助
+.tables        -- 列出所有表
+.schema &lt;表名&gt;  -- 查看建表语句
+.mode table    -- 表格输出（默认）
+.mode csv      -- CSV 格式输出
+.exit          -- 退出
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-ee1c0236cd21" class="outline-3">
+<h3 id="section-ee1c0236cd21"><span class="section-number-3">3.8.</span> 常见错误</h3>
+<div class="outline-text-3" id="text-3-8">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">错误信息</th>
+<th scope="col" class="org-left">原因</th>
+<th scope="col" class="org-left">解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>command not found: duckdb</code></td>
+<td class="org-left">CLI 未加入 PATH</td>
+<td class="org-left">检查 pip bin 目录或用 python3 -m duckdb</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>Permission denied</code></td>
+<td class="org-left">目录无写权限</td>
+<td class="org-left"><code>mkdir -p ~/duckdb &amp;&amp; chmod 755 ~/duckdb</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>IO Error: Could not open database</code></td>
+<td class="org-left">路径不存在</td>
+<td class="org-left">先 <code>mkdir -p</code> 创建目录</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-fddf6d10a5a8" class="outline-3">
+<h3 id="section-fddf6d10a5a8"><span class="section-number-3">3.9.</span> 检查标准</h3>
+<div class="outline-text-3" id="text-3-9">
+<p>
+运行以下命令，看到版本号即通过：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">duckdb --version
+</code></pre>
+</div>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-2" class="outline-2">
+<h2 id="module-2"><span class="section-number-2">4.</span> 模块 2：数据建模</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-section-df4d5a0b138c" class="outline-3">
+<h3 id="section-df4d5a0b138c"><span class="section-number-3">4.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+为 Emacs Package 数据设计一个最小可用的表结构：够用，不过度设计。
+</p>
+</div>
+</div>
+<div id="outline-container-section-eaaaf4dffc8f" class="outline-3">
+<h3 id="section-eaaaf4dffc8f"><span class="section-number-3">4.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+不讲数据库范式、不讲索引优化、不讲多表关联建模（模块 9 涉及）。
+</p>
+</div>
+</div>
+<div id="outline-container-section-ad20e82a63fe" class="outline-3">
+<h3 id="section-ad20e82a63fe"><span class="section-number-3">4.3.</span> 从"要回答的问题"推导字段</h3>
+<div class="outline-text-3" id="text-4-3">
+<p>
+好的数据模型从问题出发，而不是把所有字段都塞进去：
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 6"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">分析问题</th>
+<th scope="col" class="org-left">需要的字段</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">一共有多少个包？</td>
+<td class="org-left">name（计数行即可）</td>
+</tr>
+
+<tr>
+<td class="org-left">每个分类有多少包？</td>
+<td class="org-left">category</td>
+</tr>
+
+<tr>
+<td class="org-left">哪些下载量最高？</td>
+<td class="org-left">downloads</td>
+</tr>
+
+<tr>
+<td class="org-left">哪些最近更新？</td>
+<td class="org-left">last_updated</td>
+</tr>
+
+<tr>
+<td class="org-left">哪些长期无人维护？</td>
+<td class="org-left">last_updated, is_maintained</td>
+</tr>
+
+<tr>
+<td class="org-left">按作者分析？</td>
+<td class="org-left">author</td>
+</tr>
+
+<tr>
+<td class="org-left">找到包的源码？</td>
+<td class="org-left">repo_url</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-085a8e69672d" class="outline-3">
+<h3 id="section-085a8e69672d"><span class="section-number-3">4.4.</span> CREATE TABLE：最小可用 DDL</h3>
+<div class="outline-text-3" id="text-4-4">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+-- IF NOT EXISTS 保证重复运行不报错
+DROP TABLE IF EXISTS packages;
+
+CREATE TABLE packages (
+    name          VARCHAR     PRIMARY KEY,   -- 包名，全局唯一标识
+    version       VARCHAR     NOT NULL,      -- 版本（字符串：格式多样）
+    author        VARCHAR,                   -- 主要作者
+    category      VARCHAR,                   -- 分类 / keyword
+    downloads     INTEGER     DEFAULT 0,     -- 累计下载次数
+    last_updated  DATE,                      -- 最后更新日期
+    description   VARCHAR,                   -- 单行描述
+    repo_url      VARCHAR,                   -- 源码仓库 URL
+    is_maintained BOOLEAN     DEFAULT TRUE   -- 是否仍在维护
+);
+
+-- 验证：查看字段列表
+DESCRIBE packages;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-da869a3af3ba" class="outline-3">
+<h3 id="section-da869a3af3ba"><span class="section-number-3">4.5.</span> 字段类型决策说明</h3>
+<div class="outline-text-3" id="text-4-5">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 7"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">字段</th>
+<th scope="col" class="org-left">类型</th>
+<th scope="col" class="org-left">为什么这样选</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">version</td>
+<td class="org-left">VARCHAR</td>
+<td class="org-left"><code>"3.3.0" / "33" / "20240115"</code> 格式不一，不能用数字类型</td>
+</tr>
+
+<tr>
+<td class="org-left">downloads</td>
+<td class="org-left">INTEGER</td>
+<td class="org-left">计数值，最大 ~20 亿，INTEGER 够用</td>
+</tr>
+
+<tr>
+<td class="org-left">last_updated</td>
+<td class="org-left">DATE</td>
+<td class="org-left">选 DATE 而非 VARCHAR，才能用日期函数做运算</td>
+</tr>
+
+<tr>
+<td class="org-left">is_maintained</td>
+<td class="org-left">BOOLEAN</td>
+<td class="org-left">只有 TRUE/FALSE 两值，布尔类型语义最清晰</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-362361ef5917" class="outline-3">
+<h3 id="section-362361ef5917"><span class="section-number-3">4.6.</span> 预期输出示例</h3>
+<div class="outline-text-3" id="text-4-6">
+<pre class="example" id="orgaf27695"><code class="language-plaintext">
+┌───────────────┬─────────────┬─────────┬──────────────────┐
+│ column_name   │ column_type │ null    │ key              │
+├───────────────┼─────────────┼─────────┼──────────────────┤
+│ name          │ VARCHAR     │ NO      │ PRI              │
+│ version       │ VARCHAR     │ NO      │                  │
+│ author        │ VARCHAR     │ YES     │                  │
+│ category      │ VARCHAR     │ YES     │                  │
+│ downloads     │ INTEGER     │ YES     │                  │
+│ last_updated  │ DATE        │ YES     │                  │
+│ description   │ VARCHAR     │ YES     │                  │
+│ repo_url      │ VARCHAR     │ YES     │                  │
+│ is_maintained │ BOOLEAN     │ YES     │                  │
+└───────────────┴─────────────┴─────────┴──────────────────┘
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-95eb80db1e71" class="outline-3">
+<h3 id="section-95eb80db1e71"><span class="section-number-3">4.7.</span> 常见错误</h3>
+<div class="outline-text-3" id="text-4-7">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 8"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">错误</th>
+<th scope="col" class="org-left">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">把 version 设为 FLOAT</td>
+<td class="org-left">"3.3.0" 不是合法浮点数，导入时报 Conversion Error</td>
+</tr>
+
+<tr>
+<td class="org-left">把 last_updated 设为 VARCHAR</td>
+<td class="org-left">无法使用 DATE_DIFF / INTERVAL 等日期运算函数</td>
+</tr>
+
+<tr>
+<td class="org-left">没有 DROP TABLE IF EXISTS</td>
+<td class="org-left">重新运行脚本时报 Table already exists</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-5e8df6e397d4" class="outline-3">
+<h3 id="section-5e8df6e397d4"><span class="section-number-3">4.8.</span> 检查标准</h3>
+<div class="outline-text-3" id="text-4-8">
+<p>
+运行 <code>DESCRIBE packages;</code> 看到 9 个字段即通过：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" "DESCRIBE packages;"
+</code></pre>
+</div>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-3" class="outline-2">
+<h2 id="module-3"><span class="section-number-2">5.</span> 模块 3：准备测试数据</h2>
+<div class="outline-text-2" id="text-5">
+</div>
+<div id="outline-container-section-1407f8a0d026" class="outline-3">
+<h3 id="section-1407f8a0d026"><span class="section-number-3">5.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+创建一份真实感的 Emacs Package 测试数据集，并以两种方式导入 DuckDB。
+</p>
+</div>
+</div>
+<div id="outline-container-section-2ee845e22a73" class="outline-3">
+<h3 id="section-2ee845e22a73"><span class="section-number-3">5.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-5-2">
+<p>
+不讲从 MELPA 实时抓取数据（属进阶内容），不讲大批量数据清洗。
+</p>
+</div>
+</div>
+<div id="outline-container-section-cdf1466b8be0" class="outline-3">
+<h3 id="section-cdf1466b8be0"><span class="section-number-3">5.3.</span> 步骤 1：生成测试数据 CSV</h3>
+<div class="outline-text-3" id="text-5-3">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">mkdir -p "$HOME/duckdb"
+cat &gt; "$HOME/duckdb/emacs_packages.csv" &lt;&lt; 'CSVEOF'
+name,version,author,category,downloads,last_updated,description,repo_url,is_maintained
+magit,3.3.0,Jonas Bernoulli,vc,1250000,2026-04-15,A Git porcelain inside Emacs,https://github.com/magit/magit,true
+company,0.9.14,Dmitry Gutov,completion,890000,2025-11-20,Modular in-buffer text completion,https://github.com/company-mode/company-mode,true
+helm,3.9.4,Thierry Volpiatto,completion,750000,2025-10-05,Incremental completion framework,https://github.com/emacs-helm/helm,true
+flycheck,33,Sebastian Wiesner,tools,680000,2025-12-01,Syntax checking for GNU Emacs,https://github.com/flycheck/flycheck,true
+lsp-mode,8.0.1,Vibhav Pant,tools,620000,2026-01-10,Language Server Protocol Support,https://github.com/emacs-lsp/lsp-mode,true
+ivy,0.14.0,Oleh Krehel,completion,580000,2025-08-15,Generic completion mechanism,https://github.com/abo-abo/swiper,true
+org,9.7.0,Carsten Dominik,org,520000,2026-03-20,Outline-based notes and project planner,https://git.savannah.gnu.org/git/emacs/org-mode.git,true
+use-package,2.4.4,John Wiegley,convenience,490000,2024-06-30,Macro for isolating package configuration,https://github.com/jwiegley/use-package,false
+projectile,2.8.0,Bozhidar Batsov,project,460000,2026-02-10,Project Interaction Library for Emacs,https://github.com/bbatsov/projectile,true
+treemacs,2.10,Alexander Miller,convenience,420000,2025-11-05,Tree layout file explorer,https://github.com/Alexander-Miller/treemacs,true
+which-key,3.6.0,Justin Burkett,convenience,410000,2023-05-20,Display available key bindings,https://github.com/justbur/emacs-which-key,false
+evil,1.15.0,Frank Fischer,emulations,380000,2025-09-15,Extensible vi layer for Emacs,https://github.com/emacs-evil/evil,true
+yasnippet,0.14.0,Joao Tavora,abbrev,350000,2024-07-01,Template system for Emacs,https://github.com/joaotavora/yasnippet,true
+counsel,0.14.0,Oleh Krehel,completion,330000,2025-08-15,Completion functions using Ivy,https://github.com/abo-abo/swiper,true
+spacemacs-theme,0.2.0,Nasser Alshammari,faces,300000,2021-03-10,Color theme inspired by Spacemacs,https://github.com/nashamri/spacemacs-theme,false
+doom-themes,2.3.0,Henrik Lissner,faces,280000,2026-01-05,Collection of opinionated Emacs themes,https://github.com/doomemacs/themes,true
+rainbow-delimiters,2.1.4,Fanael Linithien,faces,270000,2022-11-15,Highlight parentheses by depth,https://github.com/Fanael/rainbow-delimiters,false
+marginalia,1.5.0,Daniel Mendler,completion,260000,2026-02-08,Marginalia annotations to completions,https://github.com/minad/marginalia,true
+vertico,1.7.0,Daniel Mendler,completion,250000,2026-03-12,Performant vertical completion UI,https://github.com/minad/vertico,true
+consult,1.6.0,Daniel Mendler,completion,240000,2026-02-09,Consulting completing-read,https://github.com/minad/consult,true
+embark,1.0.0,Omar Antolin Camarena,convenience,220000,2025-12-20,Mini-Buffer Actions Rooted at Keymaps,https://github.com/oantolin/embark,true
+corfu,1.4.0,Daniel Mendler,completion,210000,2026-03-11,Completion Overlay Region FUnction,https://github.com/minad/corfu,true
+orderless,1.1.0,Omar Antolin Camarena,completion,200000,2025-11-30,Completion style for orderless matching,https://github.com/oantolin/orderless,true
+ace-window,0.10.0,Oleh Krehel,convenience,190000,2024-05-10,Quickly switch windows in Emacs,https://github.com/abo-abo/ace-window,true
+expand-region,0.11.0,Magnar Sveen,convenience,180000,2022-08-20,Increase selected region by semantic units,https://github.com/magnars/expand-region.el,false
+CSVEOF
+echo "CSV 已创建：$(wc -l &lt; "$HOME/duckdb/emacs_packages.csv") 行（含标题行）"
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-6cf1cf8ab26d" class="outline-3">
+<h3 id="section-6cf1cf8ab26d"><span class="section-number-3">5.4.</span> 步骤 2：直接查询 CSV（不建表，快速验证数据）</h3>
+<div class="outline-text-3" id="text-5-4">
+<p>
+DuckDB 可以直接 SQL 查询 CSV 文件，这是它的核心能力之一：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">CSV="$HOME/duckdb/emacs_packages.csv"
+duckdb -c "
+SELECT name, category, downloads, last_updated
+FROM read_csv_auto('$CSV')
+ORDER BY downloads DESC
+LIMIT 5;
+"
+</code></pre>
+</div>
+
+<blockquote>
+<p>
+<b><code>read_csv_auto()</code> 解决什么问题</b>：自动推断列名和类型，无需手写 schema，
+适合"先看看数据长什么样"的探索阶段。
+</p>
+</blockquote>
+</div>
+</div>
+<div id="outline-container-section-cd51d6fc4549" class="outline-3">
+<h3 id="section-cd51d6fc4549"><span class="section-number-3">5.5.</span> 步骤 3：导入到持久化表（推荐方式）</h3>
+<div class="outline-text-3" id="text-5-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+CSV="$HOME/duckdb/emacs_packages.csv"
+
+# 用 CREATE TABLE AS 一步完成建表+导入
+duckdb "$DB" &lt;&lt;SQL
+DROP TABLE IF EXISTS packages;
+
+CREATE TABLE packages AS
+    SELECT * FROM read_csv('$CSV',
+        header    = true,
+        columns   = {
+            'name':          'VARCHAR',
+            'version':       'VARCHAR',
+            'author':        'VARCHAR',
+            'category':      'VARCHAR',
+            'downloads':     'INTEGER',
+            'last_updated':  'DATE',
+            'description':   'VARCHAR',
+            'repo_url':      'VARCHAR',
+            'is_maintained': 'BOOLEAN'
+        }
+    );
+
+SELECT COUNT(*) AS imported_rows FROM packages;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-a2e6cccc91db" class="outline-3">
+<h3 id="section-a2e6cccc91db"><span class="section-number-3">5.6.</span> 步骤 4：验证数据完整性</h3>
+<div class="outline-text-3" id="text-5-6">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+-- 总行数
+SELECT COUNT(*) AS total_packages FROM packages;
+
+-- NULL 值检查
+SELECT
+    COUNT(*) - COUNT(name)         AS null_names,
+    COUNT(*) - COUNT(downloads)    AS null_downloads,
+    COUNT(*) - COUNT(last_updated) AS null_dates
+FROM packages;
+
+-- 数值范围快检
+SELECT
+    MIN(downloads)   AS min_dl,
+    MAX(downloads)   AS max_dl,
+    MIN(last_updated) AS earliest,
+    MAX(last_updated) AS latest
+FROM packages;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-94274b5e54e0" class="outline-3">
+<h3 id="section-94274b5e54e0"><span class="section-number-3">5.7.</span> 两种导入方式对比</h3>
+<div class="outline-text-3" id="text-5-7">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 9"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">方式</th>
+<th scope="col" class="org-left">语法</th>
+<th scope="col" class="org-left">适用场景</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>read_csv_auto()</code></td>
+<td class="org-left">自动推断类型</td>
+<td class="org-left">快速探索，对类型精度要求低</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>read_csv(path, columns={...})</code></td>
+<td class="org-left">手动指定类型</td>
+<td class="org-left">生产导入，保证类型正确</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>COPY packages FROM 'file.csv' (FORMAT CSV)</code></td>
+<td class="org-left">标准 SQL</td>
+<td class="org-left">向已存在的表追加数据</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-70099431138b" class="outline-3">
+<h3 id="section-70099431138b"><span class="section-number-3">5.8.</span> 常见错误</h3>
+<div class="outline-text-3" id="text-5-8">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 10"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">错误</th>
+<th scope="col" class="org-left">原因</th>
+<th scope="col" class="org-left">解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>Conversion error: Could not convert DATE</code></td>
+<td class="org-left">日期格式不符</td>
+<td class="org-left">确保 CSV 日期为 YYYY-MM-DD</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>File not found</code></td>
+<td class="org-left">路径错误</td>
+<td class="org-left">使用绝对路径；确认文件存在</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>PRIMARY KEY violation</code></td>
+<td class="org-left">CSV 中有重复的 name</td>
+<td class="org-left">先 <code>SELECT name, COUNT(*) GROUP BY name HAVING COUNT(*) &gt; 1</code> 检查</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-b79874985f6e" class="outline-3">
+<h3 id="section-b79874985f6e"><span class="section-number-3">5.9.</span> 检查标准</h3>
+<div class="outline-text-3" id="text-5-9">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" "SELECT COUNT(*) AS count FROM packages;"
+# 期望结果：count = 25
+</code></pre>
+</div>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-4" class="outline-2">
+<h2 id="module-4"><span class="section-number-2">6.</span> 模块 4：基础查询</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-section-7510edbb576e" class="outline-3">
+<h3 id="section-7510edbb576e"><span class="section-number-3">6.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-6-1">
+<p>
+用 SELECT / WHERE / ORDER BY / LIMIT 回答关于数据的基本问题。
+</p>
+</div>
+</div>
+<div id="outline-container-section-dc1623cb5271" class="outline-3">
+<h3 id="section-dc1623cb5271"><span class="section-number-3">6.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+不讲聚合（模块 5），不讲 JOIN（模块 9），不讲日期函数（模块 7）。
+</p>
+</div>
+</div>
+<div id="outline-container-section-936eded9e8d4" class="outline-3">
+<h3 id="section-936eded9e8d4"><span class="section-number-3">6.3.</span> Q1：这个数据集里一共有多少个包？</h3>
+<div class="outline-text-3" id="text-6-3">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" "SELECT COUNT(*) AS total_packages FROM packages;"
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-d460bddd893b" class="outline-3">
+<h3 id="section-d460bddd893b"><span class="section-number-3">6.4.</span> Q2：都有哪些分类，按名称排序</h3>
+<div class="outline-text-3" id="text-6-4">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT DISTINCT category
+FROM packages
+ORDER BY category;
+-- DISTINCT 去重：每个 category 只出现一次
+-- 不加 DISTINCT 则每行都会出现对应 category
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-ffe5f9b64408" class="outline-3">
+<h3 id="section-ffe5f9b64408"><span class="section-number-3">6.5.</span> Q3：下载量超过 50 万的包有哪些？</h3>
+<div class="outline-text-3" id="text-6-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT name, author, category, downloads
+FROM packages
+WHERE downloads &gt; 500000
+ORDER BY downloads DESC;
+-- WHERE 过滤行：只返回满足条件的行
+-- DESC 降序（从高到低）；ASC 升序（默认，从低到高）
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-c08c6504afcd" class="outline-3">
+<h3 id="section-c08c6504afcd"><span class="section-number-3">6.6.</span> Q4：completion 分类下的包，按下载量排序</h3>
+<div class="outline-text-3" id="text-6-6">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT name, author, downloads, last_updated
+FROM packages
+WHERE category = 'completion'
+ORDER BY downloads DESC
+LIMIT 10;
+-- LIMIT 10：最多返回 10 行，避免结果太长
+-- 字符串用单引号；双引号在 DuckDB 中用于标识符（列名/表名）
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-9d317e463c19" class="outline-3">
+<h3 id="section-9d317e463c19"><span class="section-number-3">6.7.</span> Q5：名字或描述中包含 "theme" 的包</h3>
+<div class="outline-text-3" id="text-6-7">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT name, category, downloads
+FROM packages
+WHERE name        LIKE '%theme%'
+   OR description ILIKE '%theme%';
+-- LIKE '%关键词%'：模糊匹配，% 是通配符（任意字符）
+-- ILIKE：大小写不敏感版本的 LIKE
+-- OR：满足任一条件即返回
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-dfad46e0472a" class="outline-3">
+<h3 id="section-dfad46e0472a"><span class="section-number-3">6.8.</span> Q6：已标记为"不再维护"的包</h3>
+<div class="outline-text-3" id="text-6-8">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT name, author, last_updated, downloads
+FROM packages
+WHERE is_maintained = FALSE
+ORDER BY last_updated ASC;
+-- FALSE/TRUE 是 DuckDB BOOLEAN 字面量
+-- ASC：从旧到新，看到最久没更新的包排在最前
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-8666ac80615b" class="outline-3">
+<h3 id="section-8666ac80615b"><span class="section-number-3">6.9.</span> Q7：组合条件：completion 分类中下载量超过 30 万的包</h3>
+<div class="outline-text-3" id="text-6-9">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT name, downloads
+FROM packages
+WHERE category = 'completion'
+  AND downloads &gt; 300000
+ORDER BY downloads DESC;
+-- AND：两个条件都满足才返回
+-- 多个 AND / OR 条件时，用括号明确优先级
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-a0e9e301d359" class="outline-3">
+<h3 id="section-a0e9e301d359"><span class="section-number-3">6.10.</span> SQL 执行顺序（避免错误的关键）</h3>
+<div class="outline-text-3" id="text-6-10">
+<pre class="example" id="org15eb183"><code class="language-plaintext">
+书写顺序：SELECT → FROM → WHERE → ORDER BY → LIMIT
+执行顺序：FROM → WHERE → SELECT → ORDER BY → LIMIT
+
+关键推论：
+  • WHERE 中不能使用 SELECT 里定义的别名（WHERE 先执行）
+    错误：WHERE dl_rank &gt; 5  （dl_rank 是 SELECT 里的别名）
+    正确：WHERE downloads &gt; 500000
+
+  • ORDER BY 可以使用 SELECT 里的别名（ORDER BY 后执行）
+    正确：ORDER BY total_dl DESC  （total_dl 是 SELECT 别名）
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-1be69ba5c23a" class="outline-3">
+<h3 id="section-1be69ba5c23a"><span class="section-number-3">6.11.</span> 常见错误</h3>
+<div class="outline-text-3" id="text-6-11">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 11"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">错误</th>
+<th scope="col" class="org-left">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>WHERE name = "magit"</code> 无结果</td>
+<td class="org-left">DuckDB 字符串用单引号，双引号是标识符</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>LIKE 'theme'</code> 无结果</td>
+<td class="org-left">忘写 %，此写法要求完全匹配</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>WHERE is_maintained = 'true'</code></td>
+<td class="org-left">BOOLEAN 不需要引号，写 <code>TRUE</code> / <code>FALSE</code></td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-9267aac423d3" class="outline-3">
+<h3 id="section-9267aac423d3"><span class="section-number-3">6.12.</span> 检查标准</h3>
+<div class="outline-text-3" id="text-6-12">
+<p>
+不看文档，独立写出：
+</p>
+<ol class="org-ol">
+<li>查询 faces 分类的所有包，按下载量从低到高排序</li>
+<li>查询 Daniel Mendler 维护的所有包（WHERE author = '&hellip;'）</li>
+<li>查询下载量在 20 万到 40 万之间的包（提示：用 BETWEEN）</li>
+</ol>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-5" class="outline-2">
+<h2 id="module-5"><span class="section-number-2">7.</span> 模块 5：聚合统计</h2>
+<div class="outline-text-2" id="text-7">
+</div>
+<div id="outline-container-section-625ed9a3a69f" class="outline-3">
+<h3 id="section-625ed9a3a69f"><span class="section-number-3">7.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+用 COUNT / SUM / AVG / GROUP BY / HAVING 对数据进行分组汇总。
+</p>
+</div>
+</div>
+<div id="outline-container-section-e13d282ed7cc" class="outline-3">
+<h3 id="section-e13d282ed7cc"><span class="section-number-3">7.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-7-2">
+<p>
+不讲窗口函数（模块 9），不讲跨表聚合（模块 9）。
+</p>
+</div>
+</div>
+<div id="outline-container-section-37e2c8b3454a" class="outline-3">
+<h3 id="section-37e2c8b3454a"><span class="section-number-3">7.3.</span> Q1：每个分类有多少个包？</h3>
+<div class="outline-text-3" id="text-7-3">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    category,
+    COUNT(*) AS package_count
+FROM packages
+GROUP BY category
+ORDER BY package_count DESC;
+-- GROUP BY：把相同 category 的行合并为一行
+-- COUNT(*)：统计每组中的行数
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-769da64bfffe" class="outline-3">
+<h3 id="section-769da64bfffe"><span class="section-number-3">7.4.</span> Q2：每个分类的总下载量、平均下载量、最高下载量</h3>
+<div class="outline-text-3" id="text-7-4">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    category,
+    COUNT(*)                     AS pkg_count,
+    SUM(downloads)               AS total_downloads,
+    ROUND(AVG(downloads), 0)     AS avg_downloads,
+    MAX(downloads)               AS top_downloads
+FROM packages
+GROUP BY category
+ORDER BY total_downloads DESC;
+-- SUM()：组内求和；AVG()：组内平均值
+-- ROUND(值, 小数位)：控制小数精度
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-75c65aad02c2" class="outline-3">
+<h3 id="section-75c65aad02c2"><span class="section-number-3">7.5.</span> Q3：只看包数量 ≥ 3 的分类（HAVING 过滤聚合结果）</h3>
+<div class="outline-text-3" id="text-7-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    category,
+    COUNT(*) AS pkg_count
+FROM packages
+GROUP BY category
+HAVING COUNT(*) &gt;= 3
+ORDER BY pkg_count DESC;
+
+-- WHERE vs HAVING 的本质区别：
+-- WHERE  在 GROUP BY 之前执行，过滤原始行
+-- HAVING 在 GROUP BY 之后执行，过滤聚合结果
+-- 因此：不能写 WHERE pkg_count &gt;= 3（pkg_count 还不存在）
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-de1a324ca432" class="outline-3">
+<h3 id="section-de1a324ca432"><span class="section-number-3">7.6.</span> Q4：哪些作者维护的包最多，累计下载量是多少？</h3>
+<div class="outline-text-3" id="text-7-6">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    author,
+    COUNT(*)                     AS pkg_count,
+    SUM(downloads)               AS total_downloads
+FROM packages
+WHERE is_maintained = TRUE
+GROUP BY author
+HAVING COUNT(*) &gt;= 2
+ORDER BY total_downloads DESC;
+-- WHERE 先过滤掉废弃包，再做 GROUP BY
+-- HAVING 只保留维护 2 个以上包的作者
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-33a911e64078" class="outline-3">
+<h3 id="section-33a911e64078"><span class="section-number-3">7.7.</span> Q5：数据集整体概况（一次性汇总）</h3>
+<div class="outline-text-3" id="text-7-7">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    COUNT(*)                                          AS total_packages,
+    COUNT(DISTINCT category)                          AS total_categories,
+    COUNT(DISTINCT author)                            AS total_authors,
+    SUM(downloads)                                    AS total_downloads,
+    ROUND(AVG(downloads), 0)                          AS avg_downloads,
+    SUM(CASE WHEN is_maintained = FALSE THEN 1 END)   AS abandoned_count
+FROM packages;
+-- COUNT(DISTINCT col)：统计不重复值的数量
+-- CASE WHEN：条件计数（相当于 Excel 的 COUNTIF）
+-- CASE WHEN ... THEN 1 END 等价于 CASE WHEN ... THEN 1 ELSE NULL END
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-d1943b586eac" class="outline-3">
+<h3 id="section-d1943b586eac"><span class="section-number-3">7.8.</span> GROUP BY 执行逻辑图解</h3>
+<div class="outline-text-3" id="text-7-8">
+<pre class="example" id="org1f533d3"><code class="language-plaintext">
+原始数据：
+  name       category    downloads
+  company    completion  890000
+  helm       completion  750000
+  vertico    completion  250000
+  flycheck   tools       680000
+
+GROUP BY category 后（相同 category 合并为一行）：
+  category    COUNT(*)   SUM(downloads)   MAX(downloads)
+  completion  3          1890000          890000
+  tools       1          680000           680000
+
+重要：GROUP BY 之后，SELECT 只能出现：
+  1. GROUP BY 中的列（category）
+  2. 聚合函数（COUNT / SUM / AVG 等）
+  3. 不能出现未聚合的其他列（如 name）
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-f908384dc753" class="outline-3">
+<h3 id="section-f908384dc753"><span class="section-number-3">7.9.</span> 常见错误</h3>
+<div class="outline-text-3" id="text-7-9">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 12"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">错误</th>
+<th scope="col" class="org-left">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>SELECT name, COUNT(*) ... GROUP BY category</code></td>
+<td class="org-left">name 未在 GROUP BY 中，也不是聚合函数，报错</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>WHERE COUNT(*) &gt; 3</code></td>
+<td class="org-left">WHERE 里不能用聚合函数，改用 HAVING</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>AVG</code> 结果有大量小数</td>
+<td class="org-left">用 <code>ROUND(AVG(...), 2)</code> 控制精度</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-53e50e26accc" class="outline-3">
+<h3 id="section-53e50e26accc"><span class="section-number-3">7.10.</span> 检查标准</h3>
+<div class="outline-text-3" id="text-7-10">
+<p>
+不看文档，独立写出：
+</p>
+<ol class="org-ol">
+<li>统计每个 category 的包数量，只显示包数 ≥ 3 的分类</li>
+<li>统计每个作者的累计下载量，找出下载量前 5 的作者</li>
+<li>计算"已放弃维护"的包在所有包中的占比（%）</li>
+</ol>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-6" class="outline-2">
+<h2 id="module-6"><span class="section-number-2">8.</span> 模块 6：多维分析</h2>
+<div class="outline-text-2" id="text-8">
+</div>
+<div id="outline-container-section-e7b9023c7313" class="outline-3">
+<h3 id="section-e7b9023c7313"><span class="section-number-3">8.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-8-1">
+<p>
+把前面的查询组合起来，从多个维度交叉分析数据，得出有意义的洞察。
+</p>
+</div>
+</div>
+<div id="outline-container-section-794fa986c7cc" class="outline-3">
+<h3 id="section-794fa986c7cc"><span class="section-number-3">8.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+不讲数据可视化，不讲统计建模，不讲机器学习。
+</p>
+</div>
+</div>
+<div id="outline-container-section-bf84b22cce93" class="outline-3">
+<h3 id="section-bf84b22cce93"><span class="section-number-3">8.3.</span> Q1：completion 分类：每位作者的贡献度</h3>
+<div class="outline-text-3" id="text-8-3">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    author,
+    COUNT(*)                                              AS pkg_count,
+    SUM(downloads)                                        AS total_dl,
+    STRING_AGG(name, ' / ' ORDER BY downloads DESC)       AS packages
+FROM packages
+WHERE category = 'completion'
+GROUP BY author
+ORDER BY total_dl DESC;
+-- STRING_AGG(列, 分隔符 ORDER BY ...)：把多行值拼接成一个字符串
+-- 这里把该作者的所有包名用 / 连接，便于阅读
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-820187bd86e3" class="outline-3">
+<h3 id="section-820187bd86e3"><span class="section-number-3">8.4.</span> Q2：每个分类的"第一名"包（DISTINCT ON）</h3>
+<div class="outline-text-3" id="text-8-4">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT DISTINCT ON (category)
+    category,
+    name       AS top_package,
+    author,
+    downloads
+FROM packages
+ORDER BY category, downloads DESC;
+-- DISTINCT ON (category)：每个 category 只保留第一行
+-- 与 ORDER BY category, downloads DESC 配合：
+--   先按 category 分组，再按 downloads 排序，取下载量最高的那行
+-- 这是 PostgreSQL / DuckDB 特有的扩展语法
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-c4b19f1e9055" class="outline-3">
+<h3 id="section-c4b19f1e9055"><span class="section-number-3">8.5.</span> Q3：维护状态 × 分类 交叉分析</h3>
+<div class="outline-text-3" id="text-8-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    category,
+    COUNT(*)                                                        AS total,
+    SUM(CASE WHEN is_maintained = TRUE  THEN 1 ELSE 0 END)          AS active,
+    SUM(CASE WHEN is_maintained = FALSE THEN 1 ELSE 0 END)          AS abandoned,
+    ROUND(
+        100.0 * SUM(CASE WHEN is_maintained = FALSE THEN 1 ELSE 0 END)
+              / COUNT(*), 1
+    )                                                               AS abandon_pct
+FROM packages
+GROUP BY category
+ORDER BY abandon_pct DESC, total DESC;
+-- CASE WHEN 条件求和 = 透视表的核心手法
+-- 100.0 * ... / COUNT(*)：避免整数除法，结果保留小数
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-1d9173154c43" class="outline-3">
+<h3 id="section-1d9173154c43"><span class="section-number-3">8.6.</span> Q4：下载量分层（数据分桶，理解分布）</h3>
+<div class="outline-text-3" id="text-8-6">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    CASE
+        WHEN downloads &gt;= 1000000 THEN '🔥 百万级（≥100万）'
+        WHEN downloads &gt;= 500000  THEN '⭐ 热门（50-100万）'
+        WHEN downloads &gt;= 200000  THEN '📦 常用（20-50万）'
+        ELSE                           '🌱 小众（&lt;20万）'
+    END                                                AS tier,
+    COUNT(*)                                           AS count,
+    STRING_AGG(name, ' / ' ORDER BY downloads DESC)    AS packages
+FROM packages
+GROUP BY tier
+ORDER BY MIN(downloads) DESC;
+-- CASE WHEN 创建"计算列"，把连续数值离散化为分层标签
+-- GROUP BY 可以使用计算列（tier）
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-0ef9972790c9" class="outline-3">
+<h3 id="section-0ef9972790c9"><span class="section-number-3">8.7.</span> Q5：作者多包分析报告</h3>
+<div class="outline-text-3" id="text-8-7">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    author,
+    COUNT(*)                                        AS pkg_count,
+    STRING_AGG(DISTINCT category, ' / ')            AS categories,
+    SUM(downloads)                                  AS total_downloads,
+    MAX(last_updated)                               AS latest_update
+FROM packages
+GROUP BY author
+ORDER BY pkg_count DESC, total_downloads DESC
+LIMIT 8;
+-- STRING_AGG(DISTINCT category, ...)：去重后再拼接
+-- 多维度 ORDER BY：先按包数降序，再按总下载量降序（用于并列时的次序）
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-c81d9f481ffa" class="outline-3">
+<h3 id="section-c81d9f481ffa"><span class="section-number-3">8.8.</span> 常见错误</h3>
+<div class="outline-text-3" id="text-8-8">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 13"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">错误</th>
+<th scope="col" class="org-left">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>DISTINCT ON</code> 报语法错误</td>
+<td class="org-left">这是 DuckDB/PG 扩展，标准 SQL 用子查询+ROW_NUMBER 替代</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>GROUP BY tier</code> 报错</td>
+<td class="org-left">部分数据库不支持在 GROUP BY 中用 SELECT 计算列，DuckDB 支持</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>STRING_AGG</code> 结果顺序不稳定</td>
+<td class="org-left">加 <code>ORDER BY</code> 参数保证顺序</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-dbd7664bbed7" class="outline-3">
+<h3 id="section-dbd7664bbed7"><span class="section-number-3">8.9.</span> 检查标准</h3>
+<div class="outline-text-3" id="text-8-9">
+<p>
+不看文档，独立完成：
+</p>
+<ol class="org-ol">
+<li>找出每个分类中下载量最高的包（每类只取第 1 名）</li>
+<li>统计各分类中，"已维护"vs"已放弃"包的数量及占比</li>
+</ol>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-7" class="outline-2">
+<h2 id="module-7"><span class="section-number-2">9.</span> 模块 7：时间分析</h2>
+<div class="outline-text-2" id="text-9">
+</div>
+<div id="outline-container-section-5c9953d87df8" class="outline-3">
+<h3 id="section-5c9953d87df8"><span class="section-number-3">9.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+用日期函数分析包的更新时间，识别活跃包、老化包和僵尸包。
+</p>
+</div>
+</div>
+<div id="outline-container-section-4dcae7236acc" class="outline-3">
+<h3 id="section-4dcae7236acc"><span class="section-number-3">9.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-9-2">
+<p>
+不讲时区转换，不讲时间序列预测，不讲 TIMESTAMP 精确时间。
+</p>
+</div>
+</div>
+<div id="outline-container-section-4b128ba34d0c" class="outline-3">
+<h3 id="section-4b128ba34d0c"><span class="section-number-3">9.3.</span> 核心日期函数速查</h3>
+<div class="outline-text-3" id="text-9-3">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 14"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">函数</th>
+<th scope="col" class="org-left">功能</th>
+<th scope="col" class="org-left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>CURRENT_DATE</code></td>
+<td class="org-left">今天的日期</td>
+<td class="org-left"><code>SELECT CURRENT_DATE;</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>DATE_DIFF('day', d1, d2)</code></td>
+<td class="org-left">两日期相差天数</td>
+<td class="org-left"><code>DATE_DIFF('day', last_updated, CURRENT_DATE)</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>DATE_DIFF('month', d1, d2)</code></td>
+<td class="org-left">相差月数</td>
+<td class="org-left">同上，换单位</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>INTERVAL '6 months'</code></td>
+<td class="org-left">日期偏移量</td>
+<td class="org-left"><code>CURRENT_DATE - INTERVAL '6 months'</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>EXTRACT(year FROM date)</code></td>
+<td class="org-left">提取年份</td>
+<td class="org-left"><code>EXTRACT(year FROM last_updated)</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>DATE_TRUNC('month', date)</code></td>
+<td class="org-left">截断到月初</td>
+<td class="org-left"><code>DATE_TRUNC('month', last_updated)</code></td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-9d6d46f0db91" class="outline-3">
+<h3 id="section-9d6d46f0db91"><span class="section-number-3">9.4.</span> Q1：每个包距今多少天/月没有更新？</h3>
+<div class="outline-text-3" id="text-9-4">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    name,
+    last_updated,
+    DATE_DIFF('day',   last_updated, CURRENT_DATE) AS days_stale,
+    DATE_DIFF('month', last_updated, CURRENT_DATE) AS months_stale
+FROM packages
+ORDER BY days_stale DESC
+LIMIT 10;
+-- DATE_DIFF(单位, 起始日期, 结束日期)
+-- 注意参数顺序：第二个参数是"从哪天开始算"
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-8543e5029f5b" class="outline-3">
+<h3 id="section-8543e5029f5b"><span class="section-number-3">9.5.</span> Q2：最近 6 个月内有更新的活跃包</h3>
+<div class="outline-text-3" id="text-9-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT name, author, last_updated, downloads
+FROM packages
+WHERE last_updated &gt;= CURRENT_DATE - INTERVAL '6 months'
+ORDER BY last_updated DESC;
+-- INTERVAL '6 months' 比 DATE_DIFF 更直观
+-- 等价写法：DATE_DIFF('month', last_updated, CURRENT_DATE) &lt;= 6
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-f3cd89a1659a" class="outline-3">
+<h3 id="section-f3cd89a1659a"><span class="section-number-3">9.6.</span> Q3：潜在僵尸包（超过 2 年未更新，但标记为"在维护"）</h3>
+<div class="outline-text-3" id="text-9-6">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    name,
+    author,
+    last_updated,
+    DATE_DIFF('month', last_updated, CURRENT_DATE) AS months_stale,
+    downloads,
+    is_maintained
+FROM packages
+WHERE last_updated &lt; CURRENT_DATE - INTERVAL '2 years'
+  AND is_maintained = TRUE
+ORDER BY last_updated ASC;
+-- 这类包：作者声称在维护，但实际已停止开发
+-- 高下载量 + 长时间未更新 = 用户多但维护风险高
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-ddd830018c61" class="outline-3">
+<h3 id="section-ddd830018c61"><span class="section-number-3">9.7.</span> Q4：按更新年份统计包分布</h3>
+<div class="outline-text-3" id="text-9-7">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    EXTRACT(year FROM last_updated)::INTEGER AS update_year,
+    COUNT(*)                                  AS pkg_count,
+    SUM(downloads)                            AS total_downloads
+FROM packages
+GROUP BY update_year
+ORDER BY update_year DESC;
+-- EXTRACT 从日期中取年/月/日
+-- ::INTEGER 是 DuckDB 的类型转换语法（等价于 CAST(... AS INTEGER)）
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-bf574b6bc5ac" class="outline-3">
+<h3 id="section-bf574b6bc5ac"><span class="section-number-3">9.8.</span> Q5：四级维护状态分类</h3>
+<div class="outline-text-3" id="text-9-8">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    CASE
+        WHEN last_updated &gt;= CURRENT_DATE - INTERVAL '6 months' THEN '🟢 活跃（6个月内）'
+        WHEN last_updated &gt;= CURRENT_DATE - INTERVAL '1 year'   THEN '🟡 稳定（6-12个月）'
+        WHEN last_updated &gt;= CURRENT_DATE - INTERVAL '2 years'  THEN '🟠 老化（1-2年）'
+        ELSE                                                          '🔴 僵尸（超过2年）'
+    END                      AS activity_status,
+    COUNT(*)                 AS count,
+    ROUND(AVG(downloads), 0) AS avg_downloads,
+    STRING_AGG(name, ' / ' ORDER BY downloads DESC) AS packages
+FROM packages
+GROUP BY activity_status
+ORDER BY MIN(last_updated) DESC;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-1dda50370b3a" class="outline-3">
+<h3 id="section-1dda50370b3a"><span class="section-number-3">9.9.</span> Q6：高风险包（下载量 &gt; 30 万 AND 超过 1 年未更新）</h3>
+<div class="outline-text-3" id="text-9-9">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    name,
+    author,
+    downloads,
+    last_updated,
+    DATE_DIFF('month', last_updated, CURRENT_DATE) AS months_stale,
+    is_maintained
+FROM packages
+WHERE downloads &gt; 300000
+  AND last_updated &lt; CURRENT_DATE - INTERVAL '1 year'
+ORDER BY downloads DESC;
+-- 分析意义：大量用户依赖但维护停滞的包，迁移成本高
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-05362b6b0378" class="outline-3">
+<h3 id="section-05362b6b0378"><span class="section-number-3">9.10.</span> 常见错误</h3>
+<div class="outline-text-3" id="text-9-10">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 15"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">错误</th>
+<th scope="col" class="org-left">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>DATEDIFF</code> 报错</td>
+<td class="org-left">DuckDB 的函数名是 =DATE_DIFF=（有下划线）</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>INTERVAL '6 month'</code> 报错</td>
+<td class="org-left">注意复数：<code>INTERVAL '6 months'</code></td>
+</tr>
+
+<tr>
+<td class="org-left">日期比较结果不对</td>
+<td class="org-left">如果 last_updated 是 VARCHAR，先转换：<code>CAST(last_updated AS DATE)</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>EXTRACT</code> 结果是浮点数</td>
+<td class="org-left">加 <code>::INTEGER</code> 或 <code>CAST(... AS INTEGER)</code> 转为整数</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-9a880ade583b" class="outline-3">
+<h3 id="section-9a880ade583b"><span class="section-number-3">9.11.</span> 检查标准</h3>
+<div class="outline-text-3" id="text-9-11">
+<p>
+不看文档，独立写出：
+</p>
+<ol class="org-ol">
+<li>查出所有 1 年内没有更新的包，按日期倒序排列</li>
+<li>计算各包的"老化月数"并排序，找出"最老的 5 个包"</li>
+</ol>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-8" class="outline-2">
+<h2 id="module-8"><span class="section-number-2">10.</span> 模块 8：文件读写</h2>
+<div class="outline-text-2" id="text-10">
+</div>
+<div id="outline-container-section-22aa41ea8139" class="outline-3">
+<h3 id="section-22aa41ea8139"><span class="section-number-3">10.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-10-1">
+<p>
+从 CSV / Parquet 文件读取数据；把分析结果导出为文件。
+</p>
+</div>
+</div>
+<div id="outline-container-section-ee06168cdb15" class="outline-3">
+<h3 id="section-ee06168cdb15"><span class="section-number-3">10.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-10-2">
+<p>
+不讲 S3 / 对象存储（DuckDB 支持，属进阶内容），不讲 Excel 导入。
+</p>
+</div>
+</div>
+<div id="outline-container-section-c2bcd3e3b3c8" class="outline-3">
+<h3 id="section-c2bcd3e3b3c8"><span class="section-number-3">10.3.</span> 读取 CSV：自动推断（快速探索）</h3>
+<div class="outline-text-3" id="text-10-3">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">CSV="$HOME/duckdb/emacs_packages.csv"
+duckdb -c "
+SELECT name, category, downloads
+FROM read_csv_auto('$CSV')
+WHERE category = 'completion'
+ORDER BY downloads DESC
+LIMIT 5;
+"
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-0388cc7c5ba2" class="outline-3">
+<h3 id="section-0388cc7c5ba2"><span class="section-number-3">10.4.</span> 读取 CSV：手动指定选项（生产使用）</h3>
+<div class="outline-text-3" id="text-10-4">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">CSV="$HOME/duckdb/emacs_packages.csv"
+duckdb -c "
+SELECT COUNT(*) AS rows,
+       MIN(last_updated) AS earliest,
+       MAX(last_updated) AS latest
+FROM read_csv('$CSV',
+    header     = true,
+    dateformat = '%Y-%m-%d',
+    nullstr    = 'N/A'
+);
+"
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-396b0483d519" class="outline-3">
+<h3 id="section-396b0483d519"><span class="section-number-3">10.5.</span> 导出为 CSV：COPY &hellip; TO &hellip;</h3>
+<div class="outline-text-3" id="text-10-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+COPY (
+    SELECT
+        category,
+        COUNT(*)       AS pkg_count,
+        SUM(downloads) AS total_downloads
+    FROM packages
+    GROUP BY category
+    ORDER BY total_downloads DESC
+) TO '/tmp/category_stats.csv'
+  (FORMAT CSV, HEADER TRUE, DELIMITER ',');
+
+-- 验证：读回来确认结果
+SELECT * FROM read_csv_auto('/tmp/category_stats.csv');
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-14af7e26368d" class="outline-3">
+<h3 id="section-14af7e26368d"><span class="section-number-3">10.6.</span> 导出为 Parquet（列式格式，更小更快）</h3>
+<div class="outline-text-3" id="text-10-6">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+COPY (
+    SELECT *
+    FROM packages
+    WHERE is_maintained = TRUE
+    ORDER BY downloads DESC
+) TO '/tmp/active_packages.parquet'
+  (FORMAT PARQUET);
+
+-- 验证：从 Parquet 读取
+SELECT COUNT(*) AS rows,
+       SUM(downloads) AS total_dl
+FROM read_parquet('/tmp/active_packages.parquet');
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-4e9eb92768ac" class="outline-3">
+<h3 id="section-4e9eb92768ac"><span class="section-number-3">10.7.</span> 直接对文件执行 SQL（不建表）</h3>
+<div class="outline-text-3" id="text-10-7">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash"># 两个文件做 JOIN（不需要导入任何表）
+CSV="$HOME/duckdb/emacs_packages.csv"
+duckdb -c "
+SELECT category, COUNT(*) AS count
+FROM read_csv_auto('$CSV')
+GROUP BY category
+ORDER BY count DESC;
+"
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-b4d840f06955" class="outline-3">
+<h3 id="section-b4d840f06955"><span class="section-number-3">10.8.</span> 读取 Parquet 文件</h3>
+<div class="outline-text-3" id="text-10-8">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">duckdb -c "
+SELECT name, downloads, last_updated
+FROM read_parquet('/tmp/active_packages.parquet')
+ORDER BY downloads DESC
+LIMIT 5;
+"
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-e22cc1afae45" class="outline-3">
+<h3 id="section-e22cc1afae45"><span class="section-number-3">10.9.</span> 文件操作速查</h3>
+<div class="outline-text-3" id="text-10-9">
+<pre class="example" id="org011c7ae"><code class="language-plaintext">
+【读取】
+read_csv_auto('path')                    -- 自动推断，快速探索
+read_csv('path', header=true, ...)       -- 手动控制，生产使用
+read_parquet('path')                     -- 读 Parquet
+read_json_auto('path')                   -- 读 JSON
+
+【写出】
+COPY (...) TO 'out.csv'      (FORMAT CSV, HEADER TRUE)
+COPY (...) TO 'out.parquet'  (FORMAT PARQUET)
+COPY (...) TO 'out.json'     (FORMAT JSON)
+COPY (...) TO 'out.tsv'      (FORMAT CSV, DELIMITER E'\t')
+
+【建表同时导入】
+CREATE TABLE t AS SELECT * FROM read_csv_auto('file.csv');
+
+【追加数据到已有表】
+COPY packages FROM 'more_data.csv' (FORMAT CSV, HEADER TRUE);
+INSERT INTO packages SELECT * FROM read_csv_auto('new.csv');
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-aa5576c1bfc9" class="outline-3">
+<h3 id="section-aa5576c1bfc9"><span class="section-number-3">10.10.</span> 常见错误</h3>
+<div class="outline-text-3" id="text-10-10">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 16"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">错误</th>
+<th scope="col" class="org-left">原因</th>
+<th scope="col" class="org-left">解决方案</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>IO Error: Cannot open file</code></td>
+<td class="org-left">COPY TO 的目标目录不存在</td>
+<td class="org-left"><code>mkdir -p /目标目录</code></td>
+</tr>
+
+<tr>
+<td class="org-left">日期列被推断为 VARCHAR</td>
+<td class="org-left">日期格式不标准</td>
+<td class="org-left">用 <code>read_csv(..., dateformat</code>'%Y/%m/%d')=</td>
+</tr>
+
+<tr>
+<td class="org-left">Parquet 无法读取</td>
+<td class="org-left">文件损坏或版本不兼容</td>
+<td class="org-left">用 <code>read_parquet</code> 测试；DuckDB 支持 Parquet v1/v2</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-c38c25f92768" class="outline-3">
+<h3 id="section-c38c25f92768"><span class="section-number-3">10.11.</span> 检查标准</h3>
+<div class="outline-text-3" id="text-10-11">
+<p>
+不看文档，独立完成：
+</p>
+<ol class="org-ol">
+<li>用 <code>read_csv_auto</code> 直接查询 CSV 文件，不建表，输出前 3 行</li>
+<li>把"下载量 TOP 10 的包"导出为 CSV，路径为 <code>/tmp/top10.csv</code></li>
+<li>读取该 CSV 文件，验证结果正确</li>
+</ol>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-9" class="outline-2">
+<h2 id="module-9"><span class="section-number-2">11.</span> 模块 9：进阶查询（CTE / 窗口函数 / JOIN）</h2>
+<div class="outline-text-2" id="text-11">
+</div>
+<div id="outline-container-section-5b74d5610997" class="outline-3">
+<h3 id="section-5b74d5610997"><span class="section-number-3">11.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-11-1">
+<p>
+用 CTE 让复杂查询变得可读；用窗口函数做组内排名和占比；用 JOIN 关联多张表。
+</p>
+</div>
+</div>
+<div id="outline-container-section-023e7ea6637a" class="outline-3">
+<h3 id="section-023e7ea6637a"><span class="section-number-3">11.2.</span> 本模块不解决的问题</h3>
+<div class="outline-text-3" id="text-11-2">
+<p>
+不讲所有窗口函数，不讲复杂多级 JOIN 设计，不讲索引优化。
+</p>
+</div>
+</div>
+<div id="outline-container-section-b16bf952e240" class="outline-3">
+<h3 id="section-b16bf952e240"><span class="section-number-3">11.3.</span> 9.1 CTE（公共表表达式）</h3>
+<div class="outline-text-3" id="text-11-3">
+<p>
+<b>CTE 解决的问题</b>：把嵌套子查询拆成有名字的逻辑步骤，让 SQL 可读如代码。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+-- 没有 CTE 的写法（难读，容易出错）
+-- SELECT * FROM (SELECT category, COUNT(*) cnt FROM packages GROUP BY category) t WHERE cnt &gt; 2;
+
+-- 用 CTE 的清晰写法
+WITH
+category_stats AS (                            -- CTE 1：分类统计
+    SELECT
+        category,
+        COUNT(*)       AS pkg_count,
+        SUM(downloads) AS total_downloads
+    FROM packages
+    GROUP BY category
+),
+high_volume AS (                               -- CTE 2：筛选高量分类
+    SELECT *
+    FROM category_stats
+    WHERE pkg_count &gt;= 3
+)
+SELECT
+    category,
+    pkg_count,
+    total_downloads,
+    ROUND(100.0 * total_downloads / SUM(total_downloads) OVER (), 1) AS share_pct
+FROM high_volume
+ORDER BY total_downloads DESC;
+-- WITH 子句后的查询可以像表一样引用每个 CTE
+-- 多个 CTE 用逗号分隔
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-ab36b99ec9ab" class="outline-3">
+<h3 id="section-ab36b99ec9ab"><span class="section-number-3">11.4.</span> 9.2 窗口函数：全局排名（RANK / ROW_NUMBER）</h3>
+<div class="outline-text-3" id="text-11-4">
+<p>
+<b>窗口函数解决的问题</b>：在不合并行的前提下，为每行计算"相对于其他行"的统计值。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    name,
+    category,
+    downloads,
+    ROW_NUMBER() OVER (ORDER BY downloads DESC) AS global_row_num,
+    RANK()       OVER (ORDER BY downloads DESC) AS global_rank,
+    DENSE_RANK() OVER (ORDER BY downloads DESC) AS global_dense_rank
+FROM packages
+ORDER BY downloads DESC
+LIMIT 10;
+-- ROW_NUMBER()：1, 2, 3, 4...（无并列）
+-- RANK()      ：1, 2, 2, 4...（并列跳号）
+-- DENSE_RANK()：1, 2, 2, 3...（并列不跳号）
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-8780f292f29b" class="outline-3">
+<h3 id="section-8780f292f29b"><span class="section-number-3">11.5.</span> 9.3 窗口函数：组内排名（PARTITION BY）</h3>
+<div class="outline-text-3" id="text-11-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    name,
+    category,
+    downloads,
+    ROW_NUMBER() OVER (PARTITION BY category ORDER BY downloads DESC) AS rank_in_category
+FROM packages
+ORDER BY category, rank_in_category;
+-- PARTITION BY category：在每个 category 内部独立计算
+-- 相当于对每个分类分别做 ORDER BY downloads DESC 然后编号
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-b829d03387a1" class="outline-3">
+<h3 id="section-b829d03387a1"><span class="section-number-3">11.6.</span> 9.4 窗口函数：每类 TOP 3（CTE + 窗口函数的经典组合）</h3>
+<div class="outline-text-3" id="text-11-6">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+WITH ranked AS (
+    SELECT
+        *,
+        ROW_NUMBER() OVER (PARTITION BY category ORDER BY downloads DESC) AS rn
+    FROM packages
+)
+SELECT category, name, downloads, rn
+FROM ranked
+WHERE rn &lt;= 3
+ORDER BY category, rn;
+-- 模式：先用 CTE 加排名列，再过滤 rn &lt;= N
+-- 这是"组内 TOP N"的标准写法
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-e0227fa4c611" class="outline-3">
+<h3 id="section-e0227fa4c611"><span class="section-number-3">11.7.</span> 9.5 窗口函数：组内占比和累计占比</h3>
+<div class="outline-text-3" id="text-11-7">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    name,
+    category,
+    downloads,
+    SUM(downloads) OVER (PARTITION BY category) AS category_total,
+    ROUND(100.0 * downloads / SUM(downloads) OVER (PARTITION BY category), 1) AS pct_of_category,
+    ROUND(100.0 * downloads / SUM(downloads) OVER (), 1) AS pct_of_all
+FROM packages
+WHERE category IN ('completion', 'tools', 'faces')
+ORDER BY category, downloads DESC;
+-- SUM(...) OVER (PARTITION BY ...)：分组总和，但保留所有行（不合并）
+-- SUM(...) OVER ()：全表总和（窗口为所有行）
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-3db0a6771bb8" class="outline-3">
+<h3 id="section-3db0a6771bb8"><span class="section-number-3">11.8.</span> 9.6 创建第二张表并 JOIN</h3>
+<div class="outline-text-3" id="text-11-8">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+-- 创建分类描述表
+CREATE OR REPLACE TABLE categories (
+    category    VARCHAR PRIMARY KEY,
+    full_name   VARCHAR,
+    is_core     BOOLEAN
+);
+
+INSERT INTO categories VALUES
+    ('completion',  'Completion &amp; Selection Frameworks',  TRUE),
+    ('tools',       'Development Tools &amp; Linters',         TRUE),
+    ('vc',          'Version Control Integration',          TRUE),
+    ('convenience', 'General Usability Enhancements',      TRUE),
+    ('faces',       'Themes &amp; Visual Appearance',           FALSE),
+    ('emulations',  'Other Editor Emulation Layers',        FALSE),
+    ('abbrev',      'Snippets &amp; Abbreviation Systems',      TRUE),
+    ('project',     'Project Management Tools',             TRUE),
+    ('org',         'Org-mode Extensions',                  TRUE);
+
+-- INNER JOIN：只返回两表都有匹配的行
+SELECT
+    p.name,
+    p.downloads,
+    c.full_name    AS category_name,
+    c.is_core
+FROM packages p
+INNER JOIN categories c ON p.category = c.category
+ORDER BY p.downloads DESC
+LIMIT 10;
+-- 表别名 p / c：让 SQL 更简短
+-- INNER JOIN ... ON：连接条件
+-- 没有匹配的行（p.category 不在 categories 里）不会出现在结果中
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-45fcb4c3c235" class="outline-3">
+<h3 id="section-45fcb4c3c235"><span class="section-number-3">11.9.</span> 9.7 综合查询：完整作者分析报告</h3>
+<div class="outline-text-3" id="text-11-9">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+WITH author_stats AS (
+    SELECT
+        author,
+        COUNT(*)                                          AS pkg_count,
+        SUM(downloads)                                    AS total_downloads,
+        MAX(last_updated)                                 AS latest_update,
+        STRING_AGG(name, ' / ' ORDER BY downloads DESC)  AS packages
+    FROM packages
+    GROUP BY author
+),
+ranked AS (
+    SELECT
+        *,
+        RANK() OVER (ORDER BY total_downloads DESC) AS dl_rank
+    FROM author_stats
+)
+SELECT
+    dl_rank,
+    author,
+    pkg_count,
+    total_downloads,
+    latest_update,
+    packages
+FROM ranked
+WHERE pkg_count &gt;= 2
+ORDER BY dl_rank;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-6a5c252f8e9a" class="outline-3">
+<h3 id="section-6a5c252f8e9a"><span class="section-number-3">11.10.</span> 窗口函数语法结构</h3>
+<div class="outline-text-3" id="text-11-10">
+<pre class="example" id="orgcd81336"><code class="language-plaintext">
+函数名() OVER (
+    [PARTITION BY 分组列]        -- 在哪个范围内计算（可选）
+    [ORDER BY 排序列 DESC]        -- 如何排序（可选）
+    [ROWS/RANGE BETWEEN ...]      -- 滑动窗口范围（高级，可选）
+)
+
+常用窗口函数速查：
+  ROW_NUMBER()      行号（无并列）
+  RANK()            排名（并列跳号）
+  DENSE_RANK()      排名（并列不跳号）
+  SUM(col)          组内累计/总计
+  AVG(col)          组内平均
+  MIN(col)          组内最小
+  MAX(col)          组内最大
+  LAG(col, n)       当前行前 n 行的值
+  LEAD(col, n)      当前行后 n 行的值
+  FIRST_VALUE(col)  组内第一行的值
+  PERCENT_RANK()    百分位排名（0~1）
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-75c77c5345f9" class="outline-3">
+<h3 id="section-75c77c5345f9"><span class="section-number-3">11.11.</span> 常见错误</h3>
+<div class="outline-text-3" id="text-11-11">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 17"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">错误</th>
+<th scope="col" class="org-left">原因</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">窗口函数写在 WHERE 里报错</td>
+<td class="org-left">窗口函数不能用于 WHERE，用 CTE 包一层再过滤</td>
+</tr>
+
+<tr>
+<td class="org-left">PARTITION BY 和 GROUP BY 混淆</td>
+<td class="org-left">GROUP BY 合并行，PARTITION BY 保留行但划定计算范围</td>
+</tr>
+
+<tr>
+<td class="org-left">CTE 中定义但未使用</td>
+<td class="org-left">DuckDB 会优化掉，但写了未用是逻辑问题，建议删除</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-8fdc527f6dde" class="outline-3">
+<h3 id="section-8fdc527f6dde"><span class="section-number-3">11.12.</span> 检查标准</h3>
+<div class="outline-text-3" id="text-11-12">
+<p>
+不看文档，独立完成：
+</p>
+<ol class="org-ol">
+<li>用 CTE 写出：先计算各分类均值，再找出高于本分类均值的包</li>
+<li>给每个包计算其在全局的下载量百分位排名（PERCENT_RANK）</li>
+<li>找出 completion 分类中，下载量排名前 3 的包</li>
+</ol>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-module-10" class="outline-2">
+<h2 id="module-10"><span class="section-number-2">12.</span> 模块 10：生成分析报告</h2>
+<div class="outline-text-2" id="text-12">
+</div>
+<div id="outline-container-section-1aeecd49fdcb" class="outline-3">
+<h3 id="section-1aeecd49fdcb"><span class="section-number-3">12.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-12-1">
+<p>
+把前面模块的 SQL 查询整合为一份结构完整、有结论的分析报告，并导出结果文件。
+</p>
+</div>
+</div>
+<div id="outline-container-section-40ddb27c5fc6" class="outline-3">
+<h3 id="section-40ddb27c5fc6"><span class="section-number-3">12.2.</span> 分析报告：Emacs Package 生态概览</h3>
+<div class="outline-text-3" id="text-12-2">
+</div>
+<div id="outline-container-section-2f2c3d3c6d04" class="outline-4">
+<h4 id="section-2f2c3d3c6d04"><span class="section-number-4">12.2.1.</span> 1. 数据集概况</h4>
+<div class="outline-text-4" id="text-12-2-1">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    COUNT(*)                                                  AS total_packages,
+    COUNT(DISTINCT author)                                    AS unique_authors,
+    COUNT(DISTINCT category)                                  AS categories,
+    SUM(downloads)                                            AS total_downloads,
+    ROUND(AVG(downloads), 0)                                  AS avg_downloads,
+    SUM(CASE WHEN is_maintained = FALSE THEN 1 ELSE 0 END)    AS abandoned_count,
+    ROUND(
+        100.0 * SUM(CASE WHEN is_maintained = FALSE THEN 1 ELSE 0 END)
+              / COUNT(*), 1
+    )                                                         AS abandon_rate_pct
+FROM packages;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-c5720c60f312" class="outline-4">
+<h4 id="section-c5720c60f312"><span class="section-number-4">12.2.2.</span> 2. 分类生态分布</h4>
+<div class="outline-text-4" id="text-12-2-2">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    category,
+    COUNT(*)       AS pkg_count,
+    SUM(downloads) AS total_dl,
+    ROUND(100.0 * SUM(downloads) / SUM(SUM(downloads)) OVER (), 1) AS dl_share_pct
+FROM packages
+GROUP BY category
+ORDER BY total_dl DESC;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-bb517039556a" class="outline-4">
+<h4 id="section-bb517039556a"><span class="section-number-4">12.2.3.</span> 3. 下载量 TOP 10 包</h4>
+<div class="outline-text-4" id="text-12-2-3">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    RANK() OVER (ORDER BY downloads DESC) AS rank,
+    name,
+    author,
+    category,
+    downloads,
+    last_updated
+FROM packages
+ORDER BY downloads DESC
+LIMIT 10;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-79f26935c645" class="outline-4">
+<h4 id="section-79f26935c645"><span class="section-number-4">12.2.4.</span> 4. 维护健康度分析</h4>
+<div class="outline-text-4" id="text-12-2-4">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    CASE
+        WHEN last_updated &gt;= CURRENT_DATE - INTERVAL '6 months' THEN '🟢 活跃'
+        WHEN last_updated &gt;= CURRENT_DATE - INTERVAL '1 year'   THEN '🟡 稳定'
+        WHEN last_updated &gt;= CURRENT_DATE - INTERVAL '2 years'  THEN '🟠 老化'
+        ELSE                                                          '🔴 僵尸'
+    END                      AS health_status,
+    COUNT(*)                 AS count,
+    ROUND(AVG(downloads), 0) AS avg_downloads,
+    MIN(last_updated)        AS oldest_in_group,
+    MAX(last_updated)        AS newest_in_group
+FROM packages
+GROUP BY health_status
+ORDER BY MIN(last_updated) DESC;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-fb0f224ce581" class="outline-4">
+<h4 id="section-fb0f224ce581"><span class="section-number-4">12.2.5.</span> 5. 高关注点：高人气但长期停滞的包</h4>
+<div class="outline-text-4" id="text-12-2-5">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    name,
+    author,
+    downloads,
+    last_updated,
+    DATE_DIFF('month', last_updated, CURRENT_DATE) AS months_stale,
+    is_maintained
+FROM packages
+WHERE downloads &gt; 300000
+  AND last_updated &lt; CURRENT_DATE - INTERVAL '1 year'
+ORDER BY downloads DESC;
+-- 结论：这类包用户多但维护滞后，选型时需注意替代方案
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-347ef3982746" class="outline-4">
+<h4 id="section-347ef3982746"><span class="section-number-4">12.2.6.</span> 6. 明星作者：Daniel Mendler 生态</h4>
+<div class="outline-text-4" id="text-12-2-6">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    name,
+    downloads,
+    last_updated,
+    RANK() OVER (ORDER BY downloads DESC) AS global_rank
+FROM packages
+WHERE author = 'Daniel Mendler'
+ORDER BY downloads DESC;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-ec77f328e33d" class="outline-4">
+<h4 id="section-ec77f328e33d"><span class="section-number-4">12.2.7.</span> 7. 导出完整分析结果</h4>
+<div class="outline-text-4" id="text-12-2-7">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+COPY (
+    WITH analysis AS (
+        SELECT
+            name,
+            author,
+            category,
+            downloads,
+            last_updated,
+            is_maintained,
+            DATE_DIFF('month', last_updated, CURRENT_DATE)    AS months_stale,
+            RANK() OVER (ORDER BY downloads DESC)             AS global_rank,
+            RANK() OVER (PARTITION BY category
+                         ORDER BY downloads DESC)             AS category_rank,
+            CASE
+                WHEN last_updated &gt;= CURRENT_DATE - INTERVAL '6 months' THEN 'active'
+                WHEN last_updated &gt;= CURRENT_DATE - INTERVAL '1 year'   THEN 'stable'
+                WHEN last_updated &gt;= CURRENT_DATE - INTERVAL '2 years'  THEN 'aging'
+                ELSE 'zombie'
+            END AS activity_status
+        FROM packages
+    )
+    SELECT * FROM analysis
+    ORDER BY global_rank
+) TO '/tmp/emacs_packages_full_analysis.csv'
+  (FORMAT CSV, HEADER TRUE);
+
+-- 验证导出
+SELECT '报告已导出' AS status,
+       COUNT(*)    AS rows
+FROM read_csv_auto('/tmp/emacs_packages_full_analysis.csv');
+SQL
+</code></pre>
+</div>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-module-11" class="outline-2">
+<h2 id="module-11"><span class="section-number-2">13.</span> 模块 11：可复用分析模板</h2>
+<div class="outline-text-2" id="text-13">
+</div>
+<div id="outline-container-section-97243fd233b2" class="outline-3">
+<h3 id="section-97243fd233b2"><span class="section-number-3">13.1.</span> 本模块解决的问题</h3>
+<div class="outline-text-3" id="text-13-1">
+<p>
+把本教程的分析流程提炼为通用模板，下次换数据集时可以直接套用。
+</p>
+</div>
+</div>
+<div id="outline-container-section-c0e378feeecc" class="outline-3">
+<h3 id="section-c0e378feeecc"><span class="section-number-3">13.2.</span> 通用 DuckDB 数据分析模板</h3>
+<div class="outline-text-3" id="text-13-2">
+<div class="org-src-container">
+<pre class="src src-sql"><code class="language-sql">-- ════════════════════════════════════════════════════════
+-- DuckDB 通用数据分析模板 v1.0
+-- 替换：&lt;TABLE&gt;  &lt;ID_COL&gt;  &lt;GROUP_COL&gt;  &lt;VALUE_COL&gt;  &lt;DATE_COL&gt;
+-- ════════════════════════════════════════════════════════
+
+-- ── Step 0: 探索数据结构 ────────────────────────────────
+DESCRIBE &lt;TABLE&gt;;
+SELECT * FROM &lt;TABLE&gt; LIMIT 5;
+
+-- ── Step 1: 数据概况 ────────────────────────────────────
+SELECT
+    COUNT(*)                      AS total_rows,
+    COUNT(DISTINCT &lt;GROUP_COL&gt;)   AS unique_groups,
+    MIN(&lt;VALUE_COL&gt;)              AS min_value,
+    MAX(&lt;VALUE_COL&gt;)              AS max_value,
+    ROUND(AVG(&lt;VALUE_COL&gt;), 2)    AS avg_value,
+    -- 检查 NULL
+    COUNT(*) - COUNT(&lt;VALUE_COL&gt;) AS null_count
+FROM &lt;TABLE&gt;;
+
+-- ── Step 2: 分组统计 ────────────────────────────────────
+SELECT
+    &lt;GROUP_COL&gt;,
+    COUNT(*)                   AS count,
+    SUM(&lt;VALUE_COL&gt;)           AS total,
+    ROUND(AVG(&lt;VALUE_COL&gt;), 2) AS avg_val,
+    MAX(&lt;VALUE_COL&gt;)           AS max_val
+FROM &lt;TABLE&gt;
+GROUP BY &lt;GROUP_COL&gt;
+HAVING COUNT(*) &gt;= 2
+ORDER BY total DESC;
+
+-- ── Step 3: 时间趋势（如有日期列）──────────────────────
+SELECT
+    EXTRACT(year FROM &lt;DATE_COL&gt;)::INTEGER AS year,
+    COUNT(*)                               AS count,
+    SUM(&lt;VALUE_COL&gt;)                       AS total
+FROM &lt;TABLE&gt;
+GROUP BY year
+ORDER BY year;
+
+-- ── Step 4: TOP N 列表 ──────────────────────────────────
+SELECT
+    *,
+    RANK() OVER (ORDER BY &lt;VALUE_COL&gt; DESC) AS global_rank
+FROM &lt;TABLE&gt;
+ORDER BY &lt;VALUE_COL&gt; DESC
+LIMIT 10;
+
+-- ── Step 5: 组内 TOP N ──────────────────────────────────
+WITH ranked AS (
+    SELECT *,
+        ROW_NUMBER() OVER (PARTITION BY &lt;GROUP_COL&gt;
+                           ORDER BY &lt;VALUE_COL&gt; DESC) AS rn
+    FROM &lt;TABLE&gt;
+)
+SELECT * FROM ranked WHERE rn &lt;= 3
+ORDER BY &lt;GROUP_COL&gt;, rn;
+
+-- ── Step 6: 导出结果 ────────────────────────────────────
+COPY (
+    SELECT * FROM &lt;TABLE&gt;
+    ORDER BY &lt;VALUE_COL&gt; DESC
+) TO 'output_analysis.csv' (FORMAT CSV, HEADER TRUE);
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-d57b4f3f5faf" class="outline-3">
+<h3 id="section-d57b4f3f5faf"><span class="section-number-3">13.3.</span> 模板迁移清单</h3>
+<div class="outline-text-3" id="text-13-3">
+<p>
+应用此模板到新数据集时，按顺序完成以下步骤：
+</p>
+
+<pre class="example" id="orgd82c259"><code class="language-plaintext">
+□ 1. 确认数据文件路径
+      → read_csv_auto('your.csv') LIMIT 5;
+
+□ 2. 识别关键字段角色：
+      ID 列：          唯一标识每行（如 name, id）
+      分组列：         分析维度（如 category, status, year）
+      度量值列：       要统计的数字（如 downloads, sales）
+      日期列：         时间维度（如 last_updated, created_at）
+
+□ 3. 替换模板中的 &lt;占位符&gt;
+
+□ 4. 从 Step 0 开始，逐步执行，验证每步结果合理
+
+□ 5. 根据实际业务问题，补充或修改 CASE WHEN 分层逻辑
+
+□ 6. COPY TO 导出最终结果
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-4027b6b29024" class="outline-3">
+<h3 id="section-4027b6b29024"><span class="section-number-3">13.4.</span> 可扩展方向</h3>
+<div class="outline-text-3" id="text-13-4">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 18"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">方向</th>
+<th scope="col" class="org-left">技术要点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">读取真实 MELPA 数据</td>
+<td class="org-left"><code>INSTALL httpfs; LOAD httpfs; SELECT * FROM read_json_auto('https://melpa.org/archive.json')</code></td>
+</tr>
+
+<tr>
+<td class="org-left">历史趋势分析</td>
+<td class="org-left">定期保存快照，用 DATE 列做时序分析</td>
+</tr>
+
+<tr>
+<td class="org-left">多 CSV 合并</td>
+<td class="org-left"><code>read_csv_auto(['file1.csv', 'file2.csv'])</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Python 集成</td>
+<td class="org-left"><code>import duckdb; conn = duckdb.connect('file.duckdb')</code></td>
+</tr>
+
+<tr>
+<td class="org-left">可视化</td>
+<td class="org-left">导出 CSV → Gnuplot / Python matplotlib / Observable</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-appendix-a" class="outline-2">
+<h2 id="appendix-a"><span class="section-number-2">14.</span> 附录 A：DuckDB SQL 速查表</h2>
+<div class="outline-text-2" id="text-14">
+</div>
+<div id="outline-container-section-fac0035f60a3" class="outline-3">
+<h3 id="section-fac0035f60a3"><span class="section-number-3">14.1.</span> 数据类型</h3>
+<div class="outline-text-3" id="text-14-1">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 19"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">类型</th>
+<th scope="col" class="org-left">说明</th>
+<th scope="col" class="org-left">示例值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">VARCHAR</td>
+<td class="org-left">字符串</td>
+<td class="org-left">'magit'</td>
+</tr>
+
+<tr>
+<td class="org-left">INTEGER</td>
+<td class="org-left">32 位整数</td>
+<td class="org-left">1250000</td>
+</tr>
+
+<tr>
+<td class="org-left">BIGINT</td>
+<td class="org-left">64 位整数</td>
+<td class="org-left">9999999999</td>
+</tr>
+
+<tr>
+<td class="org-left">DOUBLE</td>
+<td class="org-left">双精度浮点</td>
+<td class="org-left">3.14159</td>
+</tr>
+
+<tr>
+<td class="org-left">BOOLEAN</td>
+<td class="org-left">布尔</td>
+<td class="org-left">TRUE / FALSE</td>
+</tr>
+
+<tr>
+<td class="org-left">DATE</td>
+<td class="org-left">日期</td>
+<td class="org-left">'2026-04-15'</td>
+</tr>
+
+<tr>
+<td class="org-left">TIMESTAMP</td>
+<td class="org-left">时间戳</td>
+<td class="org-left">'2026-04-15 10:30:00'</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-21e4bc99d497" class="outline-3">
+<h3 id="section-21e4bc99d497"><span class="section-number-3">14.2.</span> 常用函数一览</h3>
+<div class="outline-text-3" id="text-14-2">
+<pre class="example" id="org0e54834"><code class="language-plaintext">
+【字符串】
+UPPER(s)  LOWER(s)  TRIM(s)  LENGTH(s)
+CONCAT(a, b)  s LIKE 'pat%'  s ILIKE 'pat%'
+REGEXP_MATCHES(s, pattern)   -- 返回 TRUE/FALSE
+REGEXP_EXTRACT(s, pattern)   -- 提取匹配内容
+STRING_AGG(col, sep)         -- 聚合为字符串
+SPLIT_PART(s, delim, n)      -- 按分隔符取第 n 段
+
+【数值】
+ROUND(v, n)  FLOOR(v)  CEIL(v)  ABS(v)
+MOD(a, b)  POWER(b, e)  SQRT(v)
+
+【日期】
+CURRENT_DATE          -- 今天
+DATE_DIFF('day', d1, d2)
+DATE_DIFF('month', d1, d2)
+DATE_TRUNC('month', d)
+EXTRACT(year FROM d)  -- 或 EXTRACT(month FROM d)
+d + INTERVAL '7 days' / '1 month' / '1 year'
+
+【聚合】
+COUNT(*)  COUNT(col)  COUNT(DISTINCT col)
+SUM(col)  AVG(col)  MIN(col)  MAX(col)
+STRING_AGG(col, sep ORDER BY ...)
+ARRAY_AGG(col)
+
+【窗口函数】
+ROW_NUMBER()  RANK()  DENSE_RANK()
+SUM(col) OVER (...)
+AVG(col) OVER (...)
+LAG(col, n)  LEAD(col, n)
+FIRST_VALUE(col)  LAST_VALUE(col)
+PERCENT_RANK()  CUME_DIST()
+
+【类型转换】
+CAST(x AS INTEGER)   -- 标准写法
+x::INTEGER           -- 简写（DuckDB/PG 风格）
+TRY_CAST(x AS DATE)  -- 失败返回 NULL 而非报错
+
+【条件】
+CASE WHEN ... THEN ... ELSE ... END
+COALESCE(a, b, c)    -- 返回第一个非 NULL 值
+IFNULL(a, b)         -- a 为 NULL 则返回 b
+IIF(cond, a, b)      -- 三目运算符
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-960612ef4330" class="outline-3">
+<h3 id="section-960612ef4330"><span class="section-number-3">14.3.</span> JOIN 类型</h3>
+<div class="outline-text-3" id="text-14-3">
+<pre class="example" id="org4c45669"><code class="language-plaintext">
+INNER JOIN  -- 只返回两表都有匹配的行
+LEFT  JOIN  -- 返回左表全部行，右表无匹配则为 NULL
+RIGHT JOIN  -- 返回右表全部行
+FULL  JOIN  -- 返回两表所有行，无匹配的为 NULL
+CROSS JOIN  -- 笛卡尔积（每行 × 每行）
+SEMI  JOIN  -- 用于 WHERE EXISTS 子查询场景（DuckDB 优化器内部）
+</code></pre>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-appendix-b" class="outline-2">
+<h2 id="appendix-b"><span class="section-number-2">15.</span> 附录 B：练习题</h2>
+<div class="outline-text-2" id="text-15">
+</div>
+<div id="outline-container-section-76645dc8569f" class="outline-3">
+<h3 id="section-76645dc8569f"><span class="section-number-3">15.1.</span> 基础级（模块 4-5）</h3>
+<div class="outline-text-3" id="text-15-1">
+<ol class="org-ol">
+<li>查出所有 convenience 分类的包，按下载量从低到高排序</li>
+<li>统计每个 category 中包的数量，只显示包数 ≥ 3 的分类</li>
+<li>找出下载量在 20 万到 50 万之间的包（提示：BETWEEN &hellip; AND &hellip;）</li>
+<li>统计"已放弃维护"的包占总包数的百分比</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-section-d310421dfaf2" class="outline-3">
+<h3 id="section-d310421dfaf2"><span class="section-number-3">15.2.</span> 进阶级（模块 6-7）</h3>
+<div class="outline-text-3" id="text-15-2">
+<ol class="org-ol">
+<li>找出每个分类中"最后更新时间最新"的包（每类只取 1 个）</li>
+<li>计算每个包的下载量占该分类总下载量的百分比</li>
+<li>找出所有"2 年以上未更新，但 is_maintained=TRUE"的包（潜在僵尸包）</li>
+<li>按更新年份分组，统计每年有多少包发布了更新，以及这些包的总下载量</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-section-f161cf60ad4c" class="outline-3">
+<h3 id="section-f161cf60ad4c"><span class="section-number-3">15.3.</span> 窗口函数级（模块 9）</h3>
+<div class="outline-text-3" id="text-15-3">
+<ol class="org-ol">
+<li>给每个包计算全局下载量排名（RANK），并计算其所在的百分位（PERCENT_RANK）</li>
+<li>找出每个分类中排名第 1 和第 2 的包，计算两者的下载量差距</li>
+<li>用 CTE 写出：先计算各分类的平均下载量，再找出高于该分类均值的所有包</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-section-4abda50ce72a" class="outline-3">
+<h3 id="section-4abda50ce72a"><span class="section-number-3">15.4.</span> 参考答案</h3>
+<div class="outline-text-3" id="text-15-4">
+</div>
+<div id="outline-container-section-b0048a5aa246" class="outline-4">
+<h4 id="section-b0048a5aa246"><span class="section-number-4">15.4.1.</span> 练习 3：BETWEEN 用法</h4>
+<div class="outline-text-4" id="text-15-4-1">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT name, category, downloads
+FROM packages
+WHERE downloads BETWEEN 200000 AND 500000
+ORDER BY downloads DESC;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-21a219785fe7" class="outline-4">
+<h4 id="section-21a219785fe7"><span class="section-number-4">15.4.2.</span> 练习 9：全局排名 + 百分位</h4>
+<div class="outline-text-4" id="text-15-4-2">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT
+    name,
+    downloads,
+    RANK()                                                     AS dl_rank,
+    ROUND(PERCENT_RANK() OVER (ORDER BY downloads), 2)         AS percentile
+FROM packages
+ORDER BY dl_rank;
+SQL
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-e94375b703a4" class="outline-4">
+<h4 id="section-e94375b703a4"><span class="section-number-4">15.4.3.</span> 练习 11：CTE + 组内均值过滤</h4>
+<div class="outline-text-4" id="text-15-4-3">
+<div class="org-src-container">
+<pre class="src src-sh"><code class="language-bash">DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+WITH cat_avg AS (
+    SELECT
+        category,
+        AVG(downloads) AS avg_dl
+    FROM packages
+    GROUP BY category
+)
+SELECT
+    p.name,
+    p.category,
+    p.downloads,
+    ROUND(a.avg_dl, 0) AS category_avg,
+    p.downloads - ROUND(a.avg_dl, 0) AS above_avg_by
+FROM packages p
+JOIN cat_avg a ON p.category = a.category
+WHERE p.downloads &gt; a.avg_dl
+ORDER BY p.category, p.downloads DESC;
+SQL
+</code></pre>
+</div>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-appendix-c" class="outline-2">
+<h2 id="appendix-c"><span class="section-number-2">16.</span> 附录 C：Org-Babel DuckDB 集成设置</h2>
+<div class="outline-text-2" id="text-16">
+</div>
+<div id="outline-container-section-02a33e32af1d" class="outline-3">
+<h3 id="section-02a33e32af1d"><span class="section-number-3">16.1.</span> 方案 A：ob-shell 调用 CLI（本文件所用方式，零配置）</h3>
+<div class="outline-text-3" id="text-16-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><code class="language-lisp">;; init.el 中添加（仅需确认 ob-shell 已激活）
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((shell . t)))
+</code></pre>
+</div>
+
+<p>
+代码块写法：
+</p>
+<pre class="example" id="org8322b28"><code class="language-plaintext">
+#+begin_src sh :results output :exports both
+DB="$HOME/duckdb/emacs_packages.duckdb"
+duckdb "$DB" &lt;&lt;'SQL'
+SELECT COUNT(*) FROM packages;
+SQL
+#+end_src
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-e2ac664d86a2" class="outline-3">
+<h3 id="section-e2ac664d86a2"><span class="section-number-3">16.2.</span> 方案 B：ob-python 调用 DuckDB API（表格输出更好看）</h3>
+<div class="outline-text-3" id="text-16-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><code class="language-lisp">(use-package ob-python :ensure nil
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((python . t))))
+</code></pre>
+</div>
+
+<p>
+代码块写法：
+</p>
+<pre class="example" id="orgeb02d41"><code class="language-plaintext">
+#+begin_src python :results output
+import duckdb, os
+db = os.path.expanduser("~/duckdb/emacs_packages.duckdb")
+conn = duckdb.connect(db)
+df = conn.execute("SELECT * FROM packages ORDER BY downloads DESC LIMIT 5").df()
+print(df.to_string(index=False))
+conn.close()
+#+end_src
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-5bf7d755b0e1" class="outline-3">
+<h3 id="section-5bf7d755b0e1"><span class="section-number-3">16.3.</span> 方案 C：ob-duckdb（如 MELPA 上有对应包）</h3>
+<div class="outline-text-3" id="text-16-3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><code class="language-lisp">(use-package ob-duckdb
+  :ensure t   ;; 需要从 MELPA 安装
+  :config
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((duckdb . t))))
+</code></pre>
+</div>
+
+<p>
+代码块写法：
+</p>
+<pre class="example" id="org68f8c0e"><code class="language-plaintext">
+#+begin_src duckdb :database ~/duckdb/emacs_packages.duckdb :results table
+SELECT COUNT(*) AS count FROM packages;
+#+end_src
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-8e6901217189" class="outline-3">
+<h3 id="section-8e6901217189"><span class="section-number-3">16.4.</span> 推荐全局 PROPERTY 配置</h3>
+<div class="outline-text-3" id="text-16-4">
+<p>
+在 org 文件顶部添加：
+</p>
+
+<pre class="example" id="org710c355"><code class="language-plaintext">
+#+PROPERTY: header-args:sh     :results output :exports both
+#+PROPERTY: header-args:python :results output :exports both
+#+PROPERTY: header-args:duckdb :results table  :exports both
+</code></pre>
+
+<p>
+&mdash;
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-progress" class="outline-2">
+<h2 id="progress"><span class="section-number-2">17.</span> 学习进度追踪</h2>
+<div class="outline-text-2" id="text-17">
+<pre class="example" id="org0bb4528"><code class="language-plaintext">
+完成标记：[X] = 已完成  [-] = 进行中  [ ] = 未开始
+
+[ ] 模块 0：DuckDB 定位——能回答"何时用/何时不用"
+[ ] 模块 1：安装与运行——duckdb --version 正常显示
+[ ] 模块 2：数据建模——DESCRIBE packages 显示 9 个字段
+[ ] 模块 3：准备数据——COUNT(*) 返回 25
+[ ] 模块 4：基础查询——能独立写 SELECT/WHERE/ORDER BY
+[ ] 模块 5：聚合统计——能独立写 GROUP BY/HAVING
+[ ] 模块 6：多维分析——完成分类×维护状态交叉分析
+[ ] 模块 7：时间分析——找出所有"僵尸包"
+[ ] 模块 8：文件读写——导出 CSV 并验证内容
+[ ] 模块 9：进阶查询——完成 CTE + 窗口函数每类 TOP 3
+[ ] 模块 10：分析报告——导出完整分析结果文件
+[ ] 模块 11：复用模板——把模板应用到另一个数据集
+</code></pre>
+</div>
+</div>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 00</h3>
+<p class="org-museum-related-empty">这篇笔记还没有可导出的关联页面。</p>
+<a class="local-graph-link" href="../../graph.html?focus=sql">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+</div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <ul>
+      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <ul>
+      <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <ul>
+      <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+
+<script defer src="../../resources/org-museum-article.js?v=cbb6c6a96c25"></script>
+</body>
+</html>

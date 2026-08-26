@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- 2026-08-21 Fri 23:27 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>本体论建模：从概念边界到可计算语义</title>
+<meta name="description" content="一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。">
+<meta name="generator" content="Org Mode">
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=b064a8b284f0"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=ea1a93715abf">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="ontology-concept-boundaries" data-page-title="本体论建模：从概念边界到可计算语义" data-page-category="Ontology" data-page-tags="ontology,knowledge-graph,semantic-modeling" data-page-status="published" data-page-modified="2026-08-21" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM</a>
+  <time class="museum-today" datetime="2026-08-21" title="导出于 2026.08.21">2026.08.21</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link" href="../../index.html">首页</a>
+    <a class="museum-topbar-link" href="../../graph.html">知识图谱</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-label="打开全部笔记">笔记</button>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为浅色主题"><span aria-hidden="true" data-theme-icon>☀</span><span data-theme-label>浅色</span></button>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">本体论建模：从概念边界到可计算语义</a><span class="museum-identity-meta">Ontology</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=Ontology#recent-updates">Ontology</a>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-08-21">2026-08-21</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 11 分钟</dd></div>
+    <div><dt>标签</dt><dd>ontology · knowledge-graph · semantic-modeling</dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a href="../../index.html#recent-updates">← 全部笔记</a>
+    <a href="../../index.html">返回索引</a>
+  </nav>
+</aside>
+<article class="article-container" data-page-id="ontology-concept-boundaries" data-page-title="本体论建模：从概念边界到可计算语义" data-page-category="Ontology"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button>
+<h1 class="title">本体论建模：从概念边界到可计算语义</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-9f1dbd72d119">1. 导言：本体不是术语表，而是一组可被检验的承诺</a></li>
+<li><a href="#section-090cdf692c65">2. 一、从业务问题开始，而不是从类名开始</a></li>
+<li><a href="#section-7ca9dec95104">3. 二、概念边界：用判定标准区分类、属性与事件</a></li>
+<li><a href="#section-20f26db7ae7a">4. 三、身份：相同、相似与同名不能混为一谈</a></li>
+<li><a href="#section-01edd0f9f49c">5. 四、关系设计：让谓词表达业务，而不是表达存储结构</a></li>
+<li><a href="#section-f9aa735debd9">6. 五、约束与推理必须分开</a></li>
+<li><a href="#section-b12c40c677d8">7. 六、从本体到数据库：映射不是等价</a></li>
+<li><a href="#section-7313facae008">8. 七、最小可验证建模循环</a></li>
+<li><a href="#section-33f76d1d0b7c">9. 八、建模检查清单</a></li>
+<li><a href="#section-e6f9b2562ac1">10. 结语：好本体的价值是减少误解</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-9f1dbd72d119" class="outline-2">
+<h2 id="section-9f1dbd72d119"><span class="section-number-2">1.</span> 导言：本体不是术语表，而是一组可被检验的承诺</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+在知识系统里，“把字段改成更专业的名字”不等于完成了本体建模。术语表只回答“我们怎样称呼它”，本体还要回答：它是什么、它不是什么、它与什么发生关系、哪些陈述允许成立，以及系统凭什么得出结论。
+</p>
+
+<p>
+一个能落地的本体至少同时承担四种责任：
+</p>
+
+<ul class="org-ul">
+<li><b>识别责任</b>：给同一个对象稳定的身份，不因数据来源不同而被重复创建。</li>
+<li><b>分类责任</b>：说明对象属于哪些类型，以及类型之间的包含或排斥关系。</li>
+<li><b>关系责任</b>：说明对象如何连接，关系的方向、基数和适用范围是什么。</li>
+<li><b>推理责任</b>：明确哪些结论可以由现有事实推出，哪些只能保持 <code>UNKNOWN</code>。</li>
+</ul>
+
+<p>
+本文关注“模型如何被定义”。与之互补的 <a href="ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a> 关注“模型如何在真实数据和持续变化中保持可信”。
+</p>
+</div>
+</div>
+<div id="outline-container-section-090cdf692c65" class="outline-2">
+<h2 id="section-090cdf692c65"><span class="section-number-2">2.</span> 一、从业务问题开始，而不是从类名开始</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+建模的第一步不是画图，而是收集系统必须回答的问题。问题决定需要哪些概念，证据决定系统是否有资格回答。
+</p>
+
+<p>
+以订单履约为例，三个看似相近的问题需要不同的模型能力：
+</p>
+
+<ol class="org-ol">
+<li>“订单现在是什么状态？”需要状态事实和时间。</li>
+<li>“订单是否可以取消？”需要取消策略、支付状态、履约阶段和优先级规则。</li>
+<li>“为什么不能取消？”还需要规则命中记录与证据来源。</li>
+</ol>
+
+<p>
+如果模型只有 <code>Order.status</code>，它可以回答第一个问题，却不能声称支持后两个问题。能力声明必须小于或等于真实实现；有限字段映射不能冒充通用推理。
+</p>
+
+<p>
+可以把建模目标写成验收表：
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">能力问题</th>
+<th scope="col" class="org-left">必要概念</th>
+<th scope="col" class="org-left">必要关系</th>
+<th scope="col" class="org-left">缺失时输出</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">查询订单状态</td>
+<td class="org-left">Order、OrderStatus</td>
+<td class="org-left">hasStatus</td>
+<td class="org-left">UNKNOWN</td>
+</tr>
+
+<tr>
+<td class="org-left">判断是否可取消</td>
+<td class="org-left">CancellationPolicy、Fulfillment</td>
+<td class="org-left">governedBy、hasStage</td>
+<td class="org-left">UNKNOWN</td>
+</tr>
+
+<tr>
+<td class="org-left">解释判断依据</td>
+<td class="org-left">Evidence、RuleEvaluation</td>
+<td class="org-left">supportedBy、evaluatedBy</td>
+<td class="org-left">UNKNOWN</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+这张表的意义在于防止“先有类，后找用途”。没有对应问题、查询或约束的概念，应当被标记为候选，而不是直接进入核心本体。
+</p>
+</div>
+</div>
+<div id="outline-container-section-7ca9dec95104" class="outline-2">
+<h2 id="section-7ca9dec95104"><span class="section-number-2">3.</span> 二、概念边界：用判定标准区分类、属性与事件</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+一个名字应该成为类、属性还是事件，可以用三个问题判断：
+</p>
+
+<ol class="org-ol">
+<li>它是否拥有独立身份？</li>
+<li>它是否会在时间中变化，并且变化本身需要被记录？</li>
+<li>其他对象是否需要直接引用它？</li>
+</ol>
+
+<p>
+例如，“客户等级”如果只是客户当前的一个枚举值，可以建成数据属性；如果等级有有效期、审批人、计算依据和历史记录，它更适合成为 <code>MembershipLevelAssignment</code> 事件或关系实体。
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 2"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">领域表达</th>
+<th scope="col" class="org-left">较弱模型</th>
+<th scope="col" class="org-left">较强模型</th>
+<th scope="col" class="org-left">采用较强模型的条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">客户地址</td>
+<td class="org-left">字符串属性</td>
+<td class="org-left">Address 实体</td>
+<td class="org-left">地址需复用、校验或追踪历史</td>
+</tr>
+
+<tr>
+<td class="org-left">订单状态</td>
+<td class="org-left">枚举属性</td>
+<td class="org-left">StatusTransition 事件</td>
+<td class="org-left">需要时间线、操作者或原因</td>
+</tr>
+
+<tr>
+<td class="org-left">商品分类</td>
+<td class="org-left">文本标签</td>
+<td class="org-left">ProductCategory 概念</td>
+<td class="org-left">需要层级、同义词或规则</td>
+</tr>
+
+<tr>
+<td class="org-left">购买关系</td>
+<td class="org-left">customer_id</td>
+<td class="org-left">Purchase 事件</td>
+<td class="org-left">需要金额、时间、渠道等关系属性</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+边界没有唯一的“哲学正确答案”，但必须有可验证的工程理由。最小模型优先；只有当查询、约束或追溯需求出现时，才把属性提升为实体或事件。
+</p>
+</div>
+</div>
+<div id="outline-container-section-20f26db7ae7a" class="outline-2">
+<h2 id="section-20f26db7ae7a"><span class="section-number-2">4.</span> 三、身份：相同、相似与同名不能混为一谈</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+身份错误会直接污染整张知识图谱。两个记录字段相似，不代表它们是同一个对象；两个名称相同，也不代表它们可以合并。
+</p>
+
+<p>
+建议把身份判断拆成三层：
+</p>
+
+<ul class="org-ul">
+<li><b>确定身份</b>：存在受信任的稳定标识，例如政府编号、系统主键或经过验证的跨源映射。</li>
+<li><b>候选匹配</b>：名称、地址、时间等特征相似，但仍需确认。</li>
+<li><b>明确不同</b>：存在冲突证据，例如不同的唯一编号或互斥时间区间。</li>
+</ul>
+
+<p>
+身份合并必须保存来源和规则。若系统只做字符串归一化，应把结果称为“规范化候选”，而不是“已确认同一实体”。删除匹配证据后，结论应退回 <code>UNKNOWN</code>，这是一项重要的反证测试。
+</p>
+</div>
+</div>
+<div id="outline-container-section-01edd0f9f49c" class="outline-2">
+<h2 id="section-01edd0f9f49c"><span class="section-number-2">5.</span> 四、关系设计：让谓词表达业务，而不是表达存储结构</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+关系名称应当能组成自然且明确的句子：
+</p>
+
+<pre class="example" id="org25a86c6"><code class="language-plaintext">
+订单 governedBy 取消策略
+订单 placedBy 客户
+发货 supportedBy 承运单据
+</code></pre>
+
+<p>
+<code>hasData</code>、<code>relatedTo</code>、<code>containsInfo</code> 之类的泛化关系虽然容易创建，却几乎不能支持稳定查询。关系至少需要明确以下信息：
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">项目</th>
+<th scope="col" class="org-left">示例</th>
+<th scope="col" class="org-left">需要回答的问题</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">定义域</td>
+<td class="org-left">placedBy 的主体是 Order</td>
+<td class="org-left">哪些对象可以使用此关系？</td>
+</tr>
+
+<tr>
+<td class="org-left">值域</td>
+<td class="org-left">placedBy 的客体是 Customer</td>
+<td class="org-left">关系指向什么类型？</td>
+</tr>
+
+<tr>
+<td class="org-left">方向</td>
+<td class="org-left">Order → Customer</td>
+<td class="org-left">反向查询是否使用 inverse？</td>
+</tr>
+
+<tr>
+<td class="org-left">基数</td>
+<td class="org-left">Order 恰有一个下单客户</td>
+<td class="org-left">零个或多个是否合法？</td>
+</tr>
+
+<tr>
+<td class="org-left">时间</td>
+<td class="org-left">governedBy 在下单时生效</td>
+<td class="org-left">使用当前策略还是历史策略？</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+下面的 Turtle 片段表达了最小语义，不包含业务尚未承诺的推理能力：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-turtle"><code class="language-turtle">@prefix ex: &lt;https://example.org/ontology/&gt; .
+@prefix owl: &lt;http://www.w3.org/2002/07/owl#&gt; .
+@prefix rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt; .
+
+ex:Order a owl:Class .
+ex:Customer a owl:Class .
+
+ex:placedBy a owl:ObjectProperty ;
+  rdfs:domain ex:Order ;
+  rdfs:range ex:Customer .
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-f9aa735debd9" class="outline-2">
+<h2 id="section-f9aa735debd9"><span class="section-number-2">6.</span> 五、约束与推理必须分开</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+“事实不完整”和“事实为假”不是一回事。在开放世界语义下，没有记录 <code>placedBy</code> 并不能自动证明订单没有客户；它可能只是证据尚未进入系统。数据质量约束则可以要求发布前每个订单必须具备一个客户。
+</p>
+
+<p>
+因此，应把两类规则分开：
+</p>
+
+<ul class="org-ul">
+<li><b>推理规则</b>：从已有事实导出新事实，例如“易腐商品是需要冷链处理的商品”。</li>
+<li><b>质量约束</b>：检查当前数据是否满足使用条件，例如“已发布订单必须关联一个客户”。</li>
+</ul>
+
+<p>
+混用两者会产生危险结果：校验失败被误读为业务事实，或者缺失数据被误读为否定结论。
+</p>
+
+<p>
+一个查询也应主动暴露未知状态：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sparql"><code class="language-sparql">SELECT ?order ?customer
+WHERE {
+  ?order a ex:Order .
+  OPTIONAL { ?order ex:placedBy ?customer . }
+}
+</code></pre>
+</div>
+
+<p>
+应用层看到未绑定的 <code>?customer</code> 时，应返回“客户证据缺失”，而不是虚构默认客户。
+</p>
+</div>
+</div>
+<div id="outline-container-section-b12c40c677d8" class="outline-2">
+<h2 id="section-b12c40c677d8"><span class="section-number-2">7.</span> 六、从本体到数据库：映射不是等价</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+关系数据库和本体关注的重点不同。表结构强调存储、完整性和执行效率；本体强调概念、语义和跨来源解释。两者可以映射，但不能简单宣称一一等价。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><code class="language-sql">CREATE TABLE orders (
+  order_id      VARCHAR PRIMARY KEY,
+  customer_id   VARCHAR NOT NULL,
+  placed_at     TIMESTAMP NOT NULL,
+  status        VARCHAR NOT NULL
+);
+</code></pre>
+</div>
+
+<p>
+这张表提示了 <code>Order</code>、<code>Customer</code>、<code>placedBy</code> 和 <code>placedAt</code>，但不会自动说明：
+</p>
+
+<ul class="org-ul">
+<li><code>customer_id</code> 的命名空间是否跨系统稳定；</li>
+<li><code>status</code> 的合法迁移顺序；</li>
+<li>删除客户时订单语义如何保留；</li>
+<li>历史订单应采用哪个版本的策略。</li>
+</ul>
+
+<p>
+正确做法是维护显式映射：每个本体概念对应哪些表和字段、使用什么转换规则、映射在哪个版本生效，以及失败时输出什么。
+</p>
+</div>
+</div>
+<div id="outline-container-section-7313facae008" class="outline-2">
+<h2 id="section-7313facae008"><span class="section-number-2">8.</span> 七、最小可验证建模循环</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+一个适合实际项目的最小循环如下：
+</p>
+
+<ol class="org-ol">
+<li>写出 3—7 个必须回答的能力问题。</li>
+<li>为每个问题列出真实输入、必要证据和预期输出。</li>
+<li>只创建回答这些问题所需的类、关系和属性。</li>
+<li>用正常数据、陌生数据和缺失证据各运行一次。</li>
+<li>检查模型是否会把 <code>UNKNOWN</code> 错报为确定结论。</li>
+<li>保存查询、约束、映射和测试结果，形成可复现证据链。</li>
+</ol>
+
+<p>
+完成的判据不是“图画出来了”，而是：真实输入经过真实查询或规则执行，输出满足预先定义的验收条件，并且反证用例能够让系统正确失败。
+</p>
+</div>
+</div>
+<div id="outline-container-section-33f76d1d0b7c" class="outline-2">
+<h2 id="section-33f76d1d0b7c"><span class="section-number-2">9.</span> 八、建模检查清单</h2>
+<div class="outline-text-2" id="text-9">
+<ul class="org-ul">
+<li class="off"><code>[&nbsp;]</code> 每个核心概念都有清晰的纳入与排除条件。</li>
+<li class="off"><code>[&nbsp;]</code> 每个对象的身份来源和合并规则可追踪。</li>
+<li class="off"><code>[&nbsp;]</code> 每条关系都有明确方向、定义域和值域。</li>
+<li class="off"><code>[&nbsp;]</code> 时间变化没有被压扁成无法追溯的当前值。</li>
+<li class="off"><code>[&nbsp;]</code> 推理规则与数据质量约束分开管理。</li>
+<li class="off"><code>[&nbsp;]</code> 缺失证据会产生 <code>UNKNOWN</code>，而不是默认真或默认假。</li>
+<li class="off"><code>[&nbsp;]</code> 每项对外能力都能指向真实实现与验证用例。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-e6f9b2562ac1" class="outline-2">
+<h2 id="section-e6f9b2562ac1"><span class="section-number-2">10.</span> 结语：好本体的价值是减少误解</h2>
+<div class="outline-text-2" id="text-10">
+<p>
+本体的目标不是制造更多概念，而是让不同模块、不同数据源和不同使用者对同一事实采用一致且可检验的解释。概念边界解决“我们在谈什么”，身份解决“它是不是同一个”，关系解决“它如何连接”，约束和推理解决“系统可以得出什么”。
+</p>
+
+<p>
+当模型进入长期运行后，还必须回答证据失效、规则冲突和版本迁移问题。下一篇 <a href="ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a> 将把这些问题组织成一个可回滚、可审计的演化闭环。
+</p>
+</div>
+</div>
+<nav class="org-museum-nav" aria-label="文章关系">
+<div class="org-museum-nav-links"><span class="org-museum-nav-label">链接到 / 01</span><a href="ontology-evidence-evolution.html" class="org-museum-link">本体治理：从证据追踪到安全演化</a></div>
+<div class="org-museum-nav-backlinks"><span class="org-museum-nav-label">反向链接 / 01</span><a href="ontology-evidence-evolution.html" class="org-museum-link">本体治理：从证据追踪到安全演化</a></div>
+</nav>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 01</h3>
+<ul class="org-museum-related-list">
+<li><a href="ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+</ul>
+<a class="local-graph-link" href="../../graph.html?focus=ontology-concept-boundaries">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+</div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <ul>
+      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="本体mvp.html">本体MVP</a></li>
+      <li><a href="ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <ul>
+      <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <ul>
+      <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+
+<script defer src="../../resources/org-museum-article.js?v=cbb6c6a96c25"></script>
+</body>
+</html>

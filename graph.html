@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Org Museum · 知识图谱</title>
+  <script src="resources/org-museum-theme.js?v=b064a8b284f0"></script>
+  <link rel="stylesheet" href="resources/org-museum.css?v=ea1a93715abf">
+  <link rel="icon" href="data:,">
+  <script src="resources/d3.v7.min.js?v=f2094bbf6141"></script>
+</head>
+<body class="graph-page" data-page-kind="graph">
+<header class="museum-topbar" data-home-href="index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="index.html">ORG MUSEUM</a>
+  <time class="museum-today" datetime="2026-08-21" title="导出于 2026.08.21">2026.08.21</time>
+  <label class="museum-search-line">
+    <span class="sr-only">搜索图谱节点</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索节点…" autocomplete="off" spellcheck="false" aria-label="搜索图谱节点" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link" href="index.html">首页</a>
+    <a class="museum-topbar-link" href="index.html#recent-updates">全部笔记</a>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为浅色主题"><span aria-hidden="true" data-theme-icon>☀</span><span data-theme-label>浅色</span></button>
+  </nav>
+</header>
+
+<main id="main-content" class="museum-graph-shell" tabindex="-1">
+  <aside class="museum-graph-rail">
+    <div class="museum-section-heading"><h1>知识图谱</h1><span id="graph-heading-count">/ 00</span></div>
+    <details class="graph-filter-summary" open>
+      <summary>统计与主题筛选</summary>
+      <dl class="graph-counts">
+        <div><dt>笔记</dt><dd id="stat-nodes">00</dd></div>
+        <div><dt>连线</dt><dd id="stat-links">00</dd></div>
+        <div><dt>主题</dt><dd id="stat-cats">00</dd></div>
+      </dl>
+      <div class="graph-filter-block">
+        <h2>主题筛选</h2>
+        <div id="graph-category-filters"></div>
+      </div>
+    </details>
+    <div class="graph-view-controls">
+      <button type="button" id="btn-zoom-in" aria-label="放大图谱">放大</button>
+      <button type="button" id="btn-zoom-out" aria-label="缩小图谱">缩小</button>
+      <button type="button" id="btn-reset">重置视图</button>
+      <button type="button" id="btn-freeze">冻结布局</button>
+      <small>拖动画布 · 滚轮缩放</small>
+    </div>
+    <p id="graph-match-status" role="status" aria-live="polite">匹配 00 个节点</p>
+  </aside>
+  <section class="museum-graph-workspace" aria-label="知识关系画布">
+    <div id="graph-canvas"></div>
+    <div id="graph-zero-notice" hidden>
+      <strong>尚未形成知识连线</strong>
+      <span>在笔记中加入 <code>[[wiki:笔记ID][标题]]</code> 即可创建关系。</span>
+      <button type="button" id="graph-zero-copy">复制第一条 Wiki 链接</button>
+    </div>
+    <details id="graph-isolated-fallback" hidden>
+      <summary>孤立笔记 <span id="graph-isolated-count">00</span></summary>
+      <div id="graph-isolated-list" class="graph-isolated-list"></div>
+      <p id="graph-copy-status" class="sr-only" role="status" aria-live="polite"></p>
+    </details>
+    <div id="graph-tooltip" role="status" aria-live="polite">
+      <strong id="tt-title"></strong><span id="tt-meta"></span>
+    </div>
+    <div class="graph-workspace-footer">
+      <p id="graph-selection-prompt">悬停查看详情；单击打开文章，Space 固定详情</p>
+      <div id="graph-selected-detail" hidden><span></span><a href="index.html">打开笔记 →</a>
+        <button type="button" id="btn-clear-selection">清除选择</button>
+      </div>
+      <ul id="graph-legend" aria-label="主题图例"></ul>
+    </div>
+  </section>
+</main>
+<script type="application/json" id="graph-data">{"nodes":[{"id":"4aec0077-2a63-495f-b4b2-e3fdfcd66f88","name":"Emacs 插件高价值增量观察（滚动）","group":"Emacs","tags":["emacs","plugin-watch","rolling","org-roam"],"status":"published","degree":0,"url":"pages/Emacs/PluginWatch/emacs-plugin-watch.html"},{"id":"001-学习的牛逼之处","name":"001-学习的牛逼之处","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/001-学习的牛逼之处.html"},{"id":"002-学习需要被设计","name":"002-学习需要被设计","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/002-学习需要被设计.html"},{"id":"003-有效的ai工具","name":"003-有效的AI工具","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/003-有效的ai工具.html"},{"id":"004-小心使用","name":"004-小心使用","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/004-小心使用.html"},{"id":"005-信息概括","name":"005-信息概括","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/005-信息概括.html"},{"id":"sicp","name":"SICP Lisp 过程抽象练习：平方根迭代逼近器","group":"Lisp","tags":["lisp"],"status":"draft","degree":0,"url":"pages/lisp/sicp.html"},{"id":"ontology-concept-boundaries","name":"本体论建模：从概念边界到可计算语义","group":"Ontology","tags":["ontology","knowledge-graph","semantic-modeling"],"status":"published","degree":1,"url":"pages/ontology/ontology-concept-boundaries.html"},{"id":"ontology-evidence-evolution","name":"本体治理：从证据追踪到安全演化","group":"Ontology","tags":["ontology","governance","provenance","evolution"],"status":"published","degree":1,"url":"pages/ontology/ontology-evidence-evolution.html"},{"id":"本体mvp","name":"本体MVP","group":"Ontology","tags":["ontology"],"status":"draft","degree":0,"url":"pages/ontology/本体mvp.html"},{"id":"duckdb-mpv","name":"DuckDB MPV","group":"SQL","tags":["sql"],"status":"draft","degree":0,"url":"pages/sql/duckdb-mpv.html"},{"id":"duckdb-ontology","name":"DuckDB 本体建模","group":"SQL","tags":["sql","duckdb","ontology","本体"],"status":"draft","degree":0,"url":"pages/sql/duckdb-ontology.html"},{"id":"3572220e-7c4f-45fd-af24-4e4ae2cddea2","name":"00 DuckDB 最小入门","group":"SQL","tags":["sql"],"status":"draft","degree":0,"url":"pages/sql/duckdb.html"},{"id":"sql","name":"DuckDB 实战入门：Emacs Package 数据分析","group":"SQL","tags":["sql"],"status":"draft","degree":0,"url":"pages/sql/sql.html"},{"id":"orgtheme","name":"OrgTheme 专业版主题开发系统","group":"Theme","tags":["theme"],"status":"draft","degree":0,"url":"pages/theme/orgtheme.html"}],"links":[{"source":"ontology-concept-boundaries","target":"ontology-evidence-evolution","value":1}],"meta":{"node-count":15,"tier":"small","tier-label":"Full Simulation","charge":-200,"alpha-decay":0.0228,"tick-limit":"false","pre-ticks":"false"}}</script>
+
+<script defer src="resources/org-museum-graph.js?v=fefc03e5b560"></script>
+</body>
+</html>

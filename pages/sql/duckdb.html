@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- 2026-08-21 Fri 23:28 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>00 DuckDB 最小入门</title>
+<meta name="generator" content="Org Mode">
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=b064a8b284f0"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=ea1a93715abf">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="3572220e-7c4f-45fd-af24-4e4ae2cddea2" data-page-title="00 DuckDB 最小入门" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-08-20" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM</a>
+  <time class="museum-today" datetime="2026-08-21" title="导出于 2026.08.21">2026.08.21</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link" href="../../index.html">首页</a>
+    <a class="museum-topbar-link" href="../../graph.html">知识图谱</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-label="打开全部笔记">笔记</button>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为浅色主题"><span aria-hidden="true" data-theme-icon>☀</span><span data-theme-label>浅色</span></button>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">00 DuckDB 最小入门</a><span class="museum-identity-meta">SQL · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=Sql#recent-updates">SQL</a><span class="museum-status-badge">草稿</span>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-08-20">2026-08-20</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 10 分钟</dd></div>
+    <div><dt>标签</dt><dd>sql</dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a href="../../index.html#recent-updates">← 全部笔记</a>
+    <a href="../../index.html">返回索引</a>
+  </nav>
+</aside>
+<article class="article-container" data-page-id="3572220e-7c4f-45fd-af24-4e4ae2cddea2" data-page-title="00 DuckDB 最小入门" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button>
+<h1 class="title">00 DuckDB 最小入门</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-de9c08cd4c7d">1. DuckDB 环境说明</a>
+<ul>
+<li><a href="#section-0a5cc1dacb83">1.1. 创建测试表</a></li>
+<li><a href="#section-fcae80c949f3">1.2. 插入或导入测试数据</a></li>
+<li><a href="#section-e16d74dba41b">1.3. 执行基础 SELECT 查询</a></li>
+<li><a href="#section-add35ce91e03">1.4. 展示查询结果</a></li>
+<li><a href="#section-07a6328e1591">1.5. 学习路径提示</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-de9c08cd4c7d" class="outline-2">
+<h2 id="section-de9c08cd4c7d"><span class="section-number-2">1.</span> DuckDB 环境说明</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本章是整套教程的入口。先在 Org Mode 中创建 DuckDB 数据库、建表、插入测试数据，再执行第一条查询。后续 01-10 章都基于这里创建的 <code>_work/tutorial.duckdb</code>。
+</p>
+
+<p>
+本教程区分两层能力：
+</p>
+
+<ul class="org-ul">
+<li>DuckDB CLI：命令行程序 <code>duckdb</code>，自动测试脚本会直接使用它。</li>
+<li>Org Babel + ob-duckdb：让 Org 中的 <code>duckdb</code> 代码块可以用 <code>C-c C-c</code> 执行，并把结果写回 Org 文档。</li>
+</ul>
+
+<p>
+本机已经在 ~/.emacs.d/lisp+/Org/Core/Babels= 配置了 Babel 扩展入口。该目录的 <code>index.el</code> 会加载 <code>base-ob-duckdb.el</code>，并通过 <code>use-package ob-duckdb</code> 管理 DuckDB Babel 支持。
+</p>
+
+<p>
+如果你的完整 Emacs 配置已经加载了这个入口，打开本文件后即可在 <code>duckdb</code> 代码块上使用 <code>C-c C-c</code>。若需要手动加载，可使用：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><code class="language-lisp">(load (concat user-emacs-directory "lisp+/Org/Core/Babels/index.el"))
+</code></pre>
+</div>
+
+<p>
+注意：这个入口依赖你正常 Emacs 配置里的 <code>straight/use-package</code> 环境；在 <code>emacs -Q</code> 这类干净环境中直接加载可能不完整。
+</p>
+</div>
+<div id="outline-container-section-0a5cc1dacb83" class="outline-3">
+<h3 id="section-0a5cc1dacb83"><span class="section-number-3">1.1.</span> 创建测试表</h3>
+<div class="outline-text-3" id="text-1-1">
+<p>
+执行下面代码块会重建四张测试表。它会删除旧表，所以适合在学习开始前重跑，确保后续章节状态一致。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-duckdb" id="org1354a4d"><code class="language-sql">DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS customers;
+
+CREATE TABLE customers (
+  customer_id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  city TEXT NOT NULL,
+  status TEXT NOT NULL,
+  signup_date TEXT NOT NULL
+);
+
+CREATE TABLE products (
+  product_id INTEGER PRIMARY KEY,
+  name TEXT NOT NULL,
+  category TEXT NOT NULL,
+  price REAL NOT NULL
+);
+
+CREATE TABLE orders (
+  order_id INTEGER PRIMARY KEY,
+  customer_id INTEGER NOT NULL,
+  order_date TEXT NOT NULL,
+  channel TEXT NOT NULL,
+  FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);
+
+CREATE TABLE order_items (
+  order_item_id INTEGER PRIMARY KEY,
+  order_id INTEGER NOT NULL,
+  product_id INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
+  FOREIGN KEY (order_id) REFERENCES orders(order_id),
+  FOREIGN KEY (product_id) REFERENCES products(product_id)
+);
+
+CREATE INDEX idx_orders_customer_date ON orders(customer_id, order_date);
+CREATE INDEX idx_order_items_order ON order_items(order_id);
+CREATE INDEX idx_order_items_product ON order_items(product_id);
+
+SELECT 'schema ready' AS setup_status;
+</code></pre>
+</div>
+
+<div class="results" id="orgf3e60a9"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
+schema ready</code></pre></div>
+</div>
+</div>
+<div id="outline-container-section-fcae80c949f3" class="outline-3">
+<h3 id="section-fcae80c949f3"><span class="section-number-3">1.2.</span> 插入或导入测试数据</h3>
+<div class="outline-text-3" id="text-1-2">
+<p>
+执行下面代码块会插入本教程使用的最小业务数据：客户、商品、订单和订单明细。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-duckdb" id="org621350d"><code class="language-sql">INSERT INTO customers VALUES
+  (1, 'Ada', 'Shanghai', 'active', '2026-01-03'),
+  (2, 'Ben', 'Beijing', 'active', '2026-01-12'),
+  (3, 'Chen', 'Shanghai', 'inactive', '2026-02-01'),
+  (4, 'Dora', 'Shenzhen', 'active', '2026-02-18'),
+  (5, 'Evan', 'Hangzhou', 'active', '2026-03-05');
+
+INSERT INTO products VALUES
+  (1, 'Notebook', 'office', 12.5),
+  (2, 'Keyboard', 'hardware', 88.0),
+  (3, 'Monitor', 'hardware', 320.0),
+  (4, 'Pen', 'office', 2.0),
+  (5, 'Desk Lamp', 'hardware', 45.0);
+
+INSERT INTO orders VALUES
+  (101, 1, '2026-03-01', 'web'),
+  (102, 1, '2026-03-03', 'store'),
+  (103, 2, '2026-03-05', 'web'),
+  (104, 4, '2026-03-07', 'web'),
+  (105, 5, '2026-03-09', 'partner'),
+  (106, 2, '2026-03-11', 'store');
+
+INSERT INTO order_items VALUES
+  (1, 101, 1, 3),
+  (2, 101, 4, 10),
+  (3, 102, 2, 1),
+  (4, 103, 3, 1),
+  (5, 104, 2, 2),
+  (6, 104, 5, 1),
+  (7, 105, 1, 5),
+  (8, 105, 5, 2),
+  (9, 106, 4, 20);
+
+SELECT 'seed ready' AS setup_status;
+</code></pre>
+</div>
+
+<div class="results" id="org6cbe52c"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
+seed ready</code></pre></div>
+</div>
+</div>
+<div id="outline-container-section-e16d74dba41b" class="outline-3">
+<h3 id="section-e16d74dba41b"><span class="section-number-3">1.3.</span> 执行基础 SELECT 查询</h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+确认数据写入成功后，执行第一条查询。后续章节会继续使用这些表。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-duckdb" id="orge0c6c7d"><code class="language-sql">SELECT customer_id, name, city
+FROM customers
+ORDER BY customer_id;
+</code></pre>
+</div>
+
+<div class="results" id="org4f9486c">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">customer_id</th>
+<th scope="col" class="org-left">name</th>
+<th scope="col" class="org-left">city</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-left">Ada</td>
+<td class="org-left">Shanghai</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-left">Ben</td>
+<td class="org-left">Beijing</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-left">Chen</td>
+<td class="org-left">Shanghai</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-left">Dora</td>
+<td class="org-left">Shenzhen</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-left">Evan</td>
+<td class="org-left">Hangzhou</td>
+</tr>
+</tbody>
+</table></section>
+
+</div>
+</div>
+</div>
+<div id="outline-container-section-add35ce91e03" class="outline-3">
+<h3 id="section-add35ce91e03"><span class="section-number-3">1.4.</span> 展示查询结果</h3>
+<div class="outline-text-3" id="text-1-4">
+<p>
+执行上面的代码块后，应看到五位客户。结果内容应等价于：
+</p>
+
+<pre class="example" id="orge587dc0"><code class="language-plaintext">
+customer_id,name,city
+1,Ada,Shanghai
+2,Ben,Beijing
+3,Chen,Shanghai
+4,Dora,Shenzhen
+5,Evan,Hangzhou
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-07a6328e1591" class="outline-3">
+<h3 id="section-07a6328e1591"><span class="section-number-3">1.5.</span> 学习路径提示</h3>
+<div class="outline-text-3" id="text-1-5">
+<p>
+完成本章后，按顺序进入 01-10 章。每一章都假设 <code>_work/tutorial.duckdb</code> 已经由本章创建并写入测试数据。
+</p>
+</div>
+</div>
+</div>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 00</h3>
+<p class="org-museum-related-empty">这篇笔记还没有可导出的关联页面。</p>
+<a class="local-graph-link" href="../../graph.html?focus=3572220e-7c4f-45fd-af24-4e4ae2cddea2">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+</div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <ul>
+      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <ul>
+      <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <ul>
+      <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+
+<script defer src="../../resources/org-museum-article.js?v=cbb6c6a96c25"></script>
+</body>
+</html>

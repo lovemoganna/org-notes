@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- 2026-08-21 Fri 23:27 -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SICP SICP Lisp 过程抽象练习：平方根迭代逼近器</title>
+<meta name="generator" content="Org Mode">
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=b064a8b284f0"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=ea1a93715abf">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="sicp" data-page-title="SICP Lisp 过程抽象练习：平方根迭代逼近器" data-page-category="lisp" data-page-tags="lisp" data-page-status="draft" data-page-modified="2026-05-31" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM</a>
+  <time class="museum-today" datetime="2026-08-21" title="导出于 2026.08.21">2026.08.21</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link" href="../../index.html">首页</a>
+    <a class="museum-topbar-link" href="../../graph.html">知识图谱</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-label="打开全部笔记">笔记</button>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为浅色主题"><span aria-hidden="true" data-theme-icon>☀</span><span data-theme-label>浅色</span></button>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">SICP Lisp 过程抽象练习：平方根迭代逼近器</a><span class="museum-identity-meta">Lisp · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=lisp#recent-updates">Lisp</a><span class="museum-status-badge">草稿</span>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-05-31">2026-05-31</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 16 分钟</dd></div>
+    <div><dt>标签</dt><dd>lisp</dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a href="../../index.html#recent-updates">← 全部笔记</a>
+    <a href="../../index.html">返回索引</a>
+  </nav>
+</aside>
+<article class="article-container" data-page-id="sicp" data-page-title="SICP Lisp 过程抽象练习：平方根迭代逼近器" data-page-category="lisp"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button>
+<h1 class="title">SICP SICP Lisp 过程抽象练习：平方根迭代逼近器</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-06df0294c60b">1. §0 实例化配置区</a></li>
+<li><a href="#section-8200895d4536">2. 练习目标</a></li>
+<li><a href="#section-8d965de4f570">3. 题目描述</a></li>
+<li><a href="#section-df5f8f410397">4. 代码分解</a>
+<ul>
+<li><a href="#section-e9852fcd9576">4.1. 文件头</a></li>
+<li><a href="#section-7d2d238f4595">4.2. 类型定义</a></li>
+<li><a href="#section-c204d66cf84d">4.3. 数据定义</a></li>
+<li><a href="#section-21afee6fa62e">4.4. 辅助函数</a></li>
+<li><a href="#section-d9c873e3758a">4.5. 核心逻辑</a></li>
+<li><a href="#section-ad5f4298e8b2">4.6. 对外接口</a></li>
+<li><a href="#section-11800a236116">4.7. 测试与示例</a></li>
+<li><a href="#section-421ceb94a126">4.8. 组装（唯一 tangle 出口）</a></li>
+</ul>
+</li>
+<li><a href="#section-ff3da1aa13b0">5. 技术难点剖析（润色草稿）</a></li>
+<li><a href="#section-3fed7b1c8af4">6. 任务指南（润色草稿）</a></li>
+<li><a href="#section-db28f2169d78">7. 验收标准</a></li>
+<li><a href="#section-42d56eae0843">8. 禁止事项</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-06df0294c60b" class="outline-2">
+<h2 id="section-06df0294c60b"><span class="section-number-2">1.</span> §0 实例化配置区</h2>
+<div class="outline-text-2" id="text-1">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">参数</th>
+<th scope="col" class="org-left">当前值</th>
+<th scope="col" class="org-left">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>TARGET_LANG</code></td>
+<td class="org-left">emacs-lisp</td>
+<td class="org-left">Org-babel 语言标识符</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>PARADIGM</code></td>
+<td class="org-left">functional</td>
+<td class="org-left">functional / oop / scripting / systems</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>FILE_EXT</code></td>
+<td class="org-left">.el</td>
+<td class="org-left">tangle 目标文件扩展名</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>FILE_PREFIX</code></td>
+<td class="org-left">exercise-sqrt-process</td>
+<td class="org-left">输出文件名前缀</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>SYM_PREFIX</code></td>
+<td class="org-left">ex</td>
+<td class="org-left">函数命名空间前缀</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>TEST_RUNNER</code></td>
+<td class="org-left">ert</td>
+<td class="org-left">Emacs Lisp 内置测试框架</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>KNOWLEDGE_SRC</code></td>
+<td class="org-left">Lisp、过程抽象、命名、黑箱抽象、递归、平方根迭代逼近</td>
+<td class="org-left">本练习的知识来源</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-8200895d4536" class="outline-2">
+<h2 id="section-8200895d4536"><span class="section-number-2">2.</span> 练习目标</h2>
+<div class="outline-text-2" id="text-2">
+<ul class="org-ul">
+<li>掌握 Lisp 风格的过程抽象：把“如何求平方根”拆成可命名、可测试、可组合的小过程。</li>
+<li>理解黑箱抽象：调用者只关心 <code>ex-sqrt</code> 的输入输出，不需要关心内部猜测如何改进。</li>
+<li>练习递归式过程：用“猜测 → 判断 → 改进 → 继续”的结构逼近平方根。</li>
+<li>熟悉 Org-mode 文学编程：使用 Noweb 具名块组织代码，并通过唯一 Assembly Block 导出。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-8d965de4f570" class="outline-2">
+<h2 id="section-8d965de4f570"><span class="section-number-2">3.</span> 题目描述</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+实现一个 Emacs Lisp 模块，用迭代逼近法计算非负数的平方根。程序需要完成以下行为：
+</p>
+<ol class="org-ol">
+<li>输入一个非负数字 <code>target</code>。</li>
+<li>从初始猜测值 <code>guess</code> 开始。</li>
+<li>判断当前猜测是否足够好。</li>
+<li>若不够好，则根据公式改进猜测。</li>
+<li>重复以上过程，直到误差小于容忍度 <code>tolerance</code>，或达到最大迭代次数。</li>
+<li>返回包含最终猜测值、目标值、容忍度、迭代步数的结果结构。</li>
+</ol>
+
+<p>
+核心公式：
+</p>
+<ol class="org-ol">
+<li>平方：<code>x * x</code></li>
+<li>平均值：<code>(a + b) / 2</code></li>
+<li>改进猜测：<code>(guess + target / guess) / 2</code></li>
+</ol>
+</div>
+</div>
+<div id="outline-container-section-df5f8f410397" class="outline-2">
+<h2 id="section-df5f8f410397"><span class="section-number-2">4.</span> 代码分解</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-section-e9852fcd9576" class="outline-3">
+<h3 id="section-e9852fcd9576"><span class="section-number-3">4.1.</span> 文件头</h3>
+<div class="outline-text-3" id="text-4-1">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org7c7c884"><code class="language-lisp">;;; exercise-sqrt-process.el --- SICP-style sqrt process exercise -*- lexical-binding: t; -*-
+;;; Commentary:
+;; TODO: 用 2-3 句话说明本练习对应的主题：过程、抽象、递归。
+;; TODO: 写清楚本文件由 Org-mode tangle 生成，不建议直接修改导出文件。
+;;
+;; This exercise demonstrates how a small Lisp program can model a process:
+;; guess, test, improve, and repeat.
+;;; Code:
+
+(require 'cl-lib)
+(require 'ert)
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-7d2d238f4595" class="outline-3">
+<h3 id="section-7d2d238f4595"><span class="section-number-3">4.2.</span> 类型定义</h3>
+<div class="outline-text-3" id="text-4-2">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="orgfcb6789"><code class="language-lisp">;; TODO: 补充字段说明：guess / target / tolerance / steps 分别表示什么。
+;; TODO: 思考为什么用结构体返回结果，而不是只返回一个数字。
+
+(cl-defstruct
+    (ex-sqrt-state
+     (:constructor ex-make-sqrt-state))
+  "State object for one completed sqrt approximation."
+  guess
+  target
+  tolerance
+  steps)
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-c204d66cf84d" class="outline-3">
+<h3 id="section-c204d66cf84d"><span class="section-number-3">4.3.</span> 数据定义</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org009c6b0"><code class="language-lisp">;; TODO: 调整默认容忍度，观察测试结果是否仍然稳定。
+;; TODO: 调整最大迭代次数，观察过小的值会导致什么问题。
+
+(defconst ex-default-tolerance 1e-05
+  "Default tolerance used by `ex-sqrt'.")
+
+(defconst ex-default-initial-guess 1.0
+  "Default initial guess used by `ex-sqrt'.")
+
+(defconst ex-max-steps 100
+  "Maximum number of recursive improvement steps.")
+
+(defconst ex-demo-inputs '(0 1 2 4 9 16 25 100)
+  "Demo inputs for manual verification.")
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-21afee6fa62e" class="outline-3">
+<h3 id="section-21afee6fa62e"><span class="section-number-3">4.4.</span> 辅助函数</h3>
+<div class="outline-text-3" id="text-4-4">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org180d8b2"><code class="language-lisp">;; TODO: 保持本块函数尽量纯净，不读写外部状态。
+;; TODO: 为每个辅助函数补充一个简单例子，写进文档字符串。
+
+(defun ex--square (x)
+  "Return X squared."
+  (* x x))
+
+(defun ex--average (a b)
+  "Return the arithmetic average of A and B."
+  (/ (+ a b) 2.0))
+
+(defun ex--improve-guess (target guess)
+  "Improve GUESS for square root of TARGET."
+  (ex--average guess (/ target guess)))
+
+(defun ex--good-enough-p (target guess tolerance)
+  "Return non-nil when GUESS is close enough to square root of TARGET."
+  (&lt;= (abs (- (ex--square guess) target)) tolerance))
+
+(defun ex--valid-target-p (target)
+  "Return non-nil when TARGET can be used as sqrt input."
+  (and (numberp target)
+       (&gt;= target 0)))
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-d9c873e3758a" class="outline-3">
+<h3 id="section-d9c873e3758a"><span class="section-number-3">4.5.</span> 核心逻辑</h3>
+<div class="outline-text-3" id="text-4-5">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org46b3dd2"><code class="language-lisp">;; TODO: 本块依赖 chunk-data 与 chunk-helpers；保持 Assembly 中的装配顺序。
+;; TODO: 不要把辅助函数逻辑重复写进核心函数，避免破坏黑箱抽象。
+
+(defun ex--sqrt-iterate (target guess tolerance steps)
+  "Recursively improve GUESS until it approximates square root of TARGET."
+  (cond
+   ((ex--good-enough-p target guess tolerance)
+    (ex-make-sqrt-state
+     :guess guess
+     :target target
+     :tolerance tolerance
+     :steps steps))
+   ((&gt;= steps ex-max-steps)
+    (ex-make-sqrt-state
+     :guess guess
+     :target target
+     :tolerance tolerance
+     :steps steps))
+   (t
+    (ex--sqrt-iterate
+     target
+     (ex--improve-guess target guess)
+     tolerance
+     (1+ steps)))))
+
+(defun ex-sqrt (target &amp;optional tolerance initial-guess)
+  "Approximate square root of TARGET using recursive improvement."
+  (unless (ex--valid-target-p target)
+    (user-error "TARGET must be a non-negative number"))
+  (let ((tol (or tolerance ex-default-tolerance))
+	(guess (or initial-guess ex-default-initial-guess)))
+    (ex--sqrt-iterate target guess tol 0)))
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-ad5f4298e8b2" class="outline-3">
+<h3 id="section-ad5f4298e8b2"><span class="section-number-3">4.6.</span> 对外接口</h3>
+<div class="outline-text-3" id="text-4-6">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org3cc05df"><code class="language-lisp">;; TODO: 改造输出格式，让它更适合在 *Messages* buffer 中阅读。
+;; TODO: 增加可选参数读取，让用户手动输入 tolerance。
+
+(defun ex-sqrt-message (target)
+  "Display approximate square root result for TARGET."
+  (interactive "nTarget number: ")
+  (let* ((state (ex-sqrt target))
+	 (guess (ex-sqrt-state-guess state))
+	 (steps (ex-sqrt-state-steps state)))
+    (message "sqrt(%s) ≈ %.8f, steps=%s" target guess steps)
+    state))
+
+(defun ex-sqrt-demo ()
+  "Run sqrt approximation for values in `ex-demo-inputs'."
+  (interactive)
+  (mapcar #'ex-sqrt ex-demo-inputs))
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-11800a236116" class="outline-3">
+<h3 id="section-11800a236116"><span class="section-number-3">4.7.</span> 测试与示例</h3>
+<div class="outline-text-3" id="text-4-7">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org26cca3b"><code class="language-lisp">;; 使用 ert 框架
+;; TODO: 增加更多边界测试，例如极小小数、极大数字。
+;; TODO: 增加失败用例，观察错误信息是否清晰。
+
+(ert-deftest ex-test-square ()
+  "Test square helper."
+  (should (= (ex--square 3) 9))
+  (should (= (ex--square -4) 16)))
+
+(ert-deftest ex-test-sqrt-perfect-square ()
+  "Test sqrt approximation for perfect squares."
+  (should (&lt; (abs (- (ex-sqrt-state-guess (ex-sqrt 4)) 2.0)) 0.001))
+  (should (&lt; (abs (- (ex-sqrt-state-guess (ex-sqrt 9)) 3.0)) 0.001)))
+
+(ert-deftest ex-test-sqrt-non-perfect-square ()
+  "Test sqrt approximation for non-perfect square."
+  (should (&lt; (abs (- (ex-sqrt-state-guess (ex-sqrt 2)) 1.4142)) 0.001)))
+
+(ert-deftest ex-test-sqrt-zero ()
+  "Test sqrt approximation for zero."
+  (should (&lt; (abs (ex-sqrt-state-guess (ex-sqrt 0))) 0.01)))
+
+(ert-deftest ex-test-invalid-target ()
+  "Test invalid sqrt input."
+  (should-error (ex-sqrt -1) :type 'user-error)
+  (should-error (ex-sqrt "2") :type 'user-error))
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-421ceb94a126" class="outline-3">
+<h3 id="section-421ceb94a126"><span class="section-number-3">4.8.</span> 组装（唯一 tangle 出口）</h3>
+<div class="outline-text-3" id="text-4-8">
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><code class="language-lisp">&lt;&lt;chunk-header&gt;&gt;
+
+&lt;&lt;chunk-types&gt;&gt;
+
+&lt;&lt;chunk-data&gt;&gt;
+
+&lt;&lt;chunk-helpers&gt;&gt;
+
+&lt;&lt;chunk-core&gt;&gt;
+
+&lt;&lt;chunk-interface&gt;&gt;
+
+&lt;&lt;chunk-tests&gt;&gt;
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-section-ff3da1aa13b0" class="outline-2">
+<h2 id="section-ff3da1aa13b0"><span class="section-number-2">5.</span> 技术难点剖析（润色草稿）</h2>
+<div class="outline-text-2" id="text-5">
+<dl class="org-dl">
+<dt>过程抽象</dt><dd>程序不是把代码堆起来，而是把“怎么做”拆成可命名的小过程。</dd>
+<dt>黑箱抽象</dt><dd><code>ex-sqrt</code> 对外只暴露目标输入和结果输出，内部的猜测、判断、改进被封装起来。</dd>
+<dt>递归逼近</dt><dd>每一次递归都不是原地打转，而是让 <code>guess</code> 更接近目标答案。</dd>
+<dt>命名</dt><dd><code>ex--square</code>、<code>ex--improve-guess</code>、<code>ex--good-enough-p</code> 这些名字让代码接近问题语言。</dd>
+<dt>文学编程</dt><dd>Org-mode 把解释、代码块、测试、导出组织在同一份文档里，减少“代码会跑但没人看懂”的问题。</dd>
+</dl>
+</div>
+</div>
+<div id="outline-container-section-3fed7b1c8af4" class="outline-2">
+<h2 id="section-3fed7b1c8af4"><span class="section-number-2">6.</span> 任务指南（润色草稿）</h2>
+<div class="outline-text-2" id="text-6">
+<ol class="org-ol">
+<li>从 <code>chunk-helpers</code> 开始实现，优先保证辅助函数简单、纯净、可单独测试。</li>
+<li>实现 <code>chunk-core</code>，让主过程只负责调度：判断、改进、递归继续。</li>
+<li>补全 <code>chunk-tests</code>，覆盖正例、边界值和错误输入。</li>
+<li>执行 <code>M-x org-babel-tangle</code>，导出 <code>exercise-sqrt-process.el</code>。</li>
+<li>在 Emacs 中加载导出文件，运行 <code>M-x ert</code> 验证测试。</li>
+<li>手动执行 <code>M-x ex-sqrt-message</code>，输入 <code>2</code>、<code>9</code>、<code>100</code>，观察输出结果。</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-section-db28f2169d78" class="outline-2">
+<h2 id="section-db28f2169d78"><span class="section-number-2">7.</span> 验收标准</h2>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li>所有具名块均设置 <code>:tangle no</code>。</li>
+<li>只有组装块设置 <code>:tangle exercise-sqrt-process.el</code>。</li>
+<li>组装块内只包含 Noweb 引用，不包含任何实现代码。</li>
+<li>functional 范式下不生成 <code>chunk-class</code>。</li>
+<li><code>chunk-tests</code> 至少包含正例、边界用例、错误输入用例。</li>
+<li><code>M-x ert</code> 执行后，所有测试通过。</li>
+<li><code>ex-sqrt-message</code> 能作为 interactive 命令调用。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-42d56eae0843" class="outline-2">
+<h2 id="section-42d56eae0843"><span class="section-number-2">8.</span> 禁止事项</h2>
+<div class="outline-text-2" id="text-8">
+<ul class="org-ul">
+<li>禁止在具名块上设置 <code>:tangle exercise-sqrt-process.el</code>。</li>
+<li>禁止在组装块内写任何实现代码。</li>
+<li>禁止生成 <code>chunk-class</code>，本练习不是 OOP 范式。</li>
+<li>禁止省略 <code>:comments link</code>。</li>
+<li>禁止把平方根核心公式散落在多个位置重复实现。</li>
+<li>禁止让 <code>ex-sqrt</code> 直接处理所有细节；必须通过辅助函数分层。</li>
+<li>禁止删除测试块；没有测试，本练习不算完成。</li>
+</ul>
+</div>
+</div>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 00</h3>
+<p class="org-museum-related-empty">这篇笔记还没有可导出的关联页面。</p>
+<a class="local-graph-link" href="../../graph.html?focus=sicp">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+</div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <ul>
+      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <ul>
+      <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <ul>
+      <li><a href="sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+
+<script defer src="../../resources/org-museum-article.js?v=cbb6c6a96c25"></script>
+</body>
+</html>
