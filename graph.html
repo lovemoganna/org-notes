@@ -5,78 +5,189 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <title>Org Museum · 知识图谱</title>
-  <script src="resources/org-museum-theme.js?v=b064a8b284f0"></script>
-  <link rel="stylesheet" href="resources/org-museum.css?v=ea1a93715abf">
+  <script src="resources/org-museum-theme.js?v=e7f89e6b3289"></script>
+  <link rel="stylesheet" href="resources/org-museum.css?v=582e1e65b3b2">
   <link rel="icon" href="data:,">
   <script src="resources/d3.v7.min.js?v=f2094bbf6141"></script>
 </head>
 <body class="graph-page" data-page-kind="graph">
 <header class="museum-topbar" data-home-href="index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
-  <a class="museum-wordmark museum-topbar-link" href="index.html">ORG MUSEUM</a>
-  <time class="museum-today" datetime="2026-08-21" title="导出于 2026.08.21">2026.08.21</time>
+  <a class="museum-wordmark museum-topbar-link" href="index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-09-14" title="导出于 2026.09.14">2026.09.14</time>
   <label class="museum-search-line">
     <span class="sr-only">搜索图谱节点</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索节点…" autocomplete="off" spellcheck="false" aria-label="搜索图谱节点" aria-keyshortcuts="/">
     <kbd aria-hidden="true">/</kbd>
   </label>
   <nav class="museum-top-links" aria-label="Wiki 导航">
-    <a class="museum-topbar-link" href="index.html">首页</a>
-    <a class="museum-topbar-link" href="index.html#recent-updates">全部笔记</a>
-    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为浅色主题"><span aria-hidden="true" data-theme-icon>☀</span><span data-theme-label>浅色</span></button>
+    <a class="museum-topbar-link museum-nav-timeline" href="timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph is-active" href="graph.html" aria-current="page">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-all" href="index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
   </nav>
 </header>
 
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="related.html">关联阅读</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <ul>
+      <li><a href="pages/ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="pages/ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="pages/ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="pages/ail/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="pages/ail/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="pages/Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="pages/Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="pages/ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="pages/ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="pages/ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Sql <span>04</span></div>
+    <ul>
+      <li><a href="pages/sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="pages/sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="pages/sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="pages/sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="pages/theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="pages/vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <ul>
+      <li><a href="pages/lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+</aside>
+
 <main id="main-content" class="museum-graph-shell" tabindex="-1">
-  <aside class="museum-graph-rail">
-    <div class="museum-section-heading"><h1>知识图谱</h1><span id="graph-heading-count">/ 00</span></div>
-    <details class="graph-filter-summary" open>
-      <summary>统计与主题筛选</summary>
-      <dl class="graph-counts">
-        <div><dt>笔记</dt><dd id="stat-nodes">00</dd></div>
-        <div><dt>连线</dt><dd id="stat-links">00</dd></div>
-        <div><dt>主题</dt><dd id="stat-cats">00</dd></div>
-      </dl>
-      <div class="graph-filter-block">
-        <h2>主题筛选</h2>
-        <div id="graph-category-filters"></div>
-      </div>
+  <header class="graph-commandbar">
+    <div class="graph-commandbar-title">
+      <div class="museum-section-heading"><h1>知识图谱</h1><span id="graph-heading-count">/ 00</span></div>
+      <p>沿真实链接阅读，或整理尚未连接的笔记。</p>
+    </div>
+    <nav class="graph-mode-tabs" aria-label="图谱工作模式">
+      <button type="button" data-graph-view="relations" aria-pressed="true">关系阅读 <b id="graph-relation-count">00</b></button>
+      <button type="button" data-graph-view="triage" aria-pressed="false">待连接 <b id="graph-triage-count">00</b></button>
+    </nav>
+    <details class="graph-filter-summary">
+      <summary>范围 <span id="graph-filter-label">全部主题</span></summary>
+      <div id="graph-category-filters"></div>
     </details>
-    <div class="graph-view-controls">
-      <button type="button" id="btn-zoom-in" aria-label="放大图谱">放大</button>
-      <button type="button" id="btn-zoom-out" aria-label="缩小图谱">缩小</button>
-      <button type="button" id="btn-reset">重置视图</button>
-      <button type="button" id="btn-freeze">冻结布局</button>
-      <small>拖动画布 · 滚轮缩放</small>
+    <dl class="graph-counts" aria-label="图谱统计">
+      <div><dt>笔记</dt><dd id="stat-nodes">00</dd></div>
+      <div><dt>连线</dt><dd id="stat-links">00</dd></div>
+      <div><dt>主题</dt><dd id="stat-cats">00</dd></div>
+    </dl>
+    <div class="graph-view-controls" aria-label="画布控制">
+      <div class="graph-control-grid">
+        <button type="button" id="btn-zoom-in" aria-label="放大图谱"><i data-graph-icon="plus"></i><span>放大</span></button>
+        <button type="button" id="btn-zoom-out" aria-label="缩小图谱"><i data-graph-icon="minus"></i><span>缩小</span></button>
+        <button type="button" id="btn-reset" aria-label="适配全部关系"><i data-graph-icon="corners-out"></i><span>适配</span></button>
+        <button type="button" id="btn-center" aria-label="居中当前节点"><i data-graph-icon="crosshair"></i><span>居中</span></button>
+      </div>
+      <button type="button" id="btn-layout" aria-label="切换图谱布局方向，当前从左到右" aria-pressed="false"><i data-graph-icon="rows"></i><span>从左到右</span></button>
     </div>
     <p id="graph-match-status" role="status" aria-live="polite">匹配 00 个节点</p>
-  </aside>
+  </header>
   <section class="museum-graph-workspace" aria-label="知识关系画布">
-    <div id="graph-canvas"></div>
+    <div class="graph-canvas-stage">
+      <div id="graph-canvas" tabindex="-1"></div>
+      <aside class="graph-relation-legend" aria-label="关系类型图例">
+        <strong>关系类型</strong><ul id="graph-relation-legend"></ul>
+      </aside>
+      <svg id="graph-minimap" aria-label="图谱缩略导航" role="button" tabindex="0"></svg>
+    </div>
     <div id="graph-zero-notice" hidden>
       <strong>尚未形成知识连线</strong>
       <span>在笔记中加入 <code>[[wiki:笔记ID][标题]]</code> 即可创建关系。</span>
       <button type="button" id="graph-zero-copy">复制第一条 Wiki 链接</button>
     </div>
-    <details id="graph-isolated-fallback" hidden>
-      <summary>孤立笔记 <span id="graph-isolated-count">00</span></summary>
+    <section id="graph-triage-panel" class="graph-triage-panel" data-legacy-hook="graph-isolated-fallback" hidden aria-label="待连接笔记">
+      <header><div><strong>待连接笔记</strong><span>按主题审核并补充真实链接，不生成推测关系。</span></div><b id="graph-isolated-count">00</b></header>
       <div id="graph-isolated-list" class="graph-isolated-list"></div>
       <p id="graph-copy-status" class="sr-only" role="status" aria-live="polite"></p>
-    </details>
+    </section>
     <div id="graph-tooltip" role="status" aria-live="polite">
       <strong id="tt-title"></strong><span id="tt-meta"></span>
     </div>
-    <div class="graph-workspace-footer">
-      <p id="graph-selection-prompt">悬停查看详情；单击打开文章，Space 固定详情</p>
-      <div id="graph-selected-detail" hidden><span></span><a href="index.html">打开笔记 →</a>
-        <button type="button" id="btn-clear-selection">清除选择</button>
+    <div class="graph-workspace-footer" aria-live="polite">
+      <div id="graph-selection-prompt">
+        <strong>从一条真实关系开始阅读</strong>
+        <span>单击节点在原地理解，双击或 Enter 打开文章。</span>
       </div>
+      <article id="graph-selected-detail" hidden>
+        <header class="graph-inspector-header">
+          <div><span id="graph-selected-meta">等待选择</span><h2 id="graph-selected-title">尚未选择笔记</h2><div id="graph-selected-tags"></div></div>
+          <button type="button" id="btn-clear-selection" aria-label="关闭笔记详情">关闭</button>
+        </header>
+        <div class="graph-inspector-grid">
+          <section><h3>内容摘要</h3><p id="graph-selected-description"></p><dl id="graph-selected-facts"></dl></section>
+          <section><h3>关系脉络</h3><div id="graph-neighbours"></div></section>
+        </div>
+        <nav class="graph-inspector-actions" aria-label="连续阅读操作">
+          <button type="button" id="graph-previous">上一篇</button>
+          <button type="button" id="graph-next">下一篇</button>
+          <a id="graph-open-link" href="index.html">打开笔记</a>
+          <a id="graph-related-link" href="related.html" hidden>关联阅读</a>
+          <a id="graph-timeline-link" href="timeline.html">时间线</a>
+        </nav>
+      </article>
       <ul id="graph-legend" aria-label="主题图例"></ul>
     </div>
   </section>
 </main>
-<script type="application/json" id="graph-data">{"nodes":[{"id":"4aec0077-2a63-495f-b4b2-e3fdfcd66f88","name":"Emacs 插件高价值增量观察（滚动）","group":"Emacs","tags":["emacs","plugin-watch","rolling","org-roam"],"status":"published","degree":0,"url":"pages/Emacs/PluginWatch/emacs-plugin-watch.html"},{"id":"001-学习的牛逼之处","name":"001-学习的牛逼之处","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/001-学习的牛逼之处.html"},{"id":"002-学习需要被设计","name":"002-学习需要被设计","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/002-学习需要被设计.html"},{"id":"003-有效的ai工具","name":"003-有效的AI工具","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/003-有效的ai工具.html"},{"id":"004-小心使用","name":"004-小心使用","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/004-小心使用.html"},{"id":"005-信息概括","name":"005-信息概括","group":"AIL","tags":["ail"],"status":"draft","degree":0,"url":"pages/ail/005-信息概括.html"},{"id":"sicp","name":"SICP Lisp 过程抽象练习：平方根迭代逼近器","group":"Lisp","tags":["lisp"],"status":"draft","degree":0,"url":"pages/lisp/sicp.html"},{"id":"ontology-concept-boundaries","name":"本体论建模：从概念边界到可计算语义","group":"Ontology","tags":["ontology","knowledge-graph","semantic-modeling"],"status":"published","degree":1,"url":"pages/ontology/ontology-concept-boundaries.html"},{"id":"ontology-evidence-evolution","name":"本体治理：从证据追踪到安全演化","group":"Ontology","tags":["ontology","governance","provenance","evolution"],"status":"published","degree":1,"url":"pages/ontology/ontology-evidence-evolution.html"},{"id":"本体mvp","name":"本体MVP","group":"Ontology","tags":["ontology"],"status":"draft","degree":0,"url":"pages/ontology/本体mvp.html"},{"id":"duckdb-mpv","name":"DuckDB MPV","group":"SQL","tags":["sql"],"status":"draft","degree":0,"url":"pages/sql/duckdb-mpv.html"},{"id":"duckdb-ontology","name":"DuckDB 本体建模","group":"SQL","tags":["sql","duckdb","ontology","本体"],"status":"draft","degree":0,"url":"pages/sql/duckdb-ontology.html"},{"id":"3572220e-7c4f-45fd-af24-4e4ae2cddea2","name":"00 DuckDB 最小入门","group":"SQL","tags":["sql"],"status":"draft","degree":0,"url":"pages/sql/duckdb.html"},{"id":"sql","name":"DuckDB 实战入门：Emacs Package 数据分析","group":"SQL","tags":["sql"],"status":"draft","degree":0,"url":"pages/sql/sql.html"},{"id":"orgtheme","name":"OrgTheme 专业版主题开发系统","group":"Theme","tags":["theme"],"status":"draft","degree":0,"url":"pages/theme/orgtheme.html"}],"links":[{"source":"ontology-concept-boundaries","target":"ontology-evidence-evolution","value":1}],"meta":{"node-count":15,"tier":"small","tier-label":"Full Simulation","charge":-200,"alpha-decay":0.0228,"tick-limit":"false","pre-ticks":"false"}}</script>
+<script type="application/json" id="graph-data">{"nodes":[{"id":"dataset","name":"Dataset","group":"Data","tags":["data"],"status":"draft","degree":0,"description":"","created":1789228800.0,"modified":1789287430.817567,"linksTo":[],"linkedFrom":[],"url":"pages/Data/dataset.html"},{"id":"4aec0077-2a63-495f-b4b2-e3fdfcd66f88","name":"Emacs 插件高价值增量观察（滚动）","group":"Emacs","tags":["emacs","plugin-watch","rolling","org-roam"],"status":"published","degree":0,"description":"","created":1779638400.0,"modified":1785585524.222578,"linksTo":[],"linkedFrom":[],"url":"pages/Emacs/PluginWatch/emacs-plugin-watch.html"},{"id":"001-学习的牛逼之处","name":"001-学习的牛逼之处","group":"AIL","tags":["ail"],"status":"published","degree":0,"description":"","created":1780761600.0,"modified":1787759485.3515131,"linksTo":[],"linkedFrom":[],"url":"pages/ail/001-学习的牛逼之处.html"},{"id":"002-学习需要被设计","name":"002-学习需要被设计","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780761600.0,"modified":1780842637.933826,"linksTo":[],"linkedFrom":[],"url":"pages/ail/002-学习需要被设计.html"},{"id":"003-有效的ai工具","name":"003-有效的AI工具","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780761600.0,"modified":1780843826.6660671,"linksTo":[],"linkedFrom":[],"url":"pages/ail/003-有效的ai工具.html"},{"id":"004-小心使用","name":"004-小心使用","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780848000.0,"modified":1780848127.7017467,"linksTo":[],"linkedFrom":[],"url":"pages/ail/004-小心使用.html"},{"id":"005-信息概括","name":"005-信息概括","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780848000.0,"modified":1780886861.4612782,"linksTo":[],"linkedFrom":[],"url":"pages/ail/005-信息概括.html"},{"id":"sicp","name":"SICP Lisp 过程抽象练习：平方根迭代逼近器","group":"lisp","tags":["lisp"],"status":"draft","degree":0,"description":"","created":1780156800.0,"modified":1780213110.8629973,"linksTo":[],"linkedFrom":[],"url":"pages/lisp/sicp.html"},{"id":"ontology-concept-boundaries","name":"本体论建模：从概念边界到可计算语义","group":"Ontology","tags":["ontology","knowledge-graph","semantic-modeling"],"status":"published","degree":1,"description":"一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。","created":1786723200.0,"modified":1787322839.700095,"linksTo":["ontology-evidence-evolution"],"linkedFrom":["ontology-evidence-evolution"],"url":"pages/ontology/ontology-concept-boundaries.html"},{"id":"ontology-evidence-evolution","name":"本体治理：从证据追踪到安全演化","group":"Ontology","tags":["ontology","governance","provenance","evolution"],"status":"published","degree":2,"description":"面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。","created":1786723200.0,"modified":1789090813.7323947,"linksTo":["ontology-concept-boundaries"],"linkedFrom":["本体mvp","ontology-concept-boundaries"],"url":"pages/ontology/ontology-evidence-evolution.html"},{"id":"本体mvp","name":"本体MVP","group":"Ontology","tags":["ontology"],"status":"published","degree":1,"description":"","created":1783699200.0,"modified":1789090078.1449842,"linksTo":["ontology-evidence-evolution"],"linkedFrom":[],"url":"pages/ontology/本体mvp.html"},{"id":"duckdb-mpv","name":"DuckDB MPV","group":"Sql","tags":["sql"],"status":"draft","degree":0,"description":"","created":1787241600.0,"modified":1787322852.4399962,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb-mpv.html"},{"id":"duckdb-ontology","name":"DuckDB 本体建模","group":"Sql","tags":["sql","duckdb","ontology","本体"],"status":"draft","degree":0,"description":"","created":1781020800.0,"modified":1787326022.1745121,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb-ontology.html"},{"id":"3572220e-7c4f-45fd-af24-4e4ae2cddea2","name":"00 DuckDB 最小入门","group":"Sql","tags":["sql"],"status":"draft","degree":0,"description":"","created":1779897600.0,"modified":1789015953.809045,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb.html"},{"id":"sql","name":"DuckDB 实战入门：Emacs Package 数据分析","group":"Sql","tags":["sql"],"status":"draft","degree":0,"description":"","created":1780848000.0,"modified":1782574980.2230814,"linksTo":[],"linkedFrom":[],"url":"pages/sql/sql.html"},{"id":"orgtheme","name":"OrgTheme 专业版主题开发系统","group":"Theme","tags":["theme"],"status":"draft","degree":0,"description":"","created":1779897600.0,"modified":1779934627.5976079,"linksTo":[],"linkedFrom":[],"url":"pages/theme/orgtheme.html"},{"id":"vibe-coding","name":"vibe coding","group":"Vibe","tags":["vibe"],"status":"draft","degree":0,"description":"","created":1787673600.0,"modified":1789272803.8167655,"linksTo":[],"linkedFrom":[],"url":"pages/vibe/vibe-coding.html"}],"links":[{"source":"ontology-concept-boundaries","target":"ontology-evidence-evolution","type":"显式链接","bidirectional":true,"value":1},{"source":"本体mvp","target":"ontology-evidence-evolution","type":"显式链接","bidirectional":false,"value":1}],"meta":{"node-count":17,"tier":"small","tier-label":"Full Simulation","charge":-200,"alpha-decay":0.0228,"tick-limit":"false","pre-ticks":"false","relation-types":["显式链接"]}}</script>
 
-<script defer src="resources/org-museum-graph.js?v=fefc03e5b560"></script>
+
+
+<script defer src="resources/org-museum-graph.js?v=d27b13bd2161"></script>
 </body>
 </html>

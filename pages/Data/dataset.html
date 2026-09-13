@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-14 Mon 02:26 -->
+<!-- 2026-09-14 Mon 02:25 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>本体MVP</title>
+<title>Dataset</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=e7f89e6b3289"></script>
 <link rel="stylesheet" href="../../resources/org-museum.css?v=582e1e65b3b2">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="本体mvp" data-page-title="本体MVP" data-page-category="Ontology" data-page-tags="ontology" data-page-status="published" data-page-modified="2026-09-11" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="dataset" data-page-title="Dataset" data-page-category="Data" data-page-tags="data" data-page-status="draft" data-page-modified="2026-09-13" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
@@ -31,15 +31,15 @@
   </nav>
 </header>
 
-<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">本体MVP</a><span class="museum-identity-meta">Ontology</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
-<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="本体mvp" data-page-title="本体MVP" data-page-category="Ontology"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">Dataset</a><span class="museum-identity-meta">Data · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="dataset" data-page-title="Dataset" data-page-category="Data"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
-  <a class="article-category" href="../../index.html?category=Ontology#recent-updates">Ontology</a>
+  <a class="article-category" href="../../index.html?category=Data#recent-updates">Data</a><span class="museum-status-badge">草稿</span>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-09-11">2026-09-11</time></dd></div>
-    <div><dt>阅读时间</dt><dd>约 2 分钟</dd></div>
-    <div><dt>标签</dt><dd>ontology</dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-09-13">2026-09-13</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 3 分钟</dd></div>
+    <div><dt>标签</dt><dd>data</dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
     <a href="../../index.html#recent-updates">← 全部笔记</a>
@@ -48,96 +48,92 @@
 </aside>
 </details>
 
-<h1 class="title">本体MVP</h1>
+<h1 class="title">Dataset</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-674945ca933d">1. 本体MVP</a>
+<li><a href="#section-8aafde1bf2e8">1. Dataset</a>
 <ul>
-<li><a href="#section-af5c854753ff">1.1. Overview</a>
+<li><a href="#section-58116e42a88f">1.1. Overview</a>
 <ul>
-<li><a href="#section-1885af60e589">1.1.1. 摘要</a></li>
+<li><a href="#section-2726ef075f8c">1.1.1. 数据创造</a></li>
+<li><a href="#section-6b3889f8e8c9">1.1.2. 数据质检</a></li>
+<li><a href="#section-6545b8f7121a">1.1.3. 理解书籍</a></li>
 </ul>
 </li>
-<li><a href="#section-6dc7d31c8fd8">1.2. Content</a></li>
-<li><a href="#section-fd844b7272e3">1.3. References</a></li>
+<li><a href="#section-88ca35a48903">1.2. Content</a></li>
+<li><a href="#section-c4e819e61bc3">1.3. References</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-674945ca933d" class="outline-2">
-<h2 id="section-674945ca933d"><span class="section-number-2">1.</span> 本体MVP</h2>
+<div id="outline-container-section-8aafde1bf2e8" class="outline-2">
+<h2 id="section-8aafde1bf2e8"><span class="section-number-2">1.</span> Dataset</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-section-af5c854753ff" class="outline-3">
-<h3 id="section-af5c854753ff"><span class="section-number-3">1.1.</span> Overview</h3>
+<div id="outline-container-section-58116e42a88f" class="outline-3">
+<h3 id="section-58116e42a88f"><span class="section-number-3">1.1.</span> Overview</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-section-1885af60e589" class="outline-4">
-<h4 id="section-1885af60e589"><span class="section-number-4">1.1.1.</span> 摘要</h4>
+<div id="outline-container-section-2726ef075f8c" class="outline-4">
+<h4 id="section-2726ef075f8c"><span class="section-number-4">1.1.1.</span> 数据创造</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <p>
-本报告基于家庭用餐场景，按照“本体驱动数据建模（增强版）”七阶段流程完成
-领域建模、指标设计、交叉审计、数据库设计及模型验证。
+我如果想用一个Excel来练习SQL，你会为我准备什么样的数据集？
+请准备以下 <b><b>4 类真实业务结构的数据集</b></b>，用于交易所风控场景测试与分析：
+</p>
+
+<ol class="org-ol">
+<li><b><b>现货交易数据集</b></b>：多用户、多币对的完整现货交易明细，覆盖买卖方向、价格、数量、成交时间、手续费、订单等关键字段。</li>
+<li><b><b>链上资金活动数据集</b></b>：多用户充币、提币明细，覆盖币种、网络、金额、地址、TxID、时间、状态等关键字段。</li>
+<li><b><b>法币资金活动数据集</b></b>：多用户法币充值、提款明细，覆盖币种、金额、渠道、支付方式、手续费、订单状态、时间等关键字段。</li>
+<li><b><b>币对实时折 U 映射数据集</b></b>：维护不同币种/币对的实时价格及 <b><b>USDT 折算价格</b></b>，至少包含币种、交易对、实时价格、USDT 折算价格、价格更新时间等字段。需要覆盖不同币种及非 USDT 交易对，确保前面三类数据中的资产金额都能够统一折算为 <b><b>USDT（U）</b></b>，并支持按交易时间进行历史价格匹配。</li>
+</ol>
+
+<p>
+四类数据之间需要保持统一的**用户、资产、时间和金额口径**，能够相互关联并用于真实的风控分析、资金追踪和金额统计。实际市场数据通常会同时提供交易对价格、报价币种和更新时间等信息，可作为该数据集的字段设计参考。
 </p>
 
 <p>
-场景涉及四名家庭成员、外出购餐、家庭烹饪及共同用餐等业务活动，抽取
-Person（家庭成员）、Dish（菜品）、Restaurant（餐馆）、Trip（出行）、
-Purchase（购买）、Cooking（烹饪）、Meal（用餐）等8个核心本体概念，并定
-义其属性及关联关系。
+数据之间需要保持**用户、时间、资产和资金流向的关联性**，避免生成彼此孤立的模拟数据，确保能够支撑真实的风控分析和关联查询。交易所常见数据也通常将现货交易、加密资产充提和法币资金活动作为独立但可关联的数据类型。
 </p>
-
+</div>
+</div>
+<div id="outline-container-section-6b3889f8e8c9" class="outline-4">
+<h4 id="section-6b3889f8e8c9"><span class="section-number-4">1.1.2.</span> 数据质检</h4>
+<div class="outline-text-4" id="text-1-1-2">
 <p>
-围绕业务分析需求，设计5项核心指标：用餐人数、外购菜品数、骑行距离、菜
-品来源分布、重复菜品冲突，并为每项指标提供计算公式、SQL实现、阈值及分
-析方法。
+请对上轮产出的这份数据集进行一次完整质检，重点检查数据真实性、字段完整
+性、数据关联性、数量与分布合理性，以及是否覆盖关键业务场景，并进一步识
+别还能优化和补充的地方。 重点关注：缺失字段、异常数据、重复数据、孤立
+数据、时间与金额逻辑、跨数据集关联关系。只提出真正有价值的优化项，避免
+为了增加数据量而增加无意义内容。
 </p>
-
+</div>
+</div>
+<div id="outline-container-section-6545b8f7121a" class="outline-4">
+<h4 id="section-6545b8f7121a"><span class="section-number-4">1.1.3.</span> 理解书籍</h4>
+<div class="outline-text-4" id="text-1-1-3">
 <p>
-通过本体与指标双向交叉审计，补充指标计算所需但本体缺失的字段（如
-MealParticipant 关联），同时识别本体已定义但当前指标未使用的字段，为后
-续模型精简提供依据。
-</p>
-
-<p>
-最终完成7张关系型数据表设计，并验证全部字段、主外键及实体关系的完整性。
-构造不少于5组测试数据，对各项指标SQL及计算结果进行验证，确保模型可执行、
-数据一致且不存在孤立数据。
-</p>
-
-<p>
-最终交付包括：8个本体概念、X条实体关系、7张数据表、Y个字段（其中A个指
-标字段、B个核心业务字段、C个待评估字段）及5项核心业务指标，业务问题覆
-盖率达到5/5。各阶段成果详见后续章节。
+我找到了两本DuckDB有关的教学书籍，一会我会传递给你，可以帮我扫描概述下。
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-section-6dc7d31c8fd8" class="outline-3">
-<h3 id="section-6dc7d31c8fd8"><span class="section-number-3">1.2.</span> Content</h3>
+<div id="outline-container-section-88ca35a48903" class="outline-3">
+<h3 id="section-88ca35a48903"><span class="section-number-3">1.2.</span> Content</h3>
 </div>
 
-<div id="outline-container-section-fd844b7272e3" class="outline-3">
-<h3 id="section-fd844b7272e3"><span class="section-number-3">1.3.</span> References</h3>
-<div class="outline-text-3" id="text-1-3">
-<p>
-<a href="ontology-evidence-evolution.html">ontology-evidence-evolution.html</a>
-</p>
+<div id="outline-container-section-c4e819e61bc3" class="outline-3">
+<h3 id="section-c4e819e61bc3"><span class="section-number-3">1.3.</span> References</h3>
 </div>
 </div>
-</div>
-<nav class="org-museum-nav" aria-label="文章关系">
-<div class="org-museum-nav-links"><span class="org-museum-nav-label">链接到 / 01</span><span class="org-museum-relation-row"><a href="ontology-evidence-evolution.html" class="org-museum-link">本体治理：从证据追踪到安全演化</a><a href="../../related.html?source=%E6%9C%AC%E4%BD%93mvp&amp;target=ontology-evidence-evolution" class="org-museum-compare-link" aria-label="关联阅读：本体治理：从证据追踪到安全演化">对读</a></span></div>
-</nav>
 <section id="local-graph-container" aria-labelledby="local-graph-heading">
-<h3 id="local-graph-heading">局部关系 / 01</h3>
-<ul class="org-museum-related-list">
-<li><a href="ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
-</ul>
-<a class="local-graph-link" href="../../graph.html?focus=%E6%9C%AC%E4%BD%93mvp">查看局部关系 →</a>
+<h3 id="local-graph-heading">局部关系 / 00</h3>
+<p class="org-museum-related-empty">这篇笔记还没有可导出的关联页面。</p>
+<a class="local-graph-link" href="../../graph.html?focus=dataset">查看局部关系 →</a>
 </section>
 
 </article>
@@ -178,7 +174,7 @@ MealParticipant 关联），同时识别本体已定义但当前指标未使用�
   <div class="sidebar-category">
     <div class="sidebar-cat-label">Data <span>01</span></div>
     <ul>
-      <li><a href="../Data/dataset.html">Dataset</a></li>
+      <li><a href="dataset.html">Dataset</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -190,9 +186,9 @@ MealParticipant 关联），同时识别本体已定义但当前指标未使用�
   <div class="sidebar-category">
     <div class="sidebar-cat-label">Ontology <span>03</span></div>
     <ul>
-      <li><a href="本体mvp.html">本体MVP</a></li>
-      <li><a href="ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
-      <li><a href="ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+      <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
     </ul>
   </div>
   <div class="sidebar-category">

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Org Museum · 关联阅读</title>
+  <script src="resources/org-museum-theme.js?v=e7f89e6b3289"></script>
+  <link rel="stylesheet" href="resources/org-museum.css?v=582e1e65b3b2">
+  <link rel="stylesheet" href="resources/highlight.monokai.min.css?v=f0e099837087">
+  <link rel="icon" href="data:,">
+</head>
+<body class="related-page" data-page-kind="related">
+<header class="museum-topbar" data-home-href="index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-09-14" title="导出于 2026.09.14">2026.09.14</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索标题、分类或标签…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline" href="timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related is-active" href="related.html" aria-current="page">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-all" href="index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+  </nav>
+</header>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="related.html">关联阅读</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <ul>
+      <li><a href="pages/ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="pages/ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="pages/ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="pages/ail/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="pages/ail/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="pages/Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="pages/Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="pages/ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="pages/ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="pages/ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Sql <span>04</span></div>
+    <ul>
+      <li><a href="pages/sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="pages/sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="pages/sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="pages/sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="pages/theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="pages/vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <ul>
+      <li><a href="pages/lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+</aside>
+<main id="main-content" class="museum-related-shell" tabindex="-1">
+  <section id="related-index" class="related-index">
+    <header><p>关系书架</p><h1>显式 Org 关联阅读</h1><span>只展示笔记中真实存在的出链与入链。</span></header>
+    <div id="related-index-list" class="related-index-list"></div>
+    <p id="related-empty" class="museum-empty-copy" hidden>当前还没有可对读的显式关系。</p>
+  </section>
+  <section id="related-detail" class="related-detail" hidden>
+    <div class="related-modebar" role="group" aria-label="对读内容密度"><button type="button" data-related-mode="summary" aria-pressed="true">摘要对读</button><button type="button" data-related-mode="full" aria-pressed="false">完整正文</button><button type="button" data-related-sync aria-pressed="false">同步滚动：关</button><a id="related-open-source" href="#">打开源笔记</a><a href="graph.html">返回知识图谱</a><a id="related-open-target" href="#">打开目标笔记</a><span class="related-mobile-segments" role="group" aria-label="移动端对读区域"><button type="button" data-related-pane="source" aria-pressed="true">源笔记</button><button type="button" data-related-pane="relation" aria-pressed="false">关系</button><button type="button" data-related-pane="target" aria-pressed="false">目标笔记</button></span></div>
+    <div class="related-reading-grid">
+      <article class="related-paper" data-related-panel="source" aria-label="源笔记"></article>
+      <aside class="related-bridge" aria-label="关系方向"><strong id="related-kind">显式 Org 链接</strong><span aria-hidden="true">→</span><p id="related-direction">源 → 目标</p><button type="button" id="related-swap" hidden>交换方向</button><a href="graph.html">返回知识图谱</a></aside>
+      <article class="related-paper" data-related-panel="target" aria-label="目标笔记"></article>
+    </div>
+  </section>
+</main>
+<script src="resources/org-museum-related-data.js?v=0d3e0731325b"></script>
+<script src="resources/highlight.min.js?v=846267d84aaa"></script>
+
+<script defer src="resources/org-museum-related.js?v=68fe6699ae15"></script>
+</body>
+</html>

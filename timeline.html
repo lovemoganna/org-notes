@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="dark light">
+  <title>Org Museum · 知识时间轴</title>
+  <script src="resources/org-museum-theme.js?v=e7f89e6b3289"></script>
+  <link rel="stylesheet" href="resources/org-museum.css?v=582e1e65b3b2">
+  <link rel="icon" href="data:,">
+</head>
+<body class="timeline-page" data-page-kind="timeline">
+<header class="museum-topbar" data-home-href="index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-09-14" title="导出于 2026.09.14">2026.09.14</time>
+  <label class="museum-search-line">
+    <span class="sr-only">搜索时间轴</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索时间轴…" autocomplete="off" spellcheck="false" aria-label="搜索时间轴" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline is-active" href="timeline.html" aria-current="page">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-all" href="index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+  </nav>
+</header>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="related.html">关联阅读</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <ul>
+      <li><a href="pages/ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="pages/ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="pages/ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="pages/ail/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="pages/ail/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="pages/Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="pages/Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="pages/ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="pages/ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="pages/ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Sql <span>04</span></div>
+    <ul>
+      <li><a href="pages/sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="pages/sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="pages/sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="pages/sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="pages/theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="pages/vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <ul>
+      <li><a href="pages/lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+</aside>
+<main id="main-content" class="museum-timeline-shell" tabindex="-1">
+  <header class="timeline-hero"><p>TIME READING</p><h1>知识的长河</h1><span>按创建时间浏览，在选择中展开知识的更新轨迹</span></header>
+  <section class="timeline-scope-bar" aria-label="当前时间范围"><button id="timeline-filter-toggle" class="timeline-filter-toggle" type="button" aria-expanded="false" aria-controls="timeline-filter-sheet">筛选</button><strong class="timeline-scope-label">时间范围</strong><span id="timeline-scope-summary">全部笔记</span><span>/ <b id="timeline-total">00</b></span><p id="timeline-match-status" role="status" aria-live="polite">0 个时间节点</p></section>
+  <div id="timeline-filter-backdrop" class="timeline-filter-backdrop" hidden></div>
+  <aside id="timeline-filter-sheet" class="timeline-filter-sheet" aria-label="时间轴筛选" aria-modal="false" data-open="false" role="dialog" tabindex="-1"><div class="timeline-filter-sheet-head"><div><strong>筛选时间轨迹</strong><span id="timeline-filter-result" role="status" aria-live="polite">0 个时间节点</span></div><button id="timeline-filter-close" class="timeline-filter-close" type="button">完成</button></div><section><h3>主题</h3><div id="timeline-category-filters" class="timeline-filter-list"></div></section><section><h3>状态</h3><div id="timeline-status-filters" class="timeline-filter-list"></div></section></aside>
+  <div class="timeline-layout">
+    <section class="timeline-workspace" aria-label="知识时间轴">
+      <div class="timeline-legend"><span>● 创建</span><span>○ 选择后显示更新</span><span>↗ 显式 Org 链接</span></div>
+      <div id="timeline-canvas"><div id="timeline-svg"></div><div id="timeline-tooltip" role="tooltip" hidden></div></div>
+      <ol id="timeline-mobile-list"></ol>
+      <details class="timeline-isolated"><summary>孤立笔记 <span id="timeline-isolated-count">00</span></summary><div id="timeline-isolated-list"></div></details>
+    </section>
+    <aside id="timeline-focus-card" class="timeline-focus-card" aria-label="当前笔记" tabindex="-1" hidden></aside>
+  </div>
+</main>
+<script src="resources/d3.v7.min.js?v=f2094bbf6141"></script>
+<script type="application/json" id="timeline-data">{"schemaVersion":1,"generatedAt":"2026-09-14T02:27:19+0800","today":"2026-09-14","pages":[{"id":"4aec0077-2a63-495f-b4b2-e3fdfcd66f88","title":"Emacs 插件高价值增量观察（滚动）","category":"Emacs","categoryLabel":"Emacs","tags":["emacs","plugin-watch","rolling","org-roam"],"status":"published","description":"暂无可用简介。","created":1779638400.0,"createdDate":"2026-05-25","dateSource":"org-date","modified":1785585524.222578,"modifiedDate":"2026-08-01","ageDays":68,"linksTo":[],"linkedFrom":[],"href":"pages/Emacs/PluginWatch/emacs-plugin-watch.html"},{"id":"001-学习的牛逼之处","title":"001-学习的牛逼之处","category":"AIL","categoryLabel":"AIL","tags":["ail"],"status":"published","description":"任何人现在面对复杂世界会失控，而“会学习”是重新获得控制感的核心武器。\nLLM 不是替代老师和书，而是让你拥有一个随时可用的学习增幅器。但前提是你\n要学会正确使用它，所以你需要这门课。","created":1780761600.0,"createdDate":"2026-06-07","dateSource":"org-date","modified":1787759485.3515131,"modifiedDate":"2026-08-26","ageDays":80,"linksTo":[],"linkedFrom":[],"href":"pages/ail/001-学习的牛逼之处.html"},{"id":"本体mvp","title":"本体MVP","category":"Ontology","categoryLabel":"Ontology","tags":["ontology"],"status":"published","description":"本报告基于家庭用餐场景，按照“本体驱动数据建模（增强版）”七阶段流程完成\n领域建模、指标设计、交叉审计、数据库设计及模型验证。","created":1783699200.0,"createdDate":"2026-07-11","dateSource":"org-date","modified":1789090078.1449842,"modifiedDate":"2026-09-11","ageDays":62,"linksTo":["ontology-evidence-evolution"],"linkedFrom":[],"href":"pages/ontology/本体mvp.html"},{"id":"ontology-evidence-evolution","title":"本体治理：从证据追踪到安全演化","category":"Ontology","categoryLabel":"Ontology","tags":["ontology","governance","provenance","evolution"],"status":"published","description":"面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。","created":1786723200.0,"createdDate":"2026-08-15","dateSource":"org-date","modified":1789090813.7323947,"modifiedDate":"2026-09-11","ageDays":27,"linksTo":["ontology-concept-boundaries"],"linkedFrom":["本体mvp","ontology-concept-boundaries"],"href":"pages/ontology/ontology-evidence-evolution.html"},{"id":"ontology-concept-boundaries","title":"本体论建模：从概念边界到可计算语义","category":"Ontology","categoryLabel":"Ontology","tags":["ontology","knowledge-graph","semantic-modeling"],"status":"published","description":"一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。","created":1786723200.0,"createdDate":"2026-08-15","dateSource":"org-date","modified":1787322839.700095,"modifiedDate":"2026-08-21","ageDays":6,"linksTo":["ontology-evidence-evolution"],"linkedFrom":["ontology-evidence-evolution"],"href":"pages/ontology/ontology-concept-boundaries.html"}],"edges":[{"source":"本体mvp","target":"ontology-evidence-evolution","bidirectional":false},{"source":"ontology-evidence-evolution","target":"ontology-concept-boundaries","bidirectional":true}],"palette":["var(--museum-category-1)","var(--museum-category-2)","var(--museum-category-3)","var(--museum-category-4)","var(--museum-category-5)","var(--museum-category-6)","var(--museum-category-7)"]}</script>
+
+<script defer src="resources/org-museum-timeline.js?v=2b0eef8f802f"></script>
+</body>
+</html>

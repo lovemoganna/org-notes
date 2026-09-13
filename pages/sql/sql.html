@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-08-21 Fri 23:28 -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 2026-09-14 Mon 02:26 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DuckDB Tutorial DuckDB 实战入门：Emacs Package 数据分析</title>
-<meta name="generator" content="Org Mode">
+<meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=b064a8b284f0"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=ea1a93715abf">
+<script src="../../resources/org-museum-theme.js?v=e7f89e6b3289"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=582e1e65b3b2">
 <link rel="icon" href="data:,">
 </head>
 <body class="org-museum-page" data-page-kind="article" data-page-id="sql" data-page-title="DuckDB 实战入门：Emacs Package 数据分析" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-06-27" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
-  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM</a>
-  <time class="museum-today" datetime="2026-08-21" title="导出于 2026.08.21">2026.08.21</time>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-09-14" title="导出于 2026.09.14">2026.09.14</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
     <kbd aria-hidden="true">/</kbd>
   </label>
   <nav class="museum-top-links" aria-label="Wiki 导航">
-    <a class="museum-topbar-link" href="../../index.html">首页</a>
-    <a class="museum-topbar-link" href="../../graph.html">知识图谱</a>
-    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-label="打开全部笔记">笔记</button>
-    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为浅色主题"><span aria-hidden="true" data-theme-icon>☀</span><span data-theme-label>浅色</span></button>
+    <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
   </nav>
 </header>
 
-<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">DuckDB 实战入门：Emacs Package 数据分析</a><span class="museum-identity-meta">SQL · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
-<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><aside class="museum-article-meta" aria-label="文章元数据">
-  <a class="article-category" href="../../index.html?category=Sql#recent-updates">SQL</a><span class="museum-status-badge">草稿</span>
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">DuckDB 实战入门：Emacs Package 数据分析</a><span class="museum-identity-meta">Sql · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="sql" data-page-title="DuckDB 实战入门：Emacs Package 数据分析" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+  <summary>文章信息</summary>
+<aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=Sql#recent-updates">Sql</a><span class="museum-status-badge">草稿</span>
   <dl>
     <div><dt>修改日期</dt><dd><time datetime="2026-06-27">2026-06-27</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 105 分钟</dd></div>
@@ -42,7 +46,8 @@
     <a href="../../index.html">返回索引</a>
   </nav>
 </aside>
-<article class="article-container" data-page-id="sql" data-page-title="DuckDB 实战入门：Emacs Package 数据分析" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button>
+</details>
+
 <h1 class="title">DuckDB Tutorial DuckDB 实战入门：Emacs Package 数据分析
 <br>
 <span class="subtitle">任务驱动 · 渐进升级 · 可执行验证</span>
@@ -369,11 +374,11 @@
 本文件所有代码块通过 <code>ob-shell</code> 调用 DuckDB CLI 执行：
 </p>
 
-<pre class="example" id="org537c8ad"><code class="language-plaintext">
-  安装 DuckDB CLI：   pip install duckdb
-  执行任意代码块：    将光标置于 #+begin_src 行，按 C-c C-c
-  执行全部代码块：    M-x org-babel-execute-buffer（按顺序执行，慎用）
-  展开/折叠章节：     Tab / S-Tab
+<pre class="example" id="org7bb6064"><code class="language-plaintext">
+安装 DuckDB CLI：   pip install duckdb
+执行任意代码块：    将光标置于 #+begin_src 行，按 C-c C-c
+执行全部代码块：    M-x org-babel-execute-buffer（按顺序执行，慎用）
+展开/折叠章节：     Tab / S-Tab
 </code></pre>
 </div>
 </div>
@@ -582,7 +587,7 @@ python3 -c "import duckdb; print('Python DuckDB:', duckdb.__version__)"
 </code></pre>
 </div>
 
-<pre class="example" id="orgf2cf9eb"><code class="language-plaintext">
+<pre class="example" id="org0a4f9ce"><code class="language-plaintext">
 如果 duckdb 命令不在 PATH 中，尝试：
   python3 -m duckdb  （或找到 pip 的 bin 目录并加入 PATH）
 
@@ -601,7 +606,7 @@ duckdb -c "SELECT 'DuckDB 就绪' AS status, current_date AS today, 42 AS answer
 </code></pre>
 </div>
 
-<pre class="example" id="org75c5474"><code class="language-plaintext">
+<pre class="example" id="orge9091d2"><code class="language-plaintext">
 ┌──────────────┬────────────┬────────┐
 │    status    │   today    │ answer │
 │   varchar    │    date    │ int32  │
@@ -668,7 +673,7 @@ ls -lh "$HOME/duckdb/"
 <div id="outline-container-section-3e4074e1c7fd" class="outline-3">
 <h3 id="section-3e4074e1c7fd"><span class="section-number-3">3.7.</span> 交互式 Shell 常用命令</h3>
 <div class="outline-text-3" id="text-3-7">
-<pre class="example" id="org7096b35"><code class="language-plaintext">
+<pre class="example" id="org333f3ec"><code class="language-plaintext">
 .help          -- 帮助
 .tables        -- 列出所有表
 .schema &lt;表名&gt;  -- 查看建表语句
@@ -897,7 +902,7 @@ SQL
 <div id="outline-container-section-362361ef5917" class="outline-3">
 <h3 id="section-362361ef5917"><span class="section-number-3">4.6.</span> 预期输出示例</h3>
 <div class="outline-text-3" id="text-4-6">
-<pre class="example" id="orgaf27695"><code class="language-plaintext">
+<pre class="example" id="org2e40f67"><code class="language-plaintext">
 ┌───────────────┬─────────────┬─────────┬──────────────────┐
 │ column_name   │ column_type │ null    │ key              │
 ├───────────────┼─────────────┼─────────┼──────────────────┤
@@ -1351,7 +1356,7 @@ SQL
 <div id="outline-container-section-a0e9e301d359" class="outline-3">
 <h3 id="section-a0e9e301d359"><span class="section-number-3">6.10.</span> SQL 执行顺序（避免错误的关键）</h3>
 <div class="outline-text-3" id="text-6-10">
-<pre class="example" id="org15eb183"><code class="language-plaintext">
+<pre class="example" id="org323da62"><code class="language-plaintext">
 书写顺序：SELECT → FROM → WHERE → ORDER BY → LIMIT
 执行顺序：FROM → WHERE → SELECT → ORDER BY → LIMIT
 
@@ -1550,7 +1555,7 @@ SQL
 <div id="outline-container-section-d1943b586eac" class="outline-3">
 <h3 id="section-d1943b586eac"><span class="section-number-3">7.8.</span> GROUP BY 执行逻辑图解</h3>
 <div class="outline-text-3" id="text-7-8">
-<pre class="example" id="org1f533d3"><code class="language-plaintext">
+<pre class="example" id="org0e121c7"><code class="language-plaintext">
 原始数据：
   name       category    downloads
   company    completion  890000
@@ -2216,7 +2221,7 @@ LIMIT 5;
 <div id="outline-container-section-e22cc1afae45" class="outline-3">
 <h3 id="section-e22cc1afae45"><span class="section-number-3">10.9.</span> 文件操作速查</h3>
 <div class="outline-text-3" id="text-10-9">
-<pre class="example" id="org011c7ae"><code class="language-plaintext">
+<pre class="example" id="org43de475"><code class="language-plaintext">
 【读取】
 read_csv_auto('path')                    -- 自动推断，快速探索
 read_csv('path', header=true, ...)       -- 手动控制，生产使用
@@ -2536,7 +2541,7 @@ SQL
 <div id="outline-container-section-6a5c252f8e9a" class="outline-3">
 <h3 id="section-6a5c252f8e9a"><span class="section-number-3">11.10.</span> 窗口函数语法结构</h3>
 <div class="outline-text-3" id="text-11-10">
-<pre class="example" id="orgcd81336"><code class="language-plaintext">
+<pre class="example" id="org5a61afe"><code class="language-plaintext">
 函数名() OVER (
     [PARTITION BY 分组列]        -- 在哪个范围内计算（可选）
     [ORDER BY 排序列 DESC]        -- 如何排序（可选）
@@ -2896,7 +2901,7 @@ COPY (
 应用此模板到新数据集时，按顺序完成以下步骤：
 </p>
 
-<pre class="example" id="orgd82c259"><code class="language-plaintext">
+<pre class="example" id="org8faf9e0"><code class="language-plaintext">
 □ 1. 确认数据文件路径
       → read_csv_auto('your.csv') LIMIT 5;
 
@@ -3040,7 +3045,7 @@ COPY (
 <div id="outline-container-section-21e4bc99d497" class="outline-3">
 <h3 id="section-21e4bc99d497"><span class="section-number-3">14.2.</span> 常用函数一览</h3>
 <div class="outline-text-3" id="text-14-2">
-<pre class="example" id="org0e54834"><code class="language-plaintext">
+<pre class="example" id="org76aae52"><code class="language-plaintext">
 【字符串】
 UPPER(s)  LOWER(s)  TRIM(s)  LENGTH(s)
 CONCAT(a, b)  s LIKE 'pat%'  s ILIKE 'pat%'
@@ -3091,7 +3096,7 @@ IIF(cond, a, b)      -- 三目运算符
 <div id="outline-container-section-960612ef4330" class="outline-3">
 <h3 id="section-960612ef4330"><span class="section-number-3">14.3.</span> JOIN 类型</h3>
 <div class="outline-text-3" id="text-14-3">
-<pre class="example" id="org4c45669"><code class="language-plaintext">
+<pre class="example" id="org918f11c"><code class="language-plaintext">
 INNER JOIN  -- 只返回两表都有匹配的行
 LEFT  JOIN  -- 返回左表全部行，右表无匹配则为 NULL
 RIGHT JOIN  -- 返回右表全部行
@@ -3231,7 +3236,7 @@ SQL
 <p>
 代码块写法：
 </p>
-<pre class="example" id="org8322b28"><code class="language-plaintext">
+<pre class="example" id="orgc0ce80a"><code class="language-plaintext">
 #+begin_src sh :results output :exports both
 DB="$HOME/duckdb/emacs_packages.duckdb"
 duckdb "$DB" &lt;&lt;'SQL'
@@ -3256,7 +3261,7 @@ SQL
 <p>
 代码块写法：
 </p>
-<pre class="example" id="orgeb02d41"><code class="language-plaintext">
+<pre class="example" id="orgbe9f721"><code class="language-plaintext">
 #+begin_src python :results output
 import duckdb, os
 db = os.path.expanduser("~/duckdb/emacs_packages.duckdb")
@@ -3284,7 +3289,7 @@ conn.close()
 <p>
 代码块写法：
 </p>
-<pre class="example" id="org68f8c0e"><code class="language-plaintext">
+<pre class="example" id="org7d5438b"><code class="language-plaintext">
 #+begin_src duckdb :database ~/duckdb/emacs_packages.duckdb :results table
 SELECT COUNT(*) AS count FROM packages;
 #+end_src
@@ -3298,7 +3303,7 @@ SELECT COUNT(*) AS count FROM packages;
 在 org 文件顶部添加：
 </p>
 
-<pre class="example" id="org710c355"><code class="language-plaintext">
+<pre class="example" id="org7d13766"><code class="language-plaintext">
 #+PROPERTY: header-args:sh     :results output :exports both
 #+PROPERTY: header-args:python :results output :exports both
 #+PROPERTY: header-args:duckdb :results table  :exports both
@@ -3313,7 +3318,7 @@ SELECT COUNT(*) AS count FROM packages;
 <div id="outline-container-progress" class="outline-2">
 <h2 id="progress"><span class="section-number-2">17.</span> 学习进度追踪</h2>
 <div class="outline-text-2" id="text-17">
-<pre class="example" id="org0bb4528"><code class="language-plaintext">
+<pre class="example" id="orgf0312ae"><code class="language-plaintext">
 完成标记：[X] = 已完成  [-] = 进行中  [ ] = 未开始
 
 [ ] 模块 0：DuckDB 定位——能回答"何时用/何时不用"
@@ -3348,6 +3353,8 @@ SELECT COUNT(*) AS count FROM packages;
   <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
   <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
   <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="../../timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="../../related.html">关联阅读</a>
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
@@ -3371,6 +3378,12 @@ SELECT COUNT(*) AS count FROM packages;
     </ul>
   </div>
   <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="../Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
     <div class="sidebar-cat-label">Emacs <span>01</span></div>
     <ul>
       <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
@@ -3385,7 +3398,7 @@ SELECT COUNT(*) AS count FROM packages;
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <div class="sidebar-cat-label">Sql <span>04</span></div>
     <ul>
       <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
@@ -3400,7 +3413,13 @@ SELECT COUNT(*) AS count FROM packages;
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="../vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>
@@ -3412,6 +3431,6 @@ SELECT COUNT(*) AS count FROM packages;
 
 
 
-<script defer src="../../resources/org-museum-article.js?v=cbb6c6a96c25"></script>
+<script defer src="../../resources/org-museum-article.js?v=ab5c89406617"></script>
 </body>
 </html>
