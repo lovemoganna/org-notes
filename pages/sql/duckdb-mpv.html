@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-14 Mon 02:26 -->
+<!-- 2026-09-17 Thu 18:27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DuckDB MPV</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=e7f89e6b3289"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=582e1e65b3b2">
+<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
 <link rel="icon" href="data:,">
 </head>
 <body class="org-museum-page" data-page-kind="article" data-page-id="duckdb-mpv" data-page-title="DuckDB MPV" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-08-21" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-14" title="导出于 2026.09.14">2026.09.14</time>
+  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -31,11 +31,11 @@
   </nav>
 </header>
 
-<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">DuckDB MPV</a><span class="museum-identity-meta">Sql · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">DuckDB MPV</a><span class="museum-identity-meta">SQL · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
 <div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="duckdb-mpv" data-page-title="DuckDB MPV" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
-  <a class="article-category" href="../../index.html?category=Sql#recent-updates">Sql</a><span class="museum-status-badge">草稿</span>
+  <a class="article-category" href="../../index.html?category=Sql#recent-updates">SQL</a><span class="museum-status-badge">草稿</span>
   <dl>
     <div><dt>修改日期</dt><dd><time datetime="2026-08-21">2026-08-21</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 6 分钟</dd></div>
@@ -57,7 +57,7 @@
 <ul>
 <li><a href="#section-eb60120e0eaa">1.1. Overview</a>
 <ul>
-<li><a href="#section-13005af3ee81">1.1.1. 基础</a></li>
+<li><a href="#section-e7ce96e6309f">1.1.1. 基础</a></li>
 </ul>
 </li>
 <li><a href="#section-24c3970e829a">1.2. Content</a></li>
@@ -79,8 +79,8 @@
 <h3 id="section-eb60120e0eaa"><span class="section-number-3">1.1.</span> Overview</h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-section-13005af3ee81" class="outline-4">
-<h4 id="section-13005af3ee81"><span class="section-number-4">1.1.1.</span> 基础</h4>
+<div id="outline-container-section-e7ce96e6309f" class="outline-4">
+<h4 id="section-e7ce96e6309f"><span class="section-number-4">1.1.1.</span> 基础</h4>
 <div class="outline-text-4" id="text-1-1-1">
 <div class="org-src-container">
 <pre class="src src-duckdb"><code class="language-sql">SELECT *
@@ -91,26 +91,26 @@
 </code></pre>
 </div>
 
-<div class="results" id="orgeaa7a93"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>id,asset,amount
+<div class="results" id="org270e6bc"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>id,asset,amount
 1,BTC,1000
 2,ETH,2000</code></pre></div>
 </div>
 <ol class="org-ol">
-<li><a id="org4fbe7e0"></a>本质<br>
+<li><a id="orgeabee10"></a>本质<br>
 <div class="outline-text-5" id="text-1-1-1-1">
 <p>
 临时构造数据。
 </p>
 </div>
 </li>
-<li><a id="orgbc4e00c"></a>自然解释<br>
+<li><a id="org256fccb"></a>自然解释<br>
 <div class="outline-text-5" id="text-1-1-1-2">
 <p>
 直接在 SQL 里临时造出一张 2 行 3 列的表，并原样返回全部数据。
 </p>
 </div>
 </li>
-<li><a id="org1f6901d"></a>数据操作<br>
+<li><a id="orgd3ea835"></a>数据操作<br>
 <div class="outline-text-5" id="text-1-1-1-3">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">代码里写死的数据
@@ -127,7 +127,7 @@ id | asset | amount
 </div>
 </div>
 </li>
-<li><a id="org0abdaee"></a>关键解释<br>
+<li><a id="orgff90602"></a>关键解释<br>
 <div class="outline-text-5" id="text-1-1-1-4">
 <div class="org-src-container">
 <pre class="src src-duckdb"><code class="language-sql">-- → 临时生成两行数据，不需要读取真实数据库表。
@@ -144,7 +144,7 @@ SELECT *
 </div>
 </div>
 </li>
-<li><a id="org0bb12c4"></a>执行链<br>
+<li><a id="orgc158805"></a>执行链<br>
 <div class="outline-text-5" id="text-1-1-1-5">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">写入固定值 → 组成临时表 → 命名列 → 原样输出
@@ -388,7 +388,7 @@ NULL
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>04</span></div>
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
     <ul>
       <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
@@ -409,7 +409,7 @@ NULL
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>

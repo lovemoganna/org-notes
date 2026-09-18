@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-14 Mon 02:25 -->
+<!-- 2026-09-17 Thu 18:26 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SICP SICP Lisp 过程抽象练习：平方根迭代逼近器</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=e7f89e6b3289"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=582e1e65b3b2">
+<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
 <link rel="icon" href="data:,">
 </head>
 <body class="org-museum-page" data-page-kind="article" data-page-id="sicp" data-page-title="SICP Lisp 过程抽象练习：平方根迭代逼近器" data-page-category="lisp" data-page-tags="lisp" data-page-status="draft" data-page-modified="2026-05-31" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-14" title="导出于 2026.09.14">2026.09.14</time>
+  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -31,11 +31,11 @@
   </nav>
 </header>
 
-<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">SICP Lisp 过程抽象练习：平方根迭代逼近器</a><span class="museum-identity-meta">lisp · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">SICP Lisp 过程抽象练习：平方根迭代逼近器</a><span class="museum-identity-meta">Lisp · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
 <div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="sicp" data-page-title="SICP Lisp 过程抽象练习：平方根迭代逼近器" data-page-category="lisp"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
-  <a class="article-category" href="../../index.html?category=lisp#recent-updates">lisp</a><span class="museum-status-badge">草稿</span>
+  <a class="article-category" href="../../index.html?category=lisp#recent-updates">Lisp</a><span class="museum-status-badge">草稿</span>
   <dl>
     <div><dt>修改日期</dt><dd><time datetime="2026-05-31">2026-05-31</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 16 分钟</dd></div>
@@ -53,30 +53,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-06df0294c60b">1. §0 实例化配置区</a></li>
-<li><a href="#section-8200895d4536">2. 练习目标</a></li>
-<li><a href="#section-8d965de4f570">3. 题目描述</a></li>
-<li><a href="#section-df5f8f410397">4. 代码分解</a>
+<li><a href="#section-40c82e131645">1. §0 实例化配置区</a></li>
+<li><a href="#section-8040d202878e">2. 练习目标</a></li>
+<li><a href="#section-8040d202878e">3. 题目描述</a></li>
+<li><a href="#section-8040d202878e">4. 代码分解</a>
 <ul>
-<li><a href="#section-e9852fcd9576">4.1. 文件头</a></li>
-<li><a href="#section-7d2d238f4595">4.2. 类型定义</a></li>
-<li><a href="#section-c204d66cf84d">4.3. 数据定义</a></li>
-<li><a href="#section-21afee6fa62e">4.4. 辅助函数</a></li>
-<li><a href="#section-d9c873e3758a">4.5. 核心逻辑</a></li>
-<li><a href="#section-ad5f4298e8b2">4.6. 对外接口</a></li>
-<li><a href="#section-11800a236116">4.7. 测试与示例</a></li>
-<li><a href="#section-421ceb94a126">4.8. 组装（唯一 tangle 出口）</a></li>
+<li><a href="#section-9caf87103ef5">4.1. 文件头</a></li>
+<li><a href="#section-64b044fa9ac3">4.2. 类型定义</a></li>
+<li><a href="#section-64b044fa9ac3">4.3. 数据定义</a></li>
+<li><a href="#section-64b044fa9ac3">4.4. 辅助函数</a></li>
+<li><a href="#section-64b044fa9ac3">4.5. 核心逻辑</a></li>
+<li><a href="#section-64b044fa9ac3">4.6. 对外接口</a></li>
+<li><a href="#section-71327009b87c">4.7. 测试与示例</a></li>
+<li><a href="#section-0e445fa98bbc">4.8. 组装（唯一 tangle 出口）</a></li>
 </ul>
 </li>
-<li><a href="#section-ff3da1aa13b0">5. 技术难点剖析（润色草稿）</a></li>
-<li><a href="#section-3fed7b1c8af4">6. 任务指南（润色草稿）</a></li>
-<li><a href="#section-db28f2169d78">7. 验收标准</a></li>
-<li><a href="#section-42d56eae0843">8. 禁止事项</a></li>
+<li><a href="#section-690c1ca72035">5. 技术难点剖析（润色草稿）</a></li>
+<li><a href="#section-d34e179ea7e9">6. 任务指南（润色草稿）</a></li>
+<li><a href="#section-8040d202878e">7. 验收标准</a></li>
+<li><a href="#section-8040d202878e">8. 禁止事项</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-06df0294c60b" class="outline-2">
-<h2 id="section-06df0294c60b"><span class="section-number-2">1.</span> §0 实例化配置区</h2>
+<div id="outline-container-section-40c82e131645" class="outline-2">
+<h2 id="section-40c82e131645"><span class="section-number-2">1.</span> §0 实例化配置区</h2>
 <div class="outline-text-2" id="text-1">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
 
@@ -141,8 +141,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-8200895d4536" class="outline-2">
-<h2 id="section-8200895d4536"><span class="section-number-2">2.</span> 练习目标</h2>
+<div id="outline-container-section-8040d202878e" class="outline-2">
+<h2 id="section-8040d202878e"><span class="section-number-2">2.</span> 练习目标</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>掌握 Lisp 风格的过程抽象：把“如何求平方根”拆成可命名、可测试、可组合的小过程。</li>
@@ -152,8 +152,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-8d965de4f570" class="outline-2">
-<h2 id="section-8d965de4f570"><span class="section-number-2">3.</span> 题目描述</h2>
+<div id="outline-container-section-8040d202878e" class="outline-2">
+<h2 id="section-8040d202878e"><span class="section-number-2">3.</span> 题目描述</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 实现一个 Emacs Lisp 模块，用迭代逼近法计算非负数的平方根。程序需要完成以下行为：
@@ -177,15 +177,15 @@
 </ol>
 </div>
 </div>
-<div id="outline-container-section-df5f8f410397" class="outline-2">
-<h2 id="section-df5f8f410397"><span class="section-number-2">4.</span> 代码分解</h2>
+<div id="outline-container-section-8040d202878e" class="outline-2">
+<h2 id="section-8040d202878e"><span class="section-number-2">4.</span> 代码分解</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-section-e9852fcd9576" class="outline-3">
-<h3 id="section-e9852fcd9576"><span class="section-number-3">4.1.</span> 文件头</h3>
+<div id="outline-container-section-9caf87103ef5" class="outline-3">
+<h3 id="section-9caf87103ef5"><span class="section-number-3">4.1.</span> 文件头</h3>
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgee89f3f"><code class="language-lisp">;;; exercise-sqrt-process.el --- SICP-style sqrt process exercise -*- lexical-binding: t; -*-
+<pre class="src src-emacs-lisp" id="org9b7c501"><code class="language-lisp">;;; exercise-sqrt-process.el --- SICP-style sqrt process exercise -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;; TODO: 用 2-3 句话说明本练习对应的主题：过程、抽象、递归。
 ;; TODO: 写清楚本文件由 Org-mode tangle 生成，不建议直接修改导出文件。
@@ -200,11 +200,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-7d2d238f4595" class="outline-3">
-<h3 id="section-7d2d238f4595"><span class="section-number-3">4.2.</span> 类型定义</h3>
+<div id="outline-container-section-64b044fa9ac3" class="outline-3">
+<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.2.</span> 类型定义</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org6bbf13b"><code class="language-lisp">;; TODO: 补充字段说明：guess / target / tolerance / steps 分别表示什么。
+<pre class="src src-emacs-lisp" id="org4e0ca2f"><code class="language-lisp">;; TODO: 补充字段说明：guess / target / tolerance / steps 分别表示什么。
 ;; TODO: 思考为什么用结构体返回结果，而不是只返回一个数字。
 
 (cl-defstruct
@@ -219,11 +219,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-c204d66cf84d" class="outline-3">
-<h3 id="section-c204d66cf84d"><span class="section-number-3">4.3.</span> 数据定义</h3>
+<div id="outline-container-section-64b044fa9ac3" class="outline-3">
+<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.3.</span> 数据定义</h3>
 <div class="outline-text-3" id="text-4-3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org0dd2f48"><code class="language-lisp">;; TODO: 调整默认容忍度，观察测试结果是否仍然稳定。
+<pre class="src src-emacs-lisp" id="org7c88dac"><code class="language-lisp">;; TODO: 调整默认容忍度，观察测试结果是否仍然稳定。
 ;; TODO: 调整最大迭代次数，观察过小的值会导致什么问题。
 
 (defconst ex-default-tolerance 1e-05
@@ -241,11 +241,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-21afee6fa62e" class="outline-3">
-<h3 id="section-21afee6fa62e"><span class="section-number-3">4.4.</span> 辅助函数</h3>
+<div id="outline-container-section-64b044fa9ac3" class="outline-3">
+<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.4.</span> 辅助函数</h3>
 <div class="outline-text-3" id="text-4-4">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org8d6de5b"><code class="language-lisp">;; TODO: 保持本块函数尽量纯净，不读写外部状态。
+<pre class="src src-emacs-lisp" id="org444c78e"><code class="language-lisp">;; TODO: 保持本块函数尽量纯净，不读写外部状态。
 ;; TODO: 为每个辅助函数补充一个简单例子，写进文档字符串。
 
 (defun ex--square (x)
@@ -272,11 +272,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-d9c873e3758a" class="outline-3">
-<h3 id="section-d9c873e3758a"><span class="section-number-3">4.5.</span> 核心逻辑</h3>
+<div id="outline-container-section-64b044fa9ac3" class="outline-3">
+<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.5.</span> 核心逻辑</h3>
 <div class="outline-text-3" id="text-4-5">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgef155a4"><code class="language-lisp">;; TODO: 本块依赖 chunk-data 与 chunk-helpers；保持 Assembly 中的装配顺序。
+<pre class="src src-emacs-lisp" id="orgdd7536b"><code class="language-lisp">;; TODO: 本块依赖 chunk-data 与 chunk-helpers；保持 Assembly 中的装配顺序。
 ;; TODO: 不要把辅助函数逻辑重复写进核心函数，避免破坏黑箱抽象。
 
 (defun ex--sqrt-iterate (target guess tolerance steps)
@@ -312,11 +312,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-ad5f4298e8b2" class="outline-3">
-<h3 id="section-ad5f4298e8b2"><span class="section-number-3">4.6.</span> 对外接口</h3>
+<div id="outline-container-section-64b044fa9ac3" class="outline-3">
+<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.6.</span> 对外接口</h3>
 <div class="outline-text-3" id="text-4-6">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgb542134"><code class="language-lisp">;; TODO: 改造输出格式，让它更适合在 *Messages* buffer 中阅读。
+<pre class="src src-emacs-lisp" id="org1be6aac"><code class="language-lisp">;; TODO: 改造输出格式，让它更适合在 *Messages* buffer 中阅读。
 ;; TODO: 增加可选参数读取，让用户手动输入 tolerance。
 
 (defun ex-sqrt-message (target)
@@ -336,11 +336,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-11800a236116" class="outline-3">
-<h3 id="section-11800a236116"><span class="section-number-3">4.7.</span> 测试与示例</h3>
+<div id="outline-container-section-71327009b87c" class="outline-3">
+<h3 id="section-71327009b87c"><span class="section-number-3">4.7.</span> 测试与示例</h3>
 <div class="outline-text-3" id="text-4-7">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgd8fea8f"><code class="language-lisp">;; 使用 ert 框架
+<pre class="src src-emacs-lisp" id="orgecb7dfc"><code class="language-lisp">;; 使用 ert 框架
 ;; TODO: 增加更多边界测试，例如极小小数、极大数字。
 ;; TODO: 增加失败用例，观察错误信息是否清晰。
 
@@ -370,8 +370,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-421ceb94a126" class="outline-3">
-<h3 id="section-421ceb94a126"><span class="section-number-3">4.8.</span> 组装（唯一 tangle 出口）</h3>
+<div id="outline-container-section-0e445fa98bbc" class="outline-3">
+<h3 id="section-0e445fa98bbc"><span class="section-number-3">4.8.</span> 组装（唯一 tangle 出口）</h3>
 <div class="outline-text-3" id="text-4-8">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code class="language-lisp">&lt;&lt;chunk-header&gt;&gt;
@@ -392,8 +392,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-ff3da1aa13b0" class="outline-2">
-<h2 id="section-ff3da1aa13b0"><span class="section-number-2">5.</span> 技术难点剖析（润色草稿）</h2>
+<div id="outline-container-section-690c1ca72035" class="outline-2">
+<h2 id="section-690c1ca72035"><span class="section-number-2">5.</span> 技术难点剖析（润色草稿）</h2>
 <div class="outline-text-2" id="text-5">
 <dl class="org-dl">
 <dt>过程抽象</dt><dd>程序不是把代码堆起来，而是把“怎么做”拆成可命名的小过程。</dd>
@@ -404,8 +404,8 @@
 </dl>
 </div>
 </div>
-<div id="outline-container-section-3fed7b1c8af4" class="outline-2">
-<h2 id="section-3fed7b1c8af4"><span class="section-number-2">6.</span> 任务指南（润色草稿）</h2>
+<div id="outline-container-section-d34e179ea7e9" class="outline-2">
+<h2 id="section-d34e179ea7e9"><span class="section-number-2">6.</span> 任务指南（润色草稿）</h2>
 <div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li>从 <code>chunk-helpers</code> 开始实现，优先保证辅助函数简单、纯净、可单独测试。</li>
@@ -417,8 +417,8 @@
 </ol>
 </div>
 </div>
-<div id="outline-container-section-db28f2169d78" class="outline-2">
-<h2 id="section-db28f2169d78"><span class="section-number-2">7.</span> 验收标准</h2>
+<div id="outline-container-section-8040d202878e" class="outline-2">
+<h2 id="section-8040d202878e"><span class="section-number-2">7.</span> 验收标准</h2>
 <div class="outline-text-2" id="text-7">
 <ul class="org-ul">
 <li>所有具名块均设置 <code>:tangle no</code>。</li>
@@ -431,8 +431,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-42d56eae0843" class="outline-2">
-<h2 id="section-42d56eae0843"><span class="section-number-2">8.</span> 禁止事项</h2>
+<div id="outline-container-section-8040d202878e" class="outline-2">
+<h2 id="section-8040d202878e"><span class="section-number-2">8.</span> 禁止事项</h2>
 <div class="outline-text-2" id="text-8">
 <ul class="org-ul">
 <li>禁止在具名块上设置 <code>:tangle exercise-sqrt-process.el</code>。</li>
@@ -507,7 +507,7 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>04</span></div>
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -528,7 +528,7 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>

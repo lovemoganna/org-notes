@@ -165,6 +165,7 @@ function setGraphView(value,pushHistory){
   if(workspaceFooter)workspaceFooter.hidden=state.view==='triage';
   if(state.view==='triage')renderFallbackList();
   else placeGraphInspector(nodes.find(function(node){return node.id===state.selectedId;}));
+  updateMatchStatus();
   if(pushHistory)writeGraphUrl('push');
 }
 function restoreGraphInspector(){
@@ -209,12 +210,17 @@ function matches(node){
   var hay=[node.name,node.group].concat(node.tags||[]).join(' ').toLowerCase();
   return catOk&&(!state.query||hay.indexOf(state.query)>=0);
 }
-function visibleNodes(){return nodes.filter(matches);}
-var graphNotice='';
-function updateMatchStatus(visible){
-  if(matchStatus)matchStatus.textContent=visible.length+' 个匹配节点'+(graphNotice?' · '+graphNotice:'');
+function visibleModeNodes(){
+  var source=state.view==='triage'?(isZeroLinkGraph?nodes:isolatedNodes):canvasNodes;
+  return source.filter(matches);
 }
-function announceGraph(message){graphNotice=message;updateMatchStatus(visibleNodes());}
+var graphNotice='';
+function updateMatchStatus(){
+  var visible=visibleModeNodes();
+  var label=state.view==='triage'?' 个待连接节点':' 个匹配关系节点';
+  if(matchStatus)matchStatus.textContent=visible.length+label+(graphNotice?' · '+graphNotice:'');
+}
+function announceGraph(message){graphNotice=message;updateMatchStatus();}
 
 function copyWikiLink(value,button){
   var status=document.getElementById('graph-copy-status');
@@ -734,8 +740,7 @@ function neighborhood(node){
   return ids;
 }
 function applyFilter(){
-  var visible=visibleNodes();
-  updateMatchStatus(visible);
+  updateMatchStatus();
   if(!nodeSelection)return;
   nodeSelection
     .classed('graph-node-neighbour',function(node){
@@ -823,7 +828,7 @@ else if(motionQuery.addListener)motionQuery.addListener(syncMotionPreference);
 if(search)search.addEventListener('input',function(){
   state.query=search.value.trim().toLowerCase();applyFilter();
   if(state.selectedId&&!matches(nodes.find(function(node){return node.id===state.selectedId;}))){clearSelection(false);graphNotice='筛选后已清除原选择';}else graphNotice='';
-  updateMatchStatus(visibleNodes());
+  updateMatchStatus();
   writeGraphUrl('replace');
   if(hasIsolatedNodes)renderFallbackList();
 });

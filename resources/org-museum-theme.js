@@ -55,6 +55,16 @@
     return normalize(document.documentElement.dataset.theme);
   }
 
+  function syncCurrentThemeUrl(theme) {
+    try {
+      var url = new URL(location.href);
+      if (!/\.html$/i.test(url.pathname) || typeof history === "undefined" ||
+          typeof history.replaceState !== "function") return;
+      url.searchParams.set(key, theme);
+      history.replaceState(history.state, "", url.href);
+    } catch (_error) {}
+  }
+
   function applyTheme(value, persist) {
     var theme = normalize(value);
     document.documentElement.dataset.theme = theme;
@@ -66,6 +76,7 @@
       try {
         localStorage.setItem(key, theme);
       } catch (_error) {}
+      syncCurrentThemeUrl(theme);
     }
   }
 

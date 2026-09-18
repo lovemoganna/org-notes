@@ -138,7 +138,12 @@ function updateMode(nextMode,push){
   renderPanel('source',source);renderPanel('target',target);
   document.querySelectorAll('.related-paper').forEach(function(panel,index){panel.scrollTop=positions[mode][index]||0;});
   setActivePane(activePane);
-  if(window.hljs)document.querySelectorAll('.related-full pre code').forEach(function(code){window.hljs.highlightElement(code);});
+  if(window.hljs)document.querySelectorAll('.related-full pre code').forEach(function(code){
+    var languageClass=Array.from(code.classList).find(function(className){return className.indexOf('language-')===0;});
+    var lang=languageClass?languageClass.slice(9):'';
+    if(!code.dataset.highlighted&&(!lang||hljs.getLanguage(lang)))hljs.highlightElement(code);
+    else if(lang&&!hljs.getLanguage(lang))code.classList.add('no-highlight');
+  });
   if(push)setUrl(mode);
 }
 function renderDetail(){

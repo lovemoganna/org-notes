@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-14 Mon 02:26 -->
+<!-- 2026-09-17 Thu 18:27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>本体治理：从证据追踪到安全演化</title>
 <meta name="description" content="面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。" />
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=e7f89e6b3289"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=582e1e65b3b2">
+<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="ontology-evidence-evolution" data-page-title="本体治理：从证据追踪到安全演化" data-page-category="Ontology" data-page-tags="ontology,governance,provenance,evolution" data-page-status="published" data-page-modified="2026-09-11" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="ontology-evidence-evolution" data-page-title="本体治理：从证据追踪到安全演化" data-page-category="Ontology" data-page-tags="ontology,governance,provenance,evolution" data-page-status="published" data-page-modified="2026-09-10" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-14" title="导出于 2026.09.14">2026.09.14</time>
+  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -38,7 +38,7 @@
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../index.html?category=Ontology#recent-updates">Ontology</a>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-09-11">2026-09-11</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-09-10">2026-09-10</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 12 分钟</dd></div>
     <div><dt>标签</dt><dd>ontology · governance · provenance · evolution</dd></div>
   </dl>
@@ -54,29 +54,29 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-1717ab560dc7">1. 导言：模型上线之后，治理才真正开始</a></li>
-<li><a href="#section-ee7c8a57b4bc">2. 一、证据优先：结论必须能够回到来源</a></li>
-<li><a href="#section-07bc2632dc91">3. 二、把“观察”“解释”和“决定”分层</a></li>
-<li><a href="#section-763a07969ad4">4. 三、冲突不是异常噪声，而是一等数据</a></li>
-<li><a href="#section-96950bc8101c">5. 四、时间是本体治理的核心维度</a></li>
-<li><a href="#section-b0054e6b5c3a">6. 五、本体版本：变更类型决定迁移策略</a></li>
-<li><a href="#section-296714d33ebc">7. 六、质量门禁：发布前验证模型、数据和能力</a>
+<li><a href="#section-e7bd55250766">1. 导言：模型上线之后，治理才真正开始</a></li>
+<li><a href="#section-e7bd55250766">2. 一、证据优先：结论必须能够回到来源</a></li>
+<li><a href="#section-5d6755c5553f">3. 二、把“观察”“解释”和“决定”分层</a></li>
+<li><a href="#section-e7bd55250766">4. 三、冲突不是异常噪声，而是一等数据</a></li>
+<li><a href="#section-4cb42c2df639">5. 四、时间是本体治理的核心维度</a></li>
+<li><a href="#section-e7bd55250766">6. 五、本体版本：变更类型决定迁移策略</a></li>
+<li><a href="#section-a4bb340b8d09">7. 六、质量门禁：发布前验证模型、数据和能力</a>
 <ul>
-<li><a href="#section-46d7bcd41d74">7.1. 1. 结构门禁</a></li>
-<li><a href="#section-6e6f10733716">7.2. 2. 数据门禁</a></li>
-<li><a href="#section-6fac7a65ab46">7.3. 3. 能力门禁</a></li>
+<li><a href="#section-27635bdd7a40">7.1. 1. 结构门禁</a></li>
+<li><a href="#section-85ec146d8a42">7.2. 2. 数据门禁</a></li>
+<li><a href="#section-321b35b5e2d3">7.3. 3. 能力门禁</a></li>
 </ul>
 </li>
-<li><a href="#section-98405bb64cfe">8. 七、主动反证：寻找能够推翻模型的输入</a></li>
-<li><a href="#section-f04031b37e25">9. 八、可回滚发布流程</a></li>
-<li><a href="#section-bd037208c886">10. 九、治理看板应该呈现什么</a></li>
-<li><a href="#section-bba19054ff6f">11. 十、生产治理检查清单</a></li>
-<li><a href="#section-c508ead5b7e2">12. 结语：可信来自可撤回，而不是永远确定</a></li>
+<li><a href="#section-5d6755c5553f">8. 七、主动反证：寻找能够推翻模型的输入</a></li>
+<li><a href="#section-934c7c2ddbd4">9. 八、可回滚发布流程</a></li>
+<li><a href="#section-c54a8c651bf4">10. 九、治理看板应该呈现什么</a></li>
+<li><a href="#section-dfdad71da94b">11. 十、生产治理检查清单</a></li>
+<li><a href="#section-5d6755c5553f">12. 结语：可信来自可撤回，而不是永远确定</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-1717ab560dc7" class="outline-2">
-<h2 id="section-1717ab560dc7"><span class="section-number-2">1.</span> 导言：模型上线之后，治理才真正开始</h2>
+<div id="outline-container-section-e7bd55250766" class="outline-2">
+<h2 id="section-e7bd55250766"><span class="section-number-2">1.</span> 导言：模型上线之后，治理才真正开始</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本体第一次发布时通常整洁、连贯、充满确定性；真实数据进入后，问题才会出现：同一对象来自多个系统，规则在不同时间生效，字段含义发生漂移，证据互相冲突，旧查询仍依赖已经废弃的关系。
@@ -91,8 +91,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-ee7c8a57b4bc" class="outline-2">
-<h2 id="section-ee7c8a57b4bc"><span class="section-number-2">2.</span> 一、证据优先：结论必须能够回到来源</h2>
+<div id="outline-container-section-e7bd55250766" class="outline-2">
+<h2 id="section-e7bd55250766"><span class="section-number-2">2.</span> 一、证据优先：结论必须能够回到来源</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 一条可治理的知识陈述至少包含五个维度：
@@ -157,8 +157,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-07bc2632dc91" class="outline-2">
-<h2 id="section-07bc2632dc91"><span class="section-number-2">3.</span> 二、把“观察”“解释”和“决定”分层</h2>
+<div id="outline-container-section-5d6755c5553f" class="outline-2">
+<h2 id="section-5d6755c5553f"><span class="section-number-2">3.</span> 二、把“观察”“解释”和“决定”分层</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 治理中最常见的错误，是把原始数据直接写成最终业务结论。更安全的结构分为三层：
@@ -174,7 +174,7 @@
 例如，仓库事件 <code>PACKED</code> 是观察；“订单已进入履约阶段”是解释；“取消请求需要人工审批”是决定。三层分开后，规则改变时可以重算决定，而无需篡改原始事件。
 </p>
 
-<pre class="example" id="org32a9476"><code class="language-plaintext">
+<pre class="example" id="org2bf91ce"><code class="language-plaintext">
 Evidence E-88
   observedCode = "PACKED"
   sourceSystem = "WMS"
@@ -191,8 +191,8 @@ Decision D-09
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-763a07969ad4" class="outline-2">
-<h2 id="section-763a07969ad4"><span class="section-number-2">4.</span> 三、冲突不是异常噪声，而是一等数据</h2>
+<div id="outline-container-section-e7bd55250766" class="outline-2">
+<h2 id="section-e7bd55250766"><span class="section-number-2">4.</span> 三、冲突不是异常噪声，而是一等数据</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 两个可靠来源可能给出不同结论。仓库系统显示“已打包”，支付系统显示“已退款”，客服系统仍显示“等待取消”。如果治理层简单采用最后写入值，冲突会消失在数据表里，却继续存在于业务中。
@@ -241,8 +241,8 @@ Decision D-09
 </p>
 </div>
 </div>
-<div id="outline-container-section-96950bc8101c" class="outline-2">
-<h2 id="section-96950bc8101c"><span class="section-number-2">5.</span> 四、时间是本体治理的核心维度</h2>
+<div id="outline-container-section-4cb42c2df639" class="outline-2">
+<h2 id="section-4cb42c2df639"><span class="section-number-2">5.</span> 四、时间是本体治理的核心维度</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 “当前事实”会随时间改变，规则也会改变。至少要区分三种时间：
@@ -277,8 +277,8 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-b0054e6b5c3a" class="outline-2">
-<h2 id="section-b0054e6b5c3a"><span class="section-number-2">6.</span> 五、本体版本：变更类型决定迁移策略</h2>
+<div id="outline-container-section-e7bd55250766" class="outline-2">
+<h2 id="section-e7bd55250766"><span class="section-number-2">6.</span> 五、本体版本：变更类型决定迁移策略</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 不是所有模型变更都同样危险。可以按兼容性分为四类：
@@ -356,15 +356,15 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-296714d33ebc" class="outline-2">
-<h2 id="section-296714d33ebc"><span class="section-number-2">7.</span> 六、质量门禁：发布前验证模型、数据和能力</h2>
+<div id="outline-container-section-a4bb340b8d09" class="outline-2">
+<h2 id="section-a4bb340b8d09"><span class="section-number-2">7.</span> 六、质量门禁：发布前验证模型、数据和能力</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 本体发布不能只检查文件是否能解析。至少需要三类门禁：
 </p>
 </div>
-<div id="outline-container-section-46d7bcd41d74" class="outline-3">
-<h3 id="section-46d7bcd41d74"><span class="section-number-3">7.1.</span> 1. 结构门禁</h3>
+<div id="outline-container-section-27635bdd7a40" class="outline-3">
+<h3 id="section-27635bdd7a40"><span class="section-number-3">7.1.</span> 1. 结构门禁</h3>
 <div class="outline-text-3" id="text-7-1">
 <ul class="org-ul">
 <li>WIKI_ID、IRI 或内部标识是否唯一；</li>
@@ -374,8 +374,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-6e6f10733716" class="outline-3">
-<h3 id="section-6e6f10733716"><span class="section-number-3">7.2.</span> 2. 数据门禁</h3>
+<div id="outline-container-section-85ec146d8a42" class="outline-3">
+<h3 id="section-85ec146d8a42"><span class="section-number-3">7.2.</span> 2. 数据门禁</h3>
 <div class="outline-text-3" id="text-7-2">
 <ul class="org-ul">
 <li>必需证据是否存在；</li>
@@ -385,8 +385,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-6fac7a65ab46" class="outline-3">
-<h3 id="section-6fac7a65ab46"><span class="section-number-3">7.3.</span> 3. 能力门禁</h3>
+<div id="outline-container-section-321b35b5e2d3" class="outline-3">
+<h3 id="section-321b35b5e2d3"><span class="section-number-3">7.3.</span> 3. 能力门禁</h3>
 <div class="outline-text-3" id="text-7-3">
 <ul class="org-ul">
 <li>每个对外能力是否有真实查询或规则实现；</li>
@@ -401,8 +401,8 @@ WHERE order_id = 'O-17'
 </div>
 </div>
 </div>
-<div id="outline-container-section-98405bb64cfe" class="outline-2">
-<h2 id="section-98405bb64cfe"><span class="section-number-2">8.</span> 七、主动反证：寻找能够推翻模型的输入</h2>
+<div id="outline-container-section-5d6755c5553f" class="outline-2">
+<h2 id="section-5d6755c5553f"><span class="section-number-2">8.</span> 七、主动反证：寻找能够推翻模型的输入</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 治理测试的目标不是证明当前模型永远正确，而是确认它能在错误条件下诚实失败。
@@ -426,14 +426,14 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-f04031b37e25" class="outline-2">
-<h2 id="section-f04031b37e25"><span class="section-number-2">9.</span> 八、可回滚发布流程</h2>
+<div id="outline-container-section-934c7c2ddbd4" class="outline-2">
+<h2 id="section-934c7c2ddbd4"><span class="section-number-2">9.</span> 八、可回滚发布流程</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 一个最小而可靠的本体发布流程可以写成：
 </p>
 
-<pre class="example" id="org2163b0a"><code class="language-plaintext">
+<pre class="example" id="org4f67693"><code class="language-plaintext">
 冻结验收条件
   → 快照当前模型、数据与查询结果
   → 在隔离环境执行迁移
@@ -462,8 +462,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-bd037208c886" class="outline-2">
-<h2 id="section-bd037208c886"><span class="section-number-2">10.</span> 九、治理看板应该呈现什么</h2>
+<div id="outline-container-section-c54a8c651bf4" class="outline-2">
+<h2 id="section-c54a8c651bf4"><span class="section-number-2">10.</span> 九、治理看板应该呈现什么</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 治理看板不应只显示节点数和边数。数量增加可能意味着知识更完整，也可能意味着重复实体和无意义关系更多。
@@ -534,8 +534,8 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-bba19054ff6f" class="outline-2">
-<h2 id="section-bba19054ff6f"><span class="section-number-2">11.</span> 十、生产治理检查清单</h2>
+<div id="outline-container-section-dfdad71da94b" class="outline-2">
+<h2 id="section-dfdad71da94b"><span class="section-number-2">11.</span> 十、生产治理检查清单</h2>
 <div class="outline-text-2" id="text-11">
 <ul class="org-ul">
 <li class="off"><code>[&nbsp;]</code> 每个结论可以追溯到来源、时间、方法和版本。</li>
@@ -549,8 +549,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-c508ead5b7e2" class="outline-2">
-<h2 id="section-c508ead5b7e2"><span class="section-number-2">12.</span> 结语：可信来自可撤回，而不是永远确定</h2>
+<div id="outline-container-section-5d6755c5553f" class="outline-2">
+<h2 id="section-5d6755c5553f"><span class="section-number-2">12.</span> 结语：可信来自可撤回，而不是永远确定</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 成熟的本体系统不会假装所有事实都确定。它知道结论依赖什么，也知道何时应该撤回；它允许模型演化，但要求变化可比较、可迁移、可回滚。
@@ -561,7 +561,7 @@ WHERE order_id = 'O-17'
 </p>
 
 <p>
-<a href="本体mvp.org.html" class="org-museum-link">本体mvp.org</a>
+<a href="本体mvp.html">本体mvp.html</a>
 </p>
 </div>
 </div>
@@ -635,7 +635,7 @@ WHERE order_id = 'O-17'
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>04</span></div>
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -656,7 +656,7 @@ WHERE order_id = 'O-17'
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<!-- 2026-09-17 Thu 18:27 -->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>vibe coding</title>
+<meta name="generator" content="Org Mode" />
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="vibe-coding" data-page-title="vibe coding" data-page-category="Vibe" data-page-tags="vibe" data-page-status="draft" data-page-modified="2026-09-17" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">vibe coding</a><span class="museum-identity-meta">Vibe · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="vibe-coding" data-page-title="vibe coding" data-page-category="Vibe"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+  <summary>文章信息</summary>
+<aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=Vibe#recent-updates">Vibe</a><span class="museum-status-badge">草稿</span>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-09-17">2026-09-17</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 11 分钟</dd></div>
+    <div><dt>标签</dt><dd>vibe</dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a href="../../index.html#recent-updates">← 全部笔记</a>
+    <a href="../../index.html">返回索引</a>
+  </nav>
+</aside>
+</details>
+
+<h1 class="title">vibe coding</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-ae560be058f2">1. vibe coding</a>
+<ul>
+<li><a href="#section-22489f600089">1.1. Overview</a></li>
+<li><a href="#section-0b69a370144b">1.2. Content</a>
+<ul>
+<li><a href="#section-a507896e2630">1.2.1. 表达</a></li>
+<li><a href="#section-a507896e2630">1.2.2. 检测</a></li>
+<li><a href="#section-789b83f44554">1.2.3. Skills</a></li>
+<li><a href="#section-1c8bca7974fb">1.2.4. AI 解决方案</a></li>
+<li><a href="#section-610112ef2908">1.2.5. 文生图</a></li>
+<li><a href="#section-a507896e2630">1.2.6. 实践</a></li>
+<li><a href="#section-a507896e2630">1.2.7. 疑难</a></li>
+</ul>
+</li>
+<li><a href="#section-62e821190dc4">1.3. References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-ae560be058f2" class="outline-2">
+<h2 id="section-ae560be058f2"><span class="section-number-2">1.</span> vibe coding</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-section-22489f600089" class="outline-3">
+<h3 id="section-22489f600089"><span class="section-number-3">1.1.</span> Overview</h3>
+</div>
+<div id="outline-container-section-0b69a370144b" class="outline-3">
+<h3 id="section-0b69a370144b"><span class="section-number-3">1.2.</span> Content</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-section-a507896e2630" class="outline-4">
+<h4 id="section-a507896e2630"><span class="section-number-4">1.2.1.</span> 表达</h4>
+<div class="outline-text-4" id="text-1-2-1">
+</div>
+<ol class="org-ol">
+<li><a id="orgf0f2ec1"></a>主动<br>
+<div class="outline-text-5" id="text-1-2-1-1">
+<p>
+我不知道该如何传递给AI待优化需求表达，确保短小精悍简单直接克制精准清晰
+易懂即可：
+</p>
+</div>
+</li>
+<li><a id="org629a1e1"></a>被动<br>
+<div class="outline-text-5" id="text-1-2-1-2">
+<p>
+请优化下面这段需求，使其适合直接传递给高级社会工程逆向分析专家和加密货
+币风控专家。要求：保留原意，不擅自扩写或改变立场；结论优先，表达简单直
+接、短小精悍、克制精准；优化句子结构和上下文衔接，减少重复、碎片化断句
+和 AI 腔，让人一遍就能理解核心需求。只保留结论、关键依据和必要动作，不
+堆概念，不写空泛汇报话术，不为完整而扩写。除非明确要求，不补背景、不发
+散建议、不重复解释；信息不足就明确指出，不猜测、不编造。表达优先级：<b>*
+结论 &gt; 信息密度 &gt; 清晰度 &gt; 完整性 &gt; 文采。*</b> 最终文字应自然、连贯、实
+事求是，像真正理解问题的人在向专业人士交代任务，而不是 AI 在润色文字。
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-section-a507896e2630" class="outline-4">
+<h4 id="section-a507896e2630"><span class="section-number-4">1.2.2.</span> 检测</h4>
+<div class="outline-text-4" id="text-1-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="orgc4b5b56"></a>大<br>
+<div class="outline-text-5" id="text-1-2-2-1">
+<p>
+<b><b>AI 输出克制原则:</b></b> 保持克制，先解决问题，再考虑表达。默认**短、准、直
+接、高信息密度**：不复述问题，不加无意义前言、总结、客套、评价和延伸；
+能一句说清，不写一段；能三点说清，不展开成十点。只保留**结论、关键依据
+和必要动作**，不为显得专业而堆概念，不为显得完整而扩写。除非我明确要求，
+否则**不要主动补充背景、发散建议或重复解释**。信息不足时明确指出，不要
+猜测或编造。 原则：**结论优先 &gt; 信息密度 &gt; 清晰度 &gt; 完整性 &gt; 文采。
+</p>
+</div>
+</li>
+<li><a id="orgf8f982c"></a>小<br>
+<div class="outline-text-5" id="text-1-2-2-2">
+<p>
+优化 <a href="https://lovemoganna.github.io/Aone/multi-agent">https://lovemoganna.github.io/Aone/multi-agent</a> 点击配置按钮后的页面UI，使其更加符合我们整体系统的气质。
+继续深入板块 <a href="http://localhost:5173/DuckDB_Editor_Pro/">http://localhost:5173/DuckDB_Editor_Pro/</a> ，深度优化对应模
+块的UI，尤其是页面宽度高度一致，使其更加符合系统的整体气质。继续深入各
+个板块，里面页面的字体类型，字体大小都统一化，譬如都使用 Noto Sans SC，
+代码块要支持高亮。
+</p>
+</div>
+</li>
+<li><a id="org02d6ec6"></a>MECE<br>
+<ol class="org-ol">
+<li><a id="org4f80f82"></a>知识图谱<br>
+<div class="outline-text-6" id="text-1-2-2-3-1">
+<p>
+请围绕以下问题继续排查和优化：
+</p>
+<ol class="org-ol">
+<li>连线</li>
+</ol>
+<p>
+当前连线关系方向不够直观。请适当降低线宽，并为有方向的关系增加清晰的箭头指向，保证节点与关系的视觉层级明确。
+</p>
+<ol class="org-ol">
+<li>画布缩放</li>
+</ol>
+<p>
+知识图谱画布的任意非节点区域都应支持鼠标中键缩放。目前测试发现空白区域仍无法触发，请重新检查事件监听、画布层级及事件冒泡逻辑，定位并修复问题。画布的缩放、平移等基础操作应保持一致，不应因鼠标位置不同而失效。
+</p>
+<ol class="org-ol">
+<li>整体质检</li>
+</ol>
+<p>
+通盘扫描该组件的交互、UI 和现有功能，逐项排查明显的体验问题、交互断点和功能缺失。按照 MECE 原则分类处理，避免重复、遗漏和局部修补；在现有业务逻辑基础上继续优化 UI，并补齐必要功能，确保层级清晰、边界明确、交互完整、操作一致。
+</p>
+</div>
+</li>
+<li><a id="org54c2a36"></a>原子<br>
+<div class="outline-text-6" id="text-1-2-2-3-2">
+<p>
+现在实体画布最大的缺陷是无法看到不同实体之间的连线，需要通盘扫描整个系统及各组件、子页面的 UI、功能与交互，识别痛点、缺陷和遗漏；遵循 MECE 原则优化设计并补齐功能，统一所有组件的 UI、排版与交互规范，确保层次清晰、边界明确、体验完整，并与现有系统整体气质保持一致，可以使用任意 AI Skills 来实现该目标。
+通盘扫描整个系统及各组件、子页面的 UI、功能与交互，识别痛点、缺陷和遗漏；遵循 MECE 原则优化设计并补齐功能，统一所有组件的 UI、排版与交互规范，确保层次清晰、边界明确、体验完整，并与现有系统整体气质保持一致，可以使用任意 AI Skills 来实现该目标。
+</p>
+</div>
+</li>
+<li><a id="org01a1ed6"></a>视觉<br>
+<div class="outline-text-6" id="text-1-2-2-3-3">
+<p>
+按 MECE 原则继续补充一批彼此独立、覆盖主要场景的实用示例；随后对现有示
+例逐一执行 Loop 质检，实际验证是否能够正常渲染。发现异常时，定位原因、
+最小修正并重新验证，不接受仅凭代码或界面推断“已经正常”。MECE 本身强调
+分类之间互不重叠、整体覆盖完整。
+侧边栏 Templates 区域的 分组标签下的案例标题要有缩进，这样才能体现出排版之美。
+将渲染图默认设置为 缩放 85%，居中呈现。
+把 右侧上角 的格式化 ，清空 ，运行 Ctrl+↵ 按钮也优化下，现在太不像话了，
+有内容溢出，看起来很拉跨，默认设置为和当前系统气质一样的，这样才够协调
+统一。。
+控制台的颜色，默认设置为和当前系统气质一样的，这样才够协调统一。
+现在的首页会压缩展示给用户的空间，也就是会存在内容展示不全的情况，请修
+复它，要么就实事求是不加吹牛逼的浮躁内容。
+重构系统首页的Dashboard，理由是已经经过大修大改变化太多。
+<a href="http://localhost:5173/%5B/browser%5D(slashCommand;browser)">http://localhost:5173/%5B/browser%5D(slashCommand;browser)</a>
+很好，继续优化 <a href="http://localhost:5173/DuckDB_Editor_Pro/">http://localhost:5173/DuckDB_Editor_Pro/</a> 首页，必须让页
+面中的所有组件，都符合我们现在系统的气质。
+现在首页的信息密度过高，视觉元素堆叠明显，整体给人一种浮躁、刻意堆砌和
+过度展示的感觉。需要重新梳理信息层级，减少不必要的内容和视觉装饰，突出
+真正重要的信息，让首页更克制、更自然、更耐看，避免明显的 AI 生成感。信
+息层级和留白应服务于快速浏览，而不是让所有内容同时争夺注意力。
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="orgf7c2295"></a>修正指令<br>
+<div class="outline-text-5" id="text-1-2-2-4">
+<p>
+批准，执行。按优先级逐项修复现有痛点和顽疾，可调用任意 AI Skill 或远程
+调试能力。修复一项，验证一项，确认无误后再继续，确保问题彻底解决且不复
+发。
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-section-789b83f44554" class="outline-4">
+<h4 id="section-789b83f44554"><span class="section-number-4">1.2.3.</span> Skills</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+[frontend-design](slashCommand;frontend-design)  [ui-ux-pro-max](recipe;Duckdb_Manager/.agent/workflows/ui-ux-pro-max.md) [plan](recipe;Duckdb_Manager/.agent/workflows/plan.md) [/browser](slashCommand;browser)[/grill-me](slashCommand;grill-me) [/boost](slashCommand;boost) 
+</p>
+</div>
+</div>
+<div id="outline-container-section-1c8bca7974fb" class="outline-4">
+<h4 id="section-1c8bca7974fb"><span class="section-number-4">1.2.4.</span> AI 解决方案</h4>
+<div class="outline-text-4" id="text-1-2-4">
+</div>
+<ol class="org-ol">
+<li><a id="orga704479"></a>终态<br>
+<div class="outline-text-5" id="text-1-2-4-1">
+<p>
+@Web search 如图所示，这是一个 Vibe Coding 开发的 DuckDB 工作台。请直接对当前版本做一次产品级检查，从 <b><b>UI/UX、功能完整性、交互效率和实际使用场景</b></b> 四个方面找问题。
+不要只指出视觉问题，要结合 DuckDB 工作台的实际使用流程，判断哪些功能缺失、哪些交互不合理、哪些信息展示不清晰，以及哪些设计会影响 SQL 编写、数据浏览和结果分析效率。DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和数据探索等核心能力。
+最终输出三部分：
+<b><b>问题清单</b></b>：逐条说明问题及具体表现。
+<b><b>修改需求</b></b>：针对问题给出明确的修改方案，要求可直接交给开发 AI 执行。
+<b><b>优化效果图</b></b>：按照修改方案重新设计整个工作台，并生成一张完整的 UI 效果图，直观展示修复后的最终形态。
+要求：<b><b>少讲概念，多指出具体问题；少做装饰，多解决实际使用问题；不要为了“高级感”堆功能和视觉元素。</b></b>
+</p>
+</div>
+</li>
+<li><a id="orga9c7ef0"></a>BRD<br>
+<div class="outline-text-5" id="text-1-2-4-2">
+<p>
+@Web search 撰写一个用于我的系统进行改造的BRD，目标是实现图中效果。
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-section-610112ef2908" class="outline-4">
+<h4 id="section-610112ef2908"><span class="section-number-4">1.2.5.</span> 文生图</h4>
+<div class="outline-text-4" id="text-1-2-5">
+</div>
+<ol class="org-ol">
+<li><a id="orgc21c874"></a>主体页面<br>
+<div class="outline-text-5" id="text-1-2-5-1">
+<p>
+@Web search 如图所示，这是一个 Vibe Coding 开发的 DuckDB 工作台。
+请直接对当前版本做一次产品级检查，从 <b><b>UI/UX、功能完整性、交互效率和实际使用场景</b></b> 四个方面找问题。
+不要只指出视觉问题，要结合 DuckDB 工作台的实际使用流程，判断哪些功能缺失、哪些交互不合理、哪些信息展示不清晰，以及哪些设计会影响 SQL 编写、数据浏览和结果分析效率。
+DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和数据探索等核心能力。
+最终输出三部分：
+<b><b>问题清单</b></b>：逐条说明问题及具体表现。
+<b><b>修改需求</b></b>：针对问题给出明确的修改方案，要求可直接交给开发 AI 执行。
+<b><b>优化效果图</b></b>：按照修改方案重新设计整个工作台，并生成一张完整的 UI 效果图，直观展示修复后的最终形态。
+要求：<b><b>少讲概念，多指出具体问题；少做装饰，多解决实际使用问题；不要为了“高级感”堆功能和视觉元素。</b></b>
+</p>
+</div>
+</li>
+<li><a id="orgff999a3"></a>交互组件<br>
+<div class="outline-text-5" id="text-1-2-5-2">
+<p>
+@Web search 请重新生成上面的主体图片中的解释和分析这两块要生成具体的效果图。
+</p>
+</div>
+</li>
+<li><a id="org83ac735"></a>重复操作<br>
+<div class="outline-text-5" id="text-1-2-5-3">
+<p>
+@Web search 很好，继续Loop质检下，看是否还有更进一步的解决方案。
+</p>
+</div>
+</li>
+<li><a id="org4c6b767"></a>需求验收<br>
+<div class="outline-text-5" id="text-1-2-5-4">
+<p>
+@Web search 撰写一个用于我的系统进行改造的BRD，目标是实现图中效果
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org4f86d57"></a>细致<br>
+<div class="outline-text-6" id="text-1-2-5-4-1">
+<p>
+请基于提供的终态渲染图，撰写一份可直接指导开发 AI 完成系统改造的 BRD。
+终态图作为视觉验收基准。BRD 需逐项说明页面结构、功能模块和交互组件，包
+括展示内容、操作方式、状态变化、组件联动、后端处理及数据读写规则。不要
+只描述页面外观，要写清每个组件如何工作，以及操作后系统应返回什么结果。
+验收分为两部分：
+</p>
+<ol class="org-ol">
+<li>视觉验收：页面布局、信息层级、组件样式和整体效果与终态图一致。</li>
+<li>功能验收：交互真实可用，前后端链路完整，数据读写正确，正常、空数据、
+加载中和异常状态均有明确反馈。</li>
+</ol>
+<p>
+终态图无法证明的业务规则或数据定义，必须标记为待确认，不得自行编造。仅
+输出纯文本，不提供代码。
+</p>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+<div id="outline-container-section-a507896e2630" class="outline-4">
+<h4 id="section-a507896e2630"><span class="section-number-4">1.2.6.</span> 实践</h4>
+<div class="outline-text-4" id="text-1-2-6">
+</div>
+<ol class="org-ol">
+<li><a id="orgd9234c5"></a>第一次<br>
+<div class="outline-text-5" id="text-1-2-6-1">
+<p>
+参照上传图片示例为最终优化目标，按照 Duckdb_Manager/duckdb-editor/docs/BRD/index9.md 的 BRD，把已发现但未落实的优化项继续实现。[/browser](slashCommand;browser) 
+</p>
+</div>
+</li>
+<li><a id="org2604088"></a>其他次<br>
+<div class="outline-text-5" id="text-1-2-6-2">
+<p>
+继续参照上传图片示例为最终优化目标，按照 Duckdb_Manager/duckdb-editor/docs/BRD/index8.md 的 BRD，把已发现但未落实的优化项继续实现。[/browser](slashCommand;browser) 
+用任意 AI Skills，实现下面的目标：继续按顺序优化 UI。目前整体界面风格与系统现有设计不统一，麻烦继续统一调整。[/browser](slashCommand;browser) 
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-section-a507896e2630" class="outline-4">
+<h4 id="section-a507896e2630"><span class="section-number-4">1.2.7.</span> 疑难</h4>
+<div class="outline-text-4" id="text-1-2-7">
+</div>
+<ol class="org-ol">
+<li><a id="org7580a4d"></a>难度1<br>
+<div class="outline-text-5" id="text-1-2-7-1">
+<p>
+请围绕以下问题继续排查和优化：
+</p>
+<ol class="org-ol">
+<li>连线</li>
+</ol>
+<p>
+当前连线关系方向不够直观。请适当调整线宽，并为有方向的关系增加清晰的箭头指向，保证节点与关系的视觉层级明确。
+</p>
+<ol class="org-ol">
+<li>画布缩放</li>
+</ol>
+<p>
+知识图谱画布的任意非节点区域都应支持鼠标中键缩放。目前测试发现空白区域仍无法触发，请重新检查事件监听、画布层级及事件冒泡逻辑，定位并修复问题。画布的缩放、平移等基础操作应保持一致，不应因鼠标位置不同而失效。
+</p>
+<ol class="org-ol">
+<li>整体质检</li>
+</ol>
+<p>
+通盘扫描该组件的交互、UI 和现有功能，逐项排查明显的体验问题、交互断点和功能缺失。按照 MECE 原则分类处理，避免重复、遗漏和局部修补；在现有业务逻辑基础上继续优化 UI，并补齐必要功能，确保层级清晰、边界明确、交互完整、操作一致。
+</p>
+</div>
+</li>
+<li><a id="org4fe72a9"></a>难度2<br>
+<div class="outline-text-5" id="text-1-2-7-2">
+<p>
+当前知识图谱有几个比较明显的体验问题：
+</p>
+
+<ol class="org-ol">
+<li><b><b>内容没有居中</b></b>：图谱渲染后整体位置偏移，无法自然落在画布视觉中心。</li>
+<li><b><b>空白区域无法缩放</b></b>：画布非节点区域仍无法使用鼠标中键进行放大、缩小，导致画布操作不连贯。</li>
+<li><b><b>内容被遮挡</b></b>：部分节点或关系会被界面元素遮盖，影响完整查看和后续操作。</li>
+</ol>
+<p>
+请重新检查画布的**布局、层级、事件监听和视口控制逻辑**，逐项定位并修复。重点确保图谱默认居中、画布任意空白区域均可正常缩放，并保证渲染内容不会被 UI 遮挡。
+整体交互应保持一致，至少提供可靠的居中/适配视图和缩放能力，这是知识图谱画布的基础操作。
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-section-62e821190dc4" class="outline-3">
+<h3 id="section-62e821190dc4"><span class="section-number-3">1.3.</span> References</h3>
+</div>
+</div>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 00</h3>
+<p class="org-museum-related-empty">这篇笔记还没有可导出的关联页面。</p>
+<a class="local-graph-link" href="../../graph.html?focus=vibe-coding">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+</div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="../../timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="../../related.html">关联阅读</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <ul>
+      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="../Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <ul>
+      <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <ul>
+      <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+
+<script defer src="../../resources/org-museum-article.js?v=ab5c89406617"></script>
+</body>
+</html>

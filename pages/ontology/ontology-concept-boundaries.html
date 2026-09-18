@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-14 Mon 02:25 -->
+<!-- 2026-09-17 Thu 18:27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>本体论建模：从概念边界到可计算语义</title>
 <meta name="description" content="一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。" />
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=e7f89e6b3289"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=582e1e65b3b2">
+<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
 <link rel="icon" href="data:,">
 </head>
 <body class="org-museum-page" data-page-kind="article" data-page-id="ontology-concept-boundaries" data-page-title="本体论建模：从概念边界到可计算语义" data-page-category="Ontology" data-page-tags="ontology,knowledge-graph,semantic-modeling" data-page-status="published" data-page-modified="2026-08-21" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-14" title="导出于 2026.09.14">2026.09.14</time>
+  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -54,21 +54,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-9f1dbd72d119">1. 导言：本体不是术语表，而是一组可被检验的承诺</a></li>
-<li><a href="#section-090cdf692c65">2. 一、从业务问题开始，而不是从类名开始</a></li>
-<li><a href="#section-7ca9dec95104">3. 二、概念边界：用判定标准区分类、属性与事件</a></li>
-<li><a href="#section-20f26db7ae7a">4. 三、身份：相同、相似与同名不能混为一谈</a></li>
-<li><a href="#section-01edd0f9f49c">5. 四、关系设计：让谓词表达业务，而不是表达存储结构</a></li>
-<li><a href="#section-f9aa735debd9">6. 五、约束与推理必须分开</a></li>
-<li><a href="#section-b12c40c677d8">7. 六、从本体到数据库：映射不是等价</a></li>
-<li><a href="#section-7313facae008">8. 七、最小可验证建模循环</a></li>
-<li><a href="#section-33f76d1d0b7c">9. 八、建模检查清单</a></li>
-<li><a href="#section-e6f9b2562ac1">10. 结语：好本体的价值是减少误解</a></li>
+<li><a href="#section-f22d95f0c521">1. 导言：本体不是术语表，而是一组可被检验的承诺</a></li>
+<li><a href="#section-7c9aa7d1267f">2. 一、从业务问题开始，而不是从类名开始</a></li>
+<li><a href="#section-b449d1342689">3. 二、概念边界：用判定标准区分类、属性与事件</a></li>
+<li><a href="#section-37b8e5ba3287">4. 三、身份：相同、相似与同名不能混为一谈</a></li>
+<li><a href="#section-36dc28059322">5. 四、关系设计：让谓词表达业务，而不是表达存储结构</a></li>
+<li><a href="#section-7123cfef7365">6. 五、约束与推理必须分开</a></li>
+<li><a href="#section-d5b051005102">7. 六、从本体到数据库：映射不是等价</a></li>
+<li><a href="#section-7123cfef7365">8. 七、最小可验证建模循环</a></li>
+<li><a href="#section-0911b9dd20de">9. 八、建模检查清单</a></li>
+<li><a href="#section-ada361075798">10. 结语：好本体的价值是减少误解</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-9f1dbd72d119" class="outline-2">
-<h2 id="section-9f1dbd72d119"><span class="section-number-2">1.</span> 导言：本体不是术语表，而是一组可被检验的承诺</h2>
+<div id="outline-container-section-f22d95f0c521" class="outline-2">
+<h2 id="section-f22d95f0c521"><span class="section-number-2">1.</span> 导言：本体不是术语表，而是一组可被检验的承诺</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 在知识系统里，“把字段改成更专业的名字”不等于完成了本体建模。术语表只回答“我们怎样称呼它”，本体还要回答：它是什么、它不是什么、它与什么发生关系、哪些陈述允许成立，以及系统凭什么得出结论。
@@ -90,8 +90,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-090cdf692c65" class="outline-2">
-<h2 id="section-090cdf692c65"><span class="section-number-2">2.</span> 一、从业务问题开始，而不是从类名开始</h2>
+<div id="outline-container-section-7c9aa7d1267f" class="outline-2">
+<h2 id="section-7c9aa7d1267f"><span class="section-number-2">2.</span> 一、从业务问题开始，而不是从类名开始</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 建模的第一步不是画图，而是收集系统必须回答的问题。问题决定需要哪些概念，证据决定系统是否有资格回答。
@@ -164,8 +164,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-7ca9dec95104" class="outline-2">
-<h2 id="section-7ca9dec95104"><span class="section-number-2">3.</span> 二、概念边界：用判定标准区分类、属性与事件</h2>
+<div id="outline-container-section-b449d1342689" class="outline-2">
+<h2 id="section-b449d1342689"><span class="section-number-2">3.</span> 二、概念边界：用判定标准区分类、属性与事件</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 一个名字应该成为类、属性还是事件，可以用三个问题判断：
@@ -237,8 +237,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-20f26db7ae7a" class="outline-2">
-<h2 id="section-20f26db7ae7a"><span class="section-number-2">4.</span> 三、身份：相同、相似与同名不能混为一谈</h2>
+<div id="outline-container-section-37b8e5ba3287" class="outline-2">
+<h2 id="section-37b8e5ba3287"><span class="section-number-2">4.</span> 三、身份：相同、相似与同名不能混为一谈</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 身份错误会直接污染整张知识图谱。两个记录字段相似，不代表它们是同一个对象；两个名称相同，也不代表它们可以合并。
@@ -259,14 +259,14 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-01edd0f9f49c" class="outline-2">
-<h2 id="section-01edd0f9f49c"><span class="section-number-2">5.</span> 四、关系设计：让谓词表达业务，而不是表达存储结构</h2>
+<div id="outline-container-section-36dc28059322" class="outline-2">
+<h2 id="section-36dc28059322"><span class="section-number-2">5.</span> 四、关系设计：让谓词表达业务，而不是表达存储结构</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 关系名称应当能组成自然且明确的句子：
 </p>
 
-<pre class="example" id="org162e7c6"><code class="language-plaintext">
+<pre class="example" id="org6c127f3"><code class="language-plaintext">
 订单 governedBy 取消策略
 订单 placedBy 客户
 发货 supportedBy 承运单据
@@ -345,8 +345,8 @@ ex:placedBy a owl:ObjectProperty ;
 </div>
 </div>
 </div>
-<div id="outline-container-section-f9aa735debd9" class="outline-2">
-<h2 id="section-f9aa735debd9"><span class="section-number-2">6.</span> 五、约束与推理必须分开</h2>
+<div id="outline-container-section-7123cfef7365" class="outline-2">
+<h2 id="section-7123cfef7365"><span class="section-number-2">6.</span> 五、约束与推理必须分开</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 “事实不完整”和“事实为假”不是一回事。在开放世界语义下，没有记录 <code>placedBy</code> 并不能自动证明订单没有客户；它可能只是证据尚未进入系统。数据质量约束则可以要求发布前每个订单必须具备一个客户。
@@ -383,8 +383,8 @@ WHERE {
 </p>
 </div>
 </div>
-<div id="outline-container-section-b12c40c677d8" class="outline-2">
-<h2 id="section-b12c40c677d8"><span class="section-number-2">7.</span> 六、从本体到数据库：映射不是等价</h2>
+<div id="outline-container-section-d5b051005102" class="outline-2">
+<h2 id="section-d5b051005102"><span class="section-number-2">7.</span> 六、从本体到数据库：映射不是等价</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 关系数据库和本体关注的重点不同。表结构强调存储、完整性和执行效率；本体强调概念、语义和跨来源解释。两者可以映射，但不能简单宣称一一等价。
@@ -416,8 +416,8 @@ WHERE {
 </p>
 </div>
 </div>
-<div id="outline-container-section-7313facae008" class="outline-2">
-<h2 id="section-7313facae008"><span class="section-number-2">8.</span> 七、最小可验证建模循环</h2>
+<div id="outline-container-section-7123cfef7365" class="outline-2">
+<h2 id="section-7123cfef7365"><span class="section-number-2">8.</span> 七、最小可验证建模循环</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 一个适合实际项目的最小循环如下：
@@ -437,8 +437,8 @@ WHERE {
 </p>
 </div>
 </div>
-<div id="outline-container-section-33f76d1d0b7c" class="outline-2">
-<h2 id="section-33f76d1d0b7c"><span class="section-number-2">9.</span> 八、建模检查清单</h2>
+<div id="outline-container-section-0911b9dd20de" class="outline-2">
+<h2 id="section-0911b9dd20de"><span class="section-number-2">9.</span> 八、建模检查清单</h2>
 <div class="outline-text-2" id="text-9">
 <ul class="org-ul">
 <li class="off"><code>[&nbsp;]</code> 每个核心概念都有清晰的纳入与排除条件。</li>
@@ -451,8 +451,8 @@ WHERE {
 </ul>
 </div>
 </div>
-<div id="outline-container-section-e6f9b2562ac1" class="outline-2">
-<h2 id="section-e6f9b2562ac1"><span class="section-number-2">10.</span> 结语：好本体的价值是减少误解</h2>
+<div id="outline-container-section-ada361075798" class="outline-2">
+<h2 id="section-ada361075798"><span class="section-number-2">10.</span> 结语：好本体的价值是减少误解</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 本体的目标不是制造更多概念，而是让不同模块、不同数据源和不同使用者对同一事实采用一致且可检验的解释。概念边界解决“我们在谈什么”，身份解决“它是不是同一个”，关系解决“它如何连接”，约束和推理解决“系统可以得出什么”。
@@ -531,7 +531,7 @@ WHERE {
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>04</span></div>
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -552,7 +552,7 @@ WHERE {
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>

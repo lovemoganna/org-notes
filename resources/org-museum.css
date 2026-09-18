@@ -39,7 +39,7 @@
   grid-column: 1;
   margin: 0;
   color: var(--museum-ink);
-  font: 700 clamp(28px, 2.4vw, 40px)/1.15 var(--museum-serif-font);
+  font: var(--museum-weight-bold) var(--museum-type-display)/1.15 var(--museum-serif-font);
   letter-spacing: .04em;
 }
 
@@ -86,7 +86,7 @@
 }
 
 .timeline-filter-rail .museum-section-heading h2 {
-  font: 700 18px/1.25 var(--museum-serif-font);
+  font: var(--museum-weight-semibold) var(--museum-type-h4)/1.35 var(--museum-serif-font);
 }
 
 .timeline-filter-rail section + section {
@@ -947,7 +947,7 @@
 .timeline-mobile-detail h2 {
   margin: 0 0 12px;
   color: var(--museum-ink);
-  font: 750 20px/1.35 var(--museum-serif-font);
+  font: var(--museum-weight-semibold) var(--museum-type-h3)/1.35 var(--museum-serif-font);
 }
 
 .timeline-preview-kicker {
@@ -1675,8 +1675,8 @@ button {
 .museum-section-heading h2 {
   margin: 0;
   color: inherit;
-  font-size: 12px;
-  font-weight: 500;
+  font-size: var(--museum-type-ui);
+  font-weight: var(--museum-weight-semibold);
   letter-spacing: 0.06em;
 }
 
@@ -1770,6 +1770,7 @@ button {
   padding: 1px 5px;
   border: 1px solid color-mix(in srgb, var(--museum-warning) 42%, transparent);
   color: var(--museum-warning);
+  background: var(--museum-warning-surface);
   font: 400 9px/1.45 var(--font-technical);
   vertical-align: 0.2em;
 }
@@ -1837,6 +1838,7 @@ body.museum-index-filtering .museum-index-shell {
   gap: 16px;
   padding: 10px 14px;
   border: 1px solid var(--museum-border);
+  border-radius: var(--museum-radius-panel);
   background: var(--museum-paper);
   color: var(--museum-ink);
   box-shadow: 0 10px 30px var(--museum-shadow);
@@ -1844,11 +1846,20 @@ body.museum-index-filtering .museum-index-shell {
 }
 
 .reading-restore-notice button {
+  min-height: 30px;
+  padding: 0 8px;
+  border-radius: var(--museum-radius-control);
   padding: 0;
   border: 0;
   background: transparent;
   color: var(--museum-primary);
   cursor: pointer;
+}
+
+.reading-restore-notice button:hover,
+.reading-restore-notice button:focus-visible {
+  color: var(--museum-text);
+  background: var(--museum-selected-surface);
 }
 
 .resume-empty-state {
@@ -2342,6 +2353,15 @@ body.museum-index-filtering .museum-index-shell {
   text-decoration: underline;
   text-decoration-color: color-mix(in srgb, var(--museum-primary) 42%, transparent);
   text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  transition: color 120ms ease, text-decoration-color 120ms ease;
+}
+
+.article-container a:hover,
+.article-container a:focus-visible {
+  color: var(--museum-accent-hover);
+  text-decoration-color: var(--museum-accent-hover);
+  text-decoration-thickness: 2px;
 }
 
 .article-container ul,
@@ -2380,13 +2400,17 @@ body.museum-index-filtering .museum-index-shell {
   border: 0;
   color: inherit;
   background: transparent;
+  font-size: inherit;
 }
 
 .article-container blockquote {
   margin: 22px 0;
-  padding: 2px 0 2px 18px;
-  border-left: 2px solid var(--museum-warning);
-  color: var(--text-muted);
+  padding: 12px 16px;
+  border: 1px solid var(--museum-border-soft);
+  border-left: 3px solid var(--museum-accent);
+  border-radius: var(--museum-radius-control);
+  color: var(--museum-text-muted);
+  background: var(--museum-surface-muted);
 }
 
 .article-container blockquote strong,
@@ -2492,7 +2516,9 @@ body.museum-index-filtering .museum-index-shell {
 .article-container img {
   max-width: 100%;
   height: auto;
-  border: 1px solid var(--rule-soft);
+  border: 1px solid var(--museum-border-soft);
+  border-radius: var(--museum-radius-control);
+  background: var(--museum-surface-muted);
 }
 
 .article-container table {
@@ -2509,7 +2535,14 @@ body.museum-index-filtering .museum-index-shell {
   overflow-x: auto;
   overscroll-behavior-inline: contain;
   scrollbar-width: thin;
-  border-bottom: 1px solid var(--rule-soft);
+  border: 1px solid var(--museum-border-soft);
+  border-radius: var(--museum-radius-control);
+  background: var(--museum-surface-muted);
+}
+
+.museum-table-scroll:focus-visible {
+  outline: 2px solid var(--museum-focus-ring);
+  outline-offset: 3px;
 }
 
 .article-container th,
@@ -2524,7 +2557,7 @@ body.museum-index-filtering .museum-index-shell {
   position: sticky;
   top: 0;
   z-index: 1;
-  background: var(--mono-bg);
+  background: var(--museum-surface-muted);
   color: var(--museum-warning);
   font-weight: 500;
 }
@@ -2538,10 +2571,10 @@ pre.org-museum-code-block {
   margin: 22px 0;
   padding: 36px 16px 16px;
   overflow: auto;
-  border: 0;
-  border-left: 2px solid var(--mono-selection);
-  border-radius: 0;
-  background: var(--mono-deep);
+  border: 1px solid var(--museum-code-border);
+  border-left: 3px solid var(--museum-accent);
+  border-radius: var(--museum-radius-control);
+  background: var(--museum-code-surface);
   color: var(--mono-white);
   font: 400 11px/1.7 var(--font-code);
   font-variant-ligatures: contextual common-ligatures discretionary-ligatures;
@@ -2558,10 +2591,10 @@ pre.org-museum-results {
   padding: 14px 16px;
   overflow: auto;
   overscroll-behavior-inline: contain;
-  border: 0;
-  border-left: 2px solid var(--museum-success);
-  border-radius: 0;
-  background: var(--mono-deep);
+  border: 1px solid var(--museum-code-border);
+  border-left: 3px solid var(--museum-success);
+  border-radius: var(--museum-radius-control);
+  background: var(--museum-code-surface);
   color: var(--text-main);
   font: 400 11px/1.7 var(--font-code);
   white-space: pre;
@@ -2607,8 +2640,14 @@ pre.org-museum-code-block.org-museum-code-expanded {
 }
 
 .code-copy-btn {
+  display: inline-flex;
+  min-width: 44px;
+  min-height: 28px;
+  align-items: center;
+  justify-content: center;
+  top: 4px;
   right: 12px;
-  padding: 0;
+  padding: 0 6px;
   border: 0;
   background: transparent;
   cursor: pointer;
@@ -2616,6 +2655,15 @@ pre.org-museum-code-block.org-museum-code-expanded {
 
 .code-toggle-btn {
   right: 58px;
+}
+
+.code-copy-btn:hover,
+.code-copy-btn:focus-visible,
+.code-toggle-btn:hover,
+.code-toggle-btn:focus-visible {
+  border-radius: var(--museum-radius-control);
+  color: var(--museum-text);
+  background: var(--museum-selected-surface);
 }
 
 #org-museum-right-sidebar {
@@ -3973,8 +4021,12 @@ body.zen-mode .article-container {
   --museum-bg: #1f1b1a;
   --museum-surface: #292322;
   --museum-surface-raised: #362d2b;
+  --museum-surface-muted: #241f1e;
+  --museum-code-surface: #1c1817;
+  --museum-code-border: #6f5d54;
   --museum-border: #9b877d;
   --museum-border-soft: #61524c;
+  --museum-control-border: var(--museum-border);
   --museum-text: #f2ede5;
   --museum-text-muted: #cbbfb4;
   --museum-text-subtle: #b2a397;
@@ -3984,6 +4036,10 @@ body.zen-mode .article-container {
   --museum-secondary: #d4aa63;
   --museum-secondary-text: #e0bc78;
   --museum-hover: #3b302f;
+  --museum-selected-surface: #443431;
+  --museum-success-surface: #2f3a2d;
+  --museum-warning-surface: #3d3326;
+  --museum-error-surface: #422d2b;
   --museum-disabled: #756862;
   --museum-success: #b6cdae;
   --museum-warning: #e0bc78;
@@ -4017,7 +4073,7 @@ body.zen-mode .article-container {
   --museum-shell-deep: #211f1e;
   --museum-shell-line: #544743;
   --museum-paper: var(--museum-surface);
-  --museum-paper-soft: var(--museum-bg);
+  --museum-paper-soft: var(--museum-surface-muted);
   --museum-ink: var(--museum-text);
   --museum-ink-muted: var(--museum-text-muted);
   --museum-burgundy: var(--museum-accent);
@@ -4059,10 +4115,24 @@ body.zen-mode .article-container {
   --panel-shadow: rgb(0 0 0 / 24%);
   --overlay-bg: rgb(20 15 14 / 68%);
   --font-display: "Org Museum Noto Serif SC", "Noto Serif SC", "Songti SC", SimSun, serif;
+  --museum-type-display: clamp(36px, 3vw, 40px);
+  --museum-type-h1: clamp(30px, 2.5vw, 38px);
+  --museum-type-h2: 26px;
+  --museum-type-h3: 21px;
+  --museum-type-h4: 18px;
+  --museum-type-h5: 16px;
+  --museum-type-h6: 14px;
+  --museum-type-title: var(--museum-type-h1);
+  --museum-type-heading: var(--museum-type-h2);
+  --museum-type-subheading: var(--museum-type-h3);
   --museum-type-body: 16px;
   --museum-type-ui: 13px;
   --museum-type-meta: 12px;
   --museum-type-caption: 11px;
+  --museum-weight-regular: 400;
+  --museum-weight-medium: 500;
+  --museum-weight-semibold: 600;
+  --museum-weight-bold: 700;
   --museum-leading-body: 1.82;
   --museum-leading-ui: 1.5;
   --museum-serif-font: var(--font-display);
@@ -4071,25 +4141,33 @@ body.zen-mode .article-container {
 }
 
 :root[data-theme="light"] {
-  --museum-bg: #eee7dd;
-  --museum-surface: #f7f1e8;
-  --museum-surface-raised: #fffaf2;
-  --museum-border: #837362;
-  --museum-border-soft: #d4c8b8;
-  --museum-text: #2c2723;
-  --museum-text-muted: #625950;
-  --museum-text-subtle: #7d7267;
-  --museum-accent: #972821;
-  --museum-accent-hover: #7e1f1a;
-  --museum-on-accent: #fff9f2;
-  --museum-secondary: #b98235;
-  --museum-secondary-text: #7b531b;
-  --museum-hover: #eaddd3;
-  --museum-disabled: #9b9187;
-  --museum-success: #4c6948;
-  --museum-warning: #7b531b;
-  --museum-error: #963a35;
-  --museum-focus-ring: #8e5e21;
+  --museum-bg: #efe9e0;
+  --museum-surface: #f8f3eb;
+  --museum-surface-raised: #fffaf3;
+  --museum-surface-muted: #f2eadf;
+  --museum-code-surface: #e9e0d5;
+  --museum-code-border: #b7a696;
+  --museum-border: #897766;
+  --museum-border-soft: #d8ccbc;
+  --museum-control-border: #897766;
+  --museum-text: #302a25;
+  --museum-text-muted: #62584f;
+  --museum-text-subtle: #685e55;
+  --museum-accent: #942d27;
+  --museum-accent-hover: #7b241f;
+  --museum-on-accent: #fffaf3;
+  --museum-secondary: #ad7732;
+  --museum-secondary-text: #76501e;
+  --museum-hover: #eaded4;
+  --museum-selected-surface: #efddd5;
+  --museum-success-surface: #e8f0e5;
+  --museum-warning-surface: #f3e8d5;
+  --museum-error-surface: #f3e2df;
+  --museum-disabled: #91877e;
+  --museum-success: #4d694b;
+  --museum-warning: #76501e;
+  --museum-error: #923d38;
+  --museum-focus-ring: #87591f;
   --museum-node-fill: #34302b;
   --museum-relation-default: #81776d;
   --museum-relation-primary: #b98235;
@@ -4182,7 +4260,7 @@ body {
   padding: 0 12px;
   grid-template-columns: 18px minmax(0, 1fr) auto;
   gap: 8px;
-  border: 1px solid var(--museum-shell-line);
+  border: 1px solid var(--museum-control-border);
   border-radius: 6px;
 }
 
@@ -4286,6 +4364,11 @@ body {
   background: var(--museum-surface-raised);
 }
 
+.museum-topbar :where(.museum-topbar-link:not(.museum-wordmark),
+  .museum-theme-toggle, .museum-drawer-toggle) {
+  color: var(--museum-shell-muted);
+}
+
 #org-museum-sidebar {
   z-index: 210;
   inset: var(--topbar-height) auto 0 0;
@@ -4293,13 +4376,26 @@ body {
   padding: 20px 18px 34px;
   border-color: var(--museum-shell-line);
   background: var(--museum-shell-deep);
-  color: var(--museum-text);
+  color: var(--museum-shell-muted);
 }
 
-#org-museum-sidebar .sidebar-header strong,
 #org-museum-sidebar .sidebar-category a,
 #org-museum-sidebar input {
-  color: var(--museum-text);
+  color: var(--museum-shell-muted);
+}
+
+#org-museum-sidebar .sidebar-header strong {
+  color: var(--museum-shell-ink);
+}
+
+#org-museum-sidebar :where(.sidebar-header button, .fx-btn, .fx-label,
+  .sidebar-fx-controls > summary) {
+  color: var(--museum-shell-muted);
+}
+
+#org-museum-sidebar input::placeholder {
+  color: var(--museum-shell-muted);
+  opacity: 0.78;
 }
 
 #org-museum-sidebar .sidebar-category a {
@@ -4310,12 +4406,12 @@ body {
 
 #org-museum-sidebar .sidebar-category a:hover,
 #org-museum-sidebar .sidebar-category a:focus-visible {
-  color: var(--museum-text);
-  background: var(--museum-hover);
+  color: var(--museum-shell-ink);
+  background: var(--museum-shell-line);
 }
 
 #org-museum-sidebar .sidebar-cat-label {
-  color: var(--museum-accent);
+  color: var(--museum-shell-accent);
 }
 
 .sidebar-nav-btn {
@@ -4323,7 +4419,7 @@ body {
   margin: 0 5px 5px 0;
   padding: 7px 8px;
   border: 1px solid var(--museum-shell-line);
-  color: var(--museum-accent);
+  color: var(--museum-shell-accent);
 }
 
 .museum-index-shell,
@@ -4391,19 +4487,45 @@ body {
 .article-container > .title {
   margin-bottom: 18px;
   color: var(--museum-burgundy);
-  font-size: clamp(28px, 2.5vw, 38px);
-  font-weight: 600;
-  line-height: 1.35;
+  font-size: var(--museum-type-title);
+  font-weight: var(--museum-weight-semibold);
+  line-height: 1.3;
 }
 
 .article-container h2 {
   color: var(--museum-burgundy);
-  font-size: 21px;
+  font-size: var(--museum-type-h2);
+  font-weight: var(--museum-weight-semibold);
+  line-height: 1.38;
 }
 
 .article-container h3 {
   color: var(--museum-accent);
-  font-size: 18px;
+  font-size: var(--museum-type-h3);
+  font-weight: var(--museum-weight-semibold);
+  line-height: 1.45;
+}
+
+.article-container h4 {
+  color: var(--museum-text);
+  font-size: var(--museum-type-h4);
+  font-weight: var(--museum-weight-semibold);
+  line-height: 1.5;
+}
+
+.article-container h5 {
+  color: var(--museum-text);
+  font-size: var(--museum-type-h5);
+  font-weight: var(--museum-weight-semibold);
+  line-height: 1.55;
+}
+
+.article-container h6 {
+  color: var(--museum-text-muted);
+  font-size: var(--museum-type-h6);
+  font-weight: var(--museum-weight-semibold);
+  line-height: 1.55;
+  letter-spacing: .02em;
 }
 
 .article-container p,
@@ -4651,7 +4773,7 @@ body {
 }
 
 .related-index-arrow {
-  color: var(--museum-gold);
+  color: var(--museum-secondary-text);
   font-size: 26px;
   text-align: center;
 }
@@ -4671,7 +4793,7 @@ body {
 .related-open {
   min-height: 42px;
   padding: 0 14px;
-  border: 1px solid var(--museum-border-soft);
+  border: 1px solid var(--museum-control-border);
   background: transparent;
   color: var(--museum-accent);
   cursor: pointer;
@@ -4721,8 +4843,9 @@ body {
 .related-page-title {
   margin: 18px 0 12px;
   color: var(--museum-burgundy);
-  font-size: clamp(25px, 1.8vw, 28px);
-  line-height: 1.35;
+  font-size: var(--museum-type-h2);
+  font-weight: var(--museum-weight-semibold);
+  line-height: 1.38;
 }
 
 .related-page-meta {
@@ -5125,7 +5248,7 @@ body {
   width: 100%;
   min-height: 34px;
   padding: 6px 8px;
-  border: 1px solid var(--museum-border-soft);
+  border: 1px solid var(--museum-control-border);
   border-radius: 4px;
   color: var(--museum-ink-muted);
   background: var(--museum-surface-raised);
@@ -5135,7 +5258,7 @@ body {
 .graph-page .graph-view-controls button:hover,
 .graph-page .graph-view-controls button:focus-visible,
 .graph-page .graph-view-controls button[aria-pressed="true"] {
-  border-color: var(--museum-border-soft);
+  border-color: var(--museum-control-border);
   color: var(--museum-burgundy);
   background: var(--museum-hover);
 }
@@ -5468,7 +5591,7 @@ body {
 #graph-selected-title {
   margin: 2px 0 4px;
   color: var(--museum-burgundy);
-  font: 650 18px/1.35 var(--font-display);
+  font: var(--museum-weight-semibold) var(--museum-type-h3)/1.35 var(--font-display);
 }
 
 #graph-selected-tags {
@@ -5534,8 +5657,9 @@ body {
 
 #graph-neighbours button {
   min-width: 0;
+  min-height: 28px;
   overflow: hidden;
-  padding: 2px 0;
+  padding: 4px 0;
   border: 0;
   color: var(--museum-accent);
   background: transparent;
@@ -5659,7 +5783,7 @@ body {
 .graph-commandbar .graph-filter-summary > summary {
   min-height: 36px;
   padding: 7px 10px;
-  border: 1px solid transparent;
+  border: 1px solid var(--museum-control-border);
   border-radius: 5px;
   background: transparent;
   color: var(--museum-ink-muted);
@@ -5667,7 +5791,7 @@ body {
 }
 .graph-mode-tabs button:hover,
 .graph-mode-tabs button.is-active {
-  border-color: var(--museum-border-soft);
+  border-color: var(--museum-control-border);
   background: var(--museum-hover);
   color: var(--museum-burgundy);
 }
@@ -5675,7 +5799,7 @@ body {
 
 .graph-commandbar .graph-filter-summary { position: relative; margin: 0; }
 .graph-commandbar .graph-filter-summary > summary { display: block; white-space: nowrap; }
-.graph-commandbar .graph-filter-summary[open] > summary { border-color: var(--museum-border-soft); color: var(--museum-burgundy); }
+.graph-commandbar .graph-filter-summary[open] > summary { border-color: var(--museum-control-border); color: var(--museum-burgundy); }
 .graph-commandbar #graph-category-filters {
   position: absolute;
   z-index: 12;
@@ -5776,7 +5900,7 @@ body {
 }
 .graph-page .graph-node:focus-visible .graph-node-dot,
 .graph-page .graph-nodes > g:focus-visible .graph-node-dot { outline: none; stroke: var(--museum-focus); stroke-width: 4px; }
-.graph-page #graph-selected-title { font-size: 20px; }
+.graph-page #graph-selected-title { font-size: var(--museum-type-h3); }
 .graph-page #graph-selected-description { font-size: 14px; line-height: 1.7; }
 .graph-page #graph-selected-facts { font-size: 12px; }
 .graph-page .graph-inspector-actions #graph-open-link {
@@ -5856,7 +5980,7 @@ body {
   .graph-page .graph-isolated-grid article { grid-template-columns: minmax(0, 1fr); }
   .graph-page .graph-isolated-actions { grid-column: 1; grid-row: auto; }
   .graph-page .graph-isolated-actions button { min-height: 44px; }
-  .graph-page #graph-selected-title { font-size: 18px; }
+  .graph-page #graph-selected-title { font-size: var(--museum-type-h4); }
   .graph-page #graph-selected-description { font-size: 14px; }
   .graph-page .graph-inspector-actions #graph-open-link { flex-basis: 100%; order: -1; }
   .graph-page .graph-relation-legend { display: none; }
@@ -6190,6 +6314,8 @@ body {
   .resume-remove,
   .reading-restore-notice button,
   .related-mobile-segments button,
+  .timeline-filter-close,
+  #timeline-isolated-list button,
   .timeline-mobile-node {
     min-height: 44px;
   }
@@ -6339,7 +6465,7 @@ body {
     width: 100%;
     min-height: 44px;
     padding: 8px 10px;
-    border: 1px solid var(--museum-border-soft);
+    border: 1px solid var(--museum-control-border);
     border-radius: var(--museum-radius-control);
     background: var(--museum-surface-raised);
     color: var(--museum-ink);
@@ -6349,11 +6475,16 @@ body {
   .museum-curation-form button {
     min-height: 44px;
     padding: 0 14px;
-    border: 1px solid var(--museum-border-soft);
+    border: 1px solid var(--museum-control-border);
     border-radius: var(--museum-radius-control);
     background: transparent;
     color: var(--museum-ink);
     cursor: pointer;
+  }
+
+  .museum-curation-form button:not(.is-primary):hover,
+  .museum-curation-form button:not(.is-primary):focus-visible {
+    background: var(--museum-selected-surface);
   }
 
   .museum-curation-form button.is-primary {
@@ -6460,8 +6591,8 @@ body {
   }
 
   .museum-index-entry h3 {
-    font-size: 15px;
-    font-weight: 520;
+    font-size: var(--museum-type-h5);
+    font-weight: var(--museum-weight-medium);
     line-height: 1.58;
   }
 
@@ -6517,7 +6648,7 @@ body {
   }
 
   :where(input, select, textarea) {
-    border-color: var(--museum-border-soft);
+    border-color: var(--museum-control-border);
     background: var(--museum-surface-raised);
     color: var(--museum-text);
     font-size: var(--museum-type-ui);
@@ -6532,10 +6663,24 @@ body {
 
   :where(.topic-filter, .timeline-filter-list button, .graph-mode-tabs button,
     .graph-commandbar .graph-filter-summary > summary, .related-modebar button,
-    .related-modebar a, .museum-curation-form button) {
+    .related-modebar a,
+    .graph-inspector-actions a, .graph-inspector-actions button,
+    .museum-curation-form button) {
+    border-color: var(--museum-control-border);
     font-size: var(--museum-type-ui);
     font-weight: 620;
     line-height: 1.35;
+  }
+
+  .museum-status-filters button.is-active,
+  .topic-filter.is-active,
+  .timeline-filter-list button.is-active,
+  .graph-page .graph-view-controls button[aria-pressed="true"],
+  .graph-mode-tabs button.is-active,
+  .related-modebar button.is-active {
+    border-color: var(--museum-control-border);
+    color: var(--museum-text);
+    background: var(--museum-selected-surface);
   }
 
   :where(.timeline-preview-tags span, .timeline-focus-relation span,
@@ -6565,8 +6710,8 @@ body {
   }
 
   .graph-commandbar-title h1 {
-    font-size: 20px;
-    font-weight: 680;
+    font-size: var(--museum-type-h3);
+    font-weight: var(--museum-weight-bold);
   }
 
   .graph-commandbar-title p,
@@ -6614,6 +6759,12 @@ body {
 }
 
 @media screen and (max-width: 820px) {
+  #org-museum-right-sidebar a {
+    display: flex;
+    min-height: 44px;
+    align-items: center;
+  }
+
   .museum-topbar-link,
   .museum-theme-toggle,
   .museum-drawer-toggle {
@@ -6660,6 +6811,33 @@ body {
     right: 64px;
   }
 
+  #graph-neighbours button,
+  .graph-inspector-actions a,
+  .graph-inspector-actions button,
+  #btn-clear-selection {
+    min-height: 44px;
+  }
+
+  #btn-clear-selection {
+    min-width: 44px;
+  }
+
+  #org-museum-sidebar .sidebar-nav-btn,
+  #org-museum-sidebar .sidebar-category a,
+  .museum-index-entry h3 a {
+    display: inline-flex;
+    min-height: 44px;
+    align-items: center;
+  }
+
+  #org-museum-sidebar .sidebar-category a {
+    display: flex;
+  }
+
+  .museum-filter-summary button {
+    min-width: 44px;
+  }
+
   .museum-entry-category,
   .article-category {
     min-height: 44px;
@@ -6669,5 +6847,58 @@ body {
   .article-category {
     display: inline-flex;
     padding-inline: 8px;
+  }
+}
+
+/* ============================================================
+   ROUND 29 — COLOUR AND TYPOGRAPHY CLOSURE
+   ============================================================ */
+@media screen {
+  /* Fine metadata remains compact without dropping below the caption step. */
+  .museum-section-heading > span,
+  .museum-filter-summary,
+  .museum-status-filters b,
+  .museum-status-badge,
+  .resume-remove,
+  .museum-article-toc-trigger,
+  .toc-sidebar-header [data-toc-count],
+  .toc-sidebar-header [data-toc-close],
+  .timeline-node-date,
+  #graph-heading-count,
+  #graph-selection-prompt,
+  .graph-relation-legend li,
+  #graph-legend li,
+  #graph-selected-meta,
+  #graph-tooltip span,
+  #graph-selected-tags span,
+  .graph-relation-badge,
+  .graph-inspector-grid h3,
+  .graph-isolated-group h3 {
+    font-size: var(--museum-type-caption);
+    line-height: 1.45;
+  }
+
+  .article-container :where(figcaption, .org-src-name, .example-label),
+  .code-highlight-status,
+  .code-copy-btn,
+  .code-toggle-btn,
+  .toc-search-tools [data-toc-clear],
+  .toc-empty {
+    font-size: var(--museum-type-caption);
+    line-height: 1.5;
+  }
+
+  .toc-search input {
+    font-size: var(--museum-type-ui);
+  }
+
+  #org-museum-sidebar :where(.sidebar-header button, .sidebar-nav-btn,
+    .fx-btn, .fx-label, .sidebar-cat-label) {
+    font-size: var(--museum-type-caption);
+    line-height: 1.45;
+  }
+
+  .graph-page .graph-view-controls button {
+    font-size: var(--museum-type-meta);
   }
 }

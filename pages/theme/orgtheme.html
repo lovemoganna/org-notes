@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-14 Mon 02:26 -->
+<!-- 2026-09-17 Thu 18:27 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>OrgTheme 专业版主题开发系统</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=e7f89e6b3289"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=582e1e65b3b2">
+<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="orgtheme" data-page-title="OrgTheme 专业版主题开发系统" data-page-category="Theme" data-page-tags="theme" data-page-status="draft" data-page-modified="2026-05-28" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="orgtheme" data-page-title="OrgTheme 专业版主题开发系统" data-page-category="Theme" data-page-tags="theme" data-page-status="draft" data-page-modified="2026-05-27" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-14" title="导出于 2026.09.14">2026.09.14</time>
+  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -37,7 +37,7 @@
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../index.html?category=Theme#recent-updates">Theme</a><span class="museum-status-badge">草稿</span>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-05-28">2026-05-28</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-05-27">2026-05-27</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 30 分钟</dd></div>
     <div><dt>标签</dt><dd>theme</dd></div>
   </dl>
@@ -55,23 +55,23 @@
 <ul>
 <li><a href="#section-d003bed189e3">1. OrgTheme</a>
 <ul>
-<li><a href="#section-90e0c51d7cda">1.1. 设计理念</a></li>
-<li><a href="#section-06884499bfe5">1.2. P1 需求生成</a></li>
-<li><a href="#section-eb9338c17ee6">1.3. P2 主题构建</a></li>
-<li><a href="#section-e929793aa22d">1.4. P3 代码分离</a></li>
-<li><a href="#section-fb961551ce60">1.5. P4 质检审计</a></li>
-<li><a href="#section-776602242445">1.6. P5 优化规划</a></li>
-<li><a href="#section-0ee95301a5af">1.7. P6 执行验证</a></li>
-<li><a href="#section-fa2be955d2d8">1.8. 完整流程指南</a></li>
+<li><a href="#section-802850f95775">1.1. 设计理念</a></li>
+<li><a href="#section-4d502ef042f8">1.2. P1 需求生成</a></li>
+<li><a href="#section-598d1897bcab">1.3. P2 主题构建</a></li>
+<li><a href="#section-2fed3a4b0376">1.4. P3 代码分离</a></li>
+<li><a href="#section-744dd0bd837a">1.5. P4 质检审计</a></li>
+<li><a href="#section-3bdc54ea8424">1.6. P5 优化规划</a></li>
+<li><a href="#section-0fdd25e8428a">1.7. P6 执行验证</a></li>
+<li><a href="#section-b5b72c8b37b1">1.8. 完整流程指南</a></li>
 </ul>
 </li>
-<li><a href="#section-bf27f28872a5">2. 附录</a>
+<li><a href="#section-1d79f9e9c842">2. 附录</a>
 <ul>
-<li><a href="#section-004c706919d9">2.1. 默认配置</a></li>
-<li><a href="#section-8483fdd73d73">2.2. Org Mode 元素选择器参考</a></li>
-<li><a href="#section-e0d327ef1e51">2.3. 容错规范</a></li>
-<li><a href="#section-77c772ec7c5d">2.4. 局限性声明</a></li>
-<li><a href="#section-5a5fdd4ab4cc">2.5. 快速参考卡</a></li>
+<li><a href="#section-1ccaeeaa340e">2.1. 默认配置</a></li>
+<li><a href="#section-a4fcce2afec0">2.2. Org Mode 元素选择器参考</a></li>
+<li><a href="#section-1ccaeeaa340e">2.3. 容错规范</a></li>
+<li><a href="#section-3143504cc313">2.4. 局限性声明</a></li>
+<li><a href="#section-3143504cc313">2.5. 快速参考卡</a></li>
 </ul>
 </li>
 </ul>
@@ -81,14 +81,14 @@
 <h2 id="section-d003bed189e3"><span class="section-number-2">1.</span> OrgTheme</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-section-90e0c51d7cda" class="outline-3">
-<h3 id="section-90e0c51d7cda"><span class="section-number-3">1.1.</span> 设计理念</h3>
+<div id="outline-container-section-802850f95775" class="outline-3">
+<h3 id="section-802850f95775"><span class="section-number-3">1.1.</span> 设计理念</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 本系统采用六阶段流水线架构，每个阶段职责单一、可独立运行、支持任意组合。具体架构如下:
 </p>
 
-<pre class="example" id="orgb39af55"><code class="language-plaintext">
+<pre class="example" id="org8368cbc"><code class="language-plaintext">
 ┌───────────────────────────────────────────────────────────────┐
 │                  OrgTheme 专业版 v4.0                         │
 ├───────────────────────────────────────────────────────────────┤
@@ -253,8 +253,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-06884499bfe5" class="outline-3">
-<h3 id="section-06884499bfe5"><span class="section-number-3">1.2.</span> P1 需求生成</h3>
+<div id="outline-container-section-4d502ef042f8" class="outline-3">
+<h3 id="section-4d502ef042f8"><span class="section-number-3">1.2.</span> P1 需求生成</h3>
 <div class="outline-text-3" id="text-1-2">
 <blockquote>
 <p>
@@ -281,7 +281,7 @@ C 使用默认配置
 回复编号组合，如 1B 2A 3C 4B 5BC 6A 7AB 8A
 </p>
 
-<pre class="example" id="orgc2f6454"><code class="language-plaintext">
+<pre class="example" id="org4b19c9d"><code class="language-plaintext">
 1 色调
   A 亮色
   B 暗色
@@ -366,7 +366,7 @@ C 使用默认配置
 <b>模式C 默认配置</b>
 </p>
 
-<pre class="example" id="org850a902"><code class="language-plaintext">
+<pre class="example" id="org43f7514"><code class="language-plaintext">
 色调：亮色+暗色切换
 风格：现代科技
 字体：系统默认+等宽代码
@@ -384,7 +384,7 @@ C 使用默认配置
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="orgd1b9183"><code class="language-plaintext">
+<pre class="example" id="org6f17520"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📄 需求文档 v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -450,8 +450,8 @@ C 使用默认配置
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-eb9338c17ee6" class="outline-3">
-<h3 id="section-eb9338c17ee6"><span class="section-number-3">1.3.</span> P2 主题构建</h3>
+<div id="outline-container-section-598d1897bcab" class="outline-3">
+<h3 id="section-598d1897bcab"><span class="section-number-3">1.3.</span> P2 主题构建</h3>
 <div class="outline-text-3" id="text-1-3">
 <blockquote>
 <p>
@@ -495,7 +495,7 @@ C 使用默认配置
 扫描HTML识别元素：
 </p>
 
-<pre class="example" id="orge06a64e"><code class="language-plaintext">
+<pre class="example" id="org9cff4fa"><code class="language-plaintext">
 📊 文档结构
 ├── 标题：h1(N) h2(N) h3(N) ...
 ├── 目录：有/无
@@ -518,7 +518,7 @@ C 使用默认配置
 模块化结构：
 </p>
 
-<pre class="example" id="org13e4caa"><code class="language-plaintext">
+<pre class="example" id="orgf319805"><code class="language-plaintext">
 /* ═══════════════════════════════════════
    OrgTheme CSS v1.0
    ═══════════════════════════════════════ */
@@ -553,7 +553,7 @@ C 使用默认配置
 第三步 生成JS（如需）
 </p>
 
-<pre class="example" id="orga4f5e39"><code class="language-plaintext">
+<pre class="example" id="orgf1faaba"><code class="language-plaintext">
 /* ═══════════════════════════════════════
    OrgTheme JS v1.0
    ═══════════════════════════════════════ */
@@ -590,7 +590,7 @@ C 使用默认配置
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="org9c28f96"><code class="language-plaintext">
+<pre class="example" id="orgcc1cb8b"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P2 主题构建 | v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -630,8 +630,8 @@ C 使用默认配置
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-e929793aa22d" class="outline-3">
-<h3 id="section-e929793aa22d"><span class="section-number-3">1.4.</span> P3 代码分离</h3>
+<div id="outline-container-section-2fed3a4b0376" class="outline-3">
+<h3 id="section-2fed3a4b0376"><span class="section-number-3">1.4.</span> P3 代码分离</h3>
 <div class="outline-text-3" id="text-1-4">
 <blockquote>
 <p>
@@ -680,7 +680,7 @@ C 使用默认配置
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="orgea92570"><code class="language-plaintext">
+<pre class="example" id="orgc541ba6"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P3 代码分离 | v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -716,8 +716,8 @@ C 使用默认配置
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-fb961551ce60" class="outline-3">
-<h3 id="section-fb961551ce60"><span class="section-number-3">1.5.</span> P4 质检审计</h3>
+<div id="outline-container-section-744dd0bd837a" class="outline-3">
+<h3 id="section-744dd0bd837a"><span class="section-number-3">1.5.</span> P4 质检审计</h3>
 <div class="outline-text-3" id="text-1-5">
 <blockquote>
 <p>
@@ -754,7 +754,7 @@ C 使用默认配置
 <b>MECE质检框架</b>
 </p>
 
-<pre class="example" id="orgf1d512b"><code class="language-plaintext">
+<pre class="example" id="org9b9c04d"><code class="language-plaintext">
 ┌────────────────────────────────────────────┐
 │            质检维度矩阵                     │
 ├────────────────────────────────────────────┤
@@ -808,7 +808,7 @@ C 使用默认配置
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="org41f58ba"><code class="language-plaintext">
+<pre class="example" id="org38e8ad7"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P4 质检审计 | v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -851,8 +851,8 @@ C 使用默认配置
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-776602242445" class="outline-3">
-<h3 id="section-776602242445"><span class="section-number-3">1.6.</span> P5 优化规划</h3>
+<div id="outline-container-section-3bdc54ea8424" class="outline-3">
+<h3 id="section-3bdc54ea8424"><span class="section-number-3">1.6.</span> P5 优化规划</h3>
 <div class="outline-text-3" id="text-1-6">
 <blockquote>
 <p>
@@ -888,7 +888,7 @@ C 使用默认配置
 <b>优先级矩阵</b>
 </p>
 
-<pre class="example" id="org9c358a5"><code class="language-plaintext">
+<pre class="example" id="org05c890b"><code class="language-plaintext">
            影响大
              │
     ┌────────┼────────┐
@@ -915,7 +915,7 @@ P4 评估后定：影响小+难度高
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="orgb6ff593"><code class="language-plaintext">
+<pre class="example" id="org93cd47d"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P5 优化规划 | v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -966,8 +966,8 @@ P4 评估后定：影响小+难度高
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-0ee95301a5af" class="outline-3">
-<h3 id="section-0ee95301a5af"><span class="section-number-3">1.7.</span> P6 执行验证</h3>
+<div id="outline-container-section-0fdd25e8428a" class="outline-3">
+<h3 id="section-0fdd25e8428a"><span class="section-number-3">1.7.</span> P6 执行验证</h3>
 <div class="outline-text-3" id="text-1-7">
 <blockquote>
 <p>
@@ -1005,7 +1005,7 @@ P4 评估后定：影响小+难度高
 <b>执行原则</b>
 </p>
 
-<pre class="example" id="org9d4a4db"><code class="language-plaintext">
+<pre class="example" id="org03761f8"><code class="language-plaintext">
 ✅ 严格按规划执行
 ✅ 每处修改标注 [OPT-编号]
 ✅ 未涉及代码保持不变
@@ -1024,7 +1024,7 @@ P4 评估后定：影响小+难度高
 <p>
 CSS注释：
 </p>
-<pre class="example" id="org5c96d4b"><code class="language-plaintext">
+<pre class="example" id="org26e523a"><code class="language-plaintext">
 /* [OPT-1.1] 优化：标题左侧装饰线 */
 h2::before { ... }
 </code></pre>
@@ -1032,7 +1032,7 @@ h2::before { ... }
 <p>
 JS注释：
 </p>
-<pre class="example" id="org9e58cff"><code class="language-plaintext">
+<pre class="example" id="org0bf0738"><code class="language-plaintext">
 // [OPT-1.2] 新增：代码复制功能
 function initCodeCopy() { ... }
 </code></pre>
@@ -1058,7 +1058,7 @@ function initCodeCopy() { ... }
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="org81b5642"><code class="language-plaintext">
+<pre class="example" id="org59e2c03"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P6 执行验证 | v1.1
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1150,10 +1150,10 @@ function initCodeCopy() { ... }
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-fa2be955d2d8" class="outline-3">
-<h3 id="section-fa2be955d2d8"><span class="section-number-3">1.8.</span> 完整流程指南</h3>
+<div id="outline-container-section-b5b72c8b37b1" class="outline-3">
+<h3 id="section-b5b72c8b37b1"><span class="section-number-3">1.8.</span> 完整流程指南</h3>
 <div class="outline-text-3" id="text-1-8">
-<pre class="example" id="orgf26b116"><code class="language-plaintext">
+<pre class="example" id="org26b7145"><code class="language-plaintext">
 步骤1：P1 收集需求
 用户：[选择选项或描述偏好]
 输出：需求文档
@@ -1224,7 +1224,7 @@ function initCodeCopy() { ... }
 </tbody>
 </table></section>
 
-<pre class="example" id="org3db44c3"><code class="language-plaintext">
+<pre class="example" id="org77155e8"><code class="language-plaintext">
 跳到 P1  - 重新收集需求
 跳到 P2  - 重新构建主题
 跳到 P3  - 分离当前代码
@@ -1235,14 +1235,14 @@ function initCodeCopy() { ... }
 </div>
 </div>
 </div>
-<div id="outline-container-section-bf27f28872a5" class="outline-2">
-<h2 id="section-bf27f28872a5"><span class="section-number-2">2.</span> 附录</h2>
+<div id="outline-container-section-1d79f9e9c842" class="outline-2">
+<h2 id="section-1d79f9e9c842"><span class="section-number-2">2.</span> 附录</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-section-004c706919d9" class="outline-3">
-<h3 id="section-004c706919d9"><span class="section-number-3">2.1.</span> 默认配置</h3>
+<div id="outline-container-section-1ccaeeaa340e" class="outline-3">
+<h3 id="section-1ccaeeaa340e"><span class="section-number-3">2.1.</span> 默认配置</h3>
 <div class="outline-text-3" id="text-2-1">
-<pre class="example" id="orgf71c05e"><code class="language-plaintext">
+<pre class="example" id="org58d7c76"><code class="language-plaintext">
 色彩方案
 ├── 亮色模式
 │   ├── 主背景：#ffffff
@@ -1278,8 +1278,8 @@ function initCodeCopy() { ... }
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-8483fdd73d73" class="outline-3">
-<h3 id="section-8483fdd73d73"><span class="section-number-3">2.2.</span> Org Mode 元素选择器参考</h3>
+<div id="outline-container-section-a4fcce2afec0" class="outline-3">
+<h3 id="section-a4fcce2afec0"><span class="section-number-3">2.2.</span> Org Mode 元素选择器参考</h3>
 <div class="outline-text-3" id="text-2-2">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table>
 
@@ -1404,10 +1404,10 @@ function initCodeCopy() { ... }
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-e0d327ef1e51" class="outline-3">
-<h3 id="section-e0d327ef1e51"><span class="section-number-3">2.3.</span> 容错规范</h3>
+<div id="outline-container-section-1ccaeeaa340e" class="outline-3">
+<h3 id="section-1ccaeeaa340e"><span class="section-number-3">2.3.</span> 容错规范</h3>
 <div class="outline-text-3" id="text-2-3">
-<pre class="example" id="orgb783660"><code class="language-plaintext">
+<pre class="example" id="org9ed6d90"><code class="language-plaintext">
 所有阶段遵循：
 
 输入不完整时：
@@ -1429,10 +1429,10 @@ function initCodeCopy() { ... }
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-77c772ec7c5d" class="outline-3">
-<h3 id="section-77c772ec7c5d"><span class="section-number-3">2.4.</span> 局限性声明</h3>
+<div id="outline-container-section-3143504cc313" class="outline-3">
+<h3 id="section-3143504cc313"><span class="section-number-3">2.4.</span> 局限性声明</h3>
 <div class="outline-text-3" id="text-2-4">
-<pre class="example" id="org4914cb0"><code class="language-plaintext">
+<pre class="example" id="org6036ae2"><code class="language-plaintext">
 1 版本号为语义标记，非持久存储
 2 无法跨会话保持状态
 3 上下文窗口有限，超长内容可能截断
@@ -1442,10 +1442,10 @@ function initCodeCopy() { ... }
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-5a5fdd4ab4cc" class="outline-3">
-<h3 id="section-5a5fdd4ab4cc"><span class="section-number-3">2.5.</span> 快速参考卡</h3>
+<div id="outline-container-section-3143504cc313" class="outline-3">
+<h3 id="section-3143504cc313"><span class="section-number-3">2.5.</span> 快速参考卡</h3>
 <div class="outline-text-3" id="text-2-5">
-<pre class="example" id="orgf5a7d75"><code class="language-plaintext">
+<pre class="example" id="org2c00bc0"><code class="language-plaintext">
 ┌──────────────────────────────────────────────┐
 │        OrgTheme 专业版 v4.0 快速参考          │
 ├──────────────────────────────────────────────┤
@@ -1539,7 +1539,7 @@ function initCodeCopy() { ... }
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>04</span></div>
+    <div class="sidebar-cat-label">SQL <span>04</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -1560,7 +1560,7 @@ function initCodeCopy() { ... }
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>

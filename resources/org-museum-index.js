@@ -335,7 +335,7 @@ function renderResume(records){
 readUrl();applyState();
 openReadingDb().then(function(db){
   return loadRecentRecords(db).finally(function(){db.close();});
-}).then(renderResume).catch(function(){if(resume)resume.hidden=true;});
+}).then(renderResume).catch(function(){renderResume([]);});
 })();
 
 ;
