@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-17 Thu 18:27 -->
+<!-- 2026-09-21 Mon 21:25 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>00 DuckDB 最小入门</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
+<link rel="stylesheet" href="../../resources/org-museum.css?v=f191e4a437f4">
 <link rel="icon" href="data:,">
 </head>
 <body class="org-museum-page" data-page-kind="article" data-page-id="3572220e-7c4f-45fd-af24-4e4ae2cddea2" data-page-title="00 DuckDB 最小入门" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-09-09" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
+  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -164,7 +164,7 @@
 <h3 id="section-1566ee03d923"><span class="section-number-3">2.2.</span> 建表代码块</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
-<pre class="src src-duckdb" id="org1f67974"><code class="language-sql">DROP TABLE IF EXISTS order_items;
+<pre class="src src-duckdb" id="org4eddd0a"><code class="language-sql">DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS customers;
@@ -209,7 +209,7 @@ SELECT 'schema ready' AS setup_status;
 </code></pre>
 </div>
 
-<div class="results" id="org562937e"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
+<div class="results" id="orgcbde37c"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
 schema ready</code></pre></div>
 </div>
 </div>
@@ -230,7 +230,7 @@ schema ready</code></pre></div>
 <h3 id="section-302a99b50d20"><span class="section-number-3">3.2.</span> 插入代码块</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
-<pre class="src src-duckdb" id="org3148327"><code class="language-sql">INSERT INTO customers VALUES
+<pre class="src src-duckdb" id="org6e0eeff"><code class="language-sql">INSERT INTO customers VALUES
   (1, 'Ada', 'Shanghai', 'active', '2026-01-03'),
   (2, 'Ben', 'Beijing', 'active', '2026-01-12'),
   (3, 'Chen', 'Shanghai', 'inactive', '2026-02-01'),
@@ -267,7 +267,7 @@ SELECT 'seed ready' AS setup_status;
 </code></pre>
 </div>
 
-<div class="results" id="org0654370"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
+<div class="results" id="org810f2d3"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
 seed ready</code></pre></div>
 </div>
 </div>
@@ -288,13 +288,13 @@ seed ready</code></pre></div>
 <h3 id="section-c6ba273d0777"><span class="section-number-3">4.2.</span> 查询代码块</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
-<pre class="src src-duckdb" id="org23c30b1"><code class="language-sql">SELECT customer_id, name, city
+<pre class="src src-duckdb" id="org75d98d3"><code class="language-sql">SELECT customer_id, name, city
 FROM customers
 ORDER BY customer_id;
 </code></pre>
 </div>
 
-<div class="results" id="org5ccae6c">
+<div class="results" id="org2afc552">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
 
 
@@ -363,7 +363,7 @@ ORDER BY customer_id;
 <div id="outline-container-section-5417dc1fa9be" class="outline-3">
 <h3 id="section-5417dc1fa9be"><span class="section-number-3">5.2.</span> 预期结果示例</h3>
 <div class="outline-text-3" id="text-5-2">
-<pre class="example" id="orgc161de9"><code class="language-plaintext">
+<pre class="example" id="org0c4c602"><code class="language-plaintext">
 customer_id,name,city
 1,Ada,Shanghai
 2,Ben,Beijing

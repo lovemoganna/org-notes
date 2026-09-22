@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-17 Thu 18:26 -->
+<!-- 2026-09-21 Mon 21:24 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Emacs 插件高价值增量观察（滚动）</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
 <script src="../../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../../resources/org-museum.css?v=3ecfeca3ecb4">
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=f191e4a437f4">
 <link rel="icon" href="data:,">
 </head>
 <body class="org-museum-page" data-page-kind="article" data-page-id="4aec0077-2a63-495f-b4b2-e3fdfcd66f88" data-page-title="Emacs 插件高价值增量观察（滚动）" data-page-category="Emacs" data-page-tags="emacs,plugin-watch,rolling,org-roam" data-page-status="published" data-page-modified="2026-08-01" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
+  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -530,7 +530,7 @@
 <div class="outline-text-4" id="text-2-1-3">
 </div>
 <ol class="org-ol">
-<li><a id="org4dba05e"></a>DOOM-on-Emacs 把原生 Canvas 提案变成可运行演示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orga38ef0b"></a>DOOM-on-Emacs 把原生 Canvas 提案变成可运行演示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-1">
 <ul class="org-ul">
 <li>事件: 8 月 1 日，Minad 的 DOOM-on-Emacs 演示被提交到 Hacker News；它通过 native module 和少量 Elisp 胶水让经典 DOOM 在 Emacs 内运行，前提是自行应用尚未进入 Emacs 源码树的 Canvas API 补丁并重新编译。</li>
@@ -551,7 +551,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orgc9ff3c0"></a>Magit 4.7.0 发布，扩展 reflog、签名、目录与项目调度工作流&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="orge407d26"></a>Magit 4.7.0 发布，扩展 reflog、签名、目录与项目调度工作流&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-2">
 <ul class="org-ul">
 <li>事件: Jonas Bernoulli 于 8 月 1 日发布 Magit 4.7.0。版本加入全 reflog 日志、远端引用检出、项目调度、复制 diff、目录级文件操作等能力，并适配 Git 2.55 的 graph lane limit；同时修复 worktree、Ediff、缓存和 submodule 状态问题。</li>
@@ -572,7 +572,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org0f9c219"></a>agent-shell 修复富文本强调破坏异步渲染锚点的问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org173ff7a"></a>agent-shell 修复富文本强调破坏异步渲染锚点的问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-3">
 <ul class="org-ul">
 <li>事件: agent-shell 于 8 月 1 日修复 Markdown 粗体、斜体和删除线转换：旧实现会删除并重插整段文本，导致其中已冻结区域的 marker 与 overlay 失效，使异步渲染结果（例如强调文本内的数学内容）消失；新实现只删除标记符，并加入回归测试。</li>
@@ -593,7 +593,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org326f562"></a>Emacs core 恢复 VC-Dir 出站修订计数的可点击行为&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org54e2e6a"></a>Emacs core 恢复 VC-Dir 出站修订计数的可点击行为&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-4">
 <ul class="org-ul">
 <li>事件: Emacs core 于 7 月 31 日修复 VC-Dir 头部“NN outgoing revisions”计数不可点击的回归，改为使用 overlay 主文本而非 `after-string`，恢复从计数进入出站修订视图的交互。</li>
@@ -614,7 +614,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org6923f74"></a>gptel 移除即将弃用的 DeepSeek 旧模型名&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org32f8476"></a>gptel 移除即将弃用的 DeepSeek 旧模型名&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-5">
 <ul class="org-ul">
 <li>事件: gptel 于 7 月 31 日从 DeepSeek backend 的模型列表移除即将弃用的 `deepseek-chat` 与 `deepseek-reasoner`，默认保留 `deepseek-v4-flash`；提交同时更新了上下文窗口和能力元数据。</li>
@@ -789,7 +789,7 @@
 <div class="outline-text-4" id="text-2-2-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgf509204"></a>ECA 不再向代理发送空路径与空位置的光标上下文 :P1:<br>
+<li><a id="orgb67b562"></a>ECA 不再向代理发送空路径与空位置的光标上下文 :P1:<br>
 <div class="outline-text-5" id="text-2-2-3-1">
 <p>
 :PROPERTIES:
@@ -818,7 +818,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org0c75b86"></a>Flycheck 38.4 开发线补齐现代检查器配置与 ESLint 9 项目识别 :P1:<br>
+<li><a id="org0c3321f"></a>Flycheck 38.4 开发线补齐现代检查器配置与 ESLint 9 项目识别 :P1:<br>
 <div class="outline-text-5" id="text-2-2-3-2">
 <p>
 :PROPERTIES:
@@ -847,7 +847,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org2436b26"></a>agent-shell 修正后台窗口中的权限请求定位 :P1:<br>
+<li><a id="org3dc70f6"></a>agent-shell 修正后台窗口中的权限请求定位 :P1:<br>
 <div class="outline-text-5" id="text-2-2-3-3">
 <p>
 :PROPERTIES:
@@ -876,7 +876,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org6f53859"></a>Hyperbole 教程展示无需显式链接的“可操作文本” :P1:<br>
+<li><a id="org298b5af"></a>Hyperbole 教程展示无需显式链接的“可操作文本” :P1:<br>
 <div class="outline-text-5" id="text-2-2-3-4">
 <p>
 :PROPERTIES:
@@ -1054,7 +1054,7 @@
 <div class="outline-text-4" id="text-2-3-3">
 </div>
 <ol class="org-ol">
-<li><a id="org66fa103"></a>md-mode 0.2 把多类技术图形带入同缓冲区 Markdown 预览&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org0882589"></a>md-mode 0.2 把多类技术图形带入同缓冲区 Markdown 预览&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-1">
 <ul class="org-ul">
 <li>事件: 2026-07-30，md-mode 作者发布 0.2：在保持 Markdown 源文本为唯一事实源的前提下，以异步、缓存方式在同一缓冲区渲染 LaTeX、Mermaid、PlantUML 和 Graphviz，并补充主题感知缓存、CJK 标题缩放、宽表格与 Org 风格结构导航。</li>
@@ -1075,7 +1075,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org3187cdc"></a>ECA 修复跨项目缓冲区周期性卡顿&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org0c39afa"></a>ECA 修复跨项目缓冲区周期性卡顿&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-2">
 <ul class="org-ul">
 <li>事件: 2026-07-30，eca-emacs 修复游标跟踪 idle timer 在不属于任何 ECA session 的缓冲区里反复探测 project.el、并对每个 workspace folder 调用 git rev-parse 的问题；新实现以内存匹配工作区、缓存 git common dir，并用 process-file 直接执行 Git。</li>
@@ -1096,7 +1096,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org482f3bb"></a>agent-shell 补齐 Markdown 列表、会话恢复与图片尺寸&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org37a056a"></a>agent-shell 补齐 Markdown 列表、会话恢复与图片尺寸&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-3">
 <ul class="org-ul">
 <li>事件: 2026-07-29 至 30 日，agent-shell 连续合入 Markdown 列表渲染、会话恢复修复、恢复后光标定位、权限按钮焦点修复，以及 Pandoc 风格图片宽高属性支持；最新提交允许用 {width=300} 或百分比控制图片显示尺寸。</li>
@@ -1117,7 +1117,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org3d219fe"></a>ECA 修复缺失版本文件导致服务器永久不更新&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org1d7805a"></a>ECA 修复缺失版本文件导致服务器永久不更新&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-4">
 <ul class="org-ul">
 <li>事件: 2026-07-30，eca-emacs 修复异步下载中断后版本文件缺失、旧服务器二进制却被误判为无需更新的问题；现在遇到“二进制存在但版本未知”会在启动时重装，离线检查失败则继续使用已安装二进制，并在检查命令中明确报告未知版本。</li>
@@ -1138,7 +1138,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org95b6eba"></a>Emacs core 为行注释引入可配置识别规则&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orgca51037"></a>Emacs core 为行注释引入可配置识别规则&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-5">
 <ul class="org-ul">
 <li>事件: 2026-07-30，Emacs core 新增 comment-start-line-regexp，并让多种经典与 tree-sitter major mode 设置它；treesit-forward-comment 据此判断注释节点是否是行注释，同时相关行为写入 NEWS 和手册。</li>
@@ -1159,7 +1159,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org210e289"></a>Flycheck 38 同日迭代至 38.3，原生 LSP 与行内诊断落地&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org73f8655"></a>Flycheck 38 同日迭代至 38.3，原生 LSP 与行内诊断落地&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-6">
 <ul class="org-ul">
 <li>事件: 2026-07-29，Flycheck 发布 38.0，并在约四小时内连续发布 38.1、38.2、38.3。38.0 加入内置 Eglot 集成、原生 LSP checker 与三种行内诊断样式；38.2 紧急把原生 checker 从 lsp 改名为 flycheck-lsp，修复覆盖 lsp-mode 自有 checker 后错误列表和高亮消失；38.3 再修正行内注释位置并扩展诊断解释。</li>
@@ -1180,7 +1180,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org82b6be8"></a>CIDER 增加按项目类型自动连接 ClojureScript REPL&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org2acd036"></a>CIDER 增加按项目类型自动连接 ClojureScript REPL&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-7">
 <ul class="org-ul">
 <li>事件: 2026-07-29，CIDER 维护者介绍新的 ClojureScript 自动连接能力：cider-connect-cljs 可依据项目线索选择合适 REPL 类型，并改善 sibling ClojureScript REPL 的建立流程，减少用户记忆不同工具链连接细节的负担。</li>
@@ -1373,7 +1373,7 @@
 <div class="outline-text-4" id="text-2-4-3">
 </div>
 <ol class="org-ol">
-<li><a id="org7326548"></a>gptel 修复 DeepSeek 多段文本合并错误&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org13a4d83"></a>gptel 修复 DeepSeek 多段文本合并错误&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-4-3-1">
 <ul class="org-ul">
 <li>事件: 2026-07-26，gptel 维护者修复 DeepSeek 消息解析器：当连续同角色提示的 content 是向量形式（例如带类型的文本块）时，不再用字符串 concat 合并，而改用向量拼接并插入文本换行块。</li>
@@ -1394,7 +1394,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orge196dab"></a>nano-mu4e 1.0 以线程中心界面重做邮件列表&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org3a9249f"></a>nano-mu4e 1.0 以线程中心界面重做邮件列表&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-4-3-2">
 <ul class="org-ul">
 <li>事件: 2026-07-26，Nicolas Rougier 在 r/emacs 以“nano-mu4e 1.0”公开展示项目；仓库提供一个 mu4e minor mode，重排线程视图，突出主题、未读、标签、标记和内嵌预览，并提供多种紧凑布局。</li>
@@ -1527,7 +1527,7 @@
 <div class="outline-text-4" id="text-2-5-3">
 </div>
 <ol class="org-ol">
-<li><a id="orge037544"></a>CIDER 用标准 completing-read 接入现代补全栈&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orgdcdf4fd"></a>CIDER 用标准 completing-read 接入现代补全栈&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-1">
 <ul class="org-ul">
 <li>事件: 2026-07-25，CIDER 维护者 Bozhidar Batsov 说明最新 MELPA 构建加入可选的 cider-use-completing-read-for-symbol：符号提示可改走标准 completing-read，并按输入惰性查询 REPL；候选注释也改用 affixation-function 对齐显示。这些改动预计进入下一稳定版。</li>
@@ -1548,7 +1548,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orga2077a4"></a>CIDER 与 Projectile 把 Embark 动作带到领域对象&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orgba04743"></a>CIDER 与 Projectile 把 Embark 动作带到领域对象&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-2">
 <ul class="org-ul">
 <li>事件: 2026-07-25，Emacs Redux 发布可复用实践：CIDER 可为 Clojure 符号和补全候选注册文档、定义、引用、检查等 Embark 动作；Projectile 则已内置项目候选与项目文件的 Embark 集成，并正确按项目根目录解析相对路径。</li>
@@ -1569,7 +1569,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org5a7f997"></a>Emacs 32 的 vc-dir 不再无条件解析符号链接&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orgeef02af"></a>Emacs 32 的 vc-dir 不再无条件解析符号链接&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-3">
 <ul class="org-ul">
 <li>事件: 2026-07-25，Emacs master 修改 vc-dir：交互选择的目录若本身已有可负责的 VC backend，就保留该目录；只有目录本身无 backend、其 truename 有 backend 且 vc-follow-symlinks 非 nil 时才转向真实路径，并同步写入 NEWS。</li>
@@ -1590,7 +1590,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org40693b7"></a>Magit 日志菜单补齐只看合并提交&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org7a1d3b3"></a>Magit 日志菜单补齐只看合并提交&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-4">
 <ul class="org-ul">
 <li>事件: 2026-07-25，Magit 合入 #5299，在 magit-log 与 magit-log-refresh 菜单加入 Git 的 &ndash;merges 选项，并声明它与既有 &ndash;no-merges 互斥；变更已进入同日 MELPA 构建。</li>
@@ -1611,7 +1611,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orgff6d165"></a>llm 把 Gemini 默认模型切到 3.6 Flash&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org82eeddb"></a>llm 把 Gemini 默认模型切到 3.6 Flash&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-5">
 <ul class="org-ul">
 <li>事件: 2026-07-25 本地时间，Emacs 包 llm 修复 Gemini provider 中缺失的符号，并把默认 Gemini 模型改为 Gemini 3.6 Flash；同批修改更新 NEWS 和模型表。</li>
@@ -1632,7 +1632,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orga33143f"></a>Emacs 31.0.91 第二个 pretest 可供验证&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="orgc7b0f01"></a>Emacs 31.0.91 第二个 pretest 可供验证&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-6">
 <ul class="org-ul">
 <li>事件: GNU 已提供 Emacs 31.0.91 源码包及对应签名；Planet Emacslife 在 2026-07-24 22:16（+08:00）聚合了第二个 Emacs 31 pretest 的公告。这是通往 31.1 稳定版的下一轮公开验证点。</li>
@@ -1813,7 +1813,7 @@
 <div class="outline-text-4" id="text-2-6-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgf0dd409"></a>llm 把 Claude 默认模型切到 Claude 5 Sonnet&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orgbb1adfe"></a>llm 把 Claude 默认模型切到 Claude 5 Sonnet&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-1">
 <ul class="org-ul">
 <li>事件: 2026-07-25 本地时间，Emacs 包 llm 合入 #299，加入 Claude 5 Opus 与 Sonnet 的模型数据，并把 Claude provider 的默认模型改为 Claude 5 Sonnet；改动同时更新 NEWS、provider 与模型表。</li>
@@ -1834,7 +1834,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orga4c6722"></a>Magit pull 补齐全部 rebase 变体&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orgdce2bc0"></a>Magit pull 补齐全部 rebase 变体&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-2">
 <ul class="org-ul">
 <li>事件: Magit 于 2026-07-25 本地时间合入 #5224，扩展 pull 时的 rebase 判断，支持 Git 的全部 rebase 变体，并相应修改分支与 pull 逻辑及 changelog。</li>
@@ -1855,7 +1855,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orgcc2e029"></a>Magit push 暴露 Git 的 &ndash;push-option&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org6be1013"></a>Magit push 暴露 Git 的 &ndash;push-option&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-3">
 <ul class="org-ul">
 <li>事件: Magit 于 2026-07-25 本地时间合入 #5478，在 push transient 中加入 Git `&ndash;push-option` 支持，并同步更新 Org/Texinfo 手册和 changelog。</li>
@@ -1876,7 +1876,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orge5a1b54"></a>Emacs core 修复 dabbrev 遇到已销毁缓冲区时报错&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org5d1de7e"></a>Emacs core 修复 dabbrev 遇到已销毁缓冲区时报错&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-4">
 <ul class="org-ul">
 <li>事件: Emacs core 于 2026-07-24 修复 Bug#81452：`dabbrev-expand` 先前保存的 `dabbrev&ndash;last-buffer-found` 可能已经被销毁，随后扩展会报错；补丁在使用前重新验证 buffer 存活状态。</li>
@@ -1897,7 +1897,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org5c42668"></a>ECA 修复流式聊天输出导致视图反复跳动&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org87a8625"></a>ECA 修复流式聊天输出导致视图反复跳动&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-5">
 <ul class="org-ul">
 <li>事件: eca-emacs 于 2026-07-25 本地时间关闭 #268：聊天 buffer 现在局部设置滚动参数，使小块流式输出逐行滚动而非反复居中；spinner、进度区和工具标签也只在内容变化时重绘。</li>
@@ -1918,7 +1918,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org5d2c358"></a>社区集中讨论“哪些事不该放进 Emacs”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orgb66c6fd"></a>社区集中讨论“哪些事不该放进 Emacs”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-6">
 <ul class="org-ul">
 <li>事件: r/emacs 于 2026-07-24 出现高参与讨论，问题不是“Emacs 能做什么”，而是资深用户主动不用它做什么；回复集中提到电子书/PDF、富媒体邮件、网页、移动端同步、终端 TUI 与窗口管理。</li>
@@ -1939,7 +1939,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org2ab5a60"></a>旧 ThinkPad 被改造成极简 Emacs 写作机&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orgb041c4a"></a>旧 ThinkPad 被改造成极简 Emacs 写作机&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-7">
 <ul class="org-ul">
 <li>事件: Chung-hong Chan 于 2026-07-25 发布实践记录：把旧 ThinkPad T440 安装为无桌面 Debian+kmscon，删掉编程配置，让机器直接启动 Emacs/Deft，仅保留 Markdown、eshell 与 Magit，并用 Codeberg Git 仓库同步文本。</li>
@@ -2131,7 +2131,7 @@
 <div class="outline-text-4" id="text-2-7-3">
 </div>
 <ol class="org-ol">
-<li><a id="org47b4065"></a>Emacs 32 默认采用新的时间戳表示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orgd685d73"></a>Emacs 32 默认采用新的时间戳表示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-7-3-1">
 <ul class="org-ul">
 <li>事件: Emacs core 于 2026-07-24 将 `current-time-list` 的默认值从 t 改为 nil。Emacs 32 中，`current-time` 等函数因此默认返回 `(TICKS . HZ)`，而不再默认返回旧的 `(HIGH LOW USEC PSEC)` 列表；NEWS 与 Lisp 参考手册同步更新。</li>
@@ -2152,7 +2152,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org7181a37"></a>gptel 为 DeepSeek 与 z.ai 补齐结构化 JSON 输出&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org09a12e7"></a>gptel 为 DeepSeek 与 z.ai 补齐结构化 JSON 输出&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-7-3-2">
 <ul class="org-ul">
 <li>事件: gptel 于 2026-07-24 增加 DeepSeek 与 z.ai/GLM 的结构化 JSON 输出适配。由于这些 API 不接受完整 JSON Schema，gptel 会把请求的 schema 序列化进 system message，同时把 `response_format` 改为 `json_object`；维护者建议两类后端都用 `gptel-make-deepseek` 构造。</li>
@@ -2173,7 +2173,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orgc954d21"></a>llm 0.31.3 增加 DeepSeek 流式工具调用并更新模型适配&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orge7e8a4f"></a>llm 0.31.3 增加 DeepSeek 流式工具调用并更新模型适配&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-7-3-3">
 <ul class="org-ul">
 <li>事件: Emacs 包 `llm` 于 2026-07-24 本地时间发布 0.31.3，加入 DeepSeek 工具调用支持，并补充工具调用文档与可选参数测试；同时增加 Kimi K3 和新 Gemini 模型，且为这些 Gemini 模型移除 temperature 设置。</li>
@@ -2194,7 +2194,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org0feb5cf"></a>ECA 可把编译与终端等非文件缓冲区作为聊天上下文&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org4acd5e3"></a>ECA 可把编译与终端等非文件缓冲区作为聊天上下文&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-7-3-4">
 <ul class="org-ul">
 <li>事件: eca-emacs 于 2026-07-24 本地时间加入非文件缓冲区上下文：`@` 补全可选择 compilation、comint 等缓冲区，并在发送提示时抓取最新内容作为 text context；候选可用 predicate 定制，内容长度可设上限，提交同时加入覆盖筛选、截断和已销毁缓冲区的测试。</li>
@@ -2356,7 +2356,7 @@
 <div class="outline-text-4" id="text-2-8-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgf8b8139"></a>agent-shell 扩大异步 ACP 事件的可见范围&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org25d13c2"></a>agent-shell 扩大异步 ACP 事件的可见范围&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-1">
 <ul class="org-ul">
 <li>事件: agent-shell 于 2026-07-16 合入提交 4487940，调整 `session/update` 的处理：更多在请求结束后到达的 agent 消息、思考、工具调用和计划会被单独渲染在新提示符之前，而不是被吞掉、并入上一轮，或统一标成 ACP 服务端违规。</li>
@@ -2377,7 +2377,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org5e77614"></a>lsp-mode 修复 Ruby LSP Code Lens 的 plist 反序列化&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org3462528"></a>lsp-mode 修复 Ruby LSP Code Lens 的 plist 反序列化&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-2">
 <ul class="org-ul">
 <li>事件: lsp-mode 于 2026-07-16 合入 #5097，把 Ruby LSP 的 Code Lens action 参数读取从 `gethash` 改为 `lsp-get`，使 `rubyLsp.openFile`、`rubyLsp.runTest` 和 `rubyLsp.runTestInTerminal` 同时兼容哈希表与 plist 反序列化结果。</li>
@@ -2398,7 +2398,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org0e01825"></a>Emacs core 恢复 32 位 MinGW wide-int 的 pdumper 构建&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org60a79fb"></a>Emacs core 恢复 32 位 MinGW wide-int 的 pdumper 构建&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-3">
 <ul class="org-ul">
 <li>事件: Emacs core 于 2026-07-16 修正 `pdumper.c` 的 relocation alignment，把上限设为 `Lisp_Object` 与 `void *` 对齐值中的较小者，从而恢复 32 位 MinGW 配合 `&ndash;with-wide-int` 的构建；修复继续跟踪 Bug#44531。</li>
@@ -2419,7 +2419,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org671c018"></a>skewed-emacs 推出一条命令启动的容器化 Emacs+CL+MCP 环境&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P2">P2</span></span><br>
+<li><a id="org1632c0e"></a>skewed-emacs 推出一条命令启动的容器化 Emacs+CL+MCP 环境&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P2">P2</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-4">
 <ul class="org-ul">
 <li>事件: skewed-emacs 作者于 2026-07-16 宣布可通过一条 `curl` 命令启动预配置容器，组合 Emacs 30.1、约 39 个包、SLIME、SBCL/CCL/Gendl 与 lisply-mcp；仓库同日持续修正镜像 tag、构建顺序和新手引导。</li>
@@ -2440,7 +2440,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org4af4784"></a>ECA 隔离每个聊天的模型、代理、变体与 trust 状态&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org432951a"></a>ECA 隔离每个聊天的模型、代理、变体与 trust 状态&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-5">
 <ul class="org-ul">
 <li>事件: eca-emacs 于 2026-07-16 合入 PR #272，按聊天隔离 model、agent、variant 与 trust 选择，修正配置通知路由和陈旧 chat buffer 删除，并支持从服务端原子恢复 selection 快照；合并时 15 项检查通过。</li>
@@ -2461,7 +2461,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org7ca8f25"></a>gptel 补齐 OpenAI OAuth 后端的 gpt-5.6 模型清单&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org42056e2"></a>gptel 补齐 OpenAI OAuth 后端的 gpt-5.6 模型清单&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-6">
 <ul class="org-ul">
 <li>事件: gptel 于 2026-07-15 补交一项遗漏修复，在 ChatGPT Plus/Pro OAuth 后端模型清单中加入 `gpt-5.6-sol`、`gpt-5.6-terra` 和 `gpt-5.6-luna`；提交说明这些名称在更早变更中漏加。</li>
@@ -2482,7 +2482,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orgb36a3ea"></a>Jinx 与 Ivy 组合暴露拼写候选选择冲突&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org026f323"></a>Jinx 与 Ivy 组合暴露拼写候选选择冲突&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-7">
 <ul class="org-ul">
 <li>事件: Irreal 作者于 2026-07-15 更新其 Jinx 试用记录，确认“无法按预期选择正确拼写”与 Ivy 交互有关；引用的临时做法是在 `jinx-correct` 周围禁用 Ivy，但作者认为候选体验仍不理想并暂时退回原行为。</li>
@@ -2669,7 +2669,7 @@
 <div class="outline-text-4" id="text-2-9-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgcf5ca1b"></a>wasmacs：真实 GNU Emacs 30.2 以 WebAssembly 形式运行在浏览器中&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org1eef28b"></a>wasmacs：真实 GNU Emacs 30.2 以 WebAssembly 形式运行在浏览器中&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-9-3-1">
 <ul class="org-ul">
 <li>事件: r/emacs 用户 Exact_Engine_7218 于 2026-06-08 12:56 +08 发布 wasmacs，称其将 GNU Emacs 30.2 的 C core 与 Elisp runtime 编译到浏览器侧运行；配套 GitHub 仓库为 <a href="https://github.com/modeverv/wasmacs%EF%BC%8C%E6%BC%94%E7%A4%BA%E9%A1%B5%E4%B8%BA">https://github.com/modeverv/wasmacs%EF%BC%8C%E6%BC%94%E7%A4%BA%E9%A1%B5%E4%B8%BA</a> <a href="https://modeverv.github.io/wasmacs/%E3%80%82%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%89%8D%E5%8F%AF%E8%BF%90%E8%A1%8C">https://modeverv.github.io/wasmacs/%E3%80%82%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%89%8D%E5%8F%AF%E8%BF%90%E8%A1%8C</a> <b>scratch</b>、Dired、Org-mode、load-file，并可导入/导出 .wasifs 文件系统镜像。</li>
@@ -2684,7 +2684,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org770c0a5"></a>MELPA 更新 ai-code recipe：安装包开始包含 prompt/*.md&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="orge4fbef4"></a>MELPA 更新 ai-code recipe：安装包开始包含 prompt/*.md&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-9-3-2">
 <ul class="org-ul">
 <li>事件: MELPA 于 2026-06-07 23:25 +08 合并 recipe 更新，把 ai-code 的打包文件从默认文件和 snippets 扩展为同时包含 prompt/*.md。ai-code-interface.el 本身定位为 Emacs 内统一 AI coding interface，支持 Codex、GitHub Copilot CLI、Claude Code、Gemini CLI、Opencode、Aider 等后端。</li>
@@ -2699,7 +2699,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orgb834797"></a>pi.el：面向 Pi Coding Agent 的 Emacs 原生客户端开始公开讨论&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org1efe84f"></a>pi.el：面向 Pi Coding Agent 的 Emacs 原生客户端开始公开讨论&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-9-3-3">
 <ul class="org-ul">
 <li>事件: ananthakumaran 于 2026-06-07 14:03 +08 在 r/emacs 发布 pi.el，GitHub 仓库为 <a href="https://github.com/ananthakumaran/pi.el%E3%80%82README">https://github.com/ananthakumaran/pi.el%E3%80%82README</a> 显示该包通过 RPC mode 启动 Pi，由 Pi 处理 agent 逻辑，Emacs 提供界面；聊天缓冲区除输入区域外只读，并支持 section 折叠、slash command 补全、工具结果跳转等交互。</li>
@@ -2760,7 +2760,7 @@
 <div class="outline-text-4" id="text-2-10-3">
 </div>
 <ol class="org-ol">
-<li><a id="org46edea9"></a>Emacs 的 view- 家族：用 view-lossage 追踪误触并安全浏览&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org63b9993"></a>Emacs 的 view- 家族：用 view-lossage 追踪误触并安全浏览&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-10-3-1">
 <ul class="org-ul">
 <li>事件: 作者用 `view-lossage` 回溯最近按键序列，结合 `view-file`/`view-buffer` 等只读查看命令，并提示可用 `read-kbd-macro` 把选中的键序列转为可回放的宏。</li>
@@ -2881,7 +2881,7 @@
 <div class="outline-text-4" id="text-2-11-3">
 </div>
 <ol class="org-ol">
-<li><a id="orgf4852a3"></a>Savannah Emacs 仓库访问异常：cgit 502 + 项目页变为 scraper 页面&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="orge3d4b22"></a>Savannah Emacs 仓库访问异常：cgit 502 + 项目页变为 scraper 页面&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-11-3-1">
 <ul class="org-ul">
 <li>事件: 在本次窗口内，Savannah 的 Emacs cgit 页面返回 502，同时项目页呈现为“for web scrapers”的反爬/投毒页面。</li>
@@ -3006,7 +3006,7 @@
 <div class="outline-text-4" id="text-2-13-3">
 </div>
 <ol class="org-ol">
-<li><a id="org8eb8a98"></a>Emacs Android 端连续修复构建与字体元数据解析&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="orga784217"></a>Emacs Android 端连续修复构建与字体元数据解析&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-1">
 <ul class="org-ul">
 <li>事件: Emacs master 在 2026-05-25 上午连续出现 Android 相关修复：先修 Android build，再修 font metadata table 解析，随后补充 sfntfont Android 注释。</li>
@@ -3027,7 +3027,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org7e883fe"></a>Emacs 回滚 exec.c 文件名截断行为变更&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="org1d67468"></a>Emacs 回滚 exec.c 文件名截断行为变更&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-2">
 <ul class="org-ul">
 <li>事件: Emacs master 在 2026-05-25 回滚了 exec.c 文件名截断相关变更。</li>
@@ -3048,7 +3048,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org791eeeb"></a>org-roam-gt 宣称更快节点搜索与更丰富 capture targets&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org8a7b485"></a>org-roam-gt 宣称更快节点搜索与更丰富 capture targets&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-3">
 <ul class="org-ul">
 <li>事件: r/emacs 出现 org-roam-gt 讨论，主题是为 org-roam 提供更快 node search 和更丰富 capture targets。</li>
@@ -3069,7 +3069,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orgada6c2b"></a>use-package-x 进入 MELPA&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org4bfff79"></a>use-package-x 进入 MELPA&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-4">
 <ul class="org-ul">
 <li>事件: r/emacs 讨论 use-package-x（previously use-package-extras）已可在 MELPA 获取。</li>
@@ -3090,7 +3090,7 @@
 </ul>
 </div>
 </li>
-<li><a id="orga013ebc"></a>社区讨论 Emacs 安全层设想&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org8088ec9"></a>社区讨论 Emacs 安全层设想&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-5">
 <ul class="org-ul">
 <li>事件: r/emacs 出现 A possible security layer for emacs 讨论，围绕 Emacs 是否需要额外安全层展开。</li>

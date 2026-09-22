@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-17 Thu 18:27 -->
+<!-- 2026-09-21 Mon 21:25 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DuckDB 本体建模</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
+<link rel="stylesheet" href="../../resources/org-museum.css?v=f191e4a437f4">
 <link rel="icon" href="data:,">
 </head>
 <body class="org-museum-page" data-page-kind="article" data-page-id="duckdb-ontology" data-page-title="DuckDB 本体建模" data-page-category="Sql" data-page-tags="sql,duckdb,ontology,本体" data-page-status="draft" data-page-modified="2026-08-21" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
+  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -166,7 +166,7 @@ DuckDB 负责把数据查出来；本体建模负责把数据背后的“东西�
 以 <code>students/classes</code> 为例：
 </p>
 
-<pre class="example" id="org7a0e9c3"><code class="language-plaintext">
+<pre class="example" id="orgbed2fe5"><code class="language-plaintext">
 student_1 type Student
 student_1 hasName "小明"
 student_1 hasScore 90
@@ -197,7 +197,7 @@ class_1 hasName "一班"
 在 DuckDB 学生例子里：
 </p>
 
-<pre class="example" id="org295b05b"><code class="language-plaintext">
+<pre class="example" id="orgc0be26e"><code class="language-plaintext">
 Student
 ClassGroup
 ScoreBand
@@ -219,7 +219,7 @@ ScoreBand
 在学生表里，一行记录通常可以变成一个个体：
 </p>
 
-<pre class="example" id="org2fe883f"><code class="language-plaintext">
+<pre class="example" id="org1da61e0"><code class="language-plaintext">
 student_1
 student_2
 class_1
@@ -238,7 +238,7 @@ class_2
 <code>DataProperty</code> 是“对象到值”。
 </p>
 
-<pre class="example" id="org30f56e7"><code class="language-plaintext">
+<pre class="example" id="org93d3f72"><code class="language-plaintext">
 student_1 hasName "小明"
 student_1 hasGender "M"
 student_1 hasScore 90
@@ -256,7 +256,7 @@ student_1 hasScore 90
 <code>ObjectProperty</code> 是“对象到对象”。
 </p>
 
-<pre class="example" id="org64e826e"><code class="language-plaintext">
+<pre class="example" id="org0b31380"><code class="language-plaintext">
 student_1 belongsToClass class_1
 student_2 belongsToClass class_1
 </code></pre>

@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-17 Thu 18:27 -->
+<!-- 2026-09-21 Mon 21:25 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DuckDB Tutorial DuckDB 实战入门：Emacs Package 数据分析</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
+<link rel="stylesheet" href="../../resources/org-museum.css?v=f191e4a437f4">
 <link rel="icon" href="data:,">
 </head>
 <body class="org-museum-page" data-page-kind="article" data-page-id="sql" data-page-title="DuckDB 实战入门：Emacs Package 数据分析" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-06-27" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
+  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -374,7 +374,7 @@
 本文件所有代码块通过 <code>ob-shell</code> 调用 DuckDB CLI 执行：
 </p>
 
-<pre class="example" id="orge832a54"><code class="language-plaintext">
+<pre class="example" id="org76bd613"><code class="language-plaintext">
 安装 DuckDB CLI：   pip install duckdb
 执行任意代码块：    将光标置于 #+begin_src 行，按 C-c C-c
 执行全部代码块：    M-x org-babel-execute-buffer（按顺序执行，慎用）
@@ -587,7 +587,7 @@ python3 -c "import duckdb; print('Python DuckDB:', duckdb.__version__)"
 </code></pre>
 </div>
 
-<pre class="example" id="orgec7792a"><code class="language-plaintext">
+<pre class="example" id="org2f65993"><code class="language-plaintext">
 如果 duckdb 命令不在 PATH 中，尝试：
   python3 -m duckdb  （或找到 pip 的 bin 目录并加入 PATH）
 
@@ -606,7 +606,7 @@ duckdb -c "SELECT 'DuckDB 就绪' AS status, current_date AS today, 42 AS answer
 </code></pre>
 </div>
 
-<pre class="example" id="org39a66b5"><code class="language-plaintext">
+<pre class="example" id="org2ab9449"><code class="language-plaintext">
 ┌──────────────┬────────────┬────────┐
 │    status    │   today    │ answer │
 │   varchar    │    date    │ int32  │
@@ -673,7 +673,7 @@ ls -lh "$HOME/duckdb/"
 <div id="outline-container-section-c5f0d1597f92" class="outline-3">
 <h3 id="section-c5f0d1597f92"><span class="section-number-3">3.7.</span> 交互式 Shell 常用命令</h3>
 <div class="outline-text-3" id="text-3-7">
-<pre class="example" id="org7daba85"><code class="language-plaintext">
+<pre class="example" id="org755e886"><code class="language-plaintext">
 .help          -- 帮助
 .tables        -- 列出所有表
 .schema &lt;表名&gt;  -- 查看建表语句
@@ -902,7 +902,7 @@ SQL
 <div id="outline-container-section-09f1368e068a" class="outline-3">
 <h3 id="section-09f1368e068a"><span class="section-number-3">4.6.</span> 预期输出示例</h3>
 <div class="outline-text-3" id="text-4-6">
-<pre class="example" id="org72bbd41"><code class="language-plaintext">
+<pre class="example" id="org25603e8"><code class="language-plaintext">
 ┌───────────────┬─────────────┬─────────┬──────────────────┐
 │ column_name   │ column_type │ null    │ key              │
 ├───────────────┼─────────────┼─────────┼──────────────────┤
@@ -1356,7 +1356,7 @@ SQL
 <div id="outline-container-section-cf29cd73dfd8" class="outline-3">
 <h3 id="section-cf29cd73dfd8"><span class="section-number-3">6.10.</span> SQL 执行顺序（避免错误的关键）</h3>
 <div class="outline-text-3" id="text-6-10">
-<pre class="example" id="org0f117e3"><code class="language-plaintext">
+<pre class="example" id="org45609e2"><code class="language-plaintext">
 书写顺序：SELECT → FROM → WHERE → ORDER BY → LIMIT
 执行顺序：FROM → WHERE → SELECT → ORDER BY → LIMIT
 
@@ -1555,7 +1555,7 @@ SQL
 <div id="outline-container-section-b0a58e74309a" class="outline-3">
 <h3 id="section-b0a58e74309a"><span class="section-number-3">7.8.</span> GROUP BY 执行逻辑图解</h3>
 <div class="outline-text-3" id="text-7-8">
-<pre class="example" id="orga5cabae"><code class="language-plaintext">
+<pre class="example" id="org58cd669"><code class="language-plaintext">
 原始数据：
   name       category    downloads
   company    completion  890000
@@ -2221,7 +2221,7 @@ LIMIT 5;
 <div id="outline-container-section-9317a736f05b" class="outline-3">
 <h3 id="section-9317a736f05b"><span class="section-number-3">10.9.</span> 文件操作速查</h3>
 <div class="outline-text-3" id="text-10-9">
-<pre class="example" id="org24eed20"><code class="language-plaintext">
+<pre class="example" id="orgf7d5f9e"><code class="language-plaintext">
 【读取】
 read_csv_auto('path')                    -- 自动推断，快速探索
 read_csv('path', header=true, ...)       -- 手动控制，生产使用
@@ -2541,7 +2541,7 @@ SQL
 <div id="outline-container-section-31d78a651090" class="outline-3">
 <h3 id="section-31d78a651090"><span class="section-number-3">11.10.</span> 窗口函数语法结构</h3>
 <div class="outline-text-3" id="text-11-10">
-<pre class="example" id="org3130eef"><code class="language-plaintext">
+<pre class="example" id="org13debd9"><code class="language-plaintext">
 函数名() OVER (
     [PARTITION BY 分组列]        -- 在哪个范围内计算（可选）
     [ORDER BY 排序列 DESC]        -- 如何排序（可选）
@@ -2901,7 +2901,7 @@ COPY (
 应用此模板到新数据集时，按顺序完成以下步骤：
 </p>
 
-<pre class="example" id="orgba0a7f7"><code class="language-plaintext">
+<pre class="example" id="orgb2780fe"><code class="language-plaintext">
 □ 1. 确认数据文件路径
       → read_csv_auto('your.csv') LIMIT 5;
 
@@ -3045,7 +3045,7 @@ COPY (
 <div id="outline-container-section-0db778092499" class="outline-3">
 <h3 id="section-0db778092499"><span class="section-number-3">14.2.</span> 常用函数一览</h3>
 <div class="outline-text-3" id="text-14-2">
-<pre class="example" id="orgf6b68e9"><code class="language-plaintext">
+<pre class="example" id="org3085e9c"><code class="language-plaintext">
 【字符串】
 UPPER(s)  LOWER(s)  TRIM(s)  LENGTH(s)
 CONCAT(a, b)  s LIKE 'pat%'  s ILIKE 'pat%'
@@ -3096,7 +3096,7 @@ IIF(cond, a, b)      -- 三目运算符
 <div id="outline-container-section-c4630d17b668" class="outline-3">
 <h3 id="section-c4630d17b668"><span class="section-number-3">14.3.</span> JOIN 类型</h3>
 <div class="outline-text-3" id="text-14-3">
-<pre class="example" id="orgef50587"><code class="language-plaintext">
+<pre class="example" id="org567bb6a"><code class="language-plaintext">
 INNER JOIN  -- 只返回两表都有匹配的行
 LEFT  JOIN  -- 返回左表全部行，右表无匹配则为 NULL
 RIGHT JOIN  -- 返回右表全部行
@@ -3236,7 +3236,7 @@ SQL
 <p>
 代码块写法：
 </p>
-<pre class="example" id="org395194e"><code class="language-plaintext">
+<pre class="example" id="org16a7a83"><code class="language-plaintext">
 #+begin_src sh :results output :exports both
 DB="$HOME/duckdb/emacs_packages.duckdb"
 duckdb "$DB" &lt;&lt;'SQL'
@@ -3261,7 +3261,7 @@ SQL
 <p>
 代码块写法：
 </p>
-<pre class="example" id="orgdc88996"><code class="language-plaintext">
+<pre class="example" id="org06e8fb6"><code class="language-plaintext">
 #+begin_src python :results output
 import duckdb, os
 db = os.path.expanduser("~/duckdb/emacs_packages.duckdb")
@@ -3289,7 +3289,7 @@ conn.close()
 <p>
 代码块写法：
 </p>
-<pre class="example" id="orgb81ad18"><code class="language-plaintext">
+<pre class="example" id="orge019b7c"><code class="language-plaintext">
 #+begin_src duckdb :database ~/duckdb/emacs_packages.duckdb :results table
 SELECT COUNT(*) AS count FROM packages;
 #+end_src
@@ -3303,7 +3303,7 @@ SELECT COUNT(*) AS count FROM packages;
 在 org 文件顶部添加：
 </p>
 
-<pre class="example" id="orgdb26c7b"><code class="language-plaintext">
+<pre class="example" id="orga928830"><code class="language-plaintext">
 #+PROPERTY: header-args:sh     :results output :exports both
 #+PROPERTY: header-args:python :results output :exports both
 #+PROPERTY: header-args:duckdb :results table  :exports both
@@ -3318,7 +3318,7 @@ SELECT COUNT(*) AS count FROM packages;
 <div id="outline-container-progress" class="outline-2">
 <h2 id="progress"><span class="section-number-2">17.</span> 学习进度追踪</h2>
 <div class="outline-text-2" id="text-17">
-<pre class="example" id="orgbc9ee20"><code class="language-plaintext">
+<pre class="example" id="orgf950229"><code class="language-plaintext">
 完成标记：[X] = 已完成  [-] = 进行中  [ ] = 未开始
 
 [ ] 模块 0：DuckDB 定位——能回答"何时用/何时不用"

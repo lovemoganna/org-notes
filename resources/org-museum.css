@@ -734,6 +734,13 @@
   font-size: 12px;
 }
 
+.timeline-filter-note {
+  margin: 0;
+  color: var(--museum-ink-muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .timeline-filter-sheet .timeline-filter-list {
   display: flex;
   min-width: 0;

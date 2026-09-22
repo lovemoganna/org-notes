@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-17 Thu 18:26 -->
+<!-- 2026-09-21 Mon 21:24 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SICP SICP Lisp 过程抽象练习：平方根迭代逼近器</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=3ecfeca3ecb4">
+<link rel="stylesheet" href="../../resources/org-museum.css?v=f191e4a437f4">
 <link rel="icon" href="data:,">
 </head>
 <body class="org-museum-page" data-page-kind="article" data-page-id="sicp" data-page-title="SICP Lisp 过程抽象练习：平方根迭代逼近器" data-page-category="lisp" data-page-tags="lisp" data-page-status="draft" data-page-modified="2026-05-31" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-17" title="导出于 2026.09.17">2026.09.17</time>
+  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -185,7 +185,7 @@
 <h3 id="section-9caf87103ef5"><span class="section-number-3">4.1.</span> 文件头</h3>
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org9b7c501"><code class="language-lisp">;;; exercise-sqrt-process.el --- SICP-style sqrt process exercise -*- lexical-binding: t; -*-
+<pre class="src src-emacs-lisp" id="org206b9a3"><code class="language-lisp">;;; exercise-sqrt-process.el --- SICP-style sqrt process exercise -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;; TODO: 用 2-3 句话说明本练习对应的主题：过程、抽象、递归。
 ;; TODO: 写清楚本文件由 Org-mode tangle 生成，不建议直接修改导出文件。
@@ -204,7 +204,7 @@
 <h3 id="section-64b044fa9ac3"><span class="section-number-3">4.2.</span> 类型定义</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org4e0ca2f"><code class="language-lisp">;; TODO: 补充字段说明：guess / target / tolerance / steps 分别表示什么。
+<pre class="src src-emacs-lisp" id="org0b4c9ae"><code class="language-lisp">;; TODO: 补充字段说明：guess / target / tolerance / steps 分别表示什么。
 ;; TODO: 思考为什么用结构体返回结果，而不是只返回一个数字。
 
 (cl-defstruct
@@ -223,7 +223,7 @@
 <h3 id="section-64b044fa9ac3"><span class="section-number-3">4.3.</span> 数据定义</h3>
 <div class="outline-text-3" id="text-4-3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org7c88dac"><code class="language-lisp">;; TODO: 调整默认容忍度，观察测试结果是否仍然稳定。
+<pre class="src src-emacs-lisp" id="org869884c"><code class="language-lisp">;; TODO: 调整默认容忍度，观察测试结果是否仍然稳定。
 ;; TODO: 调整最大迭代次数，观察过小的值会导致什么问题。
 
 (defconst ex-default-tolerance 1e-05
@@ -245,7 +245,7 @@
 <h3 id="section-64b044fa9ac3"><span class="section-number-3">4.4.</span> 辅助函数</h3>
 <div class="outline-text-3" id="text-4-4">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org444c78e"><code class="language-lisp">;; TODO: 保持本块函数尽量纯净，不读写外部状态。
+<pre class="src src-emacs-lisp" id="orgfc43e0b"><code class="language-lisp">;; TODO: 保持本块函数尽量纯净，不读写外部状态。
 ;; TODO: 为每个辅助函数补充一个简单例子，写进文档字符串。
 
 (defun ex--square (x)
@@ -276,7 +276,7 @@
 <h3 id="section-64b044fa9ac3"><span class="section-number-3">4.5.</span> 核心逻辑</h3>
 <div class="outline-text-3" id="text-4-5">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgdd7536b"><code class="language-lisp">;; TODO: 本块依赖 chunk-data 与 chunk-helpers；保持 Assembly 中的装配顺序。
+<pre class="src src-emacs-lisp" id="orgfd40e3c"><code class="language-lisp">;; TODO: 本块依赖 chunk-data 与 chunk-helpers；保持 Assembly 中的装配顺序。
 ;; TODO: 不要把辅助函数逻辑重复写进核心函数，避免破坏黑箱抽象。
 
 (defun ex--sqrt-iterate (target guess tolerance steps)
@@ -316,7 +316,7 @@
 <h3 id="section-64b044fa9ac3"><span class="section-number-3">4.6.</span> 对外接口</h3>
 <div class="outline-text-3" id="text-4-6">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org1be6aac"><code class="language-lisp">;; TODO: 改造输出格式，让它更适合在 *Messages* buffer 中阅读。
+<pre class="src src-emacs-lisp" id="orgf5697f2"><code class="language-lisp">;; TODO: 改造输出格式，让它更适合在 *Messages* buffer 中阅读。
 ;; TODO: 增加可选参数读取，让用户手动输入 tolerance。
 
 (defun ex-sqrt-message (target)
@@ -340,7 +340,7 @@
 <h3 id="section-71327009b87c"><span class="section-number-3">4.7.</span> 测试与示例</h3>
 <div class="outline-text-3" id="text-4-7">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgecb7dfc"><code class="language-lisp">;; 使用 ert 框架
+<pre class="src src-emacs-lisp" id="org540fedc"><code class="language-lisp">;; 使用 ert 框架
 ;; TODO: 增加更多边界测试，例如极小小数、极大数字。
 ;; TODO: 增加失败用例，观察错误信息是否清晰。
 
