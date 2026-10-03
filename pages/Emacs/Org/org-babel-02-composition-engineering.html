@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Org Babel 02｜组合、复用与工程化</title>
+<meta name="generator" content="Org Mode" />
+<meta name="color-scheme" content="dark light">
+<script src="../../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=a21cc263868a">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-Org-org-babel-02-composition-engineering" data-page-title="Org Babel 02｜组合、复用与工程化" data-page-category="uncategorized" data-page-tags="Emacs,Org,Babel,Engineering" data-page-status="published" data-page-modified="2026-10-01" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline" href="../../../timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="../../../graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="../../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../../ai-center.html">AI 中心</a>
+    <a class="museum-topbar-link museum-nav-all" href="../../../index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../../index.html" class="museum-identity-title">Org Babel 02｜组合、复用与工程化</a><span class="museum-identity-meta">其他笔记</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="pages-Emacs-Org-org-babel-02-composition-engineering" data-page-title="Org Babel 02｜组合、复用与工程化" data-page-category="uncategorized"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+  <summary>文章信息</summary>
+<aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../../index.html?category=uncategorized#recent-updates">其他笔记</a>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 21 分钟</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../../index.html?tag=Emacs#recent-updates" data-tag="Emacs" title="查看包含标签 #Emacs 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Emacs</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Org#recent-updates" data-tag="Org" title="查看包含标签 #Org 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Org</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Babel#recent-updates" data-tag="Babel" title="查看包含标签 #Babel 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Babel</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Engineering#recent-updates" data-tag="Engineering" title="查看包含标签 #Engineering 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Engineering</span></a></dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a data-reading-return href="../../../index.html#recent-updates">← 全部笔记</a>
+  </nav>
+</aside>
+</details>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="3378d43af106131b367d8cc05aa603924874ef343f9dfaca9a00b7b9de44554e"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-document-info-keyword">#+subtitle:</span> <span class="org-face-org-document-info">从 Noweb、Session、Tangle 到可复用分析流水线</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :Emacs:Org:Babel:Engineering:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args :exports both</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args:python :results value replace :session none</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args:sh :results output replace</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 关系导航</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本文件承载“把会运行的 Block 变成工程系统”。订单案例、Contract 与 Golden Regression 放在同一模块，避免验证逻辑与被测实现被拆散。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 关系 | 指向                                                                                          | 为什么需要                                                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+-----------------------------------------------------------------------------------------------+------------------------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 前置 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.org]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">01｜执行基础与数据</span><span class="org-face-org-link org-face-org-table">流</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                         | 需要先掌握 Header Args、=:var=、Block → Block 与 </span><span class="org-face-org-verbatim org-face-org-table">=#+call:=</span><span class="org-face-org-table"> |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 依赖 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.org::*4. 参数传递：把变化从代码中抽出来]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">参数传</span><span class="org-face-org-link org-face-org-table">递</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table"> | 本文件多数复用机制建立在参数化 Block 上                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 延伸 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-03-verification-debugging.org]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">03｜验证、回归与排</span><span class="org-face-org-link org-face-org-table">错</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                        | 工程化之后用 E2E、Expanded Source 和回归验证稳定性         |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 示例 | </span><span class="org-face-org-link org-face-org-table">[[#order-pipeline]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">订单分析流水</span><span class="org-face-org-link org-face-org-table">线</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                                           | 本模块的贯穿实例                                           |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 复用 | </span><span class="org-face-org-link org-face-org-table">[[#library-of-babel]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">Library of Babe</span><span class="org-face-org-link org-face-org-table">l</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                                       | 多文档共享稳定 Block                                       |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 1. 贯穿模型</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">贯穿案例：从订单表中过滤指定国家、状态和最低金额，再汇总并生成报告。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: orders</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| uid | country | amount | status |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|-----+---------+--------+--------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u01 | TR      |    120 | paid   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u02 | TR      |     80 | refund |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u01 | TR      |     30 | paid   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u03 | US      |    200 | paid   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u04 | TR      |    300 | paid   |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">固定逻辑：过滤、汇总、报告、断言。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">可变参数：=country=、=status=、=min_amount=。固定逻辑只写一次，变化从 <span class="org-face-org-verbatim">=:var=</span> / <span class="org-face-org-verbatim">=#+call:=</span> 传入。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 2. Noweb：组合源码，而不是复制源码</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Noweb 解决“把多个代码片段组合成一段最终源码”的问题。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: normalize-number</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var value=0 :results silent</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-variable-name-face org-face-org-block">value</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">float</span><span class="org-face-org-block">(value)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: apply-tax</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var value=0 tax_rate=0 :results silent</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-variable-name-face org-face-org-block">value</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> value </span><span class="org-face-font-lock-operator-face org-face-org-block">*</span><span class="org-face-org-block"> (1 </span><span class="org-face-font-lock-operator-face org-face-org-block">+</span><span class="org-face-org-block"> tax_rate)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: noweb-price</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var value=100 tax_rate=0.08 :noweb yes :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-operator-face org-face-org-block">&lt;&lt;</span><span class="org-face-org-block">normalize</span><span class="org-face-font-lock-operator-face org-face-org-block">-</span><span class="org-face-org-block">number</span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-operator-face org-face-org-block">&lt;&lt;</span><span class="org-face-org-block">apply</span><span class="org-face-font-lock-operator-face org-face-org-block">-</span><span class="org-face-org-block">tax</span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">round</span><span class="org-face-org-block">(value, 2)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: noweb-price</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 108.0</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">执行前先按 =C-c C-v v=。你应该看到接近下面的展开结果：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  value = 100</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  # Babel 会按 backend 方式注入 tax_rate 等变量</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  value = float(value)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  value = value * (1 + tax_rate)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  return round(value, 2)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这两个片段本身也可以单独执行：Header 中给了安全默认变量，=:results silent= 不往文档写结果。它们被 Noweb 展开时只展开 Block body，片段自己的 <span class="org-face-org-verbatim">=:var=</span> 不会替调用方注入变量。最终执行 Block 仍必须显式提供 =value=、=tax_rate=。官方文档也明确说明 Noweb 引用不会自动继承被引用 Block 的变量绑定。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 3. Session：共享状态要显式</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">默认使用无状态 Block；它更容易单独重跑、缓存和回归。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">只有确实需要长生命周期状态时才用 Session。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: session-init</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :session tutorial-session :results output replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-variable-name-face org-face-org-block">x</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> 10</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-builtin-face org-face-org-block">print</span><span class="org-face-org-block">(x)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: session-init</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 10</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: session-use</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :session tutorial-session :results output replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-variable-name-face org-face-org-block">x</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">+=</span><span class="org-face-org-block"> 5</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-builtin-face org-face-org-block">print</span><span class="org-face-org-block">(x)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: session-use</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 15</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这两个 Block 有顺序依赖：单独运行第二个 Block 可能失败。这正是 Session 的成本。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">非 Session 的 <span class="org-face-org-verbatim">=:results value=</span> 和 Session 的 Python 返回方式也不同：前者可显式 =return=；Session 更适合让最后一个顶层表达式产生值，避免在顶层直接写 =return=。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 4. Cache：只缓存纯计算</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: pure-square</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var n=12 :cache yes :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> n </span><span class="org-face-font-lock-operator-face org-face-org-block">*</span><span class="org-face-org-block"> n</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: pure-square</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 144</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">适合缓存：输入固定、输出确定、没有外部状态的纯计算。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">不适合直接缓存：远程 API、实时文件状态、随机数、有副作用的 Session。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">还有一个容易踩的坑：Org 判断 <span class="org-face-org-verbatim">=:cache yes=</span> 是否命中时，会计算代码与参数的 SHA1，但官方文档明确说明这个变化检测不会展开 Noweb 引用。因此一个“看起来纯”的缓存 Block 如果依赖 <span class="org-face-org-verbatim">=</span><span class="org-face-org-verbatim org-face-org-target">&lt;&lt;fragment&gt;&gt;</span><span class="org-face-org-verbatim">=，fragment 改了，缓存键不一定跟着变。实际工程里不要默认把 </span><span class="org-face-org-verbatim org-face-org-verbatim">=Noweb + cache=</span> 当成安全组合；要么关闭缓存，要么把依赖版本显式变成参数，并为该组合单独做回归。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 5. Tangle：Org 才是 Source of Truth</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Tangle 把 Org 中的代码抽取为正常源码文件。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">下面会创建 <span class="org-face-org-verbatim">=org-babel-build/generated_report.py=。这是 WRITE 操作，所以示例固定写入独立构建目录；=</span>:mkdirp yes= 允许 Tangle 创建父目录。标准 <span class="org-face-org-verbatim">=C-c C-v t=</span> 会直接写目标文件，并不会先给你 Diff。若目标是已有项目源码，不要把“先看 Diff”当成 Tangle 自带能力：先 Tangle 到 staging/build 路径再比较，或确保目标受版本控制后再写。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: report-function</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :results silent</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">def</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">render_report</span><span class="org-face-org-block">(summary) </span><span class="org-face-font-lock-operator-face org-face-org-block">-&gt;</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">str</span><span class="org-face-org-block">:</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-variable-name-face org-face-org-block">count</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-variable-name-face org-face-org-block">total</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> summary</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> f</span><span class="org-face-font-lock-string-face org-face-org-block">"count=</span><span class="org-face-org-block">{</span><span class="org-face-font-lock-builtin-face org-face-org-block">int</span><span class="org-face-org-block">(count)}</span><span class="org-face-font-lock-string-face org-face-org-block">, total=</span><span class="org-face-org-block">{</span><span class="org-face-font-lock-builtin-face org-face-org-block">float</span><span class="org-face-org-block">(total):.2f}</span><span class="org-face-font-lock-string-face org-face-org-block">"</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: report-program</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :noweb yes :results output replace :tangle org-babel-build/generated_report.py :mkdirp yes :comments link</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-operator-face org-face-org-block">&lt;&lt;</span><span class="org-face-org-block">report</span><span class="org-face-font-lock-operator-face org-face-org-block">-</span><span class="org-face-org-block">function</span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">if</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">__name__</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">==</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">"</span><span class="org-face-font-lock-string-face org-face-org-block">__main__</span><span class="org-face-font-lock-string-face org-face-org-block">"</span><span class="org-face-org-block">:</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-variable-name-face org-face-org-block">sample_summary</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> [2, 420.0]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-builtin-face org-face-org-block">print</span><span class="org-face-org-block">(render_report(sample_summary))</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: report-program</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: count=2, total=420.00</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">运行 <span class="org-face-org-verbatim">=C-c C-v t=</span> 后，再从命令行验证：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: run-tangled-file</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sh :results output replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  python3 org-babel-build/generated_report.py 2&gt;/dev/null || python org-babel-build/generated_report.py</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: run-tangled-file</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: count=2, total=420.00</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">如果 <span class="org-face-org-verbatim">=org-babel-build/generated_report.py=</span> 报错，长期修复路径是：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Runtime Error</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → org-babel-build/generated_report.py 定位错误</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → 回到对应 Org Block</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → 修改 Org</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → Retangle</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → Execute</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">不要长期直接维护生成文件。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 6. Library of Babel：跨文件复用</span></span>
+<span class="museum-org-line">当某个 Block 已稳定并被多个 Org 文件复用，把它放入公共 Org 文件，例如 =babel/core.org=：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,#+name: percentage</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,#+begin_src python :var part=1 total=1 :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  return 0 if total == 0 else round(part / total * 100, 2)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,#+end_src</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">然后在 Emacs 中 ingest：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (org-babel-lob-ingest "babel/core.org")</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">之后其他 Org 文件可直接：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,#+call: percentage(part=25, total=200)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">预期：12.5。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">为了让这一节本身也能一键验证，下面给一个完全隔离的 E2E：它只在系统临时目录创建 Library 文件，ingest、调用、断言后立即删除，不污染项目目录。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: lob-self-contained-demo</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">let*</span><span class="org-face-org-block"> ((dir (make-temp-file </span><span class="org-face-font-lock-string-face org-face-org-block">"org-lob-demo-"</span><span class="org-face-org-block"> t))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         (lib (expand-file-name </span><span class="org-face-font-lock-string-face org-face-org-block">"core.org"</span><span class="org-face-org-block"> dir))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         (old-library org-babel-library-of-babel))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (</span><span class="org-face-font-lock-keyword-face org-face-org-block">unwind-protect</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">        (</span><span class="org-face-font-lock-keyword-face org-face-org-block">progn</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">          (</span><span class="org-face-font-lock-keyword-face org-face-org-block">with-temp-file</span><span class="org-face-org-block"> lib</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">            (insert </span><span class="org-face-font-lock-string-face org-face-org-block">"#+name: percentage\n"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">            (insert </span><span class="org-face-font-lock-string-face org-face-org-block">"#+begin_src python :var part=1 total=1 :results value replace\n"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">            (insert </span><span class="org-face-font-lock-string-face org-face-org-block">"return 0 if total == 0 else round(part / total * 100, 2)\n"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">            (insert </span><span class="org-face-font-lock-string-face org-face-org-block">"#+end_src\n"</span><span class="org-face-org-block">))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">          (org-babel-lob-ingest lib)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">          (</span><span class="org-face-font-lock-keyword-face org-face-org-block">let</span><span class="org-face-org-block"> ((actual (org-babel-ref-resolve </span><span class="org-face-font-lock-string-face org-face-org-block">"percentage(part=25,total=200)"</span><span class="org-face-org-block">)))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">            (</span><span class="org-face-font-lock-keyword-face org-face-org-block">unless</span><span class="org-face-org-block"> (= actual 12.5)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">              (</span><span class="org-face-font-lock-warning-face org-face-org-block">error</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">"Library of Babel expected 12.5, got %S"</span><span class="org-face-org-block"> actual))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">            actual))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      (</span><span class="org-face-font-lock-keyword-face org-face-org-block">setq</span><span class="org-face-org-block"> org-babel-library-of-babel old-library)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      (delete-directory dir t)))</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: lob-self-contained-demo</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 12.5</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">复用优先顺序：已有 Block → 扩展已有 Block → 新增通用 Block → 最后才复制代码。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 7. 完整案例：订单分析流水线</span></span>
+<span class="museum-org-line">现在把 01 模块的执行基础与本文件的组合机制串起来。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 7.1 Parameters</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Variable   | Meaning  | Default | Example |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------------+----------+---------+---------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| country    | 国家代码 | TR      | US      |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| status     | 订单状态 | paid    | refund  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| min_amount | 最低金额 | 100     | 200     |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 7.2 Block Contract：filter-orders</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Input Contract：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- =rows=：订单二维列表；每行至少 4 列；</span>
+<span class="museum-org-line">- 第 2 列 country；</span>
+<span class="museum-org-line">- 第 3 列 amount，可转 float；</span>
+<span class="museum-org-line">- 第 4 列 status；</span>
+<span class="museum-org-line">- <span class="org-face-org-verbatim">=min_amount &gt;=</span> 0=。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Execution Contract：无 Session、无网络、无文件写入，PURE。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Output Contract：只返回满足国家、状态、金额阈值的订单。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Assertions：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- 所有返回行的国家等于 =country=；</span>
+<span class="museum-org-line">- 状态等于 =status=；</span>
+<span class="museum-org-line">- 金额不低于 =min_amount=。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: filter-orders</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var rows=orders country="TR" status="paid" min_amount=100 :results value table</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-variable-name-face org-face-org-block">threshold</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">float</span><span class="org-face-org-block">(min_amount)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> threshold </span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;=</span><span class="org-face-org-block"> 0</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">all</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-builtin-face org-face-org-block">isinstance</span><span class="org-face-org-block">(row, (</span><span class="org-face-font-lock-builtin-face org-face-org-block">list</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-builtin-face org-face-org-block">tuple</span><span class="org-face-org-block">)) </span><span class="org-face-font-lock-keyword-face org-face-org-block">and</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">len</span><span class="org-face-org-block">(row) </span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;=</span><span class="org-face-org-block"> 4 </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> row </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> rows)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> row </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> rows:</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-builtin-face org-face-org-block">float</span><span class="org-face-org-block">(row[2])</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-variable-name-face org-face-org-block">selected</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> [</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      row </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> row </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> rows</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">if</span><span class="org-face-org-block"> row[1] </span><span class="org-face-font-lock-operator-face org-face-org-block">==</span><span class="org-face-org-block"> country</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">and</span><span class="org-face-org-block"> row[3] </span><span class="org-face-font-lock-operator-face org-face-org-block">==</span><span class="org-face-org-block"> status</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">and</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">float</span><span class="org-face-org-block">(row[2]) </span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;=</span><span class="org-face-org-block"> threshold</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">all</span><span class="org-face-org-block">(row[1] </span><span class="org-face-font-lock-operator-face org-face-org-block">==</span><span class="org-face-org-block"> country </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> row </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> selected)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">all</span><span class="org-face-org-block">(row[3] </span><span class="org-face-font-lock-operator-face org-face-org-block">==</span><span class="org-face-org-block"> status </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> row </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> selected)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">all</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-builtin-face org-face-org-block">float</span><span class="org-face-org-block">(row[2]) </span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;=</span><span class="org-face-org-block"> threshold </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> row </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> selected)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> selected</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">预期结果：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  | u01 | TR | 120 | paid |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  | u04 | TR | 300 | paid |</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 7.3 Block Contract：summarize-orders</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Input：经过过滤的订单行。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Output：单行二维列表，两个元素依次为 <span class="org-face-org-verbatim">=count=</span> 与 =total=。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Assertions：count 非负；total 非负。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: summarize-orders</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var rows=filter-orders(country="TR", status="paid", min_amount=100) :results value table</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-variable-name-face org-face-org-block">count</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">len</span><span class="org-face-org-block">(rows)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-variable-name-face org-face-org-block">total</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">round</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-builtin-face org-face-org-block">sum</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-builtin-face org-face-org-block">float</span><span class="org-face-org-block">(row[2]) </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> row </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> rows), 2)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> count </span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;=</span><span class="org-face-org-block"> 0</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> total </span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;=</span><span class="org-face-org-block"> 0</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> </span><span class="org-face-org-block">[</span><span class="org-face-org-block">[</span><span class="org-face-org-block">count, tota</span><span class="org-face-org-block">l</span><span class="org-face-org-block">]</span><span class="org-face-org-block">]</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">预期：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  | 2 | 420.0 |</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 7.4 Minimal Call</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">正常使用时只改这一行：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+call: summarize-orders(rows=filter-orders(country="TR", status="paid", min_amount=100))</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">换成美国订单：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+call: summarize-orders(rows=filter-orders(country="US", status="paid", min_amount=100))</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">预期：1 笔，200。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 7.5 报告文本</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: order-report</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var summary=summarize-orders() :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-variable-name-face org-face-org-block">count</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-variable-name-face org-face-org-block">total</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> summary[0]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> f</span><span class="org-face-font-lock-string-face org-face-org-block">"selected orders: count=</span><span class="org-face-org-block">{</span><span class="org-face-font-lock-builtin-face org-face-org-block">int</span><span class="org-face-org-block">(count)}</span><span class="org-face-font-lock-string-face org-face-org-block">, total=</span><span class="org-face-org-block">{</span><span class="org-face-font-lock-builtin-face org-face-org-block">float</span><span class="org-face-org-block">(total):.2f}</span><span class="org-face-font-lock-string-face org-face-org-block">"</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: order-report</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: selected orders: count=2, total=420.00</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这里故意不把 <span class="org-face-org-verbatim">=TR / paid / &gt;=100=</span> 写死进文本。=summary= 可以来自其他筛选条件；如果标签固定而数据可变，就会出现“数字正确、语义错误”。需要带条件的报告时，让条件和结果来自同一个调用契约，而不是手写标签。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">依赖 DAG：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  orders + country + status + min_amount</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">                ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">          filter-orders</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">                ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">        summarize-orders</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">           ┌────┴────┐</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">           ↓         ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         table   order-report</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">                     ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">                   scalar</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 8. Golden Regression：修当前问题不能破坏历史能力</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">维护四个稳定 Case：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Case | Input            | Expected           |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+------------------+--------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| G1   | TR, paid, &gt;=100  | u01(120), u04(300) |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| G2   | US, paid, &gt;=100  | u03(200)           |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| G3   | TR, refund, &gt;=50 | u02(80)            |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| G4   | TR, paid, &gt;=120  | u01(120), u04(300) |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">用一个断言 Block 一次验证：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: golden-regression</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var g1=filter-orders(country="TR", status="paid", min_amount=100) :var g2=filter-orders(country="US", status="paid", min_amount=100) :var g3=filter-orders(country="TR", status="refund", min_amount=50) :var g4=filter-orders(country="TR", status="paid", min_amount=120) :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> g1 </span><span class="org-face-font-lock-operator-face org-face-org-block">==</span><span class="org-face-org-block"> [[</span><span class="org-face-font-lock-string-face org-face-org-block">"u01"</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-string-face org-face-org-block">"TR"</span><span class="org-face-org-block">, 120, </span><span class="org-face-font-lock-string-face org-face-org-block">"paid"</span><span class="org-face-org-block">], [</span><span class="org-face-font-lock-string-face org-face-org-block">"u04"</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-string-face org-face-org-block">"TR"</span><span class="org-face-org-block">, 300, </span><span class="org-face-font-lock-string-face org-face-org-block">"paid"</span><span class="org-face-org-block">]]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> g2 </span><span class="org-face-font-lock-operator-face org-face-org-block">==</span><span class="org-face-org-block"> </span><span class="org-face-org-block">[</span><span class="org-face-org-block">[</span><span class="org-face-font-lock-string-face org-face-org-block">"u03"</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-string-face org-face-org-block">"US"</span><span class="org-face-org-block">, 200, </span><span class="org-face-font-lock-string-face org-face-org-block">"paid</span><span class="org-face-font-lock-string-face org-face-org-block">"</span><span class="org-face-org-block">]</span><span class="org-face-org-block">]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> g3 </span><span class="org-face-font-lock-operator-face org-face-org-block">==</span><span class="org-face-org-block"> </span><span class="org-face-org-block">[</span><span class="org-face-org-block">[</span><span class="org-face-font-lock-string-face org-face-org-block">"u02"</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-string-face org-face-org-block">"TR"</span><span class="org-face-org-block">, 80, </span><span class="org-face-font-lock-string-face org-face-org-block">"refund</span><span class="org-face-font-lock-string-face org-face-org-block">"</span><span class="org-face-org-block">]</span><span class="org-face-org-block">]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">assert</span><span class="org-face-org-block"> g4 </span><span class="org-face-font-lock-operator-face org-face-org-block">==</span><span class="org-face-org-block"> [[</span><span class="org-face-font-lock-string-face org-face-org-block">"u01"</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-string-face org-face-org-block">"TR"</span><span class="org-face-org-block">, 120, </span><span class="org-face-font-lock-string-face org-face-org-block">"paid"</span><span class="org-face-org-block">], [</span><span class="org-face-font-lock-string-face org-face-org-block">"u04"</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-string-face org-face-org-block">"TR"</span><span class="org-face-org-block">, 300, </span><span class="org-face-font-lock-string-face org-face-org-block">"paid"</span><span class="org-face-org-block">]]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">"GOLDEN_PASS"</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: golden-regression</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: GOLDEN_PASS</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这里不复制过滤或汇总算法。Golden Case 直接断言真实 <span class="org-face-org-verbatim">=filter-orders(...)=</span> 的行级输出；=summarize-orders= 由 E2E 的 Full Workflow 单独验证。这样生产 Block 改坏时，测试不会因为复制了同一份错误逻辑而“陪着通过”。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">延伸：Golden 负责历史行为不退化；完整能力闭包见 <span class="org-face-org-link">[[file:org-babel-03-verification-debugging.org::#e2e-matrix]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">03｜E2E 验证矩</span><span class="org-face-org-link">阵</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 9. Library、Tangle、Session 应该怎么选</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 需求                  | 首选机制               |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|-----------------------+------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 同一文档多处复用计算  | #+name + :var / #+call |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 拼装源码片段          | Noweb                  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 多文档共享稳定能力    | Library of Babel       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 生成独立 .py/.sh 源码 | Tangle                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 共享解释器状态        | :session               |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 避免重复执行纯计算    | :cache yes             |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">不要把所有问题都解决成 Noweb，也不要把所有 Block 都塞进 Session。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 10. 三层练习</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 层级 | 任务                                                               | 验收                                                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+--------------------------------------------------------------------+------------------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| L1   | </span><span class="org-face-org-verbatim org-face-org-formula">=country=</span><span class="org-face-org-formula">"TR", min_amount=100= 改为 </span><span class="org-face-org-verbatim org-face-org-formula">=min_amount=200=</span><span class="org-face-org-formula">               </span><span class="org-face-org-table">| 先预测，再执行                                       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| L2   | 调用 </span><span class="org-face-org-verbatim org-face-org-table">=filter-orders(country=</span><span class="org-face-org-table">"TR", status="refund", min_amount=50)= | 1 笔、80                                             |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| L3   | 新增 </span><span class="org-face-org-verbatim org-face-org-table">=max_amount=</span><span class="org-face-org-table">                                                  | 不复制实现；更新 Contract + Golden；只重跑受影响节点 |</span></span>
+</code></pre></section>
+<h1 class="title">Org Babel 02｜组合、复用与工程化
+<br>
+<span class="subtitle">从 Noweb、Session、Tangle 到可复用分析流水线</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-8460361bdb08">1. 关系导航</a></li>
+<li><a href="#section-eeb81fb8a642">2. 1. 贯穿模型</a></li>
+<li><a href="#section-78033e101669">3. 2. Noweb：组合源码，而不是复制源码</a></li>
+<li><a href="#section-c53193e0af99">4. 3. Session：共享状态要显式</a></li>
+<li><a href="#section-6ffb2fed9911">5. 4. Cache：只缓存纯计算</a></li>
+<li><a href="#section-12f6aff46ab5">6. 5. Tangle：Org 才是 Source of Truth</a></li>
+<li><a href="#library-of-babel">7. 6. Library of Babel：跨文件复用</a></li>
+<li><a href="#order-pipeline">8. 7. 完整案例：订单分析流水线</a>
+<ul>
+<li><a href="#section-d15e5cfea79d">8.1. 7.1 Parameters</a></li>
+<li><a href="#section-501691343286">8.2. 7.2 Block Contract：filter-orders</a></li>
+<li><a href="#section-366babce6746">8.3. 7.3 Block Contract：summarize-orders</a></li>
+<li><a href="#section-c50c8fd9f7e5">8.4. 7.4 Minimal Call</a></li>
+<li><a href="#section-3d337f1d70f3">8.5. 7.5 报告文本</a></li>
+</ul>
+</li>
+<li><a href="#section-e68adf80a1a2">9. 8. Golden Regression：修当前问题不能破坏历史能力</a></li>
+<li><a href="#section-2f0dcc842f67">10. 9. Library、Tangle、Session 应该怎么选</a></li>
+<li><a href="#section-22f13e8fd80d">11. 10. 三层练习</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-8460361bdb08" class="outline-2">
+<h2 id="section-8460361bdb08"><span class="section-number-2">1.</span> 关系导航</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本文件承载“把会运行的 Block 变成工程系统”。订单案例、Contract 与 Golden Regression 放在同一模块，避免验证逻辑与被测实现被拆散。
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">关系</th>
+<th scope="col" class="org-left">指向</th>
+<th scope="col" class="org-left">为什么需要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">前置</td>
+<td class="org-left"><a href="org-babel-01-execution-foundations.html">01｜执行基础与数据流</a></td>
+<td class="org-left">需要先掌握 Header Args、<code>:var</code>、Block → Block 与 <code>#+call:</code></td>
+</tr>
+
+<tr>
+<td class="org-left">依赖</td>
+<td class="org-left"><a href="org-babel-01-execution-foundations.html">参数传递</a></td>
+<td class="org-left">本文件多数复用机制建立在参数化 Block 上</td>
+</tr>
+
+<tr>
+<td class="org-left">延伸</td>
+<td class="org-left"><a href="org-babel-03-verification-debugging.html">03｜验证、回归与排错</a></td>
+<td class="org-left">工程化之后用 E2E、Expanded Source 和回归验证稳定性</td>
+</tr>
+
+<tr>
+<td class="org-left">示例</td>
+<td class="org-left">[BROKEN LINK: order-pipeline]</td>
+<td class="org-left">本模块的贯穿实例</td>
+</tr>
+
+<tr>
+<td class="org-left">复用</td>
+<td class="org-left">[BROKEN LINK: library-of-babel]</td>
+<td class="org-left">多文档共享稳定 Block</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-eeb81fb8a642" class="outline-2">
+<h2 id="section-eeb81fb8a642"><span class="section-number-2">2.</span> 1. 贯穿模型</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+贯穿案例：从订单表中过滤指定国家、状态和最低金额，再汇总并生成报告。
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 2"><table id="org-museum-ref-01e70ee8d005">
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-right">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">uid</th>
+<th scope="col" class="org-left">country</th>
+<th scope="col" class="org-right">amount</th>
+<th scope="col" class="org-left">status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">u01</td>
+<td class="org-left">TR</td>
+<td class="org-right">120</td>
+<td class="org-left">paid</td>
+</tr>
+
+<tr>
+<td class="org-left">u02</td>
+<td class="org-left">TR</td>
+<td class="org-right">80</td>
+<td class="org-left">refund</td>
+</tr>
+
+<tr>
+<td class="org-left">u01</td>
+<td class="org-left">TR</td>
+<td class="org-right">30</td>
+<td class="org-left">paid</td>
+</tr>
+
+<tr>
+<td class="org-left">u03</td>
+<td class="org-left">US</td>
+<td class="org-right">200</td>
+<td class="org-left">paid</td>
+</tr>
+
+<tr>
+<td class="org-left">u04</td>
+<td class="org-left">TR</td>
+<td class="org-right">300</td>
+<td class="org-left">paid</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+固定逻辑：过滤、汇总、报告、断言。
+</p>
+
+<p>
+可变参数：<code>country</code>、<code>status</code>、<code>min_amount</code>。固定逻辑只写一次，变化从 <code>:var</code> / <code>#+call:</code> 传入。
+</p>
+</div>
+</div>
+<div id="outline-container-section-78033e101669" class="outline-2">
+<h2 id="section-78033e101669"><span class="section-number-2">3.</span> 2. Noweb：组合源码，而不是复制源码</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Noweb 解决“把多个代码片段组合成一段最终源码”的问题。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-9017257c3ea2"><code class="language-python">value = float(value)
+</code></pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-033c9a6c6b99"><code class="language-python">value = value * (1 + tax_rate)
+</code></pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-da278a44d592"><code class="language-python">&lt;&lt;normalize-number&gt;&gt;
+&lt;&lt;apply-tax&gt;&gt;
+return round(value, 2)
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+108.0
+</code></pre>
+
+<p>
+执行前先按 <code>C-c C-v v</code>。你应该看到接近下面的展开结果：
+</p>
+
+<pre class="example" id="org-museum-ref-d4e6d10dfd04"><code class="language-plaintext">
+value = 100
+# Babel 会按 backend 方式注入 tax_rate 等变量
+value = float(value)
+value = value * (1 + tax_rate)
+return round(value, 2)
+</code></pre>
+
+<p>
+这两个片段本身也可以单独执行：Header 中给了安全默认变量，<code>:results silent</code> 不往文档写结果。它们被 Noweb 展开时只展开 Block body，片段自己的 <code>:var</code> 不会替调用方注入变量。最终执行 Block 仍必须显式提供 <code>value</code>、<code>tax_rate</code>。官方文档也明确说明 Noweb 引用不会自动继承被引用 Block 的变量绑定。
+</p>
+</div>
+</div>
+<div id="outline-container-section-c53193e0af99" class="outline-2">
+<h2 id="section-c53193e0af99"><span class="section-number-2">4.</span> 3. Session：共享状态要显式</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+默认使用无状态 Block；它更容易单独重跑、缓存和回归。
+</p>
+
+<p>
+只有确实需要长生命周期状态时才用 Session。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-6b9e3e5dd22d"><code class="language-python">x = 10
+print(x)
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+10
+</code></pre>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-6598a288c0f8"><code class="language-python">x += 5
+print(x)
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+15
+</code></pre>
+
+<p>
+这两个 Block 有顺序依赖：单独运行第二个 Block 可能失败。这正是 Session 的成本。
+</p>
+
+<p>
+非 Session 的 <code>:results value</code> 和 Session 的 Python 返回方式也不同：前者可显式 <code>return</code>；Session 更适合让最后一个顶层表达式产生值，避免在顶层直接写 <code>return</code>。
+</p>
+</div>
+</div>
+<div id="outline-container-section-6ffb2fed9911" class="outline-2">
+<h2 id="section-6ffb2fed9911"><span class="section-number-2">5.</span> 4. Cache：只缓存纯计算</h2>
+<div class="outline-text-2" id="text-5">
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-8c9828c6bdd2"><code class="language-python">return n * n
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+144
+</code></pre>
+
+<p>
+适合缓存：输入固定、输出确定、没有外部状态的纯计算。
+</p>
+
+<p>
+不适合直接缓存：远程 API、实时文件状态、随机数、有副作用的 Session。
+</p>
+
+<p>
+还有一个容易踩的坑：Org 判断 <code>:cache yes</code> 是否命中时，会计算代码与参数的 SHA1，但官方文档明确说明这个变化检测不会展开 Noweb 引用。因此一个“看起来纯”的缓存 Block 如果依赖 <code>&lt;&lt;fragment&gt;&gt;</code>，fragment 改了，缓存键不一定跟着变。实际工程里不要默认把 <code>Noweb + cache</code> 当成安全组合；要么关闭缓存，要么把依赖版本显式变成参数，并为该组合单独做回归。
+</p>
+</div>
+</div>
+<div id="outline-container-section-12f6aff46ab5" class="outline-2">
+<h2 id="section-12f6aff46ab5"><span class="section-number-2">6.</span> 5. Tangle：Org 才是 Source of Truth</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+Tangle 把 Org 中的代码抽取为正常源码文件。
+</p>
+
+<p>
+下面会创建 <code>org-babel-build/generated_report.py</code>。这是 WRITE 操作，所以示例固定写入独立构建目录；<code>:mkdirp yes</code> 允许 Tangle 创建父目录。标准 <code>C-c C-v t</code> 会直接写目标文件，并不会先给你 Diff。若目标是已有项目源码，不要把“先看 Diff”当成 Tangle 自带能力：先 Tangle 到 staging/build 路径再比较，或确保目标受版本控制后再写。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-e39c2fe91be0"><code class="language-python">def render_report(summary) -&gt; str:
+    count, total = summary
+    return f"count={int(count)}, total={float(total):.2f}"
+</code></pre>
+</div>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-dd9c53062c35"><code class="language-python">&lt;&lt;report-function&gt;&gt;
+
+if __name__ == "__main__":
+    sample_summary = [2, 420.0]
+    print(render_report(sample_summary))
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+count=2, total=420.00
+</code></pre>
+
+<p>
+运行 <code>C-c C-v t</code> 后，再从命令行验证：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="org-museum-ref-e8760920683d"><code class="language-bash">python3 org-babel-build/generated_report.py 2&gt;/dev/null || python org-babel-build/generated_report.py
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+count=2, total=420.00
+</code></pre>
+
+<p>
+如果 <code>org-babel-build/generated_report.py</code> 报错，长期修复路径是：
+</p>
+
+<pre class="example" id="org-museum-ref-b5817f80d39d"><code class="language-plaintext">
+Runtime Error
+→ org-babel-build/generated_report.py 定位错误
+→ 回到对应 Org Block
+→ 修改 Org
+→ Retangle
+→ Execute
+</code></pre>
+
+<p>
+不要长期直接维护生成文件。
+</p>
+</div>
+</div>
+<div id="outline-container-library-of-babel" class="outline-2">
+<h2 id="library-of-babel"><span class="section-number-2">7.</span> 6. Library of Babel：跨文件复用</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+当某个 Block 已稳定并被多个 Org 文件复用，把它放入公共 Org 文件，例如 <code>babel/core.org</code>：
+</p>
+
+<pre class="example" id="org-museum-ref-1679d44248ed"><code class="language-plaintext">
+#+name: percentage
+#+begin_src python :var part=1 total=1 :results value replace
+return 0 if total == 0 else round(part / total * 100, 2)
+#+end_src
+</code></pre>
+
+<p>
+然后在 Emacs 中 ingest：
+</p>
+
+<pre class="example" id="org-museum-ref-cfed8a0765dc"><code class="language-plaintext">
+(org-babel-lob-ingest "babel/core.org")
+</code></pre>
+
+<p>
+之后其他 Org 文件可直接：
+</p>
+
+<pre class="example" id="org-museum-ref-2f86741e73cf"><code class="language-plaintext">
+#+call: percentage(part=25, total=200)
+</code></pre>
+
+<p>
+预期：12.5。
+</p>
+
+<p>
+为了让这一节本身也能一键验证，下面给一个完全隔离的 E2E：它只在系统临时目录创建 Library 文件，ingest、调用、断言后立即删除，不污染项目目录。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org-museum-ref-27d174feea94"><code class="language-lisp">(let* ((dir (make-temp-file "org-lob-demo-" t))
+       (lib (expand-file-name "core.org" dir))
+       (old-library org-babel-library-of-babel))
+  (unwind-protect
+      (progn
+        (with-temp-file lib
+          (insert "#+name: percentage\n")
+          (insert "#+begin_src python :var part=1 total=1 :results value replace\n")
+          (insert "return 0 if total == 0 else round(part / total * 100, 2)\n")
+          (insert "#+end_src\n"))
+        (org-babel-lob-ingest lib)
+        (let ((actual (org-babel-ref-resolve "percentage(part=25,total=200)")))
+          (unless (= actual 12.5)
+            (error "Library of Babel expected 12.5, got %S" actual))
+          actual))
+    (setq org-babel-library-of-babel old-library)
+    (delete-directory dir t)))
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+12.5
+</code></pre>
+
+<p>
+复用优先顺序：已有 Block → 扩展已有 Block → 新增通用 Block → 最后才复制代码。
+</p>
+</div>
+</div>
+<div id="outline-container-order-pipeline" class="outline-2">
+<h2 id="order-pipeline"><span class="section-number-2">8.</span> 7. 完整案例：订单分析流水线</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+现在把 01 模块的执行基础与本文件的组合机制串起来。
+</p>
+</div>
+<div id="outline-container-section-d15e5cfea79d" class="outline-3">
+<h3 id="section-d15e5cfea79d"><span class="section-number-3">8.1.</span> 7.1 Parameters</h3>
+<div class="outline-text-3" id="text-8-1">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Variable</th>
+<th scope="col" class="org-left">Meaning</th>
+<th scope="col" class="org-left">Default</th>
+<th scope="col" class="org-left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">country</td>
+<td class="org-left">国家代码</td>
+<td class="org-left">TR</td>
+<td class="org-left">US</td>
+</tr>
+
+<tr>
+<td class="org-left">status</td>
+<td class="org-left">订单状态</td>
+<td class="org-left">paid</td>
+<td class="org-left">refund</td>
+</tr>
+
+<tr>
+<td class="org-left">min_amount</td>
+<td class="org-left">最低金额</td>
+<td class="org-left">100</td>
+<td class="org-left">200</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-501691343286" class="outline-3">
+<h3 id="section-501691343286"><span class="section-number-3">8.2.</span> 7.2 Block Contract：filter-orders</h3>
+<div class="outline-text-3" id="text-8-2">
+<p>
+Input Contract：
+</p>
+
+<ul class="org-ul">
+<li><code>rows</code>：订单二维列表；每行至少 4 列；</li>
+<li>第 2 列 country；</li>
+<li>第 3 列 amount，可转 float；</li>
+<li>第 4 列 status；</li>
+<li><code>min_amount &gt;</code> 0=。</li>
+</ul>
+
+<p>
+Execution Contract：无 Session、无网络、无文件写入，PURE。
+</p>
+
+<p>
+Output Contract：只返回满足国家、状态、金额阈值的订单。
+</p>
+
+<p>
+Assertions：
+</p>
+
+<ul class="org-ul">
+<li>所有返回行的国家等于 <code>country</code>；</li>
+<li>状态等于 <code>status</code>；</li>
+<li>金额不低于 <code>min_amount</code>。</li>
+</ul>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-75628754aa20"><code class="language-python">threshold = float(min_amount)
+assert threshold &gt;= 0
+assert all(isinstance(row, (list, tuple)) and len(row) &gt;= 4 for row in rows)
+for row in rows:
+    float(row[2])
+
+selected = [
+    row for row in rows
+    if row[1] == country
+    and row[3] == status
+    and float(row[2]) &gt;= threshold
+]
+assert all(row[1] == country for row in selected)
+assert all(row[3] == status for row in selected)
+assert all(float(row[2]) &gt;= threshold for row in selected)
+return selected
+</code></pre>
+</div>
+
+<p>
+预期结果：
+</p>
+
+<pre class="example" id="org-museum-ref-73dc7a70bdd0"><code class="language-plaintext">
+| u01 | TR | 120 | paid |
+| u04 | TR | 300 | paid |
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-366babce6746" class="outline-3">
+<h3 id="section-366babce6746"><span class="section-number-3">8.3.</span> 7.3 Block Contract：summarize-orders</h3>
+<div class="outline-text-3" id="text-8-3">
+<p>
+Input：经过过滤的订单行。
+</p>
+
+<p>
+Output：单行二维列表，两个元素依次为 <code>count</code> 与 <code>total</code>。
+</p>
+
+<p>
+Assertions：count 非负；total 非负。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-38db6cfc0478"><code class="language-python">count = len(rows)
+total = round(sum(float(row[2]) for row in rows), 2)
+assert count &gt;= 0
+assert total &gt;= 0
+return [[count, total]]
+</code></pre>
+</div>
+
+<p>
+预期：
+</p>
+
+<pre class="example" id="org-museum-ref-f45550a5fb54"><code class="language-plaintext">
+| 2 | 420.0 |
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-c50c8fd9f7e5" class="outline-3">
+<h3 id="section-c50c8fd9f7e5"><span class="section-number-3">8.4.</span> 7.4 Minimal Call</h3>
+<div class="outline-text-3" id="text-8-4">
+<p>
+正常使用时只改这一行：
+</p>
+
+<p>
+换成美国订单：
+</p>
+
+<p>
+预期：1 笔，200。
+</p>
+</div>
+</div>
+<div id="outline-container-section-3d337f1d70f3" class="outline-3">
+<h3 id="section-3d337f1d70f3"><span class="section-number-3">8.5.</span> 7.5 报告文本</h3>
+<div class="outline-text-3" id="text-8-5">
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-316a9fe00494"><code class="language-python">count, total = summary[0]
+return f"selected orders: count={int(count)}, total={float(total):.2f}"
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+selected orders: count=2, total=420.00
+</code></pre>
+
+<p>
+这里故意不把 <code>TR / paid / &gt;=100</code> 写死进文本。<code>summary</code> 可以来自其他筛选条件；如果标签固定而数据可变，就会出现“数字正确、语义错误”。需要带条件的报告时，让条件和结果来自同一个调用契约，而不是手写标签。
+</p>
+
+<p>
+依赖 DAG：
+</p>
+
+<pre class="example" id="org-museum-ref-1d4baec7b2fe"><code class="language-plaintext">
+orders + country + status + min_amount
+              ↓
+        filter-orders
+              ↓
+      summarize-orders
+         ┌────┴────┐
+         ↓         ↓
+       table   order-report
+                   ↓
+                 scalar
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-e68adf80a1a2" class="outline-2">
+<h2 id="section-e68adf80a1a2"><span class="section-number-2">9.</span> 8. Golden Regression：修当前问题不能破坏历史能力</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+维护四个稳定 Case：
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 4"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Case</th>
+<th scope="col" class="org-left">Input</th>
+<th scope="col" class="org-left">Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">G1</td>
+<td class="org-left">TR, paid, &gt;=100</td>
+<td class="org-left">u01(120), u04(300)</td>
+</tr>
+
+<tr>
+<td class="org-left">G2</td>
+<td class="org-left">US, paid, &gt;=100</td>
+<td class="org-left">u03(200)</td>
+</tr>
+
+<tr>
+<td class="org-left">G3</td>
+<td class="org-left">TR, refund, &gt;=50</td>
+<td class="org-left">u02(80)</td>
+</tr>
+
+<tr>
+<td class="org-left">G4</td>
+<td class="org-left">TR, paid, &gt;=120</td>
+<td class="org-left">u01(120), u04(300)</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+用一个断言 Block 一次验证：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-a24a04fe9ea5"><code class="language-python">assert g1 == [["u01", "TR", 120, "paid"], ["u04", "TR", 300, "paid"]]
+assert g2 == [["u03", "US", 200, "paid"]]
+assert g3 == [["u02", "TR", 80, "refund"]]
+assert g4 == [["u01", "TR", 120, "paid"], ["u04", "TR", 300, "paid"]]
+return "GOLDEN_PASS"
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+GOLDEN_PASS
+</code></pre>
+
+<p>
+这里不复制过滤或汇总算法。Golden Case 直接断言真实 <code>filter-orders(...)</code> 的行级输出；<code>summarize-orders</code> 由 E2E 的 Full Workflow 单独验证。这样生产 Block 改坏时，测试不会因为复制了同一份错误逻辑而“陪着通过”。
+</p>
+
+<p>
+延伸：Golden 负责历史行为不退化；完整能力闭包见 <a href="org-babel-03-verification-debugging.html#e2e-matrix">03｜E2E 验证矩阵</a>。
+</p>
+</div>
+</div>
+<div id="outline-container-section-2f0dcc842f67" class="outline-2">
+<h2 id="section-2f0dcc842f67"><span class="section-number-2">10.</span> 9. Library、Tangle、Session 应该怎么选</h2>
+<div class="outline-text-2" id="text-10">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">需求</th>
+<th scope="col" class="org-left">首选机制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">同一文档多处复用计算</td>
+<td class="org-left">#+name + :var / #+call</td>
+</tr>
+
+<tr>
+<td class="org-left">拼装源码片段</td>
+<td class="org-left">Noweb</td>
+</tr>
+
+<tr>
+<td class="org-left">多文档共享稳定能力</td>
+<td class="org-left">Library of Babel</td>
+</tr>
+
+<tr>
+<td class="org-left">生成独立 .py/.sh 源码</td>
+<td class="org-left">Tangle</td>
+</tr>
+
+<tr>
+<td class="org-left">共享解释器状态</td>
+<td class="org-left">:session</td>
+</tr>
+
+<tr>
+<td class="org-left">避免重复执行纯计算</td>
+<td class="org-left">:cache yes</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+不要把所有问题都解决成 Noweb，也不要把所有 Block 都塞进 Session。
+</p>
+</div>
+</div>
+<div id="outline-container-section-22f13e8fd80d" class="outline-2">
+<h2 id="section-22f13e8fd80d"><span class="section-number-2">11.</span> 10. 三层练习</h2>
+<div class="outline-text-2" id="text-11">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 6"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">层级</th>
+<th scope="col" class="org-left">任务</th>
+<th scope="col" class="org-left">验收</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">L1</td>
+<td class="org-left"><code>country</code>"TR", min_amount=100= 改为 <code>min_amount=200</code></td>
+<td class="org-left">先预测，再执行</td>
+</tr>
+
+<tr>
+<td class="org-left">L2</td>
+<td class="org-left">调用 <code>filter-orders(country</code>"TR", status="refund", min_amount=50)=</td>
+<td class="org-left">1 笔、80</td>
+</tr>
+
+<tr>
+<td class="org-left">L3</td>
+<td class="org-left">新增 <code>max_amount</code></td>
+<td class="org-left">不复制实现；更新 Contract + Golden；只重跑受影响节点</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<nav class="org-museum-nav" aria-label="文章关系">
+<div class="org-museum-nav-links"><span class="org-museum-nav-label">链接到 / 02</span><span class="org-museum-relation-row"><a href="org-babel-03-verification-debugging.html" class="org-museum-link">Org Babel 03｜验证、回归与排错</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-02-composition-engineering&amp;target=pages-Emacs-Org-org-babel-03-verification-debugging" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 03｜验证、回归与排错">对读</a></span>
+<span class="org-museum-relation-row"><a href="org-babel-01-execution-foundations.html" class="org-museum-link">Org Babel 01｜执行基础与数据流</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-02-composition-engineering&amp;target=pages-Emacs-Org-org-babel-01-execution-foundations" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 01｜执行基础与数据流">对读</a></span></div>
+<div class="org-museum-nav-backlinks"><span class="org-museum-nav-label">反向链接 / 02</span><span class="org-museum-relation-row"><a href="org-babel-03-verification-debugging.html" class="org-museum-link">Org Babel 03｜验证、回归与排错</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-03-verification-debugging&amp;target=pages-Emacs-Org-org-babel-02-composition-engineering" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 03｜验证、回归与排错">对读</a></span>
+<span class="org-museum-relation-row"><a href="org-babel-01-execution-foundations.html" class="org-museum-link">Org Babel 01｜执行基础与数据流</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-01-execution-foundations&amp;target=pages-Emacs-Org-org-babel-02-composition-engineering" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 01｜执行基础与数据流">对读</a></span></div>
+</nav>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 02</h3>
+<ul class="org-museum-related-list">
+<li><a href="org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+<li><a href="org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
+</ul>
+<a class="local-graph-link" href="../../../graph.html?focus=pages-Emacs-Org-org-babel-02-composition-engineering">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../../graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="../../../timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="../../../related.html">关联阅读</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <ul>
+      <li><a href="../../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="../../Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="../../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <ul>
+      <li><a href="../../sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="../../sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="../../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="../../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="../../sql/duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="../../sql/duckdb-thinking.html">duckdb-thinking</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="../../vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <ul>
+      <li><a href="../../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+<script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+
+<script defer src="../../../resources/org-museum-article.js?v=b03b56727740"></script>
+</body>
+</html>

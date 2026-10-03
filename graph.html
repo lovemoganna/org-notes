@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <title>Org Museum · 知识图谱</title>
-  <script src="resources/org-museum-theme.js?v=16cf801e155e"></script>
-  <link rel="stylesheet" href="resources/org-museum.css?v=f191e4a437f4">
+  <script src="resources/org-museum-theme.js?v=2b7a181da330"></script>
+  <link rel="stylesheet" href="resources/org-museum.css?v=a21cc263868a">
   <link rel="icon" href="data:,">
   <script src="resources/d3.v7.min.js?v=f2094bbf6141"></script>
 </head>
@@ -14,7 +14,7 @@
 <header class="museum-topbar" data-home-href="index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
   <label class="museum-search-line">
     <span class="sr-only">搜索图谱节点</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索节点…" autocomplete="off" spellcheck="false" aria-label="搜索图谱节点" aria-keyshortcuts="/">
@@ -24,9 +24,20 @@
     <a class="museum-topbar-link museum-nav-timeline" href="timeline.html">时间</a>
     <a class="museum-topbar-link museum-nav-graph is-active" href="graph.html" aria-current="page">图谱</a>
     <a class="museum-topbar-link museum-nav-related" href="related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
   </nav>
 </header>
 
@@ -49,13 +60,19 @@
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <div class="sidebar-cat-label">AI <span>02</span></div>
     <ul>
-      <li><a href="pages/ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
-      <li><a href="pages/ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
-      <li><a href="pages/ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
-      <li><a href="pages/ail/004-小心使用.html">004-小心使用</a></li>
-      <li><a href="pages/ail/005-信息概括.html">005-信息概括</a></li>
+      <li><a href="pages/AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="pages/AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="pages/AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="pages/AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="pages/AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="pages/AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -79,12 +96,14 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
     <ul>
       <li><a href="pages/sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="pages/sql/duckdb-mpv.html">DuckDB MPV</a></li>
       <li><a href="pages/sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="pages/sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="pages/sql/duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="pages/sql/duckdb-thinking.html">duckdb-thinking</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -100,9 +119,23 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="pages/crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
     <ul>
       <li><a href="pages/lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="pages/Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="pages/Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="pages/Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
     </ul>
   </div>
 </aside>
@@ -111,7 +144,7 @@
   <header class="graph-commandbar">
     <div class="graph-commandbar-title">
       <div class="museum-section-heading"><h1>知识图谱</h1><span id="graph-heading-count">/ 00</span></div>
-      <p>沿真实链接阅读，或整理尚未连接的笔记。</p>
+      <p>从笔记出发，沿真实关系继续阅读。</p>
     </div>
     <nav class="graph-mode-tabs" aria-label="图谱工作模式">
       <button type="button" data-graph-view="relations" aria-pressed="true">关系阅读 <b id="graph-relation-count">00</b></button>
@@ -120,6 +153,18 @@
     <details class="graph-filter-summary">
       <summary>范围 <span id="graph-filter-label">全部主题</span></summary>
       <div id="graph-category-filters"></div>
+    </details>
+    <label class="graph-relation-filter">关系
+      <select id="graph-relation-filter" aria-label="筛选关系类型"><option value="*">全部关系</option></select>
+    </label>
+    <details class="graph-layout-menu">
+      <summary><i data-graph-icon="rows"></i><span id="graph-layout-label">拓扑语义层级流</span></summary>
+      <div class="graph-layout-panel" aria-label="选择拓扑布局">
+        <div class="graph-layout-panel-head"><strong>拓扑布局</strong><small>选择一种结构，重新整理画布</small></div>
+        <label class="graph-layout-search-label">搜索布局<input id="graph-layout-search" type="search" placeholder="搜索布局名称、用途…" autocomplete="off"></label>
+        <div id="graph-layout-categories" class="graph-layout-categories" aria-label="布局类别"></div>
+        <div id="graph-layout-options" class="graph-layout-options"></div>
+      </div>
     </details>
     <dl class="graph-counts" aria-label="图谱统计">
       <div><dt>笔记</dt><dd id="stat-nodes">00</dd></div>
@@ -131,9 +176,8 @@
         <button type="button" id="btn-zoom-in" aria-label="放大图谱"><i data-graph-icon="plus"></i><span>放大</span></button>
         <button type="button" id="btn-zoom-out" aria-label="缩小图谱"><i data-graph-icon="minus"></i><span>缩小</span></button>
         <button type="button" id="btn-reset" aria-label="适配全部关系"><i data-graph-icon="corners-out"></i><span>适配</span></button>
-        <button type="button" id="btn-center" aria-label="居中当前节点"><i data-graph-icon="crosshair"></i><span>居中</span></button>
       </div>
-      <button type="button" id="btn-layout" aria-label="切换图谱布局方向，当前从左到右" aria-pressed="false"><i data-graph-icon="rows"></i><span>从左到右</span></button>
+      <button type="button" id="btn-layout" aria-label="随机切换布局"><i data-graph-icon="rows"></i><span>随机切换布局</span></button>
     </div>
     <p id="graph-match-status" role="status" aria-live="polite">匹配 00 个节点</p>
   </header>
@@ -143,12 +187,11 @@
       <aside class="graph-relation-legend" aria-label="关系类型图例">
         <strong>关系类型</strong><ul id="graph-relation-legend"></ul>
       </aside>
-      <svg id="graph-minimap" aria-label="图谱缩略导航" role="button" tabindex="0"></svg>
     </div>
     <div id="graph-zero-notice" hidden>
       <strong>尚未形成知识连线</strong>
-      <span>在笔记中加入 <code>[[wiki:笔记ID][标题]]</code> 即可创建关系。</span>
-      <button type="button" id="graph-zero-copy">复制第一条 Wiki 链接</button>
+      <span>选择一篇笔记，可在详情中新增关系；正文里的 Wiki 链接也会自动进入图谱。</span>
+      <button type="button" id="graph-zero-copy">选择笔记</button>
     </div>
     <section id="graph-triage-panel" class="graph-triage-panel" data-legacy-hook="graph-isolated-fallback" hidden aria-label="待连接笔记">
       <header><div><strong>待连接笔记</strong><span>按主题审核并补充真实链接，不生成推测关系。</span></div><b id="graph-isolated-count">00</b></header>
@@ -170,24 +213,24 @@
         </header>
         <div class="graph-inspector-grid">
           <section><h3>内容摘要</h3><p id="graph-selected-description"></p><dl id="graph-selected-facts"></dl></section>
-          <section><h3>关系脉络</h3><div id="graph-neighbours"></div></section>
+          <section><h3>阅读路径与依据</h3><div id="graph-neighbours"></div></section>
         </div>
         <nav class="graph-inspector-actions" aria-label="连续阅读操作">
-          <button type="button" id="graph-previous">上一篇</button>
-          <button type="button" id="graph-next">下一篇</button>
           <a id="graph-open-link" href="index.html">打开笔记</a>
           <a id="graph-related-link" href="related.html" hidden>关联阅读</a>
-          <a id="graph-timeline-link" href="timeline.html">时间线</a>
         </nav>
       </article>
       <ul id="graph-legend" aria-label="主题图例"></ul>
     </div>
   </section>
 </main>
-<script type="application/json" id="graph-data">{"nodes":[{"id":"dataset","name":"Dataset","group":"Data","tags":["data"],"status":"draft","degree":0,"description":"","created":1789282800.0,"modified":1789287430.817567,"linksTo":[],"linkedFrom":[],"url":"pages/Data/dataset.html"},{"id":"4aec0077-2a63-495f-b4b2-e3fdfcd66f88","name":"Emacs 插件高价值增量观察（滚动）","group":"Emacs","tags":["emacs","plugin-watch","rolling","org-roam"],"status":"published","degree":0,"description":"","created":1779692400.0,"modified":1785585524.222578,"linksTo":[],"linkedFrom":[],"url":"pages/Emacs/PluginWatch/emacs-plugin-watch.html"},{"id":"001-学习的牛逼之处","name":"001-学习的牛逼之处","group":"AIL","tags":["ail"],"status":"published","degree":0,"description":"","created":1780815600.0,"modified":1787759485.3515131,"linksTo":[],"linkedFrom":[],"url":"pages/ail/001-学习的牛逼之处.html"},{"id":"002-学习需要被设计","name":"002-学习需要被设计","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780815600.0,"modified":1780842637.933826,"linksTo":[],"linkedFrom":[],"url":"pages/ail/002-学习需要被设计.html"},{"id":"003-有效的ai工具","name":"003-有效的AI工具","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780815600.0,"modified":1780843826.6660671,"linksTo":[],"linkedFrom":[],"url":"pages/ail/003-有效的ai工具.html"},{"id":"004-小心使用","name":"004-小心使用","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780902000.0,"modified":1780848127.7017467,"linksTo":[],"linkedFrom":[],"url":"pages/ail/004-小心使用.html"},{"id":"005-信息概括","name":"005-信息概括","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780902000.0,"modified":1780886861.4612782,"linksTo":[],"linkedFrom":[],"url":"pages/ail/005-信息概括.html"},{"id":"sicp","name":"SICP Lisp 过程抽象练习：平方根迭代逼近器","group":"Lisp","tags":["lisp"],"status":"draft","degree":0,"description":"","created":1780210800.0,"modified":1780213110.8629973,"linksTo":[],"linkedFrom":[],"url":"pages/lisp/sicp.html"},{"id":"ontology-concept-boundaries","name":"本体论建模：从概念边界到可计算语义","group":"Ontology","tags":["ontology","knowledge-graph","semantic-modeling"],"status":"published","degree":1,"description":"一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。","created":1786777200.0,"modified":1787322839.700095,"linksTo":["ontology-evidence-evolution"],"linkedFrom":["ontology-evidence-evolution"],"url":"pages/ontology/ontology-concept-boundaries.html"},{"id":"ontology-evidence-evolution","name":"本体治理：从证据追踪到安全演化","group":"Ontology","tags":["ontology","governance","provenance","evolution"],"status":"published","degree":2,"description":"面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。","created":1786777200.0,"modified":1789090813.7323947,"linksTo":["ontology-concept-boundaries"],"linkedFrom":["本体mvp","ontology-concept-boundaries"],"url":"pages/ontology/ontology-evidence-evolution.html"},{"id":"本体mvp","name":"本体MVP","group":"Ontology","tags":["ontology"],"status":"published","degree":1,"description":"","created":1783753200.0,"modified":1789090078.1449842,"linksTo":["ontology-evidence-evolution"],"linkedFrom":[],"url":"pages/ontology/本体mvp.html"},{"id":"duckdb-mpv","name":"DuckDB MPV","group":"SQL","tags":["sql"],"status":"draft","degree":0,"description":"","created":1787295600.0,"modified":1790042537.3550227,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb-mpv.html"},{"id":"duckdb-ontology","name":"DuckDB 本体建模","group":"SQL","tags":["sql","duckdb","ontology","本体"],"status":"draft","degree":0,"description":"","created":1781074800.0,"modified":1787326022.1745121,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb-ontology.html"},{"id":"3572220e-7c4f-45fd-af24-4e4ae2cddea2","name":"00 DuckDB 最小入门","group":"SQL","tags":["sql"],"status":"draft","degree":0,"description":"","created":1779951600.0,"modified":1789015953.809045,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb.html"},{"id":"sql","name":"DuckDB 实战入门：Emacs Package 数据分析","group":"SQL","tags":["sql"],"status":"draft","degree":0,"description":"","created":1780902000.0,"modified":1782574980.2230814,"linksTo":[],"linkedFrom":[],"url":"pages/sql/sql.html"},{"id":"orgtheme","name":"OrgTheme 专业版主题开发系统","group":"Theme","tags":["theme"],"status":"draft","degree":0,"description":"","created":1779951600.0,"modified":1779934627.5976079,"linksTo":[],"linkedFrom":[],"url":"pages/theme/orgtheme.html"},{"id":"vibe-coding","name":"vibe coding","group":"Vibe","tags":["vibe"],"status":"draft","degree":0,"description":"","created":1787727600.0,"modified":1790049465.6593604,"linksTo":[],"linkedFrom":[],"url":"pages/vibe/vibe-coding.html"}],"links":[{"source":"ontology-concept-boundaries","target":"ontology-evidence-evolution","type":"显式链接","bidirectional":true,"value":1},{"source":"本体mvp","target":"ontology-evidence-evolution","type":"显式链接","bidirectional":false,"value":1}],"meta":{"node-count":17,"tier":"small","tier-label":"Full Simulation","charge":-200,"alpha-decay":0.0228,"tick-limit":"false","pre-ticks":"false","relation-types":["显式链接"]}}</script>
+<script type="application/json" id="graph-data">{"nodes":[{"id":"001-学习的牛逼之处","name":"001-学习的牛逼之处","group":"AI","tags":["ail"],"status":"published","degree":0,"description":"","created":1780815600.0,"modified":1790941213.6883123,"linksTo":[],"linkedFrom":[],"url":"pages/AI/learn_with_ai/001-学习的牛逼之处.html"},{"id":"002-学习需要被设计","name":"002-学习需要被设计","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780815600.0,"modified":1790925097.1993928,"linksTo":[],"linkedFrom":[],"url":"pages/AI/learn_with_ai/002-学习需要被设计.html"},{"id":"003-有效的ai工具","name":"003-有效的AI工具","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780815600.0,"modified":1790845080.0049553,"linksTo":[],"linkedFrom":[],"url":"pages/AI/learn_with_ai/003-有效的ai工具.html"},{"id":"004-小心使用","name":"004-小心使用","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780902000.0,"modified":1790845080.0069098,"linksTo":[],"linkedFrom":[],"url":"pages/AI/learn_with_ai/004-小心使用.html"},{"id":"005-信息概括","name":"005-信息概括","group":"AIL","tags":["ail"],"status":"draft","degree":0,"description":"","created":1780902000.0,"modified":1790845080.0094483,"linksTo":[],"linkedFrom":[],"url":"pages/AI/learn_with_ai/005-信息概括.html"},{"id":"pages-AI-skills-org-skills","name":"AI Skills","group":"AI","tags":["Emacs","Org","Skills","Foundation"],"status":"published","degree":0,"description":"ORG JOURNAL Recording","created":1790901122.2800732,"modified":1790901122.2800732,"linksTo":[],"linkedFrom":[],"url":"pages/AI/skills/org-skills.html"},{"id":"dataset","name":"Dataset","group":"Data","tags":["data"],"status":"draft","degree":0,"description":"","created":1789282800.0,"modified":1790845080.0145104,"linksTo":[],"linkedFrom":[],"url":"pages/Data/dataset.html"},{"id":"pages-Emacs-Org-org-babel-01-execution-foundations","name":"Org Babel 01｜执行基础与数据流","group":"Emacs","tags":["Emacs","Org","Babel","Foundation"],"status":"published","degree":2,"description":"ORG JOURNAL Recording","created":1790845080.0171425,"modified":1790845080.0171425,"linksTo":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-02-composition-engineering"],"linkedFrom":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-02-composition-engineering"],"url":"pages/Emacs/Org/org-babel-01-execution-foundations.html"},{"id":"pages-Emacs-Org-org-babel-02-composition-engineering","name":"Org Babel 02｜组合、复用与工程化","group":"Emacs","tags":["Emacs","Org","Babel","Engineering"],"status":"published","degree":2,"description":"","created":1790845080.0196934,"modified":1790845080.0196934,"linksTo":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-01-execution-foundations"],"linkedFrom":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-01-execution-foundations"],"url":"pages/Emacs/Org/org-babel-02-composition-engineering.html"},{"id":"pages-Emacs-Org-org-babel-03-verification-debugging","name":"Org Babel 03｜验证、回归与排错","group":"Emacs","tags":["Emacs","Org","Babel","Verification"],"status":"published","degree":2,"description":"","created":1790845080.0217154,"modified":1790845080.0217154,"linksTo":["pages-Emacs-Org-org-babel-02-composition-engineering","pages-Emacs-Org-org-babel-01-execution-foundations"],"linkedFrom":["pages-Emacs-Org-org-babel-02-composition-engineering","pages-Emacs-Org-org-babel-01-execution-foundations"],"url":"pages/Emacs/Org/org-babel-03-verification-debugging.html"},{"id":"4aec0077-2a63-495f-b4b2-e3fdfcd66f88","name":"Emacs 插件高价值增量观察（滚动）","group":"Emacs","tags":["emacs","plugin-watch","rolling","org-roam"],"status":"published","degree":0,"description":"","created":1779692400.0,"modified":1790845080.0241256,"linksTo":[],"linkedFrom":[],"url":"pages/Emacs/PluginWatch/emacs-plugin-watch.html"},{"id":"intelligence","name":"intelligence","group":"crypto","tags":["crypto"],"status":"draft","degree":0,"description":"","created":1790233200.0,"modified":1790845080.026138,"linksTo":[],"linkedFrom":[],"url":"pages/crypto/intelligence.html"},{"id":"sicp","name":"SICP Lisp 过程抽象练习：平方根迭代逼近器","group":"lisp","tags":["lisp"],"status":"draft","degree":0,"description":"","created":1780210800.0,"modified":1790845080.0281396,"linksTo":[],"linkedFrom":[],"url":"pages/lisp/sicp.html"},{"id":"ontology-concept-boundaries","name":"本体论建模：从概念边界到可计算语义","group":"Ontology","tags":["ontology","knowledge-graph","semantic-modeling"],"status":"published","degree":1,"description":"一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。","created":1786777200.0,"modified":1790845080.0300903,"linksTo":["ontology-evidence-evolution"],"linkedFrom":["ontology-evidence-evolution"],"url":"pages/ontology/ontology-concept-boundaries.html"},{"id":"ontology-evidence-evolution","name":"本体治理：从证据追踪到安全演化","group":"Ontology","tags":["ontology","governance","provenance","evolution"],"status":"published","degree":2,"description":"面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。","created":1786777200.0,"modified":1790845080.0317328,"linksTo":["ontology-concept-boundaries"],"linkedFrom":["本体mvp","ontology-concept-boundaries"],"url":"pages/ontology/ontology-evidence-evolution.html"},{"id":"本体mvp","name":"本体MVP","group":"Ontology","tags":["ontology"],"status":"published","degree":1,"description":"","created":1783753200.0,"modified":1790845080.032835,"linksTo":["ontology-evidence-evolution"],"linkedFrom":[],"url":"pages/ontology/本体mvp.html"},{"id":"duckdb-dataset","name":"duckdb-dataset","group":"Sql","tags":["sql"],"status":"draft","degree":0,"description":"","created":1790146800.0,"modified":1790845080.0338326,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb-dataset.html"},{"id":"duckdb-mpv","name":"DuckDB MPV","group":"Sql","tags":["sql"],"status":"draft","degree":0,"description":"","created":1787295600.0,"modified":1790845080.0357833,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb-mpv.html"},{"id":"duckdb-ontology","name":"DuckDB 本体建模","group":"Sql","tags":["sql","duckdb","ontology","本体"],"status":"draft","degree":0,"description":"","created":1781074800.0,"modified":1790845080.0367799,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb-ontology.html"},{"id":"duckdb-thinking-org","name":"duckdb-thinking","group":"Sql","tags":["sql"],"status":"draft","degree":0,"description":"","created":1790060400.0,"modified":1790845080.0382874,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb-thinking.html"},{"id":"3572220e-7c4f-45fd-af24-4e4ae2cddea2","name":"00 DuckDB 最小入门","group":"Sql","tags":["sql"],"status":"draft","degree":0,"description":"","created":1779951600.0,"modified":1790845080.0396335,"linksTo":[],"linkedFrom":[],"url":"pages/sql/duckdb.html"},{"id":"sql","name":"DuckDB 实战入门：Emacs Package 数据分析","group":"Sql","tags":["sql"],"status":"draft","degree":0,"description":"","created":1780902000.0,"modified":1790845080.04067,"linksTo":[],"linkedFrom":[],"url":"pages/sql/sql.html"},{"id":"orgtheme","name":"OrgTheme 专业版主题开发系统","group":"Theme","tags":["theme"],"status":"draft","degree":0,"description":"","created":1779951600.0,"modified":1790845080.0426223,"linksTo":[],"linkedFrom":[],"url":"pages/theme/orgtheme.html"},{"id":"vibe-coding","name":"vibe coding","group":"Vibe","tags":["vibe"],"status":"draft","degree":0,"description":"","created":1787727600.0,"modified":1790944118.3508506,"linksTo":[],"linkedFrom":[],"url":"pages/vibe/vibe-coding.html"}],"links":[{"id":"ontology-concept-boundaries\u0000ontology-evidence-evolution","ownerId":"ontology-concept-boundaries","targetId":"ontology-evidence-evolution","source":"ontology-concept-boundaries","target":"ontology-evidence-evolution","type":"显式链接","label":"显式链接","direction":"forward","weight":1,"value":1,"style":"solid","bidirectional":false},{"id":"ontology-evidence-evolution\u0000ontology-concept-boundaries","ownerId":"ontology-evidence-evolution","targetId":"ontology-concept-boundaries","source":"ontology-evidence-evolution","target":"ontology-concept-boundaries","type":"显式链接","label":"显式链接","direction":"forward","weight":1,"value":1,"style":"solid","bidirectional":false},{"id":"pages-Emacs-Org-org-babel-01-execution-foundations\u0000pages-Emacs-Org-org-babel-02-composition-engineering","ownerId":"pages-Emacs-Org-org-babel-01-execution-foundations","targetId":"pages-Emacs-Org-org-babel-02-composition-engineering","source":"pages-Emacs-Org-org-babel-01-execution-foundations","target":"pages-Emacs-Org-org-babel-02-composition-engineering","type":"显式链接","label":"显式链接","direction":"forward","weight":1,"value":1,"style":"solid","bidirectional":false},{"id":"pages-Emacs-Org-org-babel-01-execution-foundations\u0000pages-Emacs-Org-org-babel-03-verification-debugging","ownerId":"pages-Emacs-Org-org-babel-01-execution-foundations","targetId":"pages-Emacs-Org-org-babel-03-verification-debugging","source":"pages-Emacs-Org-org-babel-01-execution-foundations","target":"pages-Emacs-Org-org-babel-03-verification-debugging","type":"显式链接","label":"显式链接","direction":"forward","weight":1,"value":1,"style":"solid","bidirectional":false},{"id":"pages-Emacs-Org-org-babel-02-composition-engineering\u0000pages-Emacs-Org-org-babel-01-execution-foundations","ownerId":"pages-Emacs-Org-org-babel-02-composition-engineering","targetId":"pages-Emacs-Org-org-babel-01-execution-foundations","source":"pages-Emacs-Org-org-babel-02-composition-engineering","target":"pages-Emacs-Org-org-babel-01-execution-foundations","type":"显式链接","label":"显式链接","direction":"forward","weight":1,"value":1,"style":"solid","bidirectional":false},{"id":"pages-Emacs-Org-org-babel-02-composition-engineering\u0000pages-Emacs-Org-org-babel-03-verification-debugging","ownerId":"pages-Emacs-Org-org-babel-02-composition-engineering","targetId":"pages-Emacs-Org-org-babel-03-verification-debugging","source":"pages-Emacs-Org-org-babel-02-composition-engineering","target":"pages-Emacs-Org-org-babel-03-verification-debugging","type":"显式链接","label":"显式链接","direction":"forward","weight":1,"value":1,"style":"solid","bidirectional":false},{"id":"pages-Emacs-Org-org-babel-03-verification-debugging\u0000pages-Emacs-Org-org-babel-01-execution-foundations","ownerId":"pages-Emacs-Org-org-babel-03-verification-debugging","targetId":"pages-Emacs-Org-org-babel-01-execution-foundations","source":"pages-Emacs-Org-org-babel-03-verification-debugging","target":"pages-Emacs-Org-org-babel-01-execution-foundations","type":"显式链接","label":"显式链接","direction":"forward","weight":1,"value":1,"style":"solid","bidirectional":false},{"id":"pages-Emacs-Org-org-babel-03-verification-debugging\u0000pages-Emacs-Org-org-babel-02-composition-engineering","ownerId":"pages-Emacs-Org-org-babel-03-verification-debugging","targetId":"pages-Emacs-Org-org-babel-02-composition-engineering","source":"pages-Emacs-Org-org-babel-03-verification-debugging","target":"pages-Emacs-Org-org-babel-02-composition-engineering","type":"显式链接","label":"显式链接","direction":"forward","weight":1,"value":1,"style":"solid","bidirectional":false},{"id":"本体mvp\u0000ontology-evidence-evolution","ownerId":"本体mvp","targetId":"ontology-evidence-evolution","source":"本体mvp","target":"ontology-evidence-evolution","type":"显式链接","label":"显式链接","direction":"forward","weight":1,"value":1,"style":"solid","bidirectional":false}],"meta":{"node-count":24,"tier":"small","tier-label":"Full Simulation","charge":-200,"alpha-decay":0.0228,"tick-limit":"false","pre-ticks":"false","relation-types":["显式链接"]}}</script>
+<script src="resources/org-museum-graph-layout.js?v=b92f1dbafca6"></script>
+<script src="resources/org-museum-graph-edges.js?v=b6e7ce608b5c"></script>
+<script src="resources/org-museum-graph-network.js?v=6541dc237eb2"></script>
 
 
 
-<script defer src="resources/org-museum-graph.js?v=00314695db9c"></script>
+<script defer src="resources/org-museum-graph.js?v=b0926056435a"></script>
 </body>
 </html>

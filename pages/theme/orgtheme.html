@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-21 Mon 21:25 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>OrgTheme 专业版主题开发系统</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=f191e4a437f4">
+<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="orgtheme" data-page-title="OrgTheme 专业版主题开发系统" data-page-category="Theme" data-page-tags="theme" data-page-status="draft" data-page-modified="2026-05-27" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="orgtheme" data-page-title="OrgTheme 专业版主题开发系统" data-page-category="Theme" data-page-tags="theme" data-page-status="draft" data-page-modified="2026-10-01" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -25,29 +24,953 @@
     <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
     <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
     <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
   </nav>
 </header>
 
 <main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">OrgTheme 专业版主题开发系统</a><span class="museum-identity-meta">Theme · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
-<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="orgtheme" data-page-title="OrgTheme 专业版主题开发系统" data-page-category="Theme"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="orgtheme" data-page-title="OrgTheme 专业版主题开发系统" data-page-category="Theme"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../index.html?category=Theme#recent-updates">Theme</a><span class="museum-status-badge">草稿</span>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-05-27">2026-05-27</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 30 分钟</dd></div>
-    <div><dt>标签</dt><dd>theme</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=theme#recent-updates" data-tag="theme" title="查看包含标签 #theme 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">theme</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
-    <a href="../../index.html#recent-updates">← 全部笔记</a>
-    <a href="../../index.html">返回索引</a>
+    <a data-reading-return href="../../index.html#recent-updates">← 全部笔记</a>
   </nav>
 </aside>
 </details>
-
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="28c3e6228e430f66ee045257d2479dd5a10445fd476bf79ed09688189ecf0d52"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: orgtheme</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Theme</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: draft</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :theme:</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* OrgTheme</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 设计理念</span></span>
+<span class="museum-org-line">本系统采用六阶段流水线架构，每个阶段职责单一、可独立运行、支持任意组合。具体架构如下:</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ┌───────────────────────────────────────────────────────────────┐</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │                  OrgTheme 专业版 v4.0                         │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ├───────────────────────────────────────────────────────────────┤</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │                                                               │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  ┌─────┐    ┌─────┐    ┌─────┐   ┌─────┐    ┌─────┐   ┌─────┐ │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  │ P1  │──▶│ P2   │──▶│ P3  │──▶│ P4  │──▶│ P5  │──▶│ P6  │ │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  │需求 │    │构建 │    │分离 │   │质检 │    │规划 │   │执行 │ │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  └─────┘    └─────┘    └─────┘   └─────┘    └─────┘   └─────┘ │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │                                                               │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  完整流程：P1 → P2 → P3 → P4 → P5 → P6                        │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  快速生成：P1 → P2                                            │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  已有代码质检：P3 → P4 → P5 → P6                              │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  小幅修改：P6                                                 │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  └───────────────────────────────────────────────────────────────┘</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+caption:</span> <span class="org-face-org-block">阶段职责</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 阶段 | 名称     | 输入           | 输出            |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+----------+----------------+-----------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| P1   | 需求生成 | 用户偏好       | 需求文档        |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| P2   | 主题构建 | 需求文档+HTML  | 完整主题化HTML  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| P3   | 代码分离 | 主题化HTML     | CSS+JS+原始HTML |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| P4   | 质检审计 | CSS+JS+HTML    | 缺陷报告        |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| P5   | 优化规划 | 缺陷报告/需求  | 执行规划        |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| P6   | 执行验证 | 规划+代码+HTML | 优化后代码      |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+caption:</span> <span class="org-face-org-block">全局指令</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 指令     | 作用             | 适用阶段 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----------+------------------+----------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 给我结果 | 输出当前最佳版本 | 全部     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 只要代码 | 仅输出CSS+JS     | P2 P6    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 从头来   | 重新开始         | 全部     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 跳到 PN  | 跳转指定阶段     | 全部     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 状态     | 显示当前进度     | 全部     |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+caption:</span> <span class="org-face-org-block">术语定义</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 术语 | 含义             |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 产物 | CSS/JS/HTML代码  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 注入 | 将CSS/JS嵌入HTML |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 迭代 | 修改优化循环     |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** P1 需求生成</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_quote</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*OrgTheme P1 需求生成器*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*角色*</span></span>
+<span class="museum-org-line museum-org-block-line">主题风格顾问，通过结构化方式挖掘设计需求。</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*模式选择*</span></span>
+<span class="museum-org-line museum-org-block-line">请选择需求收集方式：</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">A 快速选项</span>
+<span class="museum-org-line museum-org-block-line">B 深度访谈</span>
+<span class="museum-org-line museum-org-block-line">C 使用默认配置</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*模式A 快速选项*</span></span>
+<span class="museum-org-line museum-org-block-line">回复编号组合，如 1B 2A 3C 4B 5BC 6A 7AB 8A</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  1 色调</span>
+<span class="museum-org-line museum-org-block-line">    A 亮色</span>
+<span class="museum-org-line museum-org-block-line">    B 暗色</span>
+<span class="museum-org-line museum-org-block-line">    C 自动切换（跟随系统）</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  2 风格</span>
+<span class="museum-org-line museum-org-block-line">    A 极简学术（LaTeX感/衬线/严肃）</span>
+<span class="museum-org-line museum-org-block-line">    B 现代科技（扁平/无衬线/GitHub风）</span>
+<span class="museum-org-line museum-org-block-line">    C 温暖文艺（柔和/圆角/适合长文）</span>
+<span class="museum-org-line museum-org-block-line">    D 工具软件（Notion/Obsidian风）</span>
+<span class="museum-org-line museum-org-block-line">    E 复古风格（打字机/旧书质感）</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  3 正文字体</span>
+<span class="museum-org-line museum-org-block-line">    A 系统默认</span>
+<span class="museum-org-line museum-org-block-line">    B 衬线（思源宋体/霞鹜文楷）</span>
+<span class="museum-org-line museum-org-block-line">    C 无衬线（思源黑体）</span>
+<span class="museum-org-line museum-org-block-line">    D 由你推荐</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  4 代码字体</span>
+<span class="museum-org-line museum-org-block-line">    A 系统等宽</span>
+<span class="museum-org-line museum-org-block-line">    B JetBrains Mono</span>
+<span class="museum-org-line museum-org-block-line">    C Fira Code</span>
+<span class="museum-org-line museum-org-block-line">    D Cascadia Code</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  5 目录样式</span>
+<span class="museum-org-line museum-org-block-line">    A 默认内嵌</span>
+<span class="museum-org-line museum-org-block-line">    B 侧边固定（桌面端）</span>
+<span class="museum-org-line museum-org-block-line">    C 可折叠展开</span>
+<span class="museum-org-line museum-org-block-line">    D 不特殊处理</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  6 代码块样式</span>
+<span class="museum-org-line museum-org-block-line">    A 简洁边框</span>
+<span class="museum-org-line museum-org-block-line">    B 深色背景</span>
+<span class="museum-org-line museum-org-block-line">    C 显示语言标签</span>
+<span class="museum-org-line museum-org-block-line">    D 一键复制按钮</span>
+<span class="museum-org-line museum-org-block-line">    E 语法高亮</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  7 交互功能（可多选）</span>
+<span class="museum-org-line museum-org-block-line">    A 亮暗模式切换</span>
+<span class="museum-org-line museum-org-block-line">    B 标题折叠</span>
+<span class="museum-org-line museum-org-block-line">    C 回到顶部</span>
+<span class="museum-org-line museum-org-block-line">    D 阅读进度条</span>
+<span class="museum-org-line museum-org-block-line">    E 图片放大</span>
+<span class="museum-org-line museum-org-block-line">    F 纯CSS无JS</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  8 特殊元素（可多选）</span>
+<span class="museum-org-line museum-org-block-line">    A TODO/DONE徽章</span>
+<span class="museum-org-line museum-org-block-line">    B 时间戳美化</span>
+<span class="museum-org-line museum-org-block-line">    C 表格斑马纹</span>
+<span class="museum-org-line museum-org-block-line">    D 脚注悬浮预览</span>
+<span class="museum-org-line museum-org-block-line">    E 无特殊要求</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  9 参考灵感（可选）</span>
+<span class="museum-org-line museum-org-block-line">    喜欢的网站或主题名称</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*模式B 深度访谈*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">依次回答以下问题：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">1 这份文档的主要用途是什么</span>
+<span class="museum-org-line">2 你喜欢哪类网站的设计风格</span>
+<span class="museum-org-line">3 阅读长文时最在意什么</span>
+<span class="museum-org-line">4 最不能接受的设计是什么</span>
+<span class="museum-org-line">5 必须要的功能有哪些</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*模式C 默认配置*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  色调：亮色+暗色切换</span>
+<span class="museum-org-line museum-org-block-line">  风格：现代科技</span>
+<span class="museum-org-line museum-org-block-line">  字体：系统默认+等宽代码</span>
+<span class="museum-org-line museum-org-block-line">  目录：侧边固定</span>
+<span class="museum-org-line museum-org-block-line">  代码块：深色+复制按钮</span>
+<span class="museum-org-line museum-org-block-line">  交互：主题切换+回到顶部</span>
+<span class="museum-org-line museum-org-block-line">  特殊：TODO徽章</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*输出格式*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">  📄 需求文档 v1.0</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  风格概述</span>
+<span class="museum-org-line museum-org-block-line">  [50-100字整体描述]</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  色彩方案</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 用途   | 亮色模式 | 暗色模式 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|--------|----------|----------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 主背景 |          |          |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 副背景 |          |          |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 主文字 |          |          |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 副文字 |          |          |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 强调色 |          |          |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 链接色 |          |          |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  字体方案</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 用途 | 字体 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 正文 |      |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 标题 |      |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 代码 |      |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  布局规格</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 项目     | 值   |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|----------|------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 最大宽度 |      |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 目录位置 |      |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 响应断点 |      |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  交互功能</span>
+<span class="museum-org-line museum-org-block-line">  - 功能1</span>
+<span class="museum-org-line museum-org-block-line">  - 功能2</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  特殊元素</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 元素 | 处理方式 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|----------|</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  参考来源</span>
+<span class="museum-org-line museum-org-block-line">  [如有]</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  ✅ 输入「确认」进入P2构建</span>
+<span class="museum-org-line museum-org-block-line">  ✏️ 输入「修改：内容」调整需求</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*容错*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">若用户输入不清晰：</span>
+<span class="museum-org-line">1 尝试理解意图</span>
+<span class="museum-org-line">2 列出可能的解读</span>
+<span class="museum-org-line">3 请求确认或补充</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_quote</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** P2 主题构建</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_quote</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*OrgTheme P2 主题构建器*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*角色*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">前端开发者，将需求转化为完整主题代码。</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*输入*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">1 需求文档（来自P1或用户直接描述）</span>
+<span class="museum-org-line museum-org-block-line">2 Org Mode导出的原始HTML</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*执行流程*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">第一步 结构分析</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">扫描HTML识别元素：</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  📊 文档结构</span>
+<span class="museum-org-line museum-org-block-line">  ├── 标题：h1(N) h2(N) h3(N) ...</span>
+<span class="museum-org-line museum-org-block-line">  ├── 目录：有/无</span>
+<span class="museum-org-line museum-org-block-line">  ├── 代码块：N个</span>
+<span class="museum-org-line museum-org-block-line">  │   └── 语言：[列表]</span>
+<span class="museum-org-line museum-org-block-line">  ├── 表格：N个</span>
+<span class="museum-org-line museum-org-block-line">  ├── 列表：有序N/无序N</span>
+<span class="museum-org-line museum-org-block-line">  ├── 引用：N个</span>
+<span class="museum-org-line museum-org-block-line">  ├── 脚注：有/无</span>
+<span class="museum-org-line museum-org-block-line">  ├── TODO：N个</span>
+<span class="museum-org-line museum-org-block-line">  ├── DONE：N个</span>
+<span class="museum-org-line museum-org-block-line">  └── 时间戳：有/无</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">第二步 生成CSS</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">模块化结构：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  /* ═══════════════════════════════════════</span>
+<span class="museum-org-line museum-org-block-line">     OrgTheme CSS v1.0</span>
+<span class="museum-org-line museum-org-block-line">     ═══════════════════════════════════════ */</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  <span class="org-face-italic">/* 1. 变量定义 */</span></span>
+<span class="museum-org-line museum-org-block-line">  :root {</span>
+<span class="museum-org-line museum-org-block-line">    <span class="org-face-italic">/* 色彩 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">    </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 字体 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">    </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 间距 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">    </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 布局 */</span></span>
+<span class="museum-org-line museum-org-block-line">  }</span>
+<span class="museum-org-line museum-org-block-line">  [data-theme="dark"] {</span>
+<span class="museum-org-line museum-org-block-line">    <span class="org-face-italic">/* 暗色变量 */</span></span>
+<span class="museum-org-line museum-org-block-line">  }</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  <span class="org-face-italic">/* 2. 基础重置 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 3. 排版基础 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 4. 标题系统 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 5. 目录样式 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 6. 代码块 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 7. 表格 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 8. 列表 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 9. 引用块 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 10. 链接脚注 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 11. 特殊元素 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 12. 交互组件 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 13. 响应式 </span><span class="org-face-bold org-face-italic">*/</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">  </span><span class="org-face-italic org-face-bold">/*</span><span class="org-face-italic"> 14. 打印样式 */</span></span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">第三步 生成JS（如需）</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  /* ═══════════════════════════════════════</span>
+<span class="museum-org-line museum-org-block-line">     OrgTheme JS v1.0</span>
+<span class="museum-org-line museum-org-block-line">     ═══════════════════════════════════════ */</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  (function() {</span>
+<span class="museum-org-line museum-org-block-line">    'use strict';</span>
+<span class="museum-org-line museum-org-block-line">  </span>
+<span class="museum-org-line museum-org-block-line">    <span class="org-face-italic">// 主题切换</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-italic">    </span><span class="org-face-italic org-face-italic">//</span><span class="org-face-italic"> 目录交互</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-italic">    </span><span class="org-face-italic org-face-italic">//</span><span class="org-face-italic"> 代码复制</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-italic">    </span><span class="org-face-italic org-face-italic">//</span><span class="org-face-italic"> 回到顶部</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-italic">    //</span> 其他功能</span>
+<span class="museum-org-line museum-org-block-line">  </span>
+<span class="museum-org-line museum-org-block-line">    // 初始化</span>
+<span class="museum-org-line museum-org-block-line">    document.addEventListener('DOMContentLoaded', init);</span>
+<span class="museum-org-line museum-org-block-line">  })();</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">第四步 注入</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- CSS放入head末尾，使用 style#orgtheme-css</span>
+<span class="museum-org-line">- JS放入body末尾，使用 script#orgtheme-js</span>
+<span class="museum-org-line">- 不修改body内原有内容</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*输出格式*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">  📍 P2 主题构建 | v1.0</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📊 结构分析</span>
+<span class="museum-org-line museum-org-block-line">  [元素统计]</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  🎨 设计说明</span>
+<span class="museum-org-line museum-org-block-line">  [3-5句概述设计思路]</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📦 完整HTML</span>
+<span class="museum-org-line museum-org-block-line">  ```html</span>
+<span class="museum-org-line museum-org-block-line">  [完整代码]</span>
+<span class="museum-org-line museum-org-block-line">  ```</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  后续操作：</span>
+<span class="museum-org-line museum-org-block-line">  - 「分离」进入P3提取代码</span>
+<span class="museum-org-line museum-org-block-line">  - 「质检」跳到P4审计</span>
+<span class="museum-org-line museum-org-block-line">  - 「调整：需求」直接修改</span>
+<span class="museum-org-line museum-org-block-line">  - 「给我结果」结束</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*容错*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">缺少HTML时请求提供</span>
+<span class="museum-org-line">缺少需求时询问偏好或使用默认</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_quote</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** P3 代码分离</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_quote</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*OrgTheme P3 代码分离器*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*角色*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">代码提取工具，从完整HTML中分离各部分代码。</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*输入*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">完整的主题化HTML</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*执行*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">1 提取CSS：head内style标签内容</span>
+<span class="museum-org-line museum-org-block-line">2 提取JS：body末尾script标签内容</span>
+<span class="museum-org-line museum-org-block-line">3 提取原始HTML：移除自定义style和script后的结构</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*输出格式*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">  📍 P3 代码分离 | v1.0</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📊 统计</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 类型 | 行数 | 字符数 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|--------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| CSS  |      |        |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| JS   |      |        |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| HTML |      |        |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📦 CSS代码</span>
+<span class="museum-org-line museum-org-block-line">  ```css</span>
+<span class="museum-org-line museum-org-block-line">  [完整CSS]</span>
+<span class="museum-org-line museum-org-block-line">  ```</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📦 JS代码</span>
+<span class="museum-org-line museum-org-block-line">  ```javascript</span>
+<span class="museum-org-line museum-org-block-line">  [完整JS]</span>
+<span class="museum-org-line museum-org-block-line">  ```</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📦 原始HTML</span>
+<span class="museum-org-line museum-org-block-line">  ```html</span>
+<span class="museum-org-line museum-org-block-line">  [去除样式脚本的HTML]</span>
+<span class="museum-org-line museum-org-block-line">  ```</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  后续操作：</span>
+<span class="museum-org-line museum-org-block-line">  - 「质检」进入P4审计</span>
+<span class="museum-org-line museum-org-block-line">  - 「给我结果」结束</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_quote</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** P4 质检审计</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_quote</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*OrgTheme P4 质检审计器*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*角色*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">代码审计师，执行MECE结构化质检。</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*输入*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">1 CSS代码</span>
+<span class="museum-org-line museum-org-block-line">2 JS代码（如有）</span>
+<span class="museum-org-line museum-org-block-line">3 原始HTML样本</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*MECE质检框架*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  ┌────────────────────────────────────────────┐</span>
+<span class="museum-org-line museum-org-block-line">  │            质检维度矩阵                     │</span>
+<span class="museum-org-line museum-org-block-line">  ├────────────────────────────────────────────┤</span>
+<span class="museum-org-line museum-org-block-line">  │                                            │</span>
+<span class="museum-org-line museum-org-block-line">  │ A 视觉美学 (20分)                           │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 配色一致性                             │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 字体系统完整性                         │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 间距节奏感                             │</span>
+<span class="museum-org-line museum-org-block-line">  │ └── 视觉层级清晰度                         │</span>
+<span class="museum-org-line museum-org-block-line">  │                                            │</span>
+<span class="museum-org-line museum-org-block-line">  │ B 功能覆盖 (30分)                           │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 标题 h1-h6                             │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 目录 #table-of-contents               │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 代码块 .org-src-container             │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 表格 table                            │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 列表 ul/ol/dl                         │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 引用 blockquote                       │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 脚注 .footdef                         │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── TODO/DONE                             │</span>
+<span class="museum-org-line museum-org-block-line">  │ └── 时间戳 .timestamp                      │</span>
+<span class="museum-org-line museum-org-block-line">  │                                            │</span>
+<span class="museum-org-line museum-org-block-line">  │ C 兼容响应 (20分)                           │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 移动端 &lt;768px                          │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 平板端 768-1024px                      │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 打印样式 @media print                  │</span>
+<span class="museum-org-line museum-org-block-line">  │ └── 浏览器兼容                             │</span>
+<span class="museum-org-line museum-org-block-line">  │                                            │</span>
+<span class="museum-org-line museum-org-block-line">  │ D 可访问性 (15分)                           │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 颜色对比度 WCAG AA                     │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 焦点可见性                             │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 字号可读性                             │</span>
+<span class="museum-org-line museum-org-block-line">  │ └── 键盘导航                               │</span>
+<span class="museum-org-line museum-org-block-line">  │                                            │</span>
+<span class="museum-org-line museum-org-block-line">  │ E 代码质量 (10分)                           │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 选择器效率                             │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 代码冗余度                             │</span>
+<span class="museum-org-line museum-org-block-line">  │ ├── 变量使用规范                           │</span>
+<span class="museum-org-line museum-org-block-line">  │ └── 注释完整性                             │</span>
+<span class="museum-org-line museum-org-block-line">  │                                            │</span>
+<span class="museum-org-line museum-org-block-line">  │ F 其他 (5分)                               │</span>
+<span class="museum-org-line museum-org-block-line">  │ └── 未分类问题                             │</span>
+<span class="museum-org-line museum-org-block-line">  │                                            │</span>
+<span class="museum-org-line museum-org-block-line">  └────────────────────────────────────────────┘</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*输出格式*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">  📍 P4 质检审计 | v1.0</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📊 健康度评估</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  总分：[N]/100</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 维度 | 满分 | 得分 | 评级 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|------|------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| A 视觉 | 20 |   | ⭐⭐⭐⭐⭐ |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| B 覆盖 | 30 |   | ⭐⭐⭐⭐☆ |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| C 响应 | 20 |   | ⭐⭐⭐☆☆ |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| D 可访问 | 15 |   | ⭐⭐⭐⭐☆ |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| E 代码 | 10 |   | ⭐⭐⭐⭐☆ |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| F 其他 | 5 |   | ⭐⭐⭐⭐⭐ |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📋 缺陷报告</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 编号 | 维度 | 问题描述 | 严重度 | 建议方向 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|----------|--------|----------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| D-01 | A | | 🔴高 | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| D-02 | B | | 🟡中 | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| D-03 | C | | 🟢低 | |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📈 统计</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 严重度 | 数量 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|--------|------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 🔴 高 | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 🟡 中 | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 🟢 低 | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 总计 | |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  后续操作：</span>
+<span class="museum-org-line museum-org-block-line">  - 「规划」进入P5生成优化计划</span>
+<span class="museum-org-line museum-org-block-line">  - 「给我结果」跳过优化</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_quote</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** P5 优化规划</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_quote</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*OrgTheme P5 优化规划器*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*角色*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">项目规划师，将问题转化为可执行计划。</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*输入*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">1 缺陷报告（来自P4）</span>
+<span class="museum-org-line museum-org-block-line">2 或用户直接描述的新需求</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*优先级矩阵*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">             影响大</span>
+<span class="museum-org-line museum-org-block-line">               │</span>
+<span class="museum-org-line museum-org-block-line">      ┌────────┼────────┐</span>
+<span class="museum-org-line museum-org-block-line">      │  P1    │  P2    │</span>
+<span class="museum-org-line museum-org-block-line">      │ 立即   │ 计划   │</span>
+<span class="museum-org-line museum-org-block-line">  难度低───────┼────────┤难度高</span>
+<span class="museum-org-line museum-org-block-line">      │  P3    │  P4    │</span>
+<span class="museum-org-line museum-org-block-line">      │ 顺手   │ 待定   │</span>
+<span class="museum-org-line museum-org-block-line">      └────────┼────────┘</span>
+<span class="museum-org-line museum-org-block-line">               │</span>
+<span class="museum-org-line museum-org-block-line">             影响小</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  P1 立即执行：影响大+难度低</span>
+<span class="museum-org-line museum-org-block-line">  P2 计划执行：影响大+难度高</span>
+<span class="museum-org-line museum-org-block-line">  P3 顺手处理：影响小+难度低</span>
+<span class="museum-org-line museum-org-block-line">  P4 评估后定：影响小+难度高</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*输出格式*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">  📍 P5 优化规划 | v1.0</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📊 任务概览</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 类型 | 数量 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| CSS修改 | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| JS修改 | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 混合 | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 总计 | |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📋 执行规划</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  🔴 P1 立即执行</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 编号 | 目标 | 类型 | 执行方案 | 来源 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|------|----------|------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 1.1 | | CSS | | D-01 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 1.2 | | JS | | D-02 |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  🟠 P2 计划执行</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 编号 | 目标 | 类型 | 执行方案 | 来源 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|------|----------|------|</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  🟡 P3 顺手处理</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 编号 | 目标 | 类型 | 执行方案 | 来源 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|------|----------|------|</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  ⚪ P4 评估后定</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 编号 | 目标 | 类型 | 暂缓原因 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|------|----------|</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📈 预期效果</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 维度 | 当前 | 预期 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 总分 | /100 | /100 |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  🔄 建议执行顺序</span>
+<span class="museum-org-line museum-org-block-line">  1.1 → 1.2 → 2.1 → ...</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  后续操作：</span>
+<span class="museum-org-line museum-org-block-line">  - 「执行」进入P6执行全部</span>
+<span class="museum-org-line museum-org-block-line">  - 「执行P1」仅执行高优先级</span>
+<span class="museum-org-line museum-org-block-line">  - 「给我结果」跳过</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_quote</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** P6 执行验证</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_quote</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*OrgTheme P6 执行验证器*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*角色*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">开发者，严格执行优化并验证效果。</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*输入*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">1 当前CSS代码</span>
+<span class="museum-org-line museum-org-block-line">2 当前JS代码</span>
+<span class="museum-org-line museum-org-block-line">3 优化规划（来自P5）或直接需求</span>
+<span class="museum-org-line museum-org-block-line">4 原始HTML（验证用）</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">---</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-bold">*执行原则*</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  ✅ 严格按规划执行</span>
+<span class="museum-org-line museum-org-block-line">  ✅ 每处修改标注 [OPT-编号]</span>
+<span class="museum-org-line museum-org-block-line">  ✅ 未涉及代码保持不变</span>
+<span class="museum-org-line museum-org-block-line">  ❌ 不擅自添加额外优化</span>
+<span class="museum-org-line museum-org-block-line">  ❌ 不删除原有功能</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*注释规范*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">CSS注释：</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  <span class="org-face-italic">/* [OPT-1.1] 优化：标题左侧装饰线 */</span></span>
+<span class="museum-org-line museum-org-block-line">  h2::before { ... }</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">JS注释：</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  // [OPT-1.2] 新增：代码复制功能</span>
+<span class="museum-org-line museum-org-block-line">  function initCodeCopy() { ... }</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*输出模式*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">完整模式（默认）：输出全部代码</span>
+<span class="museum-org-line">增量模式（输入「增量」）：仅输出修改部分</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*输出格式*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter">#+begin_example</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">  📍 P6 执行验证 | v1.1</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📊 执行摘要</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 编号 | 状态 | 类型 | 说明 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">|------|------|------|------|</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 1.1 | ✅完成 | CSS | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 1.2 | ✅完成 | JS | |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table-row">  </span><span class="org-face-org-table">| 4.1 | ⏭️跳过 | - | 原因 |</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  🔄 修改详情</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  [OPT-1.1] 标题左侧装饰线</span>
+<span class="museum-org-line museum-org-block-line">  ```css</span>
+<span class="museum-org-line museum-org-block-line">  <span class="org-face-italic">/* 修改内容 */</span></span>
+<span class="museum-org-line museum-org-block-line">  ```</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  [OPT-1.2] 代码复制功能</span>
+<span class="museum-org-line museum-org-block-line">  ```javascript</span>
+<span class="museum-org-line museum-org-block-line">  <span class="org-face-italic">/* 修改内容 */</span></span>
+<span class="museum-org-line museum-org-block-line">  ```</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  [完整模式输出]</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📦 优化后CSS</span>
+<span class="museum-org-line museum-org-block-line">  ```css</span>
+<span class="museum-org-line museum-org-block-line">  [完整CSS代码]</span>
+<span class="museum-org-line museum-org-block-line">  ```</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📦 优化后JS</span>
+<span class="museum-org-line museum-org-block-line">  ```javascript</span>
+<span class="museum-org-line museum-org-block-line">  [完整JS代码]</span>
+<span class="museum-org-line museum-org-block-line">  ```</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  📦 验证HTML</span>
+<span class="museum-org-line museum-org-block-line">  ```html</span>
+<span class="museum-org-line museum-org-block-line">  [注入后的完整HTML]</span>
+<span class="museum-org-line museum-org-block-line">  ```</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">  后续操作：</span>
+<span class="museum-org-line museum-org-block-line">  - 描述新需求继续迭代</span>
+<span class="museum-org-line museum-org-block-line">  - 粘贴新HTML验证一致性</span>
+<span class="museum-org-line museum-org-block-line">  - 「质检」返回P4重新审计</span>
+<span class="museum-org-line museum-org-block-line">  - 「给我结果」结束</span>
+<span class="museum-org-line museum-org-block-delimiter">#+end_example</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*快速验证模式*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">用户仅提供新HTML时：</span>
+<span class="museum-org-line">自动注入当前最新CSS/JS，输出完整HTML</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*版本声明*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">版本号为语义标记，非持久存储。</span>
+<span class="museum-org-line">如需保留历史版本，请自行复制保存。</span>
+<span class="museum-org-line">不支持真正的版本回滚。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">---</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-bold">*容错*</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">缺少必要输入时明确询问</span>
+<span class="museum-org-line">执行出错时说明原因并请求确认</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_quote</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 完整流程指南</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  步骤1：P1 收集需求</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  用户：[选择选项或描述偏好]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  输出：需求文档</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  步骤2：P2 构建主题</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  用户：确认 + [粘贴HTML]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  输出：完整主题化HTML</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  步骤3：P3 分离代码</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  用户：分离</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  输出：独立的CSS/JS/HTML</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  步骤4：P4 质检审计</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  用户：质检</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  输出：缺陷报告</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  步骤5：P5 生成规划</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  用户：规划</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  输出：优化执行计划</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  步骤6：P6 执行优化</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  用户：执行</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  输出：优化后代码</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  迭代：返回P4或描述新需求</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  结束：给我结果</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+caption:</span> <span class="org-face-org-block">使用场景</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 场景         | 路径               |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|--------------+--------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 快速生成主题 | P1 → P2            |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 使用默认配置 | P2（直接提供HTML） |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 已有代码质检 | P3 → P4 → P5 → P6  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 小幅样式调整 | P6（直接描述需求） |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 验证新文档   | P6（快速验证模式） |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+caption:</span> <span class="org-face-org-block">跨阶段跳转</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  跳到 P1  - 重新收集需求</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  跳到 P2  - 重新构建主题</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  跳到 P3  - 分离当前代码</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  跳到 P4  - 执行质检审计</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  跳到 P5  - 生成优化规划</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  跳到 P6  - 执行修改</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 附录</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 默认配置</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  色彩方案</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ├── 亮色模式</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │   ├── 主背景：#ffffff</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │   ├── 副背景：#f8f9fa</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │   ├── 主文字：#1a1a1a</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │   ├── 副文字：#6c757d</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │   ├── 强调色：#0066cc</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │   └── 链接色：#0066cc</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  └── 暗色模式</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ├── 主背景：#1a1a1a</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ├── 副背景：#2d2d2d</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ├── 主文字：#e8e8e8</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ├── 副文字：#a0a0a0</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ├── 强调色：#6ab0f3</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      └── 链接色：#6ab0f3</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  字体方案</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ├── 正文：system-ui, -apple-system, sans-serif</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ├── 标题：继承正文</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  └── 代码：ui-monospace, monospace</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  布局规格</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ├── 最大宽度：48rem</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ├── 目录位置：侧边固定</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  └── 响应断点：768px / 1024px</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  交互功能</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ├── 主题切换</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  └── 回到顶部</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  特殊元素</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  └── TODO/DONE徽章</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Org Mode 元素选择器参考</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 元素       | 选择器                |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------------+-----------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 文档标题   | .title                |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 目录容器   | #table-of-contents    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 目录标题   | #table-of-contents h2 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 目录列表   | #table-of-contents ul |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 代码块容器 | .org-src-container    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 代码块     | pre.src               |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 行内代码   | code                  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 表格       | table                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 表头       | th                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 表格单元   | td                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 有序列表   | ol                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 无序列表   | ul                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 定义列表   | dl                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 引用块     | blockquote            |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 脚注定义   | .footdef              |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 脚注引用   | .footref              |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| TODO关键字 | .todo                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| DONE关键字 | .done                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 时间戳     | .timestamp            |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 标签       | .tag                  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 优先级     | .priority             |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 容错规范</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  所有阶段遵循：</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  输入不完整时：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1 理解用户意图</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2 明确询问缺失信息</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3 提供示例或选项</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  输入格式错误时：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1 尝试解析</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2 列出可能解读</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3 请求确认</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  执行异常时：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1 说明错误原因</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2 提供替代方案</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3 请求用户决策</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  绝不直接报错或拒绝响应</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 局限性声明</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1 版本号为语义标记，非持久存储</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2 无法跨会话保持状态</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3 上下文窗口有限，超长内容可能截断</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4 质检基于预设规则，可能遗漏未知问题</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5 生成代码需人工预览确认实际效果</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6 不同浏览器渲染可能存在差异</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 快速参考卡</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ┌──────────────────────────────────────────────┐</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │        OrgTheme 专业版 v4.0 快速参考          │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ├──────────────────────────────────────────────┤</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │                                              │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  流程：P1 → P2 → P3 → P4 → P5 → P6           │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │        需求  构建  分离  质检  规划  执行     │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │                                              │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  快捷路径                                    │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  ├── 快速生成：P1 → P2                       │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  ├── 质检优化：P3 → P4 → P5 → P6             │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  └── 小幅修改：P6                            │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │                                              │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  全局指令                                    │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  ├── 给我结果    输出当前最佳版本            │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  ├── 只要代码    仅输出CSS+JS                │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  ├── 从头来      重新开始                    │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  ├── 跳到 PN     跳转指定阶段                │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  └── 状态        显示当前进度                │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │                                              │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  快速开始                                    │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  1 复制P1提示词到新对话                      │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  2 选择需求收集模式                          │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  3 粘贴Org Mode HTML                         │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  4 获取主题化HTML                            │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │  5 按需质检迭代                              │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  │                                              │</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  └──────────────────────────────────────────────┘</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+</code></pre></section>
 <h1 class="title">OrgTheme 专业版主题开发系统</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
@@ -55,23 +978,23 @@
 <ul>
 <li><a href="#section-d003bed189e3">1. OrgTheme</a>
 <ul>
-<li><a href="#section-802850f95775">1.1. 设计理念</a></li>
-<li><a href="#section-4d502ef042f8">1.2. P1 需求生成</a></li>
-<li><a href="#section-598d1897bcab">1.3. P2 主题构建</a></li>
-<li><a href="#section-2fed3a4b0376">1.4. P3 代码分离</a></li>
-<li><a href="#section-744dd0bd837a">1.5. P4 质检审计</a></li>
-<li><a href="#section-3bdc54ea8424">1.6. P5 优化规划</a></li>
-<li><a href="#section-0fdd25e8428a">1.7. P6 执行验证</a></li>
-<li><a href="#section-b5b72c8b37b1">1.8. 完整流程指南</a></li>
+<li><a href="#section-90e0c51d7cda">1.1. 设计理念</a></li>
+<li><a href="#section-06884499bfe5">1.2. P1 需求生成</a></li>
+<li><a href="#section-eb9338c17ee6">1.3. P2 主题构建</a></li>
+<li><a href="#section-e929793aa22d">1.4. P3 代码分离</a></li>
+<li><a href="#section-fb961551ce60">1.5. P4 质检审计</a></li>
+<li><a href="#section-776602242445">1.6. P5 优化规划</a></li>
+<li><a href="#section-0ee95301a5af">1.7. P6 执行验证</a></li>
+<li><a href="#section-fa2be955d2d8">1.8. 完整流程指南</a></li>
 </ul>
 </li>
-<li><a href="#section-1d79f9e9c842">2. 附录</a>
+<li><a href="#section-bf27f28872a5">2. 附录</a>
 <ul>
-<li><a href="#section-1ccaeeaa340e">2.1. 默认配置</a></li>
-<li><a href="#section-a4fcce2afec0">2.2. Org Mode 元素选择器参考</a></li>
-<li><a href="#section-1ccaeeaa340e">2.3. 容错规范</a></li>
-<li><a href="#section-3143504cc313">2.4. 局限性声明</a></li>
-<li><a href="#section-3143504cc313">2.5. 快速参考卡</a></li>
+<li><a href="#section-004c706919d9">2.1. 默认配置</a></li>
+<li><a href="#section-8483fdd73d73">2.2. Org Mode 元素选择器参考</a></li>
+<li><a href="#section-e0d327ef1e51">2.3. 容错规范</a></li>
+<li><a href="#section-77c772ec7c5d">2.4. 局限性声明</a></li>
+<li><a href="#section-5a5fdd4ab4cc">2.5. 快速参考卡</a></li>
 </ul>
 </li>
 </ul>
@@ -81,14 +1004,14 @@
 <h2 id="section-d003bed189e3"><span class="section-number-2">1.</span> OrgTheme</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-section-802850f95775" class="outline-3">
-<h3 id="section-802850f95775"><span class="section-number-3">1.1.</span> 设计理念</h3>
+<div id="outline-container-section-90e0c51d7cda" class="outline-3">
+<h3 id="section-90e0c51d7cda"><span class="section-number-3">1.1.</span> 设计理念</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 本系统采用六阶段流水线架构，每个阶段职责单一、可独立运行、支持任意组合。具体架构如下:
 </p>
 
-<pre class="example" id="org7a51acb"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-3bba637c7549"><code class="language-plaintext">
 ┌───────────────────────────────────────────────────────────────┐
 │                  OrgTheme 专业版 v4.0                         │
 ├───────────────────────────────────────────────────────────────┤
@@ -253,8 +1176,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-4d502ef042f8" class="outline-3">
-<h3 id="section-4d502ef042f8"><span class="section-number-3">1.2.</span> P1 需求生成</h3>
+<div id="outline-container-section-06884499bfe5" class="outline-3">
+<h3 id="section-06884499bfe5"><span class="section-number-3">1.2.</span> P1 需求生成</h3>
 <div class="outline-text-3" id="text-1-2">
 <blockquote>
 <p>
@@ -281,7 +1204,7 @@ C 使用默认配置
 回复编号组合，如 1B 2A 3C 4B 5BC 6A 7AB 8A
 </p>
 
-<pre class="example" id="org5f64f5c"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-bb1419317bce"><code class="language-plaintext">
 1 色调
   A 亮色
   B 暗色
@@ -366,7 +1289,7 @@ C 使用默认配置
 <b>模式C 默认配置</b>
 </p>
 
-<pre class="example" id="orgc828bf4"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-cc14d9abc33c"><code class="language-plaintext">
 色调：亮色+暗色切换
 风格：现代科技
 字体：系统默认+等宽代码
@@ -384,7 +1307,7 @@ C 使用默认配置
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="orge8cdad2"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-9f953f3ee2a4"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📄 需求文档 v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -450,8 +1373,8 @@ C 使用默认配置
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-598d1897bcab" class="outline-3">
-<h3 id="section-598d1897bcab"><span class="section-number-3">1.3.</span> P2 主题构建</h3>
+<div id="outline-container-section-eb9338c17ee6" class="outline-3">
+<h3 id="section-eb9338c17ee6"><span class="section-number-3">1.3.</span> P2 主题构建</h3>
 <div class="outline-text-3" id="text-1-3">
 <blockquote>
 <p>
@@ -495,7 +1418,7 @@ C 使用默认配置
 扫描HTML识别元素：
 </p>
 
-<pre class="example" id="org6c1307f"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-ce466dd5c813"><code class="language-plaintext">
 📊 文档结构
 ├── 标题：h1(N) h2(N) h3(N) ...
 ├── 目录：有/无
@@ -518,7 +1441,7 @@ C 使用默认配置
 模块化结构：
 </p>
 
-<pre class="example" id="org0f813ef"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-df5e0959084a"><code class="language-plaintext">
 /* ═══════════════════════════════════════
    OrgTheme CSS v1.0
    ═══════════════════════════════════════ */
@@ -553,7 +1476,7 @@ C 使用默认配置
 第三步 生成JS（如需）
 </p>
 
-<pre class="example" id="orged8ebd4"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-88b410fb0764"><code class="language-plaintext">
 /* ═══════════════════════════════════════
    OrgTheme JS v1.0
    ═══════════════════════════════════════ */
@@ -590,7 +1513,7 @@ C 使用默认配置
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="org2caa508"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-08a9d735fc98"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P2 主题构建 | v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -630,8 +1553,8 @@ C 使用默认配置
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-2fed3a4b0376" class="outline-3">
-<h3 id="section-2fed3a4b0376"><span class="section-number-3">1.4.</span> P3 代码分离</h3>
+<div id="outline-container-section-e929793aa22d" class="outline-3">
+<h3 id="section-e929793aa22d"><span class="section-number-3">1.4.</span> P3 代码分离</h3>
 <div class="outline-text-3" id="text-1-4">
 <blockquote>
 <p>
@@ -680,7 +1603,7 @@ C 使用默认配置
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="org2e43861"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-45922b411660"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P3 代码分离 | v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -716,8 +1639,8 @@ C 使用默认配置
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-744dd0bd837a" class="outline-3">
-<h3 id="section-744dd0bd837a"><span class="section-number-3">1.5.</span> P4 质检审计</h3>
+<div id="outline-container-section-fb961551ce60" class="outline-3">
+<h3 id="section-fb961551ce60"><span class="section-number-3">1.5.</span> P4 质检审计</h3>
 <div class="outline-text-3" id="text-1-5">
 <blockquote>
 <p>
@@ -754,7 +1677,7 @@ C 使用默认配置
 <b>MECE质检框架</b>
 </p>
 
-<pre class="example" id="orgeaa7406"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-92abdf968cde"><code class="language-plaintext">
 ┌────────────────────────────────────────────┐
 │            质检维度矩阵                     │
 ├────────────────────────────────────────────┤
@@ -808,7 +1731,7 @@ C 使用默认配置
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="org9e80760"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-0e4f1a5f98c9"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P4 质检审计 | v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -851,8 +1774,8 @@ C 使用默认配置
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-3bdc54ea8424" class="outline-3">
-<h3 id="section-3bdc54ea8424"><span class="section-number-3">1.6.</span> P5 优化规划</h3>
+<div id="outline-container-section-776602242445" class="outline-3">
+<h3 id="section-776602242445"><span class="section-number-3">1.6.</span> P5 优化规划</h3>
 <div class="outline-text-3" id="text-1-6">
 <blockquote>
 <p>
@@ -888,7 +1811,7 @@ C 使用默认配置
 <b>优先级矩阵</b>
 </p>
 
-<pre class="example" id="orgd2a745a"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-b0644cb56144"><code class="language-plaintext">
            影响大
              │
     ┌────────┼────────┐
@@ -915,7 +1838,7 @@ P4 评估后定：影响小+难度高
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="org5f5de7f"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-d5bb43ba4dd9"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P5 优化规划 | v1.0
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -966,8 +1889,8 @@ P4 评估后定：影响小+难度高
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-0fdd25e8428a" class="outline-3">
-<h3 id="section-0fdd25e8428a"><span class="section-number-3">1.7.</span> P6 执行验证</h3>
+<div id="outline-container-section-0ee95301a5af" class="outline-3">
+<h3 id="section-0ee95301a5af"><span class="section-number-3">1.7.</span> P6 执行验证</h3>
 <div class="outline-text-3" id="text-1-7">
 <blockquote>
 <p>
@@ -1005,7 +1928,7 @@ P4 评估后定：影响小+难度高
 <b>执行原则</b>
 </p>
 
-<pre class="example" id="org996d901"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-f305beae6e03"><code class="language-plaintext">
 ✅ 严格按规划执行
 ✅ 每处修改标注 [OPT-编号]
 ✅ 未涉及代码保持不变
@@ -1024,7 +1947,7 @@ P4 评估后定：影响小+难度高
 <p>
 CSS注释：
 </p>
-<pre class="example" id="org352741f"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-3e0e3323ff73"><code class="language-plaintext">
 /* [OPT-1.1] 优化：标题左侧装饰线 */
 h2::before { ... }
 </code></pre>
@@ -1032,7 +1955,7 @@ h2::before { ... }
 <p>
 JS注释：
 </p>
-<pre class="example" id="org5531f35"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-c7c0e3b293cb"><code class="language-plaintext">
 // [OPT-1.2] 新增：代码复制功能
 function initCodeCopy() { ... }
 </code></pre>
@@ -1058,7 +1981,7 @@ function initCodeCopy() { ... }
 <b>输出格式</b>
 </p>
 
-<pre class="example" id="org07b3140"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-a81c122d638c"><code class="language-plaintext">
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📍 P6 执行验证 | v1.1
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1150,10 +2073,10 @@ function initCodeCopy() { ... }
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-b5b72c8b37b1" class="outline-3">
-<h3 id="section-b5b72c8b37b1"><span class="section-number-3">1.8.</span> 完整流程指南</h3>
+<div id="outline-container-section-fa2be955d2d8" class="outline-3">
+<h3 id="section-fa2be955d2d8"><span class="section-number-3">1.8.</span> 完整流程指南</h3>
 <div class="outline-text-3" id="text-1-8">
-<pre class="example" id="org778e1f4"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-f87fe633ec6a"><code class="language-plaintext">
 步骤1：P1 收集需求
 用户：[选择选项或描述偏好]
 输出：需求文档
@@ -1224,7 +2147,7 @@ function initCodeCopy() { ... }
 </tbody>
 </table></section>
 
-<pre class="example" id="org37dcacb"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-e68453c20553"><code class="language-plaintext">
 跳到 P1  - 重新收集需求
 跳到 P2  - 重新构建主题
 跳到 P3  - 分离当前代码
@@ -1235,14 +2158,14 @@ function initCodeCopy() { ... }
 </div>
 </div>
 </div>
-<div id="outline-container-section-1d79f9e9c842" class="outline-2">
-<h2 id="section-1d79f9e9c842"><span class="section-number-2">2.</span> 附录</h2>
+<div id="outline-container-section-bf27f28872a5" class="outline-2">
+<h2 id="section-bf27f28872a5"><span class="section-number-2">2.</span> 附录</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-section-1ccaeeaa340e" class="outline-3">
-<h3 id="section-1ccaeeaa340e"><span class="section-number-3">2.1.</span> 默认配置</h3>
+<div id="outline-container-section-004c706919d9" class="outline-3">
+<h3 id="section-004c706919d9"><span class="section-number-3">2.1.</span> 默认配置</h3>
 <div class="outline-text-3" id="text-2-1">
-<pre class="example" id="org29d6a63"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-800a45af3c18"><code class="language-plaintext">
 色彩方案
 ├── 亮色模式
 │   ├── 主背景：#ffffff
@@ -1278,8 +2201,8 @@ function initCodeCopy() { ... }
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-a4fcce2afec0" class="outline-3">
-<h3 id="section-a4fcce2afec0"><span class="section-number-3">2.2.</span> Org Mode 元素选择器参考</h3>
+<div id="outline-container-section-8483fdd73d73" class="outline-3">
+<h3 id="section-8483fdd73d73"><span class="section-number-3">2.2.</span> Org Mode 元素选择器参考</h3>
 <div class="outline-text-3" id="text-2-2">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table>
 
@@ -1404,10 +2327,10 @@ function initCodeCopy() { ... }
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-1ccaeeaa340e" class="outline-3">
-<h3 id="section-1ccaeeaa340e"><span class="section-number-3">2.3.</span> 容错规范</h3>
+<div id="outline-container-section-e0d327ef1e51" class="outline-3">
+<h3 id="section-e0d327ef1e51"><span class="section-number-3">2.3.</span> 容错规范</h3>
 <div class="outline-text-3" id="text-2-3">
-<pre class="example" id="orge03a5e8"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-79e884742745"><code class="language-plaintext">
 所有阶段遵循：
 
 输入不完整时：
@@ -1429,10 +2352,10 @@ function initCodeCopy() { ... }
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-3143504cc313" class="outline-3">
-<h3 id="section-3143504cc313"><span class="section-number-3">2.4.</span> 局限性声明</h3>
+<div id="outline-container-section-77c772ec7c5d" class="outline-3">
+<h3 id="section-77c772ec7c5d"><span class="section-number-3">2.4.</span> 局限性声明</h3>
 <div class="outline-text-3" id="text-2-4">
-<pre class="example" id="org296c93c"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-a8fe0b50666e"><code class="language-plaintext">
 1 版本号为语义标记，非持久存储
 2 无法跨会话保持状态
 3 上下文窗口有限，超长内容可能截断
@@ -1442,10 +2365,10 @@ function initCodeCopy() { ... }
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-3143504cc313" class="outline-3">
-<h3 id="section-3143504cc313"><span class="section-number-3">2.5.</span> 快速参考卡</h3>
+<div id="outline-container-section-5a5fdd4ab4cc" class="outline-3">
+<h3 id="section-5a5fdd4ab4cc"><span class="section-number-3">2.5.</span> 快速参考卡</h3>
 <div class="outline-text-3" id="text-2-5">
-<pre class="example" id="orgb85e701"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-58a7cfb54334"><code class="language-plaintext">
 ┌──────────────────────────────────────────────┐
 │        OrgTheme 专业版 v4.0 快速参考          │
 ├──────────────────────────────────────────────┤
@@ -1485,7 +2408,7 @@ function initCodeCopy() { ... }
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-</div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -1509,13 +2432,19 @@ function initCodeCopy() { ... }
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <div class="sidebar-cat-label">AI <span>02</span></div>
     <ul>
-      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
-      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
-      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
-      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
-      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+      <li><a href="../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -1539,12 +2468,14 @@ function initCodeCopy() { ... }
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
       <li><a href="../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="../sql/duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="../sql/duckdb-thinking.html">duckdb-thinking</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -1560,9 +2491,23 @@ function initCodeCopy() { ... }
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="../Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="../Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="../Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
     </ul>
   </div>
 </aside>
@@ -1571,7 +2516,11 @@ function initCodeCopy() { ... }
 
 
 
+<script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=ab5c89406617"></script>
+<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
 </body>
 </html>

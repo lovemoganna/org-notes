@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <title>Org Museum · 关联阅读</title>
-  <script src="resources/org-museum-theme.js?v=16cf801e155e"></script>
-  <link rel="stylesheet" href="resources/org-museum.css?v=f191e4a437f4">
+  <script src="resources/org-museum-theme.js?v=2b7a181da330"></script>
+  <link rel="stylesheet" href="resources/org-museum.css?v=a21cc263868a">
   <link rel="stylesheet" href="resources/highlight.monokai.min.css?v=f0e099837087">
   <link rel="icon" href="data:,">
 </head>
@@ -14,7 +14,7 @@
 <header class="museum-topbar" data-home-href="index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索标题、分类或标签…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -24,9 +24,20 @@
     <a class="museum-topbar-link museum-nav-timeline" href="timeline.html">时间</a>
     <a class="museum-topbar-link museum-nav-graph" href="graph.html">图谱</a>
     <a class="museum-topbar-link museum-nav-related is-active" href="related.html" aria-current="page">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
   </nav>
 </header>
 <aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
@@ -48,13 +59,19 @@
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <div class="sidebar-cat-label">AI <span>02</span></div>
     <ul>
-      <li><a href="pages/ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
-      <li><a href="pages/ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
-      <li><a href="pages/ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
-      <li><a href="pages/ail/004-小心使用.html">004-小心使用</a></li>
-      <li><a href="pages/ail/005-信息概括.html">005-信息概括</a></li>
+      <li><a href="pages/AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="pages/AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="pages/AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="pages/AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="pages/AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="pages/AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -78,12 +95,14 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
     <ul>
       <li><a href="pages/sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="pages/sql/duckdb-mpv.html">DuckDB MPV</a></li>
       <li><a href="pages/sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="pages/sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="pages/sql/duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="pages/sql/duckdb-thinking.html">duckdb-thinking</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -99,9 +118,23 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="pages/crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
     <ul>
       <li><a href="pages/lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="pages/Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="pages/Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="pages/Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
     </ul>
   </div>
 </aside>
@@ -112,17 +145,17 @@
     <p id="related-empty" class="museum-empty-copy" hidden>当前还没有可对读的显式关系。</p>
   </section>
   <section id="related-detail" class="related-detail" hidden>
-    <div class="related-modebar" role="group" aria-label="对读内容密度"><button type="button" data-related-mode="summary" aria-pressed="true">摘要对读</button><button type="button" data-related-mode="full" aria-pressed="false">完整正文</button><button type="button" data-related-sync aria-pressed="false">同步滚动：关</button><a id="related-open-source" href="#">打开源笔记</a><a href="graph.html">返回知识图谱</a><a id="related-open-target" href="#">打开目标笔记</a><span class="related-mobile-segments" role="group" aria-label="移动端对读区域"><button type="button" data-related-pane="source" aria-pressed="true">源笔记</button><button type="button" data-related-pane="relation" aria-pressed="false">关系</button><button type="button" data-related-pane="target" aria-pressed="false">目标笔记</button></span></div>
+    <div class="related-modebar" role="group" aria-label="对读内容密度"><button type="button" data-related-mode="summary" aria-pressed="true">摘要对读</button><button type="button" data-related-mode="full" aria-pressed="false">完整正文</button><button type="button" data-related-sync aria-pressed="false">同步滚动：关</button><a id="related-open-source" href="#">打开源笔记</a><a id="related-back-shelf" href="related.html">← 关系书架</a><a href="graph.html">返回知识图谱</a><a id="related-open-target" href="#">打开目标笔记</a><span class="related-mobile-segments" role="group" aria-label="移动端对读区域"><button type="button" data-related-pane="source" aria-pressed="true">源笔记</button><button type="button" data-related-pane="relation" aria-pressed="false">关系</button><button type="button" data-related-pane="target" aria-pressed="false">目标笔记</button></span></div>
     <div class="related-reading-grid">
       <article class="related-paper" data-related-panel="source" aria-label="源笔记"></article>
-      <aside class="related-bridge" aria-label="关系方向"><strong id="related-kind">显式 Org 链接</strong><span aria-hidden="true">→</span><p id="related-direction">源 → 目标</p><button type="button" id="related-swap" hidden>交换方向</button><a href="graph.html">返回知识图谱</a></aside>
+      <aside class="related-bridge" aria-label="关系方向"><strong id="related-kind">显式 Org 链接</strong><span aria-hidden="true">→</span><p id="related-direction">源 → 目标</p><button type="button" id="related-swap" hidden>交换方向</button><a id="related-bridge-back" href="related.html">← 关系书架</a><a href="graph.html">返回知识图谱</a></aside>
       <article class="related-paper" data-related-panel="target" aria-label="目标笔记"></article>
     </div>
   </section>
 </main>
-<script src="resources/org-museum-related-data.js?v=94440761b7b6"></script>
+<script src="resources/org-museum-related-data.js?v=d71bf6596061"></script>
 <script src="resources/highlight.min.js?v=846267d84aaa"></script>
 
-<script defer src="resources/org-museum-related.js?v=e74aa9cc906d"></script>
+<script defer src="resources/org-museum-related.js?v=ab5e6a7123b7"></script>
 </body>
 </html>

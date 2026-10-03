@@ -1,0 +1,1599 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>duckdb-dataset</title>
+<meta name="generator" content="Org Mode" />
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="duckdb-dataset" data-page-title="duckdb-dataset" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-10-01" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
+    <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">duckdb-dataset</a><span class="museum-identity-meta">Sql · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="duckdb-dataset" data-page-title="duckdb-dataset" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+  <summary>文章信息</summary>
+<aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=Sql#recent-updates">Sql</a><span class="museum-status-badge">草稿</span>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 24 分钟</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=sql#recent-updates" data-tag="sql" title="查看包含标签 #sql 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">sql</span></a></dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a data-reading-return href="../../index.html#recent-updates">← 全部笔记</a>
+  </nav>
+</aside>
+</details>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="6ea5fdc9a2336d226595f69a76d9c0ca43b190bbff09e61839cb277820aa894a"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: duckdb-dataset</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Sql</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: draft</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :sql:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* duckdb-dataset</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Overview</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Content</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Zoro</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  我不知道该如何向AI精准传达我的 Vibe Coding 需求表达，请必须保证简单直</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  接简单清晰短小精悍一针见血不说废话的语言艺术表达输出我的真实需求。</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Scratch</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Design</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  请围绕“先想最终那张表”这个思路，生成一份可直接用于 DuckDB 入门练习的</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Spreadsheet 数据集。目标不是单纯造数据，而是让零基础读者通过数据直观看</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  懂：**业务问题 → 最终结果表 → 原始数据 → SQL 处理逻辑**</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  以“统计 2025 年每个客户的出入金”为例。先定义最终结果：</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  | uid | 入金总额 | 出金总额 | 差额 |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  |-----|---------:|---------:|-----:|</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  一行代表一个 UID。再反推需要的原始流水：</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  | uid | 时间 | direction | amount |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  |-----|------|-----------|-------:|</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  数据集必须能够支持用户逐步理解：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. `FROM`：数据从哪里来；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. `WHERE`：筛选 2025 年及目标业务范围；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. `CASE WHEN`：区分入金和出金；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. `SUM`：汇总金额；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. `GROUP BY uid`：把一个 UID 的多笔流水压成一行；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 计算最终差额。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Spreadsheet 至少包含：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `raw_transactions`：原始流水；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `expected_result`：正确聚合结果；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `data_rules`：字段与业务约束；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `qa_result`：自动质检结果。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  生成前先解析当前需求并固化约束，包括：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 字段类型；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. UID、时间、方向、金额规则；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 2025 年时间范围；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 入金 / 出金枚举；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 金额有效范围；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 正常、异常、边界样本；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. 原始流水与最终结果的一致性。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  生成后自动质检：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 字段是否完整；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 数据类型是否正确；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 是否存在非法方向或金额；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 是否有必要的多笔流水样本；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 是否覆盖纯入金、纯出金、同时存在出入金、零差额等场景；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. `expected_result` 是否能够由原始流水正确计算得到；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. 是否存在重复、矛盾或无法解释的数据。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  发现问题后自动修正并重新验证，未通过质检不得交付。最终目标：**读者打开</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Spreadsheet，就能直接看懂“原始流水为什么要被处理成最终结果表”，并能据</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  此练习 SQL。**</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Loop</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  @data 这个出入金的数据不够真实，一般交易所分为两类：法币和链上，而且订</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  单号不会这么假。请举一反三进行修正，当前生成数据集的质量较差。请将数据</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  生成流程改造成自动质检闭环：**需求解析→ 数据约束 → 数据生成 → 自动质检</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → 修正 → 再验收**。然后返还优化好的完整需求方案。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  具体要求：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 生成前先扫描当前需求、Schema、字段定义、业务规则和表间关系；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 自动提取并固化约束，包括： </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 字段类型与取值范围； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 必填与唯一性； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 时间、金额等业务逻辑； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 主外键及跨表关联； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 正常、异常、边界场景的覆盖要求；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 按约束生成数据，不允许脱离需求自由发挥；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 生成后自动检查： </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 完整性；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 一致性；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 有效性；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 唯一性；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 引用完整性；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 业务逻辑一致性；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 场景覆盖是否充分；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 发现问题后自动定位原因并修正，再重新质检； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 未通过验收的数据集不得作为最终结果。最终输出必须包含：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 数据集；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 生成约束；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 质检结果；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 发现的问题；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 修正记录；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 最终通过项与仍存在的风险。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  目标不是“生成看起来真实的数据”，而是生成**符合当前需求、关系正确、逻辑一致、可直接用于测试和分析的数据集**。</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Last Plan</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  请重新设计当前 DuckDB 教学数据集。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  目标不是生成“像交易所”的假数据，而是生成一套**业务结构合理、关系正确、可计算、可验证**的交易所出入金数据，用于零基础 SQL 学习。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  整体流程必须形成闭环：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,**需求解析 → 数据约束 → 数据生成 → 自动质检 → 自动修正 → 再验收**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 1. 先定义业务边界</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  交易所出入金至少拆成两个独立业务域：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 法币出入金</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  表示用户通过银行、支付渠道等完成的法币充值和提现。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  至少包含：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `fiat_order_id`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `uid`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `direction`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `currency`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `amount`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `fee`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `channel`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `status`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `created_at`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `completed_at`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  `direction`：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `deposit`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `withdrawal`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  典型状态应符合实际业务过程，例如：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `pending`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `processing`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `completed`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `failed`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `cancelled`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 链上充提</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  表示用户通过区块链地址完成的数字资产充值和提现。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  至少包含：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `crypto_order_id`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `uid`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `direction`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `asset`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `network`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `amount`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `fee`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `tx_hash`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `address`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `status`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `confirmations`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `created_at`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `completed_at`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  链上数据必须体现：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 币种；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 网络；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 地址；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* TxHash；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 区块确认；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 网络手续费；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 链上交易状态。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  法币字段不得硬套到链上，链上专属字段也不得伪造到法币订单中。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 2. 订单号必须接近真实系统数据特征</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  不得继续使用：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ORDER001</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  TX001</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  001</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  这类明显人工编造的编号。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  订单号应具备真实业务系统常见特征：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 全局唯一；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 长度稳定；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 无明显连续规律；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 可包含时间信息、业务前缀或随机字符；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 同一业务域保持统一格式；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 法币订单与链上订单可区分。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  不要复制某家真实交易所的内部订单规则，只需生成符合真实系统特征的模拟 ID。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  `tx_hash` 必须符合对应区块链的基本格式约束，不能使用普通字符串冒充。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 3. 不得混算不同计价单位</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  禁止直接执行：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1000 TRY + 500 USDT + 0.2 ETH</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  每个聚合结果必须保留对应维度。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  法币至少按：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  uid + currency</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  聚合。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  链上至少按：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  uid + asset + network</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  聚合。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  因此最终结果应拆分为：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `expected_fiat_result`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  | uid | currency | deposit_amount | withdrawal_amount | net_amount |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  | --- | -------- | -------------: | ----------------: | ---------: |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `expected_crypto_result`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  | uid | asset | network | deposit_amount | withdrawal_amount | net_amount |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  | --- | ----- | ------- | -------------: | ----------------: | ---------: |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  其中：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  net_amount = deposit_amount - withdrawal_amount</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只统计满足业务定义的有效成功订单。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 4. Spreadsheet 结构</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  至少包含以下 Sheet：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `users`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  用户基础维表。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  一行代表一个 UID。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `fiat_transactions`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  法币出入金原始订单。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  一行代表一笔法币订单。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `crypto_transactions`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  链上充提原始订单。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  一行代表一笔链上订单。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `expected_fiat_result`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  由 `fiat_transactions` 正确聚合得到的标准答案。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `expected_crypto_result`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  由 `crypto_transactions` 正确聚合得到的标准答案。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `data_rules`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  记录：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 字段定义；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 数据类型；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 是否必填；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 唯一性；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 枚举；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 业务规则；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 表间关系；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 允许为空的条件。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `qa_result`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  记录所有自动质检结果。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  至少包含：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  check_id</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  check_type</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  table_name</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  rule</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  result</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  affected_rows</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  severity</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  details</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `fix_log`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  记录：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  发现什么问题</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → 为什么错误</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → 修改了什么</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → 修改后是否通过</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 5. 统一字段与 SQL</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  所有字段统一使用：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  lower_snake_case</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  禁止出现：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  入金金额</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  depositAmount</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Deposit_Amount</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  等多套命名并存。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SQL 字段、Spreadsheet 字段、Schema 和 `expected_result` 必须完全一致。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  教程中的中文只负责解释业务含义，不进入字段名。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 6. 数据生成前必须自动解析约束</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  生成任何数据前，先扫描：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 当前需求；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* Schema；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* Sheet；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 字段定义；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 主键；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 外键；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 枚举；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 时间规则；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 金额规则；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 状态机；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 表间关系；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* SQL 最终输出结构。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  自动生成一份 Data Contract，再开始生成数据。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  没有明确依据的规则不得自行补成“事实”。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  确需假设时必须显式记录。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 7. 必须覆盖的样本</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  不能只生成正常数据。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  至少覆盖：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 正常场景</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 单笔入金；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 单笔出金；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 同一 UID 多笔订单；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 同一 UID 同时存在入金与出金；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 多 UID；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 多币种；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 多链；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 不同金额；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 不同日期。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 业务边界</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 只有入金；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 只有出金；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 入金与出金金额相同；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 极小金额；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 较大金额；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 年初、年末订单；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 创建时间与完成时间跨日期。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 状态场景</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* completed；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* pending；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* failed；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* cancelled。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  聚合 SQL 必须明确哪些状态计入结果。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 数据质量异常</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  主动构造少量用于学习质检的异常样本，例如：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 重复订单号；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 非法枚举；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 不存在的 UID；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 完成时间早于创建时间；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 非法币种或网络组合；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 缺失 TxHash；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 重复 TxHash；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 非法地址格式；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 金额异常。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  异常数据必须有明确测试目的，不得随机制造脏数据。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 8. 自动质检</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  生成完成后自动执行以下检查。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### Schema</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  检查：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 字段是否缺失；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 类型是否正确；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 字段名是否一致；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 是否出现额外未知字段。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 完整性</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  检查：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 必填字段；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 条件必填字段；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* NULL；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 空字符串；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 无意义默认值。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 唯一性</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  检查：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `uid`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `fiat_order_id`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `crypto_order_id`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  以及其他要求唯一的业务标识。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 引用完整性</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  检查：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  transactions.uid</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → users.uid</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  不得存在无来源 UID，除非该记录本身就是故意设计的异常测试 Case。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 有效性</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  检查：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* direction；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* status；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* currency；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* asset；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* network；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 金额范围；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 时间范围；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* ID 格式；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 地址及 TxHash 基本格式。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 业务一致性</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  例如：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `completed_at &gt;= created_at`；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* failed / cancelled 订单不得进入成功金额统计；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* completed 链上订单应满足对应业务要求；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 资产必须支持对应 network；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 手续费不得出现明显不合理关系；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 法币订单不得出现链上字段。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 聚合一致性</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  重新使用原始数据计算结果，并与：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `expected_fiat_result`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `expected_crypto_result`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  进行双向比较。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  任何 UID、币种、资产、网络、金额或行数不一致，都判定失败。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 9. 自动修正 Loop</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  发现问题后不得直接交付。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  必须执行：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```text</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  检测问题</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  定位违反的规则</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  定位受影响记录</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  修正数据</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  重新运行全部相关检查</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  检查是否产生新的问题</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  通过后交付</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  修复一项问题后必须执行回归检查，不能只重新检查当前规则。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 10. 最终交付</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  必须同时交付：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 完整 Spreadsheet 数据集；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. Schema；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. Data Contract；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 数据生成约束；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 场景覆盖清单；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 自动质检结果；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. 发现的问题；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  8. 修正记录；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  9. 最终验收结果；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  10. 未解决风险；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  11. 与数据完全对应、可直接执行的 DuckDB SQL。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  不得只交付数据文件。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ---</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 11. 最终验收标准</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只有同时满足以下条件才算通过：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 表的业务粒度明确；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 法币与链上业务正确分离；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 主外键关系正确；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 订单号与业务标识不存在明显人工假数据特征；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 时间、金额、状态符合业务逻辑；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 不同币种和资产不存在错误混算；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 正常、异常、边界场景均有覆盖；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* SQL 可以直接执行；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* SQL 输出与 `expected_result` 完全一致；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 所有自动质检通过；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 修正后未引入新的回归问题。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  最终目标不是：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,**“生成一批看起来像真的交易所数据。”**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  而是：**生成一套业务结构合理、数据关系正确、SQL 可计算、结果可验证、异常可解释、能够直接用于 DuckDB 教学和自动化测试的数据集。**</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Spreadsheet</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Loop</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** Stage 1</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  请阅读当前的Excel工作表、字段、数据类型以及表之间的关系，以确定现有的数据集是否足以支持当前的分析和测试需求。检查要点：</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 必填字段是否齐全； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 各表能否正确关联； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 时间、金额、状态等业务逻辑是否完整； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 是否覆盖正常、异常、边界场景； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 是否存在缺失、重复、冲突或无效字段； </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 是否有必须补充的数据表或样品？</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  原则: **不要仅仅为了增加数据量而扩展，只添加当前需求真正需要的内容**。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  最终直接输出：**当前数据集是否足够→缺少什么→为什么缺少→最小补充解。 </span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** Stage 2</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  请根据当前数据表填写。</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** Stage 3</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  在现有数据生成与质检流程后，增加一套 Spreadsheet 自动排版与视觉质检流程：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,**数据验收 → 结构识别 → 视觉规范 → 自动排版 → UI 质检 → 修正 → 最终验收**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 1. 先理解每个 Sheet 的用途</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  自动识别：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 原始数据表；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 结果表；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 规则表；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 质检表；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 修正记录表。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  根据用途决定布局，不允许所有 Sheet 套同一种样式。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 2. 建立统一视觉规范</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  整份工作簿统一：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 字体；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 字号层级；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 表头样式；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 背景色；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 边框；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 对齐；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 行高；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 列宽；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 数字格式；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 日期格式；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 状态颜色。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  控制颜色数量，只保留少量有明确语义的颜色：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 主色：标题、表头；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 成功：通过；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 警告：待检查；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 异常：失败；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 中性色：普通数据和辅助信息。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  颜色必须表达信息，不得为了“好看”随意上色。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 3. 自动整理布局</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  根据内容自动调整：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 列宽适配字段内容；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 行高保持紧凑；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 长文本合理换行；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 数字右对齐；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 文本左对齐；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 日期、金额和状态使用统一格式；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 冻结首行或关键列；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 启用筛选；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 重要结果优先放在左侧；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 高频查看字段靠前；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 辅助字段靠后。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  避免：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 无意义空行空列；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 大面积合并单元格；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 内容截断；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 列宽极端不一致；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 一张表横向无限延伸；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 装饰性渐变、阴影和高饱和色。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 4. 按 Sheet 分层设计</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 原始数据表</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  重点是快速浏览和筛选。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  保持高信息密度，不添加多余装饰。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### 结果表</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  重点突出：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* UID；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 分组维度；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 核心指标；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 最终结果。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  让用户打开后第一眼就看到分析结论。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `data_rules`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  按：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,**字段 → 类型 → 约束 → 业务含义 → 示例**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  组织。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `qa_result`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  让：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `PASS`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `WARN`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* `FAIL`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  能够快速区分。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  异常项优先显示。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ### `fix_log`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  按：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,**问题 → 原因 → 修正 → 复检结果**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  展示完整修正链路。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 5. 自动视觉质检</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  生成完成后检查：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 工作表风格是否统一；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 表头是否清晰；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 字体和字号是否一致；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 是否存在内容截断；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 列宽是否合理；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 数字和日期格式是否统一；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 状态颜色是否统一；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 对比度是否足够；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 是否存在无意义合并单元格；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 是否存在过度使用颜色；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 重要信息是否具有明确视觉层级；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 不同 Sheet 是否能够快速辨认用途。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  发现问题后自动调整，并重新检查。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 6. 数据与展示必须分离</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  视觉优化不得：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 修改原始数据值；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 修改字段名称；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 修改 Schema；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 修改公式逻辑；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 改变表间关系；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 为了排版删除记录。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只允许调整：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,**样式、布局、格式、显示顺序和辅助交互。**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 7. 最终验收</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  交付前必须同时满足：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 数据质检通过；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* Sheet 职责清晰；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 全局视觉规范统一；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 用户能快速找到关键数据；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 表格可以直接筛选、阅读和比较；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 异常项能够快速识别；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 不存在明显截断、拥挤、错位或格式混乱；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 数据、SQL、Schema 与视觉呈现完全一致。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  最终目标不是把 Spreadsheet “装修得漂亮”，而是让用户打开文件后能够：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,**快速看懂 → 快速定位 → 快速比较 → 快速发现异常 → 直接开始分析。**</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Analyze</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 简单直接</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  通过分析获取数据洞见</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Typical Cases</span></span>
+<span class="museum-org-line"><span class="org-face-org-link">[[https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=232873147#gid=232873147]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">exchange_funds_flow_datase</span><span class="org-face-org-link">t</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src plantuml :eval yes :file images/index.svg :cmdline -charset UTF-8</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  @startuml</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_PAGE       #F7F5EF</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_NODE       #FFFDF8</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TEXT_MAIN     #1F2937</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TEXT_MUTED    #64748B</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BORDER        #64748B</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define ARROW         #475569</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TITLE_COLOR   #172033</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define FONT_CN       Noto Sans SC</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define FONT_MONO     JetBrains Mono</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define FONT_TITLE    Noto Sans SC</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define SCAN_COLOR    #2563EB</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define FILTER_COLOR  #E11D48</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define JOIN_COLOR    #16A34A</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define GROUP_COLOR   #7C3AED</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define AGG_COLOR     #EA580C</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define HAVING_COLOR  #DB2777</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define OUTPUT_COLOR  #0F172A</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define SORT_COLOR    #0891B2</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define LIMIT_COLOR   #475569</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam backgroundColor BG_PAGE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam defaultFontName FONT_CN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam defaultFontSize 10</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam defaultFontStyle plain</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam defaultFontColor TEXT_MAIN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam shadowing false</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam roundcorner 10</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam title {</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontName FONT_TITLE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontSize 24</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontStyle bold</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontColor TITLE_COLOR</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  }</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam activity {</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor BG_NODE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor BORDER</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontColor TEXT_MAIN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontName FONT_CN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontSize 14</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    StartColor #22C55E</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    EndColor #475569</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    ArrowColor ARROW</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  }</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam arrow {</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    Color ARROW</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontColor TEXT_MUTED</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontName FONT_CN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontSize 10</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  }</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  TITLE SQL 执行过程</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (*) --&gt; "读取订单表\n&lt;color:SCAN_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;TABLE SCAN · orders&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -d-&gt;[先过滤订单]"筛选有效订单\n&lt;color:FILTER_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;status = 'paid'&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:FILTER_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;amount &gt; 100&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -r-&gt;[读取用户表]"读取用户表\n&lt;color:SCAN_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;TABLE SCAN · users&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -d-&gt;[关联用户]"关联订单与用户\n&lt;color:JOIN_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;HASH JOIN&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:JOIN_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;o.user_id = u.id&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -d-&gt;[确定分组]"按国家分组\n&lt;color:GROUP_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;GROUP BY u.country&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -r-&gt;[计算指标]"计算订单数与收入\n&lt;color:AGG_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;COUNT(*)&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:AGG_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;SUM(o.amount)&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -r-&gt;[过滤聚合结果]"只保留高收入国家\n&lt;color:HAVING_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;HAVING SUM(o.amount) &gt; 10000&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -d-&gt;[整理字段]"生成结果字段\n&lt;color:OUTPUT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;country&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:OUTPUT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;orders&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:OUTPUT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;revenue&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -r-&gt;[收入排序]"按收入降序\n&lt;color:SORT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;ORDER BY revenue DESC&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -r-&gt;[限制数量]"保留前 10 条\n&lt;color:LIMIT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;LIMIT 10&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  --&gt;[输出结果]"最终结果\n&lt;color:OUTPUT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;10 rows max&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  --&gt; (*)</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  @enduml</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** References</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Resources</span></span>
+<span class="museum-org-line">1. DuckDB 术语： <span class="org-face-org-link">https://docs.google.com/spreadsheets/d/1ivHFGOZy1eDFvSxFJo2ARNm81HoK9TA76TkU7J-1sto/edi</span><span class="org-face-org-link">t</span></span>
+</code></pre></section>
+<h1 class="title">duckdb-dataset</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-8f9ff9cef585">1. duckdb-dataset</a>
+<ul>
+<li><a href="#section-a0ffac94a87d">1.1. Overview</a></li>
+<li><a href="#section-8f683baa44d5">1.2. Content</a>
+<ul>
+<li><a href="#section-b0b2e58f1ae6">1.2.1. Zoro</a></li>
+<li><a href="#section-38e6a0d43fed">1.2.2. Scratch</a></li>
+<li><a href="#section-53381ac11723">1.2.3. Spreadsheet</a></li>
+</ul>
+</li>
+<li><a href="#section-e047ae59756f">1.3. References</a>
+<ul>
+<li><a href="#section-8ae891c0341c">1.3.1. Resources</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-8f9ff9cef585" class="outline-2">
+<h2 id="section-8f9ff9cef585"><span class="section-number-2">1.</span> duckdb-dataset</h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-section-a0ffac94a87d" class="outline-3">
+<h3 id="section-a0ffac94a87d"><span class="section-number-3">1.1.</span> Overview</h3>
+</div>
+
+<div id="outline-container-section-8f683baa44d5" class="outline-3">
+<h3 id="section-8f683baa44d5"><span class="section-number-3">1.2.</span> Content</h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-section-b0b2e58f1ae6" class="outline-4">
+<h4 id="section-b0b2e58f1ae6"><span class="section-number-4">1.2.1.</span> Zoro</h4>
+<div class="outline-text-4" id="text-1-2-1">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">我不知道该如何向AI精准传达我的 Vibe Coding 需求表达，请必须保证简单直
+接简单清晰短小精悍一针见血不说废话的语言艺术表达输出我的真实需求。
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-38e6a0d43fed" class="outline-4">
+<h4 id="section-38e6a0d43fed"><span class="section-number-4">1.2.2.</span> Scratch</h4>
+<div class="outline-text-4" id="text-1-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-4d886f16a720"></a>Design<br>
+<div class="outline-text-5" id="text-1-2-2-1">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">请围绕“先想最终那张表”这个思路，生成一份可直接用于 DuckDB 入门练习的
+Spreadsheet 数据集。目标不是单纯造数据，而是让零基础读者通过数据直观看
+懂：**业务问题 → 最终结果表 → 原始数据 → SQL 处理逻辑**
+
+以“统计 2025 年每个客户的出入金”为例。先定义最终结果：
+
+| uid | 入金总额 | 出金总额 | 差额 |
+|-----|---------:|---------:|-----:|
+
+一行代表一个 UID。再反推需要的原始流水：
+
+| uid | 时间 | direction | amount |
+|-----|------|-----------|-------:|
+
+数据集必须能够支持用户逐步理解：
+1. `FROM`：数据从哪里来；
+2. `WHERE`：筛选 2025 年及目标业务范围；
+3. `CASE WHEN`：区分入金和出金；
+4. `SUM`：汇总金额；
+5. `GROUP BY uid`：把一个 UID 的多笔流水压成一行；
+6. 计算最终差额。
+
+Spreadsheet 至少包含：
+* `raw_transactions`：原始流水；
+* `expected_result`：正确聚合结果；
+* `data_rules`：字段与业务约束；
+* `qa_result`：自动质检结果。
+
+生成前先解析当前需求并固化约束，包括：
+1. 字段类型；
+2. UID、时间、方向、金额规则；
+3. 2025 年时间范围；
+4. 入金 / 出金枚举；
+5. 金额有效范围；
+6. 正常、异常、边界样本；
+7. 原始流水与最终结果的一致性。
+
+生成后自动质检：
+1. 字段是否完整；
+2. 数据类型是否正确；
+3. 是否存在非法方向或金额；
+4. 是否有必要的多笔流水样本；
+5. 是否覆盖纯入金、纯出金、同时存在出入金、零差额等场景；
+6. `expected_result` 是否能够由原始流水正确计算得到；
+7. 是否存在重复、矛盾或无法解释的数据。
+
+发现问题后自动修正并重新验证，未通过质检不得交付。最终目标：**读者打开
+Spreadsheet，就能直接看懂“原始流水为什么要被处理成最终结果表”，并能据
+此练习 SQL。**
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-3309f6c856c3"></a>Loop<br>
+<div class="outline-text-5" id="text-1-2-2-2">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">@data 这个出入金的数据不够真实，一般交易所分为两类：法币和链上，而且订
+单号不会这么假。请举一反三进行修正，当前生成数据集的质量较差。请将数据
+生成流程改造成自动质检闭环：**需求解析→ 数据约束 → 数据生成 → 自动质检
+→ 修正 → 再验收**。然后返还优化好的完整需求方案。
+
+具体要求：
+1. 生成前先扫描当前需求、Schema、字段定义、业务规则和表间关系；
+2. 自动提取并固化约束，包括： 
+   - 字段类型与取值范围； 
+   - 必填与唯一性； 
+   - 时间、金额等业务逻辑； 
+   - 主外键及跨表关联； 
+   - 正常、异常、边界场景的覆盖要求；
+3. 按约束生成数据，不允许脱离需求自由发挥；
+4. 生成后自动检查： 
+   - 完整性；
+   - 一致性；
+   - 有效性；
+   - 唯一性；
+   - 引用完整性；
+   - 业务逻辑一致性；
+   - 场景覆盖是否充分；
+5. 发现问题后自动定位原因并修正，再重新质检； 
+6. 未通过验收的数据集不得作为最终结果。最终输出必须包含：
+   - 数据集；
+   - 生成约束；
+   - 质检结果；
+   - 发现的问题；
+   - 修正记录；
+   - 最终通过项与仍存在的风险。
+目标不是“生成看起来真实的数据”，而是生成**符合当前需求、关系正确、逻辑一致、可直接用于测试和分析的数据集**。
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-1311fbe2d1c8"></a>Last Plan<br>
+<div class="outline-text-5" id="text-1-2-2-3">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">请重新设计当前 DuckDB 教学数据集。
+目标不是生成“像交易所”的假数据，而是生成一套**业务结构合理、关系正确、可计算、可验证**的交易所出入金数据，用于零基础 SQL 学习。
+整体流程必须形成闭环：
+**需求解析 → 数据约束 → 数据生成 → 自动质检 → 自动修正 → 再验收**
+---
+## 1. 先定义业务边界
+交易所出入金至少拆成两个独立业务域：
+### 法币出入金
+表示用户通过银行、支付渠道等完成的法币充值和提现。
+至少包含：
+* `fiat_order_id`
+* `uid`
+* `direction`
+* `currency`
+* `amount`
+* `fee`
+* `channel`
+* `status`
+* `created_at`
+* `completed_at`
+`direction`：
+* `deposit`
+* `withdrawal`
+典型状态应符合实际业务过程，例如：
+* `pending`
+* `processing`
+* `completed`
+* `failed`
+* `cancelled`
+---
+### 链上充提
+表示用户通过区块链地址完成的数字资产充值和提现。
+至少包含：
+* `crypto_order_id`
+* `uid`
+* `direction`
+* `asset`
+* `network`
+* `amount`
+* `fee`
+* `tx_hash`
+* `address`
+* `status`
+* `confirmations`
+* `created_at`
+* `completed_at`
+链上数据必须体现：
+* 币种；
+* 网络；
+* 地址；
+* TxHash；
+* 区块确认；
+* 网络手续费；
+* 链上交易状态。
+法币字段不得硬套到链上，链上专属字段也不得伪造到法币订单中。
+---
+## 2. 订单号必须接近真实系统数据特征
+不得继续使用：
+```text
+ORDER001
+TX001
+001
+```
+这类明显人工编造的编号。
+订单号应具备真实业务系统常见特征：
+* 全局唯一；
+* 长度稳定；
+* 无明显连续规律；
+* 可包含时间信息、业务前缀或随机字符；
+* 同一业务域保持统一格式；
+* 法币订单与链上订单可区分。
+不要复制某家真实交易所的内部订单规则，只需生成符合真实系统特征的模拟 ID。
+`tx_hash` 必须符合对应区块链的基本格式约束，不能使用普通字符串冒充。
+---
+## 3. 不得混算不同计价单位
+禁止直接执行：
+```text
+1000 TRY + 500 USDT + 0.2 ETH
+```
+每个聚合结果必须保留对应维度。
+法币至少按：
+```text
+uid + currency
+```
+聚合。
+链上至少按：
+```text
+uid + asset + network
+```
+聚合。
+因此最终结果应拆分为：
+### `expected_fiat_result`
+| uid | currency | deposit_amount | withdrawal_amount | net_amount |
+| --- | -------- | -------------: | ----------------: | ---------: |
+### `expected_crypto_result`
+| uid | asset | network | deposit_amount | withdrawal_amount | net_amount |
+| --- | ----- | ------- | -------------: | ----------------: | ---------: |
+其中：
+```text
+net_amount = deposit_amount - withdrawal_amount
+```
+只统计满足业务定义的有效成功订单。
+---
+## 4. Spreadsheet 结构
+至少包含以下 Sheet：
+### `users`
+用户基础维表。
+一行代表一个 UID。
+---
+### `fiat_transactions`
+法币出入金原始订单。
+一行代表一笔法币订单。
+---
+### `crypto_transactions`
+链上充提原始订单。
+一行代表一笔链上订单。
+---
+### `expected_fiat_result`
+由 `fiat_transactions` 正确聚合得到的标准答案。
+---
+### `expected_crypto_result`
+由 `crypto_transactions` 正确聚合得到的标准答案。
+---
+### `data_rules`
+记录：
+* 字段定义；
+* 数据类型；
+* 是否必填；
+* 唯一性；
+* 枚举；
+* 业务规则；
+* 表间关系；
+* 允许为空的条件。
+---
+### `qa_result`
+记录所有自动质检结果。
+至少包含：
+```text
+check_id
+check_type
+table_name
+rule
+result
+affected_rows
+severity
+details
+```
+---
+### `fix_log`
+记录：
+```text
+发现什么问题
+→ 为什么错误
+→ 修改了什么
+→ 修改后是否通过
+```
+---
+## 5. 统一字段与 SQL
+所有字段统一使用：
+```text
+lower_snake_case
+```
+禁止出现：
+```text
+入金金额
+depositAmount
+Deposit_Amount
+```
+等多套命名并存。
+SQL 字段、Spreadsheet 字段、Schema 和 `expected_result` 必须完全一致。
+教程中的中文只负责解释业务含义，不进入字段名。
+---
+## 6. 数据生成前必须自动解析约束
+生成任何数据前，先扫描：
+* 当前需求；
+* Schema；
+* Sheet；
+* 字段定义；
+* 主键；
+* 外键；
+* 枚举；
+* 时间规则；
+* 金额规则；
+* 状态机；
+* 表间关系；
+* SQL 最终输出结构。
+自动生成一份 Data Contract，再开始生成数据。
+没有明确依据的规则不得自行补成“事实”。
+确需假设时必须显式记录。
+---
+## 7. 必须覆盖的样本
+不能只生成正常数据。
+至少覆盖：
+### 正常场景
+* 单笔入金；
+* 单笔出金；
+* 同一 UID 多笔订单；
+* 同一 UID 同时存在入金与出金；
+* 多 UID；
+* 多币种；
+* 多链；
+* 不同金额；
+* 不同日期。
+### 业务边界
+* 只有入金；
+* 只有出金；
+* 入金与出金金额相同；
+* 极小金额；
+* 较大金额；
+* 年初、年末订单；
+* 创建时间与完成时间跨日期。
+### 状态场景
+* completed；
+* pending；
+* failed；
+* cancelled。
+聚合 SQL 必须明确哪些状态计入结果。
+### 数据质量异常
+主动构造少量用于学习质检的异常样本，例如：
+* 重复订单号；
+* 非法枚举；
+* 不存在的 UID；
+* 完成时间早于创建时间；
+* 非法币种或网络组合；
+* 缺失 TxHash；
+* 重复 TxHash；
+* 非法地址格式；
+* 金额异常。
+异常数据必须有明确测试目的，不得随机制造脏数据。
+---
+## 8. 自动质检
+生成完成后自动执行以下检查。
+### Schema
+检查：
+* 字段是否缺失；
+* 类型是否正确；
+* 字段名是否一致；
+* 是否出现额外未知字段。
+### 完整性
+检查：
+* 必填字段；
+* 条件必填字段；
+* NULL；
+* 空字符串；
+* 无意义默认值。
+### 唯一性
+检查：
+* `uid`
+* `fiat_order_id`
+* `crypto_order_id`
+以及其他要求唯一的业务标识。
+### 引用完整性
+检查：
+```text
+transactions.uid
+→ users.uid
+```
+不得存在无来源 UID，除非该记录本身就是故意设计的异常测试 Case。
+### 有效性
+检查：
+* direction；
+* status；
+* currency；
+* asset；
+* network；
+* 金额范围；
+* 时间范围；
+* ID 格式；
+* 地址及 TxHash 基本格式。
+### 业务一致性
+例如：
+* `completed_at &gt;= created_at`；
+* failed / cancelled 订单不得进入成功金额统计；
+* completed 链上订单应满足对应业务要求；
+* 资产必须支持对应 network；
+* 手续费不得出现明显不合理关系；
+* 法币订单不得出现链上字段。
+### 聚合一致性
+重新使用原始数据计算结果，并与：
+* `expected_fiat_result`
+* `expected_crypto_result`
+进行双向比较。
+任何 UID、币种、资产、网络、金额或行数不一致，都判定失败。
+---
+## 9. 自动修正 Loop
+发现问题后不得直接交付。
+必须执行：
+```text
+检测问题
+↓
+定位违反的规则
+↓
+定位受影响记录
+↓
+修正数据
+↓
+重新运行全部相关检查
+↓
+检查是否产生新的问题
+↓
+通过后交付
+```
+修复一项问题后必须执行回归检查，不能只重新检查当前规则。
+---
+## 10. 最终交付
+必须同时交付：
+1. 完整 Spreadsheet 数据集；
+2. Schema；
+3. Data Contract；
+4. 数据生成约束；
+5. 场景覆盖清单；
+6. 自动质检结果；
+7. 发现的问题；
+8. 修正记录；
+9. 最终验收结果；
+10. 未解决风险；
+11. 与数据完全对应、可直接执行的 DuckDB SQL。
+不得只交付数据文件。
+---
+## 11. 最终验收标准
+只有同时满足以下条件才算通过：
+* 表的业务粒度明确；
+* 法币与链上业务正确分离；
+* 主外键关系正确；
+* 订单号与业务标识不存在明显人工假数据特征；
+* 时间、金额、状态符合业务逻辑；
+* 不同币种和资产不存在错误混算；
+* 正常、异常、边界场景均有覆盖；
+* SQL 可以直接执行；
+* SQL 输出与 `expected_result` 完全一致；
+* 所有自动质检通过；
+* 修正后未引入新的回归问题。
+最终目标不是：
+**“生成一批看起来像真的交易所数据。”**
+而是：**生成一套业务结构合理、数据关系正确、SQL 可计算、结果可验证、异常可解释、能够直接用于 DuckDB 教学和自动化测试的数据集。**
+</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-section-53381ac11723" class="outline-4">
+<h4 id="section-53381ac11723"><span class="section-number-4">1.2.3.</span> Spreadsheet</h4>
+<div class="outline-text-4" id="text-1-2-3">
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-068df3e19b15"></a>Loop<br>
+<ol class="org-ol">
+<li><a id="org-museum-ref-d6a1e693405a"></a>Stage 1<br>
+<div class="outline-text-6" id="text-1-2-3-1-1">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">请阅读当前的Excel工作表、字段、数据类型以及表之间的关系，以确定现有的数据集是否足以支持当前的分析和测试需求。检查要点：
+
+1. 必填字段是否齐全； 
+2. 各表能否正确关联； 
+3. 时间、金额、状态等业务逻辑是否完整； 
+4. 是否覆盖正常、异常、边界场景； 
+5. 是否存在缺失、重复、冲突或无效字段； 
+6. 是否有必须补充的数据表或样品？
+
+原则: **不要仅仅为了增加数据量而扩展，只添加当前需求真正需要的内容**。
+最终直接输出：**当前数据集是否足够→缺少什么→为什么缺少→最小补充解。 
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-ff3367f961da"></a>Stage 2<br>
+<div class="outline-text-6" id="text-1-2-3-1-2">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">请根据当前数据表填写。
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-802143e8282b"></a>Stage 3<br>
+<div class="outline-text-6" id="text-1-2-3-1-3">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">在现有数据生成与质检流程后，增加一套 Spreadsheet 自动排版与视觉质检流程：
+**数据验收 → 结构识别 → 视觉规范 → 自动排版 → UI 质检 → 修正 → 最终验收**
+## 1. 先理解每个 Sheet 的用途
+自动识别：
+* 原始数据表；
+* 结果表；
+* 规则表；
+* 质检表；
+* 修正记录表。
+根据用途决定布局，不允许所有 Sheet 套同一种样式。
+## 2. 建立统一视觉规范
+整份工作簿统一：
+* 字体；
+* 字号层级；
+* 表头样式；
+* 背景色；
+* 边框；
+* 对齐；
+* 行高；
+* 列宽；
+* 数字格式；
+* 日期格式；
+* 状态颜色。
+控制颜色数量，只保留少量有明确语义的颜色：
+* 主色：标题、表头；
+* 成功：通过；
+* 警告：待检查；
+* 异常：失败；
+* 中性色：普通数据和辅助信息。
+颜色必须表达信息，不得为了“好看”随意上色。
+## 3. 自动整理布局
+根据内容自动调整：
+* 列宽适配字段内容；
+* 行高保持紧凑；
+* 长文本合理换行；
+* 数字右对齐；
+* 文本左对齐；
+* 日期、金额和状态使用统一格式；
+* 冻结首行或关键列；
+* 启用筛选；
+* 重要结果优先放在左侧；
+* 高频查看字段靠前；
+* 辅助字段靠后。
+避免：
+* 无意义空行空列；
+* 大面积合并单元格；
+* 内容截断；
+* 列宽极端不一致；
+* 一张表横向无限延伸；
+* 装饰性渐变、阴影和高饱和色。
+## 4. 按 Sheet 分层设计
+### 原始数据表
+重点是快速浏览和筛选。
+保持高信息密度，不添加多余装饰。
+### 结果表
+重点突出：
+* UID；
+* 分组维度；
+* 核心指标；
+* 最终结果。
+让用户打开后第一眼就看到分析结论。
+### `data_rules`
+按：
+**字段 → 类型 → 约束 → 业务含义 → 示例**
+组织。
+### `qa_result`
+让：
+* `PASS`
+* `WARN`
+* `FAIL`
+能够快速区分。
+异常项优先显示。
+### `fix_log`
+按：
+**问题 → 原因 → 修正 → 复检结果**
+展示完整修正链路。
+## 5. 自动视觉质检
+生成完成后检查：
+* 工作表风格是否统一；
+* 表头是否清晰；
+* 字体和字号是否一致；
+* 是否存在内容截断；
+* 列宽是否合理；
+* 数字和日期格式是否统一；
+* 状态颜色是否统一；
+* 对比度是否足够；
+* 是否存在无意义合并单元格；
+* 是否存在过度使用颜色；
+* 重要信息是否具有明确视觉层级；
+* 不同 Sheet 是否能够快速辨认用途。
+发现问题后自动调整，并重新检查。
+## 6. 数据与展示必须分离
+视觉优化不得：
+* 修改原始数据值；
+* 修改字段名称；
+* 修改 Schema；
+* 修改公式逻辑；
+* 改变表间关系；
+* 为了排版删除记录。
+只允许调整：
+**样式、布局、格式、显示顺序和辅助交互。**
+## 7. 最终验收
+交付前必须同时满足：
+* 数据质检通过；
+* Sheet 职责清晰；
+* 全局视觉规范统一；
+* 用户能快速找到关键数据；
+* 表格可以直接筛选、阅读和比较；
+* 异常项能够快速识别；
+* 不存在明显截断、拥挤、错位或格式混乱；
+* 数据、SQL、Schema 与视觉呈现完全一致。
+最终目标不是把 Spreadsheet “装修得漂亮”，而是让用户打开文件后能够：
+**快速看懂 → 快速定位 → 快速比较 → 快速发现异常 → 直接开始分析。**
+</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org-museum-ref-066b5ce0940a"></a>Analyze<br>
+<ol class="org-ol">
+<li><a id="org-museum-ref-91854f76a237"></a>简单直接<br>
+<div class="outline-text-6" id="text-1-2-3-2-1">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">通过分析获取数据洞见
+</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org-museum-ref-3ab45238844a"></a>Typical Cases<br>
+<div class="outline-text-5" id="text-1-2-3-3">
+<p>
+<a href="https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=232873147#gid=232873147">exchange_funds_flow_dataset</a>
+</p>
+
+<div class="org-src-container">
+<pre class="src src-plantuml"><code class="language-plantuml">@startuml
+!define BG_PAGE       #F7F5EF
+!define BG_NODE       #FFFDF8
+!define TEXT_MAIN     #1F2937
+!define TEXT_MUTED    #64748B
+!define BORDER        #64748B
+!define ARROW         #475569
+!define TITLE_COLOR   #172033
+!define FONT_CN       Noto Sans SC
+!define FONT_MONO     JetBrains Mono
+!define FONT_TITLE    Noto Sans SC
+
+!define SCAN_COLOR    #2563EB
+!define FILTER_COLOR  #E11D48
+!define JOIN_COLOR    #16A34A
+!define GROUP_COLOR   #7C3AED
+!define AGG_COLOR     #EA580C
+!define HAVING_COLOR  #DB2777
+!define OUTPUT_COLOR  #0F172A
+!define SORT_COLOR    #0891B2
+!define LIMIT_COLOR   #475569
+
+skinparam backgroundColor BG_PAGE
+skinparam defaultFontName FONT_CN
+skinparam defaultFontSize 10
+skinparam defaultFontStyle plain
+skinparam defaultFontColor TEXT_MAIN
+skinparam shadowing false
+skinparam roundcorner 10
+
+skinparam title {
+  FontName FONT_TITLE
+  FontSize 24
+  FontStyle bold
+  FontColor TITLE_COLOR
+}
+
+skinparam activity {
+  BackgroundColor BG_NODE
+  BorderColor BORDER
+  FontColor TEXT_MAIN
+  FontName FONT_CN
+  FontSize 14
+  StartColor #22C55E
+  EndColor #475569
+  ArrowColor ARROW
+}
+
+skinparam arrow {
+  Color ARROW
+  FontColor TEXT_MUTED
+  FontName FONT_CN
+  FontSize 10
+}
+
+TITLE SQL 执行过程
+
+(*) --&gt; "读取订单表\n&lt;color:SCAN_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;TABLE SCAN · orders&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+-d-&gt;[先过滤订单]"筛选有效订单\n&lt;color:FILTER_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;status = 'paid'&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:FILTER_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;amount &gt; 100&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+-r-&gt;[读取用户表]"读取用户表\n&lt;color:SCAN_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;TABLE SCAN · users&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+-d-&gt;[关联用户]"关联订单与用户\n&lt;color:JOIN_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;HASH JOIN&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:JOIN_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;o.user_id = u.id&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+-d-&gt;[确定分组]"按国家分组\n&lt;color:GROUP_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;GROUP BY u.country&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+-r-&gt;[计算指标]"计算订单数与收入\n&lt;color:AGG_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;COUNT(*)&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:AGG_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;SUM(o.amount)&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+-r-&gt;[过滤聚合结果]"只保留高收入国家\n&lt;color:HAVING_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;HAVING SUM(o.amount) &gt; 10000&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+-d-&gt;[整理字段]"生成结果字段\n&lt;color:OUTPUT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;country&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:OUTPUT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;orders&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:OUTPUT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;revenue&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+-r-&gt;[收入排序]"按收入降序\n&lt;color:SORT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;ORDER BY revenue DESC&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+-r-&gt;[限制数量]"保留前 10 条\n&lt;color:LIMIT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;LIMIT 10&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+--&gt;[输出结果]"最终结果\n&lt;color:OUTPUT_COLOR&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;10 rows max&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;"
+--&gt; (*)
+
+@enduml
+</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-section-e047ae59756f" class="outline-3">
+<h3 id="section-e047ae59756f"><span class="section-number-3">1.3.</span> References</h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-section-8ae891c0341c" class="outline-4">
+<h4 id="section-8ae891c0341c"><span class="section-number-4">1.3.1.</span> Resources</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<ol class="org-ol">
+<li>DuckDB 术语： <a href="https://docs.google.com/spreadsheets/d/1ivHFGOZy1eDFvSxFJo2ARNm81HoK9TA76TkU7J-1sto/edit">https://docs.google.com/spreadsheets/d/1ivHFGOZy1eDFvSxFJo2ARNm81HoK9TA76TkU7J-1sto/edit</a></li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 00</h3>
+<p class="org-museum-related-empty">这篇笔记还没有可导出的关联页面。</p>
+<a class="local-graph-link" href="../../graph.html?focus=duckdb-dataset">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="../../timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="../../related.html">关联阅读</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="../Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <ul>
+      <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="duckdb-thinking.html">duckdb-thinking</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="../vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <ul>
+      <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="../Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="../Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="../Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+<script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+
+<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
+</body>
+</html>

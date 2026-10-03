@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-21 Mon 21:24 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>本体治理：从证据追踪到安全演化</title>
 <meta name="description" content="面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。" />
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=f191e4a437f4">
+<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="ontology-evidence-evolution" data-page-title="本体治理：从证据追踪到安全演化" data-page-category="Ontology" data-page-tags="ontology,governance,provenance,evolution" data-page-status="published" data-page-modified="2026-09-10" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="ontology-evidence-evolution" data-page-title="本体治理：从证据追踪到安全演化" data-page-category="Ontology" data-page-tags="ontology,governance,provenance,evolution" data-page-status="published" data-page-modified="2026-10-01" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -26,57 +25,294 @@
     <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
     <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
     <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
   </nav>
 </header>
 
 <main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">本体治理：从证据追踪到安全演化</a><span class="museum-identity-meta">Ontology</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
-<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="ontology-evidence-evolution" data-page-title="本体治理：从证据追踪到安全演化" data-page-category="Ontology"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="ontology-evidence-evolution" data-page-title="本体治理：从证据追踪到安全演化" data-page-category="Ontology"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../index.html?category=Ontology#recent-updates">Ontology</a>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-09-10">2026-09-10</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 12 分钟</dd></div>
-    <div><dt>标签</dt><dd>ontology · governance · provenance · evolution</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=ontology#recent-updates" data-tag="ontology" title="查看包含标签 #ontology 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">ontology</span></a><a class="museum-tag-chip" href="../../index.html?tag=governance#recent-updates" data-tag="governance" title="查看包含标签 #governance 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">governance</span></a><a class="museum-tag-chip" href="../../index.html?tag=provenance#recent-updates" data-tag="provenance" title="查看包含标签 #provenance 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">provenance</span></a><a class="museum-tag-chip" href="../../index.html?tag=evolution#recent-updates" data-tag="evolution" title="查看包含标签 #evolution 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">evolution</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
-    <a href="../../index.html#recent-updates">← 全部笔记</a>
-    <a href="../../index.html">返回索引</a>
+    <a data-reading-return href="../../index.html#recent-updates">← 全部笔记</a>
   </nav>
 </aside>
 </details>
-
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="d01bbcfa4479e0c0a11a9550d948772325c7e63dadb26ff758ce7bd609841985"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+description: 面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: ontology-evidence-evolution</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Ontology</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: published</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :ontology:governance:provenance:evolution:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args :tangle no</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 导言：模型上线之后，治理才真正开始</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本体第一次发布时通常整洁、连贯、充满确定性；真实数据进入后，问题才会出现：同一对象来自多个系统，规则在不同时间生效，字段含义发生漂移，证据互相冲突，旧查询仍依赖已经废弃的关系。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">因此，生产级本体不能只保存“当前结论”，还要保存结论从哪里来、由什么规则产生、适用于哪个时间和版本，以及在证据消失时是否能够撤回。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">如果还没有确定概念边界、身份规则和关系语义，应先阅读 本体论建模：从概念边界到可计算语义。本文假定基础模型已经存在，重点讨论它怎样持续保持可信。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 一、证据优先：结论必须能够回到来源</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">一条可治理的知识陈述至少包含五个维度：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 维度     | 要回答的问题           | 示例              |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----------+------------------------+-------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 主张     | 系统认为发生了什么？   | 订单 O-17 已发货  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 来源     | 谁或什么系统提供？     | WMS 事件 E-88     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 时间     | 事实何时成立或被观察？ | 2026-08-15 10:30  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 方法     | 如何得到该结论？       | 事件映射规则 R-12 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 置信状态 | 已确认、候选还是未知？ | confirmed         |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">如果系统只保存 =shipped=true=，用户无法判断它来自承运商回执、仓库扫描还是人工修改，也无法在来源被撤销后更新结论。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">证据对象不必一开始就设计得复杂，但至少应保存稳定标识、来源类型、原始引用、观察时间和内容摘要。敏感原文可以留在受控存储中，本体只保留不可混淆的引用。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 二、把“观察”“解释”和“决定”分层</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">治理中最常见的错误，是把原始数据直接写成最终业务结论。更安全的结构分为三层：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">1. *观察层*：记录外部系统实际给出的值，不替来源修正含义。</span>
+<span class="museum-org-line">2. *解释层*：使用版本化映射和规则，把观察转换为领域事实。</span>
+<span class="museum-org-line">3. *决定层*：在领域事实之上执行策略，产生允许、拒绝或待确认等结果。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">例如，仓库事件 <span class="org-face-org-verbatim">=PACKED=</span> 是观察；“订单已进入履约阶段”是解释；“取消请求需要人工审批”是决定。三层分开后，规则改变时可以重算决定，而无需篡改原始事件。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Evidence E-88</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    observedCode = "PACKED"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    sourceSystem = "WMS"</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Interpretation I-31</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    derives fulfillmentStage = "packing"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    evaluatedBy mapping-v3</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    supportedBy E-88</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Decision D-09</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    outcome = "manual_review"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    evaluatedBy cancellation-policy-v5</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    supportedBy I-31</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 三、冲突不是异常噪声，而是一等数据</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">两个可靠来源可能给出不同结论。仓库系统显示“已打包”，支付系统显示“已退款”，客服系统仍显示“等待取消”。如果治理层简单采用最后写入值，冲突会消失在数据表里，却继续存在于业务中。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">冲突处理应包含以下步骤：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">1. 保留所有原始主张，不覆盖来源记录。</span>
+<span class="museum-org-line">2. 判断它们是否真的互斥，还是适用于不同时间或对象。</span>
+<span class="museum-org-line">3. 运行明确的优先级或协调规则。</span>
+<span class="museum-org-line">4. 保存规则命中过程和最终状态。</span>
+<span class="museum-org-line">5. 如果规则无法裁决，输出 <span class="org-face-org-verbatim">=UNKNOWN=</span> 或 =REQUIRES_REVIEW=。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">不要把优先级藏在应用代码的 <span class="org-face-org-verbatim">=if/else=</span> 中而不留记录。规则技术可以很简单，关键是能力声明真实、执行结果可追踪。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">下面的伪 Python 展示一个保守裁决器：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">def</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">resolve_shipping_status</span><span class="org-face-org-block">(claims):</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-variable-name-face org-face-org-block">confirmed</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> [c </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> c </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> claims </span><span class="org-face-font-lock-keyword-face org-face-org-block">if</span><span class="org-face-org-block"> c.evidence_verified]</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">if</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">not</span><span class="org-face-org-block"> confirmed:</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">          </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> {</span><span class="org-face-font-lock-string-face org-face-org-block">"status"</span><span class="org-face-org-block">: </span><span class="org-face-font-lock-string-face org-face-org-block">"UNKNOWN"</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-string-face org-face-org-block">"reason"</span><span class="org-face-org-block">: </span><span class="org-face-font-lock-string-face org-face-org-block">"NO_VERIFIED_EVIDENCE"</span><span class="org-face-org-block">}</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-variable-name-face org-face-org-block">values</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-operator-face org-face-org-block">=</span><span class="org-face-org-block"> {c.value </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> c </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> confirmed}</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">if</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">len</span><span class="org-face-org-block">(values) </span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;</span><span class="org-face-org-block"> 1:</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">          </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> {</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">              </span><span class="org-face-font-lock-string-face org-face-org-block">"status"</span><span class="org-face-org-block">: </span><span class="org-face-font-lock-string-face org-face-org-block">"REQUIRES_REVIEW"</span><span class="org-face-org-block">,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">              </span><span class="org-face-font-lock-string-face org-face-org-block">"reason"</span><span class="org-face-org-block">: </span><span class="org-face-font-lock-string-face org-face-org-block">"CONFLICTING_VERIFIED_EVIDENCE"</span><span class="org-face-org-block">,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">              </span><span class="org-face-font-lock-string-face org-face-org-block">"evidence_ids"</span><span class="org-face-org-block">: [c.evidence_id </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> c </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> confirmed],</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">          }</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> {</span><span class="org-face-font-lock-string-face org-face-org-block">"status"</span><span class="org-face-org-block">: confirmed[0].value, </span><span class="org-face-font-lock-string-face org-face-org-block">"reason"</span><span class="org-face-org-block">: </span><span class="org-face-font-lock-string-face org-face-org-block">"CONSISTENT_EVIDENCE"</span><span class="org-face-org-block">}</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">它没有假装自己能够解决所有冲突，而是把能力边界显式暴露给调用方。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 四、时间是本体治理的核心维度</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">“当前事实”会随时间改变，规则也会改变。至少要区分三种时间：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- *有效时间*：事实在现实世界中何时成立。</span>
+<span class="museum-org-line">- *记录时间*：系统何时知道这件事。</span>
+<span class="museum-org-line">- *规则时间*：解释或策略版本何时生效。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">例如，昨天发生的发货事件今天才同步进入系统。若只保存一个 =updated_at=，系统无法重建昨天晚上的真实认知状态，也无法解释为什么当时做出了某个决定。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">一个适合审计的查询应指定时间边界：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span><span class="org-face-org-block"> order_id, interpreted_stage, evidence_id, rule_version</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> order_stage_history</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">WHERE</span><span class="org-face-org-block"> order_id = </span><span class="org-face-font-lock-string-face org-face-org-block">'O-17'</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-keyword-face org-face-org-block">AND</span><span class="org-face-org-block"> valid_from &lt;= </span><span class="org-face-font-lock-type-face org-face-org-block">TIMESTAMP</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">'2026-08-15 10:00:00'</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-keyword-face org-face-org-block">AND</span><span class="org-face-org-block"> (valid_to </span><span class="org-face-font-lock-keyword-face org-face-org-block">IS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">NULL</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">OR</span><span class="org-face-org-block"> valid_to &gt; </span><span class="org-face-font-lock-type-face org-face-org-block">TIMESTAMP</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">'2026-08-15 10:00:00'</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-keyword-face org-face-org-block">AND</span><span class="org-face-org-block"> recorded_at &lt;= </span><span class="org-face-font-lock-type-face org-face-org-block">TIMESTAMP</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">'2026-08-15 10:05:00'</span><span class="org-face-org-block">;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这个查询回答的是“系统在 10:05 所掌握的信息中，10:00 有效的履约阶段是什么”，比笼统的“订单状态是什么”更精确。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 五、本体版本：变更类型决定迁移策略</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">不是所有模型变更都同样危险。可以按兼容性分为四类：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 变更 | 示例                 | 风险 | 最小处理             |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+----------------------+------+----------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 新增 | 增加 Evidence 类     | 低   | 新查询按需采用       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 扩展 | 为关系增加可选属性   | 中   | 检查旧消费者         |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 收紧 | 基数从可选变为必填   | 高   | 先审计历史数据       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 破坏 | 拆分类、改变关系含义 | 很高 | 双写、迁移、回滚方案 |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">版本号本身不能保证兼容性。每次变更都应提供机器可读或至少结构化的差异：新增什么、弃用什么、哪些查询受影响、数据怎样迁移、失败怎样回滚。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">弃用应经历明确周期：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">1. 标记旧概念为 deprecated，但继续读取。</span>
+<span class="museum-org-line">2. 新旧结构双写或提供派生映射。</span>
+<span class="museum-org-line">3. 比较两种查询结果，定位不一致。</span>
+<span class="museum-org-line">4. 迁移消费者并观察一段时间。</span>
+<span class="museum-org-line">5. 只有在依赖归零后才停止写入旧结构。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">直接重命名关系而不保留映射，会让历史数据和下游查询在没有明显错误的情况下悄悄失联。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 六、质量门禁：发布前验证模型、数据和能力</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本体发布不能只检查文件是否能解析。至少需要三类门禁：</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 1. 结构门禁</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- WIKI_ID、IRI 或内部标识是否唯一；</span>
+<span class="museum-org-line">- 关系的定义域和值域是否引用有效概念；</span>
+<span class="museum-org-line">- 是否出现循环依赖、孤立核心类或意外自关系；</span>
+<span class="museum-org-line">- 弃用概念是否仍被新增模型引用。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 2. 数据门禁</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- 必需证据是否存在；</span>
+<span class="museum-org-line">- 身份合并是否存在互斥唯一标识；</span>
+<span class="museum-org-line">- 时间区间是否重叠；</span>
+<span class="museum-org-line">- 枚举值、基数和引用完整性是否满足约束。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 3. 能力门禁</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- 每个对外能力是否有真实查询或规则实现；</span>
+<span class="museum-org-line">- 正常、陌生、缺失和冲突输入是否都执行过；</span>
+<span class="museum-org-line">- 删除证据后，结论是否撤回或变成 =UNKNOWN=；</span>
+<span class="museum-org-line">- 旧版本消费者是否仍能得到约定结果。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">只有三类门禁都通过，才能说“该版本可发布”。解析成功只说明语法正确，不说明系统可信。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 七、主动反证：寻找能够推翻模型的输入</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">治理测试的目标不是证明当前模型永远正确，而是确认它能在错误条件下诚实失败。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">推荐的反证集合：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- *改输入*：改变关键证据，输出必须相应变化。</span>
+<span class="museum-org-line">- *删证据*：删除唯一依据，结论必须退回 =UNKNOWN=。</span>
+<span class="museum-org-line">- *造冲突*：输入两个互斥且同等可信的主张，系统必须暴露冲突。</span>
+<span class="museum-org-line">- *换陌生数据*：使用训练或设计阶段未出现的标识和类别，检查是否错误套用默认映射。</span>
+<span class="museum-org-line">- *回放旧版本*：用历史快照运行新规则，验证迁移是否改变既有结论。</span>
+<span class="museum-org-line">- *制造中断*：在迁移中途失败，验证旧模型、索引和输出是否完整恢复。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">反证结果应与正常结果一样进入证据链，而不是只在开发者终端里短暂出现。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 八、可回滚发布流程</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">一个最小而可靠的本体发布流程可以写成：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  冻结验收条件</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    → 快照当前模型、数据与查询结果</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    → 在隔离环境执行迁移</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    → 运行结构、数据、能力门禁</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    → 运行反证集合</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    → 比较新旧关键查询</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    → 原子切换版本</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    → 观察并保留回滚窗口</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">回滚不能只恢复本体文件。如果迁移已经改写数据、索引或缓存，必须把这些状态纳入同一个事务边界。否则“代码回滚成功”仍可能留下混合版本系统。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">每次发布至少保存：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- 模型版本与内容哈希；</span>
+<span class="museum-org-line">- 数据迁移版本；</span>
+<span class="museum-org-line">- 规则与映射版本；</span>
+<span class="museum-org-line">- 验收查询及其输出摘要；</span>
+<span class="museum-org-line">- 失败报告和回滚结果；</span>
+<span class="museum-org-line">- 发布者、时间和运行环境。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 九、治理看板应该呈现什么</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">治理看板不应只显示节点数和边数。数量增加可能意味着知识更完整，也可能意味着重复实体和无意义关系更多。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">更有用的指标包括：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 指标           | 说明                   | 反映的问题   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----------------+------------------------+--------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 无证据主张率   | 没有关联来源的结论占比 | 可解释性风险 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 冲突未决数     | 尚未裁决的互斥主张     | 业务阻塞     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| UNKNOWN 比例   | 证据不足的查询占比     | 数据覆盖不足 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 弃用依赖数     | 仍引用旧概念的消费者   | 迁移风险     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 身份合并撤销数 | 被证明错误的实体合并   | 匹配规则质量 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 回滚演练成功率 | 可完整恢复的发布次数   | 运营韧性     |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这些指标必须能回到具体对象和证据，不能只保留聚合数字。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 十、生产治理检查清单</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- <span class="org-face-org-checkbox">[ ]</span> 每个结论可以追溯到来源、时间、方法和版本。</span>
+<span class="museum-org-line">- <span class="org-face-org-checkbox">[ ]</span> 原始观察、领域解释和业务决定彼此分层。</span>
+<span class="museum-org-line">- <span class="org-face-org-checkbox">[ ]</span> 冲突会被保留和报告，不会被最后写入静默覆盖。</span>
+<span class="museum-org-line">- <span class="org-face-org-checkbox">[ ]</span> 有效时间、记录时间和规则生效时间可区分。</span>
+<span class="museum-org-line">- <span class="org-face-org-checkbox">[ ]</span> 破坏性变更具备双写、迁移和回滚路径。</span>
+<span class="museum-org-line">- <span class="org-face-org-checkbox">[ ]</span> 结构、数据、能力三类门禁全部实际运行。</span>
+<span class="museum-org-line">- <span class="org-face-org-checkbox">[ ]</span> 缺失、冲突、陌生数据和中断条件均有反证。</span>
+<span class="museum-org-line">- <span class="org-face-org-checkbox">[ ]</span> 发布记录包含模型、数据、规则和输出证据。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 结语：可信来自可撤回，而不是永远确定</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">成熟的本体系统不会假装所有事实都确定。它知道结论依赖什么，也知道何时应该撤回；它允许模型演化，但要求变化可比较、可迁移、可回滚。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">概念边界和关系语义提供稳定的语言，证据与版本治理提供长期可信度。两者结合后，本体才不只是一次性的知识图，而是能够持续接受新事实、暴露不确定性并安全变化的工程系统。基础建模方法见 本体论建模：从概念边界到可计算语义。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本体mvp.org</span>
+</code></pre></section>
 <h1 class="title">本体治理：从证据追踪到安全演化</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-e7bd55250766">1. 导言：模型上线之后，治理才真正开始</a></li>
-<li><a href="#section-e7bd55250766">2. 一、证据优先：结论必须能够回到来源</a></li>
-<li><a href="#section-5d6755c5553f">3. 二、把“观察”“解释”和“决定”分层</a></li>
-<li><a href="#section-e7bd55250766">4. 三、冲突不是异常噪声，而是一等数据</a></li>
-<li><a href="#section-4cb42c2df639">5. 四、时间是本体治理的核心维度</a></li>
-<li><a href="#section-e7bd55250766">6. 五、本体版本：变更类型决定迁移策略</a></li>
-<li><a href="#section-a4bb340b8d09">7. 六、质量门禁：发布前验证模型、数据和能力</a>
+<li><a href="#section-1717ab560dc7">1. 导言：模型上线之后，治理才真正开始</a></li>
+<li><a href="#section-ee7c8a57b4bc">2. 一、证据优先：结论必须能够回到来源</a></li>
+<li><a href="#section-07bc2632dc91">3. 二、把“观察”“解释”和“决定”分层</a></li>
+<li><a href="#section-763a07969ad4">4. 三、冲突不是异常噪声，而是一等数据</a></li>
+<li><a href="#section-96950bc8101c">5. 四、时间是本体治理的核心维度</a></li>
+<li><a href="#section-b0054e6b5c3a">6. 五、本体版本：变更类型决定迁移策略</a></li>
+<li><a href="#section-296714d33ebc">7. 六、质量门禁：发布前验证模型、数据和能力</a>
 <ul>
-<li><a href="#section-27635bdd7a40">7.1. 1. 结构门禁</a></li>
-<li><a href="#section-85ec146d8a42">7.2. 2. 数据门禁</a></li>
-<li><a href="#section-321b35b5e2d3">7.3. 3. 能力门禁</a></li>
+<li><a href="#section-46d7bcd41d74">7.1. 1. 结构门禁</a></li>
+<li><a href="#section-6e6f10733716">7.2. 2. 数据门禁</a></li>
+<li><a href="#section-6fac7a65ab46">7.3. 3. 能力门禁</a></li>
 </ul>
 </li>
-<li><a href="#section-5d6755c5553f">8. 七、主动反证：寻找能够推翻模型的输入</a></li>
-<li><a href="#section-934c7c2ddbd4">9. 八、可回滚发布流程</a></li>
-<li><a href="#section-c54a8c651bf4">10. 九、治理看板应该呈现什么</a></li>
-<li><a href="#section-dfdad71da94b">11. 十、生产治理检查清单</a></li>
-<li><a href="#section-5d6755c5553f">12. 结语：可信来自可撤回，而不是永远确定</a></li>
+<li><a href="#section-98405bb64cfe">8. 七、主动反证：寻找能够推翻模型的输入</a></li>
+<li><a href="#section-f04031b37e25">9. 八、可回滚发布流程</a></li>
+<li><a href="#section-bd037208c886">10. 九、治理看板应该呈现什么</a></li>
+<li><a href="#section-bba19054ff6f">11. 十、生产治理检查清单</a></li>
+<li><a href="#section-c508ead5b7e2">12. 结语：可信来自可撤回，而不是永远确定</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-e7bd55250766" class="outline-2">
-<h2 id="section-e7bd55250766"><span class="section-number-2">1.</span> 导言：模型上线之后，治理才真正开始</h2>
+<div id="outline-container-section-1717ab560dc7" class="outline-2">
+<h2 id="section-1717ab560dc7"><span class="section-number-2">1.</span> 导言：模型上线之后，治理才真正开始</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本体第一次发布时通常整洁、连贯、充满确定性；真实数据进入后，问题才会出现：同一对象来自多个系统，规则在不同时间生效，字段含义发生漂移，证据互相冲突，旧查询仍依赖已经废弃的关系。
@@ -91,8 +327,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-e7bd55250766" class="outline-2">
-<h2 id="section-e7bd55250766"><span class="section-number-2">2.</span> 一、证据优先：结论必须能够回到来源</h2>
+<div id="outline-container-section-ee7c8a57b4bc" class="outline-2">
+<h2 id="section-ee7c8a57b4bc"><span class="section-number-2">2.</span> 一、证据优先：结论必须能够回到来源</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 一条可治理的知识陈述至少包含五个维度：
@@ -157,8 +393,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-5d6755c5553f" class="outline-2">
-<h2 id="section-5d6755c5553f"><span class="section-number-2">3.</span> 二、把“观察”“解释”和“决定”分层</h2>
+<div id="outline-container-section-07bc2632dc91" class="outline-2">
+<h2 id="section-07bc2632dc91"><span class="section-number-2">3.</span> 二、把“观察”“解释”和“决定”分层</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 治理中最常见的错误，是把原始数据直接写成最终业务结论。更安全的结构分为三层：
@@ -174,7 +410,7 @@
 例如，仓库事件 <code>PACKED</code> 是观察；“订单已进入履约阶段”是解释；“取消请求需要人工审批”是决定。三层分开后，规则改变时可以重算决定，而无需篡改原始事件。
 </p>
 
-<pre class="example" id="org3bfbbe3"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-780443f28ec2"><code class="language-plaintext">
 Evidence E-88
   observedCode = "PACKED"
   sourceSystem = "WMS"
@@ -191,8 +427,8 @@ Decision D-09
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-e7bd55250766" class="outline-2">
-<h2 id="section-e7bd55250766"><span class="section-number-2">4.</span> 三、冲突不是异常噪声，而是一等数据</h2>
+<div id="outline-container-section-763a07969ad4" class="outline-2">
+<h2 id="section-763a07969ad4"><span class="section-number-2">4.</span> 三、冲突不是异常噪声，而是一等数据</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 两个可靠来源可能给出不同结论。仓库系统显示“已打包”，支付系统显示“已退款”，客服系统仍显示“等待取消”。如果治理层简单采用最后写入值，冲突会消失在数据表里，却继续存在于业务中。
@@ -241,8 +477,8 @@ Decision D-09
 </p>
 </div>
 </div>
-<div id="outline-container-section-4cb42c2df639" class="outline-2">
-<h2 id="section-4cb42c2df639"><span class="section-number-2">5.</span> 四、时间是本体治理的核心维度</h2>
+<div id="outline-container-section-96950bc8101c" class="outline-2">
+<h2 id="section-96950bc8101c"><span class="section-number-2">5.</span> 四、时间是本体治理的核心维度</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 “当前事实”会随时间改变，规则也会改变。至少要区分三种时间：
@@ -277,8 +513,8 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-e7bd55250766" class="outline-2">
-<h2 id="section-e7bd55250766"><span class="section-number-2">6.</span> 五、本体版本：变更类型决定迁移策略</h2>
+<div id="outline-container-section-b0054e6b5c3a" class="outline-2">
+<h2 id="section-b0054e6b5c3a"><span class="section-number-2">6.</span> 五、本体版本：变更类型决定迁移策略</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 不是所有模型变更都同样危险。可以按兼容性分为四类：
@@ -356,15 +592,15 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-a4bb340b8d09" class="outline-2">
-<h2 id="section-a4bb340b8d09"><span class="section-number-2">7.</span> 六、质量门禁：发布前验证模型、数据和能力</h2>
+<div id="outline-container-section-296714d33ebc" class="outline-2">
+<h2 id="section-296714d33ebc"><span class="section-number-2">7.</span> 六、质量门禁：发布前验证模型、数据和能力</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 本体发布不能只检查文件是否能解析。至少需要三类门禁：
 </p>
 </div>
-<div id="outline-container-section-27635bdd7a40" class="outline-3">
-<h3 id="section-27635bdd7a40"><span class="section-number-3">7.1.</span> 1. 结构门禁</h3>
+<div id="outline-container-section-46d7bcd41d74" class="outline-3">
+<h3 id="section-46d7bcd41d74"><span class="section-number-3">7.1.</span> 1. 结构门禁</h3>
 <div class="outline-text-3" id="text-7-1">
 <ul class="org-ul">
 <li>WIKI_ID、IRI 或内部标识是否唯一；</li>
@@ -374,8 +610,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-85ec146d8a42" class="outline-3">
-<h3 id="section-85ec146d8a42"><span class="section-number-3">7.2.</span> 2. 数据门禁</h3>
+<div id="outline-container-section-6e6f10733716" class="outline-3">
+<h3 id="section-6e6f10733716"><span class="section-number-3">7.2.</span> 2. 数据门禁</h3>
 <div class="outline-text-3" id="text-7-2">
 <ul class="org-ul">
 <li>必需证据是否存在；</li>
@@ -385,8 +621,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-321b35b5e2d3" class="outline-3">
-<h3 id="section-321b35b5e2d3"><span class="section-number-3">7.3.</span> 3. 能力门禁</h3>
+<div id="outline-container-section-6fac7a65ab46" class="outline-3">
+<h3 id="section-6fac7a65ab46"><span class="section-number-3">7.3.</span> 3. 能力门禁</h3>
 <div class="outline-text-3" id="text-7-3">
 <ul class="org-ul">
 <li>每个对外能力是否有真实查询或规则实现；</li>
@@ -401,8 +637,8 @@ WHERE order_id = 'O-17'
 </div>
 </div>
 </div>
-<div id="outline-container-section-5d6755c5553f" class="outline-2">
-<h2 id="section-5d6755c5553f"><span class="section-number-2">8.</span> 七、主动反证：寻找能够推翻模型的输入</h2>
+<div id="outline-container-section-98405bb64cfe" class="outline-2">
+<h2 id="section-98405bb64cfe"><span class="section-number-2">8.</span> 七、主动反证：寻找能够推翻模型的输入</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 治理测试的目标不是证明当前模型永远正确，而是确认它能在错误条件下诚实失败。
@@ -426,14 +662,14 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-934c7c2ddbd4" class="outline-2">
-<h2 id="section-934c7c2ddbd4"><span class="section-number-2">9.</span> 八、可回滚发布流程</h2>
+<div id="outline-container-section-f04031b37e25" class="outline-2">
+<h2 id="section-f04031b37e25"><span class="section-number-2">9.</span> 八、可回滚发布流程</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 一个最小而可靠的本体发布流程可以写成：
 </p>
 
-<pre class="example" id="org3aeb4dd"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-7f79a861984d"><code class="language-plaintext">
 冻结验收条件
   → 快照当前模型、数据与查询结果
   → 在隔离环境执行迁移
@@ -462,8 +698,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-c54a8c651bf4" class="outline-2">
-<h2 id="section-c54a8c651bf4"><span class="section-number-2">10.</span> 九、治理看板应该呈现什么</h2>
+<div id="outline-container-section-bd037208c886" class="outline-2">
+<h2 id="section-bd037208c886"><span class="section-number-2">10.</span> 九、治理看板应该呈现什么</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 治理看板不应只显示节点数和边数。数量增加可能意味着知识更完整，也可能意味着重复实体和无意义关系更多。
@@ -534,8 +770,8 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-dfdad71da94b" class="outline-2">
-<h2 id="section-dfdad71da94b"><span class="section-number-2">11.</span> 十、生产治理检查清单</h2>
+<div id="outline-container-section-bba19054ff6f" class="outline-2">
+<h2 id="section-bba19054ff6f"><span class="section-number-2">11.</span> 十、生产治理检查清单</h2>
 <div class="outline-text-2" id="text-11">
 <ul class="org-ul">
 <li class="off"><code>[&nbsp;]</code> 每个结论可以追溯到来源、时间、方法和版本。</li>
@@ -549,8 +785,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-5d6755c5553f" class="outline-2">
-<h2 id="section-5d6755c5553f"><span class="section-number-2">12.</span> 结语：可信来自可撤回，而不是永远确定</h2>
+<div id="outline-container-section-c508ead5b7e2" class="outline-2">
+<h2 id="section-c508ead5b7e2"><span class="section-number-2">12.</span> 结语：可信来自可撤回，而不是永远确定</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 成熟的本体系统不会假装所有事实都确定。它知道结论依赖什么，也知道何时应该撤回；它允许模型演化，但要求变化可比较、可迁移、可回滚。
@@ -581,7 +817,7 @@ WHERE order_id = 'O-17'
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-</div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -605,13 +841,19 @@ WHERE order_id = 'O-17'
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <div class="sidebar-cat-label">AI <span>02</span></div>
     <ul>
-      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
-      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
-      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
-      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
-      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+      <li><a href="../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -635,12 +877,14 @@ WHERE order_id = 'O-17'
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
       <li><a href="../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="../sql/duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="../sql/duckdb-thinking.html">duckdb-thinking</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -656,9 +900,23 @@ WHERE order_id = 'O-17'
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="../Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="../Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="../Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
     </ul>
   </div>
 </aside>
@@ -667,7 +925,11 @@ WHERE order_id = 'O-17'
 
 
 
+<script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=ab5c89406617"></script>
+<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
 </body>
 </html>

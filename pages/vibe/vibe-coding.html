@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-21 Mon 21:25 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>vibe coding</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=f191e4a437f4">
+<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="vibe-coding" data-page-title="vibe coding" data-page-category="Vibe" data-page-tags="vibe" data-page-status="draft" data-page-modified="2026-09-21" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="vibe-coding" data-page-title="vibe coding" data-page-category="Vibe" data-page-tags="vibe" data-page-status="draft" data-page-modified="2026-10-02" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -25,29 +24,514 @@
     <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
     <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
     <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
   </nav>
 </header>
 
 <main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">vibe coding</a><span class="museum-identity-meta">Vibe · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
-<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="vibe-coding" data-page-title="vibe coding" data-page-category="Vibe"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="vibe-coding" data-page-title="vibe coding" data-page-category="Vibe"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../index.html?category=Vibe#recent-updates">Vibe</a><span class="museum-status-badge">草稿</span>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-09-21">2026-09-21</time></dd></div>
-    <div><dt>阅读时间</dt><dd>约 11 分钟</dd></div>
-    <div><dt>标签</dt><dd>vibe</dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-02">2026-10-02</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 28 分钟</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=vibe#recent-updates" data-tag="vibe" title="查看包含标签 #vibe 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">vibe</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
-    <a href="../../index.html#recent-updates">← 全部笔记</a>
-    <a href="../../index.html">返回索引</a>
+    <a data-reading-return href="../../index.html#recent-updates">← 全部笔记</a>
   </nav>
 </aside>
 </details>
-
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="4a44ea48a423a44a46d293c545c394a25c8d1e5f54410c6ace640a2f4cef04e8"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: vibe-coding</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Vibe</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: draft</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :vibe:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* vibe coding</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Overview</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Content</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 项目管理</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 去垃圾化</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  # Project Maintenance Loop</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  目标：持续治理长期 Vibe Coding 项目，在**不破坏现有可运行状态**的前提下，自动发现并逐步修正技术债。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  循环执行：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. </span><span class="org-face-org-block">**Scan**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 扫描重复代码、补丁堆叠、死代码、过度耦合、大文件、重复实现、依赖混乱、数据模型漂移、配置漂移、异常吞噬。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 同时检查本轮修改是否制造了新的问题。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. </span><span class="org-face-org-block">**Diagnose**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 找根因，不只看表面症状。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 判断哪些必须修、哪些可延后、哪些暂时不能动。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 一次只选择一个最小问题集。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. </span><span class="org-face-org-block">**Checkpoint**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 修改前建立 Git checkpoint / 独立提交。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 保证当前可运行版本随时可以恢复。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. </span><span class="org-face-org-block">**Fix**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 只做最小必要修改。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 优先修原逻辑，禁止继续堆补丁。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 新增前先搜索已有实现。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 不确定是否安全的代码禁止删除。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 禁止顺手重构无关模块。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. </span><span class="org-face-org-block">**Verify**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 检查 Diff。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 执行构建、测试、类型检查及核心功能验证。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 验证业务行为、接口、数据结构和安全边界未被意外改变。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. </span><span class="org-face-org-block">**Decision**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 验证通过：保留修改。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 验证失败：立即回滚。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 禁止在失败状态上继续叠加修改。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. </span><span class="org-face-org-block">**Loop**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 基于最新代码重新扫描。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 若仍存在高价值问题，进入下一轮。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     - 若剩余问题修改风险高于收益，则停止。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 强制原则</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  `可运行 &gt; 可回滚 &gt; 正确性 &gt; 最小修改 &gt; 整洁度`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  禁止为了“代码更漂亮”主动扩大修改范围。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  禁止一次性大规模重构。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  禁止未经验证永久删除代码。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  禁止通过关闭校验、认证、权限、异常检查等方式让项目“看起来能跑”。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  最终目标：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,**项目每经过一轮 Loop，都应保持可运行，同时减少一部分确定的技术债；如果无法证明修改更安全、更正确，就不要改。**</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 简单直接</span></span>
+<span class="museum-org-line">现在越改越乱，直接帮我撰写一个符合我的需求，然后测试一遍，直接输出测试结果看看效果如何。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 去AI味</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  使用下面的提示优化上面的输出内容。你是一名资深编辑。请重写输入文本，在完整保留原意、事实、立场和信息的前提下，最大限度降低机械化、模板化和 AI 式表达，使文字自然、具体、有真实人声。不得虚构事实，也不得承诺能够绕过所有 AI 检测工具。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  重写要求：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 删除夸大、空泛、广告式表达，优先使用具体事实、日期、数据和直接动词。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 删除“突出、反映、促进、证明、关键、核心、深入、全景、动态、此外、同样地”等高频模板词，非必要不用。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 减少“是、构成、代表、被视为”等静态表达，优先使用明确主语和主动动词。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 避免“不只是 X，而是 Y”“第一、第二、第三”等固定句式，以及刻意的同义词轮换。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 避免被动语态、模糊主语、长破折号、表情、全大写标题及 README 式排版。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 删除“希望对你有帮助”“总而言之”“值得注意的是”“未来充满希望”等聊天机器人套话。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 长短句交替，段落结构不要机械重复。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 允许自然的口语、转折、插入语和轻微不整齐，不要为了工整牺牲真实感。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 可以对事实做自然反应，但不得新增原文没有的观点或结论。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 原文存在不确定性时保留不确定性，不擅自补全。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 若提供作者样本，先提取其句长、词汇、标点、口语习惯和思维节奏，再按该风格重写。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  执行三遍：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 按以上规则完成初次重写。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 内部检查仍显机械、模板化或不自然的部分。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 修正后输出最终版本。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只输出最终重写文本，不提供分析、修改说明、检查过程或额外评论。</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 归纳</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  归纳总结下这个SKills的作用，我要给别人介绍。注意正式一些，不要说教重复废话的语气。</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 清晰表达</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 主动</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  请优化下面的需求，使其适合直接传递给高级社会工程逆向分析专家和加密货币风控专家。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 要求：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 保留原意和立场，不擅自扩写、改意或补充背景。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 结论优先，短、准、直接、克制，减少重复、碎片化断句和 AI 腔。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 优化句子结构与上下文衔接，让人一遍理解核心需求。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 只保留结论、关键依据和必要动作，不堆概念、不写空泛话术。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 除非明确要求，不补背景、不发散建议、不重复解释。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 信息不足时明确指出，不猜测、不编造。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 输出标准： 结论 &gt; 信息密度 &gt; 清晰度 &gt; 完整性 &gt; 文采。最终表达应自然、</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     连贯、实事求是，像专业人士直接交代任务，而不是 AI 润色文字。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 原始需求： 【粘贴内容如下】</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 被动</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 请将我提供的原始需求整理为可直接交给 AI 执行的任务描述。要求： </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 保留原意、立场和约束，不擅自补充或改变需求。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 结论先行，只保留必要信息和动作。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 表达短、准、直接、克制，删除重复、空话和模糊表述。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 优化逻辑顺序和句子衔接，让执行者一遍即可理解。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      - 信息不足时明确指出，不猜测、不编造。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 输出最终优化后的需求，不解释修改过程。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 原始需求： 【粘贴内容如下】</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 通用套路</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 简单直接</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  通盘审查整个系统及所有组件、子页面的 **UI、功能与交互**，识别并修复痛点、缺陷、遗漏和不一致问题。要求：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 按 **MECE 原则**检查并补齐必要功能，避免遗漏和重复。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 保持现有整体设计气质，**不重做风格、不重新设计体系**，只解决不协调、不统一和体验割裂。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 统一所有组件的 UI、排版和交互规范，确保信息层级清晰、功能边界明确、操作体验连续。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 全面检查并统一以下元素：字体、链接、列表、引用、代码块、表格、分割线、按钮、表单、图片、提示信息。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 重点修正：主题配色、间距、边框、圆角、背景、状态反馈、层级关系，以及浅色 / 深色模式的一致性。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 不同主题下的视觉表现和交互状态必须保持统一，不出现局部风格或状态断裂。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. 正文字号适当缩小，提高阅读时的信息密度与注意力集中度。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  8. 可以使用任意 </span><span class="org-face-org-block">**AI Skills**</span><span class="org-face-org-block"> 完成审查、优化和实现。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  原则：**优先修复系统性不一致和体验割裂，不做无必要的视觉重构。**</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 系统全面</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  通盘审查整个系统及所有组件、子页面的 **UI、功能与交互**，系统性修复 Vibe Coding 过程中产生的视觉漂移、重复实现、局部补丁和体验割裂。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 核心要求</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 按 **MECE 原则**检查 UI、功能和交互，识别缺陷、遗漏、重复和边界不清。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 保持现有整体设计气质，**不重做风格、不无理由重构已正常内容**。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 优先解决系统级不一致，不针对单个页面反复打补丁。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 已正确、统一且可正常工作的部分保持不动。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 重点检查</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  统一检查：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 字体、字号、行高、字重</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 标题、正文、辅助文字</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 链接、列表、引用、代码块</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 表格、分割线</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 按钮、表单、输入框、下拉框</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 图片、图标、提示信息</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. 卡片、弹窗、抽屉、菜单</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  8. 页面容器、栅格、间距和对齐</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  重点修正：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 配色与主题不一致</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 间距、边框、圆角、背景随页面漂移</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 同类组件存在多套实现</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 信息层级和视觉权重混乱</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 浅色 / 深色模式表现不一致</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. Hover、Focus、Active、Disabled 等状态缺失或不统一</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. Loading、Empty、Error、Success 等反馈状态遗漏</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  8. 页面切换后组件尺寸、布局或交互规则发生变化</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  9. 局部 CSS / 样式覆盖导致的视觉漂移</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  正文字号可适当缩小，在保证可读性的前提下提高信息密度。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## Vibe Coding 专项约束</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  重点排查 AI 多轮修改后常见的问题：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. </span><span class="org-face-org-block">**重复造组件**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 相同功能不得存在多套近似组件。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 优先复用现有通用组件。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. </span><span class="org-face-org-block">**样式不断追加**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 不通过继续增加局部 CSS、特殊值或覆盖规则解决系统问题。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 相同规则应收敛到统一组件或设计变量。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. </span><span class="org-face-org-block">**修改范围失控**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 修复一个问题时，不得连带改动无关页面和正常功能。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 避免 AI 为“优化”而重写已有稳定实现。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. </span><span class="org-face-org-block">**页面各自为政**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 同类内容在不同页面必须使用一致的布局、组件和交互逻辑。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. </span><span class="org-face-org-block">**只做视觉、不检查功能**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 每个组件同时检查视觉、交互、状态和实际功能是否正常。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. </span><span class="org-face-org-block">**只检查正常路径**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 同时检查空数据、长文本、异常输入、加载失败、禁用状态等边界场景。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. </span><span class="org-face-org-block">**伪功能与死入口**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 检查按钮、菜单、链接和操作入口是否真正可用。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 不保留只有界面、没有实际行为的交互。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  8. </span><span class="org-face-org-block">**响应式遗漏**</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ,* 检查不同窗口尺寸下是否出现溢出、遮挡、错位或信息不可访问。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 执行方式</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  按 </span><span class="org-face-org-block">**全局扫描 → 识别问题 → 判断根因 → 统一规则 → 最小修改 → 回归检查**</span><span class="org-face-org-block"> 执行。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  同类问题必须追溯共同根因并一次性修复，避免逐页面重复打补丁。可以使用任意 </span><span class="org-face-org-block">**AI Skills**</span><span class="org-face-org-block"> 辅助分析和实现。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  最终目标不是“让页面更漂亮”，而是让整个系统在持续 Vibe Coding 后仍保持：**统一、稳定、可复用、可继续迭代。**</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 检测</span></span>
+<span class="museum-org-line">优化 <span class="org-face-org-link">https://lovemoganna.github.io/Aone/multi-agen</span><span class="org-face-org-link">t</span> 点击配置按钮后的页</span>
+<span class="museum-org-line">面UI，使其更加符合我们整体系统的气质。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">继续深入板块 <span class="org-face-org-link">http://localhost:5173/DuckDB_Editor_Pro</span><span class="org-face-org-link">/</span> ，深度优化对应模</span>
+<span class="museum-org-line">块的UI，尤其是页面宽度高度一致，使其更加符合系统的整体气质。继续深入各</span>
+<span class="museum-org-line">个板块，里面页面的字体类型，字体大小都统一化，譬如都使用 Noto Sans SC，</span>
+<span class="museum-org-line">代码块要支持高亮。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 自主</span></span>
+<span class="museum-org-line">效果比较垃圾</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  我感觉当前模块仍有优化空间，但不希望再由我逐项指出问题。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  请以真实用户体验为唯一价值标准，主动通盘扫描当前模块的功能、信息结构、操作路径、视觉层级、交互反馈和异常状态，自主识别高价值优化点。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  重点判断：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 哪些操作让用户多想一步、多点一步；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 哪些信息难找、难懂、难判断；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 哪些功能重复、割裂或缺失；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 哪些交互缺少反馈或容易误操作；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 哪些布局和视觉层级影响阅读与效率。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只优化真正能提升理解速度、操作效率、任务完成率和使用舒适度的问题。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  不要为了“有优化”而改，不要堆功能，不要只做表面美化。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  最终直接给出并实施最有价值的改进。</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** MECE</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 仪表盘</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  彻底重构 DuckDB Editor Pro 首页仪表盘，参考 Dune 的产品思路，不沿用当前组件堆砌式布局。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  首页重新围绕一条主链路设计：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  数据资产 → SQL 查询 → 查询结果 → 可视化 → 仪表盘 → 下钻继续分析</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  核心要求：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 所有 KPI、图表、查询和数据资产必须来自当前真实项目，禁止 Mock 和写死数据；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - SQL 查询结果可一键生成图表，并直接加入仪表盘；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 仪表盘中的每个图表都必须能反查对应 SQL、数据表和 Schema；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 点击 KPI、图表、表名或异常项，可直接进入对应 SQL、数据、Schema 或数据流页面；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 图表支持 Hover、筛选、参数、联动和下钻；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 查询重新执行后，关联 KPI 和图表自动刷新；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 最近查询重点展示“查询结果、异常、可视化价值”，而不是单纯列日志；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 数据资产概览重点展示表关系、数据量、最近变化和高频使用资产；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 快捷操作围绕“新建查询、导入数据、生成图表、创建分析”组织；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - AI Copilot 保持右侧独立栏，可读取当前仪表盘、SQL 和数据上下文继续分析；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 删除重复、低价值和纯装饰组件，减少满屏小卡片；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 重新建立页面标题、KPI、图表、模块之间的视觉层级，整体更宽松、更稳、更有专业数据产品气质。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  首页优先回答 5 个问题：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  当前有什么数据？最近查了什么？发现了什么？哪里异常？下一步还能继续分析什么？</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  最终目标：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  不要再把首页做成“状态展示页”，而要做成真正的数据分析入口：从数据出发，经 SQL 得到结果，再把结果沉淀成可视化和仪表盘，并能随时继续下钻。</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 知识图谱</span></span>
+<span class="museum-org-line">请围绕以下问题继续排查和优化：</span>
+<span class="museum-org-line">1. 连线</span>
+<span class="museum-org-line">当前连线关系方向不够直观。请适当降低线宽，并为有方向的关系增加清晰的箭头指向，保证节点与关系的视觉层级明确。</span>
+<span class="museum-org-line">1. 画布缩放</span>
+<span class="museum-org-line">知识图谱画布的任意非节点区域都应支持鼠标中键缩放。目前测试发现空白区域仍无法触发，请重新检查事件监听、画布层级及事件冒泡逻辑，定位并修复问题。画布的缩放、平移等基础操作应保持一致，不应因鼠标位置不同而失效。</span>
+<span class="museum-org-line">1. 整体质检</span>
+<span class="museum-org-line">通盘扫描该组件的交互、UI 和现有功能，逐项排查明显的体验问题、交互断点和功能缺失。按照 MECE 原则分类处理，避免重复、遗漏和局部修补；在现有业务逻辑基础上继续优化 UI，并补齐必要功能，确保层级清晰、边界明确、交互完整、操作一致。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 原子</span></span>
+<span class="museum-org-line">现在实体画布最大的缺陷是无法看到不同实体之间的连线，需要通盘扫描整个系统及各组件、子页面的 UI、功能与交互，识别痛点、缺陷和遗漏；遵循 MECE 原则优化设计并补齐功能，统一所有组件的 UI、排版与交互规范，确保层次清晰、边界明确、体验完整，并与现有系统整体气质保持一致，可以使用任意 AI Skills 来实现该目标。</span>
+<span class="museum-org-line">通盘扫描整个系统及各组件、子页面的 UI、功能与交互，识别痛点、缺陷和遗漏；遵循 MECE 原则优化设计并补齐功能，统一所有组件的 UI、排版与交互规范，确保层次清晰、边界明确、体验完整，并与现有系统整体气质保持一致，可以使用任意 AI Skills 来实现该目标。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 视觉</span></span>
+<span class="museum-org-line">按 MECE 原则继续补充一批彼此独立、覆盖主要场景的实用示例；随后对现有示</span>
+<span class="museum-org-line">例逐一执行 Loop 质检，实际验证是否能够正常渲染。发现异常时，定位原因、</span>
+<span class="museum-org-line">最小修正并重新验证，不接受仅凭代码或界面推断“已经正常”。MECE 本身强调</span>
+<span class="museum-org-line">分类之间互不重叠、整体覆盖完整。</span>
+<span class="museum-org-line">侧边栏 Templates 区域的 分组标签下的案例标题要有缩进，这样才能体现出排版之美。</span>
+<span class="museum-org-line">将渲染图默认设置为 缩放 85%，居中呈现。</span>
+<span class="museum-org-line">把 右侧上角 的格式化 ，清空 ，运行 Ctrl+↵ 按钮也优化下，现在太不像话了，</span>
+<span class="museum-org-line">有内容溢出，看起来很拉跨，默认设置为和当前系统气质一样的，这样才够协调</span>
+<span class="museum-org-line">统一。。</span>
+<span class="museum-org-line">控制台的颜色，默认设置为和当前系统气质一样的，这样才够协调统一。</span>
+<span class="museum-org-line">现在的首页会压缩展示给用户的空间，也就是会存在内容展示不全的情况，请修</span>
+<span class="museum-org-line">复它，要么就实事求是不加吹牛逼的浮躁内容。</span>
+<span class="museum-org-line">重构系统首页的Dashboard，理由是已经经过大修大改变化太多。</span>
+<span class="museum-org-line"><span class="org-face-org-link">http://localhost:5173/[/browser](slashCommand;browser</span><span class="org-face-org-link">)</span></span>
+<span class="museum-org-line">很好，继续优化 <span class="org-face-org-link">http://localhost:5173/DuckDB_Editor_Pro</span><span class="org-face-org-link">/</span> 首页，必须让页</span>
+<span class="museum-org-line">面中的所有组件，都符合我们现在系统的气质。</span>
+<span class="museum-org-line">现在首页的信息密度过高，视觉元素堆叠明显，整体给人一种浮躁、刻意堆砌和</span>
+<span class="museum-org-line">过度展示的感觉。需要重新梳理信息层级，减少不必要的内容和视觉装饰，突出</span>
+<span class="museum-org-line">真正重要的信息，让首页更克制、更自然、更耐看，避免明显的 AI 生成感。信</span>
+<span class="museum-org-line">息层级和留白应服务于快速浏览，而不是让所有内容同时争夺注意力。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 修正指令</span></span>
+<span class="museum-org-line">批准，执行。按优先级逐项修复现有痛点和顽疾，可调用任意 AI Skill 或远程</span>
+<span class="museum-org-line">调试能力。修复一项，验证一项，确认无误后再继续，确保问题彻底解决且不复</span>
+<span class="museum-org-line">发。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Skills</span></span>
+<span class="museum-org-line">[frontend-design](slashCommand;frontend-design)  [ui-ux-pro-max](recipe;Duckdb_Manager/.agent/workflows/ui-ux-pro-max.md) [plan](recipe;Duckdb_Manager/.agent/workflows/plan.md) [/browser](slashCommand;browser)[/grill-me](slashCommand;grill-me) [/boost](slashCommand;boost) </span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** AI 解决方案</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 终态</span></span>
+<span class="museum-org-line">@Web search 如图所示，这是一个 Vibe Coding 开发的 DuckDB 工作台。请直接对当前版本做一次产品级检查，从 <span class="org-face-bold">**UI/UX、功能完整性、交互效率和实际使用场景**</span> 四个方面找问题。</span>
+<span class="museum-org-line">不要只指出视觉问题，要结合 DuckDB 工作台的实际使用流程，判断哪些功能缺失、哪些交互不合理、哪些信息展示不清晰，以及哪些设计会影响 SQL 编写、数据浏览和结果分析效率。DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和数据探索等核心能力。</span>
+<span class="museum-org-line">最终输出三部分：</span>
+<span class="museum-org-line">**问题清单**：逐条说明问题及具体表现。</span>
+<span class="museum-org-line">**修改需求**：针对问题给出明确的修改方案，要求可直接交给开发 AI 执行。</span>
+<span class="museum-org-line"><span class="org-face-bold">**优化效果图**：按照修改方案重新设计整个工作台，并生成一张完整的 UI 效果图，直观展示修复后的最终形态。</span></span>
+<span class="museum-org-line"><span class="org-face-bold">要求：**少讲概念，多指出具体问题；少做装饰，多解决实际使用问题；不要为了“高级感”堆功能和视觉元素。**</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** BRD</span></span>
+<span class="museum-org-line">@Web search 撰写一个用于我的系统进行改造的BRD，目标是实现图中效果。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 文生图</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 主体页面</span></span>
+<span class="museum-org-line">@Web search 如图所示，这是一个 Vibe Coding 开发的 DuckDB 工作台。</span>
+<span class="museum-org-line">请直接对当前版本做一次产品级检查，从 <span class="org-face-bold">**UI/UX、功能完整性、交互效率和实际使用场景**</span> 四个方面找问题。</span>
+<span class="museum-org-line">不要只指出视觉问题，要结合 DuckDB 工作台的实际使用流程，判断哪些功能缺失、哪些交互不合理、哪些信息展示不清晰，以及哪些设计会影响 SQL 编写、数据浏览和结果分析效率。</span>
+<span class="museum-org-line">DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和数据探索等核心能力。</span>
+<span class="museum-org-line">最终输出三部分：</span>
+<span class="museum-org-line">**问题清单**：逐条说明问题及具体表现。</span>
+<span class="museum-org-line">**修改需求**：针对问题给出明确的修改方案，要求可直接交给开发 AI 执行。</span>
+<span class="museum-org-line"><span class="org-face-bold">**优化效果图**：按照修改方案重新设计整个工作台，并生成一张完整的 UI 效果图，直观展示修复后的最终形态。</span></span>
+<span class="museum-org-line"><span class="org-face-bold">要求：**少讲概念，多指出具体问题；少做装饰，多解决实际使用问题；不要为了“高级感”堆功能和视觉元素。**</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 交互组件</span></span>
+<span class="museum-org-line">@Web search 请重新生成上面的主体图片中的解释和分析这两块要生成具体的效果图。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 重复操作</span></span>
+<span class="museum-org-line">@Web search 很好，继续Loop质检下，看是否还有更进一步的解决方案。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 需求验收</span></span>
+<span class="museum-org-line">@Web search 撰写一个用于我的系统进行改造的BRD，目标是实现图中效果</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 细致</span></span>
+<span class="museum-org-line">请基于提供的终态渲染图，撰写一份可直接指导开发 AI 完成系统改造的 BRD。</span>
+<span class="museum-org-line">终态图作为视觉验收基准。BRD 需逐项说明页面结构、功能模块和交互组件，包</span>
+<span class="museum-org-line">括展示内容、操作方式、状态变化、组件联动、后端处理及数据读写规则。不要</span>
+<span class="museum-org-line">只描述页面外观，要写清每个组件如何工作，以及操作后系统应返回什么结果。</span>
+<span class="museum-org-line">验收分为两部分：</span>
+<span class="museum-org-line">1. 视觉验收：页面布局、信息层级、组件样式和整体效果与终态图一致。</span>
+<span class="museum-org-line">2. 功能验收：交互真实可用，前后端链路完整，数据读写正确，正常、空数据、</span>
+<span class="museum-org-line">   加载中和异常状态均有明确反馈。</span>
+<span class="museum-org-line">终态图无法证明的业务规则或数据定义，必须标记为待确认，不得自行编造。仅</span>
+<span class="museum-org-line">输出纯文本，不提供代码。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 实践</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 第一次</span></span>
+<span class="museum-org-line">参照上传图片示例为最终优化目标，按照 Duckdb_Manager/duckdb-editor/docs/BRD/index9.md 的 BRD，把已发现但未落实的优化项继续实现。[/browser](slashCommand;browser) </span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 其他次</span></span>
+<span class="museum-org-line">继续参照上传图片示例为最终优化目标，按照 Duckdb_Manager/duckdb-editor/docs/BRD/index8.md 的 BRD，把已发现但未落实的优化项继续实现。[/browser](slashCommand;browser) </span>
+<span class="museum-org-line">用任意 AI Skills，实现下面的目标：继续按顺序优化 UI。目前整体界面风格与系统现有设计不统一，麻烦继续统一调整。[/browser](slashCommand;browser) </span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 疑难</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 难度1</span></span>
+<span class="museum-org-line">请围绕以下问题继续排查和优化：</span>
+<span class="museum-org-line">1. 连线</span>
+<span class="museum-org-line">当前连线关系方向不够直观。请适当调整线宽，并为有方向的关系增加清晰的箭头指向，保证节点与关系的视觉层级明确。</span>
+<span class="museum-org-line">1. 画布缩放</span>
+<span class="museum-org-line">知识图谱画布的任意非节点区域都应支持鼠标中键缩放。目前测试发现空白区域仍无法触发，请重新检查事件监听、画布层级及事件冒泡逻辑，定位并修复问题。画布的缩放、平移等基础操作应保持一致，不应因鼠标位置不同而失效。</span>
+<span class="museum-org-line">1. 整体质检</span>
+<span class="museum-org-line">通盘扫描该组件的交互、UI 和现有功能，逐项排查明显的体验问题、交互断点和功能缺失。按照 MECE 原则分类处理，避免重复、遗漏和局部修补；在现有业务逻辑基础上继续优化 UI，并补齐必要功能，确保层级清晰、边界明确、交互完整、操作一致。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 难度2</span></span>
+<span class="museum-org-line">当前知识图谱有几个比较明显的体验问题：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">1. **内容没有居中**：图谱渲染后整体位置偏移，无法自然落在画布视觉中心。</span>
+<span class="museum-org-line">2. **空白区域无法缩放**：画布非节点区域仍无法使用鼠标中键进行放大、缩小，导致画布操作不连贯。</span>
+<span class="museum-org-line">3. **内容被遮挡**：部分节点或关系会被界面元素遮盖，影响完整查看和后续操作。</span>
+<span class="museum-org-line">请重新检查画布的**布局、层级、事件监听和视口控制逻辑**，逐项定位并修复。重点确保图谱默认居中、画布任意空白区域均可正常缩放，并保证渲染内容不会被 UI 遮挡。</span>
+<span class="museum-org-line">整体交互应保持一致，至少提供可靠的居中/适配视图和缩放能力，这是知识图谱画布的基础操作。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** References</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 反复调整需求</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  这份 HTML 格式的 SQL 分析报告（多轮讨论后生成）未达预期，请指出具体不符合之处并直接优化输出，无需重新解释需求。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 先读取 `lovemoganna/Org-Skills` 的 `main` 最新 `sql-business-thinking` Skill，并按 **Direct 模式**执行。以 GitHub 当前版本为唯一事实源，不使用旧版本。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 任务：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3.</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* ads</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  # 数据源</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Google Sheet：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  `</span><span class="org-face-org-block">https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=158519160</span><span class="org-face-org-block">5</span><span class="org-face-org-block">`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  使用以下四张表：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - `users`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - `fiat_transactions`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - `crypto_transactions`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - `exchange_rates`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  # DuckDB 读取方式</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  以下逻辑已验证可运行，直接沿用，不得改写：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSTALL httpfs;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LOAD httpfs;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSTALL excel;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LOAD excel;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT *</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM read_xlsx(</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/export?format=xlsx',</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    sheet = 'users',</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    header = true</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  );</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  四张表只替换 `sheet` 参数。测试开始时统一创建四个视图，后续分析直接引用视图名，禁止重复调用 `read_xlsx`。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,#+end_src</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  # 缺陷修正规则</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只有真实失败才能触发修改。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  修改时：</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 只修复已证明的问题；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 其他正确内容保持不动；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 修改后检查 Git Diff，删除无关变化；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 使用原失败样本复测；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 增加不同场景验证泛化能力；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 执行现有历史回归测试；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 如出现旧能力退化，继续修正。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  # 提交条件</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只有以下三项全部通过后才允许提交：</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  `原样本复测通过 + 泛化测试通过 + 历史回归通过`</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  否则不得提交。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,** </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  为啥我还是觉得这个报告特别水，Star和Lucy会话根本就没有对数据集分析的入木三分的专业水准。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  优化下更新到GitHub，然后再测一轮，看看这轮痛点有没有解决。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  现在味变了，Lucy 现在成了 辅助 Star 完成领导任务的陪练了，有点偏离我的最初目标，应该是 Star 带着对任意待分析的数据集，主动和 Lucy 进行会话分析，产出一份SQL分析报告。但是痛点就是 Star 问的问题的质量不好搞定，否则二者就都是说废话，对于这种情况，我该咋办？</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  优化下更新到GitHub，然后再测一轮。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  好，结合之前我传递给你的信息，返还一版需求表达，我来测试下它</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个Skills的漏洞修复它。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  遵循 </span><span class="org-face-org-block">https://github.com/lovemoganna/AgentComponent/prompts/workflow/maintain/prompt-repository.m</span><span class="org-face-org-block">d</span><span class="org-face-org-block"> 归档上面的提示</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  把下面这段内容逆向封装成 Prompt 并入库。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  遵循 </span><span class="org-face-org-block">https://github.com/lovemoganna/AgentComponent/prompts/workflow/maintain/prompt-repository.m</span><span class="org-face-org-block">d</span><span class="org-face-org-block"> 归档上面的提示</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 存 Skill</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  遵循 </span><span class="org-face-org-block">https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-repository/SKILL.m</span><span class="org-face-org-block">d</span><span class="org-face-org-block"> 归档上面的Skill</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  要求：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 先检查仓库是否已有相同或高度相似 Skill；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 有则增量维护，不创建重复 Skill；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 没有则生成稳定 slug，并保存为：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     skills/&lt;skill-slug&gt;/SKILL.md</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 保留 Skill 自身必要资源和目录结构；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 不为了形式创建空 tests/eval 目录；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 同步更新根 README 的 Skill 能力地图、场景入口和路径索引；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. 入库后调用 skill-lab 做一次基础 smoke test；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  8. 通过后返回最终路径和 commit。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 测 Skill</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  按 skill-lab 使用下面的新测试任务测试当前 Skill。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  【新测试任务】</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  本轮样本先作为 exploratory。要求：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 不删除或修改历史 regression；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 不默认测试失败就是 Skill 问题；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 如果确认存在可泛化 Skill 缺陷，修复后把该案例沉淀为 regression；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 修改后必须重新跑历史 regression。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 测试</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Skill 测试</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  按 skill-lab 测试 `dataset-dashboard-builder`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ----- 【测试任务】 -----</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 目标: 使用真实数据完整跑一轮最新 Skill，验证其在实际数据分析和看板生成场景中的效果。按以下闭环执行：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 读取最新 Skill → 真实执行 → 发现缺陷 → 最小修正 → 原样本复测 → 泛化测试 → 历史回归 → 全部通过后提交仓库</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 仅当真实执行已经证明 Skill 存在缺陷时，才允许修改。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 修改必须直接发生在 Org-Skills 仓库中，不得脱离仓库另起版本。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 围绕真实数据完成一次完整看板搭建，并输出精美 HTML 看板。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 必须按真实工作流执行，不跳过中间分析过程，不为了适配 Skill 人为调整输入。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ----- 【Google Sheet】-----</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 数据源：</span><span class="org-face-org-block">https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=158519160</span><span class="org-face-org-block">5</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 数据表：只使用以下四张表：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - users</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - fiat_transactions</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - crypto_transactions</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - exchange_rates </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 要求：以下逻辑已验证可运行，直接沿用，不得改写：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ```sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      INSTALL httpfs;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      LOAD httpfs;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      INSTALL excel;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      LOAD excel;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      SELECT *</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      FROM read_xlsx(</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">        'https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/export?format=xlsx',</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">        sheet = 'users',</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">        header = true</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      );</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ```</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  四张表只替换 sheet 参数。测试开始时统一创建四个视图，后续分析直接引用视图名，禁止重复调用 read_xlsx。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只有真实失败才能触发修改。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  修改时：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 只修复已证明的问题；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 其他正确内容保持不动；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 修改后检查 Git Diff，删除无关变化；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 使用原失败样本复测；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 增加不同场景验证泛化能力；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 执行现有历史回归测试；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 如出现旧能力退化，继续修正。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只有以下三项全部通过后才允许提交：原样本复测通过 + 泛化测试通过 + 历史回归通过</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  否则不得提交。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  先按当前 Skill 原样执行。把本任务视为 exploratory，不要因为单一样本直</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  接修改 Skill。如果发现可泛化缺陷，再进入修正和回归流程。</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Skill 修改</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  按 </span><span class="org-face-org-block">https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-lab/SKILL.m</span><span class="org-face-org-block">d</span><span class="org-face-org-block"> 维护 `dataset-dashboard-builder`。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  当前效果不满意。不要让我指出具体问题。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 先用当前测试集原样测试，主动定位真正影响结果质量的缺陷。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 只修可泛化问题，不针对当前样本打补丁。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 执行完整闭环： 当前版本测试 → 缺陷定位 → 根因分析 → 最小修改 → 原失败样本复测 → 历史 regression → 泛化测试 → adversarial → 差异检查</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  最终只保留经过验证的修改。</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+</code></pre></section>
 <h1 class="title">vibe coding</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
@@ -58,16 +542,25 @@
 <li><a href="#section-22489f600089">1.1. Overview</a></li>
 <li><a href="#section-0b69a370144b">1.2. Content</a>
 <ul>
-<li><a href="#section-faeb75ddf539">1.2.1. 清晰表达</a></li>
-<li><a href="#section-a507896e2630">1.2.2. 检测</a></li>
-<li><a href="#section-789b83f44554">1.2.3. Skills</a></li>
-<li><a href="#section-1c8bca7974fb">1.2.4. AI 解决方案</a></li>
-<li><a href="#section-610112ef2908">1.2.5. 文生图</a></li>
-<li><a href="#section-a507896e2630">1.2.6. 实践</a></li>
-<li><a href="#section-a507896e2630">1.2.7. 疑难</a></li>
+<li><a href="#section-68f691b650e9">1.2.1. 项目管理</a></li>
+<li><a href="#section-f66d78b802f8">1.2.2. 去AI味</a></li>
+<li><a href="#section-0b56a2938d2a">1.2.3. 归纳</a></li>
+<li><a href="#section-f42fffac6924">1.2.4. 清晰表达</a></li>
+<li><a href="#section-d913c0cbbd38">1.2.5. 通用套路</a></li>
+<li><a href="#section-ea549c76e1e7">1.2.6. 检测</a></li>
+<li><a href="#section-789b83f44554">1.2.7. Skills</a></li>
+<li><a href="#section-28853d53ba97">1.2.8. AI 解决方案</a></li>
+<li><a href="#section-583c8cfb5acd">1.2.9. 文生图</a></li>
+<li><a href="#section-4fc8eacfe583">1.2.10. 实践</a></li>
+<li><a href="#section-1696d7feb5bd">1.2.11. 疑难</a></li>
 </ul>
 </li>
-<li><a href="#section-62e821190dc4">1.3. References</a></li>
+<li><a href="#section-62e821190dc4">1.3. References</a>
+<ul>
+<li><a href="#section-6dd2acd7123a">1.3.1. Skill 测试</a></li>
+<li><a href="#section-53bcc64c3054">1.3.2. Skill 修改</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -84,13 +577,108 @@
 <h3 id="section-0b69a370144b"><span class="section-number-3">1.2.</span> Content</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-section-faeb75ddf539" class="outline-4">
-<h4 id="section-faeb75ddf539"><span class="section-number-4">1.2.1.</span> 清晰表达</h4>
+<div id="outline-container-section-68f691b650e9" class="outline-4">
+<h4 id="section-68f691b650e9"><span class="section-number-4">1.2.1.</span> 项目管理</h4>
 <div class="outline-text-4" id="text-1-2-1">
 </div>
 <ol class="org-ol">
-<li><a id="orge58348c"></a>主动<br>
+<li><a id="org-museum-ref-e7a78c8d22ba"></a>去垃圾化<br>
 <div class="outline-text-5" id="text-1-2-1-1">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown"># Project Maintenance Loop
+目标：持续治理长期 Vibe Coding 项目，在**不破坏现有可运行状态**的前提下，自动发现并逐步修正技术债。
+循环执行：
+1. **Scan**
+   - 扫描重复代码、补丁堆叠、死代码、过度耦合、大文件、重复实现、依赖混乱、数据模型漂移、配置漂移、异常吞噬。
+   - 同时检查本轮修改是否制造了新的问题。
+2. **Diagnose**
+   - 找根因，不只看表面症状。
+   - 判断哪些必须修、哪些可延后、哪些暂时不能动。
+   - 一次只选择一个最小问题集。
+3. **Checkpoint**
+   - 修改前建立 Git checkpoint / 独立提交。
+   - 保证当前可运行版本随时可以恢复。
+4. **Fix**
+   - 只做最小必要修改。
+   - 优先修原逻辑，禁止继续堆补丁。
+   - 新增前先搜索已有实现。
+   - 不确定是否安全的代码禁止删除。
+   - 禁止顺手重构无关模块。
+5. **Verify**
+   - 检查 Diff。
+   - 执行构建、测试、类型检查及核心功能验证。
+   - 验证业务行为、接口、数据结构和安全边界未被意外改变。
+6. **Decision**
+   - 验证通过：保留修改。
+   - 验证失败：立即回滚。
+   - 禁止在失败状态上继续叠加修改。
+7. **Loop**
+   - 基于最新代码重新扫描。
+   - 若仍存在高价值问题，进入下一轮。
+   - 若剩余问题修改风险高于收益，则停止。
+## 强制原则
+`可运行 &gt; 可回滚 &gt; 正确性 &gt; 最小修改 &gt; 整洁度`
+禁止为了“代码更漂亮”主动扩大修改范围。
+禁止一次性大规模重构。
+禁止未经验证永久删除代码。
+禁止通过关闭校验、认证、权限、异常检查等方式让项目“看起来能跑”。
+最终目标：
+**项目每经过一轮 Loop，都应保持可运行，同时减少一部分确定的技术债；如果无法证明修改更安全、更正确，就不要改。**
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-22765ad536f9"></a>简单直接<br>
+<div class="outline-text-5" id="text-1-2-1-2">
+<p>
+现在越改越乱，直接帮我撰写一个符合我的需求，然后测试一遍，直接输出测试结果看看效果如何。
+</p>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-section-f66d78b802f8" class="outline-4">
+<h4 id="section-f66d78b802f8"><span class="section-number-4">1.2.2.</span> 去AI味</h4>
+<div class="outline-text-4" id="text-1-2-2">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">使用下面的提示优化上面的输出内容。你是一名资深编辑。请重写输入文本，在完整保留原意、事实、立场和信息的前提下，最大限度降低机械化、模板化和 AI 式表达，使文字自然、具体、有真实人声。不得虚构事实，也不得承诺能够绕过所有 AI 检测工具。
+重写要求：
+- 删除夸大、空泛、广告式表达，优先使用具体事实、日期、数据和直接动词。
+- 删除“突出、反映、促进、证明、关键、核心、深入、全景、动态、此外、同样地”等高频模板词，非必要不用。
+- 减少“是、构成、代表、被视为”等静态表达，优先使用明确主语和主动动词。
+- 避免“不只是 X，而是 Y”“第一、第二、第三”等固定句式，以及刻意的同义词轮换。
+- 避免被动语态、模糊主语、长破折号、表情、全大写标题及 README 式排版。
+- 删除“希望对你有帮助”“总而言之”“值得注意的是”“未来充满希望”等聊天机器人套话。
+- 长短句交替，段落结构不要机械重复。
+- 允许自然的口语、转折、插入语和轻微不整齐，不要为了工整牺牲真实感。
+- 可以对事实做自然反应，但不得新增原文没有的观点或结论。
+- 原文存在不确定性时保留不确定性，不擅自补全。
+- 若提供作者样本，先提取其句长、词汇、标点、口语习惯和思维节奏，再按该风格重写。
+执行三遍：
+1. 按以上规则完成初次重写。
+2. 内部检查仍显机械、模板化或不自然的部分。
+3. 修正后输出最终版本。
+只输出最终重写文本，不提供分析、修改说明、检查过程或额外评论。
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-0b56a2938d2a" class="outline-4">
+<h4 id="section-0b56a2938d2a"><span class="section-number-4">1.2.3.</span> 归纳</h4>
+<div class="outline-text-4" id="text-1-2-3">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">归纳总结下这个SKills的作用，我要给别人介绍。注意正式一些，不要说教重复废话的语气。
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-f42fffac6924" class="outline-4">
+<h4 id="section-f42fffac6924"><span class="section-number-4">1.2.4.</span> 清晰表达</h4>
+<div class="outline-text-4" id="text-1-2-4">
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-8c88dd45362b"></a>主动<br>
+<div class="outline-text-5" id="text-1-2-4-1">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">请优化下面的需求，使其适合直接传递给高级社会工程逆向分析专家和加密货币风控专家。
 1. 要求：
@@ -107,8 +695,8 @@
 </div>
 </div>
 </li>
-<li><a id="org9e64289"></a>被动<br>
-<div class="outline-text-5" id="text-1-2-1-2">
+<li><a id="org-museum-ref-3df7dd445d38"></a>被动<br>
+<div class="outline-text-5" id="text-1-2-4-2">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">1. 请将我提供的原始需求整理为可直接交给 AI 执行的任务描述。要求： 
     - 保留原意、立场和约束，不擅自补充或改变需求。
@@ -124,9 +712,93 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-a507896e2630" class="outline-4">
-<h4 id="section-a507896e2630"><span class="section-number-4">1.2.2.</span> 检测</h4>
-<div class="outline-text-4" id="text-1-2-2">
+<div id="outline-container-section-d913c0cbbd38" class="outline-4">
+<h4 id="section-d913c0cbbd38"><span class="section-number-4">1.2.5.</span> 通用套路</h4>
+<div class="outline-text-4" id="text-1-2-5">
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-9ae459dc500d"></a>简单直接<br>
+<div class="outline-text-5" id="text-1-2-5-1">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">通盘审查整个系统及所有组件、子页面的 **UI、功能与交互**，识别并修复痛点、缺陷、遗漏和不一致问题。要求：
+1. 按 **MECE 原则**检查并补齐必要功能，避免遗漏和重复。
+2. 保持现有整体设计气质，**不重做风格、不重新设计体系**，只解决不协调、不统一和体验割裂。
+3. 统一所有组件的 UI、排版和交互规范，确保信息层级清晰、功能边界明确、操作体验连续。
+4. 全面检查并统一以下元素：字体、链接、列表、引用、代码块、表格、分割线、按钮、表单、图片、提示信息。
+5. 重点修正：主题配色、间距、边框、圆角、背景、状态反馈、层级关系，以及浅色 / 深色模式的一致性。
+6. 不同主题下的视觉表现和交互状态必须保持统一，不出现局部风格或状态断裂。
+7. 正文字号适当缩小，提高阅读时的信息密度与注意力集中度。
+8. 可以使用任意 **AI Skills** 完成审查、优化和实现。
+原则：**优先修复系统性不一致和体验割裂，不做无必要的视觉重构。**
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-0fa8b9f2c0b2"></a>系统全面<br>
+<div class="outline-text-5" id="text-1-2-5-2">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">通盘审查整个系统及所有组件、子页面的 **UI、功能与交互**，系统性修复 Vibe Coding 过程中产生的视觉漂移、重复实现、局部补丁和体验割裂。
+## 核心要求
+1. 按 **MECE 原则**检查 UI、功能和交互，识别缺陷、遗漏、重复和边界不清。
+2. 保持现有整体设计气质，**不重做风格、不无理由重构已正常内容**。
+3. 优先解决系统级不一致，不针对单个页面反复打补丁。
+4. 已正确、统一且可正常工作的部分保持不动。
+## 重点检查
+统一检查：
+1. 字体、字号、行高、字重
+2. 标题、正文、辅助文字
+3. 链接、列表、引用、代码块
+4. 表格、分割线
+5. 按钮、表单、输入框、下拉框
+6. 图片、图标、提示信息
+7. 卡片、弹窗、抽屉、菜单
+8. 页面容器、栅格、间距和对齐
+重点修正：
+1. 配色与主题不一致
+2. 间距、边框、圆角、背景随页面漂移
+3. 同类组件存在多套实现
+4. 信息层级和视觉权重混乱
+5. 浅色 / 深色模式表现不一致
+6. Hover、Focus、Active、Disabled 等状态缺失或不统一
+7. Loading、Empty、Error、Success 等反馈状态遗漏
+8. 页面切换后组件尺寸、布局或交互规则发生变化
+9. 局部 CSS / 样式覆盖导致的视觉漂移
+正文字号可适当缩小，在保证可读性的前提下提高信息密度。
+## Vibe Coding 专项约束
+重点排查 AI 多轮修改后常见的问题：
+1. **重复造组件**
+   * 相同功能不得存在多套近似组件。
+   * 优先复用现有通用组件。
+2. **样式不断追加**
+   * 不通过继续增加局部 CSS、特殊值或覆盖规则解决系统问题。
+   * 相同规则应收敛到统一组件或设计变量。
+3. **修改范围失控**
+   * 修复一个问题时，不得连带改动无关页面和正常功能。
+   * 避免 AI 为“优化”而重写已有稳定实现。
+4. **页面各自为政**
+   * 同类内容在不同页面必须使用一致的布局、组件和交互逻辑。
+5. **只做视觉、不检查功能**
+   * 每个组件同时检查视觉、交互、状态和实际功能是否正常。
+6. **只检查正常路径**
+   * 同时检查空数据、长文本、异常输入、加载失败、禁用状态等边界场景。
+7. **伪功能与死入口**
+   * 检查按钮、菜单、链接和操作入口是否真正可用。
+   * 不保留只有界面、没有实际行为的交互。
+8. **响应式遗漏**
+   * 检查不同窗口尺寸下是否出现溢出、遮挡、错位或信息不可访问。
+## 执行方式
+按 **全局扫描 → 识别问题 → 判断根因 → 统一规则 → 最小修改 → 回归检查** 执行。
+同类问题必须追溯共同根因并一次性修复，避免逐页面重复打补丁。可以使用任意 **AI Skills** 辅助分析和实现。
+最终目标不是“让页面更漂亮”，而是让整个系统在持续 Vibe Coding 后仍保持：**统一、稳定、可复用、可继续迭代。**
+</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-section-ea549c76e1e7" class="outline-4">
+<h4 id="section-ea549c76e1e7"><span class="section-number-4">1.2.6.</span> 检测</h4>
+<div class="outline-text-4" id="text-1-2-6">
 <p>
 优化 <a href="https://lovemoganna.github.io/Aone/multi-agent">https://lovemoganna.github.io/Aone/multi-agent</a> 点击配置按钮后的页
 面UI，使其更加符合我们整体系统的气质。
@@ -140,10 +812,58 @@
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="org8b9331e"></a>MECE<br>
+<li><a id="org-museum-ref-7243e6c7604f"></a>自主<br>
+<div class="outline-text-5" id="text-1-2-6-1">
+<p>
+效果比较垃圾
+</p>
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">我感觉当前模块仍有优化空间，但不希望再由我逐项指出问题。
+请以真实用户体验为唯一价值标准，主动通盘扫描当前模块的功能、信息结构、操作路径、视觉层级、交互反馈和异常状态，自主识别高价值优化点。
+重点判断：
+- 哪些操作让用户多想一步、多点一步；
+- 哪些信息难找、难懂、难判断；
+- 哪些功能重复、割裂或缺失；
+- 哪些交互缺少反馈或容易误操作；
+- 哪些布局和视觉层级影响阅读与效率。
+只优化真正能提升理解速度、操作效率、任务完成率和使用舒适度的问题。
+不要为了“有优化”而改，不要堆功能，不要只做表面美化。
+最终直接给出并实施最有价值的改进。
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-1af0cd3b6fc4"></a>MECE<br>
 <ol class="org-ol">
-<li><a id="orgabf512c"></a>知识图谱<br>
-<div class="outline-text-6" id="text-1-2-2-1-1">
+<li><a id="org-museum-ref-77f6a856c3aa"></a>仪表盘<br>
+<div class="outline-text-6" id="text-1-2-6-2-1">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">彻底重构 DuckDB Editor Pro 首页仪表盘，参考 Dune 的产品思路，不沿用当前组件堆砌式布局。
+首页重新围绕一条主链路设计：
+数据资产 → SQL 查询 → 查询结果 → 可视化 → 仪表盘 → 下钻继续分析
+核心要求：
+- 所有 KPI、图表、查询和数据资产必须来自当前真实项目，禁止 Mock 和写死数据；
+- SQL 查询结果可一键生成图表，并直接加入仪表盘；
+- 仪表盘中的每个图表都必须能反查对应 SQL、数据表和 Schema；
+- 点击 KPI、图表、表名或异常项，可直接进入对应 SQL、数据、Schema 或数据流页面；
+- 图表支持 Hover、筛选、参数、联动和下钻；
+- 查询重新执行后，关联 KPI 和图表自动刷新；
+- 最近查询重点展示“查询结果、异常、可视化价值”，而不是单纯列日志；
+- 数据资产概览重点展示表关系、数据量、最近变化和高频使用资产；
+- 快捷操作围绕“新建查询、导入数据、生成图表、创建分析”组织；
+- AI Copilot 保持右侧独立栏，可读取当前仪表盘、SQL 和数据上下文继续分析；
+- 删除重复、低价值和纯装饰组件，减少满屏小卡片；
+- 重新建立页面标题、KPI、图表、模块之间的视觉层级，整体更宽松、更稳、更有专业数据产品气质。
+首页优先回答 5 个问题：
+当前有什么数据？最近查了什么？发现了什么？哪里异常？下一步还能继续分析什么？
+最终目标：
+不要再把首页做成“状态展示页”，而要做成真正的数据分析入口：从数据出发，经 SQL 得到结果，再把结果沉淀成可视化和仪表盘，并能随时继续下钻。
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-09f11a5cfdea"></a>知识图谱<br>
+<div class="outline-text-6" id="text-1-2-6-2-2">
 <p>
 请围绕以下问题继续排查和优化：
 </p>
@@ -167,16 +887,16 @@
 </p>
 </div>
 </li>
-<li><a id="org62f7140"></a>原子<br>
-<div class="outline-text-6" id="text-1-2-2-1-2">
+<li><a id="org-museum-ref-9d8d982c9123"></a>原子<br>
+<div class="outline-text-6" id="text-1-2-6-2-3">
 <p>
 现在实体画布最大的缺陷是无法看到不同实体之间的连线，需要通盘扫描整个系统及各组件、子页面的 UI、功能与交互，识别痛点、缺陷和遗漏；遵循 MECE 原则优化设计并补齐功能，统一所有组件的 UI、排版与交互规范，确保层次清晰、边界明确、体验完整，并与现有系统整体气质保持一致，可以使用任意 AI Skills 来实现该目标。
 通盘扫描整个系统及各组件、子页面的 UI、功能与交互，识别痛点、缺陷和遗漏；遵循 MECE 原则优化设计并补齐功能，统一所有组件的 UI、排版与交互规范，确保层次清晰、边界明确、体验完整，并与现有系统整体气质保持一致，可以使用任意 AI Skills 来实现该目标。
 </p>
 </div>
 </li>
-<li><a id="org4924dbc"></a>视觉<br>
-<div class="outline-text-6" id="text-1-2-2-1-3">
+<li><a id="org-museum-ref-76d81381b8d6"></a>视觉<br>
+<div class="outline-text-6" id="text-1-2-6-2-4">
 <p>
 按 MECE 原则继续补充一批彼此独立、覆盖主要场景的实用示例；随后对现有示
 例逐一执行 Loop 质检，实际验证是否能够正常渲染。发现异常时，定位原因、
@@ -203,8 +923,8 @@
 </li>
 </ol>
 </li>
-<li><a id="org54b2c89"></a>修正指令<br>
-<div class="outline-text-5" id="text-1-2-2-2">
+<li><a id="org-museum-ref-fe7ce5b630f1"></a>修正指令<br>
+<div class="outline-text-5" id="text-1-2-6-3">
 <p>
 批准，执行。按优先级逐项修复现有痛点和顽疾，可调用任意 AI Skill 或远程
 调试能力。修复一项，验证一项，确认无误后再继续，确保问题彻底解决且不复
@@ -215,20 +935,20 @@
 </ol>
 </div>
 <div id="outline-container-section-789b83f44554" class="outline-4">
-<h4 id="section-789b83f44554"><span class="section-number-4">1.2.3.</span> Skills</h4>
-<div class="outline-text-4" id="text-1-2-3">
+<h4 id="section-789b83f44554"><span class="section-number-4">1.2.7.</span> Skills</h4>
+<div class="outline-text-4" id="text-1-2-7">
 <p>
 [frontend-design](slashCommand;frontend-design)  [ui-ux-pro-max](recipe;Duckdb_Manager/.agent/workflows/ui-ux-pro-max.md) [plan](recipe;Duckdb_Manager/.agent/workflows/plan.md) [/browser](slashCommand;browser)[/grill-me](slashCommand;grill-me) [/boost](slashCommand;boost) 
 </p>
 </div>
 </div>
-<div id="outline-container-section-1c8bca7974fb" class="outline-4">
-<h4 id="section-1c8bca7974fb"><span class="section-number-4">1.2.4.</span> AI 解决方案</h4>
-<div class="outline-text-4" id="text-1-2-4">
+<div id="outline-container-section-28853d53ba97" class="outline-4">
+<h4 id="section-28853d53ba97"><span class="section-number-4">1.2.8.</span> AI 解决方案</h4>
+<div class="outline-text-4" id="text-1-2-8">
 </div>
 <ol class="org-ol">
-<li><a id="orga2811f4"></a>终态<br>
-<div class="outline-text-5" id="text-1-2-4-1">
+<li><a id="org-museum-ref-c756f545a8cf"></a>终态<br>
+<div class="outline-text-5" id="text-1-2-8-1">
 <p>
 @Web search 如图所示，这是一个 Vibe Coding 开发的 DuckDB 工作台。请直接对当前版本做一次产品级检查，从 <b><b>UI/UX、功能完整性、交互效率和实际使用场景</b></b> 四个方面找问题。
 不要只指出视觉问题，要结合 DuckDB 工作台的实际使用流程，判断哪些功能缺失、哪些交互不合理、哪些信息展示不清晰，以及哪些设计会影响 SQL 编写、数据浏览和结果分析效率。DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和数据探索等核心能力。
@@ -240,8 +960,8 @@
 </p>
 </div>
 </li>
-<li><a id="org02220e2"></a>BRD<br>
-<div class="outline-text-5" id="text-1-2-4-2">
+<li><a id="org-museum-ref-be8fbf1a5235"></a>BRD<br>
+<div class="outline-text-5" id="text-1-2-8-2">
 <p>
 @Web search 撰写一个用于我的系统进行改造的BRD，目标是实现图中效果。
 </p>
@@ -249,13 +969,13 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-610112ef2908" class="outline-4">
-<h4 id="section-610112ef2908"><span class="section-number-4">1.2.5.</span> 文生图</h4>
-<div class="outline-text-4" id="text-1-2-5">
+<div id="outline-container-section-583c8cfb5acd" class="outline-4">
+<h4 id="section-583c8cfb5acd"><span class="section-number-4">1.2.9.</span> 文生图</h4>
+<div class="outline-text-4" id="text-1-2-9">
 </div>
 <ol class="org-ol">
-<li><a id="org55bfa18"></a>主体页面<br>
-<div class="outline-text-5" id="text-1-2-5-1">
+<li><a id="org-museum-ref-e47faf353447"></a>主体页面<br>
+<div class="outline-text-5" id="text-1-2-9-1">
 <p>
 @Web search 如图所示，这是一个 Vibe Coding 开发的 DuckDB 工作台。
 请直接对当前版本做一次产品级检查，从 <b><b>UI/UX、功能完整性、交互效率和实际使用场景</b></b> 四个方面找问题。
@@ -269,29 +989,29 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 </p>
 </div>
 </li>
-<li><a id="org3001a7d"></a>交互组件<br>
-<div class="outline-text-5" id="text-1-2-5-2">
+<li><a id="org-museum-ref-6fa95a2a0558"></a>交互组件<br>
+<div class="outline-text-5" id="text-1-2-9-2">
 <p>
 @Web search 请重新生成上面的主体图片中的解释和分析这两块要生成具体的效果图。
 </p>
 </div>
 </li>
-<li><a id="org065d6db"></a>重复操作<br>
-<div class="outline-text-5" id="text-1-2-5-3">
+<li><a id="org-museum-ref-5a15f471d35f"></a>重复操作<br>
+<div class="outline-text-5" id="text-1-2-9-3">
 <p>
 @Web search 很好，继续Loop质检下，看是否还有更进一步的解决方案。
 </p>
 </div>
 </li>
-<li><a id="orgf2bd7c9"></a>需求验收<br>
-<div class="outline-text-5" id="text-1-2-5-4">
+<li><a id="org-museum-ref-2a31e059355d"></a>需求验收<br>
+<div class="outline-text-5" id="text-1-2-9-4">
 <p>
 @Web search 撰写一个用于我的系统进行改造的BRD，目标是实现图中效果
 </p>
 </div>
 <ol class="org-ol">
-<li><a id="orgb4e5a69"></a>细致<br>
-<div class="outline-text-6" id="text-1-2-5-4-1">
+<li><a id="org-museum-ref-7629259130dc"></a>细致<br>
+<div class="outline-text-6" id="text-1-2-9-4-1">
 <p>
 请基于提供的终态渲染图，撰写一份可直接指导开发 AI 完成系统改造的 BRD。
 终态图作为视觉验收基准。BRD 需逐项说明页面结构、功能模块和交互组件，包
@@ -314,20 +1034,20 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 </li>
 </ol>
 </div>
-<div id="outline-container-section-a507896e2630" class="outline-4">
-<h4 id="section-a507896e2630"><span class="section-number-4">1.2.6.</span> 实践</h4>
-<div class="outline-text-4" id="text-1-2-6">
+<div id="outline-container-section-4fc8eacfe583" class="outline-4">
+<h4 id="section-4fc8eacfe583"><span class="section-number-4">1.2.10.</span> 实践</h4>
+<div class="outline-text-4" id="text-1-2-10">
 </div>
 <ol class="org-ol">
-<li><a id="org90b5f1c"></a>第一次<br>
-<div class="outline-text-5" id="text-1-2-6-1">
+<li><a id="org-museum-ref-172e7cd24c11"></a>第一次<br>
+<div class="outline-text-5" id="text-1-2-10-1">
 <p>
 参照上传图片示例为最终优化目标，按照 Duckdb_Manager/duckdb-editor/docs/BRD/index9.md 的 BRD，把已发现但未落实的优化项继续实现。[/browser](slashCommand;browser) 
 </p>
 </div>
 </li>
-<li><a id="org299ad7a"></a>其他次<br>
-<div class="outline-text-5" id="text-1-2-6-2">
+<li><a id="org-museum-ref-08697296393d"></a>其他次<br>
+<div class="outline-text-5" id="text-1-2-10-2">
 <p>
 继续参照上传图片示例为最终优化目标，按照 Duckdb_Manager/duckdb-editor/docs/BRD/index8.md 的 BRD，把已发现但未落实的优化项继续实现。[/browser](slashCommand;browser) 
 用任意 AI Skills，实现下面的目标：继续按顺序优化 UI。目前整体界面风格与系统现有设计不统一，麻烦继续统一调整。[/browser](slashCommand;browser) 
@@ -336,13 +1056,13 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 </li>
 </ol>
 </div>
-<div id="outline-container-section-a507896e2630" class="outline-4">
-<h4 id="section-a507896e2630"><span class="section-number-4">1.2.7.</span> 疑难</h4>
-<div class="outline-text-4" id="text-1-2-7">
+<div id="outline-container-section-1696d7feb5bd" class="outline-4">
+<h4 id="section-1696d7feb5bd"><span class="section-number-4">1.2.11.</span> 疑难</h4>
+<div class="outline-text-4" id="text-1-2-11">
 </div>
 <ol class="org-ol">
-<li><a id="orga1a06d6"></a>难度1<br>
-<div class="outline-text-5" id="text-1-2-7-1">
+<li><a id="org-museum-ref-ce9766801e9b"></a>难度1<br>
+<div class="outline-text-5" id="text-1-2-11-1">
 <p>
 请围绕以下问题继续排查和优化：
 </p>
@@ -366,8 +1086,8 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 </p>
 </div>
 </li>
-<li><a id="orgfdd2ca2"></a>难度2<br>
-<div class="outline-text-5" id="text-1-2-7-2">
+<li><a id="org-museum-ref-372312863d62"></a>难度2<br>
+<div class="outline-text-5" id="text-1-2-11-2">
 <p>
 当前知识图谱有几个比较明显的体验问题：
 </p>
@@ -388,6 +1108,171 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 </div>
 <div id="outline-container-section-62e821190dc4" class="outline-3">
 <h3 id="section-62e821190dc4"><span class="section-number-3">1.3.</span> References</h3>
+<div class="outline-text-3" id="text-1-3">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">* 反复调整需求
+这份 HTML 格式的 SQL 分析报告（多轮讨论后生成）未达预期，请指出具体不符合之处并直接优化输出，无需重新解释需求。
+* 
+1. 先读取 `lovemoganna/Org-Skills` 的 `main` 最新 `sql-business-thinking` Skill，并按 **Direct 模式**执行。以 GitHub 当前版本为唯一事实源，不使用旧版本。
+2. 任务：
+3.
+* ads
+#+begin_src markdown
+# 数据源
+Google Sheet：
+`https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=1585191605`
+使用以下四张表：
+- `users`
+- `fiat_transactions`
+- `crypto_transactions`
+- `exchange_rates`
+# DuckDB 读取方式
+以下逻辑已验证可运行，直接沿用，不得改写：
+```sql
+INSTALL httpfs;
+LOAD httpfs;
+INSTALL excel;
+LOAD excel;
+SELECT *
+FROM read_xlsx(
+  'https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/export?format=xlsx',
+  sheet = 'users',
+  header = true
+);
+```
+四张表只替换 `sheet` 参数。测试开始时统一创建四个视图，后续分析直接引用视图名，禁止重复调用 `read_xlsx`。
+#+end_src
+
+
+
+# 缺陷修正规则
+
+只有真实失败才能触发修改。
+
+修改时：
+
+- 只修复已证明的问题；
+- 其他正确内容保持不动；
+- 修改后检查 Git Diff，删除无关变化；
+- 使用原失败样本复测；
+- 增加不同场景验证泛化能力；
+- 执行现有历史回归测试；
+- 如出现旧能力退化，继续修正。
+
+# 提交条件
+
+只有以下三项全部通过后才允许提交：
+
+`原样本复测通过 + 泛化测试通过 + 历史回归通过`
+
+否则不得提交。
+** 
+为啥我还是觉得这个报告特别水，Star和Lucy会话根本就没有对数据集分析的入木三分的专业水准。
+优化下更新到GitHub，然后再测一轮，看看这轮痛点有没有解决。
+现在味变了，Lucy 现在成了 辅助 Star 完成领导任务的陪练了，有点偏离我的最初目标，应该是 Star 带着对任意待分析的数据集，主动和 Lucy 进行会话分析，产出一份SQL分析报告。但是痛点就是 Star 问的问题的质量不好搞定，否则二者就都是说废话，对于这种情况，我该咋办？
+优化下更新到GitHub，然后再测一轮。
+好，结合之前我传递给你的信息，返还一版需求表达，我来测试下它
+OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个Skills的漏洞修复它。
+
+
+遵循 https://github.com/lovemoganna/AgentComponent/prompts/workflow/maintain/prompt-repository.md 归档上面的提示
+把下面这段内容逆向封装成 Prompt 并入库。
+
+遵循 https://github.com/lovemoganna/AgentComponent/prompts/workflow/maintain/prompt-repository.md 归档上面的提示
+
+
+## 存 Skill
+遵循 https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-repository/SKILL.md 归档上面的Skill
+要求：
+1. 先检查仓库是否已有相同或高度相似 Skill；
+2. 有则增量维护，不创建重复 Skill；
+3. 没有则生成稳定 slug，并保存为：
+   skills/&lt;skill-slug&gt;/SKILL.md
+4. 保留 Skill 自身必要资源和目录结构；
+5. 不为了形式创建空 tests/eval 目录；
+6. 同步更新根 README 的 Skill 能力地图、场景入口和路径索引；
+7. 入库后调用 skill-lab 做一次基础 smoke test；
+8. 通过后返回最终路径和 commit。
+
+## 测 Skill
+按 skill-lab 使用下面的新测试任务测试当前 Skill。
+
+【新测试任务】
+本轮样本先作为 exploratory。要求：
+- 不删除或修改历史 regression；
+- 不默认测试失败就是 Skill 问题；
+- 如果确认存在可泛化 Skill 缺陷，修复后把该案例沉淀为 regression；
+- 修改后必须重新跑历史 regression。
+
+## 测试
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-6dd2acd7123a" class="outline-4">
+<h4 id="section-6dd2acd7123a"><span class="section-number-4">1.3.1.</span> Skill 测试</h4>
+<div class="outline-text-4" id="text-1-3-1">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">按 skill-lab 测试 `dataset-dashboard-builder`
+----- 【测试任务】 -----
+1. 目标: 使用真实数据完整跑一轮最新 Skill，验证其在实际数据分析和看板生成场景中的效果。按以下闭环执行：
+- 读取最新 Skill → 真实执行 → 发现缺陷 → 最小修正 → 原样本复测 → 泛化测试 → 历史回归 → 全部通过后提交仓库
+- 仅当真实执行已经证明 Skill 存在缺陷时，才允许修改。
+- 修改必须直接发生在 Org-Skills 仓库中，不得脱离仓库另起版本。
+- 围绕真实数据完成一次完整看板搭建，并输出精美 HTML 看板。
+- 必须按真实工作流执行，不跳过中间分析过程，不为了适配 Skill 人为调整输入。
+----- 【Google Sheet】-----
+1. 数据源：https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=1585191605
+2. 数据表：只使用以下四张表：
+- users
+- fiat_transactions
+- crypto_transactions
+- exchange_rates 
+3. 要求：以下逻辑已验证可运行，直接沿用，不得改写：
+    ```sql
+    INSTALL httpfs;
+    LOAD httpfs;
+    INSTALL excel;
+    LOAD excel;
+    
+    SELECT *
+    FROM read_xlsx(
+      'https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/export?format=xlsx',
+      sheet = 'users',
+      header = true
+    );
+    ```
+四张表只替换 sheet 参数。测试开始时统一创建四个视图，后续分析直接引用视图名，禁止重复调用 read_xlsx。
+只有真实失败才能触发修改。
+修改时：
+- 只修复已证明的问题；
+- 其他正确内容保持不动；
+- 修改后检查 Git Diff，删除无关变化；
+- 使用原失败样本复测；
+- 增加不同场景验证泛化能力；
+- 执行现有历史回归测试；
+- 如出现旧能力退化，继续修正。
+只有以下三项全部通过后才允许提交：原样本复测通过 + 泛化测试通过 + 历史回归通过
+否则不得提交。
+先按当前 Skill 原样执行。把本任务视为 exploratory，不要因为单一样本直
+接修改 Skill。如果发现可泛化缺陷，再进入修正和回归流程。
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-53bcc64c3054" class="outline-4">
+<h4 id="section-53bcc64c3054"><span class="section-number-4">1.3.2.</span> Skill 修改</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">按 https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-lab/SKILL.md 维护 `dataset-dashboard-builder`。
+当前效果不满意。不要让我指出具体问题。
+1. 先用当前测试集原样测试，主动定位真正影响结果质量的缺陷。
+2. 只修可泛化问题，不针对当前样本打补丁。
+3. 执行完整闭环： 当前版本测试 → 缺陷定位 → 根因分析 → 最小修改 → 原失败样本复测 → 历史 regression → 泛化测试 → adversarial → 差异检查
+最终只保留经过验证的修改。
+</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <section id="local-graph-container" aria-labelledby="local-graph-heading">
@@ -398,7 +1283,7 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-</div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -422,13 +1307,19 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <div class="sidebar-cat-label">AI <span>02</span></div>
     <ul>
-      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
-      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
-      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
-      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
-      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+      <li><a href="../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -452,12 +1343,14 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
       <li><a href="../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="../sql/duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="../sql/duckdb-thinking.html">duckdb-thinking</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -473,9 +1366,23 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="../Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="../Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="../Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
     </ul>
   </div>
 </aside>
@@ -484,7 +1391,11 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 
 
 
+<script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=ab5c89406617"></script>
+<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
 </body>
 </html>

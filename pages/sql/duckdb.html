@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-21 Mon 21:25 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>00 DuckDB 最小入门</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=f191e4a437f4">
+<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="3572220e-7c4f-45fd-af24-4e4ae2cddea2" data-page-title="00 DuckDB 最小入门" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-09-09" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="3572220e-7c4f-45fd-af24-4e4ae2cddea2" data-page-title="00 DuckDB 最小入门" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-10-01" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -25,84 +24,278 @@
     <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
     <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
     <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
   </nav>
 </header>
 
-<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">00 DuckDB 最小入门</a><span class="museum-identity-meta">SQL · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
-<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="3572220e-7c4f-45fd-af24-4e4ae2cddea2" data-page-title="00 DuckDB 最小入门" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">00 DuckDB 最小入门</a><span class="museum-identity-meta">Sql · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="3572220e-7c4f-45fd-af24-4e4ae2cddea2" data-page-title="00 DuckDB 最小入门" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
-  <a class="article-category" href="../../index.html?category=Sql#recent-updates">SQL</a><span class="museum-status-badge">草稿</span>
+  <a class="article-category" href="../../index.html?category=Sql#recent-updates">Sql</a><span class="museum-status-badge">草稿</span>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-09-09">2026-09-09</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 10 分钟</dd></div>
-    <div><dt>标签</dt><dd>sql</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=sql#recent-updates" data-tag="sql" title="查看包含标签 #sql 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">sql</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
-    <a href="../../index.html#recent-updates">← 全部笔记</a>
-    <a href="../../index.html">返回索引</a>
+    <a data-reading-return href="../../index.html#recent-updates">← 全部笔记</a>
   </nav>
 </aside>
 </details>
-
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="69d2e13efc0a47b73f3017be7181154973e0de84bbc4223c149cc8d97959b06c"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: duckdb</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Sql</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: draft</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :sql:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* DuckDB 环境说明</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本章是整套教程的入口。先在 Org Mode 中创建 DuckDB 数据库、建表、插入测</span>
+<span class="museum-org-line">试数据，再执行第一条查询。后续 01-10 章都基于这里创建的 <span class="org-face-org-verbatim">=_work/tutorial.duckdb=</span>.</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 两层能力说明</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本教程区分两层能力：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- DuckDB CLI：命令行程序 =duckdb=，自动测试脚本会直接使用它。</span>
+<span class="museum-org-line">- Org Babel + ob-duckdb：让 Org 中的 <span class="org-face-org-verbatim">=duckdb=</span> 代码块可以用 <span class="org-face-org-verbatim">=C-c C-c=</span> 执行，并把结果写回 Org 文档。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Babel 扩展入口配置</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本机已经在 ~/.emacs.d/lisp+/Org/Core/Babels= 配置了 Babel 扩展入口。该目录的 <span class="org-face-org-verbatim">=index.el=</span> 会加载 <span class="org-face-org-verbatim">=base-ob-duckdb.el=，并通过 </span><span class="org-face-org-verbatim org-face-org-verbatim">=use-package ob-duckdb=</span> 管理 DuckDB Babel 支持。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">如果你的完整 Emacs 配置已经加载了这个入口，打开本文件后即可在 <span class="org-face-org-verbatim">=duckdb=</span> 代码块上使用 =C-c C-c=。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 手动加载方式</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">若需要手动加载，可使用：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :results none</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (load (concat user-emacs-directory </span><span class="org-face-font-lock-string-face org-face-org-block">"lisp+/Org/Core/Babels/index.el"</span><span class="org-face-org-block">))</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 注意事项</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">注意：这个入口依赖你正常 Emacs 配置里的 <span class="org-face-org-verbatim">=straight/use-package=</span> 环境；在 <span class="org-face-org-verbatim">=emacs -Q=</span> 这类干净环境中直接加载可能不完整。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 创建测试表</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 建表说明</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">执行下面代码块会重建四张测试表。它会删除旧表，所以适合在学习开始前重跑，确保后续章节状态一致。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 建表代码块</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: EXEC_ID 1205c4bf-5e01-4d26-b37d-d288ed8e6c92</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: ID 328ad209-415e-4855-b0fd-d5176553c999</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: duckdb-create-schema</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb :db _work/tutorial.duckdb :format csv :results output replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  DROP TABLE IF EXISTS order_items;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  DROP TABLE IF EXISTS orders;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  DROP TABLE IF EXISTS products;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  DROP TABLE IF EXISTS customers;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  CREATE TABLE customers (</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    customer_id INTEGER PRIMARY KEY,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    name TEXT NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    city TEXT NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    status TEXT NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    signup_date TEXT NOT NULL</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  );</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  CREATE TABLE products (</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    product_id INTEGER PRIMARY KEY,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    name TEXT NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    category TEXT NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    price REAL NOT NULL</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  );</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  CREATE TABLE orders (</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    order_id INTEGER PRIMARY KEY,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    customer_id INTEGER NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    order_date TEXT NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    channel TEXT NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  );</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  CREATE TABLE order_items (</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    order_item_id INTEGER PRIMARY KEY,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    order_id INTEGER NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    product_id INTEGER NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    quantity INTEGER NOT NULL,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FOREIGN KEY (order_id) REFERENCES orders(order_id),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FOREIGN KEY (product_id) REFERENCES products(product_id)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  );</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  CREATE INDEX idx_orders_customer_date ON orders(customer_id, order_date);</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  CREATE INDEX idx_order_items_order ON order_items(order_id);</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  CREATE INDEX idx_order_items_product ON order_items(product_id);</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT 'schema ready' AS setup_status;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: duckdb-create-schema</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_results</span></span>
+<span class="museum-org-line museum-org-block-line">setup_status</span>
+<span class="museum-org-line museum-org-block-line">schema ready</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_results</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 插入或导入测试数据</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 数据说明</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">执行下面代码块会插入本教程使用的最小业务数据：客户、商品、订单和订单明细。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 插入代码块</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: EXEC_ID 83a95b51-1b97-49be-9300-1d8abff81a9d</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: ID a79bdfd1-5974-4437-8d58-46c5c2813ca4</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: duckdb-seed-data</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb :db _work/tutorial.duckdb :format csv :results output replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSERT INTO customers VALUES</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (1, 'Ada', 'Shanghai', 'active', '2026-01-03'),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (2, 'Ben', 'Beijing', 'active', '2026-01-12'),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (3, 'Chen', 'Shanghai', 'inactive', '2026-02-01'),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (4, 'Dora', 'Shenzhen', 'active', '2026-02-18'),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (5, 'Evan', 'Hangzhou', 'active', '2026-03-05');</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSERT INTO products VALUES</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (1, 'Notebook', 'office', 12.5),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (2, 'Keyboard', 'hardware', 88.0),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (3, 'Monitor', 'hardware', 320.0),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (4, 'Pen', 'office', 2.0),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (5, 'Desk Lamp', 'hardware', 45.0);</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSERT INTO orders VALUES</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (101, 1, '2026-03-01', 'web'),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (102, 1, '2026-03-03', 'store'),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (103, 2, '2026-03-05', 'web'),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (104, 4, '2026-03-07', 'web'),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (105, 5, '2026-03-09', 'partner'),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (106, 2, '2026-03-11', 'store');</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSERT INTO order_items VALUES</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (1, 101, 1, 3),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (2, 101, 4, 10),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (3, 102, 2, 1),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (4, 103, 3, 1),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (5, 104, 2, 2),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (6, 104, 5, 1),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (7, 105, 1, 5),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (8, 105, 5, 2),</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (9, 106, 4, 20);</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT 'seed ready' AS setup_status;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: duckdb-seed-data</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_results</span></span>
+<span class="museum-org-line museum-org-block-line">setup_status</span>
+<span class="museum-org-line museum-org-block-line">seed ready</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_results</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 执行基础 SELECT 查询</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 查询说明</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">确认数据写入成功后，执行第一条查询。后续章节会继续使用这些表。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 查询代码块</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: EXEC_ID 0c62840e-0878-46f4-be93-eabb32dd861d</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: ID 3572220e-7c4f-45fd-af24-4e4ae2cddea2</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: duckdb-first-select</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb :db _work/tutorial.duckdb :format markdown :results table replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT customer_id, name, city</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM customers</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ORDER BY customer_id;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: duckdb-first-select</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_results</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table">| customer_id | name | city     |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table">|           1 | Ada  | Shanghai |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table">|           2 | Ben  | Beijing  |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table">|           3 | Chen | Shanghai |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table">|           4 | Dora | Shenzhen |</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-table">|           5 | Evan | Hangzhou |</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_results</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 展示查询结果</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 预期结果说明</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">执行上面的代码块后，应看到五位客户。结果内容应等价于：</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 预期结果示例</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  customer_id,name,city</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1,Ada,Shanghai</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2,Ben,Beijing</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3,Chen,Shanghai</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4,Dora,Shenzhen</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5,Evan,Hangzhou</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 学习路径提示</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">完成本章后，按顺序进入 01-10 章。每一章都假设 <span class="org-face-org-verbatim">=_work/tutorial.duckdb=</span> 已经由本章创建并写入测试数据。</span>
+</code></pre></section>
 <h1 class="title">00 DuckDB 最小入门</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-646ba4ca1fe5">1. DuckDB 环境说明</a>
+<li><a href="#section-de9c08cd4c7d">1. DuckDB 环境说明</a>
 <ul>
-<li><a href="#section-4349bf3cc226">1.1. 两层能力说明</a></li>
-<li><a href="#section-96dce9185559">1.2. Babel 扩展入口配置</a>
+<li><a href="#section-9fa60c8f605f">1.1. 两层能力说明</a></li>
+<li><a href="#section-ff79dc0730e0">1.2. Babel 扩展入口配置</a>
 <ul>
-<li><a href="#section-3c1632cb144f">1.2.1. 手动加载方式</a></li>
-<li><a href="#section-87644d751b67">1.2.2. 注意事项</a></li>
+<li><a href="#section-cba587eb17a2">1.2.1. 手动加载方式</a></li>
+<li><a href="#section-a6a4ea389f60">1.2.2. 注意事项</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#section-f7a698a2aeb9">2. 创建测试表</a>
+<li><a href="#section-3f6e705f0b3c">2. 创建测试表</a>
 <ul>
-<li><a href="#section-13df321de6e9">2.1. 建表说明</a></li>
-<li><a href="#section-1566ee03d923">2.2. 建表代码块</a></li>
+<li><a href="#section-be0506b205d4">2.1. 建表说明</a></li>
+<li><a href="#section-06d6cf697ebd">2.2. 建表代码块</a></li>
 </ul>
 </li>
-<li><a href="#section-c4a2b37549e8">3. 插入或导入测试数据</a>
+<li><a href="#section-75234979a492">3. 插入或导入测试数据</a>
 <ul>
-<li><a href="#section-371b6adc980f">3.1. 数据说明</a></li>
-<li><a href="#section-302a99b50d20">3.2. 插入代码块</a></li>
+<li><a href="#section-2bf30fec543b">3.1. 数据说明</a></li>
+<li><a href="#section-e34abfbb9b76">3.2. 插入代码块</a></li>
 </ul>
 </li>
-<li><a href="#section-8b5a672c68cf">4. 执行基础 SELECT 查询</a>
+<li><a href="#section-7ceabdea193b">4. 执行基础 SELECT 查询</a>
 <ul>
-<li><a href="#section-1a2891f0baa0">4.1. 查询说明</a></li>
-<li><a href="#section-c6ba273d0777">4.2. 查询代码块</a></li>
+<li><a href="#section-79f4feb612cf">4.1. 查询说明</a></li>
+<li><a href="#section-d74b7247a6f7">4.2. 查询代码块</a></li>
 </ul>
 </li>
-<li><a href="#section-304becc9b43e">5. 展示查询结果</a>
+<li><a href="#section-52df1f1fde32">5. 展示查询结果</a>
 <ul>
-<li><a href="#section-5417dc1fa9be">5.1. 预期结果说明</a></li>
-<li><a href="#section-5417dc1fa9be">5.2. 预期结果示例</a></li>
+<li><a href="#section-651dc83e7de6">5.1. 预期结果说明</a></li>
+<li><a href="#section-7b0d3150763f">5.2. 预期结果示例</a></li>
 </ul>
 </li>
-<li><a href="#section-304becc9b43e">6. 学习路径提示</a></li>
+<li><a href="#section-ed016bf356df">6. 学习路径提示</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-646ba4ca1fe5" class="outline-2">
-<h2 id="section-646ba4ca1fe5"><span class="section-number-2">1.</span> DuckDB 环境说明</h2>
+<div id="outline-container-section-de9c08cd4c7d" class="outline-2">
+<h2 id="section-de9c08cd4c7d"><span class="section-number-2">1.</span> DuckDB 环境说明</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本章是整套教程的入口。先在 Org Mode 中创建 DuckDB 数据库、建表、插入测
-试数据，再执行第一条查询。后续 01-10 章都基于这里创建的
-<code>_work/tutorial.duckdb</code>。
+试数据，再执行第一条查询。后续 01-10 章都基于这里创建的 <code>_work/tutorial.duckdb</code>.
 </p>
 </div>
-<div id="outline-container-section-4349bf3cc226" class="outline-3">
-<h3 id="section-4349bf3cc226"><span class="section-number-3">1.1.</span> 两层能力说明</h3>
+<div id="outline-container-section-9fa60c8f605f" class="outline-3">
+<h3 id="section-9fa60c8f605f"><span class="section-number-3">1.1.</span> 两层能力说明</h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 本教程区分两层能力：
@@ -114,8 +307,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-96dce9185559" class="outline-3">
-<h3 id="section-96dce9185559"><span class="section-number-3">1.2.</span> Babel 扩展入口配置</h3>
+<div id="outline-container-section-ff79dc0730e0" class="outline-3">
+<h3 id="section-ff79dc0730e0"><span class="section-number-3">1.2.</span> Babel 扩展入口配置</h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 本机已经在 ~/.emacs.d/lisp+/Org/Core/Babels= 配置了 Babel 扩展入口。该目录的 <code>index.el</code> 会加载 <code>base-ob-duckdb.el</code>，并通过 <code>use-package ob-duckdb</code> 管理 DuckDB Babel 支持。
@@ -125,8 +318,8 @@
 如果你的完整 Emacs 配置已经加载了这个入口，打开本文件后即可在 <code>duckdb</code> 代码块上使用 <code>C-c C-c</code>。
 </p>
 </div>
-<div id="outline-container-section-3c1632cb144f" class="outline-4">
-<h4 id="section-3c1632cb144f"><span class="section-number-4">1.2.1.</span> 手动加载方式</h4>
+<div id="outline-container-section-cba587eb17a2" class="outline-4">
+<h4 id="section-cba587eb17a2"><span class="section-number-4">1.2.1.</span> 手动加载方式</h4>
 <div class="outline-text-4" id="text-1-2-1">
 <p>
 若需要手动加载，可使用：
@@ -138,8 +331,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-87644d751b67" class="outline-4">
-<h4 id="section-87644d751b67"><span class="section-number-4">1.2.2.</span> 注意事项</h4>
+<div id="outline-container-section-a6a4ea389f60" class="outline-4">
+<h4 id="section-a6a4ea389f60"><span class="section-number-4">1.2.2.</span> 注意事项</h4>
 <div class="outline-text-4" id="text-1-2-2">
 <p>
 注意：这个入口依赖你正常 Emacs 配置里的 <code>straight/use-package</code> 环境；在 <code>emacs -Q</code> 这类干净环境中直接加载可能不完整。
@@ -148,23 +341,23 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-f7a698a2aeb9" class="outline-2">
-<h2 id="section-f7a698a2aeb9"><span class="section-number-2">2.</span> 创建测试表</h2>
+<div id="outline-container-section-3f6e705f0b3c" class="outline-2">
+<h2 id="section-3f6e705f0b3c"><span class="section-number-2">2.</span> 创建测试表</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-section-13df321de6e9" class="outline-3">
-<h3 id="section-13df321de6e9"><span class="section-number-3">2.1.</span> 建表说明</h3>
+<div id="outline-container-section-be0506b205d4" class="outline-3">
+<h3 id="section-be0506b205d4"><span class="section-number-3">2.1.</span> 建表说明</h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 执行下面代码块会重建四张测试表。它会删除旧表，所以适合在学习开始前重跑，确保后续章节状态一致。
 </p>
 </div>
 </div>
-<div id="outline-container-section-1566ee03d923" class="outline-3">
-<h3 id="section-1566ee03d923"><span class="section-number-3">2.2.</span> 建表代码块</h3>
+<div id="outline-container-section-06d6cf697ebd" class="outline-3">
+<h3 id="section-06d6cf697ebd"><span class="section-number-3">2.2.</span> 建表代码块</h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
-<pre class="src src-duckdb" id="org4eddd0a"><code class="language-sql">DROP TABLE IF EXISTS order_items;
+<pre class="src src-duckdb" id="org-museum-ref-fc63c5976e9d"><code class="language-sql">DROP TABLE IF EXISTS order_items;
 DROP TABLE IF EXISTS orders;
 DROP TABLE IF EXISTS products;
 DROP TABLE IF EXISTS customers;
@@ -209,28 +402,28 @@ SELECT 'schema ready' AS setup_status;
 </code></pre>
 </div>
 
-<div class="results" id="orgcbde37c"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
+<div class="results" id="org-museum-ref-cbdcc8cd4c84"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
 schema ready</code></pre></div>
 </div>
 </div>
 </div>
-<div id="outline-container-section-c4a2b37549e8" class="outline-2">
-<h2 id="section-c4a2b37549e8"><span class="section-number-2">3.</span> 插入或导入测试数据</h2>
+<div id="outline-container-section-75234979a492" class="outline-2">
+<h2 id="section-75234979a492"><span class="section-number-2">3.</span> 插入或导入测试数据</h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-section-371b6adc980f" class="outline-3">
-<h3 id="section-371b6adc980f"><span class="section-number-3">3.1.</span> 数据说明</h3>
+<div id="outline-container-section-2bf30fec543b" class="outline-3">
+<h3 id="section-2bf30fec543b"><span class="section-number-3">3.1.</span> 数据说明</h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 执行下面代码块会插入本教程使用的最小业务数据：客户、商品、订单和订单明细。
 </p>
 </div>
 </div>
-<div id="outline-container-section-302a99b50d20" class="outline-3">
-<h3 id="section-302a99b50d20"><span class="section-number-3">3.2.</span> 插入代码块</h3>
+<div id="outline-container-section-e34abfbb9b76" class="outline-3">
+<h3 id="section-e34abfbb9b76"><span class="section-number-3">3.2.</span> 插入代码块</h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
-<pre class="src src-duckdb" id="org6e0eeff"><code class="language-sql">INSERT INTO customers VALUES
+<pre class="src src-duckdb" id="org-museum-ref-14bd0f1ee851"><code class="language-sql">INSERT INTO customers VALUES
   (1, 'Ada', 'Shanghai', 'active', '2026-01-03'),
   (2, 'Ben', 'Beijing', 'active', '2026-01-12'),
   (3, 'Chen', 'Shanghai', 'inactive', '2026-02-01'),
@@ -267,34 +460,34 @@ SELECT 'seed ready' AS setup_status;
 </code></pre>
 </div>
 
-<div class="results" id="org810f2d3"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
+<div class="results" id="org-museum-ref-b54142639d32"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>setup_status
 seed ready</code></pre></div>
 </div>
 </div>
 </div>
-<div id="outline-container-section-8b5a672c68cf" class="outline-2">
-<h2 id="section-8b5a672c68cf"><span class="section-number-2">4.</span> 执行基础 SELECT 查询</h2>
+<div id="outline-container-section-7ceabdea193b" class="outline-2">
+<h2 id="section-7ceabdea193b"><span class="section-number-2">4.</span> 执行基础 SELECT 查询</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-section-1a2891f0baa0" class="outline-3">
-<h3 id="section-1a2891f0baa0"><span class="section-number-3">4.1.</span> 查询说明</h3>
+<div id="outline-container-section-79f4feb612cf" class="outline-3">
+<h3 id="section-79f4feb612cf"><span class="section-number-3">4.1.</span> 查询说明</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 确认数据写入成功后，执行第一条查询。后续章节会继续使用这些表。
 </p>
 </div>
 </div>
-<div id="outline-container-section-c6ba273d0777" class="outline-3">
-<h3 id="section-c6ba273d0777"><span class="section-number-3">4.2.</span> 查询代码块</h3>
+<div id="outline-container-section-d74b7247a6f7" class="outline-3">
+<h3 id="section-d74b7247a6f7"><span class="section-number-3">4.2.</span> 查询代码块</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
-<pre class="src src-duckdb" id="org75d98d3"><code class="language-sql">SELECT customer_id, name, city
+<pre class="src src-duckdb" id="org-museum-ref-b13e19467439"><code class="language-sql">SELECT customer_id, name, city
 FROM customers
 ORDER BY customer_id;
 </code></pre>
 </div>
 
-<div class="results" id="org2afc552">
+<div class="results" id="org-museum-ref-b213aea5aff5">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
 
 
@@ -348,22 +541,22 @@ ORDER BY customer_id;
 </div>
 </div>
 </div>
-<div id="outline-container-section-304becc9b43e" class="outline-2">
-<h2 id="section-304becc9b43e"><span class="section-number-2">5.</span> 展示查询结果</h2>
+<div id="outline-container-section-52df1f1fde32" class="outline-2">
+<h2 id="section-52df1f1fde32"><span class="section-number-2">5.</span> 展示查询结果</h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-section-5417dc1fa9be" class="outline-3">
-<h3 id="section-5417dc1fa9be"><span class="section-number-3">5.1.</span> 预期结果说明</h3>
+<div id="outline-container-section-651dc83e7de6" class="outline-3">
+<h3 id="section-651dc83e7de6"><span class="section-number-3">5.1.</span> 预期结果说明</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 执行上面的代码块后，应看到五位客户。结果内容应等价于：
 </p>
 </div>
 </div>
-<div id="outline-container-section-5417dc1fa9be" class="outline-3">
-<h3 id="section-5417dc1fa9be"><span class="section-number-3">5.2.</span> 预期结果示例</h3>
+<div id="outline-container-section-7b0d3150763f" class="outline-3">
+<h3 id="section-7b0d3150763f"><span class="section-number-3">5.2.</span> 预期结果示例</h3>
 <div class="outline-text-3" id="text-5-2">
-<pre class="example" id="org0c4c602"><code class="language-plaintext">
+<pre class="example" id="org-museum-ref-e4766b60284f"><code class="language-plaintext">
 customer_id,name,city
 1,Ada,Shanghai
 2,Ben,Beijing
@@ -374,8 +567,8 @@ customer_id,name,city
 </div>
 </div>
 </div>
-<div id="outline-container-section-304becc9b43e" class="outline-2">
-<h2 id="section-304becc9b43e"><span class="section-number-2">6.</span> 学习路径提示</h2>
+<div id="outline-container-section-ed016bf356df" class="outline-2">
+<h2 id="section-ed016bf356df"><span class="section-number-2">6.</span> 学习路径提示</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 完成本章后，按顺序进入 01-10 章。每一章都假设 <code>_work/tutorial.duckdb</code> 已经由本章创建并写入测试数据。
@@ -390,7 +583,7 @@ customer_id,name,city
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-</div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -414,13 +607,19 @@ customer_id,name,city
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <div class="sidebar-cat-label">AI <span>02</span></div>
     <ul>
-      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
-      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
-      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
-      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
-      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+      <li><a href="../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -444,12 +643,14 @@ customer_id,name,city
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
     <ul>
       <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
       <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="duckdb-thinking.html">duckdb-thinking</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -465,9 +666,23 @@ customer_id,name,city
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="../Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="../Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="../Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
     </ul>
   </div>
 </aside>
@@ -476,7 +691,11 @@ customer_id,name,city
 
 
 
+<script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=ab5c89406617"></script>
+<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
 </body>
 </html>

@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-<!-- 2026-09-21 Mon 21:24 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>SICP SICP Lisp 过程抽象练习：平方根迭代逼近器</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=16cf801e155e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=f191e4a437f4">
+<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="sicp" data-page-title="SICP Lisp 过程抽象练习：平方根迭代逼近器" data-page-category="lisp" data-page-tags="lisp" data-page-status="draft" data-page-modified="2026-05-31" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="sicp" data-page-title="SICP Lisp 过程抽象练习：平方根迭代逼近器" data-page-category="lisp" data-page-tags="lisp" data-page-status="draft" data-page-modified="2026-10-01" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-09-21" title="导出于 2026.09.21">2026.09.21</time>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -25,58 +24,315 @@
     <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
     <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
     <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <button type="button" class="museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题"><span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span><span data-theme-label>深色</span></button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
   </nav>
 </header>
 
-<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">SICP Lisp 过程抽象练习：平方根迭代逼近器</a><span class="museum-identity-meta">Lisp · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
-<div id="content" class="museum-article-layout" style="--museum-article-max-width: 960px"><article class="article-container" data-page-id="sicp" data-page-title="SICP Lisp 过程抽象练习：平方根迭代逼近器" data-page-category="lisp"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">SICP Lisp 过程抽象练习：平方根迭代逼近器</a><span class="museum-identity-meta">lisp · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="sicp" data-page-title="SICP Lisp 过程抽象练习：平方根迭代逼近器" data-page-category="lisp"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
-  <a class="article-category" href="../../index.html?category=lisp#recent-updates">Lisp</a><span class="museum-status-badge">草稿</span>
+  <a class="article-category" href="../../index.html?category=lisp#recent-updates">lisp</a><span class="museum-status-badge">草稿</span>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-05-31">2026-05-31</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 16 分钟</dd></div>
-    <div><dt>标签</dt><dd>lisp</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=lisp#recent-updates" data-tag="lisp" title="查看包含标签 #lisp 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">lisp</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
-    <a href="../../index.html#recent-updates">← 全部笔记</a>
-    <a href="../../index.html">返回索引</a>
+    <a data-reading-return href="../../index.html#recent-updates">← 全部笔记</a>
   </nav>
 </aside>
 </details>
-
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="d6a357c63a531291675989c096f9a2d8176a3016dce30811d3838a9fea6721ef"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: sicp</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: lisp</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: draft</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :lisp:</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args :tangle no</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* §0 实例化配置区</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 参数            | 当前值                                               | 说明                                   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|-----------------+------------------------------------------------------+----------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=TARGET_LANG=</span><span class="org-face-org-formula">   </span><span class="org-face-org-table">| emacs-lisp                                           | Org-babel 语言标识符                   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=PARADIGM=</span><span class="org-face-org-formula">      </span><span class="org-face-org-table">| functional                                           | functional / oop / scripting / systems |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=FILE_EXT=</span><span class="org-face-org-formula">      </span><span class="org-face-org-table">| .el                                                  | tangle 目标文件扩展名                  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=FILE_PREFIX=</span><span class="org-face-org-formula">   </span><span class="org-face-org-table">| exercise-sqrt-process                                | 输出文件名前缀                         |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=SYM_PREFIX=</span><span class="org-face-org-formula">    </span><span class="org-face-org-table">| ex                                                   | 函数命名空间前缀                       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=TEST_RUNNER=</span><span class="org-face-org-formula">   </span><span class="org-face-org-table">| ert                                                  | Emacs Lisp 内置测试框架                |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=KNOWLEDGE_SRC=</span><span class="org-face-org-formula"> </span><span class="org-face-org-table">| Lisp、过程抽象、命名、黑箱抽象、递归、平方根迭代逼近 | 本练习的知识来源                       |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 练习目标</span></span>
+<span class="museum-org-line">- 掌握 Lisp 风格的过程抽象：把“如何求平方根”拆成可命名、可测试、可组合的小过程。</span>
+<span class="museum-org-line">- 理解黑箱抽象：调用者只关心 <span class="org-face-org-verbatim">=ex-sqrt=</span> 的输入输出，不需要关心内部猜测如何改进。</span>
+<span class="museum-org-line">- 练习递归式过程：用“猜测 → 判断 → 改进 → 继续”的结构逼近平方根。</span>
+<span class="museum-org-line">- 熟悉 Org-mode 文学编程：使用 Noweb 具名块组织代码，并通过唯一 Assembly Block 导出。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 题目描述</span></span>
+<span class="museum-org-line">实现一个 Emacs Lisp 模块，用迭代逼近法计算非负数的平方根。程序需要完成以下行为：</span>
+<span class="museum-org-line">1. 输入一个非负数字 =target=。</span>
+<span class="museum-org-line">2. 从初始猜测值 <span class="org-face-org-verbatim">=guess=</span> 开始。</span>
+<span class="museum-org-line">3. 判断当前猜测是否足够好。</span>
+<span class="museum-org-line">4. 若不够好，则根据公式改进猜测。</span>
+<span class="museum-org-line">5. 重复以上过程，直到误差小于容忍度 =tolerance=，或达到最大迭代次数。</span>
+<span class="museum-org-line">6. 返回包含最终猜测值、目标值、容忍度、迭代步数的结果结构。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">核心公式：</span>
+<span class="museum-org-line">1. 平方：=x * x=</span>
+<span class="museum-org-line">2. 平均值：=(a + b) / 2=</span>
+<span class="museum-org-line">3. 改进猜测：=(guess + target / guess) / 2=</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 代码分解</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 文件头</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: chunk-header</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :tangle no</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;;; </span><span class="org-face-font-lock-comment-face org-face-org-block">exercise-sqrt-process.el --- SICP-style sqrt process exercise -</span><span class="org-face-font-lock-comment-face org-face-org-block">*- lexical-binding: t; -*</span><span class="org-face-font-lock-comment-face org-face-org-block">-</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;;; </span><span class="org-face-font-lock-comment-face org-face-org-block">Commentary:</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 用 2-3 句话说明本练习对应的主题：过程、抽象、递归。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 写清楚本文件由 Org-mode tangle 生成，不建议直接修改导出文件。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">This exercise demonstrates how a small Lisp program can model a process:</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">guess, test, improve, and repeat.</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;;; </span><span class="org-face-font-lock-comment-face org-face-org-block">Code:</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">require</span><span class="org-face-org-block"> '</span><span class="org-face-font-lock-constant-face org-face-org-block">cl-lib</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">require</span><span class="org-face-org-block"> '</span><span class="org-face-font-lock-constant-face org-face-org-block">ert</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 类型定义</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: chunk-types</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :tangle no</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 补充字段说明：guess / target / tolerance / steps 分别表示什么。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 思考为什么用结构体返回结果，而不是只返回一个数字。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">cl-defstruct</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      (ex-sqrt-state</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       (</span><span class="org-face-font-lock-builtin-face org-face-org-block">:constructor</span><span class="org-face-org-block"> ex-make-sqrt-state))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"State object for one completed sqrt approximation."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    guess</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    target</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    tolerance</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    steps)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 数据定义</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: chunk-data</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :tangle no</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 调整默认容忍度，观察测试结果是否仍然稳定。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 调整最大迭代次数，观察过小的值会导致什么问题。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defconst</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-variable-name-face org-face-org-block">ex-default-tolerance</span><span class="org-face-org-block"> 1e-05</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Default tolerance used by `</span><span class="org-face-font-lock-constant-face org-face-font-lock-doc-face org-face-org-block">ex-sqrt</span><span class="org-face-font-lock-doc-face org-face-org-block">'."</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defconst</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-variable-name-face org-face-org-block">ex-default-initial-guess</span><span class="org-face-org-block"> 1.0</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Default initial guess used by `</span><span class="org-face-font-lock-constant-face org-face-font-lock-doc-face org-face-org-block">ex-sqrt</span><span class="org-face-font-lock-doc-face org-face-org-block">'."</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defconst</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-variable-name-face org-face-org-block">ex-max-steps</span><span class="org-face-org-block"> 100</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Maximum number of recursive improvement steps."</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defconst</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-variable-name-face org-face-org-block">ex-demo-inputs</span><span class="org-face-org-block"> '(0 1 2 4 9 16 25 100)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Demo inputs for manual verification."</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 辅助函数</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: chunk-helpers</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :tangle no</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 保持本块函数尽量纯净，不读写外部状态。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 为每个辅助函数补充一个简单例子，写进文档字符串。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defun</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex--square</span><span class="org-face-org-block"> (x)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Return X squared."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (* x x))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defun</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex--average</span><span class="org-face-org-block"> (a b)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Return the arithmetic average of A and B."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (/ (+ a b) 2.0))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defun</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex--improve-guess</span><span class="org-face-org-block"> (target guess)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Improve GUESS for square root of TARGET."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (ex--average guess (/ target guess)))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defun</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex--good-enough-p</span><span class="org-face-org-block"> (target guess tolerance)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Return non-nil when GUESS is close enough to square root of TARGET."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (&lt;= (abs (- (ex--square guess) target)) tolerance))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defun</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex--valid-target-p</span><span class="org-face-org-block"> (target)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Return non-nil when TARGET can be used as sqrt input."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (</span><span class="org-face-font-lock-keyword-face org-face-org-block">and</span><span class="org-face-org-block"> (numberp target)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         (&gt;= target 0)))</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 核心逻辑</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: chunk-core</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :tangle no</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 本块依赖 chunk-data 与 chunk-helpers；保持 Assembly 中的装配顺序。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 不要把辅助函数逻辑重复写进核心函数，避免破坏黑箱抽象。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defun</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex--sqrt-iterate</span><span class="org-face-org-block"> (target guess tolerance steps)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Recursively improve GUESS until it approximates square root of TARGET."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (</span><span class="org-face-font-lock-keyword-face org-face-org-block">cond</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ((ex--good-enough-p target guess tolerance)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      (ex-make-sqrt-state</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       </span><span class="org-face-font-lock-builtin-face org-face-org-block">:guess</span><span class="org-face-org-block"> guess</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       </span><span class="org-face-font-lock-builtin-face org-face-org-block">:target</span><span class="org-face-org-block"> target</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       </span><span class="org-face-font-lock-builtin-face org-face-org-block">:tolerance</span><span class="org-face-org-block"> tolerance</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       </span><span class="org-face-font-lock-builtin-face org-face-org-block">:steps</span><span class="org-face-org-block"> steps))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     ((&gt;= steps ex-max-steps)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      (ex-make-sqrt-state</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       </span><span class="org-face-font-lock-builtin-face org-face-org-block">:guess</span><span class="org-face-org-block"> guess</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       </span><span class="org-face-font-lock-builtin-face org-face-org-block">:target</span><span class="org-face-org-block"> target</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       </span><span class="org-face-font-lock-builtin-face org-face-org-block">:tolerance</span><span class="org-face-org-block"> tolerance</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       </span><span class="org-face-font-lock-builtin-face org-face-org-block">:steps</span><span class="org-face-org-block"> steps))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     (t</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      (ex--sqrt-iterate</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       target</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       (ex--improve-guess target guess)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       tolerance</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">       (1+ steps)))))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defun</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex-sqrt</span><span class="org-face-org-block"> (target </span><span class="org-face-font-lock-type-face org-face-org-block">&amp;optional</span><span class="org-face-org-block"> tolerance initial-guess)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Approximate square root of TARGET using recursive improvement."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (</span><span class="org-face-font-lock-keyword-face org-face-org-block">unless</span><span class="org-face-org-block"> (ex--valid-target-p target)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      (</span><span class="org-face-font-lock-warning-face org-face-org-block">user-error</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">"TARGET must be a non-negative number"</span><span class="org-face-org-block">))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (</span><span class="org-face-font-lock-keyword-face org-face-org-block">let</span><span class="org-face-org-block"> ((tol (</span><span class="org-face-font-lock-keyword-face org-face-org-block">or</span><span class="org-face-org-block"> tolerance ex-default-tolerance))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-org-block">	</span><span class="org-face-org-block">(guess (</span><span class="org-face-font-lock-keyword-face org-face-org-block">or</span><span class="org-face-org-block"> initial-guess ex-default-initial-guess)))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      (ex--sqrt-iterate target guess tol 0)))</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 对外接口</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: chunk-interface</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :tangle no</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 改造输出格式，让它更适合在 </span><span class="org-face-font-lock-comment-face org-face-org-block">*Messages*</span><span class="org-face-font-lock-comment-face org-face-org-block"> buffer 中阅读。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 增加可选参数读取，让用户手动输入 tolerance。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defun</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex-sqrt-message</span><span class="org-face-org-block"> (target)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Display approximate square root result for TARGET."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (</span><span class="org-face-font-lock-keyword-face org-face-org-block">interactive</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">"nTarget number: "</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (</span><span class="org-face-font-lock-keyword-face org-face-org-block">let*</span><span class="org-face-org-block"> ((state (ex-sqrt target))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-org-block">	</span><span class="org-face-org-block"> (guess (ex-sqrt-state-guess state))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-org-block">	</span><span class="org-face-org-block"> (steps (ex-sqrt-state-steps state)))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      (message </span><span class="org-face-font-lock-string-face org-face-org-block">"sqrt(%s) ≈ %.8f, steps=%s"</span><span class="org-face-org-block"> target guess steps)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      state))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">defun</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex-sqrt-demo</span><span class="org-face-org-block"> ()</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Run sqrt approximation for values in `</span><span class="org-face-font-lock-constant-face org-face-font-lock-doc-face org-face-org-block">ex-demo-inputs</span><span class="org-face-font-lock-doc-face org-face-org-block">'."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (</span><span class="org-face-font-lock-keyword-face org-face-org-block">interactive</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (mapcar #'ex-sqrt ex-demo-inputs))</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 测试与示例</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: chunk-tests</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :tangle no</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">使用 ert 框架</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 增加更多边界测试，例如极小小数、极大数字。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">;; </span><span class="org-face-font-lock-comment-face org-face-org-block">TODO: 增加失败用例，观察错误信息是否清晰。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">ert-deftest</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex-test-square</span><span class="org-face-org-block"> ()</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Test square helper."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (should (= (ex--square 3) 9))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (should (= (ex--square -4) 16)))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">ert-deftest</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex-test-sqrt-perfect-square</span><span class="org-face-org-block"> ()</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Test sqrt approximation for perfect squares."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (should (&lt; (abs (- (ex-sqrt-state-guess (ex-sqrt 4)) 2.0)) 0.001))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (should (&lt; (abs (- (ex-sqrt-state-guess (ex-sqrt 9)) 3.0)) 0.001)))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">ert-deftest</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex-test-sqrt-non-perfect-square</span><span class="org-face-org-block"> ()</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Test sqrt approximation for non-perfect square."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (should (&lt; (abs (- (ex-sqrt-state-guess (ex-sqrt 2)) 1.4142)) 0.001)))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">ert-deftest</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex-test-sqrt-zero</span><span class="org-face-org-block"> ()</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Test sqrt approximation for zero."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (should (&lt; (abs (ex-sqrt-state-guess (ex-sqrt 0))) 0.01)))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">ert-deftest</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-function-name-face org-face-org-block">ex-test-invalid-target</span><span class="org-face-org-block"> ()</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-doc-face org-face-org-block">"Test invalid sqrt input."</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (should-error (ex-sqrt -1) </span><span class="org-face-font-lock-builtin-face org-face-org-block">:type</span><span class="org-face-org-block"> 'user-error)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    (should-error (ex-sqrt </span><span class="org-face-font-lock-string-face org-face-org-block">"2"</span><span class="org-face-org-block">) </span><span class="org-face-font-lock-builtin-face org-face-org-block">:type</span><span class="org-face-org-block"> 'user-error))</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 组装（唯一 tangle 出口）</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :tangle exercise-sqrt-process.el :noweb yes :comments link</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  &lt;&lt;chunk-header&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  &lt;&lt;chunk-types&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  &lt;&lt;chunk-data&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  &lt;&lt;chunk-helpers&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  &lt;&lt;chunk-core&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  &lt;&lt;chunk-interface&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  &lt;&lt;chunk-tests&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 技术难点剖析（润色草稿）</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- <span class="org-face-org-list-dt">过程抽象 ::</span> 程序不是把代码堆起来，而是把“怎么做”拆成可命名的小过程。</span>
+<span class="museum-org-line">- <span class="org-face-org-list-dt">黑箱抽象 ::</span> <span class="org-face-org-verbatim">=ex-sqrt=</span> 对外只暴露目标输入和结果输出，内部的猜测、判断、改进被封装起来。</span>
+<span class="museum-org-line">- <span class="org-face-org-list-dt">递归逼近 ::</span> 每一次递归都不是原地打转，而是让 <span class="org-face-org-verbatim">=guess=</span> 更接近目标答案。</span>
+<span class="museum-org-line">- <span class="org-face-org-list-dt">命名 ::</span> <span class="org-face-org-verbatim">=ex--square=、=ex--improve-guess=、=ex--good-enough-p=</span> 这些名字让代码接近问题语言。</span>
+<span class="museum-org-line">- <span class="org-face-org-list-dt">文学编程 ::</span> Org-mode 把解释、代码块、测试、导出组织在同一份文档里，减少“代码会跑但没人看懂”的问题。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 任务指南（润色草稿）</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">1. 从 <span class="org-face-org-verbatim">=chunk-helpers=</span> 开始实现，优先保证辅助函数简单、纯净、可单独测试。</span>
+<span class="museum-org-line">2. 实现 =chunk-core=，让主过程只负责调度：判断、改进、递归继续。</span>
+<span class="museum-org-line">3. 补全 =chunk-tests=，覆盖正例、边界值和错误输入。</span>
+<span class="museum-org-line">4. 执行 =M-x org-babel-tangle=，导出 =exercise-sqrt-process.el=。</span>
+<span class="museum-org-line">5. 在 Emacs 中加载导出文件，运行 <span class="org-face-org-verbatim">=M-x ert=</span> 验证测试。</span>
+<span class="museum-org-line">6. 手动执行 =M-x ex-sqrt-message=，输入 =2=、=9=、=100=，观察输出结果。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 验收标准</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- 所有具名块均设置 =:tangle no=。</span>
+<span class="museum-org-line">- 只有组装块设置 =:tangle exercise-sqrt-process.el=。</span>
+<span class="museum-org-line">- 组装块内只包含 Noweb 引用，不包含任何实现代码。</span>
+<span class="museum-org-line">- functional 范式下不生成 =chunk-class=。</span>
+<span class="museum-org-line">- <span class="org-face-org-verbatim">=chunk-tests=</span> 至少包含正例、边界用例、错误输入用例。</span>
+<span class="museum-org-line">- <span class="org-face-org-verbatim">=M-x ert=</span> 执行后，所有测试通过。</span>
+<span class="museum-org-line">- <span class="org-face-org-verbatim">=ex-sqrt-message=</span> 能作为 interactive 命令调用。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 禁止事项</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- 禁止在具名块上设置 =:tangle exercise-sqrt-process.el=。</span>
+<span class="museum-org-line">- 禁止在组装块内写任何实现代码。</span>
+<span class="museum-org-line">- 禁止生成 =chunk-class=，本练习不是 OOP 范式。</span>
+<span class="museum-org-line">- 禁止省略 =:comments link=。</span>
+<span class="museum-org-line">- 禁止把平方根核心公式散落在多个位置重复实现。</span>
+<span class="museum-org-line">- 禁止让 <span class="org-face-org-verbatim">=ex-sqrt=</span> 直接处理所有细节；必须通过辅助函数分层。</span>
+<span class="museum-org-line">- 禁止删除测试块；没有测试，本练习不算完成。</span>
+</code></pre></section>
 <h1 class="title">SICP SICP Lisp 过程抽象练习：平方根迭代逼近器</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-40c82e131645">1. §0 实例化配置区</a></li>
-<li><a href="#section-8040d202878e">2. 练习目标</a></li>
-<li><a href="#section-8040d202878e">3. 题目描述</a></li>
-<li><a href="#section-8040d202878e">4. 代码分解</a>
+<li><a href="#section-06df0294c60b">1. §0 实例化配置区</a></li>
+<li><a href="#section-8200895d4536">2. 练习目标</a></li>
+<li><a href="#section-8d965de4f570">3. 题目描述</a></li>
+<li><a href="#section-df5f8f410397">4. 代码分解</a>
 <ul>
-<li><a href="#section-9caf87103ef5">4.1. 文件头</a></li>
-<li><a href="#section-64b044fa9ac3">4.2. 类型定义</a></li>
-<li><a href="#section-64b044fa9ac3">4.3. 数据定义</a></li>
-<li><a href="#section-64b044fa9ac3">4.4. 辅助函数</a></li>
-<li><a href="#section-64b044fa9ac3">4.5. 核心逻辑</a></li>
-<li><a href="#section-64b044fa9ac3">4.6. 对外接口</a></li>
-<li><a href="#section-71327009b87c">4.7. 测试与示例</a></li>
-<li><a href="#section-0e445fa98bbc">4.8. 组装（唯一 tangle 出口）</a></li>
+<li><a href="#section-e9852fcd9576">4.1. 文件头</a></li>
+<li><a href="#section-7d2d238f4595">4.2. 类型定义</a></li>
+<li><a href="#section-c204d66cf84d">4.3. 数据定义</a></li>
+<li><a href="#section-21afee6fa62e">4.4. 辅助函数</a></li>
+<li><a href="#section-d9c873e3758a">4.5. 核心逻辑</a></li>
+<li><a href="#section-ad5f4298e8b2">4.6. 对外接口</a></li>
+<li><a href="#section-11800a236116">4.7. 测试与示例</a></li>
+<li><a href="#section-421ceb94a126">4.8. 组装（唯一 tangle 出口）</a></li>
 </ul>
 </li>
-<li><a href="#section-690c1ca72035">5. 技术难点剖析（润色草稿）</a></li>
-<li><a href="#section-d34e179ea7e9">6. 任务指南（润色草稿）</a></li>
-<li><a href="#section-8040d202878e">7. 验收标准</a></li>
-<li><a href="#section-8040d202878e">8. 禁止事项</a></li>
+<li><a href="#section-ff3da1aa13b0">5. 技术难点剖析（润色草稿）</a></li>
+<li><a href="#section-3fed7b1c8af4">6. 任务指南（润色草稿）</a></li>
+<li><a href="#section-db28f2169d78">7. 验收标准</a></li>
+<li><a href="#section-42d56eae0843">8. 禁止事项</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-40c82e131645" class="outline-2">
-<h2 id="section-40c82e131645"><span class="section-number-2">1.</span> §0 实例化配置区</h2>
+<div id="outline-container-section-06df0294c60b" class="outline-2">
+<h2 id="section-06df0294c60b"><span class="section-number-2">1.</span> §0 实例化配置区</h2>
 <div class="outline-text-2" id="text-1">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
 
@@ -141,8 +397,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-8040d202878e" class="outline-2">
-<h2 id="section-8040d202878e"><span class="section-number-2">2.</span> 练习目标</h2>
+<div id="outline-container-section-8200895d4536" class="outline-2">
+<h2 id="section-8200895d4536"><span class="section-number-2">2.</span> 练习目标</h2>
 <div class="outline-text-2" id="text-2">
 <ul class="org-ul">
 <li>掌握 Lisp 风格的过程抽象：把“如何求平方根”拆成可命名、可测试、可组合的小过程。</li>
@@ -152,8 +408,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-8040d202878e" class="outline-2">
-<h2 id="section-8040d202878e"><span class="section-number-2">3.</span> 题目描述</h2>
+<div id="outline-container-section-8d965de4f570" class="outline-2">
+<h2 id="section-8d965de4f570"><span class="section-number-2">3.</span> 题目描述</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 实现一个 Emacs Lisp 模块，用迭代逼近法计算非负数的平方根。程序需要完成以下行为：
@@ -177,15 +433,15 @@
 </ol>
 </div>
 </div>
-<div id="outline-container-section-8040d202878e" class="outline-2">
-<h2 id="section-8040d202878e"><span class="section-number-2">4.</span> 代码分解</h2>
+<div id="outline-container-section-df5f8f410397" class="outline-2">
+<h2 id="section-df5f8f410397"><span class="section-number-2">4.</span> 代码分解</h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-section-9caf87103ef5" class="outline-3">
-<h3 id="section-9caf87103ef5"><span class="section-number-3">4.1.</span> 文件头</h3>
+<div id="outline-container-section-e9852fcd9576" class="outline-3">
+<h3 id="section-e9852fcd9576"><span class="section-number-3">4.1.</span> 文件头</h3>
 <div class="outline-text-3" id="text-4-1">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org206b9a3"><code class="language-lisp">;;; exercise-sqrt-process.el --- SICP-style sqrt process exercise -*- lexical-binding: t; -*-
+<pre class="src src-emacs-lisp" id="org-museum-ref-be243149730e"><code class="language-lisp">;;; exercise-sqrt-process.el --- SICP-style sqrt process exercise -*- lexical-binding: t; -*-
 ;;; Commentary:
 ;; TODO: 用 2-3 句话说明本练习对应的主题：过程、抽象、递归。
 ;; TODO: 写清楚本文件由 Org-mode tangle 生成，不建议直接修改导出文件。
@@ -200,11 +456,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-64b044fa9ac3" class="outline-3">
-<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.2.</span> 类型定义</h3>
+<div id="outline-container-section-7d2d238f4595" class="outline-3">
+<h3 id="section-7d2d238f4595"><span class="section-number-3">4.2.</span> 类型定义</h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org0b4c9ae"><code class="language-lisp">;; TODO: 补充字段说明：guess / target / tolerance / steps 分别表示什么。
+<pre class="src src-emacs-lisp" id="org-museum-ref-5d4b1615352f"><code class="language-lisp">;; TODO: 补充字段说明：guess / target / tolerance / steps 分别表示什么。
 ;; TODO: 思考为什么用结构体返回结果，而不是只返回一个数字。
 
 (cl-defstruct
@@ -219,11 +475,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-64b044fa9ac3" class="outline-3">
-<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.3.</span> 数据定义</h3>
+<div id="outline-container-section-c204d66cf84d" class="outline-3">
+<h3 id="section-c204d66cf84d"><span class="section-number-3">4.3.</span> 数据定义</h3>
 <div class="outline-text-3" id="text-4-3">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org869884c"><code class="language-lisp">;; TODO: 调整默认容忍度，观察测试结果是否仍然稳定。
+<pre class="src src-emacs-lisp" id="org-museum-ref-a10941ec476b"><code class="language-lisp">;; TODO: 调整默认容忍度，观察测试结果是否仍然稳定。
 ;; TODO: 调整最大迭代次数，观察过小的值会导致什么问题。
 
 (defconst ex-default-tolerance 1e-05
@@ -241,11 +497,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-64b044fa9ac3" class="outline-3">
-<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.4.</span> 辅助函数</h3>
+<div id="outline-container-section-21afee6fa62e" class="outline-3">
+<h3 id="section-21afee6fa62e"><span class="section-number-3">4.4.</span> 辅助函数</h3>
 <div class="outline-text-3" id="text-4-4">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgfc43e0b"><code class="language-lisp">;; TODO: 保持本块函数尽量纯净，不读写外部状态。
+<pre class="src src-emacs-lisp" id="org-museum-ref-d5230f8d7476"><code class="language-lisp">;; TODO: 保持本块函数尽量纯净，不读写外部状态。
 ;; TODO: 为每个辅助函数补充一个简单例子，写进文档字符串。
 
 (defun ex--square (x)
@@ -272,11 +528,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-64b044fa9ac3" class="outline-3">
-<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.5.</span> 核心逻辑</h3>
+<div id="outline-container-section-d9c873e3758a" class="outline-3">
+<h3 id="section-d9c873e3758a"><span class="section-number-3">4.5.</span> 核心逻辑</h3>
 <div class="outline-text-3" id="text-4-5">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgfd40e3c"><code class="language-lisp">;; TODO: 本块依赖 chunk-data 与 chunk-helpers；保持 Assembly 中的装配顺序。
+<pre class="src src-emacs-lisp" id="org-museum-ref-bd8502346283"><code class="language-lisp">;; TODO: 本块依赖 chunk-data 与 chunk-helpers；保持 Assembly 中的装配顺序。
 ;; TODO: 不要把辅助函数逻辑重复写进核心函数，避免破坏黑箱抽象。
 
 (defun ex--sqrt-iterate (target guess tolerance steps)
@@ -312,11 +568,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-64b044fa9ac3" class="outline-3">
-<h3 id="section-64b044fa9ac3"><span class="section-number-3">4.6.</span> 对外接口</h3>
+<div id="outline-container-section-ad5f4298e8b2" class="outline-3">
+<h3 id="section-ad5f4298e8b2"><span class="section-number-3">4.6.</span> 对外接口</h3>
 <div class="outline-text-3" id="text-4-6">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="orgf5697f2"><code class="language-lisp">;; TODO: 改造输出格式，让它更适合在 *Messages* buffer 中阅读。
+<pre class="src src-emacs-lisp" id="org-museum-ref-2d6c9e3bc295"><code class="language-lisp">;; TODO: 改造输出格式，让它更适合在 *Messages* buffer 中阅读。
 ;; TODO: 增加可选参数读取，让用户手动输入 tolerance。
 
 (defun ex-sqrt-message (target)
@@ -336,11 +592,11 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-71327009b87c" class="outline-3">
-<h3 id="section-71327009b87c"><span class="section-number-3">4.7.</span> 测试与示例</h3>
+<div id="outline-container-section-11800a236116" class="outline-3">
+<h3 id="section-11800a236116"><span class="section-number-3">4.7.</span> 测试与示例</h3>
 <div class="outline-text-3" id="text-4-7">
 <div class="org-src-container">
-<pre class="src src-emacs-lisp" id="org540fedc"><code class="language-lisp">;; 使用 ert 框架
+<pre class="src src-emacs-lisp" id="org-museum-ref-b136fc8f810e"><code class="language-lisp">;; 使用 ert 框架
 ;; TODO: 增加更多边界测试，例如极小小数、极大数字。
 ;; TODO: 增加失败用例，观察错误信息是否清晰。
 
@@ -370,8 +626,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-0e445fa98bbc" class="outline-3">
-<h3 id="section-0e445fa98bbc"><span class="section-number-3">4.8.</span> 组装（唯一 tangle 出口）</h3>
+<div id="outline-container-section-421ceb94a126" class="outline-3">
+<h3 id="section-421ceb94a126"><span class="section-number-3">4.8.</span> 组装（唯一 tangle 出口）</h3>
 <div class="outline-text-3" id="text-4-8">
 <div class="org-src-container">
 <pre class="src src-emacs-lisp"><code class="language-lisp">&lt;&lt;chunk-header&gt;&gt;
@@ -392,8 +648,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-690c1ca72035" class="outline-2">
-<h2 id="section-690c1ca72035"><span class="section-number-2">5.</span> 技术难点剖析（润色草稿）</h2>
+<div id="outline-container-section-ff3da1aa13b0" class="outline-2">
+<h2 id="section-ff3da1aa13b0"><span class="section-number-2">5.</span> 技术难点剖析（润色草稿）</h2>
 <div class="outline-text-2" id="text-5">
 <dl class="org-dl">
 <dt>过程抽象</dt><dd>程序不是把代码堆起来，而是把“怎么做”拆成可命名的小过程。</dd>
@@ -404,8 +660,8 @@
 </dl>
 </div>
 </div>
-<div id="outline-container-section-d34e179ea7e9" class="outline-2">
-<h2 id="section-d34e179ea7e9"><span class="section-number-2">6.</span> 任务指南（润色草稿）</h2>
+<div id="outline-container-section-3fed7b1c8af4" class="outline-2">
+<h2 id="section-3fed7b1c8af4"><span class="section-number-2">6.</span> 任务指南（润色草稿）</h2>
 <div class="outline-text-2" id="text-6">
 <ol class="org-ol">
 <li>从 <code>chunk-helpers</code> 开始实现，优先保证辅助函数简单、纯净、可单独测试。</li>
@@ -417,8 +673,8 @@
 </ol>
 </div>
 </div>
-<div id="outline-container-section-8040d202878e" class="outline-2">
-<h2 id="section-8040d202878e"><span class="section-number-2">7.</span> 验收标准</h2>
+<div id="outline-container-section-db28f2169d78" class="outline-2">
+<h2 id="section-db28f2169d78"><span class="section-number-2">7.</span> 验收标准</h2>
 <div class="outline-text-2" id="text-7">
 <ul class="org-ul">
 <li>所有具名块均设置 <code>:tangle no</code>。</li>
@@ -431,8 +687,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-8040d202878e" class="outline-2">
-<h2 id="section-8040d202878e"><span class="section-number-2">8.</span> 禁止事项</h2>
+<div id="outline-container-section-42d56eae0843" class="outline-2">
+<h2 id="section-42d56eae0843"><span class="section-number-2">8.</span> 禁止事项</h2>
 <div class="outline-text-2" id="text-8">
 <ul class="org-ul">
 <li>禁止在具名块上设置 <code>:tangle exercise-sqrt-process.el</code>。</li>
@@ -453,7 +709,7 @@
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-</div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -477,13 +733,19 @@
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>05</span></div>
+    <div class="sidebar-cat-label">AI <span>02</span></div>
     <ul>
-      <li><a href="../ail/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
-      <li><a href="../ail/002-学习需要被设计.html">002-学习需要被设计</a></li>
-      <li><a href="../ail/003-有效的ai工具.html">003-有效的AI工具</a></li>
-      <li><a href="../ail/004-小心使用.html">004-小心使用</a></li>
-      <li><a href="../ail/005-信息概括.html">005-信息概括</a></li>
+      <li><a href="../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -507,12 +769,14 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>04</span></div>
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
       <li><a href="../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="../sql/duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="../sql/duckdb-thinking.html">duckdb-thinking</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
@@ -528,9 +792,23 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
     <ul>
       <li><a href="sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="../Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="../Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="../Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
     </ul>
   </div>
 </aside>
@@ -539,7 +817,11 @@
 
 
 
+<script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=ab5c89406617"></script>
+<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
 </body>
 </html>

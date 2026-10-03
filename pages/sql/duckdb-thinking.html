@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>duckdb-thinking</title>
+<meta name="generator" content="Org Mode" />
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="duckdb-thinking-org" data-page-title="duckdb-thinking" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-10-01" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
+    <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">duckdb-thinking</a><span class="museum-identity-meta">Sql · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="duckdb-thinking-org" data-page-title="duckdb-thinking" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+  <summary>文章信息</summary>
+<aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=Sql#recent-updates">Sql</a><span class="museum-status-badge">草稿</span>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 23 分钟</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=sql#recent-updates" data-tag="sql" title="查看包含标签 #sql 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">sql</span></a></dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a data-reading-return href="../../index.html#recent-updates">← 全部笔记</a>
+  </nav>
+</aside>
+</details>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="82a9a17f291ee4775c4dedbf57f80c7949dbfcc37eb6177ba097c6fe990b43df"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: duckdb-thinking-org</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Sql</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: draft</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :sql:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* Overview</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* Content</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 流程</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src plantuml :file my-diagram.png</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  @startuml</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_PAGE       #F7F5EF</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_NODE       #FFFDF8</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TEXT_MAIN     #1F2937</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TEXT_MUTED    #64748B</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BORDER        #64748B</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define ARROW         #475569</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define SQL_BLUE      #2563EB</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TITLE_COLOR   #172033</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define FONT_CN       Noto Sans SC</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define FONT_MONO     JetBrains Mono</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define FONT_TITLE    Noto Sans SC</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_PROBLEM    #F1F5F9</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BD_PROBLEM    #94A3B8</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TX_PROBLEM    #475569</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_TARGET     #EFF6FF</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BD_TARGET     #60A5FA</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TX_TARGET     #2563EB</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_GRAIN      #F5F3FF</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BD_GRAIN      #A78BFA</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TX_GRAIN      #7C3AED</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_SOURCE     #F0FDF4</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BD_SOURCE     #4ADE80</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TX_SOURCE     #16A34A</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_FIELD      #FFF7ED</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BD_FIELD      #FB923C</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TX_FIELD      #EA580C</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_FILTER     #FFF1F2</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BD_FILTER     #FB7185</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TX_FILTER     #E11D48</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_RESULT     #ECFEFF</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BD_RESULT     #22D3EE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TX_RESULT     #0891B2</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BG_FINAL      #1E293B</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define BD_FINAL      #0F172A</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define TX_FINAL      #F8FAFC</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  !define SQL_FINAL     #38BDF8</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam backgroundColor BG_PAGE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam defaultFontName FONT_CN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam defaultFontSize 10</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam defaultFontStyle plain</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam defaultFontColor TEXT_MAIN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam shadowing false</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam roundcorner 10</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam title {</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontName FONT_TITLE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontSize 24</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontStyle bold</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontColor TITLE_COLOR</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  }</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam activity {</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor BG_NODE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor BORDER</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontColor TEXT_MAIN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontName FONT_CN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontSize 14</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    StartColor #22C55E</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    EndColor #475569</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    ArrowColor ARROW</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor&lt;&lt;PROBLEM&gt;&gt; BG_PROBLEM</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor&lt;&lt;PROBLEM&gt;&gt; BD_PROBLEM</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor&lt;&lt;TARGET&gt;&gt; BG_TARGET</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor&lt;&lt;TARGET&gt;&gt; BD_TARGET</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor&lt;&lt;GRAIN&gt;&gt; BG_GRAIN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor&lt;&lt;GRAIN&gt;&gt; BD_GRAIN</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor&lt;&lt;SOURCE&gt;&gt; BG_SOURCE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor&lt;&lt;SOURCE&gt;&gt; BD_SOURCE</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor&lt;&lt;FIELD&gt;&gt; BG_FIELD</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor&lt;&lt;FIELD&gt;&gt; BD_FIELD</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor&lt;&lt;FILTER&gt;&gt; BG_FILTER</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor&lt;&lt;FILTER&gt;&gt; BD_FILTER</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor&lt;&lt;RESULT&gt;&gt; BG_RESULT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor&lt;&lt;RESULT&gt;&gt; BD_RESULT</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BackgroundColor&lt;&lt;FINAL&gt;&gt; BG_FINAL</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    BorderColor&lt;&lt;FINAL&gt;&gt; BD_FINAL</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontColor&lt;&lt;FINAL&gt;&gt; TX_FINAL</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  }</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  skinparam arrow {</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    Color ARROW</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontColor TEXT_MUTED</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontName FONT_CN</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FontSize 10</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  }</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  hide stereotype</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  TITLE 从业务问题到 SQL</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  "业务问题" &lt;&lt;PROBLEM&gt;&gt; -d[#94A3B8,dotted]-&gt;"拆成数据问题" &lt;&lt;PROBLEM&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -r-&gt;[明确目标]"&lt;color:TX_TARGET&gt;&lt;b&gt;想清楚结果表长什么样&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;先定义最终输出&lt;/size&gt;&lt;/color&gt;" &lt;&lt;TARGET&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -r-&gt;[定义粒度]"&lt;color:TX_GRAIN&gt;&lt;b&gt;确定一行代表谁&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;定义结果粒度&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_GRAIN&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;GROUP BY&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;GRAIN&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -d-&gt;[确定来源]"&lt;color:TX_SOURCE&gt;&lt;b&gt;确定数据从哪来&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;选择数据源并建立关系&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_SOURCE&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;FROM&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_SOURCE&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;JOIN&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_SOURCE&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;ON&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;SOURCE&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -d-&gt;[选择字段]"&lt;color:TX_FIELD&gt;&lt;b&gt;确定取哪些字段&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;选择字段并完成计算&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FIELD&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;SELECT&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FIELD&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;CASE WHEN&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FIELD&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;SUM&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FIELD&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;COUNT&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;FIELD&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -r-&gt;[限定范围]"&lt;color:TX_FILTER&gt;&lt;b&gt;确定筛选条件&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;排除不需要的数据&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FILTER&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;WHERE&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;FILTER&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -r-&gt;[整理结果]"&lt;color:TX_RESULT&gt;&lt;b&gt;确定去重与排序&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;整理最终输出结果&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_RESULT&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;DISTINCT&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_RESULT&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;ORDER BY&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_RESULT&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;LIMIT&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;RESULT&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  --&gt;[最后落地]"&lt;color:SQL_FINAL&gt;&lt;size:11&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;SQL&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FINAL&gt;&lt;b&gt;最后才写 SQL&lt;/b&gt;&lt;/color&gt;" &lt;&lt;FINAL&gt;&gt;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  @enduml</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: </span></span>
+<span class="museum-org-line"><span class="org-face-org-link">[</span><span class="org-face-org-link">[</span><span class="org-face-org-link">file:my-diagram.pn</span><span class="org-face-org-link">g</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 对齐</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 远程资源</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  请基于 DuckDB 官方方式，说明如何直接读取当前 Excel（`.xlsx`）中的指定工作表。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  要求：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 给出最小可运行 SQL；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 说明如何指定 `sheet`；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 演示读取整张工作表和指定单元格范围；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 说明表头与字段类型如何识别；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 补充最常见的读取失败原因及处理方法。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  目标：让我能直接把 Excel 工作表当作 DuckDB 的查询数据源使用。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  只讲实际操作，不展开无关概念。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  我的 Google Sheets 链接在：</span><span class="org-face-org-block">https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWS</span><span class="org-face-org-block">s</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  阅读这篇材料帮我实现：</span><span class="org-face-org-block">https://duckdb.org/2025/02/26/google-sheets-community-extensio</span><span class="org-face-org-block">n</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 练习</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  基于现有 的SOP 撰写练习课件。以远程 Google Sheet [</span><span class="org-face-org-block">https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=1585191605#gid=158519160</span><span class="org-face-org-block">5</span><span class="org-face-org-block">](</span><span class="org-face-org-block">https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=1585191605#gid=158519160</span><span class="org-face-org-block">5</span><span class="org-face-org-block">) 作为真实练习数据源。目前下面的代码可以跑通：</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SET http_proxy = 'http://127.0.0.1:18890';</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSTALL httpfs;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LOAD httpfs;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSTALL excel;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LOAD excel;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT *</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM read_xlsx(</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/export?format=xlsx',</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    sheet = 'users',</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    header = true</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  )</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ```</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 操作</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** SQL</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 远程连接</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SET http_proxy = 'http://127.0.0.1:18890';</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSTALL httpfs;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LOAD httpfs;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  INSTALL excel;</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LOAD excel;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT *</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM read_xlsx(</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/export?format=xlsx',</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    sheet = 'users',</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    header = true</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  )</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LIMIT 1;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: </span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_results</span></span>
+<span class="museum-org-line museum-org-block-line">┌─────────────┬────────────┬──────────────┬────────────────────┬───────────┬────────────────┬─────────────────────┐</span>
+<span class="museum-org-line museum-org-block-line">│     uid     │ user_name  │ country_code │ base_fiat_currency │ kyc_level │ account_status │     created_at      │</span>
+<span class="museum-org-line museum-org-block-line">│   double    │  varchar   │   varchar    │      varchar       │  double   │    varchar     │      timestamp      │</span>
+<span class="museum-org-line museum-org-block-line">├─────────────┼────────────┼──────────────┼────────────────────┼───────────┼────────────────┼─────────────────────┤</span>
+<span class="museum-org-line museum-org-block-line">│ 784231905.0 │ Alice Chen │ DE           │ EUR                │       2.0 │ active         │ 2024-01-15 08:30:00 │</span>
+<span class="museum-org-line museum-org-block-line">└─────────────┴────────────┴──────────────┴────────────────────┴───────────┴────────────────┴─────────────────────┘</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_results</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">帮我逆向封装成为解读事件或分析文件自动化生成简报的元提示</span>
+</code></pre></section>
+<h1 class="title">duckdb-thinking</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-a900b4f00242">1. Overview</a></li>
+<li><a href="#section-9c427a5c131d">2. Content</a>
+<ul>
+<li><a href="#section-d12e37aaaded">2.1. 流程</a></li>
+<li><a href="#section-836916231459">2.2. 对齐</a>
+<ul>
+<li><a href="#section-3eb23f76afa4">2.2.1. 远程资源</a></li>
+<li><a href="#org-museum-ref-fad643d44842">2.2.2. 练习</a></li>
+</ul>
+</li>
+<li><a href="#org-museum-ref-96c5fda97bf6">2.3. 操作</a>
+<ul>
+<li><a href="#org-museum-ref-dba7e1311136">2.3.1. SQL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-a900b4f00242" class="outline-2">
+<h2 id="section-a900b4f00242"><span class="section-number-2">1.</span> Overview</h2>
+</div>
+<div id="outline-container-section-9c427a5c131d" class="outline-2">
+<h2 id="section-9c427a5c131d"><span class="section-number-2">2.</span> Content</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-section-d12e37aaaded" class="outline-3">
+<h3 id="section-d12e37aaaded"><span class="section-number-3">2.1.</span> 流程</h3>
+<div class="outline-text-3" id="text-2-1">
+<div class="org-src-container">
+<pre class="src src-plantuml"><code class="language-plantuml">@startuml
+!define BG_PAGE       #F7F5EF
+!define BG_NODE       #FFFDF8
+!define TEXT_MAIN     #1F2937
+!define TEXT_MUTED    #64748B
+!define BORDER        #64748B
+!define ARROW         #475569
+!define SQL_BLUE      #2563EB
+!define TITLE_COLOR   #172033
+!define FONT_CN       Noto Sans SC
+!define FONT_MONO     JetBrains Mono
+!define FONT_TITLE    Noto Sans SC
+
+!define BG_PROBLEM    #F1F5F9
+!define BD_PROBLEM    #94A3B8
+!define TX_PROBLEM    #475569
+
+!define BG_TARGET     #EFF6FF
+!define BD_TARGET     #60A5FA
+!define TX_TARGET     #2563EB
+
+!define BG_GRAIN      #F5F3FF
+!define BD_GRAIN      #A78BFA
+!define TX_GRAIN      #7C3AED
+
+!define BG_SOURCE     #F0FDF4
+!define BD_SOURCE     #4ADE80
+!define TX_SOURCE     #16A34A
+
+!define BG_FIELD      #FFF7ED
+!define BD_FIELD      #FB923C
+!define TX_FIELD      #EA580C
+
+!define BG_FILTER     #FFF1F2
+!define BD_FILTER     #FB7185
+!define TX_FILTER     #E11D48
+
+!define BG_RESULT     #ECFEFF
+!define BD_RESULT     #22D3EE
+!define TX_RESULT     #0891B2
+
+!define BG_FINAL      #1E293B
+!define BD_FINAL      #0F172A
+!define TX_FINAL      #F8FAFC
+!define SQL_FINAL     #38BDF8
+
+skinparam backgroundColor BG_PAGE
+skinparam defaultFontName FONT_CN
+skinparam defaultFontSize 10
+skinparam defaultFontStyle plain
+skinparam defaultFontColor TEXT_MAIN
+skinparam shadowing false
+skinparam roundcorner 10
+
+skinparam title {
+  FontName FONT_TITLE
+  FontSize 24
+  FontStyle bold
+  FontColor TITLE_COLOR
+}
+
+skinparam activity {
+  BackgroundColor BG_NODE
+  BorderColor BORDER
+  FontColor TEXT_MAIN
+  FontName FONT_CN
+  FontSize 14
+  StartColor #22C55E
+  EndColor #475569
+  ArrowColor ARROW
+
+  BackgroundColor&lt;&lt;PROBLEM&gt;&gt; BG_PROBLEM
+  BorderColor&lt;&lt;PROBLEM&gt;&gt; BD_PROBLEM
+
+  BackgroundColor&lt;&lt;TARGET&gt;&gt; BG_TARGET
+  BorderColor&lt;&lt;TARGET&gt;&gt; BD_TARGET
+
+  BackgroundColor&lt;&lt;GRAIN&gt;&gt; BG_GRAIN
+  BorderColor&lt;&lt;GRAIN&gt;&gt; BD_GRAIN
+
+  BackgroundColor&lt;&lt;SOURCE&gt;&gt; BG_SOURCE
+  BorderColor&lt;&lt;SOURCE&gt;&gt; BD_SOURCE
+
+  BackgroundColor&lt;&lt;FIELD&gt;&gt; BG_FIELD
+  BorderColor&lt;&lt;FIELD&gt;&gt; BD_FIELD
+
+  BackgroundColor&lt;&lt;FILTER&gt;&gt; BG_FILTER
+  BorderColor&lt;&lt;FILTER&gt;&gt; BD_FILTER
+
+  BackgroundColor&lt;&lt;RESULT&gt;&gt; BG_RESULT
+  BorderColor&lt;&lt;RESULT&gt;&gt; BD_RESULT
+
+  BackgroundColor&lt;&lt;FINAL&gt;&gt; BG_FINAL
+  BorderColor&lt;&lt;FINAL&gt;&gt; BD_FINAL
+  FontColor&lt;&lt;FINAL&gt;&gt; TX_FINAL
+}
+
+skinparam arrow {
+  Color ARROW
+  FontColor TEXT_MUTED
+  FontName FONT_CN
+  FontSize 10
+}
+
+hide stereotype
+
+TITLE 从业务问题到 SQL
+
+"业务问题" &lt;&lt;PROBLEM&gt;&gt; -d[#94A3B8,dotted]-&gt;"拆成数据问题" &lt;&lt;PROBLEM&gt;&gt;
+-r-&gt;[明确目标]"&lt;color:TX_TARGET&gt;&lt;b&gt;想清楚结果表长什么样&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;先定义最终输出&lt;/size&gt;&lt;/color&gt;" &lt;&lt;TARGET&gt;&gt;
+-r-&gt;[定义粒度]"&lt;color:TX_GRAIN&gt;&lt;b&gt;确定一行代表谁&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;定义结果粒度&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_GRAIN&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;GROUP BY&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;GRAIN&gt;&gt;
+-d-&gt;[确定来源]"&lt;color:TX_SOURCE&gt;&lt;b&gt;确定数据从哪来&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;选择数据源并建立关系&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_SOURCE&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;FROM&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_SOURCE&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;JOIN&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_SOURCE&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;ON&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;SOURCE&gt;&gt;
+-d-&gt;[选择字段]"&lt;color:TX_FIELD&gt;&lt;b&gt;确定取哪些字段&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;选择字段并完成计算&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FIELD&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;SELECT&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FIELD&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;CASE WHEN&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FIELD&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;SUM&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FIELD&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;COUNT&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;FIELD&gt;&gt;
+-r-&gt;[限定范围]"&lt;color:TX_FILTER&gt;&lt;b&gt;确定筛选条件&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;排除不需要的数据&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FILTER&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;WHERE&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;FILTER&gt;&gt;
+-r-&gt;[整理结果]"&lt;color:TX_RESULT&gt;&lt;b&gt;确定去重与排序&lt;/b&gt;&lt;/color&gt;\n&lt;color:TEXT_MUTED&gt;&lt;size:10&gt;整理最终输出结果&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_RESULT&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;DISTINCT&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_RESULT&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;ORDER BY&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_RESULT&gt;&lt;size:10&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;LIMIT&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;" &lt;&lt;RESULT&gt;&gt;
+--&gt;[最后落地]"&lt;color:SQL_FINAL&gt;&lt;size:11&gt;&lt;font:FONT_MONO&gt;&lt;b&gt;SQL&lt;/b&gt;&lt;/font&gt;&lt;/size&gt;&lt;/color&gt;\n&lt;color:TX_FINAL&gt;&lt;b&gt;最后才写 SQL&lt;/b&gt;&lt;/color&gt;" &lt;&lt;FINAL&gt;&gt;
+@enduml
+</code></pre>
+</div>
+
+<p>
+<figure class="museum-asset museum-asset-image" data-asset-id="0209531d43fdb225fed41dbfcb8fdf72389efefb59c01b5bf3c9429ce43b5fa4"><img src="../../assets/0209531d43fdb225fed41dbfcb8fdf72389efefb59c01b5bf3c9429ce43b5fa4.png" alt="my-diagram.png" loading="lazy" decoding="async" data-lightbox></figure>
+</p>
+</div>
+</div>
+<div id="outline-container-section-836916231459" class="outline-3">
+<h3 id="section-836916231459"><span class="section-number-3">2.2.</span> 对齐</h3>
+<div class="outline-text-3" id="text-2-2">
+</div>
+<div id="outline-container-section-3eb23f76afa4" class="outline-4">
+<h4 id="section-3eb23f76afa4"><span class="section-number-4">2.2.1.</span> 远程资源</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">请基于 DuckDB 官方方式，说明如何直接读取当前 Excel（`.xlsx`）中的指定工作表。
+
+要求：
+1. 给出最小可运行 SQL；
+2. 说明如何指定 `sheet`；
+3. 演示读取整张工作表和指定单元格范围；
+4. 说明表头与字段类型如何识别；
+5. 补充最常见的读取失败原因及处理方法。
+
+目标：让我能直接把 Excel 工作表当作 DuckDB 的查询数据源使用。
+只讲实际操作，不展开无关概念。
+我的 Google Sheets 链接在：https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs
+
+阅读这篇材料帮我实现：https://duckdb.org/2025/02/26/google-sheets-community-extension
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-org-museum-ref-fad643d44842" class="outline-4">
+<h4 id="org-museum-ref-fad643d44842"><span class="section-number-4">2.2.2.</span> 练习</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">基于现有 的SOP 撰写练习课件。以远程 Google Sheet [https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=1585191605#gid=1585191605](https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=1585191605#gid=1585191605) 作为真实练习数据源。目前下面的代码可以跑通：
+
+```sql
+SET http_proxy = 'http://127.0.0.1:18890';
+INSTALL httpfs;
+LOAD httpfs;
+INSTALL excel;
+LOAD excel;
+SELECT *
+FROM read_xlsx(
+  'https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/export?format=xlsx',
+  sheet = 'users',
+  header = true
+)
+```
+</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-org-museum-ref-96c5fda97bf6" class="outline-3">
+<h3 id="org-museum-ref-96c5fda97bf6"><span class="section-number-3">2.3.</span> 操作</h3>
+<div class="outline-text-3" id="text-2-3">
+</div>
+<div id="outline-container-org-museum-ref-dba7e1311136" class="outline-4">
+<h4 id="org-museum-ref-dba7e1311136"><span class="section-number-4">2.3.1.</span> SQL</h4>
+<div class="outline-text-4" id="text-2-3-1">
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-21c2cb9e6e8c"></a>远程连接<br>
+<div class="outline-text-5" id="text-2-3-1-1">
+<div class="org-src-container">
+<pre class="src src-duckdb"><code class="language-sql">SET http_proxy = 'http://127.0.0.1:18890';
+
+INSTALL httpfs;
+LOAD httpfs;
+
+INSTALL excel;
+LOAD excel;
+
+SELECT *
+FROM read_xlsx(
+  'https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/export?format=xlsx',
+  sheet = 'users',
+  header = true
+)
+LIMIT 1;
+</code></pre>
+</div>
+
+<div class="results" id="org-museum-ref-c12808aec0b7"><pre class="org-museum-results" tabindex="0" aria-label="代码运行结果"><code>┌─────────────┬────────────┬──────────────┬────────────────────┬───────────┬────────────────┬─────────────────────┐
+│     uid     │ user_name  │ country_code │ base_fiat_currency │ kyc_level │ account_status │     created_at      │
+│   double    │  varchar   │   varchar    │      varchar       │  double   │    varchar     │      timestamp      │
+├─────────────┼────────────┼──────────────┼────────────────────┼───────────┼────────────────┼─────────────────────┤
+│ 784231905.0 │ Alice Chen │ DE           │ EUR                │       2.0 │ active         │ 2024-01-15 08:30:00 │
+└─────────────┴────────────┴──────────────┴────────────────────┴───────────┴────────────────┴─────────────────────┘</code></pre></div>
+
+
+<p>
+帮我逆向封装成为解读事件或分析文件自动化生成简报的元提示
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<section class="museum-page-assets" aria-labelledby="museum-page-assets-title"><div class="museum-section-heading"><p class="eyebrow">资源</p><h2 id="museum-page-assets-title">资源</h2></div><div class="museum-asset-list"><a class="museum-asset-card museum-asset-image" data-asset-id="0209531d43fdb225fed41dbfcb8fdf72389efefb59c01b5bf3c9429ce43b5fa4" href="../../assets/0209531d43fdb225fed41dbfcb8fdf72389efefb59c01b5bf3c9429ce43b5fa4.png" download="my-diagram.png"><span class="museum-asset-kind">Image</span><span class="museum-asset-name">my-diagram.png</span></a></div></section><section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 00</h3>
+<p class="org-museum-related-empty">这篇笔记还没有可导出的关联页面。</p>
+<a class="local-graph-link" href="../../graph.html?focus=duckdb-thinking-org">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="../../timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="../../related.html">关联阅读</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="../Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <ul>
+      <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="duckdb-thinking.html">duckdb-thinking</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="../vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <ul>
+      <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="../Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="../Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="../Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+<script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+
+<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
+</body>
+</html>

@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Org Babel 01｜执行基础与数据流</title>
+<meta name="description" content="ORG JOURNAL Recording" />
+<meta name="generator" content="Org Mode" />
+<meta name="color-scheme" content="dark light">
+<script src="../../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=a21cc263868a">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-Org-org-babel-01-execution-foundations" data-page-title="Org Babel 01｜执行基础与数据流" data-page-category="uncategorized" data-page-tags="Emacs,Org,Babel,Foundation" data-page-status="published" data-page-modified="2026-10-01" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline" href="../../../timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="../../../graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="../../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../../ai-center.html">AI 中心</a>
+    <a class="museum-topbar-link museum-nav-all" href="../../../index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../../index.html" class="museum-identity-title">Org Babel 01｜执行基础与数据流</a><span class="museum-identity-meta">其他笔记</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="pages-Emacs-Org-org-babel-01-execution-foundations" data-page-title="Org Babel 01｜执行基础与数据流" data-page-category="uncategorized"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+  <summary>文章信息</summary>
+<aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../../index.html?category=uncategorized#recent-updates">其他笔记</a>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 20 分钟</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../../index.html?tag=Emacs#recent-updates" data-tag="Emacs" title="查看包含标签 #Emacs 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Emacs</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Org#recent-updates" data-tag="Org" title="查看包含标签 #Org 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Org</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Babel#recent-updates" data-tag="Babel" title="查看包含标签 #Babel 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Babel</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Foundation#recent-updates" data-tag="Foundation" title="查看包含标签 #Foundation 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Foundation</span></a></dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a data-reading-return href="../../../index.html#recent-updates">← 全部笔记</a>
+  </nav>
+</aside>
+</details>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="86dcfd6287db6df4622f1b93107fcdbaa396f46a9ad9c0a9768ac5350b0d8836"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-document-info-keyword">#+subtitle:</span> <span class="org-face-org-document-info">从环境配置到参数、调用与结果管理</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :Emacs:Org:Babel:Foundation:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args :exports both</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args:python :results value replace :session none</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args:sh :results output replace</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+description: ORG JOURNAL Recording</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 关系导航</span></span>
+<span class="museum-org-line">本文件是三模块入口。三份笔记统一使用 Org 原生 <span class="org-face-org-verbatim">=file:=</span> 链接，并在目标文件显式回链；不硬编码未核验的 org-museum.el 私有关系字段。只建立会影响学习或复用的关系。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">关系</span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">指向                  </span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">为什么需要                                                     </span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+------------------------+-----------------------------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">延伸</span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-02-composition-engineering.org]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">02｜组合、复用与工程</span><span class="org-face-org-link org-face-org-table">化</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">基础执行稳定后，再进入 Noweb、Session、Cache、Tangle 与 Library</span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">示例</span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-02-composition-engineering.org::*7. 完整案例：订单分析流水线]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">订单分析流水</span><span class="org-face-org-link org-face-org-table">线</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">        </span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">把本文件的参数、Block 数据流和调用方式组合成真实工作流         </span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">复用</span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-02-composition-engineering.org::*6. Library of Babel：跨文件复用]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">Library of Babe</span><span class="org-face-org-link org-face-org-table">l</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">      </span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">稳定 Block 跨文件复用时使用                                    </span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">排错</span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-03-verification-debugging.org]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">03｜验证、回归与排</span><span class="org-face-org-link org-face-org-table">错</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">  </span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span><span class="org-face-org-table"> </span><span class="org-face-org-table">运行、CALL、导出或环境出现异常时进入                           </span><span class="org-face-org-table"> </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">推荐路径：本文件 → <span class="org-face-org-link">[[file:org-babel-02-composition-engineering.org]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">02 组合工</span><span class="org-face-org-link">程</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span> → <span class="org-face-org-link">[[file:org-babel-03-verification-debugging.org]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">03 验证排</span><span class="org-face-org-link">错</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 怎么使用这组三模块</span></span>
+<span class="museum-org-line">第一次按顺序执行；之后日常只改参数和最小调用。主链：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  数据 → 参数 → Block → 调用/组合 → 执行 → 结果 → Contract → Tangle → 回归</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 动作                 | Org 快捷键 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----------------------+------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 执行当前 Block       | C-c C-c    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 查看 Expanded Source | C-c C-v v  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 执行整个 Buffer      | C-c C-v b  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 执行当前 Subtree     | C-c C-v s  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Tangle               | C-c C-v t  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 跳到命名 Block       | C-c C-v g  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 跳到命名结果         | C-c C-v r  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 打开结果             | C-c C-o    |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 环境与配置</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 最小运行条件</span></span>
+<span class="museum-org-line">需要：</span>
+<span class="museum-org-line">- Emacs；</span>
+<span class="museum-org-line">- Org；</span>
+<span class="museum-org-line">- Python 3；</span>
+<span class="museum-org-line">- PATH 中可直接调用的 POSIX =sh=（若要运行 Shell 示例）。Windows 可来自 Git Bash、MSYS2 或 WSL。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本文的可执行 Shell Block 一律写成 <span class="org-face-org-verbatim">=#+begin_src sh=，不写泛化的 </span><span class="org-face-org-verbatim org-face-org-verbatim">=#+begin_src shell=。配置里的 </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-verbatim">=(shell . t)=</span> 只是加载 <span class="org-face-org-verbatim">=ob-shell.el=；Block 的语言名才决定实际执行器。Org 当前 </span><span class="org-face-org-verbatim org-face-org-verbatim">=ob-shell=</span> 会为 <span class="org-face-org-verbatim">=sh/bash/zsh/...=</span> 建立执行入口，并在执行 <span class="org-face-org-verbatim">=sh=</span> Block 时把 <span class="org-face-org-verbatim">=shell-file-name=</span> 绑定到 <span class="org-face-org-verbatim">=sh=。Windows 的默认系统 Shell 可能采用 cmd/DOS 语义，因此对依赖 </span><span class="org-face-org-verbatim org-face-org-verbatim">=printf=、=||=</span> 等 POSIX 语法的教程，显式写 <span class="org-face-org-verbatim">=sh=</span> 才能锁定 Runtime Contract。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">先在命令行确认 Runtime：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: env-shell</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sh</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  printf </span><span class="org-face-font-lock-string-face org-face-org-block">'shell=%s\n'</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">"$SHELL"</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  python3 --version 2&gt;/dev/null || python --version</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: env-shell</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: shell=/c/v/Emacs/libexec/emacs/31.1/x86_64-w64-mingw32/cmdproxy.exe</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: Python 3.12.14</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Windows 如果只有 =python.exe=，把后文的 Python command 改为 =python=。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Babel 配置</span></span>
+<span class="museum-org-line">把下面配置放入 Emacs 配置后重启，或直接 =M-x eval-buffer=。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: babel-config</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :results value verbatim</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">require</span><span class="org-face-org-block"> '</span><span class="org-face-font-lock-constant-face org-face-org-block">org</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">require</span><span class="org-face-org-block"> '</span><span class="org-face-font-lock-constant-face org-face-org-block">ob-python</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">require</span><span class="org-face-org-block"> '</span><span class="org-face-font-lock-constant-face org-face-org-block">ob-shell</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (org-babel-do-load-languages</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   'org-babel-load-languages</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   '((emacs-lisp . t)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     (python . t)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     (shell . t)))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (</span><span class="org-face-font-lock-keyword-face org-face-org-block">setq</span><span class="org-face-org-block"> org-babel-python-command</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">        (</span><span class="org-face-font-lock-keyword-face org-face-org-block">or</span><span class="org-face-org-block"> (executable-find </span><span class="org-face-font-lock-string-face org-face-org-block">"python3"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">            (executable-find </span><span class="org-face-font-lock-string-face org-face-org-block">"python"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">            (</span><span class="org-face-font-lock-warning-face org-face-org-block">error</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">"Python runtime missing"</span><span class="org-face-org-block">)))</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (list</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   (emacs-version)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   (org-version)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   org-babel-python-command)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: babel-config</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: ("GNU Emacs 31.1 (build 2, x86_64-w64-mingw32)</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">:  of 2026-08-24" "10.0-pre" "[local-path-redacted]")</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">交互使用时保留 Org 默认执行确认；配套 batch verifier 只在隔离副本中临时关闭确认。不要对来源不明的 Org 文件运行整 Buffer、Subtree 或 batch E2E：Babel 执行的是本机代码，不是安全沙箱。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Reproducibility</span></span>
+<span class="museum-org-line">环境变化会直接改变 Babel 行为。先记录版本，不要把环境漂移误诊成代码错误。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: environment-record</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src emacs-lisp :results value table</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (list</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   (list </span><span class="org-face-font-lock-string-face org-face-org-block">"emacs"</span><span class="org-face-org-block"> emacs-version)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   (list </span><span class="org-face-font-lock-string-face org-face-org-block">"org"</span><span class="org-face-org-block"> (org-version))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   (list </span><span class="org-face-font-lock-string-face org-face-org-block">"system"</span><span class="org-face-org-block"> (symbol-name system-type))</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   (list </span><span class="org-face-font-lock-string-face org-face-org-block">"python-command"</span><span class="org-face-org-block"> org-babel-python-command))</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: environment-record</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| emacs          | 31.1                          |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| org            | 10.0-pre                      |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| system         | windows-nt                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| python-command | [local-path-redacted] |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 先把最小执行链跑通</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Python：=:results value=</span></span>
+<span class="museum-org-line">非 Session 的 Python <span class="org-face-org-verbatim">=value=</span> 模式可以显式 <span class="org-face-org-verbatim">=return=</span>:</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: python-base</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> 2 </span><span class="org-face-font-lock-operator-face org-face-org-block">+</span><span class="org-face-org-block"> 3</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: python-base</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 5</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Contract：结果必须等于 5。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Python：=:results output=</span></span>
+<span class="museum-org-line"><span class="org-face-org-verbatim">=output=</span> 收集 stdout，不读取最终表达式值:</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: python-output</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :results output replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-builtin-face org-face-org-block">print</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-string-face org-face-org-block">"alpha"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-builtin-face org-face-org-block">print</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-string-face org-face-org-block">"beta"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: python-output</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: alpha</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: beta</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** POSIX sh</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: shell-base</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sh :results output replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  printf </span><span class="org-face-font-lock-string-face org-face-org-block">'%s\n'</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">"babel-shell-ok"</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: shell-base</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: babel-shell-ok</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">执行成功只说明 Runtime 能跑。后面还要验证结果。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* Header Args：真正控制执行行为的接口</span></span>
+<span class="museum-org-line">常用 Header Args：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 参数     | 用途                              |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----------+-----------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| :var     | 输入变量                          |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| :results | 结果采集、类型、格式、写入策略    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| :session | 是否共享解释器状态                |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| :dir     | 工作目录                          |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| :file    | 文件结果路径                      |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| :exports | 导出 code / results / both / none |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| :cache   | 按输入与代码 hash 复用结果        |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| :noweb   | 是否展开 Noweb 引用               |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| :tangle  | 是否抽取到源码文件                |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Header Args 可以定义在全局、文件、Subtree、Block 和 <span class="org-face-org-verbatim">=#+call:=</span> 层级。越局部的设置优先级越高。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 用实际结果验证覆盖关系</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">文件顶部给 Python 设置了 <span class="org-face-org-verbatim">=:results value replace=</span>.下面在 Block 层覆盖成 <span class="org-face-org-verbatim">=output=</span>:</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: local-header-wins</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :results output replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-builtin-face org-face-org-block">print</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-string-face org-face-org-block">"local-output"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: local-header-wins</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: local-output</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">想知道 Babel 最终究竟执行什么，不猜：把光标放到 Block 内，运行 <span class="org-face-org-verbatim">=C-c C-v v=</span>.</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">延伸：Header Args 在工程阶段会直接控制 <span class="org-face-org-link">[[file:org-babel-02-composition-engineering.org::*3. Session：共享状态要显式]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">Sessio</span><span class="org-face-org-link">n</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>、<span class="org-face-org-link">[[file:org-babel-02-composition-engineering.org::*4. Cache：只缓存纯计算]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">Cach</span><span class="org-face-org-link">e</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span> 与 <span class="org-face-org-link">[[file:org-babel-02-composition-engineering.org::*5. Tangle：Org 才是 Source of Truth]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">Tangl</span><span class="org-face-org-link">e</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 参数传递：把变化从代码中抽出来</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 标量参数</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: price-total</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var subtotal=100 tax_rate=0.08 discount=10 :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">round</span><span class="org-face-org-block">(subtotal </span><span class="org-face-font-lock-operator-face org-face-org-block">*</span><span class="org-face-org-block"> (1 </span><span class="org-face-font-lock-operator-face org-face-org-block">+</span><span class="org-face-org-block"> tax_rate) </span><span class="org-face-font-lock-operator-face org-face-org-block">-</span><span class="org-face-org-block"> discount, 2)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: price-total</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 98.0</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">同一段实现换参数：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+call: price-total(subtotal=50, tax_rate=0.2, discount=5)</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: </span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 55.0</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">预期：55.0。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">如果这一条 <span class="org-face-org-verbatim">=#+call:=</span> 在你的 Emacs 中报参数数量错误，先不要改 Python。跳到 <span class="org-face-org-link">[[file:org-babel-03-verification-debugging.org::*1. #+call 与 ob-async：先排除 Advice API drift]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">验证与排错模块：#+call / ob-async 兼容诊</span><span class="org-face-org-link">断</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 多参数不是“多复制几份代码”</span></span>
+<span class="museum-org-line">下面只有一个实现：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: threshold-check</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var amount=120 threshold=100 :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> amount </span><span class="org-face-font-lock-operator-face org-face-org-block">&gt;=</span><span class="org-face-org-block"> threshold</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: threshold-check</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: True</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+call: threshold-check(amount=80, threshold=100)</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: </span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: False</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+call: threshold-check(amount=120, threshold=100)</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: </span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: True</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">分别预期 <span class="org-face-org-verbatim">=False=</span> 、 <span class="org-face-org-verbatim">=True=</span>.</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Org Table → Python</span></span>
+<span class="museum-org-line">Org 表可以直接成为 <span class="org-face-org-verbatim">=:var=</span> 输入。示例直接使用列位置。这里的表有“表头 +</span>
+<span class="museum-org-line">hline”，默认 <span class="org-face-org-verbatim">=:colnames nil=</span> 会在执行前把表头从传给 Python 的数据行中拿</span>
+<span class="museum-org-line">掉，再在需要时恢复到结果表；所以 <span class="org-face-org-verbatim">=rows=</span> 从 <span class="org-face-org-verbatim">=u01=</span> 开始，不包含 <span class="org-face-org-verbatim">=uid /</span></span>
+<span class="museum-org-line"><span class="org-face-org-verbatim">amount=</span>. 如果显式设成 <span class="org-face-org-verbatim">=:colnames no=</span>, 表头也会进入 Python，下面的数值求和</span>
+<span class="museum-org-line">就需要自己处理表头。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: amounts</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| uid | amount |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|-----+--------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u01 |     10 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u02 |     20 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u03 |     30 |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: sum-amounts</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var rows=amounts :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">sum</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-builtin-face org-face-org-block">float</span><span class="org-face-org-block">(row[1]) </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> row </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> rows)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: sum-amounts</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 60.0</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这里的高价值点不是“Python 会求和”，而是表格成为可编辑输入，代码不用改。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* Block → Block：把结果当下一步输入</span></span>
+<span class="museum-org-line">先生成一组数：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: make-values</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var start=1 stop=5 :results value table</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> [[n, n </span><span class="org-face-font-lock-operator-face org-face-org-block">*</span><span class="org-face-org-block"> n] </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> n </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">range</span><span class="org-face-org-block">(start, stop </span><span class="org-face-font-lock-operator-face org-face-org-block">+</span><span class="org-face-org-block"> 1)]</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: make-values</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 1 |  1 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 2 |  4 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 3 |  9 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 4 | 16 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 5 | 25 |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">再消费前一个 Block：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: sum-squares</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var rows=make-values(start=1, stop=5) :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">sum</span><span class="org-face-org-block">(row[1] </span><span class="org-face-font-lock-keyword-face org-face-org-block">for</span><span class="org-face-org-block"> row </span><span class="org-face-font-lock-keyword-face org-face-org-block">in</span><span class="org-face-org-block"> rows)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: sum-squares</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 55</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">依赖图：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  start / stop</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  make-values</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  sum-squares</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      ↓</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  55</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">修改 <span class="org-face-org-verbatim">=make-values=</span> 后，=sum-squares= 属于受影响节点，应该重跑。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* #+call：给复杂 Block 一个轻量调用面</span></span>
+<span class="museum-org-line">命名 Block 可以像函数一样调用：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: multiply</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var x=2 y=3 :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> x </span><span class="org-face-font-lock-operator-face org-face-org-block">*</span><span class="org-face-org-block"> y</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: multiply</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 6</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">日常调用：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+call: multiply(x=6, y=7)</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: </span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 42</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">预期：42。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">排错：如果普通 Block 正常、=#+call:= 单独报 Emacs Lisp 参数数量错误，直接跳到 <span class="org-face-org-link">[[file:org-babel-03-verification-debugging.org::*1. #+call 与 ob-async：先排除 Advice API drift]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">#+call / ob-async 兼容诊</span><span class="org-face-org-link">断</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-org-verbatim">=#+call:=</span> 有三层东西，别混在一起：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,#+call: NAME[inside-header](arguments) end-header</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- 圆括号 <span class="org-face-org-verbatim">=arguments=</span> 传给 Block 变量；</span>
+<span class="museum-org-line">- 名称后的方括号 <span class="org-face-org-verbatim">=inside-header=</span> 作用于被调用 Block 本次执行；</span>
+<span class="museum-org-line">- 圆括号后的 <span class="org-face-org-verbatim">=end-header=</span> 作用于 CALL 结果的处理。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">例如：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+call: multiply[:results value replace](x=8, y=9)</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: </span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 72</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">预期：72。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 结果管理：不要只会 #+RESULTS</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-org-verbatim">=:results=</span> 至少要同时考虑四件事：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Collection: value / output</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Type:       scalar / table / list / file ...</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Format:     raw / verbatim / code ...</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Handling:   replace / append / prepend / silent</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** replace：默认适合可重复实验</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: replace-result</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :var n=3 :results value replace</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> n </span><span class="org-face-font-lock-operator-face org-face-org-block">**</span><span class="org-face-org-block"> 2</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: replace-result</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: 9</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">再次执行只替换旧结果，不堆历史输出。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** verbatim：禁止列表被自动转成表格</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: verbatim-list</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :results value verbatim</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> [1, 2, 3]</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: verbatim-list</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: [1, 2, 3]</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** table：结果继续成为数据</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: table-result</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :results value table</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">return</span><span class="org-face-org-block"> [[</span><span class="org-face-font-lock-string-face org-face-org-block">"u01"</span><span class="org-face-org-block">, 100], [</span><span class="org-face-font-lock-string-face org-face-org-block">"u02"</span><span class="org-face-org-block">, 200]]</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: table-result</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u01 | 100 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| u02 | 200 |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** silent / none / discard：都不写结果，但语义不同</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: silent-result</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :results output silent</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-builtin-face org-face-org-block">print</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-string-face org-face-org-block">"this runs but is not inserted"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-org-verbatim">=:results silent=</span> 不插入结果，但会把结果回显到 minibuffer；=:results none= 仍计算结果，只是不插入也不回显，结果仍可被其他 Block 引用；=:results discard= 连结果处理都跳过，被引用时得到 nil。需要下游继续消费结果时，不要误用 =discard=。Org Manual 将三者明确区分。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** append：只在你真的需要历史记录时用</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: append-result</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src python :results output append</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-builtin-face org-face-org-block">print</span><span class="org-face-org-block">(</span><span class="org-face-font-lock-string-face org-face-org-block">"one-run"</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+results: append-result</span></span>
+<span class="museum-org-line"><span class="org-face-org-code">: one-run</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">反复运行会不断追加。实验型笔记通常优先 =replace=，否则结果区很快失控。</span>
+</code></pre></section>
+<h1 class="title">Org Babel 01｜执行基础与数据流
+<br>
+<span class="subtitle">从环境配置到参数、调用与结果管理</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-8b2447c66ffd">1. 关系导航</a></li>
+<li><a href="#section-59a897659a14">2. 怎么使用这组三模块</a></li>
+<li><a href="#section-6d05e8eb71d1">3. 环境与配置</a>
+<ul>
+<li><a href="#section-7983e144ce92">3.1. 最小运行条件</a></li>
+<li><a href="#section-07d6d0897943">3.2. Babel 配置</a></li>
+<li><a href="#section-82f1daa3b0e6">3.3. Reproducibility</a></li>
+</ul>
+</li>
+<li><a href="#section-26ed4dcd35de">4. 先把最小执行链跑通</a>
+<ul>
+<li><a href="#section-cb7749727cbc">4.1. Python：<code>:results value</code></a></li>
+<li><a href="#section-facf4626cfa6">4.2. Python：<code>:results output</code></a></li>
+<li><a href="#section-6cac42053105">4.3. POSIX sh</a></li>
+</ul>
+</li>
+<li><a href="#section-4eab0b12131e">5. Header Args：真正控制执行行为的接口</a>
+<ul>
+<li><a href="#section-60b63576c29e">5.1. 用实际结果验证覆盖关系</a></li>
+</ul>
+</li>
+<li><a href="#section-baaf8466db9a">6. 参数传递：把变化从代码中抽出来</a>
+<ul>
+<li><a href="#section-452bd2e8f8b8">6.1. 标量参数</a></li>
+<li><a href="#section-88f5f39d06c5">6.2. 多参数不是“多复制几份代码”</a></li>
+<li><a href="#section-8ee5538c12b0">6.3. Org Table → Python</a></li>
+</ul>
+</li>
+<li><a href="#section-22b9330504af">7. Block → Block：把结果当下一步输入</a></li>
+<li><a href="#section-243f44d249cb">8. #+call：给复杂 Block 一个轻量调用面</a></li>
+<li><a href="#section-419fde220eec">9. 结果管理：不要只会 #+RESULTS</a>
+<ul>
+<li><a href="#section-70361724272e">9.1. replace：默认适合可重复实验</a></li>
+<li><a href="#section-d4158d65d239">9.2. verbatim：禁止列表被自动转成表格</a></li>
+<li><a href="#section-52fa53a28dbf">9.3. table：结果继续成为数据</a></li>
+<li><a href="#section-951e68b3c217">9.4. silent / none / discard：都不写结果，但语义不同</a></li>
+<li><a href="#section-4e156afbf71a">9.5. append：只在你真的需要历史记录时用</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-8b2447c66ffd" class="outline-2">
+<h2 id="section-8b2447c66ffd"><span class="section-number-2">1.</span> 关系导航</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本文件是三模块入口。三份笔记统一使用 Org 原生 <code>file:</code> 链接，并在目标文件显式回链；不硬编码未核验的 org-museum.el 私有关系字段。只建立会影响学习或复用的关系。
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">关系</th>
+<th scope="col" class="org-left">指向</th>
+<th scope="col" class="org-left">为什么需要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">延伸</td>
+<td class="org-left"><a href="org-babel-02-composition-engineering.html">02｜组合、复用与工程化</a></td>
+<td class="org-left">基础执行稳定后，再进入 Noweb、Session、Cache、Tangle 与 Library</td>
+</tr>
+
+<tr>
+<td class="org-left">示例</td>
+<td class="org-left"><a href="org-babel-02-composition-engineering.html#order-pipeline">订单分析流水线</a></td>
+<td class="org-left">把本文件的参数、Block 数据流和调用方式组合成真实工作流</td>
+</tr>
+
+<tr>
+<td class="org-left">复用</td>
+<td class="org-left"><a href="org-babel-02-composition-engineering.html#library-of-babel">Library of Babel</a></td>
+<td class="org-left">稳定 Block 跨文件复用时使用</td>
+</tr>
+
+<tr>
+<td class="org-left">排错</td>
+<td class="org-left"><a href="org-babel-03-verification-debugging.html">03｜验证、回归与排错</a></td>
+<td class="org-left">运行、CALL、导出或环境出现异常时进入</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+推荐路径：本文件 → <a href="org-babel-02-composition-engineering.html">02 组合工程</a> → <a href="org-babel-03-verification-debugging.html">03 验证排错</a>。
+</p>
+</div>
+</div>
+<div id="outline-container-section-59a897659a14" class="outline-2">
+<h2 id="section-59a897659a14"><span class="section-number-2">2.</span> 怎么使用这组三模块</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+第一次按顺序执行；之后日常只改参数和最小调用。主链：
+</p>
+
+<pre class="example" id="org-museum-ref-4172b7f78051"><code class="language-plaintext">
+数据 → 参数 → Block → 调用/组合 → 执行 → 结果 → Contract → Tangle → 回归
+</code></pre>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 2"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">动作</th>
+<th scope="col" class="org-left">Org 快捷键</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">执行当前 Block</td>
+<td class="org-left">C-c C-c</td>
+</tr>
+
+<tr>
+<td class="org-left">查看 Expanded Source</td>
+<td class="org-left">C-c C-v v</td>
+</tr>
+
+<tr>
+<td class="org-left">执行整个 Buffer</td>
+<td class="org-left">C-c C-v b</td>
+</tr>
+
+<tr>
+<td class="org-left">执行当前 Subtree</td>
+<td class="org-left">C-c C-v s</td>
+</tr>
+
+<tr>
+<td class="org-left">Tangle</td>
+<td class="org-left">C-c C-v t</td>
+</tr>
+
+<tr>
+<td class="org-left">跳到命名 Block</td>
+<td class="org-left">C-c C-v g</td>
+</tr>
+
+<tr>
+<td class="org-left">跳到命名结果</td>
+<td class="org-left">C-c C-v r</td>
+</tr>
+
+<tr>
+<td class="org-left">打开结果</td>
+<td class="org-left">C-c C-o</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-6d05e8eb71d1" class="outline-2">
+<h2 id="section-6d05e8eb71d1"><span class="section-number-2">3.</span> 环境与配置</h2>
+<div class="outline-text-2" id="text-3">
+</div>
+<div id="outline-container-section-7983e144ce92" class="outline-3">
+<h3 id="section-7983e144ce92"><span class="section-number-3">3.1.</span> 最小运行条件</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+需要：
+</p>
+<ul class="org-ul">
+<li>Emacs；</li>
+<li>Org；</li>
+<li>Python 3；</li>
+<li>PATH 中可直接调用的 POSIX =sh=（若要运行 Shell 示例）。Windows 可来自 Git Bash、MSYS2 或 WSL。</li>
+</ul>
+
+<p>
+本文的可执行 Shell Block 一律写成 <code>#+begin_src sh</code>，不写泛化的 <code>#+begin_src shell</code>。配置里的 <code>(shell . t)</code> 只是加载 <code>ob-shell.el</code>；Block 的语言名才决定实际执行器。Org 当前 <code>ob-shell</code> 会为 <code>sh/bash/zsh/...</code> 建立执行入口，并在执行 <code>sh</code> Block 时把 <code>shell-file-name</code> 绑定到 <code>sh</code>。Windows 的默认系统 Shell 可能采用 cmd/DOS 语义，因此对依赖 <code>printf</code>、<code>||</code> 等 POSIX 语法的教程，显式写 <code>sh</code> 才能锁定 Runtime Contract。
+</p>
+
+<p>
+先在命令行确认 Runtime：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sh" id="org-museum-ref-efed118a3aa2"><code class="language-bash">printf 'shell=%s\n' "$SHELL"
+python3 --version 2&gt;/dev/null || python --version
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+shell=/c/v/Emacs/libexec/emacs/31.1/x86_64-w64-mingw32/cmdproxy.exe
+Python 3.12.14
+</code></pre>
+
+<p>
+Windows 如果只有 <code>python.exe</code>，把后文的 Python command 改为 <code>python</code>。
+</p>
+</div>
+</div>
+<div id="outline-container-section-07d6d0897943" class="outline-3">
+<h3 id="section-07d6d0897943"><span class="section-number-3">3.2.</span> Babel 配置</h3>
+<div class="outline-text-3" id="text-3-2">
+<p>
+把下面配置放入 Emacs 配置后重启，或直接 <code>M-x eval-buffer</code>。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org-museum-ref-5a0e27dc13a1"><code class="language-lisp">(require 'org)
+(require 'ob-python)
+(require 'ob-shell)
+
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((emacs-lisp . t)
+   (python . t)
+   (shell . t)))
+
+(setq org-babel-python-command
+      (or (executable-find "python3")
+          (executable-find "python")
+          (error "Python runtime missing")))
+
+(list
+ (emacs-version)
+ (org-version)
+ org-babel-python-command)
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+("GNU Emacs 31.1 (build 2, x86_64-w64-mingw32)
+ of 2026-08-24" "10.0-pre" "[local-path-redacted]")
+</code></pre>
+
+<p>
+交互使用时保留 Org 默认执行确认；配套 batch verifier 只在隔离副本中临时关闭确认。不要对来源不明的 Org 文件运行整 Buffer、Subtree 或 batch E2E：Babel 执行的是本机代码，不是安全沙箱。
+</p>
+</div>
+</div>
+<div id="outline-container-section-82f1daa3b0e6" class="outline-3">
+<h3 id="section-82f1daa3b0e6"><span class="section-number-3">3.3.</span> Reproducibility</h3>
+<div class="outline-text-3" id="text-3-3">
+<p>
+环境变化会直接改变 Babel 行为。先记录版本，不要把环境漂移误诊成代码错误。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp" id="org-museum-ref-1690326616da"><code class="language-lisp">(list
+ (list "emacs" emacs-version)
+ (list "org" (org-version))
+ (list "system" (symbol-name system-type))
+ (list "python-command" org-babel-python-command))
+</code></pre>
+</div>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">emacs</td>
+<td class="org-left">31.1</td>
+</tr>
+
+<tr>
+<td class="org-left">org</td>
+<td class="org-left">10.0-pre</td>
+</tr>
+
+<tr>
+<td class="org-left">system</td>
+<td class="org-left">windows-nt</td>
+</tr>
+
+<tr>
+<td class="org-left">python-command</td>
+<td class="org-left">[local-path-redacted]</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+</div>
+<div id="outline-container-section-26ed4dcd35de" class="outline-2">
+<h2 id="section-26ed4dcd35de"><span class="section-number-2">4.</span> 先把最小执行链跑通</h2>
+<div class="outline-text-2" id="text-4">
+</div>
+<div id="outline-container-section-cb7749727cbc" class="outline-3">
+<h3 id="section-cb7749727cbc"><span class="section-number-3">4.1.</span> Python：<code>:results value</code></h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+非 Session 的 Python <code>value</code> 模式可以显式 <code>return</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-f581ff47df8b"><code class="language-python">return 2 + 3
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+5
+</code></pre>
+
+<p>
+Contract：结果必须等于 5。
+</p>
+</div>
+</div>
+<div id="outline-container-section-facf4626cfa6" class="outline-3">
+<h3 id="section-facf4626cfa6"><span class="section-number-3">4.2.</span> Python：<code>:results output</code></h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+<code>output</code> 收集 stdout，不读取最终表达式值:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-e0758e71cd72"><code class="language-python">print("alpha")
+print("beta")
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+alpha
+beta
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-6cac42053105" class="outline-3">
+<h3 id="section-6cac42053105"><span class="section-number-3">4.3.</span> POSIX sh</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+<pre class="src src-sh" id="org-museum-ref-6e96b5b00b41"><code class="language-bash">printf '%s\n' "babel-shell-ok"
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+babel-shell-ok
+</code></pre>
+
+<p>
+执行成功只说明 Runtime 能跑。后面还要验证结果。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-section-4eab0b12131e" class="outline-2">
+<h2 id="section-4eab0b12131e"><span class="section-number-2">5.</span> Header Args：真正控制执行行为的接口</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+常用 Header Args：
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 4"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">参数</th>
+<th scope="col" class="org-left">用途</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">:var</td>
+<td class="org-left">输入变量</td>
+</tr>
+
+<tr>
+<td class="org-left">:results</td>
+<td class="org-left">结果采集、类型、格式、写入策略</td>
+</tr>
+
+<tr>
+<td class="org-left">:session</td>
+<td class="org-left">是否共享解释器状态</td>
+</tr>
+
+<tr>
+<td class="org-left">:dir</td>
+<td class="org-left">工作目录</td>
+</tr>
+
+<tr>
+<td class="org-left">:file</td>
+<td class="org-left">文件结果路径</td>
+</tr>
+
+<tr>
+<td class="org-left">:exports</td>
+<td class="org-left">导出 code / results / both / none</td>
+</tr>
+
+<tr>
+<td class="org-left">:cache</td>
+<td class="org-left">按输入与代码 hash 复用结果</td>
+</tr>
+
+<tr>
+<td class="org-left">:noweb</td>
+<td class="org-left">是否展开 Noweb 引用</td>
+</tr>
+
+<tr>
+<td class="org-left">:tangle</td>
+<td class="org-left">是否抽取到源码文件</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+Header Args 可以定义在全局、文件、Subtree、Block 和 <code>#+call:</code> 层级。越局部的设置优先级越高。
+</p>
+</div>
+<div id="outline-container-section-60b63576c29e" class="outline-3">
+<h3 id="section-60b63576c29e"><span class="section-number-3">5.1.</span> 用实际结果验证覆盖关系</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+文件顶部给 Python 设置了 <code>:results value replace</code>.下面在 Block 层覆盖成 <code>output</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-876961f27cea"><code class="language-python">print("local-output")
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+local-output
+</code></pre>
+
+<p>
+想知道 Babel 最终究竟执行什么，不猜：把光标放到 Block 内，运行 <code>C-c C-v v</code>.
+</p>
+
+<p>
+延伸：Header Args 在工程阶段会直接控制 <a href="org-babel-02-composition-engineering.html#section-c53193e0af99">Session</a>、<a href="org-babel-02-composition-engineering.html#section-6ffb2fed9911">Cache</a> 与 <a href="org-babel-02-composition-engineering.html#section-12f6aff46ab5">Tangle</a>。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-section-baaf8466db9a" class="outline-2">
+<h2 id="section-baaf8466db9a"><span class="section-number-2">6.</span> 参数传递：把变化从代码中抽出来</h2>
+<div class="outline-text-2" id="text-6">
+</div>
+<div id="outline-container-section-452bd2e8f8b8" class="outline-3">
+<h3 id="section-452bd2e8f8b8"><span class="section-number-3">6.1.</span> 标量参数</h3>
+<div class="outline-text-3" id="text-6-1">
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-63a483b76276"><code class="language-python">return round(subtotal * (1 + tax_rate) - discount, 2)
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+98.0
+</code></pre>
+
+<p>
+同一段实现换参数：
+</p>
+
+<pre class="example"><code class="language-plaintext">
+55.0
+</code></pre>
+
+<p>
+预期：55.0。
+</p>
+
+<p>
+如果这一条 <code>#+call:</code> 在你的 Emacs 中报参数数量错误，先不要改 Python。跳到 <a href="org-babel-03-verification-debugging.html#section-0d0fb1d33f89">验证与排错模块：#+call / ob-async 兼容诊断</a>。
+</p>
+</div>
+</div>
+<div id="outline-container-section-88f5f39d06c5" class="outline-3">
+<h3 id="section-88f5f39d06c5"><span class="section-number-3">6.2.</span> 多参数不是“多复制几份代码”</h3>
+<div class="outline-text-3" id="text-6-2">
+<p>
+下面只有一个实现：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-5d25f18fa9d9"><code class="language-python">return amount &gt;= threshold
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+True
+</code></pre>
+
+<pre class="example"><code class="language-plaintext">
+False
+</code></pre>
+
+<pre class="example"><code class="language-plaintext">
+True
+</code></pre>
+
+<p>
+分别预期 <code>False</code> 、 <code>True</code>.
+</p>
+</div>
+</div>
+<div id="outline-container-section-8ee5538c12b0" class="outline-3">
+<h3 id="section-8ee5538c12b0"><span class="section-number-3">6.3.</span> Org Table → Python</h3>
+<div class="outline-text-3" id="text-6-3">
+<p>
+Org 表可以直接成为 <code>:var</code> 输入。示例直接使用列位置。这里的表有“表头 +
+hline”，默认 <code>:colnames nil</code> 会在执行前把表头从传给 Python 的数据行中拿
+掉，再在需要时恢复到结果表；所以 <code>rows</code> 从 <code>u01</code> 开始，不包含 <code>uid /
+amount</code>. 如果显式设成 <code>:colnames no</code>, 表头也会进入 Python，下面的数值求和
+就需要自己处理表头。
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table id="org-museum-ref-e4a71860a0b2">
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">uid</th>
+<th scope="col" class="org-right">amount</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">u01</td>
+<td class="org-right">10</td>
+</tr>
+
+<tr>
+<td class="org-left">u02</td>
+<td class="org-right">20</td>
+</tr>
+
+<tr>
+<td class="org-left">u03</td>
+<td class="org-right">30</td>
+</tr>
+</tbody>
+</table></section>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-e3dc02b8d32c"><code class="language-python">return sum(float(row[1]) for row in rows)
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+60.0
+</code></pre>
+
+<p>
+这里的高价值点不是“Python 会求和”，而是表格成为可编辑输入，代码不用改。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-section-22b9330504af" class="outline-2">
+<h2 id="section-22b9330504af"><span class="section-number-2">7.</span> Block → Block：把结果当下一步输入</h2>
+<div class="outline-text-2" id="text-7">
+<p>
+先生成一组数：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-8b2a279e25ef"><code class="language-python">return [[n, n * n] for n in range(start, stop + 1)]
+</code></pre>
+</div>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 6"><table>
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-right">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">2</td>
+<td class="org-right">4</td>
+</tr>
+
+<tr>
+<td class="org-right">3</td>
+<td class="org-right">9</td>
+</tr>
+
+<tr>
+<td class="org-right">4</td>
+<td class="org-right">16</td>
+</tr>
+
+<tr>
+<td class="org-right">5</td>
+<td class="org-right">25</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+再消费前一个 Block：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-e28a77c2728a"><code class="language-python">return sum(row[1] for row in rows)
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+55
+</code></pre>
+
+<p>
+依赖图：
+</p>
+
+<pre class="example" id="org-museum-ref-bff434780dde"><code class="language-plaintext">
+start / stop
+    ↓
+make-values
+    ↓
+sum-squares
+    ↓
+55
+</code></pre>
+
+<p>
+修改 <code>make-values</code> 后，<code>sum-squares</code> 属于受影响节点，应该重跑。
+</p>
+</div>
+</div>
+<div id="outline-container-section-243f44d249cb" class="outline-2">
+<h2 id="section-243f44d249cb"><span class="section-number-2">8.</span> #+call：给复杂 Block 一个轻量调用面</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+命名 Block 可以像函数一样调用：
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-169c2aa465ab"><code class="language-python">return x * y
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+6
+</code></pre>
+
+<p>
+日常调用：
+</p>
+
+<pre class="example"><code class="language-plaintext">
+42
+</code></pre>
+
+<p>
+预期：42。
+</p>
+
+<p>
+排错：如果普通 Block 正常、<code>#+call:</code> 单独报 Emacs Lisp 参数数量错误，直接跳到 <a href="org-babel-03-verification-debugging.html#section-0d0fb1d33f89">#+call / ob-async 兼容诊断</a>。
+</p>
+
+<p>
+<code>#+call:</code> 有三层东西，别混在一起：
+</p>
+
+<pre class="example" id="org-museum-ref-e17726c39539"><code class="language-plaintext">
+#+call: NAME[inside-header](arguments) end-header
+</code></pre>
+
+<ul class="org-ul">
+<li>圆括号 <code>arguments</code> 传给 Block 变量；</li>
+<li>名称后的方括号 <code>inside-header</code> 作用于被调用 Block 本次执行；</li>
+<li>圆括号后的 <code>end-header</code> 作用于 CALL 结果的处理。</li>
+</ul>
+
+<p>
+例如：
+</p>
+
+<pre class="example"><code class="language-plaintext">
+72
+</code></pre>
+
+<p>
+预期：72。
+</p>
+</div>
+</div>
+<div id="outline-container-section-419fde220eec" class="outline-2">
+<h2 id="section-419fde220eec"><span class="section-number-2">9.</span> 结果管理：不要只会 #+RESULTS</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+<code>:results</code> 至少要同时考虑四件事：
+</p>
+
+<pre class="example" id="org-museum-ref-5ac7bec739cb"><code class="language-plaintext">
+Collection: value / output
+Type:       scalar / table / list / file ...
+Format:     raw / verbatim / code ...
+Handling:   replace / append / prepend / silent
+</code></pre>
+</div>
+<div id="outline-container-section-70361724272e" class="outline-3">
+<h3 id="section-70361724272e"><span class="section-number-3">9.1.</span> replace：默认适合可重复实验</h3>
+<div class="outline-text-3" id="text-9-1">
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-22b10635b0c3"><code class="language-python">return n ** 2
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+9
+</code></pre>
+
+<p>
+再次执行只替换旧结果，不堆历史输出。
+</p>
+</div>
+</div>
+<div id="outline-container-section-d4158d65d239" class="outline-3">
+<h3 id="section-d4158d65d239"><span class="section-number-3">9.2.</span> verbatim：禁止列表被自动转成表格</h3>
+<div class="outline-text-3" id="text-9-2">
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-6057860d38f3"><code class="language-python">return [1, 2, 3]
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+[1, 2, 3]
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-52fa53a28dbf" class="outline-3">
+<h3 id="section-52fa53a28dbf"><span class="section-number-3">9.3.</span> table：结果继续成为数据</h3>
+<div class="outline-text-3" id="text-9-3">
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-9cc3aa3169db"><code class="language-python">return [["u01", 100], ["u02", 200]]
+</code></pre>
+</div>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 7"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-right">
+</colgroup>
+<tbody>
+<tr>
+<td class="org-left">u01</td>
+<td class="org-right">100</td>
+</tr>
+
+<tr>
+<td class="org-left">u02</td>
+<td class="org-right">200</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-951e68b3c217" class="outline-3">
+<h3 id="section-951e68b3c217"><span class="section-number-3">9.4.</span> silent / none / discard：都不写结果，但语义不同</h3>
+<div class="outline-text-3" id="text-9-4">
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-3b1445f8e1b4"><code class="language-python">print("this runs but is not inserted")
+</code></pre>
+</div>
+
+<p>
+<code>:results silent</code> 不插入结果，但会把结果回显到 minibuffer；<code>:results none</code> 仍计算结果，只是不插入也不回显，结果仍可被其他 Block 引用；<code>:results discard</code> 连结果处理都跳过，被引用时得到 nil。需要下游继续消费结果时，不要误用 <code>discard</code>。Org Manual 将三者明确区分。
+</p>
+</div>
+</div>
+<div id="outline-container-section-4e156afbf71a" class="outline-3">
+<h3 id="section-4e156afbf71a"><span class="section-number-3">9.5.</span> append：只在你真的需要历史记录时用</h3>
+<div class="outline-text-3" id="text-9-5">
+<div class="org-src-container">
+<pre class="src src-python" id="org-museum-ref-8486552c2562"><code class="language-python">print("one-run")
+</code></pre>
+</div>
+
+<pre class="example"><code class="language-plaintext">
+one-run
+</code></pre>
+
+<p>
+反复运行会不断追加。实验型笔记通常优先 <code>replace</code>，否则结果区很快失控。
+</p>
+</div>
+</div>
+</div>
+<nav class="org-museum-nav" aria-label="文章关系">
+<div class="org-museum-nav-links"><span class="org-museum-nav-label">链接到 / 02</span><span class="org-museum-relation-row"><a href="org-babel-03-verification-debugging.html" class="org-museum-link">Org Babel 03｜验证、回归与排错</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-01-execution-foundations&amp;target=pages-Emacs-Org-org-babel-03-verification-debugging" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 03｜验证、回归与排错">对读</a></span>
+<span class="org-museum-relation-row"><a href="org-babel-02-composition-engineering.html" class="org-museum-link">Org Babel 02｜组合、复用与工程化</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-01-execution-foundations&amp;target=pages-Emacs-Org-org-babel-02-composition-engineering" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 02｜组合、复用与工程化">对读</a></span></div>
+<div class="org-museum-nav-backlinks"><span class="org-museum-nav-label">反向链接 / 02</span><span class="org-museum-relation-row"><a href="org-babel-03-verification-debugging.html" class="org-museum-link">Org Babel 03｜验证、回归与排错</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-03-verification-debugging&amp;target=pages-Emacs-Org-org-babel-01-execution-foundations" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 03｜验证、回归与排错">对读</a></span>
+<span class="org-museum-relation-row"><a href="org-babel-02-composition-engineering.html" class="org-museum-link">Org Babel 02｜组合、复用与工程化</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-02-composition-engineering&amp;target=pages-Emacs-Org-org-babel-01-execution-foundations" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 02｜组合、复用与工程化">对读</a></span></div>
+</nav>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 02</h3>
+<ul class="org-museum-related-list">
+<li><a href="org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+<li><a href="org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
+</ul>
+<a class="local-graph-link" href="../../../graph.html?focus=pages-Emacs-Org-org-babel-01-execution-foundations">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../../graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="../../../timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="../../../related.html">关联阅读</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <ul>
+      <li><a href="../../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="../../Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="../../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <ul>
+      <li><a href="../../sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="../../sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="../../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="../../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="../../sql/duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="../../sql/duckdb-thinking.html">duckdb-thinking</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="../../vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <ul>
+      <li><a href="../../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+<script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+
+<script defer src="../../../resources/org-museum-article.js?v=b03b56727740"></script>
+</body>
+</html>

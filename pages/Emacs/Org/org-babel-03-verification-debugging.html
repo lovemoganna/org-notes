@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Org Babel 03｜验证、回归与排错</title>
+<meta name="generator" content="Org Mode" />
+<meta name="color-scheme" content="dark light">
+<script src="../../../resources/org-museum-theme.js?v=2b7a181da330"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=a21cc263868a">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-Org-org-babel-03-verification-debugging" data-page-title="Org Babel 03｜验证、回归与排错" data-page-category="uncategorized" data-page-tags="Emacs,Org,Babel,Verification" data-page-status="published" data-page-modified="2026-10-01" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline" href="../../../timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="../../../graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="../../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../../ai-center.html">AI 中心</a>
+    <a class="museum-topbar-link museum-nav-all" href="../../../index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+    </div></details>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../../index.html" class="museum-identity-title">Org Babel 03｜验证、回归与排错</a><span class="museum-identity-meta">其他笔记</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="pages-Emacs-Org-org-babel-03-verification-debugging" data-page-title="Org Babel 03｜验证、回归与排错" data-page-category="uncategorized"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+  <summary>文章信息</summary>
+<aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../../index.html?category=uncategorized#recent-updates">其他笔记</a>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 22 分钟</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../../index.html?tag=Emacs#recent-updates" data-tag="Emacs" title="查看包含标签 #Emacs 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Emacs</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Org#recent-updates" data-tag="Org" title="查看包含标签 #Org 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Org</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Babel#recent-updates" data-tag="Babel" title="查看包含标签 #Babel 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Babel</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Verification#recent-updates" data-tag="Verification" title="查看包含标签 #Verification 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Verification</span></a></dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a data-reading-return href="../../../index.html#recent-updates">← 全部笔记</a>
+  </nav>
+</aside>
+</details>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="e238695eaba3c6ff0a995be7645ef8494fe21b9bcc5ec79011fd1fbc4ed34729"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-document-info-keyword">#+subtitle:</span> <span class="org-face-org-document-info">从 Expanded Source、环境兼容到 E2E 验收</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :Emacs:Org:Babel:Verification:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args :exports both</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args:python :results value replace :session none</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args:sh :results output replace</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 关系导航</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本文件只处理“如何证明正确、如何定位错误、如何避免假 PASS”。不重复讲基础语法和工程机制。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 关系 | 指向                                                                                                           | 为什么需要                                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+----------------------------------------------------------------------------------------------------------------+--------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 前置 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.org]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">01｜执行基础与数据</span><span class="org-face-org-link org-face-org-table">流</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                          | 必须先有可执行 Block，排错才有对象         |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 依赖 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-02-composition-engineering.org::*7. 完整案例：订单分析流水线]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">订单分析流水</span><span class="org-face-org-link org-face-org-table">线</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                | E2E 与 Golden 的业务基线来自真实工作流     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 示例 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.org::*4. 参数传递：把变化从代码中抽出来]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">price-total / #+call 示</span><span class="org-face-org-link org-face-org-table">例</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table"> | </span><span class="org-face-org-verbatim org-face-org-formula">=ob-async=</span><span class="org-face-org-formula"> Advice API drift 的真实复现入口 </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 复用 | </span><span class="org-face-org-link org-face-org-table">[[#e2e-matrix]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">E2E 验证矩</span><span class="org-face-org-link org-face-org-table">阵</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                                                                  | 新教程或新 Babel 工作流可直接复用验收框架  |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 1. #+call 与 ob-async：先排除 Advice API drift</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">如果 <span class="org-face-org-verbatim">=price-total=</span> Block 本身能执行，但这一行报 <span class="org-face-org-verbatim">=wrong-number-of-arguments=，并且回溯进入 </span><span class="org-face-org-verbatim org-face-org-verbatim">=ob-async-org-babel-execute-src-block=，不要改 Python。这个错误发生在 Emacs Lisp Advice 层：当前 Org 会把 </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-verbatim">=executor-type=</span> 继续传给 <span class="org-face-org-verbatim">=org-babel-execute-src-block=，而旧版或本地修改版 </span><span class="org-face-org-verbatim org-face-org-verbatim">=ob-async=</span> 仍只接受 =orig-fun / arg / info / params=。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">先看当前内存，而不是看磁盘上的配置文件：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  M-: (help-function-arglist #'org-babel-execute-src-block t)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  M-: (help-function-arglist #'ob-async-org-babel-execute-src-block t)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">典型冲突：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Org:</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (&amp;optional arg info params executor-type)</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  legacy ob-async advice:</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (&amp;optional orig-fun arg info params)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">先验证是不是 =ob-async=。临时移除旧 Advice，再执行同一条 =#+call:=：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (advice-remove 'org-babel-execute-src-block</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">                 #'ob-async-org-babel-execute-src-block)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">如果此时返回 <span class="org-face-org-verbatim">=55.0=，=price-total=</span> 和 Org Babel 都正常，故障就是 Advice API drift。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">注意：仅把一个兼容文件放到磁盘上没有任何作用。必须让当前 Emacs 真正加载它，而且加载顺序必须晚于你的 <span class="org-face-org-verbatim">=ob-async=</span> 定制。配套 <span class="org-face-org-verbatim">=ob-async-org-babel-compat-v2.el=</span> 会做三件事：先捕获旧实现；再从当前 <span class="org-face-org-verbatim">=org-babel-execute-src-block=</span> Advice 链中移除旧 <span class="org-face-org-verbatim">=ob-async=；最后挂上能接收 </span><span class="org-face-org-verbatim org-face-org-verbatim">=executor-type=</span> 的 wrapper。安装后立即自检，旧 Advice 仍存在就直接报错，不允许假装修复成功。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">在配置中放到 <span class="org-face-org-verbatim">=ob-async=</span> 配置之后：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (load-file "[local-path-redacted]")</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">加载后先执行：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  M-: (my/ob-async-compat-status)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">必须看到：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  :legacy-advice-present nil</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  :compat-advice-present t</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">然后再执行：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,#+call: price-total(subtotal=50, tax_rate=0.2, discount=5)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">预期：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  55.0</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">兼容层只绕开带 <span class="org-face-org-verbatim">=executor-type=</span> 的 CALL 类执行；普通 Source Block 仍委托给你已经加载的旧 <span class="org-face-org-verbatim">=ob-async=，所以原有 </span><span class="org-face-org-verbatim org-face-org-verbatim">=:async=</span> 行为不需要整体删除。若你直接维护自己的 V6 <span class="org-face-org-verbatim">=ob-async=</span> 源码，则更根本的修复仍然是：函数签名加入 =executor-type=，并让所有同步 fallback 原样向下转发该参数。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">关系：复现入口见 <span class="org-face-org-link">[[file:org-babel-01-execution-foundations.org::*4. 参数传递：把变化从代码中抽出来]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">01｜参数传递中的 price-tota</span><span class="org-face-org-link">l</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>；修复后回到原调用重新验证。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 2. Expanded Source First：调试时先看真实执行代码</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">涉及 =:var=、=#+call:=、Noweb、Session、Tangle 或 Header Args 继承时，先执行 =C-c C-v v=，再诊断 Runtime。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Block + Header Args + Variable + Noweb + Call</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → Expanded Source</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → Runtime</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → Result</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → Contract</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">例如 <span class="org-face-org-verbatim">=noweb-price=</span> 报 =tax_rate is not defined=：先看 Expanded Source 是否存在变量注入，再区分 HEADER / VARIABLE / NOWEB / RUNTIME。不要直接重写代码。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">示例：回到 <span class="org-face-org-link">[[file:org-babel-02-composition-engineering.org::*2. Noweb：组合源码，而不是复制源码]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">02｜Nowe</span><span class="org-face-org-link">b</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span> 对照原始片段、展开源码和最终 Runtime。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 3. 错误分类与最小修复</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">分类：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ORG / BABEL / HEADER / VARIABLE / DEPENDENCY / RUNTIME / VERSION / PATH</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  DATA / CODE / RESULT / CALL / NOWEB / TANGLE / FILE / CONTRACT / ENVIRONMENT</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">修复顺序：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  参数 &gt; 环境 &gt; Header &gt; 语法 &gt; 局部逻辑 &gt; 依赖 &gt; 结构 &gt; 整体重构</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">例：=org-babel-build/generated_report.py= 不存在。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  文件不存在</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → Tangle 未执行或目标路径错误</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → TANGLE / FILE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  → 检查 :tangle 与工作目录</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">不要因此重写报告函数。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">示例：Tangle 的 WRITE 边界与生成文件修复路径见 <span class="org-face-org-link">[[file:org-babel-02-composition-engineering.org::*5. Tangle：Org 才是 Source of Truth]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">02｜Tangl</span><span class="org-face-org-link">e</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 4. 自动化执行：从笔记升级成可回归工程</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">交互执行适合学习；稳定后应支持批处理。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">原 V10 的配套 verifier 仍可作为单文件来源的 E2E 回归基线。先跑 clean-room：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  emacs --batch -Q -l verify-org-babel-v10.el</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"><span class="org-face-org-verbatim">=-Q=</span> 会跳过用户 init、site file 和大部分本地定制，因此它证明的是“教程在干净 Emacs/Org 基线中自洽”，不是“你的日常 Emacs 配置没有兼容问题”。GNU Emacs 同时规定 <span class="org-face-org-verbatim">=--batch=</span> 本身就隐含 =-q=，默认不会加载用户 init。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">再跑“实际配置 batch”模式。因为 batch 不会自动读 init，需要显式 =-l=：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ORG_BABEL_VERIFY_MODE=actual emacs --batch -l /path/to/init.el -l verify-org-babel-v10.el</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Windows PowerShell 可先设置 <span class="org-face-org-verbatim">=$env:ORG_BABEL_VERIFY_MODE=</span>'actual'<span class="org-face-org-verbatim">=，再把 </span><span class="org-face-org-verbatim org-face-org-verbatim">=/path/to/init.el=</span> 换成自己的 Emacs 配置入口。actual 模式不替你加载 Python/Shell Babel backend，也不重写 Python command；缺什么就直接 FAIL，用来发现实际配置漂移。它仍然是 batch 进程，不等同于交互 Emacs；Session、终端和 UI 相关差异最终还应在日常 Emacs 中跑一次对应 Block。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Verifier 会把教程复制到临时目录，避免 Tangle 覆盖工作区文件；最低矩阵、教程实际使用能力、负向 Contract、Source Block 执行覆盖和断言覆盖必须同时闭合，才打印 =LITERATE_PROGRAMMING_PASS=。任一断言失败，batch 非零退出。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">模块化后的三份 Org 已改变文件边界，因此旧 <span class="org-face-org-verbatim">=verify-org-babel-v10.el=</span> 的 PASS 只能证明原 V10 单文件基线没有退化，不能直接等价为“三模块 E2E PASS”。三模块需要让 verifier 显式读取 01 / 02 / 03 三个文件后再做同一矩阵；在此之前，只把本次拆分的结构、链接、命名对象和代码块完整性回归记为通过。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 4.1 导出前检查 Org 语法，而不是放宽 broken-links</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Org 会把双中括号解析成链接。教程正文如果只是想描述 Python 的嵌套列表，不要直接写成双中括号形式；否则里面的文字可能被识别为 fuzzy internal link。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">导出前先运行：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  M-x org-lint</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">然后再做一次严格导出。不要把 <span class="org-face-org-verbatim">=org-export-with-broken-links=</span> 改成 <span class="org-face-org-verbatim">=mark=</span> 或 <span class="org-face-org-verbatim">=t=</span> 来掩盖问题；那只会让导出继续，不会修复错误链接。Native E2E 也必须在 <span class="org-face-org-verbatim">=org-export-with-broken-links=nil=、=</span>:eval= 关闭的条件下完成一次 HTML export smoke test。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 5. E2E 验证矩阵</span></span>
+<span class="museum-org-line">教程完成后按矩阵验收：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| ID | Capability                | Expected                                                                            |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----+---------------------------+-------------------------------------------------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 01 | Babel Base                | Python Block 可执行                                                                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 02 | Runtime                   | Python / POSIX sh Runtime 可调用                                                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 03 | :var                      | 标量变量生效                                                                        |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 04 | Org Table → Code          | 表格能作为代码输入                                                                  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 05 | Block → Block             | make-values → sum-squares                                                           |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 06 | #+call                    | multiply(6,7)=42                                                                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 07 | Noweb                     | noweb-price=108                                                                     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 08 | Tangle                    | 生成 generated_report.py                                                            |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 09 | Tangled File Execution    | 输出 count=2,total=420                                                              |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 10 | File Artifact             | 生成文件可读                                                                        |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 11 | Dependency                | 修改上游可识别下游                                                                  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 12 | Contract                  | 断言有效                                                                            |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 13 | Golden Regression         | GOLDEN_PASS                                                                         |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 14 | Full Workflow             | 订单链路结果正确                                                                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 15 | Results                   | replace / table / silent 等示例可执行                                               |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 16 | Session                   | init → use 顺序执行得到 10 → 15                                                     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 17 | Cache                     | 纯计算重复执行结果稳定，并生成缓存 hash                                             |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 18 | Negative Contract         | min_amount &lt; 0 必须被拒绝                                                           |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 19 | Library of Babel          | ingest 后 percentage(25,200)=12.5                                                   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 20 | Executable Source Closure | 每个真正的 Source Block 都有名称并至少执行一次；这里只证明执行覆盖，不等于结果正确  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 21 | Tangle Idempotency        | 连续两次 Tangle 的生成文件 SHA256 相同                                              |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 22 | Assertion Coverage        | 影响教程结论的关键 Block 必须映射到明确断言，不能只 smoke-run                       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 23 | Export Syntax Integrity   | </span><span class="org-face-org-verbatim org-face-org-formula">=org-export-with-broken-links=nil=</span><span class="org-face-org-formula"> 时 HTML export 可完成，不存在误解析的 fuzzy link </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">前 14 项来自 Skill 的最低矩阵；15–23 来自本教程实际使用能力和反例。最低矩阵、执行覆盖都不能代替断言覆盖：=executed= 只说明跑过，=asserted= 才说明结果符合预期。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">只有实际 Org/Babel 执行全部适用项通过，才应该写：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LITERATE_PROGRAMMING_PASS</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 6. 参考资料</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- Org Manual — Working with Source Code: <span class="org-face-org-link">https://orgmode.org/manual/Working-with-Source-Code.htm</span><span class="org-face-org-link">l</span></span>
+<span class="museum-org-line">- Org Manual — Using Header Arguments: <span class="org-face-org-link">https://orgmode.org/manual/Using-Header-Arguments.htm</span><span class="org-face-org-link">l</span></span>
+<span class="museum-org-line">- Org Manual — Evaluating Code Blocks: <span class="org-face-org-link">https://orgmode.org/manual/Evaluating-Code-Blocks.htm</span><span class="org-face-org-link">l</span></span>
+<span class="museum-org-line">- Org Manual — Results of Evaluation: <span class="org-face-org-link">https://orgmode.org/manual/Results-of-Evaluation.htm</span><span class="org-face-org-link">l</span></span>
+<span class="museum-org-line">- Org Manual — Noweb Reference Syntax: <span class="org-face-org-link">https://orgmode.org/manual/Noweb-Reference-Syntax.htm</span><span class="org-face-org-link">l</span></span>
+<span class="museum-org-line">- Org Manual — Extracting Source Code: <span class="org-face-org-link">https://orgmode.org/manual/Extracting-Source-Code.htm</span><span class="org-face-org-link">l</span></span>
+<span class="museum-org-line">- Org Manual — Library of Babel: <span class="org-face-org-link">https://orgmode.org/manual/Library-of-Babel.htm</span><span class="org-face-org-link">l</span></span>
+<span class="museum-org-line">- Worg — Python Source Code Blocks: <span class="org-face-org-link">https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.htm</span><span class="org-face-org-link">l</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 7. Verification</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">本文件的验证状态不应手写成 PASS。以配套 E2E 执行结果为准。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">状态定义：</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- PASS：对应能力真实执行并符合 Contract；</span>
+<span class="museum-org-line">- FAIL：真实执行完成，但输出/断言错误；</span>
+<span class="museum-org-line">- BLOCKED：缺少 Runtime、Backend、网络或环境能力，无法完成真实执行；</span>
+<span class="museum-org-line">- N/A：当前案例明确不使用该能力。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 8. 基于实际产出的 Skill 质检</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这部分只保留会改变 Skill 判断的证据；过程日志已删除。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 8.1 当前验证状态</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">实际环境：Python 3.13.5、Bash 5.2.37；Emacs/Org 不可用。尝试安装 <span class="org-face-org-verbatim">=emacs-nox=</span> 时 Debian 软件源不可达，因此原生 Babel E2E 属于 =ENVIRONMENT / BLOCKED=。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">Runtime verifier 已验证业务逻辑、Contract、Golden、Tangle 等价产物、命名引用和结构完整性；这些结果不能替代 Emacs/Org 对 =:var=、=#+call:=、Noweb、Session、Cache、Tangle 的原生解析。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Runtime / Logic Verification: PASS</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Org Static Integrity:         PASS</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Babel-native E2E:             BLOCKED</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Overall Verification:         PARTIAL</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LITERATE_PROGRAMMING_PASS:    NOT_EMITTED</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 8.2 已修复的 Case Bug</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 问题                                                          | 最小修复                                                                          |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|---------------------------------------------------------------+-----------------------------------------------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 文件级 </span><span class="org-face-org-verbatim org-face-org-table">=:eval query=</span><span class="org-face-org-table"> 与 batch 冲突                            | batch verifier 仅在隔离进程关闭确认                                               |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 展示用 Org/diff/Python 被写成 </span><span class="org-face-org-verbatim org-face-org-table">=begin_src=</span><span class="org-face-org-table">                     | 纯展示统一改为 </span><span class="org-face-org-verbatim org-face-org-table">=begin_example=</span><span class="org-face-org-table">                                                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Tangle Block 不能独立执行                                     | </span><span class="org-face-org-verbatim org-face-org-formula">=report-program=</span><span class="org-face-org-formula"> 通过 Noweb 组成完整程序                                          </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Python command 写死 </span><span class="org-face-org-verbatim org-face-org-table">=python3=</span><span class="org-face-org-table">                                 | 运行时检测 </span><span class="org-face-org-verbatim org-face-org-table">=python3 / python=</span><span class="org-face-org-table">                                                     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=#+call=</span><span class="org-face-org-formula"> verifier 取到布尔值而非真实结果                      </span><span class="org-face-org-table">| 解析 call info 后执行目标 Block                                                   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Golden 缺少 </span><span class="org-face-org-verbatim org-face-org-table">=&gt;==</span><span class="org-face-org-table"> 边界                                         | 新增 G4：=min_amount=120=                                                         |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 全文正则误扫正文依赖                                          | 扫描范围缩到真实执行语法区域                                                      |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 报告标签写死 TR/paid/&gt;=100                                    | 报告文本改为只陈述由 </span><span class="org-face-org-verbatim org-face-org-table">=summary=</span><span class="org-face-org-table"> 能证明的事实                                       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| DAG 把 </span><span class="org-face-org-verbatim org-face-org-table">=order-report=</span><span class="org-face-org-table"> 画成 </span><span class="org-face-org-verbatim org-face-org-table">=filter-orders=</span><span class="org-face-org-table"> 直接下游           | 按真实依赖改为 </span><span class="org-face-org-verbatim org-face-org-table">=filter → summarize → report=</span><span class="org-face-org-table">                                      |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| “维护三个 Case”与 G1–G4 不一致                                | 修正为四个                                                                        |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 把 Tangle 描述成可先 Diff 再覆盖                              | 明确标准 Tangle 直接写文件；预览必须走 staging/VCS                                |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Shell 前提写得过宽                                            | 所有可执行 Shell Block 改为 </span><span class="org-face-org-verbatim org-face-org-table">=#+begin_src sh=；=(shell . t)=</span><span class="org-face-org-table"> 只负责加载 backend    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 代码块已改 </span><span class="org-face-org-verbatim org-face-org-table">=sh=</span><span class="org-face-org-table"> 但文件级 Header Args 仍写 </span><span class="org-face-org-verbatim org-face-org-table">=header-args:shell=</span><span class="org-face-org-table"> | 改为 </span><span class="org-face-org-verbatim org-face-org-table">=#+property: header-args:sh=，让语言级结果参数真正作用于 </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-table">=sh=</span><span class="org-face-org-table"> Block          |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=#+call:=</span><span class="org-face-org-formula"> 在用户环境触发 </span><span class="org-face-org-verbatim org-face-org-formula">=ob-async=</span><span class="org-face-org-formula"> 参数数量错误              </span><span class="org-face-org-table">| 定位为 Org 入口签名与第三方 Advice 不兼容；教程代码保持不动，增加 Advice 兼容诊断 |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这些问题属于教程或 verifier Case，不直接写回 Skill。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 8.3 已有执行证据支持的 Skill Patch</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 缺口                                          | 执行证据                                                                                 | 最小补丁                                                                                                       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|-----------------------------------------------+------------------------------------------------------------------------------------------+----------------------------------------------------------------------------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Degraded Verification                         | 无 Emacs 时仍能做等价/静态验证，但不能算 native PASS                                     | </span><span class="org-face-org-verbatim org-face-org-formula">=BLOCKED=</span><span class="org-face-org-formula"> 与等价验证分账；生成原生 E2E verifier；禁止假 PASS                                                   </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| E2E Coverage Closure                          | 固定 14 项未覆盖 Results / Session / Cache / Library 和所有真实 Source Block             | </span><span class="org-face-org-verbatim org-face-org-formula">=Minimum Matrix ∪ Capabilities Used ∪ Executable Source Blocks ∪ Assertion Coverage ∪ Negative/Boundary Cases=</span><span class="org-face-org-formula"> </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Syntax-Aware Dependency                       | 正文中的 </span><span class="org-face-org-verbatim org-face-org-table">=</span><span class="org-face-org-verbatim org-face-org-target org-face-org-table">&lt;&lt;fragment&gt;&gt;</span><span class="org-face-org-verbatim org-face-org-table">=、example 中的 </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-table">=#+call=</span><span class="org-face-org-table"> 曾被误判为依赖                            | 优先 Org AST；降级扫描只进入 Source/Call/Header 语法区域                                                       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Global Compression Closure                    | V4 在不增加执行能力的情况下累计 1224 行，并多次重复验证状态和 Loop 结论                  | 完稿后做文档级删除：同一结论一个位置；过程日志默认删除；删后必须跑结构与回归验证                               |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| Runtime Specificity / Extension Compatibility | Windows 上泛化 </span><span class="org-face-org-verbatim org-face-org-table">=shell=</span><span class="org-face-org-table"> 会落入非 POSIX 语义；真实 </span><span class="org-face-org-verbatim org-face-org-table">=#+call:=</span><span class="org-face-org-table"> 又被旧 </span><span class="org-face-org-verbatim org-face-org-table">=ob-async=</span><span class="org-face-org-table"> Advice 截断 | 跨平台示例必须声明具体 Runtime；actual-env E2E 在关键执行入口记录/检查 Advice 与函数签名兼容性                 |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">前三项来自功能验证失败；Global Compression 来自压缩 A/B；Runtime Specificity / Extension Compatibility 来自 Windows Shell 与 <span class="org-face-org-verbatim">=ob-async=</span> 的真实兼容故障。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 8.4 待原生执行</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">- Cache + Noweb：Org 文档说明 cache 变化检测不会展开 Noweb；配套 verifier 已保留修改 fragment 后重跑的 Risk Probe。</span>
+<span class="museum-org-line">- Environment Parity：=-Q= 只能证明 clean-room 基线；actual-config batch 还要显式加载用户 init，而且 batch 仍不完全等价于交互 Emacs。配套 verifier 已分成 clean / actual 两种模式，但当前环境无 Emacs，尚不能给这个机制补丁判 =PATCH_ACCEPTED=。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">两项均保持 =PENDING_NATIVE_EXECUTION=。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 8.5 当前结论</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">V10 Runtime 等价验证与静态审计继续覆盖跨平台 Shell、#+call 环境兼容和既有回归；具体计数以配套 verifier 输出为准。Babel-native E2E 仍因无 Emacs 阻塞。已确认应继续保留的补丁方向包括 Degraded Verification、E2E Coverage Closure、Syntax-Aware Dependency、Global Compression Closure，并新增 Runtime Specificity / Extension Compatibility；Environment Parity 与 Cache + Noweb 仍等待原生执行证据。</span>
+</code></pre></section>
+<h1 class="title">Org Babel 03｜验证、回归与排错
+<br>
+<span class="subtitle">从 Expanded Source、环境兼容到 E2E 验收</span>
+</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-dbffe2f7a39b">1. 关系导航</a></li>
+<li><a href="#section-0d0fb1d33f89">2. 1. #+call 与 ob-async：先排除 Advice API drift</a></li>
+<li><a href="#section-4dd118f38f18">3. 2. Expanded Source First：调试时先看真实执行代码</a></li>
+<li><a href="#section-e253362b0f17">4. 3. 错误分类与最小修复</a></li>
+<li><a href="#section-82c80ef1e892">5. 4. 自动化执行：从笔记升级成可回归工程</a>
+<ul>
+<li><a href="#section-cd4f23c89ee8">5.1. 4.1 导出前检查 Org 语法，而不是放宽 broken-links</a></li>
+</ul>
+</li>
+<li><a href="#e2e-matrix">6. 5. E2E 验证矩阵</a></li>
+<li><a href="#section-b71e26deb87c">7. 6. 参考资料</a></li>
+<li><a href="#section-a3fd83393591">8. 7. Verification</a></li>
+<li><a href="#section-ac7fe3f50d38">9. 8. 基于实际产出的 Skill 质检</a>
+<ul>
+<li><a href="#section-632fdef8d89f">9.1. 8.1 当前验证状态</a></li>
+<li><a href="#section-a1db0847ab09">9.2. 8.2 已修复的 Case Bug</a></li>
+<li><a href="#section-3900b4803378">9.3. 8.3 已有执行证据支持的 Skill Patch</a></li>
+<li><a href="#section-472eb11da07c">9.4. 8.4 待原生执行</a></li>
+<li><a href="#section-9721d4148add">9.5. 8.5 当前结论</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-dbffe2f7a39b" class="outline-2">
+<h2 id="section-dbffe2f7a39b"><span class="section-number-2">1.</span> 关系导航</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+本文件只处理“如何证明正确、如何定位错误、如何避免假 PASS”。不重复讲基础语法和工程机制。
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">关系</th>
+<th scope="col" class="org-left">指向</th>
+<th scope="col" class="org-left">为什么需要</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">前置</td>
+<td class="org-left"><a href="org-babel-01-execution-foundations.html">01｜执行基础与数据流</a></td>
+<td class="org-left">必须先有可执行 Block，排错才有对象</td>
+</tr>
+
+<tr>
+<td class="org-left">依赖</td>
+<td class="org-left"><a href="org-babel-02-composition-engineering.html#order-pipeline">订单分析流水线</a></td>
+<td class="org-left">E2E 与 Golden 的业务基线来自真实工作流</td>
+</tr>
+
+<tr>
+<td class="org-left">示例</td>
+<td class="org-left"><a href="org-babel-01-execution-foundations.html">price-total / #+call 示例</a></td>
+<td class="org-left"><code>ob-async</code> Advice API drift 的真实复现入口</td>
+</tr>
+
+<tr>
+<td class="org-left">复用</td>
+<td class="org-left">[BROKEN LINK: e2e-matrix]</td>
+<td class="org-left">新教程或新 Babel 工作流可直接复用验收框架</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-0d0fb1d33f89" class="outline-2">
+<h2 id="section-0d0fb1d33f89"><span class="section-number-2">2.</span> 1. #+call 与 ob-async：先排除 Advice API drift</h2>
+<div class="outline-text-2" id="text-2">
+<p>
+如果 <code>price-total</code> Block 本身能执行，但这一行报 <code>wrong-number-of-arguments</code>，并且回溯进入 <code>ob-async-org-babel-execute-src-block</code>，不要改 Python。这个错误发生在 Emacs Lisp Advice 层：当前 Org 会把 <code>executor-type</code> 继续传给 <code>org-babel-execute-src-block</code>，而旧版或本地修改版 <code>ob-async</code> 仍只接受 <code>orig-fun / arg / info / params</code>。
+</p>
+
+<p>
+先看当前内存，而不是看磁盘上的配置文件：
+</p>
+
+<pre class="example" id="org-museum-ref-043fc1bd8231"><code class="language-plaintext">
+M-: (help-function-arglist #'org-babel-execute-src-block t)
+M-: (help-function-arglist #'ob-async-org-babel-execute-src-block t)
+</code></pre>
+
+<p>
+典型冲突：
+</p>
+
+<pre class="example" id="org-museum-ref-dc009d2bf4f4"><code class="language-plaintext">
+Org:
+(&amp;optional arg info params executor-type)
+
+legacy ob-async advice:
+(&amp;optional orig-fun arg info params)
+</code></pre>
+
+<p>
+先验证是不是 <code>ob-async</code>。临时移除旧 Advice，再执行同一条 <code>#+call:</code>：
+</p>
+
+<pre class="example" id="org-museum-ref-ad1f50c7b34c"><code class="language-plaintext">
+(advice-remove 'org-babel-execute-src-block
+               #'ob-async-org-babel-execute-src-block)
+</code></pre>
+
+<p>
+如果此时返回 <code>55.0</code>，<code>price-total</code> 和 Org Babel 都正常，故障就是 Advice API drift。
+</p>
+
+<p>
+注意：仅把一个兼容文件放到磁盘上没有任何作用。必须让当前 Emacs 真正加载它，而且加载顺序必须晚于你的 <code>ob-async</code> 定制。配套 <code>ob-async-org-babel-compat-v2.el</code> 会做三件事：先捕获旧实现；再从当前 <code>org-babel-execute-src-block</code> Advice 链中移除旧 <code>ob-async</code>；最后挂上能接收 <code>executor-type</code> 的 wrapper。安装后立即自检，旧 Advice 仍存在就直接报错，不允许假装修复成功。
+</p>
+
+<p>
+在配置中放到 <code>ob-async</code> 配置之后：
+</p>
+
+<pre class="example" id="org-museum-ref-c1ebe7e326ce"><code class="language-plaintext">
+(load-file "[local-path-redacted]")
+</code></pre>
+
+<p>
+加载后先执行：
+</p>
+
+<pre class="example" id="org-museum-ref-9769e9fefa66"><code class="language-plaintext">
+M-: (my/ob-async-compat-status)
+</code></pre>
+
+<p>
+必须看到：
+</p>
+
+<pre class="example" id="org-museum-ref-1212cff94aa6"><code class="language-plaintext">
+:legacy-advice-present nil
+:compat-advice-present t
+</code></pre>
+
+<p>
+然后再执行：
+</p>
+
+<pre class="example" id="org-museum-ref-bdbaa8ad809d"><code class="language-plaintext">
+#+call: price-total(subtotal=50, tax_rate=0.2, discount=5)
+</code></pre>
+
+<p>
+预期：
+</p>
+
+<pre class="example" id="org-museum-ref-8142c905dfa9"><code class="language-plaintext">
+55.0
+</code></pre>
+
+<p>
+兼容层只绕开带 <code>executor-type</code> 的 CALL 类执行；普通 Source Block 仍委托给你已经加载的旧 <code>ob-async</code>，所以原有 <code>:async</code> 行为不需要整体删除。若你直接维护自己的 V6 <code>ob-async</code> 源码，则更根本的修复仍然是：函数签名加入 <code>executor-type</code>，并让所有同步 fallback 原样向下转发该参数。
+</p>
+
+<p>
+关系：复现入口见 <a href="org-babel-01-execution-foundations.html">01｜参数传递中的 price-total</a>；修复后回到原调用重新验证。
+</p>
+</div>
+</div>
+<div id="outline-container-section-4dd118f38f18" class="outline-2">
+<h2 id="section-4dd118f38f18"><span class="section-number-2">3.</span> 2. Expanded Source First：调试时先看真实执行代码</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+涉及 <code>:var</code>、<code>#+call:</code>、Noweb、Session、Tangle 或 Header Args 继承时，先执行 <code>C-c C-v v</code>，再诊断 Runtime。
+</p>
+
+<pre class="example" id="org-museum-ref-d655085b9eeb"><code class="language-plaintext">
+Block + Header Args + Variable + Noweb + Call
+→ Expanded Source
+→ Runtime
+→ Result
+→ Contract
+</code></pre>
+
+<p>
+例如 <code>noweb-price</code> 报 <code>tax_rate is not defined</code>：先看 Expanded Source 是否存在变量注入，再区分 HEADER / VARIABLE / NOWEB / RUNTIME。不要直接重写代码。
+</p>
+
+<p>
+示例：回到 <a href="org-babel-02-composition-engineering.html#section-78033e101669">02｜Noweb</a> 对照原始片段、展开源码和最终 Runtime。
+</p>
+</div>
+</div>
+<div id="outline-container-section-e253362b0f17" class="outline-2">
+<h2 id="section-e253362b0f17"><span class="section-number-2">4.</span> 3. 错误分类与最小修复</h2>
+<div class="outline-text-2" id="text-4">
+<p>
+分类：
+</p>
+
+<pre class="example" id="org-museum-ref-3d1b83810bb5"><code class="language-plaintext">
+ORG / BABEL / HEADER / VARIABLE / DEPENDENCY / RUNTIME / VERSION / PATH
+DATA / CODE / RESULT / CALL / NOWEB / TANGLE / FILE / CONTRACT / ENVIRONMENT
+</code></pre>
+
+<p>
+修复顺序：
+</p>
+
+<pre class="example" id="org-museum-ref-f3648e2728b8"><code class="language-plaintext">
+参数 &gt; 环境 &gt; Header &gt; 语法 &gt; 局部逻辑 &gt; 依赖 &gt; 结构 &gt; 整体重构
+</code></pre>
+
+<p>
+例：<code>org-babel-build/generated_report.py</code> 不存在。
+</p>
+
+<pre class="example" id="org-museum-ref-2d4026495ab8"><code class="language-plaintext">
+文件不存在
+→ Tangle 未执行或目标路径错误
+→ TANGLE / FILE
+→ 检查 :tangle 与工作目录
+</code></pre>
+
+<p>
+不要因此重写报告函数。
+</p>
+
+<p>
+示例：Tangle 的 WRITE 边界与生成文件修复路径见 <a href="org-babel-02-composition-engineering.html#section-12f6aff46ab5">02｜Tangle</a>。
+</p>
+</div>
+</div>
+<div id="outline-container-section-82c80ef1e892" class="outline-2">
+<h2 id="section-82c80ef1e892"><span class="section-number-2">5.</span> 4. 自动化执行：从笔记升级成可回归工程</h2>
+<div class="outline-text-2" id="text-5">
+<p>
+交互执行适合学习；稳定后应支持批处理。
+</p>
+
+<p>
+原 V10 的配套 verifier 仍可作为单文件来源的 E2E 回归基线。先跑 clean-room：
+</p>
+
+<pre class="example" id="org-museum-ref-19b7e966414d"><code class="language-plaintext">
+emacs --batch -Q -l verify-org-babel-v10.el
+</code></pre>
+
+<p>
+<code>-Q</code> 会跳过用户 init、site file 和大部分本地定制，因此它证明的是“教程在干净 Emacs/Org 基线中自洽”，不是“你的日常 Emacs 配置没有兼容问题”。GNU Emacs 同时规定 <code>--batch</code> 本身就隐含 <code>-q</code>，默认不会加载用户 init。
+</p>
+
+<p>
+再跑“实际配置 batch”模式。因为 batch 不会自动读 init，需要显式 <code>-l</code>：
+</p>
+
+<pre class="example" id="org-museum-ref-a0e101424f2d"><code class="language-plaintext">
+ORG_BABEL_VERIFY_MODE=actual emacs --batch -l /path/to/init.el -l verify-org-babel-v10.el
+</code></pre>
+
+<p>
+Windows PowerShell 可先设置 <code>$env:ORG_BABEL_VERIFY_MODE</code>'actual'<code>，再把 =/path/to/init.el</code> 换成自己的 Emacs 配置入口。actual 模式不替你加载 Python/Shell Babel backend，也不重写 Python command；缺什么就直接 FAIL，用来发现实际配置漂移。它仍然是 batch 进程，不等同于交互 Emacs；Session、终端和 UI 相关差异最终还应在日常 Emacs 中跑一次对应 Block。
+</p>
+
+<p>
+Verifier 会把教程复制到临时目录，避免 Tangle 覆盖工作区文件；最低矩阵、教程实际使用能力、负向 Contract、Source Block 执行覆盖和断言覆盖必须同时闭合，才打印 <code>LITERATE_PROGRAMMING_PASS</code>。任一断言失败，batch 非零退出。
+</p>
+
+<p>
+模块化后的三份 Org 已改变文件边界，因此旧 <code>verify-org-babel-v10.el</code> 的 PASS 只能证明原 V10 单文件基线没有退化，不能直接等价为“三模块 E2E PASS”。三模块需要让 verifier 显式读取 01 / 02 / 03 三个文件后再做同一矩阵；在此之前，只把本次拆分的结构、链接、命名对象和代码块完整性回归记为通过。
+</p>
+</div>
+<div id="outline-container-section-cd4f23c89ee8" class="outline-3">
+<h3 id="section-cd4f23c89ee8"><span class="section-number-3">5.1.</span> 4.1 导出前检查 Org 语法，而不是放宽 broken-links</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Org 会把双中括号解析成链接。教程正文如果只是想描述 Python 的嵌套列表，不要直接写成双中括号形式；否则里面的文字可能被识别为 fuzzy internal link。
+</p>
+
+<p>
+导出前先运行：
+</p>
+
+<pre class="example" id="org-museum-ref-a43ade12544e"><code class="language-plaintext">
+M-x org-lint
+</code></pre>
+
+<p>
+然后再做一次严格导出。不要把 <code>org-export-with-broken-links</code> 改成 <code>mark</code> 或 <code>t</code> 来掩盖问题；那只会让导出继续，不会修复错误链接。Native E2E 也必须在 <code>org-export-with-broken-links=nil</code>、<code>:eval</code> 关闭的条件下完成一次 HTML export smoke test。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-e2e-matrix" class="outline-2">
+<h2 id="e2e-matrix"><span class="section-number-2">6.</span> 5. E2E 验证矩阵</h2>
+<div class="outline-text-2" id="text-6">
+<p>
+教程完成后按矩阵验收：
+</p>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 2"><table>
+
+
+<colgroup>
+<col  class="org-right">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">ID</th>
+<th scope="col" class="org-left">Capability</th>
+<th scope="col" class="org-left">Expected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">01</td>
+<td class="org-left">Babel Base</td>
+<td class="org-left">Python Block 可执行</td>
+</tr>
+
+<tr>
+<td class="org-right">02</td>
+<td class="org-left">Runtime</td>
+<td class="org-left">Python / POSIX sh Runtime 可调用</td>
+</tr>
+
+<tr>
+<td class="org-right">03</td>
+<td class="org-left">:var</td>
+<td class="org-left">标量变量生效</td>
+</tr>
+
+<tr>
+<td class="org-right">04</td>
+<td class="org-left">Org Table → Code</td>
+<td class="org-left">表格能作为代码输入</td>
+</tr>
+
+<tr>
+<td class="org-right">05</td>
+<td class="org-left">Block → Block</td>
+<td class="org-left">make-values → sum-squares</td>
+</tr>
+
+<tr>
+<td class="org-right">06</td>
+<td class="org-left">#+call</td>
+<td class="org-left">multiply(6,7)=42</td>
+</tr>
+
+<tr>
+<td class="org-right">07</td>
+<td class="org-left">Noweb</td>
+<td class="org-left">noweb-price=108</td>
+</tr>
+
+<tr>
+<td class="org-right">08</td>
+<td class="org-left">Tangle</td>
+<td class="org-left">生成 generated_report.py</td>
+</tr>
+
+<tr>
+<td class="org-right">09</td>
+<td class="org-left">Tangled File Execution</td>
+<td class="org-left">输出 count=2,total=420</td>
+</tr>
+
+<tr>
+<td class="org-right">10</td>
+<td class="org-left">File Artifact</td>
+<td class="org-left">生成文件可读</td>
+</tr>
+
+<tr>
+<td class="org-right">11</td>
+<td class="org-left">Dependency</td>
+<td class="org-left">修改上游可识别下游</td>
+</tr>
+
+<tr>
+<td class="org-right">12</td>
+<td class="org-left">Contract</td>
+<td class="org-left">断言有效</td>
+</tr>
+
+<tr>
+<td class="org-right">13</td>
+<td class="org-left">Golden Regression</td>
+<td class="org-left">GOLDEN_PASS</td>
+</tr>
+
+<tr>
+<td class="org-right">14</td>
+<td class="org-left">Full Workflow</td>
+<td class="org-left">订单链路结果正确</td>
+</tr>
+
+<tr>
+<td class="org-right">15</td>
+<td class="org-left">Results</td>
+<td class="org-left">replace / table / silent 等示例可执行</td>
+</tr>
+
+<tr>
+<td class="org-right">16</td>
+<td class="org-left">Session</td>
+<td class="org-left">init → use 顺序执行得到 10 → 15</td>
+</tr>
+
+<tr>
+<td class="org-right">17</td>
+<td class="org-left">Cache</td>
+<td class="org-left">纯计算重复执行结果稳定，并生成缓存 hash</td>
+</tr>
+
+<tr>
+<td class="org-right">18</td>
+<td class="org-left">Negative Contract</td>
+<td class="org-left">min_amount &lt; 0 必须被拒绝</td>
+</tr>
+
+<tr>
+<td class="org-right">19</td>
+<td class="org-left">Library of Babel</td>
+<td class="org-left">ingest 后 percentage(25,200)=12.5</td>
+</tr>
+
+<tr>
+<td class="org-right">20</td>
+<td class="org-left">Executable Source Closure</td>
+<td class="org-left">每个真正的 Source Block 都有名称并至少执行一次；这里只证明执行覆盖，不等于结果正确</td>
+</tr>
+
+<tr>
+<td class="org-right">21</td>
+<td class="org-left">Tangle Idempotency</td>
+<td class="org-left">连续两次 Tangle 的生成文件 SHA256 相同</td>
+</tr>
+
+<tr>
+<td class="org-right">22</td>
+<td class="org-left">Assertion Coverage</td>
+<td class="org-left">影响教程结论的关键 Block 必须映射到明确断言，不能只 smoke-run</td>
+</tr>
+
+<tr>
+<td class="org-right">23</td>
+<td class="org-left">Export Syntax Integrity</td>
+<td class="org-left"><code>org-export-with-broken-links=nil</code> 时 HTML export 可完成，不存在误解析的 fuzzy link</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+前 14 项来自 Skill 的最低矩阵；15–23 来自本教程实际使用能力和反例。最低矩阵、执行覆盖都不能代替断言覆盖：<code>executed</code> 只说明跑过，<code>asserted</code> 才说明结果符合预期。
+</p>
+
+<p>
+只有实际 Org/Babel 执行全部适用项通过，才应该写：
+</p>
+
+<pre class="example" id="org-museum-ref-8f2c7866a75d"><code class="language-plaintext">
+LITERATE_PROGRAMMING_PASS
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-b71e26deb87c" class="outline-2">
+<h2 id="section-b71e26deb87c"><span class="section-number-2">7.</span> 6. 参考资料</h2>
+<div class="outline-text-2" id="text-7">
+<ul class="org-ul">
+<li>Org Manual — Working with Source Code: <a href="https://orgmode.org/manual/Working-with-Source-Code.html">https://orgmode.org/manual/Working-with-Source-Code.html</a></li>
+<li>Org Manual — Using Header Arguments: <a href="https://orgmode.org/manual/Using-Header-Arguments.html">https://orgmode.org/manual/Using-Header-Arguments.html</a></li>
+<li>Org Manual — Evaluating Code Blocks: <a href="https://orgmode.org/manual/Evaluating-Code-Blocks.html">https://orgmode.org/manual/Evaluating-Code-Blocks.html</a></li>
+<li>Org Manual — Results of Evaluation: <a href="https://orgmode.org/manual/Results-of-Evaluation.html">https://orgmode.org/manual/Results-of-Evaluation.html</a></li>
+<li>Org Manual — Noweb Reference Syntax: <a href="https://orgmode.org/manual/Noweb-Reference-Syntax.html">https://orgmode.org/manual/Noweb-Reference-Syntax.html</a></li>
+<li>Org Manual — Extracting Source Code: <a href="https://orgmode.org/manual/Extracting-Source-Code.html">https://orgmode.org/manual/Extracting-Source-Code.html</a></li>
+<li>Org Manual — Library of Babel: <a href="https://orgmode.org/manual/Library-of-Babel.html">https://orgmode.org/manual/Library-of-Babel.html</a></li>
+<li>Worg — Python Source Code Blocks: <a href="https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html">https://orgmode.org/worg/org-contrib/babel/languages/ob-doc-python.html</a></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-a3fd83393591" class="outline-2">
+<h2 id="section-a3fd83393591"><span class="section-number-2">8.</span> 7. Verification</h2>
+<div class="outline-text-2" id="text-8">
+<p>
+本文件的验证状态不应手写成 PASS。以配套 E2E 执行结果为准。
+</p>
+
+<p>
+状态定义：
+</p>
+
+<ul class="org-ul">
+<li>PASS：对应能力真实执行并符合 Contract；</li>
+<li>FAIL：真实执行完成，但输出/断言错误；</li>
+<li>BLOCKED：缺少 Runtime、Backend、网络或环境能力，无法完成真实执行；</li>
+<li>N/A：当前案例明确不使用该能力。</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-ac7fe3f50d38" class="outline-2">
+<h2 id="section-ac7fe3f50d38"><span class="section-number-2">9.</span> 8. 基于实际产出的 Skill 质检</h2>
+<div class="outline-text-2" id="text-9">
+<p>
+这部分只保留会改变 Skill 判断的证据；过程日志已删除。
+</p>
+</div>
+<div id="outline-container-section-632fdef8d89f" class="outline-3">
+<h3 id="section-632fdef8d89f"><span class="section-number-3">9.1.</span> 8.1 当前验证状态</h3>
+<div class="outline-text-3" id="text-9-1">
+<p>
+实际环境：Python 3.13.5、Bash 5.2.37；Emacs/Org 不可用。尝试安装 <code>emacs-nox</code> 时 Debian 软件源不可达，因此原生 Babel E2E 属于 <code>ENVIRONMENT / BLOCKED</code>。
+</p>
+
+<p>
+Runtime verifier 已验证业务逻辑、Contract、Golden、Tangle 等价产物、命名引用和结构完整性；这些结果不能替代 Emacs/Org 对 <code>:var</code>、<code>#+call:</code>、Noweb、Session、Cache、Tangle 的原生解析。
+</p>
+
+<pre class="example" id="org-museum-ref-ffd53d3ad85d"><code class="language-plaintext">
+Runtime / Logic Verification: PASS
+Org Static Integrity:         PASS
+Babel-native E2E:             BLOCKED
+Overall Verification:         PARTIAL
+LITERATE_PROGRAMMING_PASS:    NOT_EMITTED
+</code></pre>
+</div>
+</div>
+<div id="outline-container-section-a1db0847ab09" class="outline-3">
+<h3 id="section-a1db0847ab09"><span class="section-number-3">9.2.</span> 8.2 已修复的 Case Bug</h3>
+<div class="outline-text-3" id="text-9-2">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">问题</th>
+<th scope="col" class="org-left">最小修复</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">文件级 <code>:eval query</code> 与 batch 冲突</td>
+<td class="org-left">batch verifier 仅在隔离进程关闭确认</td>
+</tr>
+
+<tr>
+<td class="org-left">展示用 Org/diff/Python 被写成 <code>begin_src</code></td>
+<td class="org-left">纯展示统一改为 <code>begin_example</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Tangle Block 不能独立执行</td>
+<td class="org-left"><code>report-program</code> 通过 Noweb 组成完整程序</td>
+</tr>
+
+<tr>
+<td class="org-left">Python command 写死 <code>python3</code></td>
+<td class="org-left">运行时检测 <code>python3 / python</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>#+call</code> verifier 取到布尔值而非真实结果</td>
+<td class="org-left">解析 call info 后执行目标 Block</td>
+</tr>
+
+<tr>
+<td class="org-left">Golden 缺少 <code>&gt;=</code> 边界</td>
+<td class="org-left">新增 G4：<code>min_amount=120</code></td>
+</tr>
+
+<tr>
+<td class="org-left">全文正则误扫正文依赖</td>
+<td class="org-left">扫描范围缩到真实执行语法区域</td>
+</tr>
+
+<tr>
+<td class="org-left">报告标签写死 TR/paid/&gt;=100</td>
+<td class="org-left">报告文本改为只陈述由 <code>summary</code> 能证明的事实</td>
+</tr>
+
+<tr>
+<td class="org-left">DAG 把 <code>order-report</code> 画成 <code>filter-orders</code> 直接下游</td>
+<td class="org-left">按真实依赖改为 <code>filter → summarize → report</code></td>
+</tr>
+
+<tr>
+<td class="org-left">“维护三个 Case”与 G1–G4 不一致</td>
+<td class="org-left">修正为四个</td>
+</tr>
+
+<tr>
+<td class="org-left">把 Tangle 描述成可先 Diff 再覆盖</td>
+<td class="org-left">明确标准 Tangle 直接写文件；预览必须走 staging/VCS</td>
+</tr>
+
+<tr>
+<td class="org-left">Shell 前提写得过宽</td>
+<td class="org-left">所有可执行 Shell Block 改为 <code>#+begin_src sh</code>；<code>(shell . t)</code> 只负责加载 backend</td>
+</tr>
+
+<tr>
+<td class="org-left">代码块已改 <code>sh</code> 但文件级 Header Args 仍写 <code>header-args:shell</code></td>
+<td class="org-left">改为 <code>#+property: header-args:sh</code>，让语言级结果参数真正作用于 <code>sh</code> Block</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>#+call:</code> 在用户环境触发 <code>ob-async</code> 参数数量错误</td>
+<td class="org-left">定位为 Org 入口签名与第三方 Advice 不兼容；教程代码保持不动，增加 Advice 兼容诊断</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+这些问题属于教程或 verifier Case，不直接写回 Skill。
+</p>
+</div>
+</div>
+<div id="outline-container-section-3900b4803378" class="outline-3">
+<h3 id="section-3900b4803378"><span class="section-number-3">9.3.</span> 8.3 已有执行证据支持的 Skill Patch</h3>
+<div class="outline-text-3" id="text-9-3">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 4"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">缺口</th>
+<th scope="col" class="org-left">执行证据</th>
+<th scope="col" class="org-left">最小补丁</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Degraded Verification</td>
+<td class="org-left">无 Emacs 时仍能做等价/静态验证，但不能算 native PASS</td>
+<td class="org-left"><code>BLOCKED</code> 与等价验证分账；生成原生 E2E verifier；禁止假 PASS</td>
+</tr>
+
+<tr>
+<td class="org-left">E2E Coverage Closure</td>
+<td class="org-left">固定 14 项未覆盖 Results / Session / Cache / Library 和所有真实 Source Block</td>
+<td class="org-left"><code>Minimum Matrix ∪ Capabilities Used ∪ Executable Source Blocks ∪ Assertion Coverage ∪ Negative/Boundary Cases</code></td>
+</tr>
+
+<tr>
+<td class="org-left">Syntax-Aware Dependency</td>
+<td class="org-left">正文中的 <code>&lt;&lt;fragment&gt;&gt;</code>、example 中的 <code>#+call</code> 曾被误判为依赖</td>
+<td class="org-left">优先 Org AST；降级扫描只进入 Source/Call/Header 语法区域</td>
+</tr>
+
+<tr>
+<td class="org-left">Global Compression Closure</td>
+<td class="org-left">V4 在不增加执行能力的情况下累计 1224 行，并多次重复验证状态和 Loop 结论</td>
+<td class="org-left">完稿后做文档级删除：同一结论一个位置；过程日志默认删除；删后必须跑结构与回归验证</td>
+</tr>
+
+<tr>
+<td class="org-left">Runtime Specificity / Extension Compatibility</td>
+<td class="org-left">Windows 上泛化 <code>shell</code> 会落入非 POSIX 语义；真实 <code>#+call:</code> 又被旧 <code>ob-async</code> Advice 截断</td>
+<td class="org-left">跨平台示例必须声明具体 Runtime；actual-env E2E 在关键执行入口记录/检查 Advice 与函数签名兼容性</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+前三项来自功能验证失败；Global Compression 来自压缩 A/B；Runtime Specificity / Extension Compatibility 来自 Windows Shell 与 <code>ob-async</code> 的真实兼容故障。
+</p>
+</div>
+</div>
+<div id="outline-container-section-472eb11da07c" class="outline-3">
+<h3 id="section-472eb11da07c"><span class="section-number-3">9.4.</span> 8.4 待原生执行</h3>
+<div class="outline-text-3" id="text-9-4">
+<ul class="org-ul">
+<li>Cache + Noweb：Org 文档说明 cache 变化检测不会展开 Noweb；配套 verifier 已保留修改 fragment 后重跑的 Risk Probe。</li>
+<li>Environment Parity：<code>-Q</code> 只能证明 clean-room 基线；actual-config batch 还要显式加载用户 init，而且 batch 仍不完全等价于交互 Emacs。配套 verifier 已分成 clean / actual 两种模式，但当前环境无 Emacs，尚不能给这个机制补丁判 <code>PATCH_ACCEPTED</code>。</li>
+</ul>
+
+<p>
+两项均保持 <code>PENDING_NATIVE_EXECUTION</code>。
+</p>
+</div>
+</div>
+<div id="outline-container-section-9721d4148add" class="outline-3">
+<h3 id="section-9721d4148add"><span class="section-number-3">9.5.</span> 8.5 当前结论</h3>
+<div class="outline-text-3" id="text-9-5">
+<p>
+V10 Runtime 等价验证与静态审计继续覆盖跨平台 Shell、#+call 环境兼容和既有回归；具体计数以配套 verifier 输出为准。Babel-native E2E 仍因无 Emacs 阻塞。已确认应继续保留的补丁方向包括 Degraded Verification、E2E Coverage Closure、Syntax-Aware Dependency、Global Compression Closure，并新增 Runtime Specificity / Extension Compatibility；Environment Parity 与 Cache + Noweb 仍等待原生执行证据。
+</p>
+</div>
+</div>
+</div>
+<nav class="org-museum-nav" aria-label="文章关系">
+<div class="org-museum-nav-links"><span class="org-museum-nav-label">链接到 / 02</span><span class="org-museum-relation-row"><a href="org-babel-02-composition-engineering.html" class="org-museum-link">Org Babel 02｜组合、复用与工程化</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-03-verification-debugging&amp;target=pages-Emacs-Org-org-babel-02-composition-engineering" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 02｜组合、复用与工程化">对读</a></span>
+<span class="org-museum-relation-row"><a href="org-babel-01-execution-foundations.html" class="org-museum-link">Org Babel 01｜执行基础与数据流</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-03-verification-debugging&amp;target=pages-Emacs-Org-org-babel-01-execution-foundations" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 01｜执行基础与数据流">对读</a></span></div>
+<div class="org-museum-nav-backlinks"><span class="org-museum-nav-label">反向链接 / 02</span><span class="org-museum-relation-row"><a href="org-babel-02-composition-engineering.html" class="org-museum-link">Org Babel 02｜组合、复用与工程化</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-02-composition-engineering&amp;target=pages-Emacs-Org-org-babel-03-verification-debugging" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 02｜组合、复用与工程化">对读</a></span>
+<span class="org-museum-relation-row"><a href="org-babel-01-execution-foundations.html" class="org-museum-link">Org Babel 01｜执行基础与数据流</a><a href="../../../related.html?source=pages-Emacs-Org-org-babel-01-execution-foundations&amp;target=pages-Emacs-Org-org-babel-03-verification-debugging" class="org-museum-compare-link" aria-label="关联阅读：Org Babel 01｜执行基础与数据流">对读</a></span></div>
+</nav>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 02</h3>
+<ul class="org-museum-related-list">
+<li><a href="org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+<li><a href="org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+</ul>
+<a class="local-graph-link" href="../../../graph.html?focus=pages-Emacs-Org-org-babel-03-verification-debugging">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../../graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="../../../timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="../../../related.html">关联阅读</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <ul>
+      <li><a href="../../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="../../Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <ul>
+      <li><a href="../../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <ul>
+      <li><a href="../../sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="../../sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="../../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="../../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="../../sql/duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="../../sql/duckdb-thinking.html">duckdb-thinking</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="../../vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <ul>
+      <li><a href="../../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+<script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+
+<script defer src="../../../resources/org-museum-article.js?v=b03b56727740"></script>
+</body>
+</html>

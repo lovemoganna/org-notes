@@ -43,9 +43,15 @@ else init();
 
 /* ── 1. Keyboard navigation ── */
 var lastKey='',lastKeyTime=0;
+function readingShortcutBlocked(e){
+  return e.defaultPrevented||e.isComposing||e.metaKey||e.ctrlKey||e.altKey||
+    e.target.isContentEditable||e.target.closest('input,textarea,select,button,a,[role="dialog"],dialog')||
+    document.querySelector('dialog[open],#image-lightbox-overlay.visible')||
+    document.body.classList.contains('museum-drawer-open')||
+    document.body.classList.contains('museum-toc-open');
+}
 document.addEventListener('keydown',function(e){
-  if(e.target.matches('input,textarea,[contenteditable="true"]'))return;
-  if(e.metaKey||e.ctrlKey||e.altKey)return;
+  if(readingShortcutBlocked(e))return;
   var now=Date.now(),key=e.key,sc=document.getElementById('main-scroll')||window;
   if(key==='g'){
     if(lastKey==='g'&&(now-lastKeyTime<500)){
@@ -319,11 +325,57 @@ function updZ(){
   if(cls)cls.classList.add('zen-focus');
 }
 document.addEventListener('keydown',function(e){
-  if(!e.target.matches('input,textarea')&&e.key==='z'){
-    document.body.classList.toggle('zen-mode');
-    if(document.body.classList.contains('zen-mode'))updZ();
-  }
+  if(!readingShortcutBlocked(e)&&e.key==='z'){e.preventDefault();toggleZen();}
 });
+function toggleZen(){
+  var enabled=document.body.classList.toggle('zen-mode');
+  var button=document.querySelector('[data-reading-zen]');
+  if(button){button.setAttribute('aria-pressed',String(enabled));button.textContent=enabled?'退出专注':'专注阅读';}
+  if(enabled)updZ();
+}
+
+/* Reading actions stay visible even when mobile metadata is collapsed. */
+function initReadingActions(){
+  var article=document.querySelector('.article-container'),nav=document.querySelector('.article-back-nav');
+  if(!article||!nav)return;
+  var title=article.querySelector('h1.title');
+  article.insertBefore(nav,title||article.firstChild);
+  nav.classList.add('museum-reading-actions');nav.setAttribute('aria-label','阅读操作');
+  var status=document.createElement('span');status.className='museum-reading-action-status';
+  status.setAttribute('role','status');status.setAttribute('aria-live','polite');
+  function copy(value,button){
+    var label=button.dataset.label;
+    function done(ok){
+      status.textContent=ok?'已复制，可粘贴引用':'复制失败，请选择下方文本手动复制';
+      button.textContent=ok?'已复制':label;
+      clearTimeout(button.copyTimer);button.copyTimer=setTimeout(function(){button.textContent=label;},1800);
+      var old=nav.querySelector('textarea');if(old)old.remove();
+      if(!ok){var manual=document.createElement('textarea');manual.value=value;
+        manual.readOnly=true;manual.setAttribute('aria-label','手动复制引用');nav.appendChild(manual);manual.focus();manual.select();}
+    }
+    function fallback(){
+      var area=document.createElement('textarea');area.value=value;area.readOnly=true;
+      area.style.position='fixed';area.style.left='-9999px';document.body.appendChild(area);area.select();
+      var ok=false;try{ok=document.execCommand('copy')===true;}catch(_error){}
+      area.remove();button.focus({preventScroll:true});done(ok);
+    }
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(value).then(function(){done(true);},fallback);
+    else fallback();
+  }
+  function action(label,handler){
+    var button=document.createElement('button');button.type='button';button.textContent=label;button.dataset.label=label;
+    button.addEventListener('click',function(){handler(button);});nav.appendChild(button);return button;
+  }
+  action('复制链接',function(button){
+    var url=new URL(location.href);url.search='';copy(url.href,button);
+  });
+  if(document.body.dataset.pageId)action('复制 Org 引用',function(button){
+    var label=(title?title.textContent:document.title).replace(/[\[\]\r\n]/g,' ').trim();
+    copy('[[wiki:'+document.body.dataset.pageId+']['+label+']]',button);
+  });
+  var zen=action('专注阅读',toggleZen);zen.dataset.readingZen='';zen.setAttribute('aria-pressed','false');zen.title='快捷键 Z';
+  nav.appendChild(status);
+}
 (document.getElementById('main-scroll')||window).addEventListener(
   'scroll',function(){if(document.body.classList.contains('zen-mode'))updZ();},{passive:true});
 
@@ -374,26 +426,58 @@ function initLightbox(){
   ol.setAttribute('role','dialog');ol.setAttribute('aria-modal','true');
   ol.setAttribute('aria-label','图片预览');ol.hidden=true;
   var oli=document.createElement('img');oli.alt='';
+  var caption=document.createElement('p');caption.className='image-lightbox-caption';
+  caption.setAttribute('role','status');
+  var toolbar=document.createElement('div');toolbar.className='image-lightbox-toolbar';
+  var previous=document.createElement('button');previous.type='button';previous.textContent='上一张';
+  var next=document.createElement('button');next.type='button';next.textContent='下一张';
+  var original=document.createElement('a');original.textContent='打开原图';original.target='_blank';original.rel='noopener';
   var close=document.createElement('button');close.type='button';
   close.className='image-lightbox-close';close.textContent='关闭图片预览';
-  var lastFocus=null;
-  ol.appendChild(oli);ol.appendChild(close);document.body.appendChild(ol);
+  var lastFocus=null,background=[],activeIndex=0;
+  var images=Array.from(document.querySelectorAll('.article-container img')).filter(function(img){return !img.closest('a');});
+  if(!images.length)return;
+  toolbar.appendChild(previous);toolbar.appendChild(next);toolbar.appendChild(original);toolbar.appendChild(close);
+  ol.appendChild(oli);ol.appendChild(caption);ol.appendChild(toolbar);document.body.appendChild(ol);
   function hideLightbox(){
     ol.classList.remove('visible');ol.hidden=true;
-    if(lastFocus&&document.contains(lastFocus))lastFocus.focus();
+    background.forEach(function(item){item.element.inert=item.inert;});background=[];
+    document.documentElement.classList.remove('museum-lightbox-open');
+    if(lastFocus&&document.contains(lastFocus))lastFocus.focus({preventScroll:true});
+  }
+  function showImage(index){
+    activeIndex=(index+images.length)%images.length;
+    var img=images[activeIndex];oli.src=img.currentSrc||img.src;oli.alt=img.alt||'';
+    original.href=oli.src;
+    caption.textContent=(activeIndex+1)+' / '+images.length+(img.alt?' · '+img.alt:'');
+    previous.hidden=next.hidden=images.length<2;
   }
   function showLightbox(img){
-    lastFocus=img;oli.src=img.currentSrc||img.src;oli.alt=img.alt||'';
+    lastFocus=img;showImage(images.indexOf(img));
+    Array.from(document.body.children).forEach(function(element){
+      if(element===ol||/^(SCRIPT|STYLE|LINK)$/.test(element.tagName))return;
+      background.push({element:element,inert:element.inert});element.inert=true;
+    });
+    document.documentElement.classList.add('museum-lightbox-open');
     ol.hidden=false;ol.classList.add('visible');close.focus();
   }
+  previous.addEventListener('click',function(){showImage(activeIndex-1);});
+  next.addEventListener('click',function(){showImage(activeIndex+1);});
+  oli.addEventListener('error',function(){caption.textContent='图片加载失败，可尝试打开原图';});
   close.addEventListener('click',hideLightbox);
   ol.addEventListener('click',function(event){if(event.target===ol)hideLightbox();});
   ol.addEventListener('keydown',function(event){
     if(event.key==='Escape'){event.preventDefault();hideLightbox();}
-    else if(event.key==='Tab'){event.preventDefault();close.focus();}
+    else if(event.key==='ArrowLeft'){event.preventDefault();showImage(activeIndex-1);}
+    else if(event.key==='ArrowRight'){event.preventDefault();showImage(activeIndex+1);}
+    else if(event.key==='Tab'){
+      var items=Array.from(toolbar.querySelectorAll('button,a')).filter(function(item){return !item.hidden;});
+      var at=items.indexOf(document.activeElement);
+      if(event.shiftKey&&at<=0){event.preventDefault();items[items.length-1].focus();}
+      else if(!event.shiftKey&&at===items.length-1){event.preventDefault();items[0].focus();}
+    }
   });
-  document.querySelectorAll('.article-container img').forEach(function(img){
-    if(img.closest('a'))return;
+  images.forEach(function(img){
     img.tabIndex=0;img.setAttribute('role','button');
     img.setAttribute('aria-label',(img.alt||'图片')+'，打开预览');
     img.addEventListener('click',function(){showLightbox(img);});
@@ -476,17 +560,50 @@ function initDesktopSidebarToggle(){
   });
 }
 
+/* ── 13. Heading anchor copy ── */
+function initHeadingAnchors(){
+  var headings=document.querySelectorAll('.article-container h2[id],.article-container h3[id],.article-container h4[id]');
+  headings.forEach(function(h){
+    if(h.querySelector('.heading-anchor-copy'))return;
+    var btn=document.createElement('button');
+    btn.type='button';btn.className='heading-anchor-copy';
+    btn.setAttribute('aria-label','复制小节链接');
+    btn.title='复制小节链接';
+    btn.innerHTML='<span aria-hidden="true">#</span>';
+    btn.onclick=function(e){
+      e.stopPropagation();
+      var url=new URL(location.href);url.hash='#'+h.id;
+      var clean=url.href;
+      function done(ok){
+        btn.classList.add('copied');
+        btn.setAttribute('aria-label',ok?'已复制小节链接':'复制失败');
+        setTimeout(function(){
+          btn.classList.remove('copied');
+          btn.setAttribute('aria-label','复制小节链接');
+        },1800);
+      }
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(clean).then(function(){done(true);},function(){done(false);});
+      }else{
+        var ta=document.createElement('textarea');ta.value=clean;
+        ta.style.position='fixed';ta.style.left='-9999px';
+        document.body.appendChild(ta);ta.select();
+        var ok=false;try{ok=document.execCommand('copy')===true;}catch(_e){}
+        ta.remove();done(ok);
+      }
+    };
+    h.appendChild(btn);
+  });
+}
+
 window.addEventListener('load',function(){
+  initReadingActions();
+  initHeadingAnchors();
   initScrollSpy();
   initCodeBlocks();
   initReadingProgress();
-  initLinkTooltip();
   initLightbox();
-  initMarginNotes();
   initCJKSpacing();
-  initMagneticButtons();
-  initNavAura();
-  initDesktopSidebarToggle();
 });
 
 })();
@@ -722,7 +839,7 @@ if(!moveTOC()){
 var drawer=document.getElementById('org-museum-sidebar');
 var toc=document.getElementById('org-museum-right-sidebar');
 var backdrop=document.getElementById('museum-drawer-backdrop');
-var tocDrawerMedia=matchMedia('(max-width:1360px)');
+var tocDrawerMedia=matchMedia('(max-width:1439px)');
 var metaMedia=matchMedia('(max-width:820px)');
 var metaDisclosure=document.querySelector('.museum-article-meta-disclosure');
 var tocAnchor=null;
@@ -832,12 +949,24 @@ document.querySelectorAll('[data-drawer-toggle]').forEach(function(button){
 });
 document.querySelectorAll('[data-toc-toggle]').forEach(function(button){
   button.addEventListener('click',function(){
+    if(!tocDrawerMedia.matches){
+      var open=!document.body.classList.contains('museum-toc-hover');
+      document.body.classList.toggle('museum-toc-hover',open);
+      controls('[data-toc-toggle]',open);
+      if(open)focusFirst(toc);
+      return;
+    }
     if(document.body.classList.contains('museum-toc-open'))closeAll(true);
     else openPanel('toc',button);
   });
 });
 document.querySelectorAll('[data-drawer-close],[data-toc-close]').forEach(function(button){
-  button.addEventListener('click',function(){closeAll(true);});
+  button.addEventListener('click',function(){
+    if(!tocDrawerMedia.matches&&button.hasAttribute('data-toc-close')){
+      document.body.classList.remove('museum-toc-hover');
+      controls('[data-toc-toggle]',false);
+    }else closeAll(true);
+  });
 });
 if(backdrop)backdrop.addEventListener('click',function(){closeAll(true);});
 document.addEventListener('keydown',function(event){
@@ -850,7 +979,7 @@ document.addEventListener('keydown',function(event){
       (document.body.classList.contains('museum-toc-open')?toc:null);
     if(!panel)return;
     var items=Array.from(panel.querySelectorAll(
-      'button:not([disabled]),a[href],input:not([disabled]),[tabindex="0"]'));
+      'button:not([disabled]),a[href],input:not([disabled]),[tabindex="0"]')).filter(function(item){return item.getClientRects().length>0;});
     if(!items.length)return;
     var first=items[0],last=items[items.length-1];
     if(event.shiftKey&&document.activeElement===first){event.preventDefault();last.focus({preventScroll:true});}
@@ -858,9 +987,9 @@ document.addEventListener('keydown',function(event){
   }
 },true);
 var search=document.getElementById('org-museum-global-search');
-if(search&&document.body.dataset.pageKind==='article'){
+if(search&&['article','ai','timeline','related'].includes(document.body.dataset.pageKind)){
   search.addEventListener('keydown',function(event){
-    if(event.key==='Enter'&&search.value.trim()){
+    if(event.key==='Enter'&&!event.isComposing&&search.value.trim()){
       var top=document.querySelector('.museum-topbar');
       var home=top?top.getAttribute('data-home-href'):'index.html';
       var destination=home+'?q='+encodeURIComponent(search.value.trim());
@@ -870,6 +999,8 @@ if(search&&document.body.dataset.pageKind==='article'){
   });
 }
 document.addEventListener('keydown',function(event){
+  if(event.defaultPrevented||event.isComposing||document.activeElement.isContentEditable||
+     document.querySelector('dialog[open],#image-lightbox-overlay.visible'))return;
   if(event.key==='/'&&!event.metaKey&&!event.ctrlKey&&!event.altKey&&
      !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)){
     event.preventDefault();
