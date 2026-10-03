@@ -56,7 +56,7 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="4a44ea48a423a44a46d293c545c394a25c8d1e5f54410c6ace640a2f4cef04e8"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: vibe-coding</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="5d6b4eed7f94e3940a0552212703fa77675c9cb31dece3d3249ea2b674fe5398"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: vibe-coding</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Vibe</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: draft</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :vibe:</span></span>
@@ -108,7 +108,10 @@
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,**项目每经过一轮 Loop，都应保持可运行，同时减少一部分确定的技术债；如果无法证明修改更安全、更正确，就不要改。**</span></span>
 <span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 简单直接</span></span>
-<span class="museum-org-line">现在越改越乱，直接帮我撰写一个符合我的需求，然后测试一遍，直接输出测试结果看看效果如何。</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  现在越改越乱，直接帮我撰写一个符合我的需求，然后测试一遍，直接输出测试结果看看效果如何。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  我不知道该如何向AI精准传达我的VIbe Coding表达需求，请必须保证简单直接简单清晰短小精悍一针见血不说废话的语言艺术表达输出</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 去AI味</span></span>
 <span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  使用下面的提示优化上面的输出内容。你是一名资深编辑。请重写输入文本，在完整保留原意、事实、立场和信息的前提下，最大限度降低机械化、模板化和 AI 式表达，使文字自然、具体、有真实人声。不得虚构事实，也不得承诺能够绕过所有 AI 检测工具。</span></span>
@@ -531,6 +534,7 @@
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 执行完整闭环： 当前版本测试 → 缺陷定位 → 根因分析 → 最小修改 → 原失败样本复测 → 历史 regression → 泛化测试 → adversarial → 差异检查</span></span>
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  最终只保留经过验证的修改。</span></span>
 <span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Skill</span></span>
 </code></pre></section>
 <h1 class="title">vibe coding</h1>
 <div id="table-of-contents" role="doc-toc">
@@ -559,6 +563,7 @@
 <ul>
 <li><a href="#section-6dd2acd7123a">1.3.1. Skill 测试</a></li>
 <li><a href="#section-53bcc64c3054">1.3.2. Skill 修改</a></li>
+<li><a href="#section-12e58e48e5be">1.3.3. Skill</a></li>
 </ul>
 </li>
 </ul>
@@ -630,9 +635,11 @@
 </li>
 <li><a id="org-museum-ref-22765ad536f9"></a>简单直接<br>
 <div class="outline-text-5" id="text-1-2-1-2">
-<p>
-现在越改越乱，直接帮我撰写一个符合我的需求，然后测试一遍，直接输出测试结果看看效果如何。
-</p>
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">现在越改越乱，直接帮我撰写一个符合我的需求，然后测试一遍，直接输出测试结果看看效果如何。
+我不知道该如何向AI精准传达我的VIbe Coding表达需求，请必须保证简单直接简单清晰短小精悍一针见血不说废话的语言艺术表达输出
+</code></pre>
+</div>
 </div>
 </li>
 </ol>
@@ -1273,6 +1280,9 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
 </div>
 </div>
 </div>
+<div id="outline-container-section-12e58e48e5be" class="outline-4">
+<h4 id="section-12e58e48e5be"><span class="section-number-4">1.3.3.</span> Skill</h4>
+</div>
 </div>
 </div>
 <section id="local-graph-container" aria-labelledby="local-graph-heading">
@@ -1393,7 +1403,7 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
 
 <script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
-<script defer src="../../resources/org-museum-org-view.js?v=80bcd0584bac"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
 <script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
 
 <script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>

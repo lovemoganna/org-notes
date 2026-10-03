@@ -649,7 +649,7 @@ function renderTrend(){
     cell.title='日期：'+text+' · 新增：'+bin.created+' · 更新：'+bin.updated;
     cell.setAttribute('aria-label',cell.title+'；点击筛选，拖动选择范围');
     var columns=document.createElement('span');columns.className='dashboard-trend-columns';
-    
+
     var createdBar=document.createElement('i');
     createdBar.className='dashboard-trend-created';
     createdBar.style.height=bin.created?Math.max(8,Math.round(bin.created/ceiling*100))+'%':'0%';
@@ -730,13 +730,13 @@ function renderResults(){
     state.filteredData.forEach(function(page){
       var match=bestMatch(page);
       var row=document.createElement('article');row.className='museum-search-result';
-      
+
       var header=document.createElement('div');header.className='dashboard-result-header';
       var link=document.createElement('a');link.className='dashboard-result-title';
       link.href=window.orgMuseumThemeUrl?window.orgMuseumThemeUrl(match.href):match.href;
       link.textContent=page.title||page.pageId;
       header.appendChild(link);
-      
+
       if(page.status){
         var statusBadge=document.createElement('span');
         statusBadge.className='museum-status-badge '+(page.status==='draft'?'is-draft':'is-published');
