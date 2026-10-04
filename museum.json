@@ -7,9 +7,16 @@
   "assetDirectory": "note-assets",
   "pagePrefix": "pages/collected",
   "siteUrl": "https://lovemoganna.github.io/org-notes/",
+  "ingestion": {
+    "plugin": "org-museum",
+    "skill": "org-museum-ingest",
+    "privateRepository": "lovemoganna/Org-Skills",
+    "privateRevision": "b971e47502800851065faa2581eac24c2b2734b2",
+    "skillPath": "plugins/org-museum/skills/org-museum-ingest/SKILL.md"
+  },
   "publisher": {
     "repository": "lovemoganna/org-museum.el",
-    "commit": "bba7b4801e6c5a0d82220b69c3f1e87cf8ec51f7",
+    "commit": "5c54566428bac03d4ea50796b179499247168e8d",
     "entry": "tools/museum_pipeline.py"
   }
 }
