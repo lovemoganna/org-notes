@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: 9ce36c200176a475f839e41f282ec92321ee12aa
+          ref: 4f9e7bd3a94a65b60a9e13d9a292bd4cdc60b412
           path: _publisher
           persist-credentials: false
       - name: Install batch Emacs
@@ -57,6 +57,14 @@ jobs:
           assert config['publisher']['commit'] == actual
           PY
           python3 _publisher/tools/museum_pipeline.py validate --root .
+      - name: Protect identities of declared URL updates
+        env:
+          UPDATE_BASE: ${{ github.event.before }}
+          UPDATE_COMMIT: ${{ github.sha }}
+        run: |
+          if git log -1 --format=%s | grep -q '^Museum-Update: '; then
+            python3 _publisher/tools/museum_update.py check-commit --root . --base "$UPDATE_BASE" --commit "$UPDATE_COMMIT"
+          fi
       - name: Build without running note code
         env:
           LANG: C.UTF-8
@@ -100,10 +108,30 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: 9ce36c200176a475f839e41f282ec92321ee12aa
+          ref: 4f9e7bd3a94a65b60a9e13d9a292bd4cdc60b412
           path: _publisher
           persist-credentials: false
       - name: Verify live published content
         env:
           SOURCE_COMMIT: ${{ github.sha }}
         run: python3 _publisher/tools/museum_pipeline.py verify --commit "$SOURCE_COMMIT"
+      - name: Checkout source for page binding verification
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          path: _source
+          persist-credentials: false
+      - name: Record verified URL source bindings for Chat
+        run: |
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+          sys.path.insert(0, '_publisher/tools')
+          import museum_update, museum_pipeline
+          root = Path('_source').resolve()
+          config = json.loads((root / 'museum.json').read_text())
+          for note in museum_pipeline.validate(root):
+              if note['status'] == 'published':
+                  url = config['siteUrl'].rstrip('/') + '/' + note['href']
+                  print('MUSEUM-URL-RESOLVED ' + json.dumps(museum_update.resolve(root, url), ensure_ascii=False))
+          PY

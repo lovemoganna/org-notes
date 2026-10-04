@@ -11,12 +11,14 @@
     "plugin": "org-museum",
     "skill": "org-museum-ingest",
     "privateRepository": "lovemoganna/Org-Skills",
-    "privateRevision": "b971e47502800851065faa2581eac24c2b2734b2",
-    "skillPath": "plugins/org-museum/skills/org-museum-ingest/SKILL.md"
+    "privateRevision": "00b95951feec0418432a983347e0a28048fff700",
+    "skillPath": "plugins/org-museum/skills/org-museum-ingest/SKILL.md",
+    "updateSkill": "org-museum-update",
+    "urlResolverWorkflow": ".github/workflows/resolve-url.yml"
   },
   "publisher": {
     "repository": "lovemoganna/org-museum.el",
-    "commit": "9ce36c200176a475f839e41f282ec92321ee12aa",
+    "commit": "4f9e7bd3a94a65b60a9e13d9a292bd4cdc60b412",
     "entry": "tools/museum_pipeline.py"
   }
 }

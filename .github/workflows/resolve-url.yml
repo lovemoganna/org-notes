@@ -1,0 +1,44 @@
+name: Resolve Museum URL
+run-name: Resolve Museum URL ${{ inputs.request_id }}
+on:
+  workflow_dispatch:
+    inputs:
+      page_url:
+        description: Published Museum article URL
+        required: true
+        type: string
+      request_id:
+        description: Resolution correlation ID
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  resolve:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Checkout authoritative source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Checkout fixed resolver
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          repository: lovemoganna/org-museum.el
+          ref: 4f9e7bd3a94a65b60a9e13d9a292bd4cdc60b412
+          path: _publisher
+          persist-credentials: false
+      - name: Resolve published URL without changing any note
+        env:
+          MUSEUM_UPDATE_URL: ${{ inputs.page_url }}
+        run: |
+          python3 - <<'PY'
+          import json, os, sys
+          from pathlib import Path
+          sys.path.insert(0, '_publisher/tools')
+          import museum_update
+          print('MUSEUM-URL-RESOLVED ' + json.dumps(
+              museum_update.resolve(Path.cwd(), os.environ['MUSEUM_UPDATE_URL']), ensure_ascii=False))
+          PY
