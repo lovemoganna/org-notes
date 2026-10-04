@@ -1,0 +1,31 @@
+#+TITLE: Python：把求和封装成函数
+#+WIKI_ID: python-sum-function
+#+CATEGORY: programming
+#+FILETAGS: :python:function:sum:
+#+DATE: 2026-10-04
+#+SOURCE: user-provided; original-source-unavailable
+#+INGEST_ID: python-sum-function-20261004
+
+* 核心
+
+给一组数求和，可以把求和封装成函数，统一调用入口。
+
+#+begin_src python
+def total(values):
+    return sum(values)
+#+end_src
+
+* 调用示例
+
+#+begin_src python
+total([1, 2, 3])
+#+end_src
+
+* 验证状态
+
+- 代码尚未运行。
+- 不把预期返回值写成已验证结果。
+
+* 来源
+
+原始出处未提供。
