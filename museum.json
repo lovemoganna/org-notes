@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "publishMode": "actions",
+  "repository": "lovemoganna/org-notes",
+  "branch": "main",
+  "sourceDirectory": "notes",
+  "assetDirectory": "note-assets",
+  "pagePrefix": "pages/collected",
+  "siteUrl": "https://lovemoganna.github.io/org-notes/",
+  "publisher": {
+    "repository": "lovemoganna/org-museum.el",
+    "commit": "bba7b4801e6c5a0d82220b69c3f1e87cf8ec51f7",
+    "entry": "tools/museum_pipeline.py"
+  }
+}
