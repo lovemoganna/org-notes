@@ -1,4 +1,4 @@
-#+TITLE: Python：把求和封装成函数
+#+TITLE: Python：复用求和函数与判断验证状态
 #+WIKI_ID: python-sum-function
 #+CATEGORY: programming
 #+FILETAGS: :python:function:sum:
@@ -8,7 +8,7 @@
 
 * 核心
 
-给一组数求和，可以把求和封装成函数，统一调用入口。
+给一组数求和时，用 =total(values)= 把求和封装成函数，统一调用入口。
 
 #+begin_src python
 def total(values):
@@ -17,13 +17,15 @@ def total(values):
 
 * 调用示例
 
+下面是调用写法，尚未运行，不能当作执行记录。
+
 #+begin_src python
 total([1, 2, 3])
 #+end_src
 
 * 验证状态（未验证）
 
-- 代码尚未运行。
+- 代码尚未运行；调用示例不等于执行结果。
 - 不把预期返回值写成已验证结果。
 
 * 来源
