@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: 4f9e7bd3a94a65b60a9e13d9a292bd4cdc60b412
+          ref: ff32067fa04705211dc273644444dcf7444750ad
           path: _publisher
           persist-credentials: false
       - name: Install batch Emacs
@@ -63,6 +63,7 @@ jobs:
           UPDATE_COMMIT: ${{ github.sha }}
         run: |
           if git log -1 --format=%s | grep -q '^Museum-Update: '; then
+            if [ -z "$UPDATE_BASE" ]; then UPDATE_BASE=$(git rev-parse "$UPDATE_COMMIT^"); fi
             python3 _publisher/tools/museum_update.py check-commit --root . --base "$UPDATE_BASE" --commit "$UPDATE_COMMIT"
           fi
       - name: Build without running note code
@@ -108,7 +109,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: 4f9e7bd3a94a65b60a9e13d9a292bd4cdc60b412
+          ref: ff32067fa04705211dc273644444dcf7444750ad
           path: _publisher
           persist-credentials: false
       - name: Verify live published content
