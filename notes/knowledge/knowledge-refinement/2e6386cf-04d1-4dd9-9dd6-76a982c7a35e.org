@@ -1,0 +1,38 @@
+#+TITLE: 三魂七魄 | Three Souls and Seven Spirits
+#+WIKI_ID: 2e6386cf-04d1-4dd9-9dd6-76a982c7a35e
+#+CATEGORY: 知识炼化
+#+FILETAGS: :knowledge-refinement:note-reforge:agent-reasoning:
+#+DATE: 2026-10-06
+#+SOURCE: 本次对话中的“三魂七魄”解释及同主题 Twitter 文案；工程案例基于用户先前提供的 Claude Code 讲座材料
+#+INGEST_ID: 12f97d33-c95f-4bd5-a938-4de34ed935a1
+#+WIKI_STATUS: published
+
+材料变得更完整，不代表知识变得更有用。摘要保留内容，炼化则需要找出事实之间的关系，解释机制，并形成能指导下一次行动的判断。这里的“三魂七魄”是 =note-reforge= 所采用的内部思考比喻，不是传统文化中的三魂七魄定义，也不是通用的官方技术标准。More complete material does not necessarily produce more useful knowledge. A summary preserves content. Refinement identifies relationships among facts, explains mechanisms, and forms judgments that can guide future action. “Three Souls and Seven Spirits” here is an internal reasoning metaphor used by =note-reforge=. It is neither a definition of the traditional cultural concept nor an official technical standard.
+
+这个框架要解决一个具体问题：为什么很多笔记读起来更整齐，却没有让人更懂原来的问题？因为分类只能告诉读者“有哪些”，不能回答“为什么如此”，更不能回答“遇到相同问题应该怎么选”。This framework addresses a specific problem: why do many reorganized notes look clearer without improving understanding? Classification tells readers what exists. It does not explain why things work as they do or how to choose when a similar problem returns.
+
+* 三魂 | Three Souls
+
+三魂分别是本体、机制和判断。本体识别真正的问题，以及对象、变量、目标与约束。机制解释对象之间的依赖、因果和条件。判断再把这些关系压成一条可迁移的选择规则：在什么条件下，选什么，为什么。The Three Souls are Ontology, Mechanism, and Judgment. Ontology identifies the actual problem, its objects, variables, goals, and constraints. Mechanism explains dependencies, causes, and conditions among those objects. Judgment turns these relationships into a transferable decision rule: under which conditions, choose what, and why.
+
+三者不能互相替代。只有本体，文章容易变成功能目录；只有机制，文章能解释原理，却不告诉读者如何决策；只有判断，观点就可能失去事实基础。认知增量来自三者形成连续推理，而不是多写几个标题。These three functions are not interchangeable. Ontology alone can become a feature catalog. Mechanism alone can explain a system without guiding a decision. Judgment alone can become an unsupported opinion. Knowledge gain comes from connecting all three, not from adding more headings.
+
+* 七魄 | Seven Spirits
+
+七魄是事实、证据、结构、边界、冲突、行动和检索。事实保留材料中不可再生的信息；证据限制结论的确定性；结构连接对象与关系；边界说明结论何时成立；冲突区分相反事实、不同环境和版本变化；行动把判断用于下一步；检索保证未来带着问题回来时还能找到答案。The Seven Spirits are Facts, Evidence, Structure, Boundaries, Conflicts, Action, and Retrieval. Facts preserve irreplaceable source information. Evidence limits how confidently a conclusion can be stated. Structure connects objects and relationships. Boundaries define when a conclusion holds. Conflicts distinguish contradictory facts from different environments or version changes. Action turns judgment into a next step. Retrieval makes the result useful when the problem returns.
+
+它们不是七个需要展示的栏目，而是七项内部校验。尤其要守住证据边界：讲者经验不能直接写成普遍规律；只有预期结果不能写成实测成功；信息缺失时不能靠推理补齐。The Seven Spirits are not seven sections that must appear in the article. They are seven internal checks. Evidence boundaries are especially important: a speaker’s experience must not become a universal rule, an expected result must not become a successful test, and missing information must not be filled with invented details.
+
+* 工程案例 | Engineering Case
+
+Claude Code 讲座提供了一个例子。=CLAUDE.md=、MCP、Puppeteer、权限配置和 Git worktree 看起来是不同功能。如果只按功能分类，最后得到的是一份工具清单。把问题改为“Agent 怎样在工程环境中可靠地完成任务”，这些功能才有了共同的解释。The Claude Code talk provides an example. =CLAUDE.md=, MCP, Puppeteer, permissions, and Git worktrees look like separate features. Grouping them by feature produces a tool catalog. Asking instead “How can an Agent complete work reliably in an engineering environment?” gives those features a shared explanation.
+
+在这个工程归纳里，Context 决定 Agent 能获得什么信息，Tool 决定它能执行什么动作，Feedback 提供检查结果的信号，Permission 限制动作范围，Isolation 降低并行任务之间的状态干扰。这是对讲座内容的分析框架，不是 Anthropic 给出的官方分类。In this engineering interpretation, Context determines what information an Agent can access. Tools determine what actions it can perform. Feedback provides signals for checking results. Permissions limit the scope of those actions. Isolation reduces state interference between parallel tasks. This is an analytical framework derived from the talk, not an official classification from Anthropic.
+
+因此，一个比“接入了多少工具”更有价值的问题是：“Agent 执行后，靠什么证据判断结果正确？”工具扩大行动范围，反馈使结果有机会接受检验。反馈本身并不保证正确；它的作用是让验证成为工作流程的一部分。A more useful question than “How many tools are connected?” is “What evidence lets the Agent judge its result after acting?” Tools expand the action space. Feedback makes verification possible. Feedback does not guarantee correctness; it makes verification part of the workflow.
+
+* 最终判断 | Final Judgment
+
+三魂七魄的执行顺序很简单：先核对事实，再识别对象和关系，解释机制，形成判断，落实行动，最后反查证据与边界。若找不到可靠的机制或判断，就保留缺口，不用复杂语言制造知识增量。The working sequence is simple: check the facts, identify objects and relationships, explain the mechanism, form a judgment, turn it into action, and finally recheck evidence and boundaries. If the source does not support a reliable mechanism or judgment, keep the gap visible instead of using elaborate language to manufacture knowledge gain.
+
+最终文章不需要展示这十项检查。它只需要让读者明白一个原本复杂的问题，并在相似情形下作出更可靠的选择。后台推理可以复杂，前台表达应当简单。三魂七魄是炼钢炉，不是成品外观。The finished article does not need to display all ten checks. It needs to make a complex problem understandable and help the reader make a more reliable choice in a similar situation. Internal reasoning can be complex; external expression should be simple. Three Souls and Seven Spirits is the furnace, not the finished surface.
