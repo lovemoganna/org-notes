@@ -6,15 +6,19 @@
 <title>Org Babel 03｜验证、回归与排错</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../../resources/org-museum-theme.js?v=2b7a181da330"></script>
-<link rel="stylesheet" href="../../../resources/org-museum.css?v=a21cc263868a">
+<script src="../../../resources/org-museum-theme.js?v=4084c12f7143"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=1329463e6fd1">
+<link rel="icon" href="data:,">
+<meta name="color-scheme" content="dark light">
+<script src="../../../resources/org-museum-theme.js?v=4045495a6691"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-Org-org-babel-03-verification-debugging" data-page-title="Org Babel 03｜验证、回归与排错" data-page-category="uncategorized" data-page-tags="Emacs,Org,Babel,Verification" data-page-status="published" data-page-modified="2026-10-01" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-Org-org-babel-03-verification-debugging" data-page-title="Org Babel 03｜验证、回归与排错" data-page-category="uncategorized" data-page-tags="Emacs,Org,Babel,Verification" data-page-status="published" data-page-modified="2026-10-03" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -27,7 +31,12 @@
     <a class="museum-topbar-link museum-nav-ai" href="../../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+    <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
+      <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
         <div class="museum-settings-section">
           <div class="museum-settings-section-title">外观主题</div>
           <div class="museum-theme-segmented" role="group">
@@ -37,6 +46,67 @@
               <span data-theme-label>深色</span></button>
           </div>
         </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+        <div class="museum-settings-section museum-settings-ai-section">
+          <div class="museum-settings-section-title">模型设置</div>
+          <form data-browser-config class="museum-settings-config-form">
+            <div class="museum-settings-field">
+              <label>接入方式<select name="provider">
+                <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
+                <option value="ollama">Ollama</option>
+              </select></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
+              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+            </div>
+            <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
+            <div class="museum-settings-field">
+              <label>选择模型
+                <div class="museum-settings-model-row">
+                  <select name="model_select" data-browser-model-select aria-label="选择模型">
+                    <option value="">(请先读取模型列表或手动输入)</option>
+                  </select>
+                  <button type="button" class="museum-settings-sub-btn" data-browser-cycle-model title="顺序切换至下一个模型" aria-label="顺序切换选择模型">顺序切换</button>
+                </div>
+              </label>
+            </div>
+            <div class="museum-settings-field">
+              <label>模型 ID<input name="model" list="museum-browser-model-list" placeholder="选择已加载模型或输入模型 ID" required></label>
+              <datalist id="museum-browser-model-list"></datalist>
+            </div>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-load>加载并测试模型</button>
+              <button type="button" data-browser-cancel-load hidden>取消加载</button>
+            </div>
+            <div class="museum-settings-status-box">
+              <span class="museum-settings-status-indicator" aria-hidden="true"></span>
+              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+            </div>
+            <details class="museum-settings-details">
+              <summary>回答偏好设置</summary>
+              <div class="museum-settings-field">
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+              </div>
+            </details>
+          </form>
+          <details class="museum-settings-details museum-ai-local-tools">
+            <summary>本地保存与同步</summary>
+            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-backup>导出知识库</button>
+              <button type="button" data-browser-org-export>导出 Org</button>
+              <button type="button" data-browser-sync-preview>预览同步</button>
+            </div>
+            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
+            <div data-browser-sync-result></div>
+          </details>
+        </div>
+      </div>
     </div></details>
   </nav>
 </header>
@@ -47,7 +117,7 @@
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../../index.html?category=uncategorized#recent-updates">其他笔记</a>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-03">2026-10-03</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 22 分钟</dd></div>
     <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../../index.html?tag=Emacs#recent-updates" data-tag="Emacs" title="查看包含标签 #Emacs 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Emacs</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Org#recent-updates" data-tag="Org" title="查看包含标签 #Org 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Org</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Babel#recent-updates" data-tag="Babel" title="查看包含标签 #Babel 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Babel</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Verification#recent-updates" data-tag="Verification" title="查看包含标签 #Verification 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Verification</span></a></dd></div>
   </dl>
@@ -56,7 +126,11 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="e238695eaba3c6ff0a995be7645ef8494fe21b9bcc5ec79011fd1fbc4ed34729"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-document-info-keyword">#+subtitle:</span> <span class="org-face-org-document-info">从 Expanded Source、环境兼容到 E2E 验收</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="0d914d9c800050b586f1ea525937d5ddb416811dd184f6a4aebf73953964a197"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;meta name="color-scheme" content="dark light"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;script src="../../../resources/org-museum-theme.js?v=4045495a6691"&gt;&lt;/script&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="icon" href="data:,"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-document-info-keyword">#+subtitle:</span> <span class="org-face-org-document-info">从 Expanded Source、环境兼容到 E2E 验收</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :Emacs:Org:Babel:Verification:</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args :exports both</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args:python :results value replace :session none</span></span>
@@ -65,12 +139,12 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">本文件只处理“如何证明正确、如何定位错误、如何避免假 PASS”。不重复讲基础语法和工程机制。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 关系 | 指向                                                                                                           | 为什么需要                                 |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+----------------------------------------------------------------------------------------------------------------+--------------------------------------------|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 前置 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.org]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">01｜执行基础与数据</span><span class="org-face-org-link org-face-org-table">流</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                          | 必须先有可执行 Block，排错才有对象         |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 依赖 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-02-composition-engineering.org::*7. 完整案例：订单分析流水线]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">订单分析流水</span><span class="org-face-org-link org-face-org-table">线</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                | E2E 与 Golden 的业务基线来自真实工作流     |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 示例 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.org::*4. 参数传递：把变化从代码中抽出来]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">price-total / #+call 示</span><span class="org-face-org-link org-face-org-table">例</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table"> | </span><span class="org-face-org-verbatim org-face-org-formula">=ob-async=</span><span class="org-face-org-formula"> Advice API drift 的真实复现入口 </span><span class="org-face-org-table">|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 复用 | </span><span class="org-face-org-link org-face-org-table">[[#e2e-matrix]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">E2E 验证矩</span><span class="org-face-org-link org-face-org-table">阵</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                                                                  | 新教程或新 Babel 工作流可直接复用验收框架  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 关系 | 指向                                                                                    | 为什么需要                                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+-----------------------------------------------------------------------------------------+--------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 前置 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.html]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">01｜执行基础与数据</span><span class="org-face-org-link org-face-org-table">流</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                  | 必须先有可执行 Block，排错才有对象         |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 依赖 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-02-composition-engineering.html#section-61114a9dc118]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">订单分析流水</span><span class="org-face-org-link org-face-org-table">线</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table"> | E2E 与 Golden 的业务基线来自真实工作流     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 示例 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.html]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">price-total / #+call 示</span><span class="org-face-org-link org-face-org-table">例</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">             | </span><span class="org-face-org-verbatim org-face-org-formula">=ob-async=</span><span class="org-face-org-formula"> Advice API drift 的真实复现入口 </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 复用 | </span><span class="org-face-org-link org-face-org-table">[[#e2e-matrix]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">E2E 验证矩</span><span class="org-face-org-link org-face-org-table">阵</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                                           | 新教程或新 Babel 工作流可直接复用验收框架  |</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 1. #+call 与 ob-async：先排除 Advice API drift</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">如果 <span class="org-face-org-verbatim">=price-total=</span> Block 本身能执行，但这一行报 <span class="org-face-org-verbatim">=wrong-number-of-arguments=，并且回溯进入 </span><span class="org-face-org-verbatim org-face-org-verbatim">=ob-async-org-babel-execute-src-block=，不要改 Python。这个错误发生在 Emacs Lisp Advice 层：当前 Org 会把 </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-verbatim">=executor-type=</span> 继续传给 <span class="org-face-org-verbatim">=org-babel-execute-src-block=，而旧版或本地修改版 </span><span class="org-face-org-verbatim org-face-org-verbatim">=ob-async=</span> 仍只接受 =orig-fun / arg / info / params=。</span>
@@ -106,7 +180,7 @@
 <span class="museum-org-line">在配置中放到 <span class="org-face-org-verbatim">=ob-async=</span> 配置之后：</span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_example</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (load-file "[local-path-redacted]")</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  (load-file "C:/path/to/ob-async-org-babel-compat-v2.el")</span></span>
 <span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_example</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">加载后先执行：</span>
@@ -136,7 +210,7 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">兼容层只绕开带 <span class="org-face-org-verbatim">=executor-type=</span> 的 CALL 类执行；普通 Source Block 仍委托给你已经加载的旧 <span class="org-face-org-verbatim">=ob-async=，所以原有 </span><span class="org-face-org-verbatim org-face-org-verbatim">=:async=</span> 行为不需要整体删除。若你直接维护自己的 V6 <span class="org-face-org-verbatim">=ob-async=</span> 源码，则更根本的修复仍然是：函数签名加入 =executor-type=，并让所有同步 fallback 原样向下转发该参数。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">关系：复现入口见 <span class="org-face-org-link">[[file:org-babel-01-execution-foundations.org::*4. 参数传递：把变化从代码中抽出来]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">01｜参数传递中的 price-tota</span><span class="org-face-org-link">l</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>；修复后回到原调用重新验证。</span>
+<span class="museum-org-line">关系：复现入口见 <span class="org-face-org-link">[[file:org-babel-01-execution-foundations.html]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">01｜参数传递中的 price-tota</span><span class="org-face-org-link">l</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>；修复后回到原调用重新验证。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 2. Expanded Source First：调试时先看真实执行代码</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">涉及 =:var=、=#+call:=、Noweb、Session、Tangle 或 Header Args 继承时，先执行 =C-c C-v v=，再诊断 Runtime。</span>
@@ -151,7 +225,7 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">例如 <span class="org-face-org-verbatim">=noweb-price=</span> 报 =tax_rate is not defined=：先看 Expanded Source 是否存在变量注入，再区分 HEADER / VARIABLE / NOWEB / RUNTIME。不要直接重写代码。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">示例：回到 <span class="org-face-org-link">[[file:org-babel-02-composition-engineering.org::*2. Noweb：组合源码，而不是复制源码]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">02｜Nowe</span><span class="org-face-org-link">b</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span> 对照原始片段、展开源码和最终 Runtime。</span>
+<span class="museum-org-line">示例：回到 <span class="org-face-org-link">[[file:org-babel-02-composition-engineering.html#section-78033e101669]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">02｜Nowe</span><span class="org-face-org-link">b</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span> 对照原始片段、展开源码和最终 Runtime。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 3. 错误分类与最小修复</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">分类：</span>
@@ -178,7 +252,7 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">不要因此重写报告函数。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">示例：Tangle 的 WRITE 边界与生成文件修复路径见 <span class="org-face-org-link">[[file:org-babel-02-composition-engineering.org::*5. Tangle：Org 才是 Source of Truth]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">02｜Tangl</span><span class="org-face-org-link">e</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
+<span class="museum-org-line">示例：Tangle 的 WRITE 边界与生成文件修复路径见 <span class="org-face-org-link">[[file:org-babel-02-composition-engineering.html#section-12f6aff46ab5]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">02｜Tangl</span><span class="org-face-org-link">e</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 4. 自动化执行：从笔记升级成可回归工程</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">交互执行适合学习；稳定后应支持批处理。</span>
@@ -334,32 +408,32 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-dbffe2f7a39b">1. 关系导航</a></li>
-<li><a href="#section-0d0fb1d33f89">2. 1. #+call 与 ob-async：先排除 Advice API drift</a></li>
-<li><a href="#section-4dd118f38f18">3. 2. Expanded Source First：调试时先看真实执行代码</a></li>
-<li><a href="#section-e253362b0f17">4. 3. 错误分类与最小修复</a></li>
-<li><a href="#section-82c80ef1e892">5. 4. 自动化执行：从笔记升级成可回归工程</a>
+<li><a href="#section-4eac5af37924">1. 关系导航</a></li>
+<li><a href="#section-73da2baeb901">2. 1. #+call 与 ob-async：先排除 Advice API drift</a></li>
+<li><a href="#section-a8a252e7b59b">3. 2. Expanded Source First：调试时先看真实执行代码</a></li>
+<li><a href="#section-7b9c4cde0b17">4. 3. 错误分类与最小修复</a></li>
+<li><a href="#section-13104c6d6a50">5. 4. 自动化执行：从笔记升级成可回归工程</a>
 <ul>
-<li><a href="#section-cd4f23c89ee8">5.1. 4.1 导出前检查 Org 语法，而不是放宽 broken-links</a></li>
+<li><a href="#section-2d2269064553">5.1. 4.1 导出前检查 Org 语法，而不是放宽 broken-links</a></li>
 </ul>
 </li>
 <li><a href="#e2e-matrix">6. 5. E2E 验证矩阵</a></li>
-<li><a href="#section-b71e26deb87c">7. 6. 参考资料</a></li>
+<li><a href="#section-c22d9d7ff43a">7. 6. 参考资料</a></li>
 <li><a href="#section-a3fd83393591">8. 7. Verification</a></li>
-<li><a href="#section-ac7fe3f50d38">9. 8. 基于实际产出的 Skill 质检</a>
+<li><a href="#section-00b927b3515f">9. 8. 基于实际产出的 Skill 质检</a>
 <ul>
-<li><a href="#section-632fdef8d89f">9.1. 8.1 当前验证状态</a></li>
-<li><a href="#section-a1db0847ab09">9.2. 8.2 已修复的 Case Bug</a></li>
-<li><a href="#section-3900b4803378">9.3. 8.3 已有执行证据支持的 Skill Patch</a></li>
-<li><a href="#section-472eb11da07c">9.4. 8.4 待原生执行</a></li>
-<li><a href="#section-9721d4148add">9.5. 8.5 当前结论</a></li>
+<li><a href="#section-6d20d24831a4">9.1. 8.1 当前验证状态</a></li>
+<li><a href="#section-56a2de5fa4da">9.2. 8.2 已修复的 Case Bug</a></li>
+<li><a href="#section-2d75db09b7ed">9.3. 8.3 已有执行证据支持的 Skill Patch</a></li>
+<li><a href="#section-8e38bf95fac3">9.4. 8.4 待原生执行</a></li>
+<li><a href="#section-569541dd9320">9.5. 8.5 当前结论</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-dbffe2f7a39b" class="outline-2">
-<h2 id="section-dbffe2f7a39b"><span class="section-number-2">1.</span> 关系导航</h2>
+<div id="outline-container-section-4eac5af37924" class="outline-2">
+<h2 id="section-4eac5af37924"><span class="section-number-2">1.</span> 关系导航</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本文件只处理“如何证明正确、如何定位错误、如何避免假 PASS”。不重复讲基础语法和工程机制。
@@ -391,7 +465,7 @@
 
 <tr>
 <td class="org-left">依赖</td>
-<td class="org-left"><a href="org-babel-02-composition-engineering.html#order-pipeline">订单分析流水线</a></td>
+<td class="org-left"><a href="org-babel-02-composition-engineering.html#section-61114a9dc118">订单分析流水线</a></td>
 <td class="org-left">E2E 与 Golden 的业务基线来自真实工作流</td>
 </tr>
 
@@ -410,8 +484,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-0d0fb1d33f89" class="outline-2">
-<h2 id="section-0d0fb1d33f89"><span class="section-number-2">2.</span> 1. #+call 与 ob-async：先排除 Advice API drift</h2>
+<div id="outline-container-section-73da2baeb901" class="outline-2">
+<h2 id="section-73da2baeb901"><span class="section-number-2">2.</span> 1. #+call 与 ob-async：先排除 Advice API drift</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 如果 <code>price-total</code> Block 本身能执行，但这一行报 <code>wrong-number-of-arguments</code>，并且回溯进入 <code>ob-async-org-babel-execute-src-block</code>，不要改 Python。这个错误发生在 Emacs Lisp Advice 层：当前 Org 会把 <code>executor-type</code> 继续传给 <code>org-babel-execute-src-block</code>，而旧版或本地修改版 <code>ob-async</code> 仍只接受 <code>orig-fun / arg / info / params</code>。
@@ -460,7 +534,7 @@ legacy ob-async advice:
 </p>
 
 <pre class="example" id="org-museum-ref-c1ebe7e326ce"><code class="language-plaintext">
-(load-file "[local-path-redacted]")
+(load-file "C:/path/to/ob-async-org-babel-compat-v2.el")
 </code></pre>
 
 <p>
@@ -505,8 +579,8 @@ M-: (my/ob-async-compat-status)
 </p>
 </div>
 </div>
-<div id="outline-container-section-4dd118f38f18" class="outline-2">
-<h2 id="section-4dd118f38f18"><span class="section-number-2">3.</span> 2. Expanded Source First：调试时先看真实执行代码</h2>
+<div id="outline-container-section-a8a252e7b59b" class="outline-2">
+<h2 id="section-a8a252e7b59b"><span class="section-number-2">3.</span> 2. Expanded Source First：调试时先看真实执行代码</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 涉及 <code>:var</code>、<code>#+call:</code>、Noweb、Session、Tangle 或 Header Args 继承时，先执行 <code>C-c C-v v</code>，再诊断 Runtime。
@@ -529,8 +603,8 @@ Block + Header Args + Variable + Noweb + Call
 </p>
 </div>
 </div>
-<div id="outline-container-section-e253362b0f17" class="outline-2">
-<h2 id="section-e253362b0f17"><span class="section-number-2">4.</span> 3. 错误分类与最小修复</h2>
+<div id="outline-container-section-7b9c4cde0b17" class="outline-2">
+<h2 id="section-7b9c4cde0b17"><span class="section-number-2">4.</span> 3. 错误分类与最小修复</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 分类：
@@ -569,8 +643,8 @@ DATA / CODE / RESULT / CALL / NOWEB / TANGLE / FILE / CONTRACT / ENVIRONMENT
 </p>
 </div>
 </div>
-<div id="outline-container-section-82c80ef1e892" class="outline-2">
-<h2 id="section-82c80ef1e892"><span class="section-number-2">5.</span> 4. 自动化执行：从笔记升级成可回归工程</h2>
+<div id="outline-container-section-13104c6d6a50" class="outline-2">
+<h2 id="section-13104c6d6a50"><span class="section-number-2">5.</span> 4. 自动化执行：从笔记升级成可回归工程</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 交互执行适合学习；稳定后应支持批处理。
@@ -608,8 +682,8 @@ Verifier 会把教程复制到临时目录，避免 Tangle 覆盖工作区文件
 模块化后的三份 Org 已改变文件边界，因此旧 <code>verify-org-babel-v10.el</code> 的 PASS 只能证明原 V10 单文件基线没有退化，不能直接等价为“三模块 E2E PASS”。三模块需要让 verifier 显式读取 01 / 02 / 03 三个文件后再做同一矩阵；在此之前，只把本次拆分的结构、链接、命名对象和代码块完整性回归记为通过。
 </p>
 </div>
-<div id="outline-container-section-cd4f23c89ee8" class="outline-3">
-<h3 id="section-cd4f23c89ee8"><span class="section-number-3">5.1.</span> 4.1 导出前检查 Org 语法，而不是放宽 broken-links</h3>
+<div id="outline-container-section-2d2269064553" class="outline-3">
+<h3 id="section-2d2269064553"><span class="section-number-3">5.1.</span> 4.1 导出前检查 Org 语法，而不是放宽 broken-links</h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 Org 会把双中括号解析成链接。教程正文如果只是想描述 Python 的嵌套列表，不要直接写成双中括号形式；否则里面的文字可能被识别为 fuzzy internal link。
@@ -807,8 +881,8 @@ LITERATE_PROGRAMMING_PASS
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-b71e26deb87c" class="outline-2">
-<h2 id="section-b71e26deb87c"><span class="section-number-2">7.</span> 6. 参考资料</h2>
+<div id="outline-container-section-c22d9d7ff43a" class="outline-2">
+<h2 id="section-c22d9d7ff43a"><span class="section-number-2">7.</span> 6. 参考资料</h2>
 <div class="outline-text-2" id="text-7">
 <ul class="org-ul">
 <li>Org Manual — Working with Source Code: <a href="https://orgmode.org/manual/Working-with-Source-Code.html">https://orgmode.org/manual/Working-with-Source-Code.html</a></li>
@@ -841,15 +915,15 @@ LITERATE_PROGRAMMING_PASS
 </ul>
 </div>
 </div>
-<div id="outline-container-section-ac7fe3f50d38" class="outline-2">
-<h2 id="section-ac7fe3f50d38"><span class="section-number-2">9.</span> 8. 基于实际产出的 Skill 质检</h2>
+<div id="outline-container-section-00b927b3515f" class="outline-2">
+<h2 id="section-00b927b3515f"><span class="section-number-2">9.</span> 8. 基于实际产出的 Skill 质检</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 这部分只保留会改变 Skill 判断的证据；过程日志已删除。
 </p>
 </div>
-<div id="outline-container-section-632fdef8d89f" class="outline-3">
-<h3 id="section-632fdef8d89f"><span class="section-number-3">9.1.</span> 8.1 当前验证状态</h3>
+<div id="outline-container-section-6d20d24831a4" class="outline-3">
+<h3 id="section-6d20d24831a4"><span class="section-number-3">9.1.</span> 8.1 当前验证状态</h3>
 <div class="outline-text-3" id="text-9-1">
 <p>
 实际环境：Python 3.13.5、Bash 5.2.37；Emacs/Org 不可用。尝试安装 <code>emacs-nox</code> 时 Debian 软件源不可达，因此原生 Babel E2E 属于 <code>ENVIRONMENT / BLOCKED</code>。
@@ -868,8 +942,8 @@ LITERATE_PROGRAMMING_PASS:    NOT_EMITTED
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-a1db0847ab09" class="outline-3">
-<h3 id="section-a1db0847ab09"><span class="section-number-3">9.2.</span> 8.2 已修复的 Case Bug</h3>
+<div id="outline-container-section-56a2de5fa4da" class="outline-3">
+<h3 id="section-56a2de5fa4da"><span class="section-number-3">9.2.</span> 8.2 已修复的 Case Bug</h3>
 <div class="outline-text-3" id="text-9-2">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
 
@@ -963,8 +1037,8 @@ LITERATE_PROGRAMMING_PASS:    NOT_EMITTED
 </p>
 </div>
 </div>
-<div id="outline-container-section-3900b4803378" class="outline-3">
-<h3 id="section-3900b4803378"><span class="section-number-3">9.3.</span> 8.3 已有执行证据支持的 Skill Patch</h3>
+<div id="outline-container-section-2d75db09b7ed" class="outline-3">
+<h3 id="section-2d75db09b7ed"><span class="section-number-3">9.3.</span> 8.3 已有执行证据支持的 Skill Patch</h3>
 <div class="outline-text-3" id="text-9-3">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 4"><table>
 
@@ -1021,8 +1095,8 @@ LITERATE_PROGRAMMING_PASS:    NOT_EMITTED
 </p>
 </div>
 </div>
-<div id="outline-container-section-472eb11da07c" class="outline-3">
-<h3 id="section-472eb11da07c"><span class="section-number-3">9.4.</span> 8.4 待原生执行</h3>
+<div id="outline-container-section-8e38bf95fac3" class="outline-3">
+<h3 id="section-8e38bf95fac3"><span class="section-number-3">9.4.</span> 8.4 待原生执行</h3>
 <div class="outline-text-3" id="text-9-4">
 <ul class="org-ul">
 <li>Cache + Noweb：Org 文档说明 cache 变化检测不会展开 Noweb；配套 verifier 已保留修改 fragment 后重跑的 Risk Probe。</li>
@@ -1034,8 +1108,8 @@ LITERATE_PROGRAMMING_PASS:    NOT_EMITTED
 </p>
 </div>
 </div>
-<div id="outline-container-section-9721d4148add" class="outline-3">
-<h3 id="section-9721d4148add"><span class="section-number-3">9.5.</span> 8.5 当前结论</h3>
+<div id="outline-container-section-569541dd9320" class="outline-3">
+<h3 id="section-569541dd9320"><span class="section-number-3">9.5.</span> 8.5 当前结论</h3>
 <div class="outline-text-3" id="text-9-5">
 <p>
 V10 Runtime 等价验证与静态审计继续覆盖跨平台 Shell、#+call 环境兼容和既有回归；具体计数以配套 verifier 输出为准。Babel-native E2E 仍因无 Emacs 阻塞。已确认应继续保留的补丁方向包括 Degraded Verification、E2E Coverage Closure、Syntax-Aware Dependency、Global Compression Closure，并新增 Runtime Specificity / Extension Compatibility；Environment Parity 与 Cache + Noweb 仍等待原生执行证据。
@@ -1060,7 +1134,13 @@ V10 Runtime 等价验证与静态审计继续覆盖跨平台 Shell、#+call 环�
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-label="打开 AI Copilot (Ctrl+I)" title="打开 AI Copilot (Ctrl+I)">
+  <span class="museum-ai-trigger-icon" aria-hidden="true"></span>
+  <span class="museum-ai-trigger-text">AI Copilot</span>
+  <span class="museum-ai-trigger-dot" data-ai-trigger-dot data-state="idle" aria-hidden="true"></span>
+  <kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut>Ctrl+I</kbd>
+</button>
+<aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><select class="museum-ai-copilot-model-select" data-copilot-model-select aria-label="切换 AI 模型" title="切换当前使用的 AI 模型"><option value="">讨论模式</option></select><span class="museum-ai-copilot-badge" data-ai-engine-badge hidden role="button" tabindex="0" title="点击打开全局 AI 模型设置">讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="../../../ai-center.html?pageId=pages-Emacs-Org-org-babel-03-verification-debugging" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips><button type="button" class="museum-ai-chip museum-ai-chip-analyze" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>重新分析笔记</span></button></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -1071,6 +1151,7 @@ V10 Runtime 等价验证与静态审计继续覆盖跨平台 Shell、#+call 环�
   <a class="sidebar-nav-btn graph" href="../../../graph.html">知识图谱</a>
   <a class="sidebar-nav-btn timeline" href="../../../timeline.html">时间阅读</a>
   <a class="sidebar-nav-btn related" href="../../../related.html">关联阅读</a>
+  <a class="sidebar-nav-btn ai" href="../../../ai-center.html">AI 中心</a>
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
@@ -1112,15 +1193,18 @@ V10 Runtime 等价验证与静态审计继续覆盖跨平台 Shell、#+call 环�
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <div class="sidebar-cat-label">Ontology <span>06</span></div>
     <ul>
+      <li><a href="../../ontology/关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
+      <li><a href="../../ontology/关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
+      <li><a href="../../ontology/关系示例-03-约束反例.html">关系示例 03｜约束反例</a></li>
       <li><a href="../../ontology/本体mvp.html">本体MVP</a></li>
       <li><a href="../../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
       <li><a href="../../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>06</span></div>
     <ul>
       <li><a href="../../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -1149,7 +1233,7 @@ V10 Runtime 等价验证与静态审计继续覆盖跨平台 Shell、#+call 环�
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>
@@ -1171,8 +1255,9 @@ V10 Runtime 等价验证与静态审计继续覆盖跨平台 Shell、#+call 环�
 <script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
 <script defer src="../../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
-<script defer src="../../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+<script defer src="../../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
+<script defer src="../../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../../resources/org-museum-article.js?v=b03b56727740"></script>
+<script defer src="../../../resources/org-museum-article.js?v=052370387dd2"></script>
 </body>
 </html>

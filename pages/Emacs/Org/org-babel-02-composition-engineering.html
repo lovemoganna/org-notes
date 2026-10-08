@@ -6,15 +6,19 @@
 <title>Org Babel 02｜组合、复用与工程化</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../../resources/org-museum-theme.js?v=2b7a181da330"></script>
-<link rel="stylesheet" href="../../../resources/org-museum.css?v=a21cc263868a">
+<script src="../../../resources/org-museum-theme.js?v=4084c12f7143"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=1329463e6fd1">
+<link rel="icon" href="data:,">
+<meta name="color-scheme" content="dark light">
+<script src="../../../resources/org-museum-theme.js?v=4045495a6691"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-Org-org-babel-02-composition-engineering" data-page-title="Org Babel 02｜组合、复用与工程化" data-page-category="uncategorized" data-page-tags="Emacs,Org,Babel,Engineering" data-page-status="published" data-page-modified="2026-10-01" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-Org-org-babel-02-composition-engineering" data-page-title="Org Babel 02｜组合、复用与工程化" data-page-category="uncategorized" data-page-tags="Emacs,Org,Babel,Engineering" data-page-status="published" data-page-modified="2026-10-03" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -27,7 +31,12 @@
     <a class="museum-topbar-link museum-nav-ai" href="../../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+    <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
+      <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
         <div class="museum-settings-section">
           <div class="museum-settings-section-title">外观主题</div>
           <div class="museum-theme-segmented" role="group">
@@ -37,6 +46,67 @@
               <span data-theme-label>深色</span></button>
           </div>
         </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+        <div class="museum-settings-section museum-settings-ai-section">
+          <div class="museum-settings-section-title">模型设置</div>
+          <form data-browser-config class="museum-settings-config-form">
+            <div class="museum-settings-field">
+              <label>接入方式<select name="provider">
+                <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
+                <option value="ollama">Ollama</option>
+              </select></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
+              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+            </div>
+            <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
+            <div class="museum-settings-field">
+              <label>选择模型
+                <div class="museum-settings-model-row">
+                  <select name="model_select" data-browser-model-select aria-label="选择模型">
+                    <option value="">(请先读取模型列表或手动输入)</option>
+                  </select>
+                  <button type="button" class="museum-settings-sub-btn" data-browser-cycle-model title="顺序切换至下一个模型" aria-label="顺序切换选择模型">顺序切换</button>
+                </div>
+              </label>
+            </div>
+            <div class="museum-settings-field">
+              <label>模型 ID<input name="model" list="museum-browser-model-list" placeholder="选择已加载模型或输入模型 ID" required></label>
+              <datalist id="museum-browser-model-list"></datalist>
+            </div>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-load>加载并测试模型</button>
+              <button type="button" data-browser-cancel-load hidden>取消加载</button>
+            </div>
+            <div class="museum-settings-status-box">
+              <span class="museum-settings-status-indicator" aria-hidden="true"></span>
+              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+            </div>
+            <details class="museum-settings-details">
+              <summary>回答偏好设置</summary>
+              <div class="museum-settings-field">
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+              </div>
+            </details>
+          </form>
+          <details class="museum-settings-details museum-ai-local-tools">
+            <summary>本地保存与同步</summary>
+            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-backup>导出知识库</button>
+              <button type="button" data-browser-org-export>导出 Org</button>
+              <button type="button" data-browser-sync-preview>预览同步</button>
+            </div>
+            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
+            <div data-browser-sync-result></div>
+          </details>
+        </div>
+      </div>
     </div></details>
   </nav>
 </header>
@@ -47,8 +117,8 @@
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../../index.html?category=uncategorized#recent-updates">其他笔记</a>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
-    <div><dt>阅读时间</dt><dd>约 21 分钟</dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-03">2026-10-03</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 22 分钟</dd></div>
     <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../../index.html?tag=Emacs#recent-updates" data-tag="Emacs" title="查看包含标签 #Emacs 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Emacs</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Org#recent-updates" data-tag="Org" title="查看包含标签 #Org 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Org</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Babel#recent-updates" data-tag="Babel" title="查看包含标签 #Babel 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Babel</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Engineering#recent-updates" data-tag="Engineering" title="查看包含标签 #Engineering 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Engineering</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
@@ -56,7 +126,11 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="3378d43af106131b367d8cc05aa603924874ef343f9dfaca9a00b7b9de44554e"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-document-info-keyword">#+subtitle:</span> <span class="org-face-org-document-info">从 Noweb、Session、Tangle 到可复用分析流水线</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="c568e463685e827adb20ed8db16614f56ab6de522fea21630f1e203f9f491702"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;meta name="color-scheme" content="dark light"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;script src="../../../resources/org-museum-theme.js?v=4045495a6691"&gt;&lt;/script&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="icon" href="data:,"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-document-info-keyword">#+subtitle:</span> <span class="org-face-org-document-info">从 Noweb、Session、Tangle 到可复用分析流水线</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :Emacs:Org:Babel:Engineering:</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args :exports both</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+property: header-args:python :results value replace :session none</span></span>
@@ -65,13 +139,13 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">本文件承载“把会运行的 Block 变成工程系统”。订单案例、Contract 与 Golden Regression 放在同一模块，避免验证逻辑与被测实现被拆散。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 关系 | 指向                                                                                          | 为什么需要                                                 |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+-----------------------------------------------------------------------------------------------+------------------------------------------------------------|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 前置 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.org]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">01｜执行基础与数据</span><span class="org-face-org-link org-face-org-table">流</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                         | 需要先掌握 Header Args、=:var=、Block → Block 与 </span><span class="org-face-org-verbatim org-face-org-table">=#+call:=</span><span class="org-face-org-table"> |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 依赖 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.org::*4. 参数传递：把变化从代码中抽出来]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">参数传</span><span class="org-face-org-link org-face-org-table">递</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table"> | 本文件多数复用机制建立在参数化 Block 上                    |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 延伸 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-03-verification-debugging.org]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">03｜验证、回归与排</span><span class="org-face-org-link org-face-org-table">错</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                        | 工程化之后用 E2E、Expanded Source 和回归验证稳定性         |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 示例 | </span><span class="org-face-org-link org-face-org-table">[[#order-pipeline]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">订单分析流水</span><span class="org-face-org-link org-face-org-table">线</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                                           | 本模块的贯穿实例                                           |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 复用 | </span><span class="org-face-org-link org-face-org-table">[[#library-of-babel]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">Library of Babe</span><span class="org-face-org-link org-face-org-table">l</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                                       | 多文档共享稳定 Block                                       |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 关系 | 指向                                                                    | 为什么需要                                                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------+-------------------------------------------------------------------------+------------------------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 前置 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.html]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">01｜执行基础与数据</span><span class="org-face-org-link org-face-org-table">流</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">  | 需要先掌握 Header Args、=:var=、Block → Block 与 </span><span class="org-face-org-verbatim org-face-org-table">=#+call:=</span><span class="org-face-org-table"> |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 依赖 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-01-execution-foundations.html]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">参数传</span><span class="org-face-org-link org-face-org-table">递</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">              | 本文件多数复用机制建立在参数化 Block 上                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 延伸 | </span><span class="org-face-org-link org-face-org-table">[[file:org-babel-03-verification-debugging.html]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">03｜验证、回归与排</span><span class="org-face-org-link org-face-org-table">错</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table"> | 工程化之后用 E2E、Expanded Source 和回归验证稳定性         |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 示例 | </span><span class="org-face-org-link org-face-org-table">[[#order-pipeline]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">订单分析流水</span><span class="org-face-org-link org-face-org-table">线</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                     | 本模块的贯穿实例                                           |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 复用 | </span><span class="org-face-org-link org-face-org-table">[[#library-of-babel]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">Library of Babe</span><span class="org-face-org-link org-face-org-table">l</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                 | 多文档共享稳定 Block                                       |</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 1. 贯穿模型</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">贯穿案例：从订单表中过滤指定国家、状态和最低金额，再汇总并生成报告。</span>
@@ -405,7 +479,7 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">这里不复制过滤或汇总算法。Golden Case 直接断言真实 <span class="org-face-org-verbatim">=filter-orders(...)=</span> 的行级输出；=summarize-orders= 由 E2E 的 Full Workflow 单独验证。这样生产 Block 改坏时，测试不会因为复制了同一份错误逻辑而“陪着通过”。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">延伸：Golden 负责历史行为不退化；完整能力闭包见 <span class="org-face-org-link">[[file:org-babel-03-verification-debugging.org::#e2e-matrix]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">03｜E2E 验证矩</span><span class="org-face-org-link">阵</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
+<span class="museum-org-line">延伸：Golden 负责历史行为不退化；完整能力闭包见 <span class="org-face-org-link">[[file:org-babel-03-verification-debugging.html#e2e-matrix]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">03｜E2E 验证矩</span><span class="org-face-org-link">阵</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 9. Library、Tangle、Session 应该怎么选</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 需求                  | 首选机制               |</span></span>
@@ -434,30 +508,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-8460361bdb08">1. 关系导航</a></li>
-<li><a href="#section-eeb81fb8a642">2. 1. 贯穿模型</a></li>
-<li><a href="#section-78033e101669">3. 2. Noweb：组合源码，而不是复制源码</a></li>
-<li><a href="#section-c53193e0af99">4. 3. Session：共享状态要显式</a></li>
-<li><a href="#section-6ffb2fed9911">5. 4. Cache：只缓存纯计算</a></li>
-<li><a href="#section-12f6aff46ab5">6. 5. Tangle：Org 才是 Source of Truth</a></li>
+<li><a href="#section-da2c6151d691">1. 关系导航</a></li>
+<li><a href="#section-543f1a098282">2. 1. 贯穿模型</a></li>
+<li><a href="#section-278301a31626">3. 2. Noweb：组合源码，而不是复制源码</a></li>
+<li><a href="#section-211d87638076">4. 3. Session：共享状态要显式</a></li>
+<li><a href="#section-cffc07b1e603">5. 4. Cache：只缓存纯计算</a></li>
+<li><a href="#section-905e763a1fc9">6. 5. Tangle：Org 才是 Source of Truth</a></li>
 <li><a href="#library-of-babel">7. 6. Library of Babel：跨文件复用</a></li>
 <li><a href="#order-pipeline">8. 7. 完整案例：订单分析流水线</a>
 <ul>
-<li><a href="#section-d15e5cfea79d">8.1. 7.1 Parameters</a></li>
-<li><a href="#section-501691343286">8.2. 7.2 Block Contract：filter-orders</a></li>
-<li><a href="#section-366babce6746">8.3. 7.3 Block Contract：summarize-orders</a></li>
-<li><a href="#section-c50c8fd9f7e5">8.4. 7.4 Minimal Call</a></li>
-<li><a href="#section-3d337f1d70f3">8.5. 7.5 报告文本</a></li>
+<li><a href="#section-2841a7a14860">8.1. 7.1 Parameters</a></li>
+<li><a href="#section-4a28296b1d5c">8.2. 7.2 Block Contract：filter-orders</a></li>
+<li><a href="#section-d2ff3820e4fa">8.3. 7.3 Block Contract：summarize-orders</a></li>
+<li><a href="#section-082821444acc">8.4. 7.4 Minimal Call</a></li>
+<li><a href="#section-83a7b72f0fb5">8.5. 7.5 报告文本</a></li>
 </ul>
 </li>
-<li><a href="#section-e68adf80a1a2">9. 8. Golden Regression：修当前问题不能破坏历史能力</a></li>
-<li><a href="#section-2f0dcc842f67">10. 9. Library、Tangle、Session 应该怎么选</a></li>
-<li><a href="#section-22f13e8fd80d">11. 10. 三层练习</a></li>
+<li><a href="#section-b3608b27ee2f">9. 8. Golden Regression：修当前问题不能破坏历史能力</a></li>
+<li><a href="#section-3e089a23fcc1">10. 9. Library、Tangle、Session 应该怎么选</a></li>
+<li><a href="#section-eef8d7be4612">11. 10. 三层练习</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-8460361bdb08" class="outline-2">
-<h2 id="section-8460361bdb08"><span class="section-number-2">1.</span> 关系导航</h2>
+<div id="outline-container-section-da2c6151d691" class="outline-2">
+<h2 id="section-da2c6151d691"><span class="section-number-2">1.</span> 关系导航</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本文件承载“把会运行的 Block 变成工程系统”。订单案例、Contract 与 Golden Regression 放在同一模块，避免验证逻辑与被测实现被拆散。
@@ -514,8 +588,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-eeb81fb8a642" class="outline-2">
-<h2 id="section-eeb81fb8a642"><span class="section-number-2">2.</span> 1. 贯穿模型</h2>
+<div id="outline-container-section-543f1a098282" class="outline-2">
+<h2 id="section-543f1a098282"><span class="section-number-2">2.</span> 1. 贯穿模型</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 贯穿案例：从订单表中过滤指定国家、状态和最低金额，再汇总并生成报告。
@@ -588,8 +662,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-78033e101669" class="outline-2">
-<h2 id="section-78033e101669"><span class="section-number-2">3.</span> 2. Noweb：组合源码，而不是复制源码</h2>
+<div id="outline-container-section-278301a31626" class="outline-2">
+<h2 id="section-278301a31626"><span class="section-number-2">3.</span> 2. Noweb：组合源码，而不是复制源码</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Noweb 解决“把多个代码片段组合成一段最终源码”的问题。
@@ -633,8 +707,8 @@ return round(value, 2)
 </p>
 </div>
 </div>
-<div id="outline-container-section-c53193e0af99" class="outline-2">
-<h2 id="section-c53193e0af99"><span class="section-number-2">4.</span> 3. Session：共享状态要显式</h2>
+<div id="outline-container-section-211d87638076" class="outline-2">
+<h2 id="section-211d87638076"><span class="section-number-2">4.</span> 3. Session：共享状态要显式</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 默认使用无状态 Block；它更容易单独重跑、缓存和回归。
@@ -673,8 +747,8 @@ print(x)
 </p>
 </div>
 </div>
-<div id="outline-container-section-6ffb2fed9911" class="outline-2">
-<h2 id="section-6ffb2fed9911"><span class="section-number-2">5.</span> 4. Cache：只缓存纯计算</h2>
+<div id="outline-container-section-cffc07b1e603" class="outline-2">
+<h2 id="section-cffc07b1e603"><span class="section-number-2">5.</span> 4. Cache：只缓存纯计算</h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-8c9828c6bdd2"><code class="language-python">return n * n
@@ -698,8 +772,8 @@ print(x)
 </p>
 </div>
 </div>
-<div id="outline-container-section-12f6aff46ab5" class="outline-2">
-<h2 id="section-12f6aff46ab5"><span class="section-number-2">6.</span> 5. Tangle：Org 才是 Source of Truth</h2>
+<div id="outline-container-section-905e763a1fc9" class="outline-2">
+<h2 id="section-905e763a1fc9"><span class="section-number-2">6.</span> 5. Tangle：Org 才是 Source of Truth</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Tangle 把 Org 中的代码抽取为正常源码文件。
@@ -835,8 +909,8 @@ return 0 if total == 0 else round(part / total * 100, 2)
 现在把 01 模块的执行基础与本文件的组合机制串起来。
 </p>
 </div>
-<div id="outline-container-section-d15e5cfea79d" class="outline-3">
-<h3 id="section-d15e5cfea79d"><span class="section-number-3">8.1.</span> 7.1 Parameters</h3>
+<div id="outline-container-section-2841a7a14860" class="outline-3">
+<h3 id="section-2841a7a14860"><span class="section-number-3">8.1.</span> 7.1 Parameters</h3>
 <div class="outline-text-3" id="text-8-1">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
 
@@ -883,8 +957,8 @@ return 0 if total == 0 else round(part / total * 100, 2)
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-501691343286" class="outline-3">
-<h3 id="section-501691343286"><span class="section-number-3">8.2.</span> 7.2 Block Contract：filter-orders</h3>
+<div id="outline-container-section-4a28296b1d5c" class="outline-3">
+<h3 id="section-4a28296b1d5c"><span class="section-number-3">8.2.</span> 7.2 Block Contract：filter-orders</h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
 Input Contract：
@@ -946,8 +1020,8 @@ return selected
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-366babce6746" class="outline-3">
-<h3 id="section-366babce6746"><span class="section-number-3">8.3.</span> 7.3 Block Contract：summarize-orders</h3>
+<div id="outline-container-section-d2ff3820e4fa" class="outline-3">
+<h3 id="section-d2ff3820e4fa"><span class="section-number-3">8.3.</span> 7.3 Block Contract：summarize-orders</h3>
 <div class="outline-text-3" id="text-8-3">
 <p>
 Input：经过过滤的订单行。
@@ -979,8 +1053,8 @@ return [[count, total]]
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-c50c8fd9f7e5" class="outline-3">
-<h3 id="section-c50c8fd9f7e5"><span class="section-number-3">8.4.</span> 7.4 Minimal Call</h3>
+<div id="outline-container-section-082821444acc" class="outline-3">
+<h3 id="section-082821444acc"><span class="section-number-3">8.4.</span> 7.4 Minimal Call</h3>
 <div class="outline-text-3" id="text-8-4">
 <p>
 正常使用时只改这一行：
@@ -995,8 +1069,8 @@ return [[count, total]]
 </p>
 </div>
 </div>
-<div id="outline-container-section-3d337f1d70f3" class="outline-3">
-<h3 id="section-3d337f1d70f3"><span class="section-number-3">8.5.</span> 7.5 报告文本</h3>
+<div id="outline-container-section-83a7b72f0fb5" class="outline-3">
+<h3 id="section-83a7b72f0fb5"><span class="section-number-3">8.5.</span> 7.5 报告文本</h3>
 <div class="outline-text-3" id="text-8-5">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-316a9fe00494"><code class="language-python">count, total = summary[0]
@@ -1031,8 +1105,8 @@ orders + country + status + min_amount
 </div>
 </div>
 </div>
-<div id="outline-container-section-e68adf80a1a2" class="outline-2">
-<h2 id="section-e68adf80a1a2"><span class="section-number-2">9.</span> 8. Golden Regression：修当前问题不能破坏历史能力</h2>
+<div id="outline-container-section-b3608b27ee2f" class="outline-2">
+<h2 id="section-b3608b27ee2f"><span class="section-number-2">9.</span> 8. Golden Regression：修当前问题不能破坏历史能力</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 维护四个稳定 Case：
@@ -1108,8 +1182,8 @@ GOLDEN_PASS
 </p>
 </div>
 </div>
-<div id="outline-container-section-2f0dcc842f67" class="outline-2">
-<h2 id="section-2f0dcc842f67"><span class="section-number-2">10.</span> 9. Library、Tangle、Session 应该怎么选</h2>
+<div id="outline-container-section-3e089a23fcc1" class="outline-2">
+<h2 id="section-3e089a23fcc1"><span class="section-number-2">10.</span> 9. Library、Tangle、Session 应该怎么选</h2>
 <div class="outline-text-2" id="text-10">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table>
 
@@ -1163,8 +1237,8 @@ GOLDEN_PASS
 </p>
 </div>
 </div>
-<div id="outline-container-section-22f13e8fd80d" class="outline-2">
-<h2 id="section-22f13e8fd80d"><span class="section-number-2">11.</span> 10. 三层练习</h2>
+<div id="outline-container-section-eef8d7be4612" class="outline-2">
+<h2 id="section-eef8d7be4612"><span class="section-number-2">11.</span> 10. 三层练习</h2>
 <div class="outline-text-2" id="text-11">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 6"><table>
 
@@ -1222,7 +1296,13 @@ GOLDEN_PASS
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-label="打开 AI Copilot (Ctrl+I)" title="打开 AI Copilot (Ctrl+I)">
+  <span class="museum-ai-trigger-icon" aria-hidden="true"></span>
+  <span class="museum-ai-trigger-text">AI Copilot</span>
+  <span class="museum-ai-trigger-dot" data-ai-trigger-dot data-state="idle" aria-hidden="true"></span>
+  <kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut>Ctrl+I</kbd>
+</button>
+<aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><select class="museum-ai-copilot-model-select" data-copilot-model-select aria-label="切换 AI 模型" title="切换当前使用的 AI 模型"><option value="">讨论模式</option></select><span class="museum-ai-copilot-badge" data-ai-engine-badge hidden role="button" tabindex="0" title="点击打开全局 AI 模型设置">讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="../../../ai-center.html?pageId=pages-Emacs-Org-org-babel-02-composition-engineering" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips><button type="button" class="museum-ai-chip museum-ai-chip-analyze" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>重新分析笔记</span></button></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -1233,6 +1313,7 @@ GOLDEN_PASS
   <a class="sidebar-nav-btn graph" href="../../../graph.html">知识图谱</a>
   <a class="sidebar-nav-btn timeline" href="../../../timeline.html">时间阅读</a>
   <a class="sidebar-nav-btn related" href="../../../related.html">关联阅读</a>
+  <a class="sidebar-nav-btn ai" href="../../../ai-center.html">AI 中心</a>
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
@@ -1274,15 +1355,18 @@ GOLDEN_PASS
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <div class="sidebar-cat-label">Ontology <span>06</span></div>
     <ul>
+      <li><a href="../../ontology/关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
+      <li><a href="../../ontology/关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
+      <li><a href="../../ontology/关系示例-03-约束反例.html">关系示例 03｜约束反例</a></li>
       <li><a href="../../ontology/本体mvp.html">本体MVP</a></li>
       <li><a href="../../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
       <li><a href="../../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>06</span></div>
     <ul>
       <li><a href="../../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -1311,7 +1395,7 @@ GOLDEN_PASS
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>
@@ -1333,8 +1417,9 @@ GOLDEN_PASS
 <script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
 <script defer src="../../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
-<script defer src="../../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+<script defer src="../../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
+<script defer src="../../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../../resources/org-museum-article.js?v=b03b56727740"></script>
+<script defer src="../../../resources/org-museum-article.js?v=052370387dd2"></script>
 </body>
 </html>

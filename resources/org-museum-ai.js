@@ -32,20 +32,26 @@
     var trigger = one("[data-ai-toggle]");
     var panel = one("#museum-ai-panel");
     var toc = one("#org-museum-right-sidebar");
-    if (!trigger || !panel) return;
+    if (!panel) return;
     var articleNode = one(".article-container");
     var pageId = articleNode && articleNode.dataset.pageId;
     var noteTitle = (articleNode && (articleNode.dataset.pageTitle || one("h1", articleNode)?.textContent)) || document.title;
     var center = one("[data-ai-center-link]", panel);
     var nav = one(".museum-nav-ai");
-    if (center && nav) center.href = nav.href + (pageId ? "?pageId=" + encodeURIComponent(pageId) : "");
+    if (center && (!center.getAttribute("href") || center.getAttribute("href") === "#") && nav) {
+      center.href = nav.href + (pageId ? "?pageId=" + encodeURIComponent(pageId) : "");
+    }
 
     var isMac = typeof navigator !== "undefined" && /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform || "");
     var shortcutText = isMac ? "⌘I" : "Ctrl+I";
-    var shortcutEl = one("[data-ai-trigger-shortcut]", trigger);
+    var shortcutEl = trigger && one("[data-ai-trigger-shortcut]", trigger);
     if (shortcutEl) shortcutEl.textContent = shortcutText;
+    var composerHint = one(".museum-ai-composer-hint", panel);
+    if (composerHint) {
+      composerHint.innerHTML = "<kbd>" + (isMac ? "⌘Enter" : "Ctrl+Enter") + "</kbd> 发送";
+    }
 
-    var triggerDot = one("[data-ai-trigger-dot]", trigger);
+    var triggerDot = trigger && one("[data-ai-trigger-dot]", trigger);
     var statusDot = one("[data-ai-status-dot]", panel);
     var analyzeBtn = one("[data-ai-analyze]", panel);
     var analyzeLabel = one("[data-ai-analyze-label]", panel);
@@ -60,6 +66,266 @@
     var exploreChips = one("[data-ai-explore-chips]", panel);
     var newChatBtn = one("[data-copilot-new]", panel);
     var engineBadge = one("[data-ai-engine-badge]", panel);
+    var modelSelect = one("[data-copilot-model-select]", panel);
+
+    var savedConfig = { provider: "compatible", endpoint: "http://127.0.0.1:1234/v1", model: "" };
+    try {
+      var loaded = JSON.parse(localStorage.getItem("org-museum-browser-model") || "{}");
+      if (loaded && typeof loaded === "object") {
+        if (loaded.provider) savedConfig.provider = loaded.provider;
+        if (loaded.endpoint) savedConfig.endpoint = loaded.endpoint;
+        if (loaded.model) savedConfig.model = loaded.model;
+        if (loaded.system) savedConfig.system = loaded.system;
+      }
+    } catch (_) {}
+
+    function getApiKey() {
+      if (savedConfig.key) return savedConfig.key;
+      var keyEl = document.querySelector('.museum-settings-menu [name="key"]');
+      return (keyEl && keyEl.value.trim()) || "";
+    }
+
+    function openGlobalAiSettings() {
+      var menu = document.querySelector(".museum-settings-menu");
+      if (menu) {
+        menu.open = true;
+        var aiTab = menu.querySelector('[data-settings-tab="ai"]');
+        if (aiTab) aiTab.click();
+        var input = menu.querySelector('[name="model"]') || menu.querySelector('[name="endpoint"]') || menu.querySelector("input");
+        if (input) input.focus();
+      }
+    }
+
+    function populateCopilotModels(models, currentVal) {
+      if (!modelSelect) return;
+      modelSelect.replaceChildren();
+      var list = Array.isArray(models) ? models.slice() : [];
+      if (typeof window.orgMuseumAiApi === "function" && !list.includes("emacs-backend")) {
+        list.unshift("emacs-backend");
+      }
+      if (!list.length) {
+        var placeholderOpt = document.createElement("option");
+        placeholderOpt.value = currentVal || "";
+        placeholderOpt.textContent = currentVal || "选择模型…";
+        modelSelect.appendChild(placeholderOpt);
+        return;
+      }
+      list.forEach(function (m) {
+        var opt = document.createElement("option");
+        opt.value = m;
+        opt.textContent = m === "emacs-backend" ? "Emacs 后端" : m;
+        modelSelect.appendChild(opt);
+      });
+      if (currentVal && !list.includes(currentVal)) {
+        var customOpt = document.createElement("option");
+        customOpt.value = currentVal;
+        customOpt.textContent = currentVal;
+        modelSelect.appendChild(customOpt);
+      }
+      modelSelect.value = currentVal || (list[0] || "");
+    }
+
+    function updateBadgeModel(modelName) {
+      if (engineBadge && !engineBadge.classList.contains("is-generating")) {
+        if (modelName) {
+          engineBadge.textContent = modelName;
+          engineBadge.title = "当前使用模型: " + modelName + " (点击打开全局设置)";
+        } else {
+          engineBadge.textContent = "未选模型";
+          engineBadge.title = "尚未选择 AI 模型 (点击打开全局设置)";
+        }
+      }
+      if (modelSelect) {
+        if (modelName) {
+          var hasOpt = Array.from(modelSelect.options).some(function (o) { return o.value === modelName; });
+          if (!hasOpt) {
+            var opt = document.createElement("option");
+            opt.value = modelName;
+            opt.textContent = modelName === "emacs-backend" ? "Emacs 后端" : modelName;
+            modelSelect.appendChild(opt);
+          }
+          modelSelect.value = modelName;
+        } else {
+          modelSelect.value = "";
+        }
+      }
+    }
+
+    var cachedModels = [];
+    try { cachedModels = JSON.parse(localStorage.getItem("org-museum-browser-models-list") || "[]"); } catch (_) {}
+    populateCopilotModels(cachedModels, savedConfig.model);
+
+    if (modelSelect) {
+      modelSelect.addEventListener("change", function () {
+        var chosenModel = modelSelect.value;
+        if (!chosenModel) return;
+        savedConfig.model = chosenModel;
+        try {
+          var persist = JSON.parse(localStorage.getItem("org-museum-browser-model") || "{}");
+          persist.model = chosenModel;
+          localStorage.setItem("org-museum-browser-model", JSON.stringify(persist));
+        } catch (_) {}
+        updateBadgeModel(chosenModel);
+        updateStateVisual("done", "模型就绪 · " + (chosenModel === "emacs-backend" ? "Emacs 后端" : chosenModel));
+        try {
+          var evt = new CustomEvent("org-museum-model-changed", { detail: Object.assign({}, savedConfig, { model: chosenModel }) });
+          if (typeof window !== "undefined" && typeof window.dispatchEvent === "function") window.dispatchEvent(evt);
+          if (typeof document !== "undefined" && typeof document.dispatchEvent === "function") document.dispatchEvent(evt);
+        } catch (_) {}
+      });
+    }
+
+    if (engineBadge) {
+      engineBadge.addEventListener("click", function () {
+        openGlobalAiSettings();
+      });
+      engineBadge.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openGlobalAiSettings();
+        }
+      });
+    }
+
+    var handleModelChanged = function (event) {
+      if (event && event.detail && typeof event.detail === "object") {
+        if (event.detail.model !== undefined) {
+          savedConfig.model = event.detail.model;
+          updateBadgeModel(event.detail.model === "emacs-backend" ? "Emacs 后端" : (event.detail.model || ""));
+        }
+        if (event.detail.provider) {
+          savedConfig.provider = event.detail.provider;
+        }
+        if (event.detail.endpoint) {
+          savedConfig.endpoint = event.detail.endpoint;
+        }
+        if (event.detail.key !== undefined) {
+          savedConfig.key = event.detail.key;
+        }
+        if (event.detail.system !== undefined) {
+          savedConfig.system = event.detail.system;
+        }
+        try {
+          var latestList = JSON.parse(localStorage.getItem("org-museum-browser-models-list") || "[]");
+          if (latestList.length && modelSelect && modelSelect.options.length <= 1) {
+            populateCopilotModels(latestList, savedConfig.model);
+          }
+        } catch (_) {}
+      }
+    };
+    if (typeof window !== "undefined" && typeof window.addEventListener === "function") {
+      window.addEventListener("org-museum-model-changed", handleModelChanged);
+    } else if (typeof document !== "undefined" && typeof document.addEventListener === "function") {
+      document.addEventListener("org-museum-model-changed", handleModelChanged);
+    }
+
+    updateBadgeModel(savedConfig.model);
+
+    var fallbackBrowserAi = {
+      base: function (config) {
+        var url = new URL(config.endpoint);
+        if (!["http:", "https:"].includes(url.protocol) || url.username || url.password) {
+          throw new Error("请输入不包含账号密码的 HTTP 或 HTTPS 服务地址。");
+        }
+        url.hash = ""; url.search = "";
+        var href = url.href.replace(/\/$/, "").replace(/\/(chat\/completions|models|api\/chat|api\/tags)$/, "");
+        if (config.provider === "ollama") {
+          href = href.replace(/\/v1$/, "");
+        } else if (!href.endsWith("/v1")) {
+          href += "/v1";
+        }
+        return href;
+      },
+      models: async function (config, signal) {
+        var isOllama = config.provider === "ollama";
+        var base = this.base(config);
+        var url = base + (isOllama ? "/api/tags" : "/models");
+        var headers = { "Content-Type": "application/json" };
+        if (config.key) headers.Authorization = "Bearer " + config.key;
+        var res = await fetch(url, { headers: headers, signal: signal, credentials: "omit" });
+        if (!res.ok) throw new Error("HTTP " + res.status + " " + res.statusText);
+        var data = await res.json();
+        return (isOllama ? data.models || [] : data.data || data.models || [])
+          .map(function (item) { return item.id || item.name || item.model; }).filter(Boolean);
+      },
+      chat: async function (config, messages, onChunk, signal) {
+        var isOllama = config.provider === "ollama";
+        var base = this.base(config);
+        var url = base + (isOllama ? "/api/chat" : "/chat/completions");
+        var headers = { "Content-Type": "application/json" };
+        if (config.key) headers.Authorization = "Bearer " + config.key;
+        var res = await fetch(url, {
+          method: "POST",
+          headers: headers,
+          credentials: "omit",
+          signal: signal,
+          body: JSON.stringify({ model: config.model, messages: messages, stream: true })
+        });
+        if (!res.ok) {
+          var errText = "";
+          try { errText = await res.text(); } catch (_) {}
+          throw new Error("HTTP " + res.status + (errText ? ": " + errText.slice(0, 200) : ""));
+        }
+        var answer = "";
+        if (!res.body || (res.headers.get("content-type") || "").includes("application/json")) {
+          var json = await res.json();
+          var choice = (json.choices || [])[0];
+          answer = isOllama ? (json.message && json.message.content) || "" : (choice && (choice.delta || choice.message || {}).content) || "";
+          if (answer) onChunk(answer);
+          return answer;
+        }
+        var reader = res.body.getReader(), decoder = new TextDecoder(), buffer = "";
+        try {
+          while (true) {
+            var r = await reader.read();
+            if (r.done) break;
+            buffer += decoder.decode(r.value || new Uint8Array(), { stream: true });
+            var end;
+            while ((end = buffer.indexOf("\n")) !== -1) {
+              var line = buffer.slice(0, end).replace(/\r$/, "");
+              buffer = buffer.slice(end + 1);
+              if (isOllama) {
+                if (line.trim()) {
+                  try {
+                    var parsedOllama = JSON.parse(line);
+                    if (parsedOllama.message && parsedOllama.message.content) {
+                      answer += parsedOllama.message.content;
+                      onChunk(answer);
+                    }
+                  } catch (_) {}
+                }
+              } else {
+                if (line.startsWith("data:")) {
+                  var dataStr = line.slice(5).trim();
+                  if (dataStr === "[DONE]") continue;
+                  try {
+                    var parsed = JSON.parse(dataStr);
+                    var delta = (parsed.choices && parsed.choices[0] && parsed.choices[0].delta && parsed.choices[0].delta.content) || "";
+                    if (delta) {
+                      answer += delta;
+                      onChunk(answer);
+                    }
+                  } catch (_) {}
+                }
+              }
+            }
+          }
+        } finally {
+          reader.releaseLock();
+        }
+        if (!answer.trim()) throw new Error("模型没有返回正文，请检查所选模型的聊天能力。");
+        return answer;
+      }
+    };
+
+    function getBrowserAi() {
+      if (window.orgMuseumBrowserAi && typeof window.orgMuseumBrowserAi.models === "function") {
+        return window.orgMuseumBrowserAi;
+      }
+      return fallbackBrowserAi;
+    }
+
+
 
     var messages = [];
     var storageKey = "org-museum-copilot-" + (pageId || "current");
@@ -74,6 +340,13 @@
       } catch (_) {}
     }
 
+    function triggerAnalysis() {
+      if (chatInput) {
+        chatInput.value = "请对当前笔记进行结构化深度分析，提炼核心论点、论证逻辑与可复用结论。";
+        sendCurrentMessage();
+      }
+    }
+
     var defaultPrompts = [
       "提炼这篇笔记的核心要点",
       "梳理本文论证逻辑与依据",
@@ -81,8 +354,28 @@
       "指出潜在疑问与补充视角"
     ];
 
-    if (exploreChips) {
+    function setupExploreChips() {
+      if (!exploreChips) return;
       exploreChips.replaceChildren();
+
+      var analyzeChip = document.createElement("button");
+      analyzeChip.type = "button";
+      analyzeChip.className = "museum-ai-chip museum-ai-chip-analyze";
+      analyzeChip.setAttribute("data-ai-analyze", "");
+      analyzeChip.title = "生成或刷新当前笔记结构化分析";
+      var analyzeIcon = document.createElement("span");
+      analyzeIcon.className = "museum-ai-btn-icon";
+      analyzeIcon.setAttribute("aria-hidden", "true");
+      var analyzeLabelEl = document.createElement("span");
+      analyzeLabelEl.setAttribute("data-ai-analyze-label", "");
+      analyzeLabelEl.textContent = "重新分析笔记";
+      analyzeChip.appendChild(analyzeIcon);
+      analyzeChip.appendChild(analyzeLabelEl);
+      analyzeChip.addEventListener("click", triggerAnalysis);
+      exploreChips.appendChild(analyzeChip);
+      analyzeBtn = analyzeChip;
+      analyzeLabel = analyzeLabelEl;
+
       defaultPrompts.forEach(function (prompt) {
         var chip = document.createElement("button");
         chip.type = "button";
@@ -98,8 +391,13 @@
       });
     }
 
+    setupExploreChips();
+
     function renderChat() {
       if (!chatTurns) return;
+      if (panel && panel.classList) {
+        panel.classList.toggle("has-messages", Boolean(messages && messages.length > 0));
+      }
       chatTurns.replaceChildren();
       if (!messages || messages.length === 0) {
         var empty = document.createElement("div");
@@ -115,6 +413,7 @@
       messages.forEach(function (msg) {
         var wrap = document.createElement("div");
         wrap.className = "museum-ai-message " + (msg.role === "user" ? "is-user" : "is-assistant");
+        if (msg.isStreaming) wrap.classList.add("is-streaming");
 
         var head = document.createElement("div");
         head.className = "museum-ai-message-header";
@@ -140,10 +439,26 @@
 
         var bubble = document.createElement("div");
         bubble.className = "museum-ai-message-bubble";
+        if (msg.isStreaming) {
+          bubble.classList.add("is-streaming");
+          bubble.setAttribute("data-copilot-streaming-bubble", "");
+        }
+
         if (msg.isStreaming && !msg.content) {
-          bubble.innerHTML = '<span class="museum-ai-spinner" aria-hidden="true"></span> 思考中…';
+          bubble.innerHTML = '<div class="museum-ai-thinking"><span class="museum-ai-spinner" aria-hidden="true"></span> <span>正在思考与整理回答…</span></div>';
         } else {
-          markdown(bubble, msg.content, msg.isStreaming);
+          markdown(bubble, msg.content, false);
+          if (msg.isStreaming) {
+            var cursor = document.createElement("span");
+            cursor.className = "museum-ai-streaming-cursor";
+            cursor.setAttribute("aria-hidden", "true");
+            var lastChild = bubble.lastElementChild;
+            if (lastChild && (lastChild.tagName === "P" || lastChild.tagName === "LI")) {
+              lastChild.appendChild(cursor);
+            } else {
+              bubble.appendChild(cursor);
+            }
+          }
         }
         wrap.appendChild(bubble);
         chatTurns.appendChild(wrap);
@@ -151,13 +466,42 @@
       chatTurns.scrollTop = chatTurns.scrollHeight;
     }
 
+    function updateStreamingBubble(text) {
+      if (!chatTurns) return;
+      var streamingBubble = chatTurns.querySelector("[data-copilot-streaming-bubble]");
+      if (!streamingBubble) {
+        renderChat();
+        return;
+      }
+      if (!text) {
+        streamingBubble.innerHTML = '<div class="museum-ai-thinking"><span class="museum-ai-spinner" aria-hidden="true"></span> <span>正在思考与整理回答…</span></div>';
+      } else {
+        markdown(streamingBubble, text, false);
+        var cursor = document.createElement("span");
+        cursor.className = "museum-ai-streaming-cursor";
+        cursor.setAttribute("aria-hidden", "true");
+        var lastChild = streamingBubble.lastElementChild;
+        if (lastChild && (lastChild.tagName === "P" || lastChild.tagName === "LI")) {
+          lastChild.appendChild(cursor);
+        } else {
+          streamingBubble.appendChild(cursor);
+        }
+      }
+      var threshold = 120;
+      var isNearBottom = chatTurns.scrollHeight - chatTurns.scrollTop - chatTurns.clientHeight <= threshold;
+      if (isNearBottom) {
+        chatTurns.scrollTop = chatTurns.scrollHeight;
+      }
+    }
+
     var activeAbortController = null;
     function setGenerating(isGen) {
       if (chatSend) chatSend.hidden = isGen;
       if (chatStop) chatStop.hidden = !isGen;
       if (chatInput) chatInput.disabled = isGen;
+      if (modelSelect) modelSelect.disabled = isGen;
       if (engineBadge) {
-        engineBadge.textContent = isGen ? "生成中…" : "讨论模式";
+        engineBadge.textContent = isGen ? "生成中…" : (savedConfig.model || "讨论模式");
         engineBadge.classList.toggle("is-generating", isGen);
       }
     }
@@ -178,23 +522,38 @@
       renderChat();
       setGenerating(true);
 
-      var savedConfig = null;
-      try { savedConfig = JSON.parse(localStorage.getItem("org-museum-browser-model") || "{}"); } catch (_) {}
+      var activeModel = savedConfig.model;
+      if (!activeModel) {
+        setTimeout(function () {
+          assistantMsg.content = "尚未配置 AI 模型。\n\n请点击右上角「设置」按钮配置本地模型服务与模型。";
+          assistantMsg.isStreaming = false;
+          setGenerating(false);
+          persistMessages();
+          renderChat();
+          openGlobalAiSettings();
+        }, 200);
+        return;
+      }
 
       var articleText = (articleNode ? (articleNode.innerText || articleNode.textContent) : "").slice(0, 16000);
       var systemPrompt = (savedConfig && savedConfig.system ? savedConfig.system : "你是一个深度阅读与知识复盘助手。") +
         "\n\n【当前阅读笔记】\n标题：" + noteTitle + "\n内容：\n" + articleText;
 
-      if (window.orgMuseumBrowserAi && savedConfig && savedConfig.model && savedConfig.endpoint) {
+      var aiClient = getBrowserAi();
+      if (activeModel !== "emacs-backend" && aiClient && savedConfig.endpoint) {
+        var inferenceConfig = Object.assign({}, savedConfig, {
+          model: activeModel,
+          key: getApiKey()
+        });
         var chatHistory = [{ role: "system", content: systemPrompt }];
         messages.slice(0, -1).forEach(function (m) {
           chatHistory.push({ role: m.role, content: m.content });
         });
         var controller = new AbortController();
         activeAbortController = controller;
-        window.orgMuseumBrowserAi.chat(savedConfig, chatHistory, function (chunk) {
+        aiClient.chat(inferenceConfig, chatHistory, function (chunk) {
           assistantMsg.content = chunk;
-          renderChat();
+          updateStreamingBubble(chunk);
         }, controller.signal).then(function (finalText) {
           assistantMsg.content = finalText;
           assistantMsg.isStreaming = false;
@@ -206,7 +565,11 @@
           if (err.name === "AbortError" || err.message === "已停止生成") {
             assistantMsg.content = (assistantMsg.content || "") + "\n\n*(已停止生成)*";
           } else {
-            assistantMsg.content = (assistantMsg.content || "") + "\n\n*(生成错误：" + err.message + ")*";
+            var msg = err.message || "";
+            if (err.name === "TypeError" || msg === "Failed to fetch" || msg.includes("NetworkError")) {
+              msg = "无法连接到模型服务 (" + inferenceConfig.endpoint + ")。\n\n请确认：\n1. 本地模型服务（如 LM Studio 或 Ollama）已启动；\n2. 点击右上角「设置」检查服务类型与端口设置；\n3. 若使用 LM Studio，请在 LM Studio 中启动 Local Server 并开启 CORS。";
+            }
+            assistantMsg.content = (assistantMsg.content || "") + "\n\n*(生成错误：" + msg + ")*";
           }
           assistantMsg.isStreaming = false;
           setGenerating(false);
@@ -230,11 +593,12 @@
         });
       } else {
         setTimeout(function () {
-          assistantMsg.content = "当前尚未连接模型服务。\n\n你可以通过以下方式启用 AI 讨论：\n1. **浏览器直连（推荐）**：在页面右上角「设置」中填入模型服务地址（如 Ollama `http://127.0.0.1:11434` 或 LM Studio `http://127.0.0.1:1234/v1`）并选择模型；\n2. **Emacs 后端**：在 Emacs 中运行 `M-x org-museum-ai-center-open` 启用本机服务。\n\n配置完成后即可在此与笔记进行实时对话与深度推演。";
+          assistantMsg.content = "当前尚未连接模型服务。\n\n请点击右上角「设置」按钮配置本地模型服务地址（如 Ollama `http://127.0.0.1:11434` 或 LM Studio `http://127.0.0.1:1234/v1`）并选择模型。";
           assistantMsg.isStreaming = false;
           setGenerating(false);
           persistMessages();
           renderChat();
+          openGlobalAiSettings();
         }, 300);
       }
     }
@@ -290,50 +654,66 @@
           analyzeBtn.disabled = true;
           analyzeBtn.classList.add("is-loading");
         }
-        trigger.setAttribute("title", "AI 分析进行中… (" + shortcutText + ")");
+        if (trigger) trigger.setAttribute("title", "AI 分析进行中… (" + shortcutText + ")");
       } else {
         if (analyzeBtn) {
           analyzeBtn.disabled = false;
           analyzeBtn.classList.remove("is-loading");
         }
         var tip = state === "done" ? "AI 讨论与分析 (已就绪 - " + shortcutText + ")" : "打开 AI Copilot 侧边栏 (" + shortcutText + ")";
-        trigger.setAttribute("title", tip);
+        if (trigger) trigger.setAttribute("title", tip);
       }
     }
 
     function setOpen(open, userAction) {
-      if (open && matchMedia("(max-width: 1439px)").matches &&
-          document.body.classList.contains("museum-toc-open")) {
-        var tocClose = one("[data-toc-close]");
-        if (tocClose) tocClose.click();
+      if (open && matchMedia("(max-width: 1439px)").matches) {
+        if (document.body.classList.contains("museum-toc-open")) {
+          var tocClose = one("[data-toc-close]");
+          if (tocClose) tocClose.click();
+        }
+        if (document.body.classList.contains("museum-drawer-open")) {
+          var drawerClose = one("[data-drawer-close]");
+          if (drawerClose) drawerClose.click();
+          else {
+            var drawerToggle = one("[data-drawer-toggle]");
+            if (drawerToggle) drawerToggle.click();
+          }
+        }
       }
       document.body.classList.toggle("museum-ai-open", open);
       panel.inert = !open;
       panel.setAttribute("aria-hidden", String(!open));
-      trigger.setAttribute("aria-expanded", String(open));
+      if (trigger) trigger.setAttribute("aria-expanded", String(open));
       if (userAction) {
         try { localStorage.setItem("copilot_sidebar_open", String(open)); } catch (_) {}
       }
       if (open) {
         load();
         renderChat();
-        if (userAction && chatInput) chatInput.focus();
+        if (userAction && chatInput) {
+          // Let the opening panel become visible before transferring focus.
+          var focusInput = function () {
+            if (document.body.classList.contains("museum-ai-open")) chatInput.focus();
+          };
+          // Visibility is animated for 200ms; focusing during that transition
+          // can be rejected by the browser while the input is still hidden.
+          setTimeout(focusInput, 220);
+        }
+      } else if (chatInput && document.activeElement === chatInput) {
+        chatInput.blur();
       }
     }
-    trigger.addEventListener("click", function () { setOpen(!document.body.classList.contains("museum-ai-open"), true); });
+    if (trigger) trigger.addEventListener("click", function () { setOpen(!document.body.classList.contains("museum-ai-open"), true); });
 
     document.addEventListener("keydown", function (event) {
       if ((event.ctrlKey || event.metaKey) && event.key && event.key.toLowerCase() === "i") {
-        var activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : "";
-        if (activeTag === "input" || activeTag === "textarea" || (document.activeElement && document.activeElement.isContentEditable)) {
-          return;
-        }
         event.preventDefault();
         setOpen(!document.body.classList.contains("museum-ai-open"), true);
         return;
       }
       if (event.key === "Escape" && document.body.classList.contains("museum-ai-open")) {
-        setOpen(false, true); trigger.focus();
+        setOpen(false, true);
+        if (trigger) trigger.focus();
       }
     });
 
@@ -343,7 +723,7 @@
             document.body.classList.contains("museum-ai-open")) setOpen(false, true);
       });
     });
-    one("[data-ai-close]", panel).addEventListener("click", function () { setOpen(false, true); trigger.focus(); });
+    one("[data-ai-close]", panel).addEventListener("click", function () { setOpen(false, true); if (trigger) trigger.focus(); });
     function fillPublic() {
       var source = one(".org-museum-experience");
       var target = one("[data-ai-experiences]", panel);
@@ -361,8 +741,12 @@
         return;
       }
       if (typeof window.orgMuseumAiApi !== "function") {
-        updateStateVisual("idle", "未连接 Emacs");
-        if (analyzeBtn) analyzeBtn.hidden = true;
+        var activeM = savedConfig.model;
+        if (activeM) {
+          updateStateVisual("done", "模型就绪 · " + (activeM === "emacs-backend" ? "Emacs 后端" : activeM));
+        } else {
+          updateStateVisual("idle", "未配置模型");
+        }
         return;
       }
       api("page?pageId=" + encodeURIComponent(pageId)).then(function (data) {
@@ -371,7 +755,8 @@
         var label = data.analysis ? "已分析" : data.status === "dirty" ? "等待分析" :
           data.status === "failed" ? "分析失败，可重试" : (data.status === "running" || data.status === "queued") ? "分析中…" : "尚未分析";
         updateStateVisual(state, label);
-        markdown(one("[data-ai-summary]", panel), data.analysis ? data.analysis.summary : "暂无分析结果。");
+        var summaryEl = one("[data-ai-summary]", panel);
+        if (summaryEl) markdown(summaryEl, data.analysis ? data.analysis.summary : "暂无分析结果。");
       }).catch(function (error) {
         updateStateVisual("failed", error.message);
       });
@@ -387,24 +772,11 @@
       }).catch(function () {});
     }
 
-    if (analyzeBtn) {
-      analyzeBtn.addEventListener("click", function () {
-        updateStateVisual("running", "已提交分析，正在等待结果…");
-        api("action", { action: "analyze", pageId: pageId }).then(function (res) {
-          if (res && res.status && res.status !== "running" && res.status !== "queued") {
-            load();
-          } else {
-            setTimeout(load, 1200);
-          }
-        }).catch(function (error) {
-          updateStateVisual("failed", error.message);
-        });
-      });
-    }
+
     renderChat();
     var savedOpen = null;
     try { savedOpen = localStorage.getItem("copilot_sidebar_open"); } catch (_) {}
-    var shouldOpen = savedOpen !== null ? (savedOpen === "true") : (typeof window !== "undefined" && window.innerWidth >= 1280);
+    var shouldOpen = savedOpen === "true";
     setOpen(shouldOpen, false);
     if (toc) {
       var tocButtons = all("[data-toc-toggle]");
@@ -706,8 +1078,20 @@
         api("action", payload(action)).then(function (data) {
           if (data.text) showText(action === "recall" || action === "relations" || action === "context" ?
             "[data-ai-recall-results]" : "[data-ai-review-results]", data.text);
+          if (action.startsWith("scan")) {
+            var scanState = one("[data-ai-scan-state]", shell);
+            if (scanState) put(scanState, data.message || "扫描状态已更新");
+          }
           notify(data.message || "操作已完成。"); refresh();
-        }).catch(function (error) { notify(error.message); });
+        }).catch(function (error) {
+          notify(error.message);
+          if (action.startsWith("scan")) {
+            var scanState = one("[data-ai-scan-state]", shell);
+            if (scanState) put(scanState, "扫描请求未完成：" + error.message);
+          } else if (["gap", "gap-ai", "derive", "derive-review"].includes(action)) {
+            showText("[data-ai-review-results]", "操作未完成：" + error.message);
+          }
+        });
       });
     });
     function connect() { api("catalog").then(function (data) {
@@ -762,7 +1146,7 @@
     }
     function sourceLink(source) {
       var page = pages.find(function (item) { return item.id === source.pageId; });
-      var href = source.href || (page && page.href);
+      var href = page && page.href;
       var label = source.title || pageTitle(source.pageId);
       if (!href) { var span = document.createElement("span"); span.textContent = label; return span; }
       var link = document.createElement("a"); link.href = href; link.textContent = label;
@@ -780,7 +1164,13 @@
     }
     function choose() {
       selection.replaceChildren();
-      if (!chosen.size) { put(selection, "请选择至少一篇笔记。"); return; }
+      if (!chosen.size) {
+        var emptyChip = document.createElement("span");
+        emptyChip.className = "museum-ai-selection-hint";
+        emptyChip.textContent = "尚未选择笔记（在下方勾选参与分析的资料，最多 12 篇）";
+        selection.appendChild(emptyChip);
+        return;
+      }
       chosen.forEach(function (id) {
         var chip = document.createElement("span"); chip.className = "museum-ai-chip";
         chip.textContent = pageTitle(id); selection.appendChild(chip);
@@ -849,6 +1239,45 @@
       });
       return control;
     }
+    var userScrolledUp = false;
+    window.addEventListener("scroll", function () {
+      var scrollY = window.scrollY || document.documentElement.scrollTop;
+      var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      var totalHeight = document.documentElement.scrollHeight || document.body.scrollHeight;
+      userScrolledUp = (scrollY + viewportHeight) < (totalHeight - 160);
+    }, { passive: true });
+
+    function scrollStreamingIntoView(turnCard, answerNode) {
+      if (userScrolledUp) return;
+      var target = answerNode || turnCard;
+      if (!target) return;
+      var rect = target.getBoundingClientRect();
+      var viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+      if (rect.bottom > viewportHeight - 60 || rect.top < 80) {
+        target.scrollIntoView({ block: "end", behavior: "smooth" });
+      }
+    }
+
+    function updateStreamingAnswer(node, text, isStreaming) {
+      if (!node) return;
+      if (!text) {
+        node.innerHTML = '<div class="museum-ai-thinking"><span class="museum-ai-spinner" aria-hidden="true"></span> <span>正在分析与整理回答…</span></div>';
+        return;
+      }
+      markdown(node, text, false);
+      if (isStreaming) {
+        var cursor = document.createElement("span");
+        cursor.className = "museum-ai-streaming-cursor";
+        cursor.setAttribute("aria-hidden", "true");
+        var last = node.lastElementChild;
+        if (last && (last.tagName === "P" || last.tagName === "LI" || last.tagName === "DIV")) {
+          last.appendChild(cursor);
+        } else {
+          node.appendChild(cursor);
+        }
+      }
+    }
+
     function renderTurn(turn, index, total, saved, wasOpen, sources, sessionCreatedAt) {
       var card = document.createElement("details"); card.className = "museum-ai-turn";
       card.id = "ai-turn-" + turn.id; card.dataset.turnId = turn.id;
@@ -880,8 +1309,11 @@
       var aiBlock = document.createElement("section"); aiBlock.className = "museum-ai-speaker museum-ai-assistant";
       var aiLabel = document.createElement("strong"); aiLabel.textContent = "AI 的回答";
       var answer = document.createElement("div"); answer.className = "museum-ai-answer";
-      markdown(answer, turn.answer || (turn.status === "streaming" ? "正在思考…" : "暂无回答。"),
-        turn.status === "streaming");
+      if (turn.status === "streaming") {
+        updateStreamingAnswer(answer, turn.answer, true);
+      } else {
+        markdown(answer, turn.answer || "暂无回答。", false);
+      }
       aiBlock.append(aiLabel, answer); content.appendChild(aiBlock);
       var cited = sources.filter(function (source) {
         return (turn.answer || "").includes("【" + source.pageId + "】");
@@ -918,7 +1350,7 @@
     function runMessage(payload) {
       if (busy || !sessionId) return;
       if (pendingReference) payload.captureId = pendingReference.id;
-      busy = true; put(status, "正在继续探索…");
+      busy = true; userScrolledUp = false; put(status, "正在继续探索…");
       api("session-message", Object.assign({sessionId: sessionId}, payload)).then(function (data) {
         busy = false; pendingReference = null; renderReference(); render(data);
       }).catch(function (error) { busy = false; errorMessage(error); });
@@ -1103,12 +1535,17 @@
           actions.append(button("查看与整理", function () { showCapture(item); }),
             button("继续讨论", function () { openSession(item.sessionId, item); }));
           card.append(meta, heading, question, conclusion, sources, actions);
-              section.appendChild(card);
-            });
+          section.appendChild(card);
+        });
             captureResults.appendChild(section);
           });
-        if (!captureResults.childElementCount) put(captureResults, "还没有匹配的结论。完成一轮回答后，可直接点击“收录此回答”。");
-      }).catch(function (error) { put(captureStatus, error.message); });
+        if (!captureResults.childElementCount) {
+          var emptyState = document.createElement("div");
+          emptyState.className = "museum-ai-empty-placeholder";
+          emptyState.textContent = "还没有匹配的结论。完成一轮回答后，可直接点击“收录此回答”。";
+          captureResults.appendChild(emptyState);
+        }
+      });
     }
     function proposalCard(item) {
       var card = document.createElement("article"); card.className = "museum-ai-proposal";
@@ -1188,7 +1625,15 @@
         var saved = savedByTurn.get(turn.id);
         var current = turns.children[index];
         var captureVersion = saved ? saved.id + ":" + (saved.updatedAt || "") : "";
-        if (!current || current.dataset.turnId !== turn.id ||
+        if (current && current.dataset.turnId === turn.id && turn.status === "streaming") {
+          current.dataset.answerLength = String((turn.answer || "").length);
+          current.dataset.status = turn.status;
+          var answerEl = current.querySelector(".museum-ai-answer");
+          if (answerEl) updateStreamingAnswer(answerEl, turn.answer, true);
+          var metaEl = current.querySelector("summary small");
+          if (metaEl) metaEl.textContent = readableTime(turn.createdAt || (index === 0 ? data.createdAt : null)) + " · 生成中";
+          scrollStreamingIntoView(current, answerEl);
+        } else if (!current || current.dataset.turnId !== turn.id ||
             current.dataset.answerLength !== String((turn.answer || "").length) ||
             current.dataset.status !== turn.status ||
             current.dataset.captureId !== captureVersion ||
@@ -1197,6 +1642,9 @@
           var updated = renderTurn(turn, index, allTurns.length,
             saved, wasOpen, data.sources || [], data.createdAt);
           if (current) current.replaceWith(updated); else turns.appendChild(updated);
+          if (turn.status === "streaming") {
+            scrollStreamingIntoView(updated, updated.querySelector(".museum-ai-answer"));
+          }
         }
         if (index === 0 || turn.kind === "analysis") {
           var group = document.createElement("strong"); group.className = "museum-ai-nav-group";
@@ -1237,10 +1685,37 @@
       followup.disabled = stale.length > 0 || data.status === "batching" || data.status === "streaming" || data.status === "recommending";
       one("[data-ai-message-form] button", root).disabled = followup.disabled;
     }
+    var currentSessionStatus = "";
     function refreshSession() {
       if (!sessionId || document.visibilityState !== "visible") return;
-      api("session?sessionId=" + encodeURIComponent(sessionId)).then(render).catch(errorMessage);
+      api("session?sessionId=" + encodeURIComponent(sessionId)).then(function (data) {
+        if (data) currentSessionStatus = data.status || "";
+        render(data);
+      }).catch(errorMessage);
     }
+    window.addEventListener("org-museum-ai-stream", function (event) {
+      var detail = event.detail;
+      if (!detail || detail.sessionId !== sessionId) return;
+      currentSessionStatus = detail.status || "";
+      var turnCard = document.getElementById("ai-turn-" + detail.turnId);
+      if (!turnCard) {
+        refreshSession();
+        return;
+      }
+      turnCard.open = true;
+      var answerNode = turnCard.querySelector(".museum-ai-answer");
+      if (answerNode) {
+        updateStreamingAnswer(answerNode, detail.text, detail.status === "streaming");
+        scrollStreamingIntoView(turnCard, answerNode);
+      }
+      var metaNode = turnCard.querySelector("summary small");
+      if (metaNode && detail.status === "streaming") {
+        metaNode.textContent = readableTime(detail.createdAt || null) + " · 生成中";
+      }
+      if (detail.status !== "streaming") {
+        refreshSession();
+      }
+    });
     function resumeList() {
       api("sessions").then(function (data) {
         resume.replaceChildren();
@@ -1292,8 +1767,8 @@
     one("[data-ai-start]", root).addEventListener("click", function () {
       if (busy) return;
       if (!chosen.size) { put(status, "请先选择至少一篇笔记。"); return; }
-      busy = true; put(status, "正在开始分析…");
-      api("session-start", {pageIds:Array.from(chosen), batch:true}).then(function (data) {
+      busy = true; userScrolledUp = false; put(status, "正在开始分析…");
+      api("session-start", {pageIds:Array.from(chosen)}).then(function (data) {
         busy = false; sessionId = data.id; revision = -1; render(data); resumeList();
       }).catch(function (error) { busy = false; errorMessage(error); });
     });
@@ -1303,8 +1778,14 @@
       if (!message) return;
       runMessage({message:message}); followup.value = "";
     });
-    var timer = setInterval(refreshSession, 700);
-    window.addEventListener("pagehide", function () { clearInterval(timer); }, {once:true});
+    var pollTimer = null;
+    function schedulePoll() {
+      refreshSession();
+      var delay = (currentSessionStatus === "streaming" || currentSessionStatus === "batching") ? 250 : 700;
+      pollTimer = setTimeout(schedulePoll, delay);
+    }
+    pollTimer = setTimeout(schedulePoll, 700);
+    window.addEventListener("pagehide", function () { if (pollTimer) clearTimeout(pollTimer); }, {once:true});
   }
 
   function start() {

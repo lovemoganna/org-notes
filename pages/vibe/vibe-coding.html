@@ -6,15 +6,15 @@
 <title>vibe coding</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
+<script src="../../resources/org-museum-theme.js?v=4084c12f7143"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=1329463e6fd1">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="vibe-coding" data-page-title="vibe coding" data-page-category="Vibe" data-page-tags="vibe" data-page-status="draft" data-page-modified="2026-10-02" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="vibe-coding" data-page-title="vibe coding" data-page-category="Vibe" data-page-tags="vibe" data-page-status="draft" data-page-modified="2026-10-07" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -27,7 +27,12 @@
     <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+    <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
+      <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
         <div class="museum-settings-section">
           <div class="museum-settings-section-title">外观主题</div>
           <div class="museum-theme-segmented" role="group">
@@ -37,6 +42,67 @@
               <span data-theme-label>深色</span></button>
           </div>
         </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+        <div class="museum-settings-section museum-settings-ai-section">
+          <div class="museum-settings-section-title">模型设置</div>
+          <form data-browser-config class="museum-settings-config-form">
+            <div class="museum-settings-field">
+              <label>接入方式<select name="provider">
+                <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
+                <option value="ollama">Ollama</option>
+              </select></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
+              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+            </div>
+            <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
+            <div class="museum-settings-field">
+              <label>选择模型
+                <div class="museum-settings-model-row">
+                  <select name="model_select" data-browser-model-select aria-label="选择模型">
+                    <option value="">(请先读取模型列表或手动输入)</option>
+                  </select>
+                  <button type="button" class="museum-settings-sub-btn" data-browser-cycle-model title="顺序切换至下一个模型" aria-label="顺序切换选择模型">顺序切换</button>
+                </div>
+              </label>
+            </div>
+            <div class="museum-settings-field">
+              <label>模型 ID<input name="model" list="museum-browser-model-list" placeholder="选择已加载模型或输入模型 ID" required></label>
+              <datalist id="museum-browser-model-list"></datalist>
+            </div>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-load>加载并测试模型</button>
+              <button type="button" data-browser-cancel-load hidden>取消加载</button>
+            </div>
+            <div class="museum-settings-status-box">
+              <span class="museum-settings-status-indicator" aria-hidden="true"></span>
+              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+            </div>
+            <details class="museum-settings-details">
+              <summary>回答偏好设置</summary>
+              <div class="museum-settings-field">
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+              </div>
+            </details>
+          </form>
+          <details class="museum-settings-details museum-ai-local-tools">
+            <summary>本地保存与同步</summary>
+            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-backup>导出知识库</button>
+              <button type="button" data-browser-org-export>导出 Org</button>
+              <button type="button" data-browser-sync-preview>预览同步</button>
+            </div>
+            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
+            <div data-browser-sync-result></div>
+          </details>
+        </div>
+      </div>
     </div></details>
   </nav>
 </header>
@@ -47,8 +113,8 @@
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../index.html?category=Vibe#recent-updates">Vibe</a><span class="museum-status-badge">草稿</span>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-10-02">2026-10-02</time></dd></div>
-    <div><dt>阅读时间</dt><dd>约 28 分钟</dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-07">2026-10-07</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 29 分钟</dd></div>
     <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=vibe#recent-updates" data-tag="vibe" title="查看包含标签 #vibe 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">vibe</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
@@ -56,7 +122,7 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="5d6b4eed7f94e3940a0552212703fa77675c9cb31dece3d3249ea2b674fe5398"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: vibe-coding</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="b60b2a75a69e8690dc496d5e943de2704bd9dbd604ebad4d165dc6a39919dec1"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: vibe-coding</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Vibe</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: draft</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :vibe:</span></span>
@@ -380,8 +446,23 @@
 <span class="museum-org-line">3. **内容被遮挡**：部分节点或关系会被界面元素遮盖，影响完整查看和后续操作。</span>
 <span class="museum-org-line">请重新检查画布的**布局、层级、事件监听和视口控制逻辑**，逐项定位并修复。重点确保图谱默认居中、画布任意空白区域均可正常缩放，并保证渲染内容不会被 UI 遮挡。</span>
 <span class="museum-org-line">整体交互应保持一致，至少提供可靠的居中/适配视图和缩放能力，这是知识图谱画布的基础操作。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 难度3</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  我不知道该如何向AI精准传达我的VIbe</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Coding表达需求，请必须保证简单直接简单清晰短小精悍一针见血就像李显龙一样不说废话的语言艺术表达梳理出来，然后再按</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  Requirement-Inbox 更新收录</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  给 `note-reforge` 增加固定的极简调用入口。以后我只需要输入： `用 note-reforge 炼成下一版：&lt;文件 / 目录&gt;`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  系统自动读取 `Org-Skills/skills/note-reforge/SKILL.md`</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  当前版本并直接执行，不要再让我重复粘贴 Skill、解释规则或确认默认流程。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  单文件、多文件和目录仍由 Skill 自己判断处理方式。调用入口只负责触发，具体行为始终以仓库中的 canonical Skill 为准。</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  验收：新会话中只给一句调用口令和目标文件，也能按仓库最新 Skill 正确执行；以后 Skill 升级，不改变我的调用习惯。</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-org-block">https://docs.google.com/spreadsheets/d/1ivHFGOZy1eDFvSxFJo2ARNm81HoK9TA76TkU7J-1sto/edit?gid=1001#gid=100</span><span class="org-face-org-block">1</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-org-block">https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=1585191605#gid=158519160</span><span class="org-face-org-block">5</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** References</span></span>
-<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 乱七八糟</span></span>
 <span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ,* 反复调整需求</span></span>
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  这份 HTML 格式的 SQL 分析报告（多轮讨论后生成）未达预期，请指出具体不符合之处并直接优化输出，无需重新解释需求。</span></span>
@@ -453,20 +534,6 @@
 <span class="museum-org-line museum-org-block-line">&nbsp;</span>
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  遵循 </span><span class="org-face-org-block">https://github.com/lovemoganna/AgentComponent/prompts/workflow/maintain/prompt-repository.m</span><span class="org-face-org-block">d</span><span class="org-face-org-block"> 归档上面的提示</span></span>
 <span class="museum-org-line museum-org-block-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 存 Skill</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  遵循 </span><span class="org-face-org-block">https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-repository/SKILL.m</span><span class="org-face-org-block">d</span><span class="org-face-org-block"> 归档上面的Skill</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  要求：</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 先检查仓库是否已有相同或高度相似 Skill；</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 有则增量维护，不创建重复 Skill；</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 没有则生成稳定 slug，并保存为：</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     skills/&lt;skill-slug&gt;/SKILL.md</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 保留 Skill 自身必要资源和目录结构；</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 不为了形式创建空 tests/eval 目录；</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 同步更新根 README 的 Skill 能力地图、场景入口和路径索引；</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. 入库后调用 skill-lab 做一次基础 smoke test；</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  8. 通过后返回最终路径和 commit。</span></span>
-<span class="museum-org-line museum-org-block-line">&nbsp;</span>
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 测 Skill</span></span>
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  按 skill-lab 使用下面的新测试任务测试当前 Skill。</span></span>
 <span class="museum-org-line museum-org-block-line">&nbsp;</span>
@@ -478,6 +545,21 @@
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  - 修改后必须重新跑历史 regression。</span></span>
 <span class="museum-org-line museum-org-block-line">&nbsp;</span>
 <span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ## 测试</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 存 Skill</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  遵循 </span><span class="org-face-org-block">https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-repository/SKILL.m</span><span class="org-face-org-block">d</span><span class="org-face-org-block"> 归档上面的Skill</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  要求：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  1. 先检查仓库 </span><span class="org-face-org-block">https://github.com/lovemoganna/Org-Skill</span><span class="org-face-org-block">s</span><span class="org-face-org-block"> 是否已有相同或高度相似 Skill；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  2. 有则增量维护，不创建重复 Skill；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  3. 没有则生成稳定 slug，并保存为：</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     skills/&lt;skill-slug&gt;/SKILL.md</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  4. 保留 Skill 自身必要资源和目录结构；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  5. 不为了形式创建空 tests/eval 目录；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  6. 同步更新根 README 的 Skill 能力地图、场景入口和路径索引；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  7. 入库后调用 skill-lab 做一次基础 smoke test；</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  8. 通过后返回最终路径和 commit。</span></span>
 <span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Skill 测试</span></span>
 <span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src markdown</span></span>
@@ -546,24 +628,26 @@
 <li><a href="#section-22489f600089">1.1. Overview</a></li>
 <li><a href="#section-0b69a370144b">1.2. Content</a>
 <ul>
-<li><a href="#section-68f691b650e9">1.2.1. 项目管理</a></li>
-<li><a href="#section-f66d78b802f8">1.2.2. 去AI味</a></li>
-<li><a href="#section-0b56a2938d2a">1.2.3. 归纳</a></li>
-<li><a href="#section-f42fffac6924">1.2.4. 清晰表达</a></li>
-<li><a href="#section-d913c0cbbd38">1.2.5. 通用套路</a></li>
-<li><a href="#section-ea549c76e1e7">1.2.6. 检测</a></li>
+<li><a href="#section-faeb75ddf539">1.2.1. 项目管理</a></li>
+<li><a href="#section-869b6c24981d">1.2.2. 去AI味</a></li>
+<li><a href="#section-a507896e2630">1.2.3. 归纳</a></li>
+<li><a href="#section-faeb75ddf539">1.2.4. 清晰表达</a></li>
+<li><a href="#section-faeb75ddf539">1.2.5. 通用套路</a></li>
+<li><a href="#section-a507896e2630">1.2.6. 检测</a></li>
 <li><a href="#section-789b83f44554">1.2.7. Skills</a></li>
-<li><a href="#section-28853d53ba97">1.2.8. AI 解决方案</a></li>
-<li><a href="#section-583c8cfb5acd">1.2.9. 文生图</a></li>
-<li><a href="#section-4fc8eacfe583">1.2.10. 实践</a></li>
-<li><a href="#section-1696d7feb5bd">1.2.11. 疑难</a></li>
+<li><a href="#section-1c8bca7974fb">1.2.8. AI 解决方案</a></li>
+<li><a href="#section-610112ef2908">1.2.9. 文生图</a></li>
+<li><a href="#section-a507896e2630">1.2.10. 实践</a></li>
+<li><a href="#section-a507896e2630">1.2.11. 疑难</a></li>
 </ul>
 </li>
 <li><a href="#section-62e821190dc4">1.3. References</a>
 <ul>
-<li><a href="#section-6dd2acd7123a">1.3.1. Skill 测试</a></li>
-<li><a href="#section-53bcc64c3054">1.3.2. Skill 修改</a></li>
-<li><a href="#section-12e58e48e5be">1.3.3. Skill</a></li>
+<li><a href="#section-ee211eec4921">1.3.1. 乱七八糟</a></li>
+<li><a href="#section-f577d0c6c63e">1.3.2. 存 Skill</a></li>
+<li><a href="#section-cbb5902cdd2f">1.3.3. Skill 测试</a></li>
+<li><a href="#section-cbb5902cdd2f">1.3.4. Skill 修改</a></li>
+<li><a href="#section-12e58e48e5be">1.3.5. Skill</a></li>
 </ul>
 </li>
 </ul>
@@ -582,8 +666,8 @@
 <h3 id="section-0b69a370144b"><span class="section-number-3">1.2.</span> Content</h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
-<div id="outline-container-section-68f691b650e9" class="outline-4">
-<h4 id="section-68f691b650e9"><span class="section-number-4">1.2.1.</span> 项目管理</h4>
+<div id="outline-container-section-faeb75ddf539" class="outline-4">
+<h4 id="section-faeb75ddf539"><span class="section-number-4">1.2.1.</span> 项目管理</h4>
 <div class="outline-text-4" id="text-1-2-1">
 </div>
 <ol class="org-ol">
@@ -644,8 +728,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-f66d78b802f8" class="outline-4">
-<h4 id="section-f66d78b802f8"><span class="section-number-4">1.2.2.</span> 去AI味</h4>
+<div id="outline-container-section-869b6c24981d" class="outline-4">
+<h4 id="section-869b6c24981d"><span class="section-number-4">1.2.2.</span> 去AI味</h4>
 <div class="outline-text-4" id="text-1-2-2">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">使用下面的提示优化上面的输出内容。你是一名资深编辑。请重写输入文本，在完整保留原意、事实、立场和信息的前提下，最大限度降低机械化、模板化和 AI 式表达，使文字自然、具体、有真实人声。不得虚构事实，也不得承诺能够绕过所有 AI 检测工具。
@@ -670,8 +754,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-0b56a2938d2a" class="outline-4">
-<h4 id="section-0b56a2938d2a"><span class="section-number-4">1.2.3.</span> 归纳</h4>
+<div id="outline-container-section-a507896e2630" class="outline-4">
+<h4 id="section-a507896e2630"><span class="section-number-4">1.2.3.</span> 归纳</h4>
 <div class="outline-text-4" id="text-1-2-3">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">归纳总结下这个SKills的作用，我要给别人介绍。注意正式一些，不要说教重复废话的语气。
@@ -679,8 +763,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-f42fffac6924" class="outline-4">
-<h4 id="section-f42fffac6924"><span class="section-number-4">1.2.4.</span> 清晰表达</h4>
+<div id="outline-container-section-faeb75ddf539" class="outline-4">
+<h4 id="section-faeb75ddf539"><span class="section-number-4">1.2.4.</span> 清晰表达</h4>
 <div class="outline-text-4" id="text-1-2-4">
 </div>
 <ol class="org-ol">
@@ -719,8 +803,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-d913c0cbbd38" class="outline-4">
-<h4 id="section-d913c0cbbd38"><span class="section-number-4">1.2.5.</span> 通用套路</h4>
+<div id="outline-container-section-faeb75ddf539" class="outline-4">
+<h4 id="section-faeb75ddf539"><span class="section-number-4">1.2.5.</span> 通用套路</h4>
 <div class="outline-text-4" id="text-1-2-5">
 </div>
 <ol class="org-ol">
@@ -803,8 +887,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-ea549c76e1e7" class="outline-4">
-<h4 id="section-ea549c76e1e7"><span class="section-number-4">1.2.6.</span> 检测</h4>
+<div id="outline-container-section-a507896e2630" class="outline-4">
+<h4 id="section-a507896e2630"><span class="section-number-4">1.2.6.</span> 检测</h4>
 <div class="outline-text-4" id="text-1-2-6">
 <p>
 优化 <a href="https://lovemoganna.github.io/Aone/multi-agent">https://lovemoganna.github.io/Aone/multi-agent</a> 点击配置按钮后的页
@@ -949,8 +1033,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-28853d53ba97" class="outline-4">
-<h4 id="section-28853d53ba97"><span class="section-number-4">1.2.8.</span> AI 解决方案</h4>
+<div id="outline-container-section-1c8bca7974fb" class="outline-4">
+<h4 id="section-1c8bca7974fb"><span class="section-number-4">1.2.8.</span> AI 解决方案</h4>
 <div class="outline-text-4" id="text-1-2-8">
 </div>
 <ol class="org-ol">
@@ -976,8 +1060,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-583c8cfb5acd" class="outline-4">
-<h4 id="section-583c8cfb5acd"><span class="section-number-4">1.2.9.</span> 文生图</h4>
+<div id="outline-container-section-610112ef2908" class="outline-4">
+<h4 id="section-610112ef2908"><span class="section-number-4">1.2.9.</span> 文生图</h4>
 <div class="outline-text-4" id="text-1-2-9">
 </div>
 <ol class="org-ol">
@@ -1041,8 +1125,8 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 </li>
 </ol>
 </div>
-<div id="outline-container-section-4fc8eacfe583" class="outline-4">
-<h4 id="section-4fc8eacfe583"><span class="section-number-4">1.2.10.</span> 实践</h4>
+<div id="outline-container-section-a507896e2630" class="outline-4">
+<h4 id="section-a507896e2630"><span class="section-number-4">1.2.10.</span> 实践</h4>
 <div class="outline-text-4" id="text-1-2-10">
 </div>
 <ol class="org-ol">
@@ -1063,8 +1147,8 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 </li>
 </ol>
 </div>
-<div id="outline-container-section-1696d7feb5bd" class="outline-4">
-<h4 id="section-1696d7feb5bd"><span class="section-number-4">1.2.11.</span> 疑难</h4>
+<div id="outline-container-section-a507896e2630" class="outline-4">
+<h4 id="section-a507896e2630"><span class="section-number-4">1.2.11.</span> 疑难</h4>
 <div class="outline-text-4" id="text-1-2-11">
 </div>
 <ol class="org-ol">
@@ -1110,12 +1194,35 @@ DuckDB 官方 UI 本身也强调数据库浏览、SQL 编辑、结果分析和�
 </p>
 </div>
 </li>
+<li><a id="org-museum-ref-1ca59ed0dcc7"></a>难度3<br>
+<div class="outline-text-5" id="text-1-2-11-3">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">我不知道该如何向AI精准传达我的VIbe
+Coding表达需求，请必须保证简单直接简单清晰短小精悍一针见血就像李显龙一样不说废话的语言艺术表达梳理出来，然后再按
+Requirement-Inbox 更新收录
+
+给 `note-reforge` 增加固定的极简调用入口。以后我只需要输入： `用 note-reforge 炼成下一版：&lt;文件 / 目录&gt;`
+系统自动读取 `Org-Skills/skills/note-reforge/SKILL.md`
+当前版本并直接执行，不要再让我重复粘贴 Skill、解释规则或确认默认流程。
+单文件、多文件和目录仍由 Skill 自己判断处理方式。调用入口只负责触发，具体行为始终以仓库中的 canonical Skill 为准。
+验收：新会话中只给一句调用口令和目标文件，也能按仓库最新 Skill 正确执行；以后 Skill 升级，不改变我的调用习惯。
+
+https://docs.google.com/spreadsheets/d/1ivHFGOZy1eDFvSxFJo2ARNm81HoK9TA76TkU7J-1sto/edit?gid=1001#gid=1001
+https://docs.google.com/spreadsheets/d/1YRLbfW3qCs2PjSjt87-gqWevgkNRGdRqB-21ngGDWSs/edit?gid=1585191605#gid=1585191605
+</code></pre>
+</div>
+</div>
+</li>
 </ol>
 </div>
 </div>
 <div id="outline-container-section-62e821190dc4" class="outline-3">
 <h3 id="section-62e821190dc4"><span class="section-number-3">1.3.</span> References</h3>
 <div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-section-ee211eec4921" class="outline-4">
+<h4 id="section-ee211eec4921"><span class="section-number-4">1.3.1.</span> 乱七八糟</h4>
+<div class="outline-text-4" id="text-1-3-1">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">* 反复调整需求
 这份 HTML 格式的 SQL 分析报告（多轮讨论后生成）未达预期，请指出具体不符合之处并直接优化输出，无需重新解释需求。
@@ -1187,20 +1294,6 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
 
 遵循 https://github.com/lovemoganna/AgentComponent/prompts/workflow/maintain/prompt-repository.md 归档上面的提示
 
-
-## 存 Skill
-遵循 https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-repository/SKILL.md 归档上面的Skill
-要求：
-1. 先检查仓库是否已有相同或高度相似 Skill；
-2. 有则增量维护，不创建重复 Skill；
-3. 没有则生成稳定 slug，并保存为：
-   skills/&lt;skill-slug&gt;/SKILL.md
-4. 保留 Skill 自身必要资源和目录结构；
-5. 不为了形式创建空 tests/eval 目录；
-6. 同步更新根 README 的 Skill 能力地图、场景入口和路径索引；
-7. 入库后调用 skill-lab 做一次基础 smoke test；
-8. 通过后返回最终路径和 commit。
-
 ## 测 Skill
 按 skill-lab 使用下面的新测试任务测试当前 Skill。
 
@@ -1215,9 +1308,30 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-6dd2acd7123a" class="outline-4">
-<h4 id="section-6dd2acd7123a"><span class="section-number-4">1.3.1.</span> Skill 测试</h4>
-<div class="outline-text-4" id="text-1-3-1">
+</div>
+<div id="outline-container-section-f577d0c6c63e" class="outline-4">
+<h4 id="section-f577d0c6c63e"><span class="section-number-4">1.3.2.</span> 存 Skill</h4>
+<div class="outline-text-4" id="text-1-3-2">
+<div class="org-src-container">
+<pre class="src src-markdown"><code class="language-markdown">遵循 https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-repository/SKILL.md 归档上面的Skill
+
+要求：
+1. 先检查仓库 https://github.com/lovemoganna/Org-Skills 是否已有相同或高度相似 Skill；
+2. 有则增量维护，不创建重复 Skill；
+3. 没有则生成稳定 slug，并保存为：
+   skills/&lt;skill-slug&gt;/SKILL.md
+4. 保留 Skill 自身必要资源和目录结构；
+5. 不为了形式创建空 tests/eval 目录；
+6. 同步更新根 README 的 Skill 能力地图、场景入口和路径索引；
+7. 入库后调用 skill-lab 做一次基础 smoke test；
+8. 通过后返回最终路径和 commit。
+</code></pre>
+</div>
+</div>
+</div>
+<div id="outline-container-section-cbb5902cdd2f" class="outline-4">
+<h4 id="section-cbb5902cdd2f"><span class="section-number-4">1.3.3.</span> Skill 测试</h4>
+<div class="outline-text-4" id="text-1-3-3">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">按 skill-lab 测试 `dataset-dashboard-builder`
 ----- 【测试任务】 -----
@@ -1266,9 +1380,9 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
 </div>
 </div>
 </div>
-<div id="outline-container-section-53bcc64c3054" class="outline-4">
-<h4 id="section-53bcc64c3054"><span class="section-number-4">1.3.2.</span> Skill 修改</h4>
-<div class="outline-text-4" id="text-1-3-2">
+<div id="outline-container-section-cbb5902cdd2f" class="outline-4">
+<h4 id="section-cbb5902cdd2f"><span class="section-number-4">1.3.4.</span> Skill 修改</h4>
+<div class="outline-text-4" id="text-1-3-4">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">按 https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-lab/SKILL.md 维护 `dataset-dashboard-builder`。
 当前效果不满意。不要让我指出具体问题。
@@ -1281,7 +1395,7 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
 </div>
 </div>
 <div id="outline-container-section-12e58e48e5be" class="outline-4">
-<h4 id="section-12e58e48e5be"><span class="section-number-4">1.3.3.</span> Skill</h4>
+<h4 id="section-12e58e48e5be"><span class="section-number-4">1.3.5.</span> Skill</h4>
 </div>
 </div>
 </div>
@@ -1293,7 +1407,13 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-label="打开 AI Copilot (Ctrl+I)" title="打开 AI Copilot (Ctrl+I)">
+  <span class="museum-ai-trigger-icon" aria-hidden="true"></span>
+  <span class="museum-ai-trigger-text">AI Copilot</span>
+  <span class="museum-ai-trigger-dot" data-ai-trigger-dot data-state="idle" aria-hidden="true"></span>
+  <kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut>Ctrl+I</kbd>
+</button>
+<aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><select class="museum-ai-copilot-model-select" data-copilot-model-select aria-label="切换 AI 模型" title="切换当前使用的 AI 模型"><option value="">讨论模式</option></select><span class="museum-ai-copilot-badge" data-ai-engine-badge hidden role="button" tabindex="0" title="点击打开全局 AI 模型设置">讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="../../ai-center.html?pageId=vibe-coding" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips><button type="button" class="museum-ai-chip museum-ai-chip-analyze" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>重新分析笔记</span></button></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -1304,6 +1424,7 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
   <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
   <a class="sidebar-nav-btn timeline" href="../../timeline.html">时间阅读</a>
   <a class="sidebar-nav-btn related" href="../../related.html">关联阅读</a>
+  <a class="sidebar-nav-btn ai" href="../../ai-center.html">AI 中心</a>
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
@@ -1345,15 +1466,18 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <div class="sidebar-cat-label">Ontology <span>06</span></div>
     <ul>
+      <li><a href="../ontology/关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
+      <li><a href="../ontology/关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
+      <li><a href="../ontology/关系示例-03-约束反例.html">关系示例 03｜约束反例</a></li>
       <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
       <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
       <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>06</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -1382,7 +1506,7 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>
@@ -1404,8 +1528,9 @@ OK，是不是还缺一个，根据产出的SQL分析报告，逆向收集这个
 <script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
 <script defer src="../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
-<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+<script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
+<script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
+<script defer src="../../resources/org-museum-article.js?v=052370387dd2"></script>
 </body>
 </html>

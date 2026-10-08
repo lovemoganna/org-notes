@@ -7,15 +7,19 @@
 <meta name="description" content="一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。" />
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
+<script src="../../resources/org-museum-theme.js?v=4084c12f7143"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=1329463e6fd1">
+<link rel="icon" href="data:,">
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=4045495a6691"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=bbc462c9a500">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="ontology-concept-boundaries" data-page-title="本体论建模：从概念边界到可计算语义" data-page-category="Ontology" data-page-tags="ontology,knowledge-graph,semantic-modeling" data-page-status="published" data-page-modified="2026-10-01" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="ontology-concept-boundaries" data-page-title="本体论建模：从概念边界到可计算语义" data-page-category="Ontology" data-page-tags="ontology,knowledge-graph,semantic-modeling" data-page-status="published" data-page-modified="2026-10-03" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -28,7 +32,12 @@
     <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+    <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
+      <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
         <div class="museum-settings-section">
           <div class="museum-settings-section-title">外观主题</div>
           <div class="museum-theme-segmented" role="group">
@@ -38,6 +47,67 @@
               <span data-theme-label>深色</span></button>
           </div>
         </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+        <div class="museum-settings-section museum-settings-ai-section">
+          <div class="museum-settings-section-title">模型设置</div>
+          <form data-browser-config class="museum-settings-config-form">
+            <div class="museum-settings-field">
+              <label>接入方式<select name="provider">
+                <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
+                <option value="ollama">Ollama</option>
+              </select></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
+              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+            </div>
+            <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
+            <div class="museum-settings-field">
+              <label>选择模型
+                <div class="museum-settings-model-row">
+                  <select name="model_select" data-browser-model-select aria-label="选择模型">
+                    <option value="">(请先读取模型列表或手动输入)</option>
+                  </select>
+                  <button type="button" class="museum-settings-sub-btn" data-browser-cycle-model title="顺序切换至下一个模型" aria-label="顺序切换选择模型">顺序切换</button>
+                </div>
+              </label>
+            </div>
+            <div class="museum-settings-field">
+              <label>模型 ID<input name="model" list="museum-browser-model-list" placeholder="选择已加载模型或输入模型 ID" required></label>
+              <datalist id="museum-browser-model-list"></datalist>
+            </div>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-load>加载并测试模型</button>
+              <button type="button" data-browser-cancel-load hidden>取消加载</button>
+            </div>
+            <div class="museum-settings-status-box">
+              <span class="museum-settings-status-indicator" aria-hidden="true"></span>
+              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+            </div>
+            <details class="museum-settings-details">
+              <summary>回答偏好设置</summary>
+              <div class="museum-settings-field">
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+              </div>
+            </details>
+          </form>
+          <details class="museum-settings-details museum-ai-local-tools">
+            <summary>本地保存与同步</summary>
+            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-backup>导出知识库</button>
+              <button type="button" data-browser-org-export>导出 Org</button>
+              <button type="button" data-browser-sync-preview>预览同步</button>
+            </div>
+            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
+            <div data-browser-sync-result></div>
+          </details>
+        </div>
+      </div>
     </div></details>
   </nav>
 </header>
@@ -48,7 +118,7 @@
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../index.html?category=Ontology#recent-updates">Ontology</a>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-03">2026-10-03</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 11 分钟</dd></div>
     <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=ontology#recent-updates" data-tag="ontology" title="查看包含标签 #ontology 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">ontology</span></a><a class="museum-tag-chip" href="../../index.html?tag=knowledge-graph#recent-updates" data-tag="knowledge-graph" title="查看包含标签 #knowledge-graph 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">knowledge-graph</span></a><a class="museum-tag-chip" href="../../index.html?tag=semantic-modeling#recent-updates" data-tag="semantic-modeling" title="查看包含标签 #semantic-modeling 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">semantic-modeling</span></a></dd></div>
   </dl>
@@ -57,7 +127,11 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="4751e213c9b32ca99189a17d0c9e68c9a4863827c475807efdc87e349b92ec17"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+description: 一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="ed98e801b546235f6731f2cd7d6c5fba5de03d27163189869a157b6a0b561e7d"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;meta name="color-scheme" content="dark light"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;script src="../../resources/org-museum-theme.js?v=4045495a6691"&gt;&lt;/script&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="stylesheet" href="../../resources/org-museum.css?v=bbc462c9a500"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="icon" href="data:,"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+description: 一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: ontology-concept-boundaries</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Ontology</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: published</span></span>
@@ -75,7 +149,7 @@
 <span class="museum-org-line">- *关系责任*：说明对象如何连接，关系的方向、基数和适用范围是什么。</span>
 <span class="museum-org-line">- *推理责任*：明确哪些结论可以由现有事实推出，哪些只能保持 =UNKNOWN=。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">本文关注“模型如何被定义”。与之互补的 本体治理：从证据追踪到安全演化 关注“模型如何在真实数据和持续变化中保持可信”。</span>
+<span class="museum-org-line">本文关注“模型如何被定义”。与之互补的 <span class="org-face-org-link">[[file:ontology-evidence-evolution.html]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">本体治理：从证据追踪到安全演</span><span class="org-face-org-link">化</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span> 关注“模型如何在真实数据和持续变化中保持可信”。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 一、从业务问题开始，而不是从类名开始</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">建模的第一步不是画图，而是收集系统必须回答的问题。问题决定需要哪些概念，证据决定系统是否有资格回答。</span>
@@ -228,28 +302,28 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">本体的目标不是制造更多概念，而是让不同模块、不同数据源和不同使用者对同一事实采用一致且可检验的解释。概念边界解决“我们在谈什么”，身份解决“它是不是同一个”，关系解决“它如何连接”，约束和推理解决“系统可以得出什么”。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">当模型进入长期运行后，还必须回答证据失效、规则冲突和版本迁移问题。下一篇 本体治理：从证据追踪到安全演化 将把这些问题组织成一个可回滚、可审计的演化闭环。</span>
+<span class="museum-org-line">当模型进入长期运行后，还必须回答证据失效、规则冲突和版本迁移问题。下一篇 <span class="org-face-org-link">[[file:ontology-evidence-evolution.html]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">本体治理：从证据追踪到安全演</span><span class="org-face-org-link">化</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span> 将把这些问题组织成一个可回滚、可审计的演化闭环。</span>
 </code></pre></section>
 <h1 class="title">本体论建模：从概念边界到可计算语义</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-9f1dbd72d119">1. 导言：本体不是术语表，而是一组可被检验的承诺</a></li>
-<li><a href="#section-090cdf692c65">2. 一、从业务问题开始，而不是从类名开始</a></li>
-<li><a href="#section-7ca9dec95104">3. 二、概念边界：用判定标准区分类、属性与事件</a></li>
-<li><a href="#section-20f26db7ae7a">4. 三、身份：相同、相似与同名不能混为一谈</a></li>
-<li><a href="#section-01edd0f9f49c">5. 四、关系设计：让谓词表达业务，而不是表达存储结构</a></li>
-<li><a href="#section-f9aa735debd9">6. 五、约束与推理必须分开</a></li>
-<li><a href="#section-b12c40c677d8">7. 六、从本体到数据库：映射不是等价</a></li>
-<li><a href="#section-7313facae008">8. 七、最小可验证建模循环</a></li>
-<li><a href="#section-33f76d1d0b7c">9. 八、建模检查清单</a></li>
-<li><a href="#section-e6f9b2562ac1">10. 结语：好本体的价值是减少误解</a></li>
+<li><a href="#section-f22d95f0c521">1. 导言：本体不是术语表，而是一组可被检验的承诺</a></li>
+<li><a href="#section-7c9aa7d1267f">2. 一、从业务问题开始，而不是从类名开始</a></li>
+<li><a href="#section-b449d1342689">3. 二、概念边界：用判定标准区分类、属性与事件</a></li>
+<li><a href="#section-37b8e5ba3287">4. 三、身份：相同、相似与同名不能混为一谈</a></li>
+<li><a href="#section-36dc28059322">5. 四、关系设计：让谓词表达业务，而不是表达存储结构</a></li>
+<li><a href="#section-7123cfef7365">6. 五、约束与推理必须分开</a></li>
+<li><a href="#section-d5b051005102">7. 六、从本体到数据库：映射不是等价</a></li>
+<li><a href="#section-7123cfef7365">8. 七、最小可验证建模循环</a></li>
+<li><a href="#section-0911b9dd20de">9. 八、建模检查清单</a></li>
+<li><a href="#section-ada361075798">10. 结语：好本体的价值是减少误解</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-9f1dbd72d119" class="outline-2">
-<h2 id="section-9f1dbd72d119"><span class="section-number-2">1.</span> 导言：本体不是术语表，而是一组可被检验的承诺</h2>
+<div id="outline-container-section-f22d95f0c521" class="outline-2">
+<h2 id="section-f22d95f0c521"><span class="section-number-2">1.</span> 导言：本体不是术语表，而是一组可被检验的承诺</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 在知识系统里，“把字段改成更专业的名字”不等于完成了本体建模。术语表只回答“我们怎样称呼它”，本体还要回答：它是什么、它不是什么、它与什么发生关系、哪些陈述允许成立，以及系统凭什么得出结论。
@@ -271,8 +345,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-090cdf692c65" class="outline-2">
-<h2 id="section-090cdf692c65"><span class="section-number-2">2.</span> 一、从业务问题开始，而不是从类名开始</h2>
+<div id="outline-container-section-7c9aa7d1267f" class="outline-2">
+<h2 id="section-7c9aa7d1267f"><span class="section-number-2">2.</span> 一、从业务问题开始，而不是从类名开始</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 建模的第一步不是画图，而是收集系统必须回答的问题。问题决定需要哪些概念，证据决定系统是否有资格回答。
@@ -345,8 +419,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-7ca9dec95104" class="outline-2">
-<h2 id="section-7ca9dec95104"><span class="section-number-2">3.</span> 二、概念边界：用判定标准区分类、属性与事件</h2>
+<div id="outline-container-section-b449d1342689" class="outline-2">
+<h2 id="section-b449d1342689"><span class="section-number-2">3.</span> 二、概念边界：用判定标准区分类、属性与事件</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 一个名字应该成为类、属性还是事件，可以用三个问题判断：
@@ -418,8 +492,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-20f26db7ae7a" class="outline-2">
-<h2 id="section-20f26db7ae7a"><span class="section-number-2">4.</span> 三、身份：相同、相似与同名不能混为一谈</h2>
+<div id="outline-container-section-37b8e5ba3287" class="outline-2">
+<h2 id="section-37b8e5ba3287"><span class="section-number-2">4.</span> 三、身份：相同、相似与同名不能混为一谈</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 身份错误会直接污染整张知识图谱。两个记录字段相似，不代表它们是同一个对象；两个名称相同，也不代表它们可以合并。
@@ -440,8 +514,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-01edd0f9f49c" class="outline-2">
-<h2 id="section-01edd0f9f49c"><span class="section-number-2">5.</span> 四、关系设计：让谓词表达业务，而不是表达存储结构</h2>
+<div id="outline-container-section-36dc28059322" class="outline-2">
+<h2 id="section-36dc28059322"><span class="section-number-2">5.</span> 四、关系设计：让谓词表达业务，而不是表达存储结构</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 关系名称应当能组成自然且明确的句子：
@@ -526,8 +600,8 @@ ex:placedBy a owl:ObjectProperty ;
 </div>
 </div>
 </div>
-<div id="outline-container-section-f9aa735debd9" class="outline-2">
-<h2 id="section-f9aa735debd9"><span class="section-number-2">6.</span> 五、约束与推理必须分开</h2>
+<div id="outline-container-section-7123cfef7365" class="outline-2">
+<h2 id="section-7123cfef7365"><span class="section-number-2">6.</span> 五、约束与推理必须分开</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 “事实不完整”和“事实为假”不是一回事。在开放世界语义下，没有记录 <code>placedBy</code> 并不能自动证明订单没有客户；它可能只是证据尚未进入系统。数据质量约束则可以要求发布前每个订单必须具备一个客户。
@@ -564,8 +638,8 @@ WHERE {
 </p>
 </div>
 </div>
-<div id="outline-container-section-b12c40c677d8" class="outline-2">
-<h2 id="section-b12c40c677d8"><span class="section-number-2">7.</span> 六、从本体到数据库：映射不是等价</h2>
+<div id="outline-container-section-d5b051005102" class="outline-2">
+<h2 id="section-d5b051005102"><span class="section-number-2">7.</span> 六、从本体到数据库：映射不是等价</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 关系数据库和本体关注的重点不同。表结构强调存储、完整性和执行效率；本体强调概念、语义和跨来源解释。两者可以映射，但不能简单宣称一一等价。
@@ -597,8 +671,8 @@ WHERE {
 </p>
 </div>
 </div>
-<div id="outline-container-section-7313facae008" class="outline-2">
-<h2 id="section-7313facae008"><span class="section-number-2">8.</span> 七、最小可验证建模循环</h2>
+<div id="outline-container-section-7123cfef7365" class="outline-2">
+<h2 id="section-7123cfef7365"><span class="section-number-2">8.</span> 七、最小可验证建模循环</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 一个适合实际项目的最小循环如下：
@@ -618,8 +692,8 @@ WHERE {
 </p>
 </div>
 </div>
-<div id="outline-container-section-33f76d1d0b7c" class="outline-2">
-<h2 id="section-33f76d1d0b7c"><span class="section-number-2">9.</span> 八、建模检查清单</h2>
+<div id="outline-container-section-0911b9dd20de" class="outline-2">
+<h2 id="section-0911b9dd20de"><span class="section-number-2">9.</span> 八、建模检查清单</h2>
 <div class="outline-text-2" id="text-9">
 <ul class="org-ul">
 <li class="off"><code>[&nbsp;]</code> 每个核心概念都有清晰的纳入与排除条件。</li>
@@ -632,8 +706,8 @@ WHERE {
 </ul>
 </div>
 </div>
-<div id="outline-container-section-e6f9b2562ac1" class="outline-2">
-<h2 id="section-e6f9b2562ac1"><span class="section-number-2">10.</span> 结语：好本体的价值是减少误解</h2>
+<div id="outline-container-section-ada361075798" class="outline-2">
+<h2 id="section-ada361075798"><span class="section-number-2">10.</span> 结语：好本体的价值是减少误解</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 本体的目标不是制造更多概念，而是让不同模块、不同数据源和不同使用者对同一事实采用一致且可检验的解释。概念边界解决“我们在谈什么”，身份解决“它是不是同一个”，关系解决“它如何连接”，约束和推理解决“系统可以得出什么”。
@@ -658,7 +732,13 @@ WHERE {
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-label="打开 AI Copilot (Ctrl+I)" title="打开 AI Copilot (Ctrl+I)">
+  <span class="museum-ai-trigger-icon" aria-hidden="true"></span>
+  <span class="museum-ai-trigger-text">AI Copilot</span>
+  <span class="museum-ai-trigger-dot" data-ai-trigger-dot data-state="idle" aria-hidden="true"></span>
+  <kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut>Ctrl+I</kbd>
+</button>
+<aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><select class="museum-ai-copilot-model-select" data-copilot-model-select aria-label="切换 AI 模型" title="切换当前使用的 AI 模型"><option value="">讨论模式</option></select><span class="museum-ai-copilot-badge" data-ai-engine-badge hidden role="button" tabindex="0" title="点击打开全局 AI 模型设置">讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="../../ai-center.html?pageId=ontology-concept-boundaries" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips><button type="button" class="museum-ai-chip museum-ai-chip-analyze" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>重新分析笔记</span></button></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -669,6 +749,7 @@ WHERE {
   <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
   <a class="sidebar-nav-btn timeline" href="../../timeline.html">时间阅读</a>
   <a class="sidebar-nav-btn related" href="../../related.html">关联阅读</a>
+  <a class="sidebar-nav-btn ai" href="../../ai-center.html">AI 中心</a>
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
@@ -710,15 +791,18 @@ WHERE {
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <div class="sidebar-cat-label">Ontology <span>06</span></div>
     <ul>
+      <li><a href="关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
+      <li><a href="关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
+      <li><a href="关系示例-03-约束反例.html">关系示例 03｜约束反例</a></li>
       <li><a href="本体mvp.html">本体MVP</a></li>
       <li><a href="ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
       <li><a href="ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>06</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -747,7 +831,7 @@ WHERE {
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>
@@ -769,8 +853,9 @@ WHERE {
 <script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
 <script defer src="../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
-<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+<script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
+<script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
+<script defer src="../../resources/org-museum-article.js?v=052370387dd2"></script>
 </body>
 </html>

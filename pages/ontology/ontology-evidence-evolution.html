@@ -7,15 +7,19 @@
 <meta name="description" content="面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。" />
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=2b7a181da330"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=a21cc263868a">
+<script src="../../resources/org-museum-theme.js?v=4084c12f7143"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=1329463e6fd1">
+<link rel="icon" href="data:,">
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=4045495a6691"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=bbc462c9a500">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="ontology-evidence-evolution" data-page-title="本体治理：从证据追踪到安全演化" data-page-category="Ontology" data-page-tags="ontology,governance,provenance,evolution" data-page-status="published" data-page-modified="2026-10-01" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="ontology-evidence-evolution" data-page-title="本体治理：从证据追踪到安全演化" data-page-category="Ontology" data-page-tags="ontology,governance,provenance,evolution" data-page-status="published" data-page-modified="2026-10-03" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -28,7 +32,12 @@
     <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+    <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
+      <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
         <div class="museum-settings-section">
           <div class="museum-settings-section-title">外观主题</div>
           <div class="museum-theme-segmented" role="group">
@@ -38,6 +47,67 @@
               <span data-theme-label>深色</span></button>
           </div>
         </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+        <div class="museum-settings-section museum-settings-ai-section">
+          <div class="museum-settings-section-title">模型设置</div>
+          <form data-browser-config class="museum-settings-config-form">
+            <div class="museum-settings-field">
+              <label>接入方式<select name="provider">
+                <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
+                <option value="ollama">Ollama</option>
+              </select></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
+              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+            </div>
+            <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
+            <div class="museum-settings-field">
+              <label>选择模型
+                <div class="museum-settings-model-row">
+                  <select name="model_select" data-browser-model-select aria-label="选择模型">
+                    <option value="">(请先读取模型列表或手动输入)</option>
+                  </select>
+                  <button type="button" class="museum-settings-sub-btn" data-browser-cycle-model title="顺序切换至下一个模型" aria-label="顺序切换选择模型">顺序切换</button>
+                </div>
+              </label>
+            </div>
+            <div class="museum-settings-field">
+              <label>模型 ID<input name="model" list="museum-browser-model-list" placeholder="选择已加载模型或输入模型 ID" required></label>
+              <datalist id="museum-browser-model-list"></datalist>
+            </div>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-load>加载并测试模型</button>
+              <button type="button" data-browser-cancel-load hidden>取消加载</button>
+            </div>
+            <div class="museum-settings-status-box">
+              <span class="museum-settings-status-indicator" aria-hidden="true"></span>
+              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+            </div>
+            <details class="museum-settings-details">
+              <summary>回答偏好设置</summary>
+              <div class="museum-settings-field">
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+              </div>
+            </details>
+          </form>
+          <details class="museum-settings-details museum-ai-local-tools">
+            <summary>本地保存与同步</summary>
+            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-backup>导出知识库</button>
+              <button type="button" data-browser-org-export>导出 Org</button>
+              <button type="button" data-browser-sync-preview>预览同步</button>
+            </div>
+            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
+            <div data-browser-sync-result></div>
+          </details>
+        </div>
+      </div>
     </div></details>
   </nav>
 </header>
@@ -48,8 +118,8 @@
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../index.html?category=Ontology#recent-updates">Ontology</a>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
-    <div><dt>阅读时间</dt><dd>约 12 分钟</dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-03">2026-10-03</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 13 分钟</dd></div>
     <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=ontology#recent-updates" data-tag="ontology" title="查看包含标签 #ontology 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">ontology</span></a><a class="museum-tag-chip" href="../../index.html?tag=governance#recent-updates" data-tag="governance" title="查看包含标签 #governance 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">governance</span></a><a class="museum-tag-chip" href="../../index.html?tag=provenance#recent-updates" data-tag="provenance" title="查看包含标签 #provenance 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">provenance</span></a><a class="museum-tag-chip" href="../../index.html?tag=evolution#recent-updates" data-tag="evolution" title="查看包含标签 #evolution 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">evolution</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
@@ -57,7 +127,11 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="d01bbcfa4479e0c0a11a9550d948772325c7e63dadb26ff758ce7bd609841985"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+description: 面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="0cb6dbc414c5086fb8854be74da9c32d5f71893692dc33add34310fa83bcdc3e"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;meta name="color-scheme" content="dark light"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;script src="../../resources/org-museum-theme.js?v=4045495a6691"&gt;&lt;/script&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="stylesheet" href="../../resources/org-museum.css?v=bbc462c9a500"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="icon" href="data:,"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+description: 面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: ontology-evidence-evolution</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Ontology</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: published</span></span>
@@ -70,7 +144,7 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">因此，生产级本体不能只保存“当前结论”，还要保存结论从哪里来、由什么规则产生、适用于哪个时间和版本，以及在证据消失时是否能够撤回。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">如果还没有确定概念边界、身份规则和关系语义，应先阅读 本体论建模：从概念边界到可计算语义。本文假定基础模型已经存在，重点讨论它怎样持续保持可信。</span>
+<span class="museum-org-line">如果还没有确定概念边界、身份规则和关系语义，应先阅读 <span class="org-face-org-link">[[file:ontology-concept-boundaries.html]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">本体论建模：从概念边界到可计算语</span><span class="org-face-org-link">义</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。本文假定基础模型已经存在，重点讨论它怎样持续保持可信。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 一、证据优先：结论必须能够回到来源</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">一条可治理的知识陈述至少包含五个维度：</span>
@@ -281,38 +355,38 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">成熟的本体系统不会假装所有事实都确定。它知道结论依赖什么，也知道何时应该撤回；它允许模型演化，但要求变化可比较、可迁移、可回滚。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">概念边界和关系语义提供稳定的语言，证据与版本治理提供长期可信度。两者结合后，本体才不只是一次性的知识图，而是能够持续接受新事实、暴露不确定性并安全变化的工程系统。基础建模方法见 本体论建模：从概念边界到可计算语义。</span>
+<span class="museum-org-line">概念边界和关系语义提供稳定的语言，证据与版本治理提供长期可信度。两者结合后，本体才不只是一次性的知识图，而是能够持续接受新事实、暴露不确定性并安全变化的工程系统。基础建模方法见 <span class="org-face-org-link">[[file:ontology-concept-boundaries.html]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">本体论建模：从概念边界到可计算语</span><span class="org-face-org-link">义</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">本体mvp.org</span>
+<span class="museum-org-line"><span class="org-face-org-link">[</span><span class="org-face-org-link">[</span><span class="org-face-org-link">file:本体mvp.htm</span><span class="org-face-org-link">l</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span></span>
 </code></pre></section>
 <h1 class="title">本体治理：从证据追踪到安全演化</h1>
 <div id="table-of-contents" role="doc-toc">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-1717ab560dc7">1. 导言：模型上线之后，治理才真正开始</a></li>
-<li><a href="#section-ee7c8a57b4bc">2. 一、证据优先：结论必须能够回到来源</a></li>
-<li><a href="#section-07bc2632dc91">3. 二、把“观察”“解释”和“决定”分层</a></li>
-<li><a href="#section-763a07969ad4">4. 三、冲突不是异常噪声，而是一等数据</a></li>
-<li><a href="#section-96950bc8101c">5. 四、时间是本体治理的核心维度</a></li>
-<li><a href="#section-b0054e6b5c3a">6. 五、本体版本：变更类型决定迁移策略</a></li>
-<li><a href="#section-296714d33ebc">7. 六、质量门禁：发布前验证模型、数据和能力</a>
+<li><a href="#section-e7bd55250766">1. 导言：模型上线之后，治理才真正开始</a></li>
+<li><a href="#section-e7bd55250766">2. 一、证据优先：结论必须能够回到来源</a></li>
+<li><a href="#section-5d6755c5553f">3. 二、把“观察”“解释”和“决定”分层</a></li>
+<li><a href="#section-e7bd55250766">4. 三、冲突不是异常噪声，而是一等数据</a></li>
+<li><a href="#section-4cb42c2df639">5. 四、时间是本体治理的核心维度</a></li>
+<li><a href="#section-e7bd55250766">6. 五、本体版本：变更类型决定迁移策略</a></li>
+<li><a href="#section-a4bb340b8d09">7. 六、质量门禁：发布前验证模型、数据和能力</a>
 <ul>
-<li><a href="#section-46d7bcd41d74">7.1. 1. 结构门禁</a></li>
-<li><a href="#section-6e6f10733716">7.2. 2. 数据门禁</a></li>
-<li><a href="#section-6fac7a65ab46">7.3. 3. 能力门禁</a></li>
+<li><a href="#section-27635bdd7a40">7.1. 1. 结构门禁</a></li>
+<li><a href="#section-85ec146d8a42">7.2. 2. 数据门禁</a></li>
+<li><a href="#section-321b35b5e2d3">7.3. 3. 能力门禁</a></li>
 </ul>
 </li>
-<li><a href="#section-98405bb64cfe">8. 七、主动反证：寻找能够推翻模型的输入</a></li>
-<li><a href="#section-f04031b37e25">9. 八、可回滚发布流程</a></li>
-<li><a href="#section-bd037208c886">10. 九、治理看板应该呈现什么</a></li>
-<li><a href="#section-bba19054ff6f">11. 十、生产治理检查清单</a></li>
-<li><a href="#section-c508ead5b7e2">12. 结语：可信来自可撤回，而不是永远确定</a></li>
+<li><a href="#section-5d6755c5553f">8. 七、主动反证：寻找能够推翻模型的输入</a></li>
+<li><a href="#section-934c7c2ddbd4">9. 八、可回滚发布流程</a></li>
+<li><a href="#section-c54a8c651bf4">10. 九、治理看板应该呈现什么</a></li>
+<li><a href="#section-dfdad71da94b">11. 十、生产治理检查清单</a></li>
+<li><a href="#section-5d6755c5553f">12. 结语：可信来自可撤回，而不是永远确定</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-1717ab560dc7" class="outline-2">
-<h2 id="section-1717ab560dc7"><span class="section-number-2">1.</span> 导言：模型上线之后，治理才真正开始</h2>
+<div id="outline-container-section-e7bd55250766" class="outline-2">
+<h2 id="section-e7bd55250766"><span class="section-number-2">1.</span> 导言：模型上线之后，治理才真正开始</h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本体第一次发布时通常整洁、连贯、充满确定性；真实数据进入后，问题才会出现：同一对象来自多个系统，规则在不同时间生效，字段含义发生漂移，证据互相冲突，旧查询仍依赖已经废弃的关系。
@@ -327,8 +401,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-ee7c8a57b4bc" class="outline-2">
-<h2 id="section-ee7c8a57b4bc"><span class="section-number-2">2.</span> 一、证据优先：结论必须能够回到来源</h2>
+<div id="outline-container-section-e7bd55250766" class="outline-2">
+<h2 id="section-e7bd55250766"><span class="section-number-2">2.</span> 一、证据优先：结论必须能够回到来源</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 一条可治理的知识陈述至少包含五个维度：
@@ -393,8 +467,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-07bc2632dc91" class="outline-2">
-<h2 id="section-07bc2632dc91"><span class="section-number-2">3.</span> 二、把“观察”“解释”和“决定”分层</h2>
+<div id="outline-container-section-5d6755c5553f" class="outline-2">
+<h2 id="section-5d6755c5553f"><span class="section-number-2">3.</span> 二、把“观察”“解释”和“决定”分层</h2>
 <div class="outline-text-2" id="text-3">
 <p>
 治理中最常见的错误，是把原始数据直接写成最终业务结论。更安全的结构分为三层：
@@ -427,8 +501,8 @@ Decision D-09
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-763a07969ad4" class="outline-2">
-<h2 id="section-763a07969ad4"><span class="section-number-2">4.</span> 三、冲突不是异常噪声，而是一等数据</h2>
+<div id="outline-container-section-e7bd55250766" class="outline-2">
+<h2 id="section-e7bd55250766"><span class="section-number-2">4.</span> 三、冲突不是异常噪声，而是一等数据</h2>
 <div class="outline-text-2" id="text-4">
 <p>
 两个可靠来源可能给出不同结论。仓库系统显示“已打包”，支付系统显示“已退款”，客服系统仍显示“等待取消”。如果治理层简单采用最后写入值，冲突会消失在数据表里，却继续存在于业务中。
@@ -477,8 +551,8 @@ Decision D-09
 </p>
 </div>
 </div>
-<div id="outline-container-section-96950bc8101c" class="outline-2">
-<h2 id="section-96950bc8101c"><span class="section-number-2">5.</span> 四、时间是本体治理的核心维度</h2>
+<div id="outline-container-section-4cb42c2df639" class="outline-2">
+<h2 id="section-4cb42c2df639"><span class="section-number-2">5.</span> 四、时间是本体治理的核心维度</h2>
 <div class="outline-text-2" id="text-5">
 <p>
 “当前事实”会随时间改变，规则也会改变。至少要区分三种时间：
@@ -513,8 +587,8 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-b0054e6b5c3a" class="outline-2">
-<h2 id="section-b0054e6b5c3a"><span class="section-number-2">6.</span> 五、本体版本：变更类型决定迁移策略</h2>
+<div id="outline-container-section-e7bd55250766" class="outline-2">
+<h2 id="section-e7bd55250766"><span class="section-number-2">6.</span> 五、本体版本：变更类型决定迁移策略</h2>
 <div class="outline-text-2" id="text-6">
 <p>
 不是所有模型变更都同样危险。可以按兼容性分为四类：
@@ -592,15 +666,15 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-296714d33ebc" class="outline-2">
-<h2 id="section-296714d33ebc"><span class="section-number-2">7.</span> 六、质量门禁：发布前验证模型、数据和能力</h2>
+<div id="outline-container-section-a4bb340b8d09" class="outline-2">
+<h2 id="section-a4bb340b8d09"><span class="section-number-2">7.</span> 六、质量门禁：发布前验证模型、数据和能力</h2>
 <div class="outline-text-2" id="text-7">
 <p>
 本体发布不能只检查文件是否能解析。至少需要三类门禁：
 </p>
 </div>
-<div id="outline-container-section-46d7bcd41d74" class="outline-3">
-<h3 id="section-46d7bcd41d74"><span class="section-number-3">7.1.</span> 1. 结构门禁</h3>
+<div id="outline-container-section-27635bdd7a40" class="outline-3">
+<h3 id="section-27635bdd7a40"><span class="section-number-3">7.1.</span> 1. 结构门禁</h3>
 <div class="outline-text-3" id="text-7-1">
 <ul class="org-ul">
 <li>WIKI_ID、IRI 或内部标识是否唯一；</li>
@@ -610,8 +684,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-6e6f10733716" class="outline-3">
-<h3 id="section-6e6f10733716"><span class="section-number-3">7.2.</span> 2. 数据门禁</h3>
+<div id="outline-container-section-85ec146d8a42" class="outline-3">
+<h3 id="section-85ec146d8a42"><span class="section-number-3">7.2.</span> 2. 数据门禁</h3>
 <div class="outline-text-3" id="text-7-2">
 <ul class="org-ul">
 <li>必需证据是否存在；</li>
@@ -621,8 +695,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-6fac7a65ab46" class="outline-3">
-<h3 id="section-6fac7a65ab46"><span class="section-number-3">7.3.</span> 3. 能力门禁</h3>
+<div id="outline-container-section-321b35b5e2d3" class="outline-3">
+<h3 id="section-321b35b5e2d3"><span class="section-number-3">7.3.</span> 3. 能力门禁</h3>
 <div class="outline-text-3" id="text-7-3">
 <ul class="org-ul">
 <li>每个对外能力是否有真实查询或规则实现；</li>
@@ -637,8 +711,8 @@ WHERE order_id = 'O-17'
 </div>
 </div>
 </div>
-<div id="outline-container-section-98405bb64cfe" class="outline-2">
-<h2 id="section-98405bb64cfe"><span class="section-number-2">8.</span> 七、主动反证：寻找能够推翻模型的输入</h2>
+<div id="outline-container-section-5d6755c5553f" class="outline-2">
+<h2 id="section-5d6755c5553f"><span class="section-number-2">8.</span> 七、主动反证：寻找能够推翻模型的输入</h2>
 <div class="outline-text-2" id="text-8">
 <p>
 治理测试的目标不是证明当前模型永远正确，而是确认它能在错误条件下诚实失败。
@@ -662,8 +736,8 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-f04031b37e25" class="outline-2">
-<h2 id="section-f04031b37e25"><span class="section-number-2">9.</span> 八、可回滚发布流程</h2>
+<div id="outline-container-section-934c7c2ddbd4" class="outline-2">
+<h2 id="section-934c7c2ddbd4"><span class="section-number-2">9.</span> 八、可回滚发布流程</h2>
 <div class="outline-text-2" id="text-9">
 <p>
 一个最小而可靠的本体发布流程可以写成：
@@ -698,8 +772,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-bd037208c886" class="outline-2">
-<h2 id="section-bd037208c886"><span class="section-number-2">10.</span> 九、治理看板应该呈现什么</h2>
+<div id="outline-container-section-c54a8c651bf4" class="outline-2">
+<h2 id="section-c54a8c651bf4"><span class="section-number-2">10.</span> 九、治理看板应该呈现什么</h2>
 <div class="outline-text-2" id="text-10">
 <p>
 治理看板不应只显示节点数和边数。数量增加可能意味着知识更完整，也可能意味着重复实体和无意义关系更多。
@@ -770,8 +844,8 @@ WHERE order_id = 'O-17'
 </p>
 </div>
 </div>
-<div id="outline-container-section-bba19054ff6f" class="outline-2">
-<h2 id="section-bba19054ff6f"><span class="section-number-2">11.</span> 十、生产治理检查清单</h2>
+<div id="outline-container-section-dfdad71da94b" class="outline-2">
+<h2 id="section-dfdad71da94b"><span class="section-number-2">11.</span> 十、生产治理检查清单</h2>
 <div class="outline-text-2" id="text-11">
 <ul class="org-ul">
 <li class="off"><code>[&nbsp;]</code> 每个结论可以追溯到来源、时间、方法和版本。</li>
@@ -785,8 +859,8 @@ WHERE order_id = 'O-17'
 </ul>
 </div>
 </div>
-<div id="outline-container-section-c508ead5b7e2" class="outline-2">
-<h2 id="section-c508ead5b7e2"><span class="section-number-2">12.</span> 结语：可信来自可撤回，而不是永远确定</h2>
+<div id="outline-container-section-5d6755c5553f" class="outline-2">
+<h2 id="section-5d6755c5553f"><span class="section-number-2">12.</span> 结语：可信来自可撤回，而不是永远确定</h2>
 <div class="outline-text-2" id="text-12">
 <p>
 成熟的本体系统不会假装所有事实都确定。它知道结论依赖什么，也知道何时应该撤回；它允许模型演化，但要求变化可比较、可迁移、可回滚。
@@ -802,7 +876,8 @@ WHERE order_id = 'O-17'
 </div>
 </div>
 <nav class="org-museum-nav" aria-label="文章关系">
-<div class="org-museum-nav-links"><span class="org-museum-nav-label">链接到 / 01</span><span class="org-museum-relation-row"><a href="ontology-concept-boundaries.html" class="org-museum-link">本体论建模：从概念边界到可计算语义</a><a href="../../related.html?source=ontology-evidence-evolution&amp;target=ontology-concept-boundaries" class="org-museum-compare-link" aria-label="关联阅读：本体论建模：从概念边界到可计算语义">对读</a></span></div>
+<div class="org-museum-nav-links"><span class="org-museum-nav-label">链接到 / 02</span><span class="org-museum-relation-row"><a href="本体mvp.html" class="org-museum-link">本体MVP</a><a href="../../related.html?source=ontology-evidence-evolution&amp;target=%E6%9C%AC%E4%BD%93mvp" class="org-museum-compare-link" aria-label="关联阅读：本体MVP">对读</a></span>
+<span class="org-museum-relation-row"><a href="ontology-concept-boundaries.html" class="org-museum-link">本体论建模：从概念边界到可计算语义</a><a href="../../related.html?source=ontology-evidence-evolution&amp;target=ontology-concept-boundaries" class="org-museum-compare-link" aria-label="关联阅读：本体论建模：从概念边界到可计算语义">对读</a></span></div>
 <div class="org-museum-nav-backlinks"><span class="org-museum-nav-label">反向链接 / 02</span><span class="org-museum-relation-row"><a href="本体mvp.html" class="org-museum-link">本体MVP</a><a href="../../related.html?source=%E6%9C%AC%E4%BD%93mvp&amp;target=ontology-evidence-evolution" class="org-museum-compare-link" aria-label="关联阅读：本体MVP">对读</a></span>
 <span class="org-museum-relation-row"><a href="ontology-concept-boundaries.html" class="org-museum-link">本体论建模：从概念边界到可计算语义</a><a href="../../related.html?source=ontology-concept-boundaries&amp;target=ontology-evidence-evolution" class="org-museum-compare-link" aria-label="关联阅读：本体论建模：从概念边界到可计算语义">对读</a></span></div>
 </nav>
@@ -817,7 +892,13 @@ WHERE order_id = 'O-17'
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-label="打开 AI Copilot (Ctrl+I)" title="打开 AI Copilot (Ctrl+I)">
+  <span class="museum-ai-trigger-icon" aria-hidden="true"></span>
+  <span class="museum-ai-trigger-text">AI Copilot</span>
+  <span class="museum-ai-trigger-dot" data-ai-trigger-dot data-state="idle" aria-hidden="true"></span>
+  <kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut>Ctrl+I</kbd>
+</button>
+<aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><select class="museum-ai-copilot-model-select" data-copilot-model-select aria-label="切换 AI 模型" title="切换当前使用的 AI 模型"><option value="">讨论模式</option></select><span class="museum-ai-copilot-badge" data-ai-engine-badge hidden role="button" tabindex="0" title="点击打开全局 AI 模型设置">讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="../../ai-center.html?pageId=ontology-evidence-evolution" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips><button type="button" class="museum-ai-chip museum-ai-chip-analyze" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>重新分析笔记</span></button></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -828,6 +909,7 @@ WHERE order_id = 'O-17'
   <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
   <a class="sidebar-nav-btn timeline" href="../../timeline.html">时间阅读</a>
   <a class="sidebar-nav-btn related" href="../../related.html">关联阅读</a>
+  <a class="sidebar-nav-btn ai" href="../../ai-center.html">AI 中心</a>
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
@@ -869,15 +951,18 @@ WHERE order_id = 'O-17'
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <div class="sidebar-cat-label">Ontology <span>06</span></div>
     <ul>
+      <li><a href="关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
+      <li><a href="关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
+      <li><a href="关系示例-03-约束反例.html">关系示例 03｜约束反例</a></li>
       <li><a href="本体mvp.html">本体MVP</a></li>
       <li><a href="ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
       <li><a href="ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>06</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -906,7 +991,7 @@ WHERE order_id = 'O-17'
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>
@@ -928,8 +1013,9 @@ WHERE order_id = 'O-17'
 <script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
 <script defer src="../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
-<script defer src="../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+<script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
+<script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=b03b56727740"></script>
+<script defer src="../../resources/org-museum-article.js?v=052370387dd2"></script>
 </body>
 </html>

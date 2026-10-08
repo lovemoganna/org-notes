@@ -99,7 +99,7 @@ function initScrollSpy(){
   }
   function publishActive(target,source){
     if(!target)return;
-    var detail={id:target.id,title:target.textContent.trim(),
+    var detail={id:target.id,title:(target.textContent||'').replace(/ *# *$/,'').trim(),
                 level:Number(target.tagName.slice(1))||0,source:source};
     window.orgMuseumActiveHeading=detail;
     if(activeId===detail.id)return;
@@ -1037,7 +1037,7 @@ function updateIdentitySection(detail){
   if(detail)identityHeading=detail;
   if(!identity)return;
   var section=identity.querySelector('[data-current-section]');
-  if(section)section.textContent=identityHeading?identityHeading.title:'文章开头';
+  if(section)section.textContent=identityHeading?(identityHeading.title||'').replace(/ *# *$/,'').trim():'文章开头';
 }
 function updateArticleIdentity(){
   identityFrame=0;if(!identity||!articleTitle)return;

@@ -446,7 +446,7 @@ function updateIdentitySection(detail){
   if(detail)identityHeading=detail;
   if(!identity)return;
   var section=identity.querySelector('[data-current-section]');
-  if(section)section.textContent=identityHeading?identityHeading.title:'文章开头';
+  if(section)section.textContent=identityHeading?(identityHeading.title||'').replace(/ *# *$/,'').trim():'文章开头';
 }
 function updateArticleIdentity(){
   identityFrame=0;if(!identity||!articleTitle)return;

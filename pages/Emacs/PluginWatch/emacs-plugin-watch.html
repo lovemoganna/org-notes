@@ -6,15 +6,19 @@
 <title>Emacs 插件高价值增量观察（滚动）</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../../resources/org-museum-theme.js?v=2b7a181da330"></script>
-<link rel="stylesheet" href="../../../resources/org-museum.css?v=a21cc263868a">
+<script src="../../../resources/org-museum-theme.js?v=4084c12f7143"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=1329463e6fd1">
+<link rel="icon" href="data:,">
+<meta name="color-scheme" content="dark light">
+<script src="../../../resources/org-museum-theme.js?v=4045495a6691"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="4aec0077-2a63-495f-b4b2-e3fdfcd66f88" data-page-title="Emacs 插件高价值增量观察（滚动）" data-page-category="Emacs" data-page-tags="emacs,plugin-watch,rolling,org-roam" data-page-status="published" data-page-modified="2026-10-01" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-PluginWatch-emacs-plugin-watch" data-page-title="Emacs 插件高价值增量观察（滚动）" data-page-category="Emacs" data-page-tags="emacs,plugin-watch,rolling,org-roam" data-page-status="published" data-page-modified="2026-10-03" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-02" title="导出于 2026.10.02">2026.10.02</time>
+  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -27,7 +31,12 @@
     <a class="museum-topbar-link museum-nav-ai" href="../../../ai-center.html">AI 中心</a>
     <a class="museum-topbar-link museum-nav-all" href="../../../index.html#recent-updates">索引</a>
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
-    <details class="museum-theme-menu museum-settings-menu"><summary aria-label="设置与外观" title="设置与外观"><span class="museum-settings-icon" aria-hidden="true"></span><span class="museum-settings-label">设置</span></summary><div class="museum-settings-panel">
+    <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
+      <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
         <div class="museum-settings-section">
           <div class="museum-settings-section-title">外观主题</div>
           <div class="museum-theme-segmented" role="group">
@@ -37,18 +46,79 @@
               <span data-theme-label>深色</span></button>
           </div>
         </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+        <div class="museum-settings-section museum-settings-ai-section">
+          <div class="museum-settings-section-title">模型设置</div>
+          <form data-browser-config class="museum-settings-config-form">
+            <div class="museum-settings-field">
+              <label>接入方式<select name="provider">
+                <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
+                <option value="ollama">Ollama</option>
+              </select></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
+              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+            </div>
+            <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
+            <div class="museum-settings-field">
+              <label>选择模型
+                <div class="museum-settings-model-row">
+                  <select name="model_select" data-browser-model-select aria-label="选择模型">
+                    <option value="">(请先读取模型列表或手动输入)</option>
+                  </select>
+                  <button type="button" class="museum-settings-sub-btn" data-browser-cycle-model title="顺序切换至下一个模型" aria-label="顺序切换选择模型">顺序切换</button>
+                </div>
+              </label>
+            </div>
+            <div class="museum-settings-field">
+              <label>模型 ID<input name="model" list="museum-browser-model-list" placeholder="选择已加载模型或输入模型 ID" required></label>
+              <datalist id="museum-browser-model-list"></datalist>
+            </div>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-load>加载并测试模型</button>
+              <button type="button" data-browser-cancel-load hidden>取消加载</button>
+            </div>
+            <div class="museum-settings-status-box">
+              <span class="museum-settings-status-indicator" aria-hidden="true"></span>
+              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+            </div>
+            <details class="museum-settings-details">
+              <summary>回答偏好设置</summary>
+              <div class="museum-settings-field">
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+              </div>
+            </details>
+          </form>
+          <details class="museum-settings-details museum-ai-local-tools">
+            <summary>本地保存与同步</summary>
+            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-backup>导出知识库</button>
+              <button type="button" data-browser-org-export>导出 Org</button>
+              <button type="button" data-browser-sync-preview>预览同步</button>
+            </div>
+            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
+            <div data-browser-sync-result></div>
+          </details>
+        </div>
+      </div>
     </div></details>
   </nav>
 </header>
 
 <main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../../index.html" class="museum-identity-title">Emacs 插件高价值增量观察（滚动）</a><span class="museum-identity-meta">Emacs</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
-<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="4aec0077-2a63-495f-b4b2-e3fdfcd66f88" data-page-title="Emacs 插件高价值增量观察（滚动）" data-page-category="Emacs"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="pages-Emacs-PluginWatch-emacs-plugin-watch" data-page-title="Emacs 插件高价值增量观察（滚动）" data-page-category="Emacs"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../../index.html?category=Emacs#recent-updates">Emacs</a>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-10-01">2026-10-01</time></dd></div>
-    <div><dt>阅读时间</dt><dd>约 181 分钟</dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-03">2026-10-03</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 145 分钟</dd></div>
     <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../../index.html?tag=emacs#recent-updates" data-tag="emacs" title="查看包含标签 #emacs 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">emacs</span></a><a class="museum-tag-chip" href="../../../index.html?tag=plugin-watch#recent-updates" data-tag="plugin-watch" title="查看包含标签 #plugin-watch 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">plugin-watch</span></a><a class="museum-tag-chip" href="../../../index.html?tag=rolling#recent-updates" data-tag="rolling" title="查看包含标签 #rolling 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">rolling</span></a><a class="museum-tag-chip" href="../../../index.html?tag=org-roam#recent-updates" data-tag="org-roam" title="查看包含标签 #org-roam 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">org-roam</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
@@ -56,7 +126,11 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="e98ded2f0249e03a0a2a66e07564b99d986b57474043f05b8c09639451cb7208"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Emacs</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="23285d4ac527dcba48c5c86eb30906bb0d42eda706bff5fdae91c7b41d471b2d"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;meta name="color-scheme" content="dark light"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;script src="../../../resources/org-museum-theme.js?v=4045495a6691"&gt;&lt;/script&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="icon" href="data:,"&gt;</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Emacs</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :emacs:plugin-watch:rolling:org-roam:</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* 最近窗口</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口</span></span>
@@ -73,6 +147,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实：Emacs core 修复了 Windows GUI 的 CJK 模糊宽度显示和异常编码配置引发的崩溃风险，Org 增加 fontspec 配置入口，package.el 改善批量升级，agent-shell 暴露流式消息事件；另有维护者从内置 project/org-capture 出发回应“Emacs 缺少会话”的争论。推测：生态重点正在从功能是否存在转向默认能力是否可发现、跨平台是否正确、扩展接口是否可组合。评论：Windows 中文用户和 Org LaTeX 用户最值得立即验证本地效果，其余条目适合维护者与配置作者跟进。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** agent-shell 暴露逐块流式消息事件                                               </span><span class="org-face-org-tag org-face-org-level-3">:P1</span><span class="org-face-org-tag org-face-org-level-3">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: agent-shell 于 8 月 1 日新增 `agent-message-chunk` 会话事件；每收到一段代理文本就发出原始 `text-chunk`，图片等非文本块为 nil，插件本身不在该事件中累积或渲染内容。</span>
 <span class="museum-org-line">- 影响: 扩展作者现在可在不解析最终 transcript 的情况下接入实时朗读、旁路日志、监控或自定义渲染；高频逐块事件也要求订阅者自行处理节流、拼接和非文本块。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、选题、趋势观察；适合开发 agent-shell 扩展、可观测性或辅助功能的人。</span>
@@ -85,6 +160,7 @@
 <span class="museum-org-line">  - 推测: 它可能催生旁路 UI 和可观测扩展，但目前未见成熟下游实现。</span>
 <span class="museum-org-line">  - 评论: 价值不在新增一个 hook，而在把流式内容变成稳定、可组合的扩展边界。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Emacs 修复 Windows GUI 的 CJK 模糊宽度显示                                    </span><span class="org-face-org-tag org-face-org-level-3">:P1</span><span class="org-face-org-tag org-face-org-level-3">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs core 于 8 月 1 日修复 `use-cjk-char-width-table` 在 Windows GUI 会话中的判断：启动早期 `window-system` 可能仍为 nil，现改用 `initial-window-system` 区分图形会话与 Windows Terminal。</span>
 <span class="museum-org-line">- 影响: 启用 CJK 模糊字符宽度规则的 Windows 图形用户可减少标点、符号等字符宽度判断错误，进而避免表格、对齐文本和混排界面错位；终端会话仍保留其窄字符约束。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、风险预警、知识积累；尤其适合 Windows 上处理中文 Org 表格、代码注释或等宽混排的用户。</span>
@@ -97,6 +173,7 @@
 <span class="museum-org-line">  - 推测: 实际改善范围取决于字体及本地宽度配置，不代表所有中文显示问题都会消失。</span>
 <span class="museum-org-line">  - 评论: 这是小改动但高可感知的跨平台正确性修复，对中文 Windows 用户尤其值得看。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Emacs 防止异常编码规则在加载 Unicode 表时导致崩溃                                     </span><span class="org-face-org-tag org-face-org-level-3">:P1</span><span class="org-face-org-tag org-face-org-level-3">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs core 于 8 月 1 日在加载内部 `uni-*.el` Unicode 属性表时强制使用 `utf-8-emacs-unix`，避免异常的 `auto-coding-regexp-alist` 覆盖编码 cookie 并触发崩溃（bug#81445）。</span>
 <span class="museum-org-line">- 影响: 风险主要面向修改自动编码识别、使用复杂语言环境或第三方编码扩展的用户；普通默认配置不太容易触发，但 core 进程崩溃的后果高于一般 Lisp 报错。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、配置决策、包维护；适合维护编码检测扩展、企业多语种配置或预发布 Emacs 的人。</span>
@@ -109,6 +186,7 @@
 <span class="museum-org-line">  - 推测: 触发面可能很窄；来源没有证明默认配置受影响。</span>
 <span class="museum-org-line">  - 评论: 低频但高后果，值得作为维护者风险项，而非面向所有用户的恐慌提醒。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Org 为 XeLaTeX 与 LuaLaTeX 增加结构化 fontspec 配置                           </span><span class="org-face-org-tag org-face-org-level-3">:P1</span><span class="org-face-org-tag org-face-org-level-3">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Org Mode 于 8 月 1 日合入 `org-latex-fontspec-config`，可为 XeLaTeX/LuaLaTeX 配置主字体、无衬线、等宽、数学及回退字体；实现会检测正文脚本，并在 CJK 字体与编译器不匹配时给出提示，随后又连续修正文档、fontspec 可选参数匹配和警告措辞。</span>
 <span class="museum-org-line">- 影响: 多语种、中文和数学文档导出可减少手写 LaTeX preamble 的重复配置，并让字体/编译器不匹配更早暴露；已有自定义 header 的用户需要检查自动注入是否与现有 fontspec 设置重叠。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、知识积累、工作流评估；适合用 Org 生成中文论文、讲义、报告或 Beamer 的用户。</span>
@@ -121,6 +199,7 @@
 <span class="museum-org-line">  - 推测: 它可能显著简化多语种模板，但对复杂企业模板仍未必能取代手写 preamble。</span>
 <span class="museum-org-line">  - 评论: 这是本窗口最具直接生产力价值的 Org 增量，中文排版用户应优先试验。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** package.el 改善批量升级的完成反馈与阻塞问题                                          </span><span class="org-face-org-tag org-face-org-level-3">:P1</span><span class="org-face-org-tag org-face-org-level-3">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs core 于 8 月 1 日让 `package-upgrade-all` 在结束时汇总成功与被拒绝的包，因为逐包消息会淹没在 Messages 中；紧邻提交还修复了 `package-retention-policy` 命中时升级标记循环不前进、界面可能阻塞的问题。</span>
 <span class="museum-org-line">- 影响: 使用内置 package.el 批量升级的用户更容易确认实际升级结果；设置保留策略的用户则避免列表标记卡住。它不改变第三方包本身的兼容风险，但改善了升级过程的可解释性与完成性。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、风险预警、知识积累；适合不用发行版包管理器、直接依赖 package.el 的用户与配置维护者。</span>
@@ -133,6 +212,7 @@
 <span class="museum-org-line">  - 推测: 更清晰的结果反馈会降低“升级看似完成但部分失败”的误判；不等于升级事务具备回滚能力。</span>
 <span class="museum-org-line">  - 评论: 这是常见维护动作的可靠性改进，虽不醒目，却比纯界面微调更值得跟进。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 维护者用内置 project 与 Org 回应“Emacs 缺少会话”                                  </span><span class="org-face-org-tag org-face-org-level-3">:P1</span><span class="org-face-org-tag org-face-org-level-3">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Protesilaos Stavrou 在 7 月 31 日的文章中回应一段“我需要 Emacs 提供什么”的视频，将 Kitty 的 session 需求拆解为 Emacs 内置 project、tab/frame、desktop/bufferlo、`org-capture` 与 org-roam dailies，并强调从需求和默认能力逐步组合，而非一次复制整套工作流。</span>
 <span class="museum-org-line">- 影响: 对从终端/NeoVim 迁移的用户，这提供了比“换一个发行版”更可诊断的建模方式；也提醒包作者，很多采用障碍来自能力发现与概念映射，而非功能绝对缺失。</span>
 <span class="museum-org-line">- 适用场景: 闲聊、选题、趋势观察、配置决策；适合设计项目会话、快速捕获和迁移路线的人。</span>
@@ -173,6 +253,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实：Magit 4.7.0 正式发布，gptel、agent-shell 与 Emacs core 各有可验证的兼容或交互修复，社区还用 DOOM 演示了尚未并入 core 的原生 Canvas API。推测：成熟插件与实验性界面正沿两条路径推进——前者强化可靠工作流，后者探索 Emacs 作为图形运行时的边界。评论：最值得立即评估的是 Magit 升级；其余条目更适合按本地工作流选择性跟进。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** DOOM-on-Emacs 把原生 Canvas 提案变成可运行演示                                  </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 8 月 1 日，Minad 的 DOOM-on-Emacs 演示被提交到 Hacker News；它通过 native module 和少量 Elisp 胶水让经典 DOOM 在 Emacs 内运行，前提是自行应用尚未进入 Emacs 源码树的 Canvas API 补丁并重新编译。</span>
 <span class="museum-org-line">- 影响: 这不是普通用户可直接安装的游戏包，而是对 Emacs 原生图形画布与模块边界的压力测试；若 Canvas 提案成熟，可能影响可视化、富媒体、游戏和高性能插件的实现方式。</span>
 <span class="museum-org-line">- 适用场景: 选题、趋势观察、知识积累；适合关注 Emacs 图形能力、native module 与 core API 演进的开发者。</span>
@@ -185,6 +266,7 @@
 <span class="museum-org-line">  - 推测: Canvas 若进入 core，可能催生新的可视化插件类型；目前尚无合入承诺。</span>
 <span class="museum-org-line">  - 评论: 它的价值在于把抽象 API 讨论变成可观察的能力边界，而非游戏本身。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Magit 4.7.0 发布，扩展 reflog、签名、目录与项目调度工作流                              </span><span class="org-face-org-tag org-face-org-level-4">:P0</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Jonas Bernoulli 于 8 月 1 日发布 Magit 4.7.0。版本加入全 reflog 日志、远端引用检出、项目调度、复制 diff、目录级文件操作等能力，并适配 Git 2.55 的 graph lane limit；同时修复 worktree、Ediff、缓存和 submodule 状态问题。</span>
 <span class="museum-org-line">- 影响: Magit 是大量 Emacs Git 工作流的核心依赖，本次更新覆盖日常提交、签名、worktree、bisect、submodule 与项目切换。需要注意 `magit-project-status` 不再自动加入 `project-switch-commands`，依赖该入口的配置可能要按 docstring 手工恢复。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、风险预警；适合 Magit 重度用户、维护共享 Emacs 配置的团队，以及使用 SSH/X.509 签名或多 worktree 的用户。</span>
@@ -197,6 +279,7 @@
 <span class="museum-org-line">  - 推测: 一个月内从 4.6 到 4.7 的密集迭代可能提高升级收益，也增加早期兼容反馈的必要性。</span>
 <span class="museum-org-line">  - 评论: 这是本窗口唯一会直接影响大量用户升级决策的 P0 条目。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** agent-shell 修复富文本强调破坏异步渲染锚点的问题                                      </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: agent-shell 于 8 月 1 日修复 Markdown 粗体、斜体和删除线转换：旧实现会删除并重插整段文本，导致其中已冻结区域的 marker 与 overlay 失效，使异步渲染结果（例如强调文本内的数学内容）消失；新实现只删除标记符，并加入回归测试。</span>
 <span class="museum-org-line">- 影响: 使用自定义 Markdown renderer、数学渲染、图片或其他异步富内容的 agent-shell 用户，可减少内容已返回却不显示的隐蔽错误；插件扩展作者也获得更可靠的锚点约束。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、配置决策、风险预警；适合依赖复杂 Markdown、外部 renderer 或长对话重放的 AI 会话。</span>
@@ -209,6 +292,7 @@
 <span class="museum-org-line">  - 推测: 修复会降低异步富内容偶发丢失，但不能保证所有第三方 renderer 都正确管理区域。</span>
 <span class="museum-org-line">  - 评论: 这类“模型答了但界面没显示”的问题会直接损害 AI 工作流可信度，值得高于普通样式修复处理。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs core 恢复 VC-Dir 出站修订计数的可点击行为                                   </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs core 于 7 月 31 日修复 VC-Dir 头部“NN outgoing revisions”计数不可点击的回归，改为使用 overlay 主文本而非 `after-string`，恢复从计数进入出站修订视图的交互。</span>
 <span class="museum-org-line">- 影响: 使用内置 VC-Dir 检查未推送提交的用户重新获得直接导航入口；影响集中在跟踪开发分支或 Emacs 预发布构建的人群，而不是所有稳定版用户。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、风险预警、知识积累；适合依赖内置 VC 而非 Magit 的 Git 工作流和测试 Emacs 31/32 开发线的用户。</span>
@@ -221,6 +305,7 @@
 <span class="museum-org-line">  - 推测: 相邻 VC-Dir 改造可能仍有边缘回归，但当前来源未证明其他问题。</span>
 <span class="museum-org-line">  - 评论: 修复很小，却恢复了状态信息到操作入口的闭环，对内置 VC 用户有直接价值。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** gptel 移除即将弃用的 DeepSeek 旧模型名                                         </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: gptel 于 7 月 31 日从 DeepSeek backend 的模型列表移除即将弃用的 `deepseek-chat` 与 `deepseek-reasoner`，默认保留 `deepseek-v4-flash`；提交同时更新了上下文窗口和能力元数据。</span>
 <span class="museum-org-line">- 影响: 依赖旧模型符号、固定 transient 选择或自定义 preset 的用户，更新 gptel 后可能需要迁移配置；直接调用兼容 endpoint 的行为是否继续可用，仍取决于上游服务而非 gptel 菜单。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、风险预警；适合在 Emacs 内直接使用 DeepSeek 或维护团队级 gptel 配置的用户。</span>
@@ -364,6 +449,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实是 Flycheck 38、Emacs core、ECA、agent-shell、CIDER 与 md-mode 都有可验证增量；推测是成熟工具正在把更多外部桥接和个人配置吸收到内置工作流，同时暴露新的兼容与后台成本；评论是本窗口最值得关注的不是新增按钮数量，而是升级链、编辑流畅度和状态可靠性。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** md-mode 0.2 把多类技术图形带入同缓冲区 Markdown 预览                               </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-30，md-mode 作者发布 0.2：在保持 Markdown 源文本为唯一事实源的前提下，以异步、缓存方式在同一缓冲区渲染 LaTeX、Mermaid、PlantUML 和 Graphviz，并补充主题感知缓存、CJK 标题缩放、宽表格与 Org 风格结构导航。</span>
 <span class="museum-org-line">- 影响: 需要在 Emacs 中读写技术 Markdown、设计文档或含图说明的用户获得了比外部浏览器预览更紧凑的实验方案；但 Mermaid CLI、PlantUML、Graphviz、LaTeX/dvisvgm 都是外部依赖，且项目目前仍通过 package-vc-install 安装，成熟度不能等同 markdown-mode。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、配置决策、知识积累。适合重视普通 Markdown 互操作、又希望保留 Org 式折叠和结构编辑的人做隔离试用。</span>
@@ -376,6 +462,7 @@
 <span class="museum-org-line">  - 推测: 若兼容性稳定，同缓冲区“源文本/渲染视图”切换可能成为 Markdown 包的新竞争方向。</span>
 <span class="museum-org-line">  - 评论: 价值在于把 Org 式可塑交互迁移到通用 Markdown，而不是简单增加一组漂亮预览。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** ECA 修复跨项目缓冲区周期性卡顿                                                   </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-30，eca-emacs 修复游标跟踪 idle timer 在不属于任何 ECA session 的缓冲区里反复探测 project.el、并对每个 workspace folder 调用 git rev-parse 的问题；新实现以内存匹配工作区、缓存 git common dir，并用 process-file 直接执行 Git。</span>
 <span class="museum-org-line">- 影响: 同时打开多个项目、而 ECA 只服务其中一部分的用户最直接受益；该问题会把后台上下文跟踪变成可感知的编辑卡顿，因此属于 AI 插件是否能长期常驻的关键可靠性信号。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、插件评估、配置决策。出现无规律输入停顿、且 profiler 指向 project/Git 探测的 ECA 用户应优先跟进。</span>
@@ -388,6 +475,7 @@
 <span class="museum-org-line">  - 推测: 上下文感知型 AI 包会越来越需要把后台采样成本当作一等性能预算。</span>
 <span class="museum-org-line">  - 评论: 这是影响日常输入流畅度的实质性修复，比新增一个聊天按钮更值得普通用户关注。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** agent-shell 补齐 Markdown 列表、会话恢复与图片尺寸                                </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-29 至 30 日，agent-shell 连续合入 Markdown 列表渲染、会话恢复修复、恢复后光标定位、权限按钮焦点修复，以及 Pandoc 风格图片宽高属性支持；最新提交允许用 {width=300} 或百分比控制图片显示尺寸。</span>
 <span class="museum-org-line">- 影响: 把编码代理输出当作可长期回看的 Emacs 缓冲区的用户，会直接感受到列表、图片和恢复定位更可靠；维护者密集补齐的不是模型能力，而是“代理会话作为编辑器文档”的基础交互。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、趋势观察、配置决策。适合需要恢复长会话、阅读含图 Markdown、或依赖键盘导航审批请求的人。</span>
@@ -400,6 +488,7 @@
 <span class="museum-org-line">  - 推测: Emacs AI 前端的竞争正从“能连接 CLI”转向会话持久化与富文本交互质量。</span>
 <span class="museum-org-line">  - 评论: 这组小改动共同回答了代理缓冲区能否像普通 Emacs 文档一样可靠使用，具备明确趋势价值。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** ECA 修复缺失版本文件导致服务器永久不更新                                              </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-30，eca-emacs 修复异步下载中断后版本文件缺失、旧服务器二进制却被误判为无需更新的问题；现在遇到“二进制存在但版本未知”会在启动时重装，离线检查失败则继续使用已安装二进制，并在检查命令中明确报告未知版本。</span>
 <span class="museum-org-line">- 影响: 受影响用户可能长期运行旧 ECA server，却从更新检查中得到误导性状态。修复改善了客户端/服务器兼容性、离线可用性和故障可解释性。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、插件评估、故障排查。曾中断下载、手工复制二进制或发现客户端行为与发布说明不符的用户尤其应检查。</span>
@@ -412,6 +501,7 @@
 <span class="museum-org-line">  - 推测: 客户端与伴随服务器分离的 Emacs 包，需要把升级元数据视为与二进制同等重要的状态。</span>
 <span class="museum-org-line">  - 评论: 它揭示了一类隐蔽的“看似可用、实际永久陈旧”故障，值得作为插件升级机制设计案例。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs core 为行注释引入可配置识别规则                                            </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-30，Emacs core 新增 comment-start-line-regexp，并让多种经典与 tree-sitter major mode 设置它；treesit-forward-comment 据此判断注释节点是否是行注释，同时相关行为写入 NEWS 和手册。</span>
 <span class="museum-org-line">- 影响: Python、Ruby、Shell、Go、JSON、YAML、CMake 等多种模式的注释移动与结构导航获得更明确的跨模式语义；major mode 作者也多了一个需要正确配置的公共接口。错误正则可能影响 forward-comment 和依赖注释边界的编辑命令。</span>
 <span class="museum-org-line">- 适用场景: 趋势观察、配置决策、包维护、风险预警。维护自定义 major mode/treesit mode 或重度使用注释导航的人应关注。</span>
@@ -424,6 +514,7 @@
 <span class="museum-org-line">  - 推测: core 正在把 tree-sitter 注释节点与传统 syntax/comment API 的边界显式化。</span>
 <span class="museum-org-line">  - 评论: 这是范围跨越多种语言模式的基础语义调整，虽非面向普通用户的新功能，却可能改变结构编辑行为。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Flycheck 38 同日迭代至 38.3，原生 LSP 与行内诊断落地                               </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-29，Flycheck 发布 38.0，并在约四小时内连续发布 38.1、38.2、38.3。38.0 加入内置 Eglot 集成、原生 LSP checker 与三种行内诊断样式；38.2 紧急把原生 checker 从 lsp 改名为 flycheck-lsp，修复覆盖 lsp-mode 自有 checker 后错误列表和高亮消失；38.3 再修正行内注释位置并扩展诊断解释。</span>
 <span class="museum-org-line">- 影响: Flycheck、Eglot 和 lsp-mode 用户都会受影响。升级到 38.0/38.1 的 lsp-mode 用户存在静默丢失诊断的风险，应直接采用至少 38.2；使用 flycheck-inline 或 lsp-ui-sideline 的用户则需要评估内置替代与重复显示。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、配置决策、插件评估。它既是重大功能发布，也是一次清楚展示快速兼容性修复的升级窗口。</span>
@@ -436,6 +527,7 @@
 <span class="museum-org-line">  - 推测: Flycheck 正从外部 checker 编排器扩展为同时承载 LSP 与现代行内诊断的统一前端。</span>
 <span class="museum-org-line">  - 评论: 最值得看的不是“更像 VS Code”，而是成熟包扩大职责后必须迅速处理命名空间与既有集成冲突。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** CIDER 增加按项目类型自动连接 ClojureScript REPL                                </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-29，CIDER 维护者介绍新的 ClojureScript 自动连接能力：cider-connect-cljs 可依据项目线索选择合适 REPL 类型，并改善 sibling ClojureScript REPL 的建立流程，减少用户记忆不同工具链连接细节的负担。</span>
 <span class="museum-org-line">- 影响: 使用 shadow-cljs 等 ClojureScript 工具链的用户可减少连接阶段的手工选择和错误入口；包维护者则把项目探测与 REPL 类型选择进一步内聚到 CIDER，而不是散落在个人配置。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、知识积累。适合频繁在 Clojure/ClojureScript 项目间切换或维护团队统一开发入口的人。</span>
@@ -476,6 +568,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实是 gptel 修复了 DeepSeek 解析器合并向量形式文本时的错误，nano-mu4e 作者公开展示了面向线程邮件的 1.0 界面；推测是 AI 后端兼容与传统生产力界面的精细化会继续并行演进；评论是两条都直接改变插件评估或配置决策，且分别代表可靠性与可用性价值。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** gptel 修复 DeepSeek 多段文本合并错误                                          </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-26，gptel 维护者修复 DeepSeek 消息解析器：当连续同角色提示的 content 是向量形式（例如带类型的文本块）时，不再用字符串 concat 合并，而改用向量拼接并插入文本换行块。</span>
 <span class="museum-org-line">- 影响: 使用 gptel 的 DeepSeek 后端、结构化或多模态消息内容的用户最直接受益；修复降低请求构造阶段类型错误或错误消息数组的风险，也提醒兼容 OpenAI 风格接口的包维护者不能把所有文本内容都假定为字符串。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、配置决策、风险预警。已启用 DeepSeek 且使用工具调用、结构化输出或复杂上下文的用户应优先跟进；普通纯文本对话用户风险较低。</span>
@@ -488,6 +581,7 @@
 <span class="museum-org-line">  - 推测: 随着后端返回/接收内容结构变复杂，gptel 的解析兼容边界还会继续出现小而关键的修复。</span>
 <span class="museum-org-line">  - 评论: 这是影响面有限但故障点明确的可靠性修复，达到 P1，而非把普通维护提交包装成重大更新。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** nano-mu4e 1.0 以线程中心界面重做邮件列表                                         </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-26，Nicolas Rougier 在 r/emacs 以“nano-mu4e 1.0”公开展示项目；仓库提供一个 mu4e minor mode，重排线程视图，突出主题、未读、标签、标记和内嵌预览，并提供多种紧凑布局。</span>
 <span class="museum-org-line">- 影响: 重度 mu4e 用户获得一个不更换邮件后端即可试验的信息密度与视觉层级方案；包维护者也能把它当作 header-line、文本属性和线程折叠的界面案例。当前仓库未发布 GitHub release，README 还注明退出模式后按键绑定未完全移除，采用前应视为早期版本。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、配置决策、选题、知识积累。适合在终端或图形 Emacs 中追求线程中心邮件阅读的用户做隔离试用，也适合作为 Emacs 文本界面设计案例。</span>
@@ -523,6 +617,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实是 GNU 提供了 31.0.91 源码包与签名，core、Magit、CIDER 和 llm 均出现可验证增量；推测是生态重心正从新增功能转向 31.1 发布前兼容验证与成熟工作流的语义收口；评论是 pretest 应优先触发隔离测试，而默认模型和路径身份变更则应触发配置审计。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** CIDER 用标准 completing-read 接入现代补全栈                                   </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-25，CIDER 维护者 Bozhidar Batsov 说明最新 MELPA 构建加入可选的 cider-use-completing-read-for-symbol：符号提示可改走标准 completing-read，并按输入惰性查询 REPL；候选注释也改用 affixation-function 对齐显示。这些改动预计进入下一稳定版。</span>
 <span class="museum-org-line">- 影响: CIDER 的符号查找、文档和跳转提示可直接复用 Vertico、Ivy、Helm 等现有补全界面，减少 Clojure 工作流里“代码补全现代、命令提示仍旧式”的割裂。选项目前默认关闭，因此现有用户不会被强制迁移。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、知识积累；适合已使用 CIDER 加 Vertico/Corfu/Consult 的用户评估统一补全体验。</span>
@@ -535,6 +630,7 @@
 <span class="museum-org-line">  - 推测: 若反馈稳定，CIDER 的命令级补全可能进一步向 Emacs 标准 completion category 收敛。</span>
 <span class="museum-org-line">  - 评论: 价值不只在界面更漂亮，而在于包把领域语义交给 Emacs 通用补全协议，用户能复用整套现有工具。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** CIDER 与 Projectile 把 Embark 动作带到领域对象                                </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-25，Emacs Redux 发布可复用实践：CIDER 可为 Clojure 符号和补全候选注册文档、定义、引用、检查等 Embark 动作；Projectile 则已内置项目候选与项目文件的 Embark 集成，并正确按项目根目录解析相对路径。</span>
 <span class="museum-org-line">- 影响: 这展示了 Embark 从通用“候选动作菜单”升级为领域对象操作层的具体路径。Clojure 用户需要手工采用示例；Projectile 用户在加载 Embark 后即可获得项目级动作，受益对象和成熟度并不相同。</span>
 <span class="museum-org-line">- 适用场景: 配置实践、选题、插件评估；适合设计统一 minibuffer/point 动作体系，或维护带 completion category 的包。</span>
@@ -547,6 +643,7 @@
 <span class="museum-org-line">  - 推测: completion category 正逐渐成为跨包交互协议，而不只是补全展示元数据。</span>
 <span class="museum-org-line">  - 评论: 这类实践的启发性在于把“记住更多命令”改成“对当前对象采取动作”，可迁移到许多 Emacs 包。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs 32 的 vc-dir 不再无条件解析符号链接                                       </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-25，Emacs master 修改 vc-dir：交互选择的目录若本身已有可负责的 VC backend，就保留该目录；只有目录本身无 backend、其 truename 有 backend 且 vc-follow-symlinks 非 nil 时才转向真实路径，并同步写入 NEWS。</span>
 <span class="museum-org-line">- 影响: 通过符号链接进入仓库的用户不再必然被带到真实路径，可减少 buffer 名称、default-directory 与用户选择路径不一致。依赖旧有强制 truename 行为的配置或脚本则需要留意；该改动位于 Emacs master，不是 31 pretest。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、风险预警、知识积累；适合用符号链接组织工作区、在多个路径别名间操作 VC 的用户。</span>
@@ -559,6 +656,7 @@
 <span class="museum-org-line">  - 推测: 路径身份将更尊重用户输入，但复杂 backend/远程组合仍需实际测试。</span>
 <span class="museum-org-line">  - 评论: 这是小改动但会改变用户看到的路径身份，实际影响高于普通文档或内部重构。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Magit 日志菜单补齐只看合并提交                                                  </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-25，Magit 合入 #5299，在 magit-log 与 magit-log-refresh 菜单加入 Git 的 --merges 选项，并声明它与既有 --no-merges 互斥；变更已进入同日 MELPA 构建。</span>
 <span class="museum-org-line">- 影响: 审查集成分支、定位合并点或观察发布历史的用户可以直接从 Transient 菜单只看 merge commits，无需手写额外参数。它不改变默认日志结果，风险较低。</span>
 <span class="museum-org-line">- 适用场景: Git 工作流、配置决策、插件评估；适合维护合并型主干、回溯集成节点或做发布审计。</span>
@@ -571,6 +669,7 @@
 <span class="museum-org-line">  - 推测: Magit 正继续缩小常用 Git CLI 过滤语义与图形菜单之间的差距。</span>
 <span class="museum-org-line">  - 评论: 功能很小，但直接消除一个常见历史审查摩擦，属于明确可用的工作流增量。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** llm 把 Gemini 默认模型切到 3.6 Flash                                       </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-25 本地时间，Emacs 包 llm 修复 Gemini provider 中缺失的符号，并把默认 Gemini 模型改为 Gemini 3.6 Flash；同批修改更新 NEWS 和模型表。</span>
 <span class="museum-org-line">- 影响: 依赖 llm 默认模型的 ellama 或自定义客户端在升级后可能无需改配置就切换请求目标，进而改变可用性、速度、成本和输出基线。显式指定模型者影响较小。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、风险预警；适合使用 llm/ellama 且依赖 Gemini provider 默认值的用户。</span>
@@ -583,6 +682,7 @@
 <span class="museum-org-line">  - 推测: 未固定模型的上层包可能出现“配置未变、输出基线已变”的情况。</span>
 <span class="museum-org-line">  - 评论: 模型表更新很常见，但默认值变更会直接落到真实请求，值得优先提醒。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs 31.0.91 第二个 pretest 可供验证                                      </span><span class="org-face-org-tag org-face-org-level-4">:P0</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: GNU 已提供 Emacs 31.0.91 源码包及对应签名；Planet Emacslife 在 2026-07-24 22:16（+08:00）聚合了第二个 Emacs 31 pretest 的公告。这是通往 31.1 稳定版的下一轮公开验证点。</span>
 <span class="museum-org-line">- 影响: 包维护者、发行版打包者和愿意预测的用户现在应把兼容性验证从 31.0.90 推进到 31.0.91。它仍是 pretest，不应被写成稳定版；Windows 用户还需分别确认可用构建，而不是把源码包等同于官方 Windows 安装包。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、插件评估、趋势观察、配置决策；适合验证常用包、原生编译、treesit、补全和平台特定行为。</span>
@@ -622,6 +722,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实是 Magit 同日补齐 pull rebase 变体与 push-option，Emacs core 修复 dabbrev 的已销毁缓冲区错误，llm/ECA 更新默认模型和流式显示；推测是成熟 Emacs 工具的竞争正从“功能是否存在”转向与底层语义一致、默认值可控和持续交互稳定；评论是本窗口最值得关注的不是二次报道的旧 pretest，而是这些会改变日常操作结果的具体增量。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** llm 把 Claude 默认模型切到 Claude 5 Sonnet                                 </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 2026-07-25 本地时间，Emacs 包 llm 合入 #299，加入 Claude 5 Opus 与 Sonnet 的模型数据，并把 Claude provider 的默认模型改为 Claude 5 Sonnet；改动同时更新 NEWS、provider 与模型表。</span>
 <span class="museum-org-line">- 影响: 依赖 llm 默认值的 ellama 或自定义工作流在更新后可能无须改配置就切换模型，进而改变响应质量、延迟、计费或可用区域。显式指定模型的用户影响较小；这是默认行为变化，不等同于新模型已对所有账号开放。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、风险预警；适合使用 llm/ellama 且没有固定 Claude 模型名的用户。</span>
@@ -634,6 +735,7 @@
 <span class="museum-org-line">  - 推测: 上层包若透传默认模型，升级后可能出现无配置变更但结果基线变化。</span>
 <span class="museum-org-line">  - 评论: 模型清单更新本身常见，但改变默认值会直接影响实际请求，值得优先核查。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Magit pull 补齐全部 rebase 变体                                           </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Magit 于 2026-07-25 本地时间合入 #5224，扩展 pull 时的 rebase 判断，支持 Git 的全部 rebase 变体，并相应修改分支与 pull 逻辑及 changelog。</span>
 <span class="museum-org-line">- 影响: 使用 pull.rebase=true、merges 或 interactive 等配置的用户，Magit 对当前策略的识别和 pull 命令构造会更贴近 Git 本身，减少 GUI 状态与命令行配置不一致。普通 merge-only 用户影响有限。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、知识积累；适合团队统一 rebase 策略、经常在 Magit 与 Git CLI 之间切换的用户。</span>
@@ -646,6 +748,7 @@
 <span class="museum-org-line">  - 推测: Magit 与 Git 配置语义的偏差会进一步缩小，但不同 Git 版本仍可能有边界差异。</span>
 <span class="museum-org-line">  - 评论: 这是高频版本控制流程的行为一致性改进，价值高于单纯新增一个 transient 开关。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Magit push 暴露 Git 的 --push-option                                   </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Magit 于 2026-07-25 本地时间合入 #5478，在 push transient 中加入 Git `--push-option` 支持，并同步更新 Org/Texinfo 手册和 changelog。</span>
 <span class="museum-org-line">- 影响: 依赖 GitLab 等服务端 push options 来创建合并请求、设置 CI 行为或传递接收端参数的用户，可不再退回命令行。该功能是否生效仍取决于远端服务端及 Git 协议支持。</span>
 <span class="museum-org-line">- 适用场景: 工作流、配置决策、插件评估；适合把代码托管平台自动化嵌入 Magit push 的团队。</span>
@@ -658,6 +761,7 @@
 <span class="museum-org-line">  - 推测: 更多托管平台专用动作可以留在 Magit 内完成，但跨平台配置仍不可完全通用。</span>
 <span class="museum-org-line">  - 评论: 它把真实存在的 Git/服务端能力接入常用界面，适合有平台自动化需求的用户立即关注。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs core 修复 dabbrev 遇到已销毁缓冲区时报错                                   </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs core 于 2026-07-24 修复 Bug#81452：`dabbrev-expand` 先前保存的 `dabbrev--last-buffer-found` 可能已经被销毁，随后扩展会报错；补丁在使用前重新验证 buffer 存活状态。</span>
 <span class="museum-org-line">- 影响: 频繁关闭临时 buffer、跨多个 buffer 使用 dabbrev 的用户最可能受益。改动只有一行逻辑替换，影响面集中，但命中的是内置高频命令，能消除难以稳定复现的交互中断。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、配置决策、知识积累；适合遇到 dabbrev 偶发 buffer-live 错误的用户和维护补全配置的作者。</span>
@@ -670,6 +774,7 @@
 <span class="museum-org-line">  - 推测: 这类错误多由快速创建/销毁临时 buffer 的工作流触发，修复后相关偶发报告应下降。</span>
 <span class="museum-org-line">  - 评论: 补丁很小，但针对内置高频补全的真实崩溃边界，信息价值高于一般清理提交。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** ECA 修复流式聊天输出导致视图反复跳动                                                </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: eca-emacs 于 2026-07-25 本地时间关闭 #268：聊天 buffer 现在局部设置滚动参数，使小块流式输出逐行滚动而非反复居中；spinner、进度区和工具标签也只在内容变化时重绘。</span>
 <span class="museum-org-line">- 影响: 长回答、工具调用密集或模型以很小 chunk 推送内容时，用户更容易保持阅读位置，Emacs redisplay 抖动也会减少。该修复改善交互稳定性，不改变 agent 的推理或工具能力。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、配置决策、知识积累；适合已因聊天视图跳动而降低 ECA 可用性评价的用户。</span>
@@ -682,6 +787,7 @@
 <span class="museum-org-line">  - 推测: AI 聊天前端的竞争会更多落到流式渲染和阅读位置保持等编辑器原生交互质量。</span>
 <span class="museum-org-line">  - 评论: 它不是功能清单扩张，却直接修复持续可见的使用摩擦，具有明确实践价值。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 社区集中讨论“哪些事不该放进 Emacs”                                               </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: r/emacs 于 2026-07-24 出现高参与讨论，问题不是“Emacs 能做什么”，而是资深用户主动不用它做什么；回复集中提到电子书/PDF、富媒体邮件、网页、移动端同步、终端 TUI 与窗口管理。</span>
 <span class="museum-org-line">- 影响: 这为包维护者和配置作者提供了比功能清单更现实的摩擦地图：困难往往不在“有没有包”，而在渲染质量、OAuth/服务集成、多设备同步和专用应用体验。单个回复是经验样本，不能当作用户总体统计。</span>
 <span class="museum-org-line">- 适用场景: 选题、趋势观察、插件评估、知识积累；适合寻找生态缺口、决定是否继续投入“Emacs 万物化”配置的读者。</span>
@@ -694,6 +800,7 @@
 <span class="museum-org-line">  - 推测: Emacs 生态下一阶段的高价值改进可能更多来自系统集成与跨设备体验，而非再增加同类命令。</span>
 <span class="museum-org-line">  - 评论: 反向询问“什么不值得放进 Emacs”具有反常识和决策价值，但它是社区信号，不是定量调查。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 旧 ThinkPad 被改造成极简 Emacs 写作机                                         </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Chung-hong Chan 于 2026-07-25 发布实践记录：把旧 ThinkPad T440 安装为无桌面 Debian+kmscon，删掉编程配置，让机器直接启动 Emacs/Deft，仅保留 Markdown、eshell 与 Magit，并用 Codeberg Git 仓库同步文本。</span>
 <span class="museum-org-line">- 影响: 它展示了 Emacs 在旧硬件和纯文本任务上的优势来自可裁剪性与本地文件，而不是把全部桌面功能塞进编辑器。对专注写作、旧设备再利用和低维护配置有启发；作者的效率提升目前仍是个人体验，尚无长期结果。</span>
 <span class="museum-org-line">- 适用场景: 工作流、选题、知识积累、配置决策；适合想做 writerdeck、减少干扰或为写作拆分独立配置的用户。</span>
@@ -733,6 +840,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实是 Emacs core 已把 `current-time-list` 默认改为 nil，`llm`、gptel 和 ECA 也各有可验证增量；推测是包维护者需要尽早测试时间值形状，而 AI 插件竞争将继续转向结构化数据与编辑器原生上下文；评论是 core 兼容性变化优先级最高，三项 AI 更新则更适合按具体后端和工作流选择性跟进。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs 32 默认采用新的时间戳表示                                                </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs core 于 2026-07-24 将 `current-time-list` 的默认值从 t 改为 nil。Emacs 32 中，`current-time` 等函数因此默认返回 `(TICKS . HZ)`，而不再默认返回旧的 `(HIGH LOW USEC PSEC)` 列表；NEWS 与 Lisp 参考手册同步更新。</span>
 <span class="museum-org-line">- 影响: 依赖时间值具体列表形状、直接使用 `car`/`nth` 拆解时间戳的 Elisp 包和个人配置可能出现兼容问题。使用 `time-convert`、`float-time`、`format-time-string` 等公开接口的代码风险较低；当前稳定版用户不会立即受影响，但维护者应在 Emacs 32 发布前测试。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、配置决策、插件评估、知识积累；尤其适合 Elisp 包维护者、时间追踪/日历/日志类插件作者和跟踪 Emacs 32 的用户。</span>
@@ -745,6 +853,7 @@
 <span class="museum-org-line">  - 推测: 长期未测试新时间表示的旧包会在 Emacs 32 测试期集中暴露兼容问题。</span>
 <span class="museum-org-line">  - 评论: 这是本窗口最值得优先处理的变化，因为它改变 core 默认行为，且影响可能藏在看似正常的时间处理代码中。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** gptel 为 DeepSeek 与 z.ai 补齐结构化 JSON 输出                               </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: gptel 于 2026-07-24 增加 DeepSeek 与 z.ai/GLM 的结构化 JSON 输出适配。由于这些 API 不接受完整 JSON Schema，gptel 会把请求的 schema 序列化进 system message，同时把 `response_format` 改为 `json_object`；维护者建议两类后端都用 `gptel-make-deepseek` 构造。</span>
 <span class="museum-org-line">- 影响: 在 Emacs 中用 DeepSeek 或 GLM 做可解析输出、工具前置数据生成或自动化流水线的用户，不必为这两个后端另写 schema 兼容层。它依赖提示词约束而非服务端完整 schema 校验，因此输出可靠性仍需本地验证。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、知识积累；适合把 gptel 输出交给 Elisp、Org 表格或外部脚本继续处理的工作流。</span>
@@ -757,6 +866,7 @@
 <span class="museum-org-line">  - 推测: 结构化输出会成为 Emacs 内 LLM 自动化从“聊天”走向可组合工具链的基础能力。</span>
 <span class="museum-org-line">  - 评论: 这项更新有明确实践价值，但“返回 JSON”不等于“严格满足 schema”，使用时仍应做消费端校验。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** llm 0.31.3 增加 DeepSeek 流式工具调用并更新模型适配                                </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs 包 `llm` 于 2026-07-24 本地时间发布 0.31.3，加入 DeepSeek 工具调用支持，并补充工具调用文档与可选参数测试；同时增加 Kimi K3 和新 Gemini 模型，且为这些 Gemini 模型移除 temperature 设置。</span>
 <span class="museum-org-line">- 影响: 依赖 `llm` 抽象层的 ellama 等工作流可更直接地使用 DeepSeek 流式工具调用。模型清单与参数调整也减少向新 Gemini 模型发送不适用参数的风险；升级价值主要面向这些后端，其他用户可按需等待。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、配置决策、趋势观察；适合使用 ellama/`llm`、需要多供应商工具调用或正在迁移新 Gemini 模型的用户。</span>
@@ -769,6 +879,7 @@
 <span class="museum-org-line">  - 推测: Emacs AI 包的共用抽象层会越来越以“工具调用是否跨后端一致”作为关键质量指标。</span>
 <span class="museum-org-line">  - 评论: 这是正式 release，信息确定性高；但不使用相关 provider 的用户没有立即升级压力。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** ECA 可把编译与终端等非文件缓冲区作为聊天上下文                                           </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: eca-emacs 于 2026-07-24 本地时间加入非文件缓冲区上下文：`@` 补全可选择 compilation、comint 等缓冲区，并在发送提示时抓取最新内容作为 text context；候选可用 predicate 定制，内容长度可设上限，提交同时加入覆盖筛选、截断和已销毁缓冲区的测试。</span>
 <span class="museum-org-line">- 影响: 用户可直接把构建错误、REPL/终端输出和临时结果交给 ECA，而不必先保存为文件或复制粘贴。与此同时，缓冲区可能包含凭据、环境变量或大量日志，自动纳入上下文前需要审查候选与长度限制。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、风险预警；适合编译失败诊断、REPL 辅助、日志解释和以 Emacs 缓冲区为中心的开发流程。</span>
@@ -809,6 +920,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实是 ECA、agent-shell 与 gptel 分别修正多会话状态、异步 ACP 事件和模型清单，core 与 lsp-mode 也有定向兼容修复；推测是下一阶段竞争重点会从接入数量转向交互正确性；评论是这些小而具体的修复比新增又一个外壳更值得立即关注。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** agent-shell 扩大异步 ACP 事件的可见范围                                        </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: agent-shell 于 2026-07-16 合入提交 4487940，调整 `session/update` 的处理：更多在请求结束后到达的 agent 消息、思考、工具调用和计划会被单独渲染在新提示符之前，而不是被吞掉、并入上一轮，或统一标成 ACP 服务端违规。</span>
 <span class="museum-org-line">- 影响: 对使用 agent-shell 连接 ACP 后端的用户，这提高了异步事件的可见性和会话可解释性；对 ACP 实现者，它也暴露了 `messageId` 可选、不同代理发送时序不一致等互操作边界。它不是新协议发布，但直接影响用户是否能看见完整过程。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、配置决策、风险预警；尤其适合经常切换 Codex、Claude 或其他 ACP 后端，并遇到“提示符已出现但后面又有事件”的用户。</span>
@@ -821,6 +933,7 @@
 <span class="museum-org-line">  - 推测: ACP 客户端会越来越需要容忍异步或延迟事件，而不能只按严格请求生命周期显示内容。</span>
 <span class="museum-org-line">  - 评论: 这是“交互正确性”修复，价值高于单纯增加后端名称，因为它决定调试时能否看到真实发生的事。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** lsp-mode 修复 Ruby LSP Code Lens 的 plist 反序列化                         </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: lsp-mode 于 2026-07-16 合入 #5097，把 Ruby LSP 的 Code Lens action 参数读取从 `gethash` 改为 `lsp-get`，使 `rubyLsp.openFile`、`rubyLsp.runTest` 和 `rubyLsp.runTestInTerminal` 同时兼容哈希表与 plist 反序列化结果。</span>
 <span class="museum-org-line">- 影响: 使用 ruby-lsp-rails Code Lens 打开文件或运行测试的 Ruby 用户可避免因数据结构不同而失效；影响范围窄，但命中的是编码工作流中的高频动作。其他语言客户端不受直接影响。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、配置决策、风险预警；适合 Ruby 项目用户判断是否值得更新 lsp-mode 快照。</span>
@@ -833,6 +946,7 @@
 <span class="museum-org-line">  - 推测: 类似 plist/哈希表边界仍可能存在于较少测试的语言客户端中。</span>
 <span class="museum-org-line">  - 评论: 这是典型“小改动修复真实断点”，对非 Ruby 用户信息价值有限，对目标用户则应立即关注。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs core 恢复 32 位 MinGW wide-int 的 pdumper 构建                      </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs core 于 2026-07-16 修正 `pdumper.c` 的 relocation alignment，把上限设为 `Lisp_Object` 与 `void *` 对齐值中的较小者，从而恢复 32 位 MinGW 配合 `--with-wide-int` 的构建；修复继续跟踪 Bug#44531。</span>
 <span class="museum-org-line">- 影响: 直接受益的是仍维护 32 位 Windows/MinGW 构建或特殊工具链的用户与打包者。主流 64 位安装通常不受影响，但该修复说明 portable dumper 的对象与指针对齐假设仍是跨架构兼容风险点。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、配置决策、知识积累；适合 Windows 打包者、旧硬件维护者和自编译 Emacs 的用户。</span>
@@ -845,6 +959,7 @@
 <span class="museum-org-line">  - 推测: 长尾平台会继续暴露 64 位主流环境覆盖不到的对齐和 dump 格式假设。</span>
 <span class="museum-org-line">  - 评论: 用户面较窄，但属于 core 可移植性实质修复，值得保留而不应夸大为所有 Windows 用户的故障。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** skewed-emacs 推出一条命令启动的容器化 Emacs+CL+MCP 环境                           </span><span class="org-face-org-tag org-face-org-level-4">:P2</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: skewed-emacs 作者于 2026-07-16 宣布可通过一条 `curl` 命令启动预配置容器，组合 Emacs 30.1、约 39 个包、SLIME、SBCL/CCL/Gendl 与 lisply-mcp；仓库同日持续修正镜像 tag、构建顺序和新手引导。</span>
 <span class="museum-org-line">- 影响: 它为想快速试用 Emacs+Common Lisp+代理控制的用户提供可复现入口，也把配置维护转移到镜像生产者。代价是容器隔离、镜像信任、宿主文件访问与“一条 curl 命令”的供应链审查成本。</span>
 <span class="museum-org-line">- 适用场景: 趋势观察、插件评估、风险预警；适合教学、临时实验和 CI/VM 验证，不宜未经审查直接替代个人主环境。</span>
@@ -857,6 +972,7 @@
 <span class="museum-org-line">  - 推测: 容器化 Emacs 可能成为教学和代理实验的常见分发方式，但尚无稳定采用证据。</span>
 <span class="museum-org-line">  - 评论: 标为 P2 是因为它仍像早期产品实验；作为本窗口 AI-Emacs 主题链的上下文值得记录，但不构成安装推荐。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** ECA 隔离每个聊天的模型、代理、变体与 trust 状态                                       </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: eca-emacs 于 2026-07-16 合入 PR #272，按聊天隔离 model、agent、variant 与 trust 选择，修正配置通知路由和陈旧 chat buffer 删除，并支持从服务端原子恢复 selection 快照；合并时 15 项检查通过。</span>
 <span class="museum-org-line">- 影响: 多聊天、多 ECA session 用户可降低一个会话的选择状态泄漏到另一个会话的风险；trust 状态也被纳入隔离，因此这不仅是界面一致性，还关系到用户是否准确知道当前会话采用了什么执行边界。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、配置决策、插件评估；特别适合并行维护多个仓库或模型会话的用户。</span>
@@ -869,6 +985,7 @@
 <span class="museum-org-line">  - 推测: 随着 Emacs 内并行代理会话增多，状态隔离会成为评估 AI 插件的基础指标。</span>
 <span class="museum-org-line">  - 评论: 这是本窗口最值得关注的修复之一，因为错误状态可能让用户在不知情时使用错误模型、代理或信任设置。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** gptel 补齐 OpenAI OAuth 后端的 gpt-5.6 模型清单                              </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: gptel 于 2026-07-15 补交一项遗漏修复，在 ChatGPT Plus/Pro OAuth 后端模型清单中加入 `gpt-5.6-sol`、`gpt-5.6-terra` 和 `gpt-5.6-luna`；提交说明这些名称在更早变更中漏加。</span>
 <span class="museum-org-line">- 影响: 使用 gptel OpenAI OAuth 后端的订阅用户不再需要手工改模型列表即可选择这些模型。该提交只改变客户端可选清单，不证明每个账户都已获得模型权限，也不影响 API key 后端的计费与可用性。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、风险预警；适合正在使用 gptel OAuth 登录并追踪模型可用性的用户。</span>
@@ -881,6 +998,7 @@
 <span class="museum-org-line">  - 推测: 模型发布节奏加快会让 Emacs 客户端的清单维护与能力探测更频繁。</span>
 <span class="museum-org-line">  - 评论: 这是直接影响使用决策的兼容更新，但应避免把客户端登记误写成 OpenAI 服务端的正式发布公告。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Jinx 与 Ivy 组合暴露拼写候选选择冲突                                             </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Irreal 作者于 2026-07-15 更新其 Jinx 试用记录，确认“无法按预期选择正确拼写”与 Ivy 交互有关；引用的临时做法是在 `jinx-correct` 周围禁用 Ivy，但作者认为候选体验仍不理想并暂时退回原行为。</span>
 <span class="museum-org-line">- 影响: 同时使用 Jinx 与 Ivy 的用户可能遇到候选显示或选择流程不符合 Jinx 默认说明的问题。该来源是个人复现和配置经验，不是 Jinx 上游已确认修复，因此应作为兼容性信号而非普遍结论。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、知识积累；适合准备从 ispell/flyspell 迁移到 Jinx、但仍保留 Ivy 的用户。</span>
@@ -957,6 +1075,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实是出现了一篇把误触定位与只读浏览串成可复用流程的短文；推测是随着 Emacs 作为多用途工作台承载更多状态，这类“排障/可回放”技巧会更常被需要；评论是建议把它收进入门/自检清单而不是当作冷门命令。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs 的 view- 家族：用 view-lossage 追踪误触并安全浏览                           </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 作者用 `view-lossage` 回溯最近按键序列，结合 `view-file`/`view-buffer` 等只读查看命令，并提示可用 `read-kbd-macro` 把选中的键序列转为可回放的宏。</span>
 <span class="museum-org-line">- 影响: 对经常误触、录屏/演示、或需要快速复盘“刚刚发生了什么”的用户很实用；也能降低新手学习命令时的挫败感（把意外变成可解释的输入序列）。</span>
 <span class="museum-org-line">- 适用场景: 知识积累、配置决策（是否需要为排障加快捷键/日志）、闲聊（分享冷门但救命的小技巧）。</span>
@@ -976,6 +1095,7 @@
 <span class="museum-org-line">- 推测: 随着 Emacs 承载更多状态，‘输入复盘/只读浏览’会成为常用自救技能。</span>
 <span class="museum-org-line">- 评论: 这类内容值得写入 rolling，因为它能直接改变日常操作习惯。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 窗口</span></span>
 <span class="museum-org-line">- 本地: 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</span>
 <span class="museum-org-line">- UTC: 2026-05-24T12:30:07Z -&gt; 2026-05-25T12:30:07Z</span>
@@ -990,6 +1110,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实是 Savannah 当前对 Emacs 项目页与 cgit 的可用性存在异常；推测是短期反爬/故障处置导致的页面与 502；评论是建议把镜像与 fallback 当作日常韧性配置。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Savannah Emacs 仓库访问异常：cgit 502 + 项目页变为 scraper 页面                   </span><span class="org-face-org-tag org-face-org-level-4">:P0</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: 在本次窗口内，Savannah 的 Emacs cgit 页面返回 502，同时项目页呈现为“for web scrapers”的反爬/投毒页面。</span>
 <span class="museum-org-line">- 影响: 可能直接打断依赖 Savannah 获取/浏览 Emacs 源码与 ELPA 仓库的拉取链路，影响包维护与 CI。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、配置决策、趋势观察。</span>
@@ -1009,7 +1130,9 @@
 <span class="museum-org-line">- 推测: 暂无更多官方说明，需观察恢复与后续公告。</span>
 <span class="museum-org-line">- 评论: 依赖 Savannah 的工具链应补镜像与缓存策略。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 窗口</span></span>
 <span class="museum-org-line">- 本地: 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</span>
 <span class="museum-org-line">- UTC: 2026-05-24T04:25:44Z -&gt; 2026-05-25T04:25:44Z</span>
@@ -1024,6 +1147,7 @@
 <span class="museum-org-line">- 本窗口判断: 事实是本轮新增内容不多但信息密度更高；推测是 Emacs 的移动端兼容、配置抽象和安全边界会继续成为小而重要的讨论线；评论是 v4 输出已经从“表格清单”转向“为什么值得看”的简报。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs Android 端连续修复构建与字体元数据解析                                       </span><span class="org-face-org-tag org-face-org-level-4">:P0</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs master 在 2026-05-25 上午连续出现 Android 相关修复：先修 Android build，再修 font metadata table 解析，随后补充 sfntfont Android 注释。</span>
 <span class="museum-org-line">- 影响: 直接影响尝试在 Android 上构建或运行 Emacs 的用户与维护者，也提示 Emacs core 对非桌面端口的兼容性仍在推进。</span>
 <span class="museum-org-line">- 适用场景: 趋势观察、风险预警、配置决策。适合关注 Android/移动端 Emacs 可用性的人，也适合判断 Emacs 是否仍只服务传统桌面场景。</span>
@@ -1036,6 +1160,7 @@
 <span class="museum-org-line">  - 推测: 推测：Android 端口近期可能仍处在修复密集期，移动端稳定性需要观察后续 commit 和 bug 报告。</span>
 <span class="museum-org-line">  - 评论: 评论：这条值得看，不是因为单个 patch 大，而是它显示 Emacs 的平台边界还在被拓展和修补。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Emacs 回滚 exec.c 文件名截断行为变更                                           </span><span class="org-face-org-tag org-face-org-level-4">:P0</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: Emacs master 在 2026-05-25 回滚了 exec.c 文件名截断相关变更。</span>
 <span class="museum-org-line">- 影响: 可能影响依赖 Emacs 启动外部进程、处理长文件名或边界路径的包和用户配置，尤其是 project、compile、shell、TRAMP 附近的工作流。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、插件评估、配置决策。适合维护复杂外部命令调用或跨平台路径逻辑的人关注。</span>
@@ -1048,6 +1173,7 @@
 <span class="museum-org-line">  - 推测: 推测：被回滚的行为可能引发了兼容性争议或测试失败，但具体原因需要继续看后续 commit/bug 讨论。</span>
 <span class="museum-org-line">  - 评论: 评论：core 行为回滚往往比普通修补更值得看，因为它暴露了边界行为和兼容性之间的拉扯。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** org-roam-gt 宣称更快节点搜索与更丰富 capture targets                            </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: r/emacs 出现 org-roam-gt 讨论，主题是为 org-roam 提供更快 node search 和更丰富 capture targets。</span>
 <span class="museum-org-line">- 影响: 影响重度 Org-roam 用户、知识库维护者和依赖 capture 的笔记工作流；如果实现可靠，可能改善大库检索和入口设计。</span>
 <span class="museum-org-line">- 适用场景: 知识积累、插件评估、配置决策。适合有 Org-roam 大库、capture 模板较复杂、节点检索变慢的人试读。</span>
@@ -1060,6 +1186,7 @@
 <span class="museum-org-line">  - 推测: 推测：Org-roam 生态继续围绕更快入口和更顺手捕获做外部增强，而不是只改核心。</span>
 <span class="museum-org-line">  - 评论: 评论：这条值得看，因为它击中了 Org-roam 用户真实日常摩擦，而不是抽象讨论。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** use-package-x 进入 MELPA                                              </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: r/emacs 讨论 use-package-x（previously use-package-extras）已可在 MELPA 获取。</span>
 <span class="museum-org-line">- 影响: 影响使用 use-package 管理配置的 Emacs 用户，尤其是希望把重复配置模式封装成更高层声明的人。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、知识积累。适合正在整理 init.el、拆分模块或想减少 use-package 样板的人关注。</span>
@@ -1072,6 +1199,7 @@
 <span class="museum-org-line">  - 推测: 推测：围绕 use-package 的二层抽象仍有需求，但是否值得采用取决于它是否减少复杂度而不是制造新 DSL。</span>
 <span class="museum-org-line">  - 评论: 评论：这条不是重大新闻，但对配置维护者有现实价值，尤其适合后续纳入包评估清单。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 社区讨论 Emacs 安全层设想                                                    </span><span class="org-face-org-tag org-face-org-level-4">:P1</span><span class="org-face-org-tag org-face-org-level-4">:</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line">- 事件: r/emacs 出现 A possible security layer for emacs 讨论，围绕 Emacs 是否需要额外安全层展开。</span>
 <span class="museum-org-line">- 影响: 影响会安装大量第三方包、执行外部命令、使用 LLM/agent 集成或同步远程配置的用户；安全模型会影响未来插件信任方式。</span>
 <span class="museum-org-line">- 适用场景: 风险预警、趋势观察、选题。适合关注 Emacs 包供应链、LLM 插件权限、本地自动化安全边界的人。</span>
@@ -1095,6 +1223,7 @@
 <span class="museum-org-line">- 推测: Emacs core 的 Android/exec 边界修复和社区对安全层的讨论，可能会在后续几轮继续出现相关信号。</span>
 <span class="museum-org-line">- 评论: 这轮的价值不在数量，而在读者能快速知道“为什么要关心”：移动端、外部进程边界、知识库入口、配置抽象和安全模型。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 (未知窗口)</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 窗口</span></span>
 <span class="museum-org-line">- 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</span>
 <span class="museum-org-line">- 执行规则：Emacs 专项固定 24h 窗口；候选按 published_at_utc 倒序排序。</span>
@@ -1120,6 +1249,7 @@
 <span class="museum-org-line">- 评论：如果你主要依赖 Eglot/JSONRPC/VC，建议下次跑增量前先在本地快速拉一遍最近 core 变更日志。</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</span></span>
+<span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 窗口</span></span>
 <span class="museum-org-line">- 本地: 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</span>
 <span class="museum-org-line">- UTC: 2026-05-24T03:28:09Z -&gt; 2026-05-25T03:28:09Z</span>
@@ -1155,149 +1285,149 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-a5f29f2d8295">1. 最近窗口</a>
+<li><a href="#section-6ff83651db5c">1. 最近窗口</a>
 <ul>
-<li><a href="#section-b43a5595cebd">1.1. 窗口</a></li>
-<li><a href="#section-bb2d98987bab">1.2. 摘要（本窗口）</a></li>
-<li><a href="#section-a76c6b7ff874">1.3. 中文简报（本窗口）</a>
+<li><a href="#section-65637875c8a6">1.1. 窗口</a></li>
+<li><a href="#section-1241c0203621">1.2. 摘要（本窗口）</a></li>
+<li><a href="#section-5b70ce26a727">1.3. 中文简报（本窗口）</a>
 <ul>
-<li><a href="#section-ebb916c56055">1.3.1. agent-shell 暴露逐块流式消息事件&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-d5b2432ae746">1.3.2. Emacs 修复 Windows GUI 的 CJK 模糊宽度显示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-201d7fdf93b4">1.3.3. Emacs 防止异常编码规则在加载 Unicode 表时导致崩溃&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-c6099e1123b1">1.3.4. Org 为 XeLaTeX 与 LuaLaTeX 增加结构化 fontspec 配置&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-a58c60309054">1.3.5. package.el 改善批量升级的完成反馈与阻塞问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-15a410b16ffc">1.3.6. 维护者用内置 project 与 Org 回应“Emacs 缺少会话”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-5ebb74138873">1.3.1. agent-shell 暴露逐块流式消息事件&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-4504ce104714">1.3.2. Emacs 修复 Windows GUI 的 CJK 模糊宽度显示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-dd620f8caf1c">1.3.3. Emacs 防止异常编码规则在加载 Unicode 表时导致崩溃&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-ea135fe6886f">1.3.4. Org 为 XeLaTeX 与 LuaLaTeX 增加结构化 fontspec 配置&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-d1bb2e944bbf">1.3.5. package.el 改善批量升级的完成反馈与阻塞问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-88151681b8c3">1.3.6. 维护者用内置 project 与 Org 回应“Emacs 缺少会话”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
 </ul>
 </li>
-<li><a href="#section-4c1971b4a9ef">1.4. 索引表（本窗口）</a></li>
-<li><a href="#section-41e30131145c">1.5. 简短观察</a></li>
+<li><a href="#section-0eb202bf2051">1.4. 索引表（本窗口）</a></li>
+<li><a href="#section-bf02f830e57f">1.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-14c09acd415c">2. 历史归档</a>
+<li><a href="#section-6ff83651db5c">2. 历史归档</a>
 <ul>
-<li><a href="#section-db686e7bea70">2.1. 归档窗口 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00</a>
+<li><a href="#section-c2460fdc139e">2.1. 归档窗口 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00</a>
 <ul>
-<li><a href="#section-43280e2f8f26">2.1.1. 窗口</a></li>
-<li><a href="#section-c18ec8a30fae">2.1.2. 摘要（本窗口）</a></li>
-<li><a href="#section-fe611eb3e6c5">2.1.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-f8290afd00e3">2.1.4. 索引表（本窗口）</a></li>
-<li><a href="#section-23211322b042">2.1.5. 简短观察</a></li>
+<li><a href="#section-9870fda79a7e">2.1.1. 窗口</a></li>
+<li><a href="#section-005b053bad00">2.1.2. 摘要（本窗口）</a></li>
+<li><a href="#section-2f92f8d19c75">2.1.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-629d3f0798ae">2.1.4. 索引表（本窗口）</a></li>
+<li><a href="#section-9cf25911b4c2">2.1.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-0eff057b8d07">2.2. 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</a>
+<li><a href="#section-7136f3d77f8c">2.2. 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-e770a7078f82">2.2.1. 窗口</a></li>
-<li><a href="#section-eed9c32bbf17">2.2.2. 摘要（本窗口）</a></li>
-<li><a href="#section-a55038941a17">2.2.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-818f44aef62e">2.2.4. 索引表（本窗口）</a></li>
-<li><a href="#section-37fb56522b18">2.2.5. 简短观察</a></li>
+<li><a href="#section-03282fdcf8ac">2.2.1. 窗口</a></li>
+<li><a href="#section-82022e0497e8">2.2.2. 摘要（本窗口）</a></li>
+<li><a href="#section-a9c0f3eeab52">2.2.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-7ef7b7c4672a">2.2.4. 索引表（本窗口）</a></li>
+<li><a href="#section-a783ec6e22fa">2.2.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-7edd37d2f912">2.3. 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</a>
+<li><a href="#section-8907f7b35ffb">2.3. 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-03d9cb25003f">2.3.1. 窗口</a></li>
-<li><a href="#section-8c0d6958311f">2.3.2. 摘要（本窗口）</a></li>
-<li><a href="#section-802f383a1059">2.3.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-7f0dbd16f9d4">2.3.4. 索引表（本窗口）</a></li>
-<li><a href="#section-e8553206d754">2.3.5. 简短观察</a></li>
+<li><a href="#section-f655257116ae">2.3.1. 窗口</a></li>
+<li><a href="#section-6e6053bd7e3a">2.3.2. 摘要（本窗口）</a></li>
+<li><a href="#section-f28ecf4e0000">2.3.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-f372d03de175">2.3.4. 索引表（本窗口）</a></li>
+<li><a href="#section-e3d1676f529e">2.3.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-388028777c0d">2.4. 窗口 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</a>
+<li><a href="#section-06d3f0b5735a">2.4. 窗口 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-ae24358b7291">2.4.1. 窗口</a></li>
-<li><a href="#section-6cf8440a659e">2.4.2. 摘要（本窗口）</a></li>
-<li><a href="#section-ba7918956ad2">2.4.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-9e50ffbbbe6b">2.4.4. 索引表（本窗口）</a></li>
-<li><a href="#section-049ff2c31400">2.4.5. 简短观察</a></li>
+<li><a href="#section-edff0f3b14ca">2.4.1. 窗口</a></li>
+<li><a href="#section-43cfac5fd712">2.4.2. 摘要（本窗口）</a></li>
+<li><a href="#section-fcd052f80b77">2.4.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-834ad7523122">2.4.4. 索引表（本窗口）</a></li>
+<li><a href="#section-39cab896fc45">2.4.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-399799762094">2.5. 窗口 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</a>
+<li><a href="#section-98fccc9828c6">2.5. 窗口 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-b82166493e65">2.5.1. 窗口</a></li>
-<li><a href="#section-cd2823b25acf">2.5.2. 摘要（本窗口）</a></li>
-<li><a href="#section-c2fa047afe83">2.5.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-02ace1c1048b">2.5.4. 索引表（本窗口）</a></li>
-<li><a href="#section-e748b45d0bce">2.5.5. 简短观察</a></li>
+<li><a href="#section-28e193070034">2.5.1. 窗口</a></li>
+<li><a href="#section-4b1f9c1810dd">2.5.2. 摘要（本窗口）</a></li>
+<li><a href="#section-382802dfcbbf">2.5.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-a07402d5f818">2.5.4. 索引表（本窗口）</a></li>
+<li><a href="#section-950aa583aa36">2.5.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-9f5393cb7d2c">2.6. 窗口 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</a>
+<li><a href="#section-894888673fe2">2.6. 窗口 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-3f1b95cdadc6">2.6.1. 窗口</a></li>
-<li><a href="#section-830311f6e8d2">2.6.2. 摘要（本窗口）</a></li>
-<li><a href="#section-8c3d879b3514">2.6.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-f725e07cc058">2.6.4. 索引表（本窗口）</a></li>
-<li><a href="#section-2bdbd12269b4">2.6.5. 简短观察</a></li>
+<li><a href="#section-8e2a0bfb35d2">2.6.1. 窗口</a></li>
+<li><a href="#section-43d5a28c8b57">2.6.2. 摘要（本窗口）</a></li>
+<li><a href="#section-850e68312abc">2.6.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-b80b6bdea1de">2.6.4. 索引表（本窗口）</a></li>
+<li><a href="#section-f236c394e93e">2.6.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-0c805d3ba8e2">2.7. 窗口 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</a>
+<li><a href="#section-c2f228ac596a">2.7. 窗口 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</a>
 <ul>
-<li><a href="#section-dd408a6c496f">2.7.1. 窗口</a></li>
-<li><a href="#section-511b81ee576a">2.7.2. 摘要（本窗口）</a></li>
-<li><a href="#section-99cb207d0551">2.7.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-a7215e360cde">2.7.4. 索引表（本窗口）</a></li>
-<li><a href="#section-e0a1b69b75da">2.7.5. 简短观察</a></li>
+<li><a href="#section-c2d0c6b3c3ee">2.7.1. 窗口</a></li>
+<li><a href="#section-9d7cd055f942">2.7.2. 摘要（本窗口）</a></li>
+<li><a href="#section-17d0b8ec42b5">2.7.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-4c0bffb067f6">2.7.4. 索引表（本窗口）</a></li>
+<li><a href="#section-4d2d8d59a334">2.7.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-82bae966c974">2.8. 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</a>
+<li><a href="#section-644cb72cf3f6">2.8. 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</a>
 <ul>
-<li><a href="#section-30b3a856f696">2.8.1. 窗口</a></li>
-<li><a href="#section-2bbfa6266bbc">2.8.2. 摘要（本窗口）</a></li>
-<li><a href="#section-2e0fe026d630">2.8.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-0b5497eafc38">2.8.4. 索引表（本窗口）</a></li>
-<li><a href="#section-4401692bc658">2.8.5. 简短观察</a></li>
+<li><a href="#section-00f4bbbe4c31">2.8.1. 窗口</a></li>
+<li><a href="#section-59276e9d8735">2.8.2. 摘要（本窗口）</a></li>
+<li><a href="#section-27dbefdb24bf">2.8.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-e8c081900178">2.8.4. 索引表（本窗口）</a></li>
+<li><a href="#section-aacd64e98f58">2.8.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-593dbefdb317">2.9. 窗口 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</a>
+<li><a href="#section-467b353013ae">2.9. 窗口 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</a>
 <ul>
-<li><a href="#section-f42a70bb5933">2.9.1. 窗口</a></li>
-<li><a href="#section-d8fc4336060b">2.9.2. 摘要</a></li>
-<li><a href="#section-65d51107cccd">2.9.3. 中文简报</a></li>
-<li><a href="#section-9d4ea5892c15">2.9.4. 简短观察</a></li>
+<li><a href="#section-d85e93500411">2.9.1. 窗口</a></li>
+<li><a href="#section-d85e93500411">2.9.2. 摘要</a></li>
+<li><a href="#section-f88116901e01">2.9.3. 中文简报</a></li>
+<li><a href="#section-f88116901e01">2.9.4. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-9ba70e6f4885">2.10. 窗口 2026-06-07 13:20:26 +0800 前旧最近窗口</a>
+<li><a href="#section-981473055bbd">2.10. 窗口 2026-06-07 13:20:26 +0800 前旧最近窗口</a>
 <ul>
-<li><a href="#section-3f2283962c99">2.10.1. 窗口</a></li>
-<li><a href="#section-5cc594ff8b02">2.10.2. 摘要（本窗口）</a></li>
-<li><a href="#section-52384d303fa4">2.10.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-44707c9405e4">2.10.4. 索引表（本窗口）</a></li>
-<li><a href="#section-e39375a194e9">2.10.5. 简短观察</a></li>
+<li><a href="#section-d38664c26e97">2.10.1. 窗口</a></li>
+<li><a href="#section-c721dd27a5ee">2.10.2. 摘要（本窗口）</a></li>
+<li><a href="#section-595666c7344a">2.10.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-ea19741c8ebf">2.10.4. 索引表（本窗口）</a></li>
+<li><a href="#section-9c8df8174720">2.10.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-a0758b35f10b">2.11. 窗口 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</a>
+<li><a href="#section-8239b5a5a3c7">2.11. 窗口 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</a>
 <ul>
-<li><a href="#section-5b4e455ab90c">2.11.1. 窗口</a></li>
-<li><a href="#section-446ddaa3c296">2.11.2. 摘要（本窗口）</a></li>
-<li><a href="#section-7da08ad82878">2.11.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-5e2862f60884">2.11.4. 索引表（本窗口）</a></li>
-<li><a href="#section-6d27e4694f46">2.11.5. 简短观察</a></li>
+<li><a href="#section-63fe0a34dd4d">2.11.1. 窗口</a></li>
+<li><a href="#section-fb1fde3a8243">2.11.2. 摘要（本窗口）</a></li>
+<li><a href="#section-9fc6e4e73cbf">2.11.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-68fc523f56e8">2.11.4. 索引表（本窗口）</a></li>
+<li><a href="#section-1a5bbed7a318">2.11.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-bd7b6c20bead">2.12. 窗口 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</a></li>
-<li><a href="#section-e1bb24dd0804">2.13. 窗口 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</a>
+<li><a href="#section-b45fd1ae8ab1">2.12. 窗口 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</a></li>
+<li><a href="#section-e68401598be0">2.13. 窗口 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-cf1c9973519a">2.13.1. 窗口</a></li>
-<li><a href="#section-bef1682cb2f6">2.13.2. 摘要（本窗口）</a></li>
-<li><a href="#section-67b1d0fa0910">2.13.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-17c7f3ef0b35">2.13.4. 索引表（本窗口）</a></li>
-<li><a href="#section-71a4d1c11041">2.13.5. 简短观察</a></li>
+<li><a href="#section-f76aa2b426d3">2.13.1. 窗口</a></li>
+<li><a href="#section-5c34cb792d45">2.13.2. 摘要（本窗口）</a></li>
+<li><a href="#section-1dab574c2f45">2.13.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-8df6297525ac">2.13.4. 索引表（本窗口）</a></li>
+<li><a href="#section-59f14ba2a249">2.13.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-d4c42976ebaa">2.14. 窗口 (未知窗口)</a>
+<li><a href="#section-e3c0b128b148">2.14. 窗口 (未知窗口)</a>
 <ul>
-<li><a href="#section-ab48d1532cb2">2.14.1. 窗口</a></li>
-<li><a href="#section-1bfed3dc1eea">2.14.2. 摘要（本窗口）</a></li>
-<li><a href="#section-96719e98b79f">2.14.3. 条目表（本窗口）</a></li>
-<li><a href="#section-0e92259b9508">2.14.4. 简短观察</a></li>
-<li><a href="#section-cbecd811940e">2.14.5. 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</a></li>
+<li><a href="#section-342c12e07219">2.14.1. 窗口</a></li>
+<li><a href="#section-52f9cecd6dc1">2.14.2. 摘要（本窗口）</a></li>
+<li><a href="#section-498be4505f64">2.14.3. 条目表（本窗口）</a></li>
+<li><a href="#section-9c2faba58bef">2.14.4. 简短观察</a></li>
+<li><a href="#section-b95c63420118">2.14.5. 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</a></li>
 </ul>
 </li>
-<li><a href="#section-530f6e354915">2.15. 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</a>
+<li><a href="#section-adcd715d6058">2.15. 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-6e623ad63423">2.15.1. 窗口</a></li>
-<li><a href="#section-abcaa545f1f9">2.15.2. 摘要（本窗口）</a></li>
-<li><a href="#section-b2b565c91765">2.15.3. 条目表（本窗口）</a></li>
-<li><a href="#section-608b19ebb395">2.15.4. 简短观察</a></li>
+<li><a href="#section-0651627d3e1a">2.15.1. 窗口</a></li>
+<li><a href="#section-3eeea0750c1d">2.15.2. 摘要（本窗口）</a></li>
+<li><a href="#section-dbbc44d4ef33">2.15.3. 条目表（本窗口）</a></li>
+<li><a href="#section-e62e943f9871">2.15.4. 简短观察</a></li>
 </ul>
 </li>
 </ul>
@@ -1305,12 +1435,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-a5f29f2d8295" class="outline-2">
-<h2 id="section-a5f29f2d8295"><span class="section-number-2">1.</span> 最近窗口</h2>
+<div id="outline-container-section-6ff83651db5c" class="outline-2">
+<h2 id="section-6ff83651db5c"><span class="section-number-2">1.</span> 最近窗口</h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-section-b43a5595cebd" class="outline-3">
-<h3 id="section-b43a5595cebd"><span class="section-number-3">1.1.</span> 窗口</h3>
+<div id="outline-container-section-65637875c8a6" class="outline-3">
+<h3 id="section-65637875c8a6"><span class="section-number-3">1.1.</span> 窗口</h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>本地: 2026-07-31 19:54:34 +08:00 -&gt; 2026-08-01 19:54:34 +08:00 (+08:00)</li>
@@ -1319,8 +1449,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-bb2d98987bab" class="outline-3">
-<h3 id="section-bb2d98987bab"><span class="section-number-3">1.2.</span> 摘要（本窗口）</h3>
+<div id="outline-container-section-1241c0203621" class="outline-3">
+<h3 id="section-1241c0203621"><span class="section-number-3">1.2.</span> 摘要（本窗口）</h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=6</li>
@@ -1333,12 +1463,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-a76c6b7ff874" class="outline-3">
-<h3 id="section-a76c6b7ff874"><span class="section-number-3">1.3.</span> 中文简报（本窗口）</h3>
+<div id="outline-container-section-5b70ce26a727" class="outline-3">
+<h3 id="section-5b70ce26a727"><span class="section-number-3">1.3.</span> 中文简报（本窗口）</h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
-<div id="outline-container-section-ebb916c56055" class="outline-4">
-<h4 id="section-ebb916c56055"><span class="section-number-4">1.3.1.</span> agent-shell 暴露逐块流式消息事件&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
+<div id="outline-container-section-5ebb74138873" class="outline-4">
+<h4 id="section-5ebb74138873"><span class="section-number-4">1.3.1.</span> agent-shell 暴露逐块流式消息事件&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
 <div class="outline-text-4" id="text-1-3-1">
 <ul class="org-ul">
 <li>事件: agent-shell 于 8 月 1 日新增 `agent-message-chunk` 会话事件；每收到一段代理文本就发出原始 `text-chunk`，图片等非文本块为 nil，插件本身不在该事件中累积或渲染内容。</li>
@@ -1359,8 +1489,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-d5b2432ae746" class="outline-4">
-<h4 id="section-d5b2432ae746"><span class="section-number-4">1.3.2.</span> Emacs 修复 Windows GUI 的 CJK 模糊宽度显示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
+<div id="outline-container-section-4504ce104714" class="outline-4">
+<h4 id="section-4504ce104714"><span class="section-number-4">1.3.2.</span> Emacs 修复 Windows GUI 的 CJK 模糊宽度显示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
 <div class="outline-text-4" id="text-1-3-2">
 <ul class="org-ul">
 <li>事件: Emacs core 于 8 月 1 日修复 `use-cjk-char-width-table` 在 Windows GUI 会话中的判断：启动早期 `window-system` 可能仍为 nil，现改用 `initial-window-system` 区分图形会话与 Windows Terminal。</li>
@@ -1381,8 +1511,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-201d7fdf93b4" class="outline-4">
-<h4 id="section-201d7fdf93b4"><span class="section-number-4">1.3.3.</span> Emacs 防止异常编码规则在加载 Unicode 表时导致崩溃&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
+<div id="outline-container-section-dd620f8caf1c" class="outline-4">
+<h4 id="section-dd620f8caf1c"><span class="section-number-4">1.3.3.</span> Emacs 防止异常编码规则在加载 Unicode 表时导致崩溃&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
 <div class="outline-text-4" id="text-1-3-3">
 <ul class="org-ul">
 <li>事件: Emacs core 于 8 月 1 日在加载内部 `uni-*.el` Unicode 属性表时强制使用 `utf-8-emacs-unix`，避免异常的 `auto-coding-regexp-alist` 覆盖编码 cookie 并触发崩溃（bug#81445）。</li>
@@ -1403,8 +1533,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-c6099e1123b1" class="outline-4">
-<h4 id="section-c6099e1123b1"><span class="section-number-4">1.3.4.</span> Org 为 XeLaTeX 与 LuaLaTeX 增加结构化 fontspec 配置&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
+<div id="outline-container-section-ea135fe6886f" class="outline-4">
+<h4 id="section-ea135fe6886f"><span class="section-number-4">1.3.4.</span> Org 为 XeLaTeX 与 LuaLaTeX 增加结构化 fontspec 配置&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
 <div class="outline-text-4" id="text-1-3-4">
 <ul class="org-ul">
 <li>事件: Org Mode 于 8 月 1 日合入 `org-latex-fontspec-config`，可为 XeLaTeX/LuaLaTeX 配置主字体、无衬线、等宽、数学及回退字体；实现会检测正文脚本，并在 CJK 字体与编译器不匹配时给出提示，随后又连续修正文档、fontspec 可选参数匹配和警告措辞。</li>
@@ -1425,8 +1555,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-a58c60309054" class="outline-4">
-<h4 id="section-a58c60309054"><span class="section-number-4">1.3.5.</span> package.el 改善批量升级的完成反馈与阻塞问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
+<div id="outline-container-section-d1bb2e944bbf" class="outline-4">
+<h4 id="section-d1bb2e944bbf"><span class="section-number-4">1.3.5.</span> package.el 改善批量升级的完成反馈与阻塞问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
 <div class="outline-text-4" id="text-1-3-5">
 <ul class="org-ul">
 <li>事件: Emacs core 于 8 月 1 日让 `package-upgrade-all` 在结束时汇总成功与被拒绝的包，因为逐包消息会淹没在 Messages 中；紧邻提交还修复了 `package-retention-policy` 命中时升级标记循环不前进、界面可能阻塞的问题。</li>
@@ -1447,8 +1577,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-15a410b16ffc" class="outline-4">
-<h4 id="section-15a410b16ffc"><span class="section-number-4">1.3.6.</span> 维护者用内置 project 与 Org 回应“Emacs 缺少会话”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
+<div id="outline-container-section-88151681b8c3" class="outline-4">
+<h4 id="section-88151681b8c3"><span class="section-number-4">1.3.6.</span> 维护者用内置 project 与 Org 回应“Emacs 缺少会话”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></h4>
 <div class="outline-text-4" id="text-1-3-6">
 <ul class="org-ul">
 <li>事件: Protesilaos Stavrou 在 7 月 31 日的文章中回应一段“我需要 Emacs 提供什么”的视频，将 Kitty 的 session 需求拆解为 Emacs 内置 project、tab/frame、desktop/bufferlo、`org-capture` 与 org-roam dailies，并强调从需求和默认能力逐步组合，而非一次复制整套工作流。</li>
@@ -1470,8 +1600,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-4c1971b4a9ef" class="outline-3">
-<h3 id="section-4c1971b4a9ef"><span class="section-number-3">1.4.</span> 索引表（本窗口）</h3>
+<div id="outline-container-section-0eb202bf2051" class="outline-3">
+<h3 id="section-0eb202bf2051"><span class="section-number-3">1.4.</span> 索引表（本窗口）</h3>
 <div class="outline-text-3" id="text-1-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
 
@@ -1584,8 +1714,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-41e30131145c" class="outline-3">
-<h3 id="section-41e30131145c"><span class="section-number-3">1.5.</span> 简短观察</h3>
+<div id="outline-container-section-bf02f830e57f" class="outline-3">
+<h3 id="section-bf02f830e57f"><span class="section-number-3">1.5.</span> 简短观察</h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>事实: 本窗口的高价值增量集中在 Windows/CJK 正确性、Unicode 稳定性、Org 多语种导出、内置包升级以及 AI 前端事件接口。</li>
@@ -1595,16 +1725,16 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-14c09acd415c" class="outline-2">
-<h2 id="section-14c09acd415c"><span class="section-number-2">2.</span> 历史归档</h2>
+<div id="outline-container-section-6ff83651db5c" class="outline-2">
+<h2 id="section-6ff83651db5c"><span class="section-number-2">2.</span> 历史归档</h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-section-db686e7bea70" class="outline-3">
-<h3 id="section-db686e7bea70"><span class="section-number-3">2.1.</span> 归档窗口 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00</h3>
+<div id="outline-container-section-c2460fdc139e" class="outline-3">
+<h3 id="section-c2460fdc139e"><span class="section-number-3">2.1.</span> 归档窗口 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00</h3>
 <div class="outline-text-3" id="text-2-1">
 </div>
-<div id="outline-container-section-43280e2f8f26" class="outline-4">
-<h4 id="section-43280e2f8f26"><span class="section-number-4">2.1.1.</span> 窗口</h4>
+<div id="outline-container-section-9870fda79a7e" class="outline-4">
+<h4 id="section-9870fda79a7e"><span class="section-number-4">2.1.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-1-1">
 <ul class="org-ul">
 <li>本地: 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00 (+08:00)</li>
@@ -1613,8 +1743,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-c18ec8a30fae" class="outline-4">
-<h4 id="section-c18ec8a30fae"><span class="section-number-4">2.1.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-005b053bad00" class="outline-4">
+<h4 id="section-005b053bad00"><span class="section-number-4">2.1.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-1-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=5</li>
@@ -1627,12 +1757,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-fe611eb3e6c5" class="outline-4">
-<h4 id="section-fe611eb3e6c5"><span class="section-number-4">2.1.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-2f92f8d19c75" class="outline-4">
+<h4 id="section-2f92f8d19c75"><span class="section-number-4">2.1.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-1-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-13a019a62853"></a>DOOM-on-Emacs 把原生 Canvas 提案变成可运行演示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-552dd60c5327"></a>DOOM-on-Emacs 把原生 Canvas 提案变成可运行演示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-1">
 <ul class="org-ul">
 <li>事件: 8 月 1 日，Minad 的 DOOM-on-Emacs 演示被提交到 Hacker News；它通过 native module 和少量 Elisp 胶水让经典 DOOM 在 Emacs 内运行，前提是自行应用尚未进入 Emacs 源码树的 Canvas API 补丁并重新编译。</li>
@@ -1653,7 +1783,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-7528a708dd12"></a>Magit 4.7.0 发布，扩展 reflog、签名、目录与项目调度工作流&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="org-museum-ref-c1b775bf597d"></a>Magit 4.7.0 发布，扩展 reflog、签名、目录与项目调度工作流&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-2">
 <ul class="org-ul">
 <li>事件: Jonas Bernoulli 于 8 月 1 日发布 Magit 4.7.0。版本加入全 reflog 日志、远端引用检出、项目调度、复制 diff、目录级文件操作等能力，并适配 Git 2.55 的 graph lane limit；同时修复 worktree、Ediff、缓存和 submodule 状态问题。</li>
@@ -1674,7 +1804,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-a6ade69ccde7"></a>agent-shell 修复富文本强调破坏异步渲染锚点的问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-bd13a83a9964"></a>agent-shell 修复富文本强调破坏异步渲染锚点的问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-3">
 <ul class="org-ul">
 <li>事件: agent-shell 于 8 月 1 日修复 Markdown 粗体、斜体和删除线转换：旧实现会删除并重插整段文本，导致其中已冻结区域的 marker 与 overlay 失效，使异步渲染结果（例如强调文本内的数学内容）消失；新实现只删除标记符，并加入回归测试。</li>
@@ -1695,7 +1825,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-43cd45fd8fbc"></a>Emacs core 恢复 VC-Dir 出站修订计数的可点击行为&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-fe94c596d09c"></a>Emacs core 恢复 VC-Dir 出站修订计数的可点击行为&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-4">
 <ul class="org-ul">
 <li>事件: Emacs core 于 7 月 31 日修复 VC-Dir 头部“NN outgoing revisions”计数不可点击的回归，改为使用 overlay 主文本而非 `after-string`，恢复从计数进入出站修订视图的交互。</li>
@@ -1716,7 +1846,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-53d12d8458ee"></a>gptel 移除即将弃用的 DeepSeek 旧模型名&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-bbfe4e887760"></a>gptel 移除即将弃用的 DeepSeek 旧模型名&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-1-3-5">
 <ul class="org-ul">
 <li>事件: gptel 于 7 月 31 日从 DeepSeek backend 的模型列表移除即将弃用的 `deepseek-chat` 与 `deepseek-reasoner`，默认保留 `deepseek-v4-flash`；提交同时更新了上下文窗口和能力元数据。</li>
@@ -1739,8 +1869,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-f8290afd00e3" class="outline-4">
-<h4 id="section-f8290afd00e3"><span class="section-number-4">2.1.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-629d3f0798ae" class="outline-4">
+<h4 id="section-629d3f0798ae"><span class="section-number-4">2.1.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-1-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 2"><table>
 
@@ -1841,8 +1971,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-23211322b042" class="outline-4">
-<h4 id="section-23211322b042"><span class="section-number-4">2.1.5.</span> 简短观察</h4>
+<div id="outline-container-section-9cf25911b4c2" class="outline-4">
+<h4 id="section-9cf25911b4c2"><span class="section-number-4">2.1.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-1-5">
 <ul class="org-ul">
 <li>事实: 本窗口有一个常用包正式版本、三个直接修复交互或兼容性的提交，以及一个围绕 Emacs 原生 Canvas 的社区演示。</li>
@@ -1852,8 +1982,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-0eff057b8d07" class="outline-3">
-<h3 id="section-0eff057b8d07"><span class="section-number-3">2.2.</span> 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</h3>
+<div id="outline-container-section-7136f3d77f8c" class="outline-3">
+<h3 id="section-7136f3d77f8c"><span class="section-number-3">2.2.</span> 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 :PROPERTIES:
@@ -1862,8 +1992,8 @@
 :END:
 </p>
 </div>
-<div id="outline-container-section-e770a7078f82" class="outline-4">
-<h4 id="section-e770a7078f82"><span class="section-number-4">2.2.1.</span> 窗口</h4>
+<div id="outline-container-section-03282fdcf8ac" class="outline-4">
+<h4 id="section-03282fdcf8ac"><span class="section-number-4">2.2.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-2-1">
 <ul class="org-ul">
 <li>本地: 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</li>
@@ -1872,8 +2002,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-eed9c32bbf17" class="outline-4">
-<h4 id="section-eed9c32bbf17"><span class="section-number-4">2.2.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-82022e0497e8" class="outline-4">
+<h4 id="section-82022e0497e8"><span class="section-number-4">2.2.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-2-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=4</li>
@@ -1886,12 +2016,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-a55038941a17" class="outline-4">
-<h4 id="section-a55038941a17"><span class="section-number-4">2.2.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-a9c0f3eeab52" class="outline-4">
+<h4 id="section-a9c0f3eeab52"><span class="section-number-4">2.2.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-2-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-21bae72249b2"></a>ECA 不再向代理发送空路径与空位置的光标上下文 :P1:<br>
+<li><a id="org-museum-ref-29cf573dc8e9"></a>ECA 不再向代理发送空路径与空位置的光标上下文 :P1:<br>
 <div class="outline-text-5" id="text-2-2-3-1">
 <p>
 :PROPERTIES:
@@ -1920,7 +2050,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-ab52ab4db2ea"></a>Flycheck 38.4 开发线补齐现代检查器配置与 ESLint 9 项目识别 :P1:<br>
+<li><a id="org-museum-ref-4e1e1777a2ce"></a>Flycheck 38.4 开发线补齐现代检查器配置与 ESLint 9 项目识别 :P1:<br>
 <div class="outline-text-5" id="text-2-2-3-2">
 <p>
 :PROPERTIES:
@@ -1949,7 +2079,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-7a628896b243"></a>agent-shell 修正后台窗口中的权限请求定位 :P1:<br>
+<li><a id="org-museum-ref-16ec33bc57a1"></a>agent-shell 修正后台窗口中的权限请求定位 :P1:<br>
 <div class="outline-text-5" id="text-2-2-3-3">
 <p>
 :PROPERTIES:
@@ -1978,7 +2108,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-173a4b0a7f4e"></a>Hyperbole 教程展示无需显式链接的“可操作文本” :P1:<br>
+<li><a id="org-museum-ref-6c92a8714470"></a>Hyperbole 教程展示无需显式链接的“可操作文本” :P1:<br>
 <div class="outline-text-5" id="text-2-2-3-4">
 <p>
 :PROPERTIES:
@@ -2009,8 +2139,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-818f44aef62e" class="outline-4">
-<h4 id="section-818f44aef62e"><span class="section-number-4">2.2.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-7ef7b7c4672a" class="outline-4">
+<h4 id="section-7ef7b7c4672a"><span class="section-number-4">2.2.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-2-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
 
@@ -2106,8 +2236,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-37fb56522b18" class="outline-4">
-<h4 id="section-37fb56522b18"><span class="section-number-4">2.2.5.</span> 简短观察</h4>
+<div id="outline-container-section-a783ec6e22fa" class="outline-4">
+<h4 id="section-a783ec6e22fa"><span class="section-number-4">2.2.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-2-5">
 <ul class="org-ul">
 <li>事实: 本窗口的高价值增量集中在 AI 上下文正确性、权限可见性、诊断工具现代兼容和可操作文本实践。</li>
@@ -2117,8 +2247,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-7edd37d2f912" class="outline-3">
-<h3 id="section-7edd37d2f912"><span class="section-number-3">2.3.</span> 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</h3>
+<div id="outline-container-section-8907f7b35ffb" class="outline-3">
+<h3 id="section-8907f7b35ffb"><span class="section-number-3">2.3.</span> 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 :PROPERTIES:
@@ -2127,8 +2257,8 @@
 :END:
 </p>
 </div>
-<div id="outline-container-section-03d9cb25003f" class="outline-4">
-<h4 id="section-03d9cb25003f"><span class="section-number-4">2.3.1.</span> 窗口</h4>
+<div id="outline-container-section-f655257116ae" class="outline-4">
+<h4 id="section-f655257116ae"><span class="section-number-4">2.3.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-3-1">
 <ul class="org-ul">
 <li>本地: 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</li>
@@ -2137,8 +2267,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-8c0d6958311f" class="outline-4">
-<h4 id="section-8c0d6958311f"><span class="section-number-4">2.3.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-6e6053bd7e3a" class="outline-4">
+<h4 id="section-6e6053bd7e3a"><span class="section-number-4">2.3.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-3-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=7</li>
@@ -2151,12 +2281,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-802f383a1059" class="outline-4">
-<h4 id="section-802f383a1059"><span class="section-number-4">2.3.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-f28ecf4e0000" class="outline-4">
+<h4 id="section-f28ecf4e0000"><span class="section-number-4">2.3.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-3-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-55307c6f9c88"></a>md-mode 0.2 把多类技术图形带入同缓冲区 Markdown 预览&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-a19b32d8a2c6"></a>md-mode 0.2 把多类技术图形带入同缓冲区 Markdown 预览&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-1">
 <ul class="org-ul">
 <li>事件: 2026-07-30，md-mode 作者发布 0.2：在保持 Markdown 源文本为唯一事实源的前提下，以异步、缓存方式在同一缓冲区渲染 LaTeX、Mermaid、PlantUML 和 Graphviz，并补充主题感知缓存、CJK 标题缩放、宽表格与 Org 风格结构导航。</li>
@@ -2177,7 +2307,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-894f22b89304"></a>ECA 修复跨项目缓冲区周期性卡顿&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-aefa5606514e"></a>ECA 修复跨项目缓冲区周期性卡顿&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-2">
 <ul class="org-ul">
 <li>事件: 2026-07-30，eca-emacs 修复游标跟踪 idle timer 在不属于任何 ECA session 的缓冲区里反复探测 project.el、并对每个 workspace folder 调用 git rev-parse 的问题；新实现以内存匹配工作区、缓存 git common dir，并用 process-file 直接执行 Git。</li>
@@ -2198,7 +2328,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-c3833800373f"></a>agent-shell 补齐 Markdown 列表、会话恢复与图片尺寸&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-61943301e7f5"></a>agent-shell 补齐 Markdown 列表、会话恢复与图片尺寸&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-3">
 <ul class="org-ul">
 <li>事件: 2026-07-29 至 30 日，agent-shell 连续合入 Markdown 列表渲染、会话恢复修复、恢复后光标定位、权限按钮焦点修复，以及 Pandoc 风格图片宽高属性支持；最新提交允许用 {width=300} 或百分比控制图片显示尺寸。</li>
@@ -2219,7 +2349,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-691db69eec1e"></a>ECA 修复缺失版本文件导致服务器永久不更新&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-2ea6af7d8a71"></a>ECA 修复缺失版本文件导致服务器永久不更新&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-4">
 <ul class="org-ul">
 <li>事件: 2026-07-30，eca-emacs 修复异步下载中断后版本文件缺失、旧服务器二进制却被误判为无需更新的问题；现在遇到“二进制存在但版本未知”会在启动时重装，离线检查失败则继续使用已安装二进制，并在检查命令中明确报告未知版本。</li>
@@ -2240,7 +2370,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-caf75c77c009"></a>Emacs core 为行注释引入可配置识别规则&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-d5c46f9aea26"></a>Emacs core 为行注释引入可配置识别规则&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-5">
 <ul class="org-ul">
 <li>事件: 2026-07-30，Emacs core 新增 comment-start-line-regexp，并让多种经典与 tree-sitter major mode 设置它；treesit-forward-comment 据此判断注释节点是否是行注释，同时相关行为写入 NEWS 和手册。</li>
@@ -2261,7 +2391,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-299e3cfe898a"></a>Flycheck 38 同日迭代至 38.3，原生 LSP 与行内诊断落地&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-15afb70de6cd"></a>Flycheck 38 同日迭代至 38.3，原生 LSP 与行内诊断落地&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-6">
 <ul class="org-ul">
 <li>事件: 2026-07-29，Flycheck 发布 38.0，并在约四小时内连续发布 38.1、38.2、38.3。38.0 加入内置 Eglot 集成、原生 LSP checker 与三种行内诊断样式；38.2 紧急把原生 checker 从 lsp 改名为 flycheck-lsp，修复覆盖 lsp-mode 自有 checker 后错误列表和高亮消失；38.3 再修正行内注释位置并扩展诊断解释。</li>
@@ -2282,7 +2412,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-91f2862ee932"></a>CIDER 增加按项目类型自动连接 ClojureScript REPL&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-164795899b9d"></a>CIDER 增加按项目类型自动连接 ClojureScript REPL&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-3-3-7">
 <ul class="org-ul">
 <li>事件: 2026-07-29，CIDER 维护者介绍新的 ClojureScript 自动连接能力：cider-connect-cljs 可依据项目线索选择合适 REPL 类型，并改善 sibling ClojureScript REPL 的建立流程，减少用户记忆不同工具链连接细节的负担。</li>
@@ -2305,8 +2435,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-7f0dbd16f9d4" class="outline-4">
-<h4 id="section-7f0dbd16f9d4"><span class="section-number-4">2.3.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-f372d03de175" class="outline-4">
+<h4 id="section-f372d03de175"><span class="section-number-4">2.3.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-3-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 4"><table>
 
@@ -2431,8 +2561,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-e8553206d754" class="outline-4">
-<h4 id="section-e8553206d754"><span class="section-number-4">2.3.5.</span> 简短观察</h4>
+<div id="outline-container-section-e3d1676f529e" class="outline-4">
+<h4 id="section-e3d1676f529e"><span class="section-number-4">2.3.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-3-5">
 <ul class="org-ul">
 <li>事实: 本窗口有一个重要发布链、一个 core 跨模式语义调整、两项 ECA 可靠性修复，以及三项工作流与渲染增量。</li>
@@ -2442,12 +2572,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-388028777c0d" class="outline-3">
-<h3 id="section-388028777c0d"><span class="section-number-3">2.4.</span> 窗口 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</h3>
+<div id="outline-container-section-06d3f0b5735a" class="outline-3">
+<h3 id="section-06d3f0b5735a"><span class="section-number-3">2.4.</span> 窗口 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-4">
 </div>
-<div id="outline-container-section-ae24358b7291" class="outline-4">
-<h4 id="section-ae24358b7291"><span class="section-number-4">2.4.1.</span> 窗口</h4>
+<div id="outline-container-section-edff0f3b14ca" class="outline-4">
+<h4 id="section-edff0f3b14ca"><span class="section-number-4">2.4.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-4-1">
 <ul class="org-ul">
 <li>本地: 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</li>
@@ -2456,8 +2586,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-6cf8440a659e" class="outline-4">
-<h4 id="section-6cf8440a659e"><span class="section-number-4">2.4.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-43cfac5fd712" class="outline-4">
+<h4 id="section-43cfac5fd712"><span class="section-number-4">2.4.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-4-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=2</li>
@@ -2470,12 +2600,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-ba7918956ad2" class="outline-4">
-<h4 id="section-ba7918956ad2"><span class="section-number-4">2.4.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-fcd052f80b77" class="outline-4">
+<h4 id="section-fcd052f80b77"><span class="section-number-4">2.4.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-4-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-f8dceaf74d4d"></a>gptel 修复 DeepSeek 多段文本合并错误&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-dcdc05bc9506"></a>gptel 修复 DeepSeek 多段文本合并错误&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-4-3-1">
 <ul class="org-ul">
 <li>事件: 2026-07-26，gptel 维护者修复 DeepSeek 消息解析器：当连续同角色提示的 content 是向量形式（例如带类型的文本块）时，不再用字符串 concat 合并，而改用向量拼接并插入文本换行块。</li>
@@ -2496,7 +2626,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-44ae5cc62514"></a>nano-mu4e 1.0 以线程中心界面重做邮件列表&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-af88343f3c2d"></a>nano-mu4e 1.0 以线程中心界面重做邮件列表&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-4-3-2">
 <ul class="org-ul">
 <li>事件: 2026-07-26，Nicolas Rougier 在 r/emacs 以“nano-mu4e 1.0”公开展示项目；仓库提供一个 mu4e minor mode，重排线程视图，突出主题、未读、标签、标记和内嵌预览，并提供多种紧凑布局。</li>
@@ -2519,8 +2649,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-9e50ffbbbe6b" class="outline-4">
-<h4 id="section-9e50ffbbbe6b"><span class="section-number-4">2.4.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-834ad7523122" class="outline-4">
+<h4 id="section-834ad7523122"><span class="section-number-4">2.4.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-4-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table>
 
@@ -2585,8 +2715,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-049ff2c31400" class="outline-4">
-<h4 id="section-049ff2c31400"><span class="section-number-4">2.4.5.</span> 简短观察</h4>
+<div id="outline-container-section-39cab896fc45" class="outline-4">
+<h4 id="section-39cab896fc45"><span class="section-number-4">2.4.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-4-5">
 <ul class="org-ul">
 <li>事实: 本窗口的高价值增量分别来自 gptel 的后端消息兼容修复和 nano-mu4e 的邮件界面公开发布。</li>
@@ -2596,12 +2726,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-399799762094" class="outline-3">
-<h3 id="section-399799762094"><span class="section-number-3">2.5.</span> 窗口 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</h3>
+<div id="outline-container-section-98fccc9828c6" class="outline-3">
+<h3 id="section-98fccc9828c6"><span class="section-number-3">2.5.</span> 窗口 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-5">
 </div>
-<div id="outline-container-section-b82166493e65" class="outline-4">
-<h4 id="section-b82166493e65"><span class="section-number-4">2.5.1.</span> 窗口</h4>
+<div id="outline-container-section-28e193070034" class="outline-4">
+<h4 id="section-28e193070034"><span class="section-number-4">2.5.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-5-1">
 <ul class="org-ul">
 <li>本地: 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</li>
@@ -2610,8 +2740,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-cd2823b25acf" class="outline-4">
-<h4 id="section-cd2823b25acf"><span class="section-number-4">2.5.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-4b1f9c1810dd" class="outline-4">
+<h4 id="section-4b1f9c1810dd"><span class="section-number-4">2.5.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-5-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=6</li>
@@ -2624,12 +2754,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-c2fa047afe83" class="outline-4">
-<h4 id="section-c2fa047afe83"><span class="section-number-4">2.5.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-382802dfcbbf" class="outline-4">
+<h4 id="section-382802dfcbbf"><span class="section-number-4">2.5.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-5-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-82dfc5e4a923"></a>CIDER 用标准 completing-read 接入现代补全栈&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-66cd9bc7f7b6"></a>CIDER 用标准 completing-read 接入现代补全栈&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-1">
 <ul class="org-ul">
 <li>事件: 2026-07-25，CIDER 维护者 Bozhidar Batsov 说明最新 MELPA 构建加入可选的 cider-use-completing-read-for-symbol：符号提示可改走标准 completing-read，并按输入惰性查询 REPL；候选注释也改用 affixation-function 对齐显示。这些改动预计进入下一稳定版。</li>
@@ -2650,7 +2780,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-35fcee0d619d"></a>CIDER 与 Projectile 把 Embark 动作带到领域对象&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-22f88c116b4e"></a>CIDER 与 Projectile 把 Embark 动作带到领域对象&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-2">
 <ul class="org-ul">
 <li>事件: 2026-07-25，Emacs Redux 发布可复用实践：CIDER 可为 Clojure 符号和补全候选注册文档、定义、引用、检查等 Embark 动作；Projectile 则已内置项目候选与项目文件的 Embark 集成，并正确按项目根目录解析相对路径。</li>
@@ -2671,7 +2801,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-cf5fc02f3630"></a>Emacs 32 的 vc-dir 不再无条件解析符号链接&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-f49f6a065f6a"></a>Emacs 32 的 vc-dir 不再无条件解析符号链接&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-3">
 <ul class="org-ul">
 <li>事件: 2026-07-25，Emacs master 修改 vc-dir：交互选择的目录若本身已有可负责的 VC backend，就保留该目录；只有目录本身无 backend、其 truename 有 backend 且 vc-follow-symlinks 非 nil 时才转向真实路径，并同步写入 NEWS。</li>
@@ -2692,7 +2822,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-a38957dda37c"></a>Magit 日志菜单补齐只看合并提交&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-544d4250717c"></a>Magit 日志菜单补齐只看合并提交&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-4">
 <ul class="org-ul">
 <li>事件: 2026-07-25，Magit 合入 #5299，在 magit-log 与 magit-log-refresh 菜单加入 Git 的 &ndash;merges 选项，并声明它与既有 &ndash;no-merges 互斥；变更已进入同日 MELPA 构建。</li>
@@ -2713,7 +2843,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-24476b6fb96d"></a>llm 把 Gemini 默认模型切到 3.6 Flash&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-641997d0ef5e"></a>llm 把 Gemini 默认模型切到 3.6 Flash&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-5">
 <ul class="org-ul">
 <li>事件: 2026-07-25 本地时间，Emacs 包 llm 修复 Gemini provider 中缺失的符号，并把默认 Gemini 模型改为 Gemini 3.6 Flash；同批修改更新 NEWS 和模型表。</li>
@@ -2734,7 +2864,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-38cee2cf7ee1"></a>Emacs 31.0.91 第二个 pretest 可供验证&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="org-museum-ref-244435fc85e9"></a>Emacs 31.0.91 第二个 pretest 可供验证&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-5-3-6">
 <ul class="org-ul">
 <li>事件: GNU 已提供 Emacs 31.0.91 源码包及对应签名；Planet Emacslife 在 2026-07-24 22:16（+08:00）聚合了第二个 Emacs 31 pretest 的公告。这是通往 31.1 稳定版的下一轮公开验证点。</li>
@@ -2757,8 +2887,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-02ace1c1048b" class="outline-4">
-<h4 id="section-02ace1c1048b"><span class="section-number-4">2.5.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-a07402d5f818" class="outline-4">
+<h4 id="section-a07402d5f818"><span class="section-number-4">2.5.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-5-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 6"><table>
 
@@ -2871,8 +3001,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-e748b45d0bce" class="outline-4">
-<h4 id="section-e748b45d0bce"><span class="section-number-4">2.5.5.</span> 简短观察</h4>
+<div id="outline-container-section-950aa583aa36" class="outline-4">
+<h4 id="section-950aa583aa36"><span class="section-number-4">2.5.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-5-5">
 <ul class="org-ul">
 <li>事实: 本窗口有一个正式 pretest 分发事件和五个由维护者文章或代码提交直接支持的工作流增量。</li>
@@ -2882,12 +3012,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-9f5393cb7d2c" class="outline-3">
-<h3 id="section-9f5393cb7d2c"><span class="section-number-3">2.6.</span> 窗口 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</h3>
+<div id="outline-container-section-894888673fe2" class="outline-3">
+<h3 id="section-894888673fe2"><span class="section-number-3">2.6.</span> 窗口 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-6">
 </div>
-<div id="outline-container-section-3f1b95cdadc6" class="outline-4">
-<h4 id="section-3f1b95cdadc6"><span class="section-number-4">2.6.1.</span> 窗口</h4>
+<div id="outline-container-section-8e2a0bfb35d2" class="outline-4">
+<h4 id="section-8e2a0bfb35d2"><span class="section-number-4">2.6.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-6-1">
 <ul class="org-ul">
 <li>本地: 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</li>
@@ -2896,8 +3026,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-830311f6e8d2" class="outline-4">
-<h4 id="section-830311f6e8d2"><span class="section-number-4">2.6.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-43d5a28c8b57" class="outline-4">
+<h4 id="section-43d5a28c8b57"><span class="section-number-4">2.6.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-6-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=7</li>
@@ -2910,12 +3040,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-8c3d879b3514" class="outline-4">
-<h4 id="section-8c3d879b3514"><span class="section-number-4">2.6.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-850e68312abc" class="outline-4">
+<h4 id="section-850e68312abc"><span class="section-number-4">2.6.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-6-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-f4925d8588d3"></a>llm 把 Claude 默认模型切到 Claude 5 Sonnet&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-b7e4ef0143ed"></a>llm 把 Claude 默认模型切到 Claude 5 Sonnet&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-1">
 <ul class="org-ul">
 <li>事件: 2026-07-25 本地时间，Emacs 包 llm 合入 #299，加入 Claude 5 Opus 与 Sonnet 的模型数据，并把 Claude provider 的默认模型改为 Claude 5 Sonnet；改动同时更新 NEWS、provider 与模型表。</li>
@@ -2936,7 +3066,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-867b1c905ced"></a>Magit pull 补齐全部 rebase 变体&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-544e370eb0be"></a>Magit pull 补齐全部 rebase 变体&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-2">
 <ul class="org-ul">
 <li>事件: Magit 于 2026-07-25 本地时间合入 #5224，扩展 pull 时的 rebase 判断，支持 Git 的全部 rebase 变体，并相应修改分支与 pull 逻辑及 changelog。</li>
@@ -2957,7 +3087,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-ba84471de8db"></a>Magit push 暴露 Git 的 &ndash;push-option&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-a222e07b878f"></a>Magit push 暴露 Git 的 &ndash;push-option&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-3">
 <ul class="org-ul">
 <li>事件: Magit 于 2026-07-25 本地时间合入 #5478，在 push transient 中加入 Git `&ndash;push-option` 支持，并同步更新 Org/Texinfo 手册和 changelog。</li>
@@ -2978,7 +3108,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-5ae95180a730"></a>Emacs core 修复 dabbrev 遇到已销毁缓冲区时报错&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-b86f9305777f"></a>Emacs core 修复 dabbrev 遇到已销毁缓冲区时报错&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-4">
 <ul class="org-ul">
 <li>事件: Emacs core 于 2026-07-24 修复 Bug#81452：`dabbrev-expand` 先前保存的 `dabbrev&ndash;last-buffer-found` 可能已经被销毁，随后扩展会报错；补丁在使用前重新验证 buffer 存活状态。</li>
@@ -2999,7 +3129,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-b833a7c5f8cc"></a>ECA 修复流式聊天输出导致视图反复跳动&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-40a8f5a502c3"></a>ECA 修复流式聊天输出导致视图反复跳动&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-5">
 <ul class="org-ul">
 <li>事件: eca-emacs 于 2026-07-25 本地时间关闭 #268：聊天 buffer 现在局部设置滚动参数，使小块流式输出逐行滚动而非反复居中；spinner、进度区和工具标签也只在内容变化时重绘。</li>
@@ -3020,7 +3150,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-0d13ae37a57a"></a>社区集中讨论“哪些事不该放进 Emacs”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-2d52ce4aaec8"></a>社区集中讨论“哪些事不该放进 Emacs”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-6">
 <ul class="org-ul">
 <li>事件: r/emacs 于 2026-07-24 出现高参与讨论，问题不是“Emacs 能做什么”，而是资深用户主动不用它做什么；回复集中提到电子书/PDF、富媒体邮件、网页、移动端同步、终端 TUI 与窗口管理。</li>
@@ -3041,7 +3171,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-0746ca19a39e"></a>旧 ThinkPad 被改造成极简 Emacs 写作机&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-75a80d8beabe"></a>旧 ThinkPad 被改造成极简 Emacs 写作机&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-6-3-7">
 <ul class="org-ul">
 <li>事件: Chung-hong Chan 于 2026-07-25 发布实践记录：把旧 ThinkPad T440 安装为无桌面 Debian+kmscon，删掉编程配置，让机器直接启动 Emacs/Deft，仅保留 Markdown、eshell 与 Magit，并用 Codeberg Git 仓库同步文本。</li>
@@ -3064,8 +3194,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-f725e07cc058" class="outline-4">
-<h4 id="section-f725e07cc058"><span class="section-number-4">2.6.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-b80b6bdea1de" class="outline-4">
+<h4 id="section-b80b6bdea1de"><span class="section-number-4">2.6.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-6-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 7"><table>
 
@@ -3189,8 +3319,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-2bdbd12269b4" class="outline-4">
-<h4 id="section-2bdbd12269b4"><span class="section-number-4">2.6.5.</span> 简短观察</h4>
+<div id="outline-container-section-f236c394e93e" class="outline-4">
+<h4 id="section-f236c394e93e"><span class="section-number-4">2.6.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-6-5">
 <ul class="org-ul">
 <li>事实: 本窗口写入 7 条 P1，覆盖 Magit pull/push、core dabbrev、llm 默认模型、ECA 流式显示、社区工作流边界和极简写作机实践。</li>
@@ -3200,12 +3330,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-0c805d3ba8e2" class="outline-3">
-<h3 id="section-0c805d3ba8e2"><span class="section-number-3">2.7.</span> 窗口 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</h3>
+<div id="outline-container-section-c2f228ac596a" class="outline-3">
+<h3 id="section-c2f228ac596a"><span class="section-number-3">2.7.</span> 窗口 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-7">
 </div>
-<div id="outline-container-section-dd408a6c496f" class="outline-4">
-<h4 id="section-dd408a6c496f"><span class="section-number-4">2.7.1.</span> 窗口</h4>
+<div id="outline-container-section-c2d0c6b3c3ee" class="outline-4">
+<h4 id="section-c2d0c6b3c3ee"><span class="section-number-4">2.7.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-7-1">
 <ul class="org-ul">
 <li>本地: 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</li>
@@ -3214,8 +3344,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-511b81ee576a" class="outline-4">
-<h4 id="section-511b81ee576a"><span class="section-number-4">2.7.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-9d7cd055f942" class="outline-4">
+<h4 id="section-9d7cd055f942"><span class="section-number-4">2.7.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-7-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=4</li>
@@ -3228,12 +3358,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-99cb207d0551" class="outline-4">
-<h4 id="section-99cb207d0551"><span class="section-number-4">2.7.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-17d0b8ec42b5" class="outline-4">
+<h4 id="section-17d0b8ec42b5"><span class="section-number-4">2.7.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-7-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-44cf0381a920"></a>Emacs 32 默认采用新的时间戳表示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-93c6fad29bbd"></a>Emacs 32 默认采用新的时间戳表示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-7-3-1">
 <ul class="org-ul">
 <li>事件: Emacs core 于 2026-07-24 将 `current-time-list` 的默认值从 t 改为 nil。Emacs 32 中，`current-time` 等函数因此默认返回 `(TICKS . HZ)`，而不再默认返回旧的 `(HIGH LOW USEC PSEC)` 列表；NEWS 与 Lisp 参考手册同步更新。</li>
@@ -3254,7 +3384,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-c79162c1c2f9"></a>gptel 为 DeepSeek 与 z.ai 补齐结构化 JSON 输出&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-40888538f2b2"></a>gptel 为 DeepSeek 与 z.ai 补齐结构化 JSON 输出&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-7-3-2">
 <ul class="org-ul">
 <li>事件: gptel 于 2026-07-24 增加 DeepSeek 与 z.ai/GLM 的结构化 JSON 输出适配。由于这些 API 不接受完整 JSON Schema，gptel 会把请求的 schema 序列化进 system message，同时把 `response_format` 改为 `json_object`；维护者建议两类后端都用 `gptel-make-deepseek` 构造。</li>
@@ -3275,7 +3405,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-442dc1ce2f7e"></a>llm 0.31.3 增加 DeepSeek 流式工具调用并更新模型适配&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-e33977a06d81"></a>llm 0.31.3 增加 DeepSeek 流式工具调用并更新模型适配&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-7-3-3">
 <ul class="org-ul">
 <li>事件: Emacs 包 `llm` 于 2026-07-24 本地时间发布 0.31.3，加入 DeepSeek 工具调用支持，并补充工具调用文档与可选参数测试；同时增加 Kimi K3 和新 Gemini 模型，且为这些 Gemini 模型移除 temperature 设置。</li>
@@ -3296,7 +3426,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-89e0b4d9eeb9"></a>ECA 可把编译与终端等非文件缓冲区作为聊天上下文&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-4032b1f8d437"></a>ECA 可把编译与终端等非文件缓冲区作为聊天上下文&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-7-3-4">
 <ul class="org-ul">
 <li>事件: eca-emacs 于 2026-07-24 本地时间加入非文件缓冲区上下文：`@` 补全可选择 compilation、comint 等缓冲区，并在发送提示时抓取最新内容作为 text context；候选可用 predicate 定制，内容长度可设上限，提交同时加入覆盖筛选、截断和已销毁缓冲区的测试。</li>
@@ -3319,8 +3449,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-a7215e360cde" class="outline-4">
-<h4 id="section-a7215e360cde"><span class="section-number-4">2.7.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-4c0bffb067f6" class="outline-4">
+<h4 id="section-4c0bffb067f6"><span class="section-number-4">2.7.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-7-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 8"><table>
 
@@ -3408,8 +3538,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-e0a1b69b75da" class="outline-4">
-<h4 id="section-e0a1b69b75da"><span class="section-number-4">2.7.5.</span> 简短观察</h4>
+<div id="outline-container-section-4d2d8d59a334" class="outline-4">
+<h4 id="section-4d2d8d59a334"><span class="section-number-4">2.7.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-7-5">
 <ul class="org-ul">
 <li>事实: 本窗口的 core 高价值变化是 Emacs 32 时间戳默认表示切换；AI 侧有一个正式包发布和两个可验证功能提交，分别覆盖工具调用、结构化输出和非文件缓冲区上下文。</li>
@@ -3419,8 +3549,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-82bae966c974" class="outline-3">
-<h3 id="section-82bae966c974"><span class="section-number-3">2.8.</span> 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</h3>
+<div id="outline-container-section-644cb72cf3f6" class="outline-3">
+<h3 id="section-644cb72cf3f6"><span class="section-number-3">2.8.</span> 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-8">
 <p>
 :PROPERTIES:
@@ -3429,8 +3559,8 @@
 :END:
 </p>
 </div>
-<div id="outline-container-section-30b3a856f696" class="outline-4">
-<h4 id="section-30b3a856f696"><span class="section-number-4">2.8.1.</span> 窗口</h4>
+<div id="outline-container-section-00f4bbbe4c31" class="outline-4">
+<h4 id="section-00f4bbbe4c31"><span class="section-number-4">2.8.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-8-1">
 <ul class="org-ul">
 <li>本地: 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</li>
@@ -3439,8 +3569,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-2bbfa6266bbc" class="outline-4">
-<h4 id="section-2bbfa6266bbc"><span class="section-number-4">2.8.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-59276e9d8735" class="outline-4">
+<h4 id="section-59276e9d8735"><span class="section-number-4">2.8.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-8-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=7</li>
@@ -3453,12 +3583,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-2e0fe026d630" class="outline-4">
-<h4 id="section-2e0fe026d630"><span class="section-number-4">2.8.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-27dbefdb24bf" class="outline-4">
+<h4 id="section-27dbefdb24bf"><span class="section-number-4">2.8.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-8-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-cd468c5afc92"></a>agent-shell 扩大异步 ACP 事件的可见范围&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-330c7b7cbff9"></a>agent-shell 扩大异步 ACP 事件的可见范围&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-1">
 <ul class="org-ul">
 <li>事件: agent-shell 于 2026-07-16 合入提交 4487940，调整 `session/update` 的处理：更多在请求结束后到达的 agent 消息、思考、工具调用和计划会被单独渲染在新提示符之前，而不是被吞掉、并入上一轮，或统一标成 ACP 服务端违规。</li>
@@ -3479,7 +3609,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-6ff8d0b5207d"></a>lsp-mode 修复 Ruby LSP Code Lens 的 plist 反序列化&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-76ebdcae46a2"></a>lsp-mode 修复 Ruby LSP Code Lens 的 plist 反序列化&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-2">
 <ul class="org-ul">
 <li>事件: lsp-mode 于 2026-07-16 合入 #5097，把 Ruby LSP 的 Code Lens action 参数读取从 `gethash` 改为 `lsp-get`，使 `rubyLsp.openFile`、`rubyLsp.runTest` 和 `rubyLsp.runTestInTerminal` 同时兼容哈希表与 plist 反序列化结果。</li>
@@ -3500,7 +3630,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-dae3dea476e5"></a>Emacs core 恢复 32 位 MinGW wide-int 的 pdumper 构建&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-3dbde91b59f4"></a>Emacs core 恢复 32 位 MinGW wide-int 的 pdumper 构建&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-3">
 <ul class="org-ul">
 <li>事件: Emacs core 于 2026-07-16 修正 `pdumper.c` 的 relocation alignment，把上限设为 `Lisp_Object` 与 `void *` 对齐值中的较小者，从而恢复 32 位 MinGW 配合 `&ndash;with-wide-int` 的构建；修复继续跟踪 Bug#44531。</li>
@@ -3521,7 +3651,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-0c4e9b8d5d71"></a>skewed-emacs 推出一条命令启动的容器化 Emacs+CL+MCP 环境&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P2">P2</span></span><br>
+<li><a id="org-museum-ref-846f85dea8df"></a>skewed-emacs 推出一条命令启动的容器化 Emacs+CL+MCP 环境&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P2">P2</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-4">
 <ul class="org-ul">
 <li>事件: skewed-emacs 作者于 2026-07-16 宣布可通过一条 `curl` 命令启动预配置容器，组合 Emacs 30.1、约 39 个包、SLIME、SBCL/CCL/Gendl 与 lisply-mcp；仓库同日持续修正镜像 tag、构建顺序和新手引导。</li>
@@ -3542,7 +3672,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-9a67d9c9c90b"></a>ECA 隔离每个聊天的模型、代理、变体与 trust 状态&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-f86a7fb9bf67"></a>ECA 隔离每个聊天的模型、代理、变体与 trust 状态&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-5">
 <ul class="org-ul">
 <li>事件: eca-emacs 于 2026-07-16 合入 PR #272，按聊天隔离 model、agent、variant 与 trust 选择，修正配置通知路由和陈旧 chat buffer 删除，并支持从服务端原子恢复 selection 快照；合并时 15 项检查通过。</li>
@@ -3563,7 +3693,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-e463aaae4286"></a>gptel 补齐 OpenAI OAuth 后端的 gpt-5.6 模型清单&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-7b88e82c5742"></a>gptel 补齐 OpenAI OAuth 后端的 gpt-5.6 模型清单&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-6">
 <ul class="org-ul">
 <li>事件: gptel 于 2026-07-15 补交一项遗漏修复，在 ChatGPT Plus/Pro OAuth 后端模型清单中加入 `gpt-5.6-sol`、`gpt-5.6-terra` 和 `gpt-5.6-luna`；提交说明这些名称在更早变更中漏加。</li>
@@ -3584,7 +3714,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-5040e09727de"></a>Jinx 与 Ivy 组合暴露拼写候选选择冲突&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-2e86e3be9a3c"></a>Jinx 与 Ivy 组合暴露拼写候选选择冲突&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-8-3-7">
 <ul class="org-ul">
 <li>事件: Irreal 作者于 2026-07-15 更新其 Jinx 试用记录，确认“无法按预期选择正确拼写”与 Ivy 交互有关；引用的临时做法是在 `jinx-correct` 周围禁用 Ivy，但作者认为候选体验仍不理想并暂时退回原行为。</li>
@@ -3607,8 +3737,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-0b5497eafc38" class="outline-4">
-<h4 id="section-0b5497eafc38"><span class="section-number-4">2.8.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-e8c081900178" class="outline-4">
+<h4 id="section-e8c081900178"><span class="section-number-4">2.8.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-8-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 9"><table>
 
@@ -3732,8 +3862,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-4401692bc658" class="outline-4">
-<h4 id="section-4401692bc658"><span class="section-number-4">2.8.5.</span> 简短观察</h4>
+<div id="outline-container-section-aacd64e98f58" class="outline-4">
+<h4 id="section-aacd64e98f58"><span class="section-number-4">2.8.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-8-5">
 <ul class="org-ul">
 <li>事实: 本窗口没有新的 Emacs、Org、Org-roam、gptel 或主流 completion 包正式 release；高价值增量集中在 core/语言客户端的定向修复，以及 AI 插件的状态与事件处理。</li>
@@ -3743,12 +3873,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-593dbefdb317" class="outline-3">
-<h3 id="section-593dbefdb317"><span class="section-number-3">2.9.</span> 窗口 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</h3>
+<div id="outline-container-section-467b353013ae" class="outline-3">
+<h3 id="section-467b353013ae"><span class="section-number-3">2.9.</span> 窗口 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-9">
 </div>
-<div id="outline-container-section-f42a70bb5933" class="outline-4">
-<h4 id="section-f42a70bb5933"><span class="section-number-4">2.9.1.</span> 窗口</h4>
+<div id="outline-container-section-d85e93500411" class="outline-4">
+<h4 id="section-d85e93500411"><span class="section-number-4">2.9.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-9-1">
 <ul class="org-ul">
 <li>本地: 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</li>
@@ -3756,8 +3886,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-d8fc4336060b" class="outline-4">
-<h4 id="section-d8fc4336060b"><span class="section-number-4">2.9.2.</span> 摘要</h4>
+<div id="outline-container-section-d85e93500411" class="outline-4">
+<h4 id="section-d85e93500411"><span class="section-number-4">2.9.2.</span> 摘要</h4>
 <div class="outline-text-4" id="text-2-9-2">
 <ul class="org-ul">
 <li>新增: P0=0 P1=3 P2=0 | 去重=0 | 采集失败=1</li>
@@ -3766,12 +3896,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-65d51107cccd" class="outline-4">
-<h4 id="section-65d51107cccd"><span class="section-number-4">2.9.3.</span> 中文简报</h4>
+<div id="outline-container-section-f88116901e01" class="outline-4">
+<h4 id="section-f88116901e01"><span class="section-number-4">2.9.3.</span> 中文简报</h4>
 <div class="outline-text-4" id="text-2-9-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-14990ecd5249"></a>wasmacs：真实 GNU Emacs 30.2 以 WebAssembly 形式运行在浏览器中&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-82a019d5c467"></a>wasmacs：真实 GNU Emacs 30.2 以 WebAssembly 形式运行在浏览器中&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-9-3-1">
 <ul class="org-ul">
 <li>事件: r/emacs 用户 Exact_Engine_7218 于 2026-06-08 12:56 +08 发布 wasmacs，称其将 GNU Emacs 30.2 的 C core 与 Elisp runtime 编译到浏览器侧运行；配套 GitHub 仓库为 <a href="https://github.com/modeverv/wasmacs%EF%BC%8C%E6%BC%94%E7%A4%BA%E9%A1%B5%E4%B8%BA">https://github.com/modeverv/wasmacs%EF%BC%8C%E6%BC%94%E7%A4%BA%E9%A1%B5%E4%B8%BA</a> <a href="https://modeverv.github.io/wasmacs/%E3%80%82%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%89%8D%E5%8F%AF%E8%BF%90%E8%A1%8C">https://modeverv.github.io/wasmacs/%E3%80%82%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%89%8D%E5%8F%AF%E8%BF%90%E8%A1%8C</a> <b>scratch</b>、Dired、Org-mode、load-file，并可导入/导出 .wasifs 文件系统镜像。</li>
@@ -3786,7 +3916,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-112f765a7d35"></a>MELPA 更新 ai-code recipe：安装包开始包含 prompt/*.md&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-f66baa2cede1"></a>MELPA 更新 ai-code recipe：安装包开始包含 prompt/*.md&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-9-3-2">
 <ul class="org-ul">
 <li>事件: MELPA 于 2026-06-07 23:25 +08 合并 recipe 更新，把 ai-code 的打包文件从默认文件和 snippets 扩展为同时包含 prompt/*.md。ai-code-interface.el 本身定位为 Emacs 内统一 AI coding interface，支持 Codex、GitHub Copilot CLI、Claude Code、Gemini CLI、Opencode、Aider 等后端。</li>
@@ -3801,7 +3931,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-55f794c56740"></a>pi.el：面向 Pi Coding Agent 的 Emacs 原生客户端开始公开讨论&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-723c4cb8879e"></a>pi.el：面向 Pi Coding Agent 的 Emacs 原生客户端开始公开讨论&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-9-3-3">
 <ul class="org-ul">
 <li>事件: ananthakumaran 于 2026-06-07 14:03 +08 在 r/emacs 发布 pi.el，GitHub 仓库为 <a href="https://github.com/ananthakumaran/pi.el%E3%80%82README">https://github.com/ananthakumaran/pi.el%E3%80%82README</a> 显示该包通过 RPC mode 启动 Pi，由 Pi 处理 agent 逻辑，Emacs 提供界面；聊天缓冲区除输入区域外只读，并支持 section 折叠、slash command 补全、工具结果跳转等交互。</li>
@@ -3818,8 +3948,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-9d4ea5892c15" class="outline-4">
-<h4 id="section-9d4ea5892c15"><span class="section-number-4">2.9.4.</span> 简短观察</h4>
+<div id="outline-container-section-f88116901e01" class="outline-4">
+<h4 id="section-f88116901e01"><span class="section-number-4">2.9.4.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-9-4">
 <ul class="org-ul">
 <li>事实: 本窗口内未发现 Emacs core、Org-roam、Eglot/LSP、consult/corfu/company、gptel/ellama/copilot.el 的 P0/P1 发布或稳定性修复；GitHub release 检查为 0，核心仓库提交检查未命中高价值项。</li>
@@ -3829,12 +3959,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-9ba70e6f4885" class="outline-3">
-<h3 id="section-9ba70e6f4885"><span class="section-number-3">2.10.</span> 窗口 2026-06-07 13:20:26 +0800 前旧最近窗口</h3>
+<div id="outline-container-section-981473055bbd" class="outline-3">
+<h3 id="section-981473055bbd"><span class="section-number-3">2.10.</span> 窗口 2026-06-07 13:20:26 +0800 前旧最近窗口</h3>
 <div class="outline-text-3" id="text-2-10">
 </div>
-<div id="outline-container-section-3f2283962c99" class="outline-4">
-<h4 id="section-3f2283962c99"><span class="section-number-4">2.10.1.</span> 窗口</h4>
+<div id="outline-container-section-d38664c26e97" class="outline-4">
+<h4 id="section-d38664c26e97"><span class="section-number-4">2.10.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-10-1">
 <ul class="org-ul">
 <li>本地: 2026-05-27 23:59:58 +0800 -&gt; 2026-05-28 23:59:58 +0800 (+08:00)</li>
@@ -3843,8 +3973,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-5cc594ff8b02" class="outline-4">
-<h4 id="section-5cc594ff8b02"><span class="section-number-4">2.10.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-c721dd27a5ee" class="outline-4">
+<h4 id="section-c721dd27a5ee"><span class="section-number-4">2.10.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-10-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=1</li>
@@ -3857,12 +3987,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-52384d303fa4" class="outline-4">
-<h4 id="section-52384d303fa4"><span class="section-number-4">2.10.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-595666c7344a" class="outline-4">
+<h4 id="section-595666c7344a"><span class="section-number-4">2.10.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-10-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-6789b6c6f5ca"></a>Emacs 的 view- 家族：用 view-lossage 追踪误触并安全浏览&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-dc0787be9c5e"></a>Emacs 的 view- 家族：用 view-lossage 追踪误触并安全浏览&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-10-3-1">
 <ul class="org-ul">
 <li>事件: 作者用 `view-lossage` 回溯最近按键序列，结合 `view-file`/`view-buffer` 等只读查看命令，并提示可用 `read-kbd-macro` 把选中的键序列转为可回放的宏。</li>
@@ -3885,8 +4015,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-44707c9405e4" class="outline-4">
-<h4 id="section-44707c9405e4"><span class="section-number-4">2.10.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-ea19741c8ebf" class="outline-4">
+<h4 id="section-ea19741c8ebf"><span class="section-number-4">2.10.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-10-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 10"><table>
 
@@ -3939,8 +4069,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-e39375a194e9" class="outline-4">
-<h4 id="section-e39375a194e9"><span class="section-number-4">2.10.5.</span> 简短观察</h4>
+<div id="outline-container-section-9c8df8174720" class="outline-4">
+<h4 id="section-9c8df8174720"><span class="section-number-4">2.10.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-10-5">
 <ul class="org-ul">
 <li>事实: 本窗口内可验证增量偏向基础技巧类，而非 core/package 发布。</li>
@@ -3950,12 +4080,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-a0758b35f10b" class="outline-3">
-<h3 id="section-a0758b35f10b"><span class="section-number-3">2.11.</span> 窗口 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</h3>
+<div id="outline-container-section-8239b5a5a3c7" class="outline-3">
+<h3 id="section-8239b5a5a3c7"><span class="section-number-3">2.11.</span> 窗口 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-11">
 </div>
-<div id="outline-container-section-5b4e455ab90c" class="outline-4">
-<h4 id="section-5b4e455ab90c"><span class="section-number-4">2.11.1.</span> 窗口</h4>
+<div id="outline-container-section-63fe0a34dd4d" class="outline-4">
+<h4 id="section-63fe0a34dd4d"><span class="section-number-4">2.11.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-11-1">
 <ul class="org-ul">
 <li>本地: 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</li>
@@ -3964,8 +4094,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-446ddaa3c296" class="outline-4">
-<h4 id="section-446ddaa3c296"><span class="section-number-4">2.11.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-fb1fde3a8243" class="outline-4">
+<h4 id="section-fb1fde3a8243"><span class="section-number-4">2.11.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-11-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=1</li>
@@ -3978,12 +4108,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-7da08ad82878" class="outline-4">
-<h4 id="section-7da08ad82878"><span class="section-number-4">2.11.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-9fc6e4e73cbf" class="outline-4">
+<h4 id="section-9fc6e4e73cbf"><span class="section-number-4">2.11.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-11-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-842cbcd7b107"></a>Savannah Emacs 仓库访问异常：cgit 502 + 项目页变为 scraper 页面&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="org-museum-ref-aa776434ffb7"></a>Savannah Emacs 仓库访问异常：cgit 502 + 项目页变为 scraper 页面&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-11-3-1">
 <ul class="org-ul">
 <li>事件: 在本次窗口内，Savannah 的 Emacs cgit 页面返回 502，同时项目页呈现为“for web scrapers”的反爬/投毒页面。</li>
@@ -4006,8 +4136,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-5e2862f60884" class="outline-4">
-<h4 id="section-5e2862f60884"><span class="section-number-4">2.11.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-68fc523f56e8" class="outline-4">
+<h4 id="section-68fc523f56e8"><span class="section-number-4">2.11.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-11-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 11"><table>
 
@@ -4060,8 +4190,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-6d27e4694f46" class="outline-4">
-<h4 id="section-6d27e4694f46"><span class="section-number-4">2.11.5.</span> 简短观察</h4>
+<div id="outline-container-section-1a5bbed7a318" class="outline-4">
+<h4 id="section-1a5bbed7a318"><span class="section-number-4">2.11.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-11-5">
 <ul class="org-ul">
 <li>事实: Savannah 当前对 Emacs 相关页面返回异常内容/状态码。</li>
@@ -4071,16 +4201,16 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-bd7b6c20bead" class="outline-3">
-<h3 id="section-bd7b6c20bead"><span class="section-number-3">2.12.</span> 窗口 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</h3>
+<div id="outline-container-section-b45fd1ae8ab1" class="outline-3">
+<h3 id="section-b45fd1ae8ab1"><span class="section-number-3">2.12.</span> 窗口 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</h3>
 </div>
 
-<div id="outline-container-section-e1bb24dd0804" class="outline-3">
-<h3 id="section-e1bb24dd0804"><span class="section-number-3">2.13.</span> 窗口 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</h3>
+<div id="outline-container-section-e68401598be0" class="outline-3">
+<h3 id="section-e68401598be0"><span class="section-number-3">2.13.</span> 窗口 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-13">
 </div>
-<div id="outline-container-section-cf1c9973519a" class="outline-4">
-<h4 id="section-cf1c9973519a"><span class="section-number-4">2.13.1.</span> 窗口</h4>
+<div id="outline-container-section-f76aa2b426d3" class="outline-4">
+<h4 id="section-f76aa2b426d3"><span class="section-number-4">2.13.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-13-1">
 <ul class="org-ul">
 <li>本地: 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</li>
@@ -4089,8 +4219,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-bef1682cb2f6" class="outline-4">
-<h4 id="section-bef1682cb2f6"><span class="section-number-4">2.13.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-5c34cb792d45" class="outline-4">
+<h4 id="section-5c34cb792d45"><span class="section-number-4">2.13.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-13-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=5</li>
@@ -4103,12 +4233,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-67b1d0fa0910" class="outline-4">
-<h4 id="section-67b1d0fa0910"><span class="section-number-4">2.13.3.</span> 中文简报（本窗口）</h4>
+<div id="outline-container-section-1dab574c2f45" class="outline-4">
+<h4 id="section-1dab574c2f45"><span class="section-number-4">2.13.3.</span> 中文简报（本窗口）</h4>
 <div class="outline-text-4" id="text-2-13-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-853afc213dc2"></a>Emacs Android 端连续修复构建与字体元数据解析&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="org-museum-ref-9cfe6d1d2643"></a>Emacs Android 端连续修复构建与字体元数据解析&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-1">
 <ul class="org-ul">
 <li>事件: Emacs master 在 2026-05-25 上午连续出现 Android 相关修复：先修 Android build，再修 font metadata table 解析，随后补充 sfntfont Android 注释。</li>
@@ -4129,7 +4259,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-1425f71fafe2"></a>Emacs 回滚 exec.c 文件名截断行为变更&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
+<li><a id="org-museum-ref-bf9356609cb5"></a>Emacs 回滚 exec.c 文件名截断行为变更&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P0">P0</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-2">
 <ul class="org-ul">
 <li>事件: Emacs master 在 2026-05-25 回滚了 exec.c 文件名截断相关变更。</li>
@@ -4150,7 +4280,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-b30a62bd4818"></a>org-roam-gt 宣称更快节点搜索与更丰富 capture targets&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-8b5948fcefb4"></a>org-roam-gt 宣称更快节点搜索与更丰富 capture targets&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-3">
 <ul class="org-ul">
 <li>事件: r/emacs 出现 org-roam-gt 讨论，主题是为 org-roam 提供更快 node search 和更丰富 capture targets。</li>
@@ -4171,7 +4301,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-b8a2cc970f53"></a>use-package-x 进入 MELPA&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-792ee38ad688"></a>use-package-x 进入 MELPA&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-4">
 <ul class="org-ul">
 <li>事件: r/emacs 讨论 use-package-x（previously use-package-extras）已可在 MELPA 获取。</li>
@@ -4192,7 +4322,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-27ebca5bbb75"></a>社区讨论 Emacs 安全层设想&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
+<li><a id="org-museum-ref-ab7ffdf9700b"></a>社区讨论 Emacs 安全层设想&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span><br>
 <div class="outline-text-5" id="text-2-13-3-5">
 <ul class="org-ul">
 <li>事件: r/emacs 出现 A possible security layer for emacs 讨论，围绕 Emacs 是否需要额外安全层展开。</li>
@@ -4215,8 +4345,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-17c7f3ef0b35" class="outline-4">
-<h4 id="section-17c7f3ef0b35"><span class="section-number-4">2.13.4.</span> 索引表（本窗口）</h4>
+<div id="outline-container-section-8df6297525ac" class="outline-4">
+<h4 id="section-8df6297525ac"><span class="section-number-4">2.13.4.</span> 索引表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-13-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 12"><table>
 
@@ -4316,8 +4446,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-71a4d1c11041" class="outline-4">
-<h4 id="section-71a4d1c11041"><span class="section-number-4">2.13.5.</span> 简短观察</h4>
+<div id="outline-container-section-59f14ba2a249" class="outline-4">
+<h4 id="section-59f14ba2a249"><span class="section-number-4">2.13.5.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-13-5">
 <ul class="org-ul">
 <li>事实: 本次采集覆盖 GitHub、Reddit、HN 查询；写入条目均有窗口内时间戳和来源链接。</li>
@@ -4327,12 +4457,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-d4c42976ebaa" class="outline-3">
-<h3 id="section-d4c42976ebaa"><span class="section-number-3">2.14.</span> 窗口 (未知窗口)</h3>
+<div id="outline-container-section-e3c0b128b148" class="outline-3">
+<h3 id="section-e3c0b128b148"><span class="section-number-3">2.14.</span> 窗口 (未知窗口)</h3>
 <div class="outline-text-3" id="text-2-14">
 </div>
-<div id="outline-container-section-ab48d1532cb2" class="outline-4">
-<h4 id="section-ab48d1532cb2"><span class="section-number-4">2.14.1.</span> 窗口</h4>
+<div id="outline-container-section-342c12e07219" class="outline-4">
+<h4 id="section-342c12e07219"><span class="section-number-4">2.14.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-14-1">
 <ul class="org-ul">
 <li>2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</li>
@@ -4340,8 +4470,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-1bfed3dc1eea" class="outline-4">
-<h4 id="section-1bfed3dc1eea"><span class="section-number-4">2.14.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-52f9cecd6dc1" class="outline-4">
+<h4 id="section-52f9cecd6dc1"><span class="section-number-4">2.14.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-14-2">
 <ul class="org-ul">
 <li>本窗口新增条目：Emacs=10（严格 24h 内 10/10，无需补足）。</li>
@@ -4351,8 +4481,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-96719e98b79f" class="outline-4">
-<h4 id="section-96719e98b79f"><span class="section-number-4">2.14.3.</span> 条目表（本窗口）</h4>
+<div id="outline-container-section-498be4505f64" class="outline-4">
+<h4 id="section-498be4505f64"><span class="section-number-4">2.14.3.</span> 条目表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-14-3">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 13"><table>
 
@@ -4512,8 +4642,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-0e92259b9508" class="outline-4">
-<h4 id="section-0e92259b9508"><span class="section-number-4">2.14.4.</span> 简短观察</h4>
+<div id="outline-container-section-9c2faba58bef" class="outline-4">
+<h4 id="section-9c2faba58bef"><span class="section-number-4">2.14.4.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-14-4">
 <ul class="org-ul">
 <li>事实：本窗口包含 Emacs core 与插件/社区混合信息源；其中 core 变更集中在“可用性/稳定性”类点上。</li>
@@ -4521,16 +4651,16 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-cbecd811940e" class="outline-4">
-<h4 id="section-cbecd811940e"><span class="section-number-4">2.14.5.</span> 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</h4>
+<div id="outline-container-section-b95c63420118" class="outline-4">
+<h4 id="section-b95c63420118"><span class="section-number-4">2.14.5.</span> 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</h4>
 </div>
 </div>
-<div id="outline-container-section-530f6e354915" class="outline-3">
-<h3 id="section-530f6e354915"><span class="section-number-3">2.15.</span> 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</h3>
+<div id="outline-container-section-adcd715d6058" class="outline-3">
+<h3 id="section-adcd715d6058"><span class="section-number-3">2.15.</span> 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</h3>
 <div class="outline-text-3" id="text-2-15">
 </div>
-<div id="outline-container-section-6e623ad63423" class="outline-4">
-<h4 id="section-6e623ad63423"><span class="section-number-4">2.15.1.</span> 窗口</h4>
+<div id="outline-container-section-0651627d3e1a" class="outline-4">
+<h4 id="section-0651627d3e1a"><span class="section-number-4">2.15.1.</span> 窗口</h4>
 <div class="outline-text-4" id="text-2-15-1">
 <ul class="org-ul">
 <li>本地: 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</li>
@@ -4539,8 +4669,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-abcaa545f1f9" class="outline-4">
-<h4 id="section-abcaa545f1f9"><span class="section-number-4">2.15.2.</span> 摘要（本窗口）</h4>
+<div id="outline-container-section-3eeea0750c1d" class="outline-4">
+<h4 id="section-3eeea0750c1d"><span class="section-number-4">2.15.2.</span> 摘要（本窗口）</h4>
 <div class="outline-text-4" id="text-2-15-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=8</li>
@@ -4558,8 +4688,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-b2b565c91765" class="outline-4">
-<h4 id="section-b2b565c91765"><span class="section-number-4">2.15.3.</span> 条目表（本窗口）</h4>
+<div id="outline-container-section-dbbc44d4ef33" class="outline-4">
+<h4 id="section-dbbc44d4ef33"><span class="section-number-4">2.15.3.</span> 条目表（本窗口）</h4>
 <div class="outline-text-4" id="text-2-15-3">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 14"><table>
 
@@ -4695,8 +4825,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-608b19ebb395" class="outline-4">
-<h4 id="section-608b19ebb395"><span class="section-number-4">2.15.4.</span> 简短观察</h4>
+<div id="outline-container-section-e62e943f9871" class="outline-4">
+<h4 id="section-e62e943f9871"><span class="section-number-4">2.15.4.</span> 简短观察</h4>
 <div class="outline-text-4" id="text-2-15-4">
 <ul class="org-ul">
 <li>事实: 本窗口新增条目全部来自可验证 GitHub commit 时间戳，并在严格 24h 内。</li>
@@ -4710,12 +4840,18 @@
 <section id="local-graph-container" aria-labelledby="local-graph-heading">
 <h3 id="local-graph-heading">局部关系 / 00</h3>
 <p class="org-museum-related-empty">这篇笔记还没有可导出的关联页面。</p>
-<a class="local-graph-link" href="../../../graph.html?focus=4aec0077-2a63-495f-b4b2-e3fdfcd66f88">查看局部关系 →</a>
+<a class="local-graph-link" href="../../../graph.html?focus=pages-Emacs-PluginWatch-emacs-plugin-watch">查看局部关系 →</a>
 </section>
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
-<button type="button" class="museum-ai-trigger" data-ai-toggle aria-controls="museum-ai-panel" aria-expanded="false" title="AI Copilot 对话与分析 (Ctrl+I)"><span class="museum-ai-trigger-icon" aria-hidden="true"></span><span class="museum-ai-trigger-text">AI 讨论</span><span class="museum-ai-trigger-dot" data-ai-trigger-dot aria-hidden="true"></span><kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut aria-hidden="true">Ctrl+I</kbd></button><aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><span class="museum-ai-copilot-badge" data-ai-engine-badge>讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="#" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-context"><div class="museum-ai-context-info"><span class="museum-ai-context-icon" aria-hidden="true">📄</span><span class="museum-ai-context-name" data-ai-context-title>当前正文</span></div><div class="museum-ai-context-actions"><button type="button" class="museum-ai-context-analyze-btn" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>分析笔记</span></button></div></div><details class="museum-ai-analysis-drawer" data-ai-analysis-drawer><summary class="museum-ai-analysis-drawer-summary"><span class="museum-ai-status-dot" data-ai-status-dot aria-hidden="true"></span><span data-ai-status role="status" aria-live="polite">就绪</span><span class="museum-ai-analysis-toggle-label">结构化分析结果</span></summary><div class="museum-ai-analysis-drawer-content"><div data-ai-summary class="museum-ai-summary-box">暂无分析结果。</div><div class="museum-ai-experiences-section"><small class="museum-ai-subhead">相关经验参考</small><div data-ai-experiences class="museum-ai-experiences-box"></div></div></div></details><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-label="打开 AI Copilot (Ctrl+I)" title="打开 AI Copilot (Ctrl+I)">
+  <span class="museum-ai-trigger-icon" aria-hidden="true"></span>
+  <span class="museum-ai-trigger-text">AI Copilot</span>
+  <span class="museum-ai-trigger-dot" data-ai-trigger-dot data-state="idle" aria-hidden="true"></span>
+  <kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut>Ctrl+I</kbd>
+</button>
+<aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><select class="museum-ai-copilot-model-select" data-copilot-model-select aria-label="切换 AI 模型" title="切换当前使用的 AI 模型"><option value="">讨论模式</option></select><span class="museum-ai-copilot-badge" data-ai-engine-badge hidden role="button" tabindex="0" title="点击打开全局 AI 模型设置">讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="../../../ai-center.html?pageId=pages-Emacs-PluginWatch-emacs-plugin-watch" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips><button type="button" class="museum-ai-chip museum-ai-chip-analyze" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>重新分析笔记</span></button></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
 <button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
 <p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
 <div id="zen-mask"></div>
@@ -4726,6 +4862,7 @@
   <a class="sidebar-nav-btn graph" href="../../../graph.html">知识图谱</a>
   <a class="sidebar-nav-btn timeline" href="../../../timeline.html">时间阅读</a>
   <a class="sidebar-nav-btn related" href="../../../related.html">关联阅读</a>
+  <a class="sidebar-nav-btn ai" href="../../../ai-center.html">AI 中心</a>
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
@@ -4767,15 +4904,18 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Ontology <span>03</span></div>
+    <div class="sidebar-cat-label">Ontology <span>06</span></div>
     <ul>
+      <li><a href="../../ontology/关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
+      <li><a href="../../ontology/关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
+      <li><a href="../../ontology/关系示例-03-约束反例.html">关系示例 03｜约束反例</a></li>
       <li><a href="../../ontology/本体mvp.html">本体MVP</a></li>
       <li><a href="../../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
       <li><a href="../../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>06</span></div>
     <ul>
       <li><a href="../../sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="../../sql/duckdb-mpv.html">DuckDB MPV</a></li>
@@ -4804,7 +4944,7 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="../../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>
@@ -4826,8 +4966,9 @@
 <script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
 <script defer src="../../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
-<script defer src="../../../resources/org-museum-ai.js?v=4bf2ccc4335e"></script>
+<script defer src="../../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
+<script defer src="../../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../../resources/org-museum-article.js?v=b03b56727740"></script>
+<script defer src="../../../resources/org-museum-article.js?v=052370387dd2"></script>
 </body>
 </html>
