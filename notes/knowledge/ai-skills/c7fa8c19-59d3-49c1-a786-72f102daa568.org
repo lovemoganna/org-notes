@@ -1,0 +1,52 @@
+#+TITLE: 2026 年 10 月近期 AI Skills：用途与调用
+#+WIKI_ID: c7fa8c19-59d3-49c1-a786-72f102daa568
+#+CATEGORY: AI Skills
+#+FILETAGS: :ai:skills:github:catalog:
+#+DATE: 2026-10-09
+#+SOURCE: GitHub lovemoganna/Org-Skills 与 lovemoganna/AgentComponent 的 2026-10-01 起默认分支提交记录
+#+INGEST_ID: 4f0927e2-7283-46f8-9c2a-e59421d12f7b
+#+WIKI_STATUS: published
+
+* 如何使用
+只收录 2026 年 10 月 1 日至今有 Git 提交证据的 Skill；按当前默认分支的 =SKILL.md= 及其近期提交筛选。此处“近期维护”包含新增、修改和修复，不以 Git 文件存在与否推断调用次数。统计截至 2026 年 10 月 9 日，GitHub 最新可见提交发生于 10 月 8 日。
+直接复制表中的调用语句，替换方括号参数。对当前会话尚未安装的 Skill，附源码 URL，请执行模型先读取对应 =SKILL.md= 与其依赖；仓库有源码不代表平台已加载。
+
+* 范围和基线
+- 本版共 11 个独立 Skill 名称：=Org-Skills= 9 个（含两个 Org Museum 发布入口），=AgentComponent= 2 个。
+- 本版不再列出 =Aone= 旧技能包、=DuckDB_Editor_Pro= 项目命令、重复的同名插件副本和规范模板。
+- 来源以 =Org-Skills=  [[https://github.com/lovemoganna/Org-Skills/tree/main][main]] 和 =AgentComponent= [[https://github.com/lovemoganna/AgentComponent/tree/main][main]] 为准。下表提供 10 月 1 日后对应 Skill 的真实提交，可追溯而不伪造使用次数。
+
+* 一、Org-Skills 主库（7 个）
+| Skill | 作用 | 调用方式 | 最近修改证据 | 当前源码 |
+|-------+------+----------+--------------+----------|
+| =ontology-constrained-analysis= | 从业务语义和两张本体表出发，验证指标、问题、SQL、Signal、Finding 与证据链 | 使用 ontology-constrained-analysis，分析[真实数据]；执行 Runtime Gate 和 Gate 1–4，并核验 SQL 与 Result | [[https://github.com/lovemoganna/Org-Skills/commit/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5][10-08 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/skills/ontology-constrained-analysis/SKILL.md][SKILL.md]] |
+| =sql-business-thinking= | 在 Learn、Direct、Debug 模式下，将业务问题转为真实 SQL、证据和可交付报告 | 使用 sql-business-thinking 的 Direct 模式，读取[数据源]并输出可追溯的 SQL 分析报告 | [[https://github.com/lovemoganna/Org-Skills/commit/a62474851e45ea5aec0c3b5d239911695b2377ca][10-08 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/skills/sql-business-thinking/SKILL.md][SKILL.md]] |
+| =dataset-dashboard-builder= | 基于真实数据理解业务、检验 Finding，再构建最小必要看板 | 使用 dataset-dashboard-builder，基于[数据集]识别业务主题并构建可验证看板 | [[https://github.com/lovemoganna/Org-Skills/commit/42ece2a9bd][10-05 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/skills/dataset-dashboard-builder/SKILL.md][SKILL.md]] |
+| =note-reforge= | 把历史 Org/Markdown 笔记炼成保留证据、便于检索和行动的下一版 | 用 note-reforge 炼成下一版：[文件 / 目录] | [[https://github.com/lovemoganna/Org-Skills/commit/5d322fa586][10-06 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/skills/note-reforge/SKILL.md][SKILL.md]] |
+| =bprd-plus= | 把原始需求、会议纪要和反馈整理为可开发、可测试、可验收的 BRD | 使用 bprd-plus，将[原始需求]整理为可开发、可验收的 BRD | [[https://github.com/lovemoganna/Org-Skills/commit/69090540b6][10-07 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/skills/bprd-plus/SKILL.md][SKILL.md]] |
+| =org-literate-engineering= | 把编程文章、Shell、Python、SQL 等转成可参数化和真实验证的 Org Babel | 使用 org-literate-engineering，将[教程或脚本]转成可执行的 Org 并真实验收 | [[https://github.com/lovemoganna/Org-Skills/commit/3580bdb9e0][10-05 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/skills/org-literate-engineering/SKILL.md][SKILL.md]] |
+| =standards-engineering-loop= | 将模糊或冲突的业务标准、SOP 和标签规则转成可追溯、可回归的规范 | 使用 standards-engineering-loop，制定或审查[业务标准或 SOP]并执行回归验收 | [[https://github.com/lovemoganna/Org-Skills/commit/62dabce252][10-08 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/skills/standards-engineering-loop/SKILL.md][SKILL.md]] |
+
+* 二、AgentComponent（2 个）
+| Skill | 作用 | 调用方式 | 最近修改证据 | 当前源码 |
+|-------+------+----------+--------------+----------|
+| =skill-lab= | 用历史回归、探索用例和反例对 Skill 做压测、缺陷归因、最小修复 | 使用 skill-lab，对[目标 Skill]执行基线压测、根因修复和回归验收 | [[https://github.com/lovemoganna/AgentComponent/commit/035a312200][10-02 提交]] | [[https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-lab/SKILL.md][SKILL.md]] |
+| =skill-repository= | 将已确认的稳定 Skill 增量收录至 Org-Skills，并维护 README 导航 | 按 Skill Repository 收录当前 Skill | [[https://github.com/lovemoganna/AgentComponent/commit/831c8ca4f7][10-05 提交]] | [[https://github.com/lovemoganna/AgentComponent/blob/main/skills/skill-repository/SKILL.md][SKILL.md]] |
+
+* 三、Org Museum 发布入口（2 个）
+| Skill | 作用 | 调用方式 | 最近修改证据 | 当前源码 |
+|-------+------+----------+--------------+----------|
+| =org-museum-ingest= | 将聊天中的知识或教程整理为 Org，提交 org-notes 并验证网站发布 | @Org Museum 把下面的内容收录到知识库并发布：[材料] | [[https://github.com/lovemoganna/Org-Skills/commit/b971e47502][10-04 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/plugins/org-museum/skills/org-museum-ingest/SKILL.md][SKILL.md]] |
+| =org-museum-update= | 根据已发布的 Org Museum URL 定位原始笔记、原地更新并核验发布 | @Org Museum 更新这篇已发布笔记：[页面 URL]；修改要求：[具体内容] | [[https://github.com/lovemoganna/Org-Skills/commit/00b95951fe][10-04 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/plugins/org-museum/skills/org-museum-update/SKILL.md][SKILL.md]] |
+
+* 复用选择
+- 不知道该算什么，且必须保证本体和证据合法：=ontology-constrained-analysis=。
+- 需要 SQL 学习、取数或 HTML 分析报告：=sql-business-thinking=。
+- 需要根据真实结果制作业务看板：=dataset-dashboard-builder=。
+- 需要整理产品需求：=bprd-plus=；需要制定标准、SOP：=standards-engineering-loop=。
+- 需要复用历史笔记：=note-reforge=；需要可执行 Org 教程：=org-literate-engineering=。
+- 需要压测与修复 Skill：=skill-lab=；定稿后收录：=skill-repository=。
+- 需要发布新笔记：=org-museum-ingest=；更新旧页面：=org-museum-update=。
+
+* 验证边界
+此页证明 Skill 在指定时间窗口内有 Git 提交，不等于已统计实际触发频率，也不等于 11 个 Skill 均已在当前环境完成 E2E 测试。“常用”只代表当前目录按近期维护筛选，不是调用量排行。
