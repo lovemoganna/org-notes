@@ -1,0 +1,220 @@
+#+TITLE: sql-business-thinking：13 组真实数据分析压测需求
+#+WIKI_ID: e1e502b9-f876-47d6-813f-e4d5ea51983a
+#+CATEGORY: SQL 分析与 Skill 测试
+#+FILETAGS: :sql:duckdb:skill-testing:dataset:
+#+DATE: 2026-10-07
+#+SOURCE: 本次对话中提供的 13 组测试需求与公开数据文件 URL
+#+INGEST_ID: 97d78168-ce64-4cec-a2fb-90904a8178f4
+#+WIKI_STATUS: published
+
+* 用途
+本页收录 13 个可独立复制的真实数据分析压测提示词，适用于 =sql-business-thinking= Skill。覆盖五表关联、业务口径、时间粒度、数据质量、风控与大文件处理。
+每个任务仅授权指定原始文件。文件是否可以在目标运行环境直接下载、是否非空、能否由 DuckDB 成功解析，必须在执行时核验；本页不宣称已完成端到端读取或 SQL 分析。
+
+* 测试索引
+| 编号 | 场景 | 核心测试点 | 文件数 |
+|------+------|------------|--------|
+| 01 | 电商交易全链路 | 五表关联与重复计数 | 5 |
+| 02 | 零售交易经营 | 交易粒度、退货与金额口径 | 1 |
+| 03 | 银行营销分析 | 营销记录粒度与分组比较 | 1 |
+| 04 | 网站购买转化 | 会话分析与转化口径 | 1 |
+| 05 | 共享单车运营 | 双时间粒度与交叉校验 | 2 |
+| 06 | 北京空气质量 | 多站点整合与时间匹配 | 2 |
+| 07 | 信用卡违约风控 | 风险分层、样本质量与解释边界 | 1 |
+| 08 | 员工缺勤管理 | 分类编码、重复记录与统计口径 | 1 |
+| 09 | 首尔单车需求 | 小时级时序与条件分组 | 1 |
+| 10 | 美国疫情历史时序 | 跨年衔接、累计量与差分 | 2 |
+| 11 | 大规模电力负荷 | 宽表、多时间序列与计量单位 | 1 |
+| 12 | 酒店预订经营 | 预订记录、时间属性与经营口径 | 1 |
+| 13 | 信用卡交易欺诈 | 类别不均衡与风险分析 | 1 |
+
+* 可复制的完整测试需求
+
+** 01 电商交易全链路
+#+begin_example
+使用 sql-business-thinking Skill，执行「电商交易全链路」真实数据分析压测。
+
+任务目标：使用真实电商订单、订单明细、支付、评价与客户记录，独立发现经营问题。
+
+指定数据源：
+https://raw.githubusercontent.com/HarshGupta-DS/E-Commerce_Analysis/main/olist_orders_dataset.csv
+https://raw.githubusercontent.com/HarshGupta-DS/E-Commerce_Analysis/main/olist_order_items_dataset.csv
+https://raw.githubusercontent.com/HarshGupta-DS/E-Commerce_Analysis/main/olist_order_payments_dataset.csv
+https://raw.githubusercontent.com/HarshGupta-DS/E-Commerce_Analysis/main/olist_order_reviews_dataset.csv
+https://raw.githubusercontent.com/HarshGupta-DS/E-Commerce_Analysis/main/olist_customers_dataset.csv
+
+数据约束：只能使用五份文件。检查记录粒度、主键候选、关联基数、连接前后行数与聚合口径，防止订单和金额重复计算。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 02 零售交易经营
+#+begin_example
+使用 sql-business-thinking Skill，执行「零售交易经营」真实数据分析压测。
+
+任务目标：根据原始零售交易记录，独立发现具有商业价值的经营问题。
+
+指定数据源：
+https://raw.githubusercontent.com/shricharan-ks/Retail-datasets/master/Online%20Retail.csv
+
+数据约束：只允许使用指定 CSV。核验发票和交易明细的记录粒度、交易及取消记录的实际含义。禁止使用已有清洗结果或研究结论。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 03 银行营销分析
+#+begin_example
+使用 sql-business-thinking Skill，执行「银行营销分析」真实数据分析压测。
+
+任务目标：基于真实银行营销活动数据，独立发现营销表现及客户行为中的业务问题。
+
+指定数据源：
+https://raw.githubusercontent.com/bowcai/bank-analysis/main/bank-full.csv
+
+数据约束：只允许使用指定 CSV。核验营销记录与独立客户的区别，防止重复接触影响统计口径。不得将相关性解释为因果关系。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 04 网站购买转化
+#+begin_example
+使用 sql-business-thinking Skill，执行「网站购买转化」真实数据分析压测。
+
+任务目标：根据真实网站访问会话记录，独立发现购买行为和业务表现中的问题。
+
+指定数据源：
+https://raw.githubusercontent.com/sharmaroshan/Online-Shoppers-Purchasing-Intention/master/online_shoppers_intention.csv
+
+数据约束：只使用指定 CSV。核验记录的会话级或用户级含义。不得将会话级结果直接解释为用户长期行为。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 05 共享单车运营
+#+begin_example
+使用 sql-business-thinking Skill，执行「共享单车运营」真实数据分析压测。
+
+任务目标：分析共享单车真实运营记录，独立发现需求变化与运营问题。
+
+指定数据源：
+https://raw.githubusercontent.com/alimanoke/Bike-Sharing-Dataset/main/hour.csv
+https://raw.githubusercontent.com/alimanoke/Bike-Sharing-Dataset/main/day.csv
+
+数据约束：只能使用指定两份 CSV。检查小时与天的覆盖关系及统计可比性，不得重复累加相互覆盖的记录。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 06 北京空气质量
+#+begin_example
+使用 sql-business-thinking Skill，执行「北京空气质量」真实数据分析压测。
+
+任务目标：使用真实空气质量监测记录，独立发现值得调查的时间变化与站点差异。
+
+指定数据源：
+https://raw.githubusercontent.com/fearlab/Datasets/master/PRSA_Data_Aotizhongxin_20130301-20170228.csv
+https://raw.githubusercontent.com/fearlab/Datasets/master/PRSA_Data_Changping_20130301-20170228.csv
+
+数据约束：仅使用两个指定监测站点 CSV。核验时间范围、站点、缺失、重复观测与跨站点可比性。不得擅自增加其他站点或推断污染原因。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 07 信用卡违约风控
+#+begin_example
+使用 sql-business-thinking Skill，执行「信用卡违约风控」真实数据分析压测。
+
+任务目标：根据真实信用卡客户及历史还款数据，独立发现有业务价值的风险问题。
+
+指定数据源：
+https://raw.githubusercontent.com/MITESHWARKE/Credit-Default-Prediction/main/UCI_Credit_Card.csv
+
+数据约束：仅使用指定 CSV。核验目标变量、样本覆盖和分组口径。不得将群体统计关联直接作为个体违约判断或因果解释。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 08 员工缺勤管理
+#+begin_example
+使用 sql-business-thinking Skill，执行「员工缺勤管理」真实数据分析压测。
+
+任务目标：从真实员工缺勤记录中发现可用于组织运营管理的统计问题。
+
+指定数据源：
+https://raw.githubusercontent.com/CyrusTruitt/Absenteeism-at-Work/main/Absenteeism_at_work.csv
+
+数据约束：仅使用指定 CSV。核验记录粒度、分类字段、缺失值和重复记录。不得推测个体健康状况、工作能力或主观动机。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 09 首尔单车需求
+#+begin_example
+使用 sql-business-thinking Skill，执行「首尔单车需求」真实数据分析压测。
+
+任务目标：基于首尔真实单车租赁记录，独立发现有运营价值的需求特征。
+
+指定数据源：
+https://raw.githubusercontent.com/Sid-Thorat/Regression_Bike_Sharing_Demand_Prediction/main/SeoulBikeData.csv
+
+数据约束：仅使用指定 CSV。核验时间粒度、连续性、缺失和分类字段。不得将天气与租赁需求的相关性直接解释为因果关系。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 10 美国疫情历史时序
+#+begin_example
+使用 sql-business-thinking Skill，执行「美国疫情历史时序」真实数据分析压测。
+
+任务目标：使用真实历史疫情统计记录，独立发现值得核查的时间及地区差异。
+
+指定数据源：
+https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-2020.csv
+https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties-2021.csv
+
+数据约束：仅使用指定 2020、2021 年 CSV。区分累计值与期间增量，核验年度衔接、地理粒度和数据订正。不推断未经数据证明的传播原因。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 11 大规模电力负荷
+#+begin_example
+使用 sql-business-thinking Skill，执行「大规模电力负荷」真实数据分析压测。
+
+任务目标：使用公开电力负荷时间序列，独立发现有价值的用电变化与统计问题。
+
+指定数据源：
+https://raw.githubusercontent.com/movingpictures83/Electricity/main/LD2011_2014.txt
+
+数据约束：仅使用指定 TXT。核验分隔符、实际内容、时间覆盖、宽表结构、采样频率和计量单位。不得假定仓库文件覆盖原始数据集的全部记录。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 12 酒店预订经营
+#+begin_example
+使用 sql-business-thinking Skill，执行「酒店预订经营」真实数据分析压测。
+
+任务目标：使用真实酒店预订记录，独立发现值得管理团队关注的经营问题。
+
+指定数据源：
+https://raw.githubusercontent.com/aaqibqadeer/Hotel-booking-demand/master/hotel_bookings.csv
+
+数据约束：仅使用指定 CSV。核验记录含义、时间、状态及缺失。不得将预订数量等同于实际入住量，除非数据证明两者口径一致。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
+
+** 13 信用卡交易欺诈
+#+begin_example
+使用 sql-business-thinking Skill，执行「信用卡交易欺诈」真实数据分析压测。
+
+任务目标：使用公开信用卡欺诈交易样本，独立发现数据支持的风险特征与调查问题。
+
+指定数据源：
+https://raw.githubusercontent.com/IBM/xgboost-smote-detect-fraud/master/data/creditcard.csv
+
+数据约束：仅使用指定 CSV。核验样本数、特征含义、标签分布与覆盖范围。不得假定文件包含完整交易总体，也不得凭匿名特征虚构具体欺诈手法。
+
+执行要求：正式分析前先确认任务边界与读取约束，不预设字段、指标、SQL、异常或结论。确认后检查指定 URL 的读取状态、真实字节数、格式与有效记录，再使用 DuckDB 读取数据，核验粒度、类型、重复、缺失和关联关系。由实际数据产生业务问题，执行 SQL 验证并下钻，形成有价值的 Finding。不得使用其他文件、现成答案、预设查询或结果。最终交付详细、可审计的 SQL 分析报告，包含业务口径、实际 SQL、执行结果、证据、结论及局限。下载或执行失败必须报告真实错误，不得伪造结果或擅自更换数据源。
+#+end_example
