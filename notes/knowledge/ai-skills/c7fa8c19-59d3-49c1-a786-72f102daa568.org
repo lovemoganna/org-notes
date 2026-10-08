@@ -1,4 +1,4 @@
-#+TITLE: 2026 年 10 月近期 AI Skills：用途与调用
+#+TITLE: 遇到什么需求，就调用什么 Skill？2026 年 10 月
 #+WIKI_ID: c7fa8c19-59d3-49c1-a786-72f102daa568
 #+CATEGORY: AI Skills
 #+FILETAGS: :ai:skills:github:catalog:
@@ -8,10 +8,32 @@
 #+WIKI_STATUS: published
 
 * 如何使用
-只收录 2026 年 10 月 1 日至今有 Git 提交证据的 Skill；按当前默认分支的 =SKILL.md= 及其近期提交筛选。此处“近期维护”包含新增、修改和修复，不以 Git 文件存在与否推断调用次数。统计截至 2026 年 10 月 9 日，GitHub 最新可见提交发生于 10 月 8 日。
-直接复制表中的调用语句，替换方括号参数。对当前会话尚未安装的 Skill，附源码 URL，请执行模型先读取对应 =SKILL.md= 与其依赖；仓库有源码不代表平台已加载。
+我先判断需求属于什么任务、要拿到什么结果，再选择 Skill。下面的入口按问题分类，不按仓库或名称排序。无须先理解全部 11 个 Skill。
+日常调用只需说明：使用[Skill 名称]，处理[输入材料]，交付[目标产物]，保持[关键约束]。对模型尚未加载的 Skill，先让它读取表中对应的 =SKILL.md= 和必要依赖，不能把“GitHub 上存在”当作“当前环境可执行”。
+一个具体例子：使用 =ontology-constrained-analysis=，分析[真实工作簿]，先检查 Runtime Gate，再按 Gate 1–4 验证，交付带实际 SQL、Result、证据和限制的报告；不得预设业务结论。
+
+* 复用选择
+| 我现在遇到什么需求？ | 首选 Skill | 要拿到什么结果 |
+|---------------------+------------+----------------|
+| 一堆真实业务数据，不知道字段背后的对象、合法关系和高价值问题 | =ontology-constrained-analysis= | 两张本体表、问题、真实 Signal、经过验证的 Finding |
+| 已有取数目标，想学习 SQL、调试查询或交付 SQL 分析报告 | =sql-business-thinking= | 可执行 SQL、真实结果及结论，或教学步骤 |
+| 有一批数据，要做面向决策的业务看板，不想套固定模板 | =dataset-dashboard-builder= | 业务主题、经过验证的指标与可验收看板 |
+| 领导反馈、旧 BRD 和散乱产品要求难以直接交付研发 | =bprd-plus= | 明确功能、约束和验收标准的 BRD |
+| 标签规则、流程、SOP 或判定标准缺少统一口径 | =standards-engineering-loop= | 可执行、可追溯、可测试的标准 |
+| 有历史笔记，想保留原经验并重建后续查阅和使用路径 | =note-reforge= | 保留证据和独有素材的下一版笔记 |
+| 有代码文章或教程，希望用 Emacs Org Babel 复用和实际运行 | =org-literate-engineering= | 可参数化、可执行、可验证的 Org 文件 |
+| Skill 跑不通，想定位根因、修复、回归，又怕过拟合一个案例 | =skill-lab= | 实际测试证据、最小修复和回归结论 |
+| Skill 已经定稿，想合规收录到 canonical 仓库 | =skill-repository= | 主库文件及必要依赖、更新后的 README |
+| 有新知识或教程，要发布成 Org Museum 页面 | =org-museum-ingest= | 新 Org 笔记、提交和发布回执 |
+| 已有 Org Museum 页面，要继续炼化而不丢失身份与原引用 | =org-museum-update= | 原路径更新、保留旧引用及发布校验 |
+
+** 三个容易选错的边界
+1. =ontology-constrained-analysis= 管“业务世界是否定义正确、关系是否合法、Finding 是否有证据”；=sql-business-thinking= 管“业务问题怎样写成 SQL 并验证结果”；=dataset-dashboard-builder= 管“哪些分析值得在看板持续呈现”。三者可按任务组合，但并非每次都必须全部调用。
+2. =bprd-plus= 处理要研发实施的需求；=standards-engineering-loop= 处理长期复用的规则、SOP 和判定标准。不要把二者混成同一产物。
+3. =skill-lab= 是测试和修复，不等于收录；=skill-repository= 只收录已确认 Skill，不默认调试。=note-reforge= 负责炼化内容；=org-museum-ingest= 或 =org-museum-update= 负责发布，已有页面只能走原地更新。
 
 * 范围和基线
+本页只整理 2026 年 10 月 1 日后 GitHub 有明确新增或维护记录的 Skill，不给旧仓库中的全部 Skill 做全量盘点，也不把提交次数当作调用频率。
 - 本版共 11 个独立 Skill 名称：=Org-Skills= 9 个（含两个 Org Museum 发布入口），=AgentComponent= 2 个。
 - 本版不再列出 =Aone= 旧技能包、=DuckDB_Editor_Pro= 项目命令、重复的同名插件副本和规范模板。
 - 来源以 =Org-Skills=  [[https://github.com/lovemoganna/Org-Skills/tree/main][main]] 和 =AgentComponent= [[https://github.com/lovemoganna/AgentComponent/tree/main][main]] 为准。下表提供 10 月 1 日后对应 Skill 的真实提交，可追溯而不伪造使用次数。
@@ -38,15 +60,6 @@
 |-------+------+----------+--------------+----------|
 | =org-museum-ingest= | 将聊天中的知识或教程整理为 Org，提交 org-notes 并验证网站发布 | @Org Museum 把下面的内容收录到知识库并发布：[材料] | [[https://github.com/lovemoganna/Org-Skills/commit/b971e47502][10-04 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/plugins/org-museum/skills/org-museum-ingest/SKILL.md][SKILL.md]] |
 | =org-museum-update= | 根据已发布的 Org Museum URL 定位原始笔记、原地更新并核验发布 | @Org Museum 更新这篇已发布笔记：[页面 URL]；修改要求：[具体内容] | [[https://github.com/lovemoganna/Org-Skills/commit/00b95951fe][10-04 提交]] | [[https://github.com/lovemoganna/Org-Skills/blob/main/plugins/org-museum/skills/org-museum-update/SKILL.md][SKILL.md]] |
-
-* 复用选择
-- 不知道该算什么，且必须保证本体和证据合法：=ontology-constrained-analysis=。
-- 需要 SQL 学习、取数或 HTML 分析报告：=sql-business-thinking=。
-- 需要根据真实结果制作业务看板：=dataset-dashboard-builder=。
-- 需要整理产品需求：=bprd-plus=；需要制定标准、SOP：=standards-engineering-loop=。
-- 需要复用历史笔记：=note-reforge=；需要可执行 Org 教程：=org-literate-engineering=。
-- 需要压测与修复 Skill：=skill-lab=；定稿后收录：=skill-repository=。
-- 需要发布新笔记：=org-museum-ingest=；更新旧页面：=org-museum-update=。
 
 * 验证边界
 此页证明 Skill 在指定时间窗口内有 Git 提交，不等于已统计实际触发频率，也不等于 11 个 Skill 均已在当前环境完成 E2E 测试。“常用”只代表当前目录按近期维护筛选，不是调用量排行。
