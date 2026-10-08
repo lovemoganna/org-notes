@@ -1,0 +1,154 @@
+#+TITLE: GitHub AI Skills 全景索引：作用、场景与调用
+#+WIKI_ID: 2c8f2a29-4428-4fe6-928d-c17c9c0be26a
+#+CATEGORY: AI Skills
+#+FILETAGS: :ai:skills:github:catalog:
+#+DATE: 2026-10-08
+#+SOURCE: GitHub lovemoganna/Org-Skills、AgentComponent、DuckDB_Editor_Pro、Aone；2026-10-08 各仓库基线 Commit 见正文
+#+INGEST_ID: 9d49d2c0-4eba-483a-8f3a-ac20ab08eada
+#+WIKI_STATUS: published
+
+* 如何使用
+本页扫描对象为 GitHub 账户 lovemoganna 当时可见的 63 个自有仓库的默认分支。基线共发现 89 个名为 SKILL.md 的文件，分布于 4 个仓库；其中 2 个是同名入口副本，1 个是规范模板，故实际可按名称区分的 Skill 为 86 个。其余仓库未发现 SKILL.md；AutoPlantuml 和 cryptocurrency_monitor 为空仓库，无法检查源码。
+注意：GitHub 上存在 Skill 文件，不等于当前 ChatGPT、Claude Code 或其它运行环境已经安装它。实际调用取决于平台是否识别该路径、是否加载对应工具与依赖。
+推荐直接在当前对话中指定 Skill 的确切名称、GitHub 源码路径、任务输入和交付要求；使用本页的调用示例即可。
+#+begin_example
+读取以下仓库 Skill 的当前 SKILL.md 和实际依赖，并按规则执行：
+https://github.com/lovemoganna/Org-Skills/blob/main/skills/ontology-constrained-analysis/SKILL.md
+任务：[真实输入与交付要求]
+禁止用仓库旧测试结果冒充本次运行。
+#+end_example
+Org Museum 的已连接插件入口可以通过 @Org Museum 加任务描述触发；Aone 项目的 .agent/skills 需要放在支持相应约定的 Agent 环境中，不能假定在 ChatGPT 中直接斜杠调用。
+
+* 范围和基线
+- Org-Skills: [[https://github.com/lovemoganna/Org-Skills/tree/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5][9cdfc728bfd1d97c6d226b79309ca55a377f9fb5]]；11 文件 / 9 个名称（另有 2 个同名入口副本）。
+- AgentComponent: [[https://github.com/lovemoganna/AgentComponent/tree/373600afb49c9555f3b7efea2f2a20bd360e6f5c][373600afb49c9555f3b7efea2f2a20bd360e6f5c]]；2 个 Skill。
+- DuckDB_Editor_Pro: [[https://github.com/lovemoganna/DuckDB_Editor_Pro/tree/f9adcc42ac10693468ca0e0b6dcfaa5855bf222c][f9adcc42ac10693468ca0e0b6dcfaa5855bf222c]]；6 个项目命令 Skill。
+- Aone: [[https://github.com/lovemoganna/Aone/tree/47baec353ef5b857a22873bdbb1dd107a16000c9][47baec353ef5b857a22873bdbb1dd107a16000c9]]；70 文件 / 69 个可调用名称和 1 个规范模板。
+
+* 一、Org-Skills 主库（9 个独立名称）
+| Skill | 作用 | 可复制调用示例 | 源码 |
+|-------+------+----------------+------|
+| =bprd-plus= | BRD 需求重构、定向审查和开发验收 | 使用 bprd-plus，将这份需求整理成可开发、可测试的 BRD | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/skills/bprd-plus/SKILL.md][源码]] |
+| =dataset-dashboard-builder= | 扫描真实数据、发现业务主题、验证 Finding 并构建看板 | 使用 dataset-dashboard-builder，读取这批表并生成可验证的业务看板 | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/skills/dataset-dashboard-builder/SKILL.md][源码]] |
+| =note-reforge= | 将旧 Org/Markdown 笔记炼成可长期使用的下一版 | 用 note-reforge 炼成下一版：[文件或目录] | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/skills/note-reforge/SKILL.md][源码]] |
+| =ontology-constrained-analysis= | 本体约束、两张原子表、指标/问题、真实 Signal 和 Finding | 使用 ontology-constrained-analysis，分析[真实数据]并核验 SQL 和证据链 | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/skills/ontology-constrained-analysis/SKILL.md][源码]] |
+| =org-literate-engineering= | 把代码和教程转为可执行、可复用、可验证的 Org Babel | 使用 org-literate-engineering，将[文章或脚本]转成可验证的 Org | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/skills/org-literate-engineering/SKILL.md][源码]] |
+| =sql-business-thinking= | SQL 业务分析、学习、调试与真实报告生成 | 使用 sql-business-thinking 的 Direct 模式，分析[数据源]并交付[结果] | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/skills/sql-business-thinking/SKILL.md][源码]] |
+| =standards-engineering-loop= | 将模糊要求整理为规则、SOP、标准并迭代回归 | 使用 standards-engineering-loop，建立并验证[标准主题] | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/skills/standards-engineering-loop/SKILL.md][源码]] |
+| =org-museum-ingest= | 把聊天材料整理为 Org、提交 org-notes 并核验发布 | @Org Museum 把下面的内容收录到知识库并发布 | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/plugins/org-museum/skills/org-museum-ingest/SKILL.md][源码]] |
+| =org-museum-update= | 定位已发布笔记的源 Org，原地炼化和更新发布 | @Org Museum 更新这篇已发布笔记：[页面 URL] | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/plugins/org-museum/skills/org-museum-update/SKILL.md][源码]] |
+
+** 两个同名入口副本（不重复计算）
+| 名称 | 路径性质 | 源码 |
+|------+------+------|
+| =note-reforge= | 轻量触发入口，实际执行读取主库 canonical Skill | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/plugins/org-museum/skills/note-reforge/SKILL.md][源码]] |
+| =org-literate-engineering= | 插件包装入口；与主库同名，不另算独立能力 | [[https://github.com/lovemoganna/Org-Skills/blob/9cdfc728bfd1d97c6d226b79309ca55a377f9fb5/plugins/org-museum/skills/org-literate-engineering/SKILL.md][源码]] |
+
+* 二、AgentComponent 的 Skill（2 个）
+| Skill | 作用 | 可复制调用示例 | 源码 |
+|-------+------+----------------+------|
+| =skill-lab= | 对 Skill 做基线测试、反例压测、缺陷归因和回归 | 使用 skill-lab，对[目标 Skill]执行真实用例回归与最小修复 | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/skills/skill-lab/SKILL.md][源码]] |
+| =skill-repository= | 把已确认的稳定 Skill 收录或更新到 Org-Skills | 按 Skill Repository 收录当前 Skill | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/skills/skill-repository/SKILL.md][源码]] |
+
+* 三、DuckDB Editor Pro 的项目命令（6 个）
+这里的命令采用源 Skill 中出现的 =/duckdb-skills:= 风格；须在实际安装了该命令集且有 DuckDB CLI/Bash 能力的环境调用。仅保存 SKILL.md 并不保证斜杠命令已经注册。
+| Skill | 作用 | 命令示例 | 源码 |
+|-------+------+----------+------|
+| =attach-db= | 挂载 DuckDB 库、勘察表结构和持久化会话状态 | =/duckdb-skills:attach-db [数据库.duckdb]= | [[https://github.com/lovemoganna/DuckDB_Editor_Pro/blob/f9adcc42ac10693468ca0e0b6dcfaa5855bf222c/Skills/attach-db/SKILL.md][源码]] |
+| =duckdb-docs= | 检索本地缓存的 DuckDB/DuckLake 文档 | =/duckdb-skills:duckdb-docs [问题或关键词]= | [[https://github.com/lovemoganna/DuckDB_Editor_Pro/blob/f9adcc42ac10693468ca0e0b6dcfaa5855bf222c/Skills/duckdb-docs/SKILL.md][源码]] |
+| =install-duckdb= | 安装或更新 DuckDB 扩展 | =/duckdb-skills:install-duckdb [扩展名]= | [[https://github.com/lovemoganna/DuckDB_Editor_Pro/blob/f9adcc42ac10693468ca0e0b6dcfaa5855bf222c/Skills/install-duckdb/SKILL.md][源码]] |
+| =query= | 执行 SQL 或将自然语言转换为 DuckDB 查询 | =/duckdb-skills:query [SQL 或问题]= | [[https://github.com/lovemoganna/DuckDB_Editor_Pro/blob/f9adcc42ac10693468ca0e0b6dcfaa5855bf222c/Skills/query/SKILL.md][源码]] |
+| =read-file= | 通过 DuckDB 读取 CSV、JSON、Parquet、Excel 等数据 | =/duckdb-skills:read-file [文件路径或 URL]= | [[https://github.com/lovemoganna/DuckDB_Editor_Pro/blob/f9adcc42ac10693468ca0e0b6dcfaa5855bf222c/Skills/read-file/SKILL.md][源码]] |
+| =read-memories= | 按关键词检索过往 Claude Code 会话日志 | =/duckdb-skills:read-memories [关键词]= | [[https://github.com/lovemoganna/DuckDB_Editor_Pro/blob/f9adcc42ac10693468ca0e0b6dcfaa5855bf222c/Skills/read-memories/SKILL.md][源码]] |
+
+* 四、Aone 根目录内嵌 Skill（47 个）
+此组位于 Aone 的 =.agent/skills/=；以下“调用名称”是 Skill 元数据中的名称或其路径名。统一使用“读取该 SKILL.md，使用该名称处理具体任务”的自然语言调用方法，并确保执行环境已装载它。没有依据保证 ChatGPT 自动识别这些 Skill。
+| 名称 | 作用 | 源码 |
+|------+------+------|
+| =api-patterns= | API 设计、REST/GraphQL/tRPC 取舍 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/api-patterns/SKILL.md][源码]] |
+| =app-builder= | 按自然语言需求编排全栈应用开发 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/app-builder/SKILL.md][源码]] |
+| =templates= | 新应用的技术栈脚手架模板 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/app-builder/templates/SKILL.md][源码]] |
+| =architecture= | 架构权衡与 ADR 决策记录 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/architecture/SKILL.md][源码]] |
+| =bash-linux= | Linux/Bash 脚本与终端操作 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/bash-linux/SKILL.md][源码]] |
+| =behavioral-modes= | 按任务选择构思、实现、调试等工作模式 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/behavioral-modes/SKILL.md][源码]] |
+| =brainstorming= | 澄清复杂需求和苏格拉底式提问 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/brainstorming/SKILL.md][源码]] |
+| =clean-code= | 精简代码和抑制过度设计 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/clean-code/SKILL.md][源码]] |
+| =code-review-checklist= | 代码质量与安全审查清单 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/code-review-checklist/SKILL.md][源码]] |
+| =database-design= | 模式、索引及 ORM 选型 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/database-design/SKILL.md][源码]] |
+| =deployment-procedures= | 发布、回滚及部署验收 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/deployment-procedures/SKILL.md][源码]] |
+| =documentation-templates= | README、API 文档与注释规范 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/documentation-templates/SKILL.md][源码]] |
+| =frontend-design= | Web UI 的布局、排版与视觉设计 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/frontend-design/SKILL.md][源码]] |
+| =2d-games= | 2D 精灵、Tilemap、物理与相机 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/2d-games/SKILL.md][源码]] |
+| =3d-games= | 3D 渲染、着色器、物理与相机 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/3d-games/SKILL.md][源码]] |
+| =game-development= | 游戏开发任务的子 Skill 路由 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/SKILL.md][源码]] |
+| =game-art= | 游戏美术风格、资源和动画流程 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/game-art/SKILL.md][源码]] |
+| =game-audio= | 游戏音效、音乐与自适应音频 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/game-audio/SKILL.md][源码]] |
+| =game-design= | 游戏设计文档、平衡和成长系统 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/game-design/SKILL.md][源码]] |
+| =mobile-games= | 移动游戏触控、续航与平台适配 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/mobile-games/SKILL.md][源码]] |
+| =multiplayer= | 多人游戏网络、同步与架构 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/multiplayer/SKILL.md][源码]] |
+| =pc-games= | PC/主机游戏引擎及性能 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/pc-games/SKILL.md][源码]] |
+| =vr-ar= | VR/AR 交互、舒适性与性能 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/vr-ar/SKILL.md][源码]] |
+| =web-games= | 浏览器游戏、WebGPU 与 PWA | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/game-development/web-games/SKILL.md][源码]] |
+| =geo-fundamentals= | AI 搜索引擎的生成式搜索优化 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/geo-fundamentals/SKILL.md][源码]] |
+| =i18n-localization= | 多语言、翻译资源和 RTL 适配 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/i18n-localization/SKILL.md][源码]] |
+| =intelligent-routing= | 按任务内容自动选择专门 Agent | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/intelligent-routing/SKILL.md][源码]] |
+| =lint-and-validate= | 修改后的 lint、格式和静态检查 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/lint-and-validate/SKILL.md][源码]] |
+| =mcp-builder= | MCP Server 的工具与资源设计 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/mcp-builder/SKILL.md][源码]] |
+| =mobile-design= | iOS/Android 移动端交互与视觉规范 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/mobile-design/SKILL.md][源码]] |
+| =nextjs-best-practices= | Next.js App Router 与服务端组件 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/nextjs-best-practices/SKILL.md][源码]] |
+| =nodejs-best-practices= | Node.js 异步、框架与安全设计 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/nodejs-best-practices/SKILL.md][源码]] |
+| =parallel-agents= | 可独立任务的多 Agent 并行协作 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/parallel-agents/SKILL.md][源码]] |
+| =performance-profiling= | 性能测量、定位和优化 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/performance-profiling/SKILL.md][源码]] |
+| =plan-writing= | 多步骤任务计划、依赖与验收标准 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/plan-writing/SKILL.md][源码]] |
+| =powershell-windows= | Windows PowerShell 脚本与故障排查 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/powershell-windows/SKILL.md][源码]] |
+| =python-patterns= | Python 架构、类型、异步与项目结构 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/python-patterns/SKILL.md][源码]] |
+| =react-patterns= | React Hooks、组合与性能 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/react-patterns/SKILL.md][源码]] |
+| =red-team-tactics= | 基于 MITRE ATT&CK 的攻防框架与报告 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/red-team-tactics/SKILL.md][源码]] |
+| =seo-fundamentals= | SEO、E-E-A-T 和 Core Web Vitals | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/seo-fundamentals/SKILL.md][源码]] |
+| =server-management= | 服务器进程、监控和扩容决策 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/server-management/SKILL.md][源码]] |
+| =systematic-debugging= | 基于根因证据的四阶段调试 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/systematic-debugging/SKILL.md][源码]] |
+| =tailwind-patterns= | Tailwind CSS v4 与设计令牌 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/tailwind-patterns/SKILL.md][源码]] |
+| =tdd-workflow= | 测试驱动开发 Red-Green-Refactor | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/tdd-workflow/SKILL.md][源码]] |
+| =testing-patterns= | 单元、集成及 Mock 测试设计 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/testing-patterns/SKILL.md][源码]] |
+| =vulnerability-scanner= | OWASP、依赖链与攻击面安全分析 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/vulnerability-scanner/SKILL.md][源码]] |
+| =webapp-testing= | Web E2E、Playwright 与质量审计 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/.agent/skills/webapp-testing/SKILL.md][源码]] |
+
+* 五、Aone Toolkit 内嵌 Skill（22 个可调用条目）
+此组位于 =aone-toolkit/.agent/skills/=；使用方法同上一组。部分 Skill 在元数据中列出子 Skill 依赖，调用前要确认实际存在，不能仅按名称推断已经装载。
+| 名称 | 作用 | 源码 |
+|------+------+------|
+| =agent-orchestrator= | 设计与管理多 Agent 工作流 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/agent-orchestrator/SKILL.md][源码]] |
+| =api-integration-specialist= | 用 cURL/Postman/代码联调 API | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/api-integration-specialist/SKILL.md][源码]] |
+| =api-spec-architect= | 设计与验证 OpenAPI/Swagger 规格 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/api-spec-architect/SKILL.md][源码]] |
+| =code-style-guardian= | 统一编码风格和静态规则 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/code-style-guardian/SKILL.md][源码]] |
+| =configuration-manager= | 维护 YAML、TOML 与环境配置 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/configuration-manager/SKILL.md][源码]] |
+| =css-architect= | 高级 CSS 布局和动画 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/css-architect/SKILL.md][源码]] |
+| =data-mocker= | 生成开发测试用模拟 JSON/CSV | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/data-mocker/SKILL.md][源码]] |
+| =data-processing-specialist= | 清洗、转换和校验 CSV/Excel | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/data-processing-specialist/SKILL.md][源码]] |
+| =data-viz-expert= | 构建清晰、可访问的图表和看板 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/data-viz-expert/SKILL.md][源码]] |
+| =diff-algorithm-specialist= | Myers 差异算法和 Unified Diff | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/diff-algorithm-specialist/SKILL.md][源码]] |
+| =feature-mining= | 使用 MECE 挖掘功能与路线图 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/feature-mining/SKILL.md][源码]] |
+| =graphviz-wizard= | 制作 Graphviz DOT 图 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/graphviz-wizard/SKILL.md][源码]] |
+| =json-schema-expert= | 设计、验证和优化 JSON Schema | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/json-schema-expert/SKILL.md][源码]] |
+| =plantuml-expert= | 设计和生成 PlantUML 图 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/plantuml-expert/SKILL.md][源码]] |
+| =prompt-engineer= | LLM 提示和上下文优化 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/prompt-engineer/SKILL.md][源码]] |
+| =protocol-translator= | 互转 cURL、Python、JS、Go 请求 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/protocol-translator/SKILL.md][源码]] |
+| =regex-expert= | 设计和调试正则表达式 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/regex-expert/SKILL.md][源码]] |
+| =security-auditor= | 漏洞、凭据泄露和安全规范审查 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/security-auditor/SKILL.md][源码]] |
+| =snippet-curator= | 整理可复用代码片段 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/snippet-curator/SKILL.md][源码]] |
+| =sql-expert= | SQL 模式和查询设计与优化 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/sql-expert/SKILL.md][源码]] |
+| =svg-expert= | 生成和优化 SVG 矢量图 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/svg-expert/SKILL.md][源码]] |
+| =toolbox-engineer= | 开发 UUID、Base64、JWT 等工具 | [[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/toolbox-engineer/SKILL.md][源码]] |
+
+** 规范模板（1 文件，不算可调用 Skill）
+=aone-toolkit/.agent/skills/template-skill/SKILL.md= 是定义 Aone Skill 格式的规范模板，不含可用于调用的 Skill frontmatter：[[https://github.com/lovemoganna/Aone/blob/47baec353ef5b857a22873bdbb1dd107a16000c9/aone-toolkit/.agent/skills/template-skill/SKILL.md][源码]]。
+
+* 复用选择
+- 需求文档：=bprd-plus=；标准/SOP：=standards-engineering-loop=。
+- 真实业务 SQL：=sql-business-thinking=；关系约束与证据追溯：=ontology-constrained-analysis=；面向决策的可视化：=dataset-dashboard-builder=。
+- Skill 调试回归：=skill-lab=；完成后入主库：=skill-repository=。
+- 知识库整理：=note-reforge=；可执行 Org：=org-literate-engineering=；发布或更新已有页面：=org-museum-ingest= / =org-museum-update=。
+- 注意区分同名入口和 canonical 实现：使用主库的最新路径作为版本事实源；本页给出的固定 Commit 仅用于核验本轮盘点。
+
+* 验证边界
+本次核对的是各仓库默认分支的 SKILL.md 文件和其中的用途描述，不等于逐个在真实运行环境执行了 86 个 Skill。Aone 内置 Skill 的作者归属和运行兼容性不可仅凭仓库归属推定。此索引属于源码资产清点与调用指南，不是功能通过报告。
