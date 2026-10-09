@@ -1,0 +1,48 @@
+#+TITLE: 2026 年 10 月新增 Prompt：用途与调用索引
+#+WIKI_ID: 3a926e76-9dd6-44bc-aad1-11bdabcf4b9e
+#+CATEGORY: Prompt 工具索引
+#+FILETAGS: :prompt:github:index:workflow:
+#+DATE: 2026-10-08
+#+SOURCE: https://github.com/lovemoganna/AgentComponent ; main 提交历史及固定快照 373600afb49c9555f3b7efea2f2a20bd360e6f5c
+#+INGEST_ID: e32a2249-c46e-48de-a781-63be9a6d5a88
+#+WIKI_STATUS: published
+
+* 先判断任务，再调用 Prompt
+本页只收录 =lovemoganna/AgentComponent= 仓库中在 2026-10-01 至 2026-10-08 范围内新增或有实质维护记录的独立 Prompt。根据 GitHub 提交历史与当前目录核对，共 11 个。这里的时间筛选依据是提交记录，不是实际调用次数统计。
+=skills/skill-lab= 和 =skills/skill-repository= 属于 Skill，不属于本页 Prompt 数量。README 是导航文件，也不重复计数。
+
+如果模型已能读取 GitHub 文件，可直接提供本页对应的源码链接，并要求先读取完整 =# Prompt= 与 =# 使用条件= 后再执行。只说提示词的名字，不能保证另一个模型知道其约束。
+#+begin_example
+先读取这份 GitHub Prompt：[从下表复制完整源码链接]。
+完整遵守其 Prompt 和使用条件。
+输入：[替换为本次真实材料或需求]
+目标：[替换为希望得到的结果]
+#+end_example
+如果模型没有 GitHub 或网络读取能力，打开源码链接，把文件中的 =# Prompt= 原文复制到对话，再替换占位符。不要把本索引的一句话调用示例误当作完整 Prompt。
+
+* 任务索引
+| 类型 | Prompt | 解决的问题 | 最短调用句 | 原文 |
+|------+--------+------------+------------+------|
+| 开发 | Vibe Coding 需求表达标准 | 把口语化需求整理成受控、可执行、可回归的开发任务 | 按 Vibe Coding 标准整理：[原始需求] | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/coding/specify/write-vibe-coding-requirement.md][源码]] |
+| 研究 | 概念核验与深度学习资料检索 | 先核对名称、定义及一手来源，再筛选真正讲透机制的材料 | 研究[概念]：先核验术语，再筛选学习资料 | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/research/discover/research-concept-learning-materials.md][源码]] |
+| 写作 | ASD-STE100 清晰表达 | 用受控写作原则缩短句子、清理歧义并保留术语 | 用 80% ASD-STE100 风格解释：[内容] | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/writing/explain/explain-with-asd-ste100.md][源码]] |
+| 写作 | Twitter / X 技术 Thread 生成 | 将已有事实和技术工作流炼成 8–10 条中英对等的 Thread | 将[技术材料]写成中英双语 X Thread | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/writing/generate/generate-twitter-technical-thread.md][源码]] |
+| 写作 | LinkedIn 加密风险情报博文生成 | 核验公开 Crypto 事件，提炼风险机制、业务影响和独立判断 | 基于[官方公告或调查主题]生成 LinkedIn 风险情报博文 | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/writing/generate/generate-linkedin-crypto-risk-intelligence-post.md][源码]] |
+| 可视化 | 图解优先 | 先判断流程、因果、结构或关系，再生成最必要的图 | 以图解优先方式解释：[内容] | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/visualization/generate/generate-diagram-first-explainer.md][源码]] |
+| 可视化 | PlantUML 自主选图 | 按流程、依赖、状态、交互或 SQL 计划选图并输出 PlantUML | 为[内容或 SQL / EXPLAIN]自主选图，输出 PlantUML | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/visualization/generate/select-and-generate-plantuml-diagram.md][源码]] |
+| 可视化 | HTML 交互解释器 | 用单文件 HTML 的结构与交互展示复杂材料 | 将[材料]制作为可离线打开的单文件 HTML 交互解释页 | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/visualization/generate/generate-html-explainer.md][源码]] |
+| 可视化 | 讲解视频生成 | 生成问题驱动的动态讲解分镜、旁白、画面与制作方案 | 为[主题]生成可视化讲解视频方案 | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/visualization/generate/generate-explainer-video.md][源码]] |
+| 元提示 | 自动选择最佳输出形式 | 按最低理解成本在文字、表格、图、HTML、视频中选合适形式 | 先为[内容]选择最合适的输出形式，再完成回答 | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/meta-prompt/select/select-best-output-format.md][源码]] |
+| 维护 | Prompt 仓库分类与归档 | 对高价值新提示查重、分类、命名、入库并同步 README | 按 Prompt 仓库分类与归档规则，处理[新提示或经验材料] | [[https://github.com/lovemoganna/AgentComponent/blob/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts/workflow/maintain/prompt-repository.md][源码]] |
+
+* 使用边界
+1. =自动选择最佳输出形式= 用于尚未决定呈现形式的任务；选定图或 HTML 后，再调用对应的专业 Prompt，不需要每次套上全部提示。
+2. =图解优先= 可以选择普通关系图；明确要求可渲染 PlantUML 时使用 =PlantUML 自主选图=，如要求 SQL 的真实执行计划须提供 EXPLAIN 等证据。
+3. =讲解视频生成= 默认产出分镜和制作方案，不代表运行环境一定能渲染出视频。=HTML 交互解释器= 要求单文件、无需后端，但仍需要实际打开验证。
+4. =概念核验与深度学习资料检索=、=LinkedIn 加密风险情报博文生成= 都要求真实外部来源；无法联网时不能假装完成核验。
+5. =Twitter / X 技术 Thread 生成= 依赖已有事实材料，不能让模型补造经历；=LinkedIn 加密风险情报博文生成= 还需要判断是否有公开发布价值，不足时可拒绝成稿。
+6. =Prompt 仓库分类与归档= 负责新增或维护 Prompt，必须同步 README；不能把它替代为 Skill 的测试或发布流程。
+
+* 来源与维护
+固定来源快照：[[https://github.com/lovemoganna/AgentComponent/tree/373600afb49c9555f3b7efea2f2a20bd360e6f5c/prompts][AgentComponent/prompts]]。方便查找的最新入口：[[https://github.com/lovemoganna/AgentComponent/blob/main/README.md][仓库 README]]。
+后续原提示词发生修改时，以 AgentComponent 的实际源码为准；本页仅负责场景导航和最短调用，不复制维护第二份提示词正文。
