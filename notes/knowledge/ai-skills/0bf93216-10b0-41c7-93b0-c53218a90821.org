@@ -1,4 +1,4 @@
-#+TITLE: 2026 实用 AI Skills：按问题选、安装、调用与验收
+#+TITLE: AI Skills 怎么选才有效？16 个公开项目的场景决策与调用实战
 #+WIKI_ID: 0bf93216-10b0-41c7-93b0-c53218a90821
 #+CATEGORY: AI Skills
 #+FILETAGS: :ai:skills:open-source:selection:workflow:
@@ -7,139 +7,138 @@
 #+INGEST_ID: e04aac70-b019-4952-9ed8-75fa2b3c6bc4
 #+WIKI_STATUS: published
 
-* 先给结论
-我不按 Star 或安装量直接判断“有效”。下载量只证明有人采用；能查看原始 SKILL.md、触发条件、依赖、执行步骤、输出与验证机制，才值得纳入实用候选。以下 16 个经过公开资料与原始仓库交叉核对；“可用”表示源码与调用说明有据可查，并不表示我已在本地对每个 Skill 运行 E2E。安装量会随日期变化，实时排行见 [[https://skills.sh/][Skills.sh]]。
-如果只装五个：=find-skills= 找工具；=skill-creator= 构造与评测；=diagnosing-bugs= 给故障建立可重复失败信号；=web-design-guidelines= 检查界面；=verification-before-completion= 禁止无证据宣布完成。项目非 Web 技术栈时替换界面 Skill。
+* 我真正要解决的问题
+不是知道 16 个 Skill 的名字，而是碰到具体问题能在 30 秒内选对工具、正确加载、拿到可验证的结果。
+我将“受欢迎”和“有效”分开：安装量代表采用趋势，不等于解决问题的成功率。2026-10-10 已逐个核对下文 16 个 =SKILL.md= 的真实源码路径，但没有在同一代理、同一任务上完成全部 16 个 E2E 对照测试。它们是“可查证的候选”，不是效果排名。
+默认一次只选一个主 Skill；只有任务出现独立缺口，才加第二个。能直接靠现有代码和测试解决的问题，不为了用 Skill 而安装。
 
-* 一分钟调用规则
-1. 先核验目标模型或编程代理能否加载 Agent Skills；Skill 不是联网权限，也不是 MCP 或独立可执行工具。
-2. 在支持 Skills CLI 的终端安装：=npx skills add owner/repo --skill skill-name=。先查看仓库可用项：=npx skills add owner/repo --list=；安装位置、可用代理与选项以 [[https://github.com/vercel-labs/skills][CLI 官方文档]] 为准。
-3. 安装后在相应代理对话中说“使用[Skill 名称]，针对[真实输入]执行[具体任务]，提交[可验证产物]”。部分代理支持 =/skill-name=，不能把这个写法当成所有模型的通用命令。
-4. 需要脚本、浏览器、CI、数据库时，先确认依赖、访问权限及运行环境。没有执行权限就只能分析说明，不得声称跑通。
-5. 第三方 Skill 可能包含运行命令、外部资源与行为指令。先审查 =SKILL.md=、脚本、网络访问和写入权限，优先项目级安装；不要未经审查执行远端脚本。
+* 一、先选，不要先装
+| 真实症状 | 先用 | 不要误用成 |
+|----------+------+------------|
+| Skill 改过很多轮，单个案例通过但其他案例失败 | =skill-creator= | 只重写一遍提示就宣布优化成功 |
+| Bug 修了三次仍复发 | =diagnosing-bugs= | 直接猜根因、加补丁 |
+| 修改完成后模型只说“测试通过” | =verification-before-completion= | 拿输出总结当测试证据 |
+| 要做的功能说不清输入、边界与验收 | =grill-me= | 明确需求后仍不断询问 |
+| 同一业务对象或指标定义冲突 | =domain-modeling= | 用代码结构代替业务语义 |
+| 模块依赖越来越多、改一处牵动多处 | =improve-codebase-architecture= | 不看代码就全仓重构 |
+| 页面有遮挡、焦点、布局或 Label 问题 | =web-design-guidelines= | 把静态审查当浏览器测试 |
+| 切换数据集、筛选或刷新时出现状态残留 | =agent-browser= | 用一张截图推断交互正确 |
+| 需要完全不同的视觉呈现 | =frontend-design= | 只想修原风格中的 Bug |
+| React 性能或组件组合不合理 | =vercel-react-best-practices= / =vercel-composition-patterns= | 当作任意 JavaScript 框架通用规则 |
+| PostgreSQL 索引、RLS、慢 SQL | =supabase-postgres-best-practices= | 强行套进 DuckDB |
+| GitHub Actions 中运行了 AI Agent | =agentic-actions-auditor= | 审计不含 AI 的普通 CI |
+| 上述任务没有合适 Skill | =find-skills= | 按热门榜单直接安装 |
 
-* 一、发现与构造 Skill
-** 1. find-skills：不知道应该用哪个 Skill
-用途：从技能生态中检索匹配任务的专用 Skill，并给出来源和安装方法。适合避免重复造轮子。
-安装：=npx skills add vercel-labs/skills --skill find-skills=
-调用：使用 find-skills，为“GitHub 仓库中 AI Skills 的回归测试与清理”寻找现成方案；先核对源码与依赖，返回候选及差异。
-来源：[[https://github.com/vercel-labs/skills/blob/main/skills/find-skills/SKILL.md][SKILL.md]]；[[https://www.skills.sh/vercel-labs/skills/find-skills][安装页]]。
+=systematic-debugging= 与 =diagnosing-bugs= 高度重叠，默认选择后者建立失败反馈环；若更缺少根因调查纪律，可以二选一采用前者，不要无差别叠加。=test-driven-development= 用于实施修复，=verification-before-completion= 用于最后验收，职责不同。
 
-** 2. skill-creator：新建、精简与评测 Skill
-用途：从目标、草稿、测试用例到对照评测和迭代；支持描述触发率检查。比直接让模型“优化这个提示”更可检验。
-安装：=npx skills add anthropics/skills --skill skill-creator=
-调用：使用 skill-creator，检查[目标 Skill]的触发准确性与执行效果；构造正例、反例和旧失败案例，比较有无 Skill 的真实结果，再做最小修改。
-来源：[[https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md][SKILL.md]]；[[https://www.skills.sh/anthropics/skills/skill-creator][安装页]]。
-边界：并行评测和浏览器报告依赖当前代理的执行环境；不保证所有模型均可运行。
+* 二、安装与调用：不要把“知道名字”当作“已执行”
+安装的是工作流说明，Skill 不会赋予模型额外的终端、浏览器、仓库或数据库权限。先查看当前代理是否支持 Skills，确认代码、数据、执行环境和授权条件。
 
-* 二、需求与工程结构
-** 3. grill-me：编码前把模糊需求问清
-用途：系统追问需求边界、成功标准、异常情况，适合方案评审。其入口 =SKILL.md= 实际委托同仓库的 =grilling=，不能只复制入口文本。
-安装：=npx skills add mattpocock/skills --skill grill-me --skill grilling=
-调用：调用 /grill-me，围绕[变更目标]检查场景、反例、非目标、验收条件；已有代码可从仓库寻找答案，不重复问我。
-来源：[[https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md][SKILL.md]]；[[https://github.com/mattpocock/skills][官方 README]]。
-边界：需求已完整时不必强制发起多轮访谈。
+在支持 [[https://github.com/vercel-labs/skills][Skills CLI]] 的终端操作：
+#+begin_src sh
+# 先列出可用 Skill
+npx skills add vercel-labs/agent-skills --list
+# 项目内安装一个
+npx skills add vercel-labs/agent-skills --skill web-design-guidelines
+# 不安装，临时交给支持的代理使用
+npx skills use vercel-labs/agent-skills --skill web-design-guidelines --agent claude-code
+#+end_src
+=--agent= 指定目标代理；=-g= 表示用户级安装。若是只有聊天能力的模型，先让它实际读取 =SKILL.md= 及依赖，不能只说 Skill 名就假设加载成功。
 
-** 4. domain-modeling：术语混乱、业务对象不清
-用途：建立统一业务词汇、挑战歧义、记录模型和架构决策；适合领域模型与代码命名一致性。
-安装：=npx skills add mattpocock/skills --skill domain-modeling=
-调用：使用 domain-modeling，围绕[订单/用户/交易/风险事件]区分对象、属性、状态与关系，列边界反例；必要时更新 GLOSSARY.md 和 ADR。
-来源：[[https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/SKILL.md][SKILL.md]]；[[https://www.skills.sh/mattpocock/skills/domain-modeling][安装页]]。
-边界：这是设计阶段修改领域模型的工作流，不等于读取术语表或自动验证 SQL。
+通用调用契约（不是某仓库的官方快捷命令）：
+#+begin_example
+使用 [Skill 名称]。先加载其 SKILL.md 和必需依赖。
+对象：[真实仓库/文件/任务]
+问题：[一项需要解决的真实缺陷]
+约束：[技术栈、已运行功能、不可更改项]
+执行：[用真实代码/数据分析、修改、复测]
+验收：[测试输入、命令、预期、实际结果、失败证据]
+没有权限或环境时，明确说明未执行，不得模拟通过。
+#+end_example
 
-** 5. improve-codebase-architecture：代码越来越难维护
-用途：定位浅模块、强耦合和难测边界，提出可验证的模块接口方案，而不是整库重构。依赖 =codebase-design= 中的共同设计术语。
-安装：=npx skills add mattpocock/skills --skill improve-codebase-architecture --skill codebase-design=
-调用：使用 improve-codebase-architecture，仅检查[最近反复修改的模块]；列出真实耦合证据、最小可实施方案、风险和验收方法，不直接重构。
-来源：[[https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md][SKILL.md]]；[[https://www.skills.sh/mattpocock/skills/improve-codebase-architecture][安装页]]。
-边界：本质是架构勘察，不保证自动消除技术债。
+* 三、三条最值得直接复制的工作流
+** A. Skill 压测与精简：解决“越优化越臃肿”
+默认组合：=skill-creator=（构造与评测）+ =diagnosing-bugs=（失败定位，按需）+ =verification-before-completion=（最后验收）。
+#+begin_example
+使用 skill-creator 测试 [目标 Skill]。
+先冻结 Git 基线，读取真实 Skill、依赖与旧失败记录。
+设计正常、边界、历史失败和独立反例；分别检查触发正确性与任务完成情况。
+在可运行环境用真实输入执行，记录实际结果、失败证据及成本。
+合并同根因问题，只做最小修复；不得硬编码样本答案。
+复测原失败案例、核心旧案例与独立反例；比较修复前后。
+连续两轮无改善或出现重大回归则停止并安全回退。
+最后提供具体测试命令、退出状态、差异和未验证项。
+#+end_example
+真正的验收不是“模型说优化好了”，而是旧功能没有丢、反例没有过拟合、失败证据可以复现。
 
-* 三、故障定位、测试与结束条件
-** 6. diagnosing-bugs：反复修复、始终复现
-用途：先构造只对目标故障失败的反馈环，再缩小输入、做假设、加观测、修复和回归。适合跨组件和性能回退问题。
-安装：=npx skills add mattpocock/skills --skill diagnosing-bugs=
-调用：使用 diagnosing-bugs，针对[真实失败案例]先冻结基线、复现失败并建立可重复的 pass/fail 测试；找到根因后只做最小修复。
-来源：[[https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md][SKILL.md]]；[[https://www.skills.sh/mattpocock/skills/diagnosing-bugs][安装页]]。
+** B. 数据仪表盘修复：解决“组件不一致、状态残留”
+默认组合：=web-design-guidelines=（代码扫描）+ =agent-browser=（真实交互）。只有项目实际使用 React，且根因涉及状态和组件接口时，才额外考虑 =vercel-composition-patterns=。只修缺陷时不用 =frontend-design=。
+#+begin_example
+在 [项目] 中仅检查当前首页仪表盘。
+先识别实际图表库、数据链路、格式化、状态与渲染组件。
+固定一套真实数据，使用 web-design-guidelines 扫描标题、Label、Tooltip、溢出和焦点。
+用 agent-browser 重现加载、筛选、切换数据集、刷新、空数据与窄屏交互。
+按共性根因归并缺陷，先修组件和规则，再做整体回归。
+不得替换已有技术栈，不改现有视觉风格，不允许 Mock 结果。
+交付修复前后证据；没有运行浏览器就明确标记未验收。
+#+end_example
+关键是同一输入、多次操作得到稳定结果，不能把“看起来不错”的截图当作功能通过。
 
-** 7. systematic-debugging：改代码前必须先证实根因
-用途：根因调查、模式对照、假设验证、实现与测试四阶段，约束拍脑袋修复。
-安装：=npx skills add obra/superpowers --skill systematic-debugging=
-调用：使用 systematic-debugging，复现[故障]、追踪数据流、对照最近变更；没有根因证据先不要修复。三次修改无效则复审架构假设。
-来源：[[https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md][SKILL.md]]；[[https://www.skills.sh/obra/superpowers/systematic-debugging][安装页]]。
-取舍：两种调试 Skill 高度重叠，默认选 =diagnosing-bugs= 的失败信号闭环；缺少根因纪律时再选这一项，不必同时加载。
+** C. 架构失控：解决“每次修复都引入新问题”
+默认组合：=domain-modeling=（定义对象与词汇）+ =improve-codebase-architecture=（找最小切口）+ =test-driven-development=（保护旧行为）。
+#+begin_example
+仅分析 [最近高频修改的模块]，不要全仓重构。
+用 domain-modeling 校正对象、状态、关系和 GLOSSARY.md / ADR。
+用 improve-codebase-architecture 从实际变更历史识别高耦合模块。
+只选择一个有证据的改进点，说明影响范围、可测接口和回滚方式。
+先建立失败测试或旧行为回归，再实施最小改动。
+对比改前改后依赖、测试结果与修改范围；无实证收益不重构。
+#+end_example
+验收是复杂度和故障面实际降低，不能只看文件数、抽象层数或代码行数。
 
-** 8. test-driven-development：新增功能或修 Bug
-用途：先写真实失败测试，再写最小通过代码，随后重构并重新验证。
-安装：=npx skills add obra/superpowers --skill test-driven-development=
-调用：使用 test-driven-development，对[目标缺陷]先提交能复现问题的失败测试，再做最小修复；保留旧测试并复验。
-来源：[[https://github.com/obra/superpowers/blob/main/skills/test-driven-development/SKILL.md][SKILL.md]]；[[https://www.skills.sh/obra/superpowers/test-driven-development][安装页]]。
-边界：必须真的执行测试；“写出测试代码”不等于测试通过。
+* 四、16 个 Skill 的源码与安装索引
+下表可直接用于检索。建议先用 =--list= 识别真实名称，再按仓库提供的说明安装；不要无条件安装全部。
 
-** 9. verification-before-completion：模型声称已修好但没有证据
-用途：完成前运行验证命令，读取实际输出与退出状态，再下结论。
-安装：=npx skills add obra/superpowers --skill verification-before-completion=
-调用：使用 verification-before-completion，检查[本次变更]；逐项给出刚执行的测试命令、返回码、结果和未验证项，禁止只凭口头判断宣布成功。
-来源：[[https://github.com/obra/superpowers/blob/main/skills/verification-before-completion/SKILL.md][SKILL.md]]；[[https://www.skills.sh/obra/superpowers/verification-before-completion][安装页]]。
+** 需求与模型
+| Skill | 解决什么 / 得到什么 | 安装方式 | 真实源码 |
+|-------+-------------------+----------+----------|
+| =find-skills= | 不知道应该用哪种 Skill；找候选，不能证明候选有效 | =npx skills add vercel-labs/skills --skill find-skills= | [[https://github.com/vercel-labs/skills/blob/main/skills/find-skills/SKILL.md][源码]] |
+| =skill-creator= | Skill 触发不准、输出不稳定；正反例、基准测试、对照结果 | =npx skills add anthropics/skills --skill skill-creator= | [[https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md][源码]] |
+| =grill-me= | 需求含混，编码可能返工；确认范围与反例；依赖 grilling | =npx skills add mattpocock/skills --skill grill-me --skill grilling= | [[https://github.com/mattpocock/skills/blob/main/skills/productivity/grill-me/SKILL.md][源码]] |
+| =domain-modeling= | 业务概念与字段含义冲突；Glossary 和 ADR | =npx skills add mattpocock/skills --skill domain-modeling= | [[https://github.com/mattpocock/skills/blob/main/skills/engineering/domain-modeling/SKILL.md][源码]] |
+| =improve-codebase-architecture= | 反复改同一个模块；最小重构候选；依赖 codebase-design | =npx skills add mattpocock/skills --skill improve-codebase-architecture --skill codebase-design= | [[https://github.com/mattpocock/skills/blob/main/skills/engineering/improve-codebase-architecture/SKILL.md][源码]] |
 
-* 四、前端视觉、组件与质量
-** 10. frontend-design：界面千篇一律
-用途：先制定符合业务的视觉方向，再处理排版、间距、色彩、动效与实现；不是浏览器回归测试。
-安装：=npx skills add anthropics/skills --skill frontend-design=
-调用：使用 frontend-design，为[真实业务页面]重建视觉层级；保留功能、数据契约与现有技术栈，交付能运行的界面代码。
-来源：[[https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md][SKILL.md]]；[[https://www.skills.sh/anthropics/skills/frontend-design][安装页]]。
-边界：不适合“只修缺陷、不改变现有视觉风格”的任务。
+** 故障、测试、验收
+| Skill | 解决什么 / 得到什么 | 安装方式 | 真实源码 |
+|-------+-------------------+----------+----------|
+| =diagnosing-bugs= | Bug 修了几轮仍不稳定；先建立可重复的失败信号 | =npx skills add mattpocock/skills --skill diagnosing-bugs= | [[https://github.com/mattpocock/skills/blob/main/skills/engineering/diagnosing-bugs/SKILL.md][源码]] |
+| =systematic-debugging= | 团队习惯未调查先修复；证据→根因→假设→验证 | =npx skills add obra/superpowers --skill systematic-debugging= | [[https://github.com/obra/superpowers/blob/main/skills/systematic-debugging/SKILL.md][源码]] |
+| =test-driven-development= | 修一个 Bug 容易破坏旧功能；先失败测试，再最小修改 | =npx skills add obra/superpowers --skill test-driven-development= | [[https://github.com/obra/superpowers/blob/main/skills/test-driven-development/SKILL.md][源码]] |
+| =verification-before-completion= | 模型声称成功却无命令证据；刚运行的测试与实际输出 | =npx skills add obra/superpowers --skill verification-before-completion= | [[https://github.com/obra/superpowers/blob/main/skills/verification-before-completion/SKILL.md][源码]] |
 
-** 11. web-design-guidelines：全面扫描界面缺陷
-用途：按照 Web 界面规则审查交互、可访问性和可读性，输出文件及行号；每次审查需能访问规则来源。
-安装：=npx skills add vercel-labs/agent-skills --skill web-design-guidelines=
-调用：使用 web-design-guidelines，审查[页面与组件路径]的布局、标签、焦点、溢出和可访问性；先列位置和证据，不做无关重设计。
-来源：[[https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines/SKILL.md][SKILL.md]]；[[https://www.skills.sh/vercel-labs/agent-skills/web-design-guidelines][安装页]]。
-边界：属于静态代码和规则审查，实际渲染问题还要浏览器测试。
+** 前端与浏览器
+| Skill | 解决什么 / 得到什么 | 安装方式 | 真实源码 |
+|-------+-------------------+----------+----------|
+| =frontend-design= | 确实要创造新视觉风格；界面实现；非默认修复流程 | =npx skills add anthropics/skills --skill frontend-design= | [[https://github.com/anthropics/skills/blob/main/skills/frontend-design/SKILL.md][源码]] |
+| =web-design-guidelines= | 排版、表单、焦点、可访问性问题；文件行号与规则审查 | =npx skills add vercel-labs/agent-skills --skill web-design-guidelines= | [[https://github.com/vercel-labs/agent-skills/blob/main/skills/web-design-guidelines/SKILL.md][源码]] |
+| =vercel-react-best-practices= | React/Next 请求瀑布或重渲染；性能对照；非通用 JS 规则 | =npx skills add vercel-labs/agent-skills --skill vercel-react-best-practices= | [[https://github.com/vercel-labs/agent-skills/blob/main/skills/react-best-practices/SKILL.md][源码]] |
+| =vercel-composition-patterns= | React props、状态和复用边界混乱；组件边界与接口精简 | =npx skills add vercel-labs/agent-skills --skill vercel-composition-patterns= | [[https://github.com/vercel-labs/agent-skills/blob/main/skills/composition-patterns/SKILL.md][源码]] |
+| =agent-browser= | 筛选、切换与页面交互问题；真实点击与快照；需安装 CLI | =npx skills add vercel-labs/agent-browser --skill agent-browser= | [[https://github.com/vercel-labs/agent-browser/blob/main/skills/agent-browser/SKILL.md][源码]] |
 
-** 12. vercel-react-best-practices：React/Next.js 性能问题
-用途：识别异步瀑布、Bundle 膨胀、重渲染等问题，按影响优先级优化。
-安装：=npx skills add vercel-labs/agent-skills --skill vercel-react-best-practices=
-调用：使用 vercel-react-best-practices，检查[React 模块]的请求瀑布、加载与无效重渲染；给出代码证据、改前改后测试。
-来源：[[https://github.com/vercel-labs/agent-skills/blob/main/skills/react-best-practices/SKILL.md][SKILL.md]]；[[https://www.skills.sh/vercel-labs/agent-skills/vercel-react-best-practices][安装页]]。
-边界：React 专用；不是所有 JS、Chart.js 项目的通用规则。
+** 数据库与安全
+| Skill | 解决什么 / 得到什么 | 安装方式 | 真实源码 |
+|-------+-------------------+----------+----------|
+| =supabase-postgres-best-practices= | Postgres 慢查询、索引与 RLS；SQL 与执行计划；不适用于 DuckDB | =npx skills add supabase/agent-skills --skill supabase-postgres-best-practices= | [[https://github.com/supabase/agent-skills/blob/main/skills/supabase-postgres-best-practices/SKILL.md][源码]] |
+| =agentic-actions-auditor= | AI Agent 在 GitHub Actions 中执行；静态追溯提示注入与权限风险 | =/plugin marketplace add trailofbits/skills= | [[https://github.com/trailofbits/skills/blob/main/plugins/agentic-actions-auditor/skills/agentic-actions-auditor/SKILL.md][源码]] |
 
-** 13. vercel-composition-patterns：组件接口膨胀
-用途：减少布尔参数爆炸，改善 React 复合组件、状态提升和复用边界。
-安装：=npx skills add vercel-labs/agent-skills --skill vercel-composition-patterns=
-调用：使用 vercel-composition-patterns，扫描[React 组件]的状态归属、props 冲突和复用边界；只修改已证实影响维护或测试的接口。
-来源：[[https://github.com/vercel-labs/agent-skills/blob/main/skills/composition-patterns/SKILL.md][SKILL.md]]；[[https://www.skills.sh/vercel-labs/agent-skills/vercel-composition-patterns][安装页]]。
+* 五、容易失败的地方
+1. =grill-me= 入口会委托 =grilling=；=improve-codebase-architecture= 要配合 =codebase-design=。孤立复制入口文件可能没有完整方法。
+2. =agent-browser= 还需浏览器 CLI：=npm i -g agent-browser && agent-browser install=；使用前按官方说明运行 =agent-browser skills get core=。没有浏览器权限，不得声称“已完成 UI 交互回归”。
+3. =web-design-guidelines= 在检查时会读取远端规则文件。无法访问规则时，不能冒充按最新版本审查。
+4. =agentic-actions-auditor= 是 Trail of Bits 插件，Claude Code 可先运行 =/plugin marketplace add trailofbits/skills=，再从 =/plugin menu= 安装。它只审计 GitHub Actions 内的 AI Agent 风险，不会自动修改代码。
+5. 安装第三方 Skill 之前审查脚本、网络资源、权限与可能的敏感数据访问。生产使用时固定经过审查的版本。真实 E2E 通过率和上下文开销需用自己的独立案例测试。
 
-* 五、浏览器、数据库与供应链安全
-** 14. agent-browser：页面交互必须实际验证
-用途：通过真实 Chrome/Chromium 做页面打开、点击、填写、快照和自动化测试。
-安装 Skill：=npx skills add vercel-labs/agent-browser --skill agent-browser=
-运行依赖：=npm i -g agent-browser && agent-browser install=；执行前读取 =agent-browser skills get core=。
-调用：使用 agent-browser，在[本地页面 URL]测试[筛选→切换数据集→交互→刷新]；保存每一步的真实快照、控制台错误及回归结果。
-来源：[[https://github.com/vercel-labs/agent-browser/blob/main/skills/agent-browser/SKILL.md][SKILL.md]]；[[https://www.skills.sh/vercel-labs/agent-browser/agent-browser][安装页]]。
-边界：浏览器 CLI 与 Skill 是两层依赖；没有终端或浏览器权限不可执行。
+* 资料与证据边界
+已复核上表 16 个开源 =SKILL.md= 真实路径，且 [[https://github.com/vercel-labs/skills][Skills CLI]] 提供 =--list=、=--skill= 和 =skills use= 用法；这不等于所有技能在所有模型上都已测试通过。原版 2026-10-09 的安装数量只是当时的动态平台指标，本版不使用未经重新核实的数字排序。继续发现参考 [[https://skills.sh/][Skills.sh]]、[[https://github.com/anthropics/skills][Anthropic Skills]]、[[https://github.com/openai/skills][OpenAI Skills]]、[[https://github.com/obra/superpowers][Superpowers]]、[[https://github.com/trailofbits/skills][Trail of Bits]]。
 
-** 15. supabase-postgres-best-practices：PostgreSQL 查询、索引与权限
-用途：检查查询计划、索引、RLS、表结构、连接与锁竞争。
-安装：=npx skills add supabase/agent-skills --skill supabase-postgres-best-practices=
-调用：使用 supabase-postgres-best-practices，审查[PostgreSQL SQL/DDL]，按执行计划与实际数据提出优化，并验证语义未改变。
-来源：[[https://github.com/supabase/agent-skills/blob/main/skills/supabase-postgres-best-practices/SKILL.md][SKILL.md]]；[[https://www.skills.sh/supabase/agent-skills/supabase-postgres-best-practices][安装页]]。
-边界：Postgres 方言及其执行计划不能直接套用 DuckDB。
-
-** 16. agentic-actions-auditor：GitHub Actions 中的 AI Agent 注入风险
-用途：静态检查 AI Action 的不可信输入、权限、变量传递与提示注入风险；适合自动化发布和 AI CI 工作流。
-安装（Claude Code 插件仓库）：先在支持的平台执行 =/plugin marketplace add trailofbits/skills=，再通过 =/plugin menu= 选择 =agentic-actions-auditor=。
-调用：使用 agentic-actions-auditor，审计[仓库 GitHub Actions 工作流]，追踪不可信事件字段是否能进入 Agent 提示，并给出文件、行号及修复建议。
-来源：[[https://github.com/trailofbits/skills/blob/main/plugins/agentic-actions-auditor/skills/agentic-actions-auditor/SKILL.md][SKILL.md]]；[[https://github.com/trailofbits/skills][官方仓库]]。
-边界：只做静态审计，不等于运行渗透测试，也不自动修改仓库。
-
-* 三条最值得复用的工作流
-1. 测试 AI Skill：=skill-creator= 设计触发正反例与评测；失败时用 =diagnosing-bugs= 形成可重复失败案例；最后用 =verification-before-completion= 对比修复前后实际结果。
-2. 优化业务看板：先用 =domain-modeling= 统一字段与对象语义；如果是 React 再用 =vercel-composition-patterns= 检查共性组件；=web-design-guidelines= 扫描规范；=agent-browser= 实际交互回归。界面已有设计时不要默认启用 =frontend-design= 重做风格。
-3. 项目失控：先用 =grill-me= 确认修改目标和禁止改动项；再用 =improve-codebase-architecture= 寻找最小切口；用 =test-driven-development= 保护行为；以真实测试结束。
-
-* 选择边界与证据
-- “流行”：参考 2026-10-09 的 [[https://skills.sh/][Skills.sh 排行]]，例如 =find-skills= 约 380 万、=agent-browser= 约 110 万、=frontend-design= 约 97 万、=vercel-react-best-practices= 约 78 万安装记录。平台展示的是安装指标，不是独立真实用户数，也不能证明结果质量。
-- “有效”：只表示源码、任务边界、依赖与可验证工作流有依据；本文没有做全部 16 项的同环境、同任务基准压测。评判是否真正有效应测任务完成率、错误数、额外上下文开销与回归。
-- “调用”：技能安装仅令相应代理可发现它；外部模型未装该 Skill 时，先提供 =SKILL.md= 及必要依赖路径，不能只发一个名字。跨模型的通用方式是“加载技能文件 → 指定真实任务 → 指定验证结果”。
-- “安全”：安装量、维护者名气或排行榜上的安全标识不能替代脚本审查、最小权限及测试隔离。
-- 检索入口：[[https://skills.sh/][Skills.sh]]、[[https://github.com/anthropics/skills][Anthropic 官方 Skills]]、[[https://github.com/openai/skills][OpenAI Codex Skills]]、[[https://github.com/obra/superpowers][Superpowers]]、[[https://github.com/trailofbits/skills][Trail of Bits]]。
+结论：只有能说清“何时调用、读取什么、做什么、怎样验收、什么时候不适用”的 Skill，才有复用价值。先用一个真实问题验证它，再考虑扩展技能库。
