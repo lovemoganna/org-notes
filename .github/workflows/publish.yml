@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: 1e882f0892500bd77c3b2d2bad2c980778619967
+          ref: 75401193e6426c99ca7da85b53432b0aee2ba6af
           path: _publisher
           persist-credentials: false
       - name: Install batch Emacs
@@ -109,7 +109,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: 1e882f0892500bd77c3b2d2bad2c980778619967
+          ref: 75401193e6426c99ca7da85b53432b0aee2ba6af
           path: _publisher
           persist-credentials: false
       - name: Verify live published content
