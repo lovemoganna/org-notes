@@ -1,4 +1,4 @@
-#+TITLE: Skill 仓库测试资产治理：保留什么，清理什么
+#+TITLE: Skill 仓库测试资产治理：删除、保留与回归
 #+WIKI_ID: 6cec6b1a-4bfe-589e-a1c7-71be38dc6e85
 #+CATEGORY: AI Skill 工程
 #+FILETAGS: :ai:skills:github:repository:tests:maintenance:
@@ -8,61 +8,66 @@
 #+WIKI_STATUS: published
 
 #+CAPTION: 中文手绘总览，1920×920 横幅；点击图片查看完整信息
+#+ATTR_HTML: :style display:block; margin-left:auto; margin-right:auto; max-width:100%; height:auto
 [[file:../../../note-assets/6cec6b1a-4bfe-589e-a1c7-71be38dc6e85/sketchnote-header.webp]]
 
-* 何时需要清理
-一个 Skill 已被反复测试，却留下大量重复脚本、日志、截图和旧版本副本时，治理对象不是“所有测试文件”，而是*无复用价值的运行产物及冗余测试*。不能因为测试连续通过，就删除未来防止回归所需的样本。
 
-| 当前文件属于 | 默认处理 | 判断条件 |
+* 症状：测试跑了很多遍，GitHub 却越来越乱
+多次通过只能证明已运行用例在对应环境里通过，不能证明未来用不到的测试都可删除。仓库治理的目标是*减少不必要的长期维护成本，同时保留能够发现回归的独立证据*。
+
+| 我看到的情况 | 默认决策 | 证据门槛 |
 |--------------+----------+----------|
-| 核心文件 | 保留 | =SKILL.md=、必需脚本、依赖、关键参考资料 |
-| 有效测试 | 集中管理 | 能验证核心功能、重要边界或历史缺陷 |
-| 历史证据 | 选择性归档 | 对复现关键故障、比较版本仍有价值 |
-| 临时产物 | 清理/排除 Git | 可重建的重复报告、缓存、临时截图和输出 |
+| 核心 =SKILL.md=、脚本和实际引用 | 保留 | 删除会中断有效执行 |
+| 正常、边界和历史失败回归 | 保留并集中管理 | 能发现独立类型的失败 |
+| 语义等价的重复测试 | 合并 | 逐项确认断言和边界没有丢 |
+| 构建缓存、临时 HTML、重复截图与日志 | 清理或排除 Git | 可以重建且不是交付 / 证据依赖 |
+| 诊断性故障记录 | 选择性归档 | 保留最小复现、版本和必要证据 |
+| 未知引用、未知覆盖价值 | 待确认 | 不得直接删除 |
 
-* 一个清晰的仓库布局〔补〕
-采用正式运行区与测试区分离的建议结构，实际迁移前必须检查现有加载路径和 CI 引用。此为目标结构示意，*不是已经实施的仓库现状*。
+* 当前仓库有什么，哪些还不能删
+2026-10-10 实际读取 =lovemoganna/Org-Skills= 的提交 [[https://github.com/lovemoganna/Org-Skills/tree/f59675d5e25ea273162a4dbe48305c2ddc84a36e][f59675d5]]：Git tree 中有 179 个文件、62 个目录、8 个 =.github/workflows/= 工作流。该统计只是固定提交的快照，不是本篇清理了文件或运行了测试的证明。
+
+优先审查三个位置：
+1. [[https://github.com/lovemoganna/Org-Skills/tree/f59675d5e25ea273162a4dbe48305c2ddc84a36e/skills/sql-business-thinking/tests][sql-business-thinking/tests]]：有多个 =check_d*.py=、=verified-d*.json= 等文件。先检查是否有独立断言、输入与 CI 依赖；不能凭名称相近就合并。
+2. [[https://github.com/lovemoganna/Org-Skills/tree/f59675d5e25ea273162a4dbe48305c2ddc84a36e/skills/sql-business-thinking/artifacts][sql-business-thinking/artifacts]]：存在 =verified-d22-report.html=；须先判断是可重建产物还是被测试固定引用的 golden。
+3. [[https://github.com/lovemoganna/Org-Skills/tree/f59675d5e25ea273162a4dbe48305c2ddc84a36e/.github/workflows][.github/workflows]]：有 8 个工作流，检查触发条件与历史用途后才能停用。[[https://github.com/lovemoganna/Org-Skills/blob/f59675d5e25ea273162a4dbe48305c2ddc84a36e/.github/workflows/skills-regression.yml][skills-regression.yml]] 会查找 =tests/check_repo.py=；移动此文件会影响 CI。
+
+本轮只确认这些文件存在，没有完成逐文件引用图、覆盖率和可删除清单，因此不得宣称安全删除。
+
+* 默认布局：运行资产与测试资产分工
+仓库当前以 =skills/<skill-name>/tests/= 为主。优先就地整理，避免为“统一目录”做大规模迁移。以下是可选目标示例〔补〕，不是当前已经实施的目录改造。
 
 #+begin_src text
-Org-Skills/
-  skills/
-    skill-name/
-      SKILL.md
-      references/
-      scripts/
-      assets/
+skills/<skill-name>/
+  SKILL.md
+  references/           # 按需加载的详细规则
+  scripts/              # 必须执行的工具
   tests/
-    skill-name/
-      cases.yaml
-      fixtures/
-      regression/
-  .github/workflows/
-  .gitignore
-  README.md
+    fixtures/           # 固定输入及必要来源
+    regression/         # 关键旧缺陷与反例
+    check_repo.py       # 需要时保留
+  assets/               # 正式交付的模板或媒体
 #+end_src
 
-Skill 主目录只放运行时必要资产；=tests/= 放固定输入、核心回归和历史失败复现；自动化验证置于 =.github/workflows/=。=references/= 和 =assets/= 均按需保留，不能为凑齐目录而创建空文件夹。
+只创建有实际文件的目录；现有目录名称、引用约定和 CI 优先于美化后的树形结构。
 
-* 怎样判断测试文件该不该删除
-1. *检查引用*：搜索 CI、脚本、README、Skill 元数据、入口命令是否依赖目标文件。未知依赖时不删。
-2. *检查断言*：仅当多个测试在输入边界、失败检测和覆盖行为上等价，才合并；名字相似不代表等价。
-3. *保留回归*：每个历史缺陷至少保留能够识别该缺陷的精简案例；若重新运行旧版做不到，说明验证证据不足。
-4. *清理产物*：重复运行报告、调试缓存、构建输出默认不提交；关键故障证据按需留存并建立有效期。
-5. *删后复验*：先在独立分支完成清理，重跑关键测试，再确认文件与引用无遗漏。
+* 一次清理应该怎样执行
+1. *列清单*：固定 commit，读取文件、Git 跟踪状态、=README=、CI、脚本和跨 Skill 引用。
+2. *查依赖*：将每个候选文件标成“运行必需 / 独立回归 / 历史证据 / 可重建产物 / 待确认”。
+3. *先做最小变更*：重复测试经断言等价核对后合并；临时产物移出长期跟踪；不删除被引用的 fixture / golden。
+4. *复验*：运行原失败案例、核心回归和 CI，比较变更前后的用例覆盖、行为及失败状态。
+5. *提交*：记录文件列表、删除依据、关键 Diff、CI 结果和 commit；失败停止并回退本轮清理。
 
-* 文件清理映射
-| 文件类别 | 建议动作 | 可执行的门槛 |
-|----------+----------+--------------|
-| 同功能测试脚本 | 合并 | 证明断言和边界未丢失 |
-| 已修复 Bug 的回归案例 | 保留最小复现 | 旧版可识别失败，新版可通过 |
-| 多轮日志、HTML 报告 | 保留必要摘要，其他定期清理 | 故障证据已提取 |
-| 临时截图、缓存 | 排除版本管理 | 非运行依赖，也不是正式交付 |
-| 旧 Skill 完整副本 | 优先使用 Git Tag 和历史 | 旧版可恢复，且未被脚本依赖 |
-| 失效说明和重复文档 | 删除或合并 | 无独立知识价值，无外部引用 |
-| 固定测试数据 | 保留并注明版本与来源 | 当前回归依赖该数据 |
+* 可直接复制的仓库清理提示词
+这段保留既有测试资产中的完整提示词：
+#+begin_example
+完成 Skill 修复与回归测试后，清理 GitHub 仓库中的冗余测试资产。先检查文件用途、引用关系和 Git 状态，区分运行必需文件、有效测试、历史证据和临时产物。保留核心测试及历史缺陷回归案例，合并重复测试，删除确认无效的文件，将临时产物排除版本控制。禁止删除必要依赖或未经确认的文件。清理后重新运行核心测试，比较清理前后的文件数量、规模和测试结果。全部通过后再提交远程仓库，记录删除、合并和保留的依据。
+#+end_example
 
-* 排除临时产物：原始示例
-以下 =.gitignore= 来自本轮建议，实际是否适合仓库必须核对。=*.html= 等全局通配可能误伤有意提交的页面，因此只过滤已明确的临时目录。
+如果工作内容是修复 Prompt / Skill 的行为，再使用 [[wiki:b0f76f51-5884-54b7-9ccc-2d43a989d1a3][六阶段调试与精简流程]]。不要把本篇变成第二套通用调试器。
+
+* Git 与 CI 的关键边界
+下面的 =.gitignore= 是本轮建议中的原始示例，并未确认已经适用于当前所有目录：
 
 #+begin_src gitignore
 # Skill 测试产生的临时文件
@@ -73,19 +78,18 @@ __pycache__/
 *.pyc
 #+end_src
 
-已被 Git 跟踪的文件不会因为加入 =.gitignore= 而自动停止跟踪。确认确属临时文件后，才使用 =git rm --cached= 取消追踪；该操作仍会改变下次提交中的跟踪状态，应先检查差异。GitHub Actions 的临时 Artifact 可配置保留期，如普通测试结果 7 天、重要故障证据 30 天；此为*建议参数*，不是当前仓库配置。
+- 不要全局忽略 =*.html=；正式看板、报告和固定验证产物可能以 HTML 为交付或测试依据。
+- =.gitignore= 不会让已跟踪文件自动消失。确认是临时产物后，可用 =git rm --cached= 从跟踪状态移除，必须审查 Diff。
+- 对可重建运行输出，优先使用 GitHub Actions Artifact 和设置保留期限。7 天普通日志、30 天重要故障证据只是*示例策略〔补〕*，不是仓库现有配置。
+- 删除、重命名、移动文件前核查所有引用。CI 失败或功能退化，必须回退本轮清理；不能以文件数量变少为验收依据。
+- 旧 Skill 的可恢复版本优先通过 Git 版本历史管理，避免添加 =final-new-v2= 同内容副本。不要在有未提交变更的工作区使用可能覆盖修改的粗暴恢复命令。
 
-* 可直接复制的清理提示词
-#+begin_example
-完成 Skill 修复与回归测试后，清理 GitHub 仓库中的冗余测试资产。先检查文件用途、引用关系和 Git 状态，区分运行必需文件、有效测试、历史证据和临时产物。保留核心测试及历史缺陷回归案例，合并重复测试，删除确认无效的文件，将临时产物排除版本控制。禁止删除必要依赖或未经确认的文件。清理后重新运行核心测试，比较清理前后的文件数量、规模和测试结果。全部通过后再提交远程仓库，记录删除、合并和保留的依据。
-#+end_example
+* 为什么测试资产不能无限累积
+重复测试如果没有独立失败检测价值，只增加维护、诊断和加载成本；反过来，删除唯一的历史失败用例又会使旧缺陷难以再次识别。判定依据不是文件名、年龄或通过次数，而是*依赖、独立断言、复现价值和重建成本*。
 
-* 发布门槛与回滚
-本项治理合并进五阶段调试流程的“05 回归验收”，*不新增一个必须每次执行的阶段*。仓库整理时重点证明两件事：有效测试还在；无用文件不再反复产生。检查未通过先回退本轮清理，不应为追求文件数量少而损失测试资产。
-
-见 [[wiki:b0f76f51-5884-54b7-9ccc-2d43a989d1a3][Skill 调试与精简五阶段闭环]]。
+清理必须降低复杂度，但不能降低发现问题的能力。完整验收依赖真实运行与 GitHub 状态；未运行、无法复现或环境受阻的项目必须保持未验证。
 
 * 来源与验证边界
-- [[https://github.com/lovemoganna/Org-Skills][Org-Skills]]：本轮已读取最新 =note-reforge= 和 =sketchnote-generator=，但未对其他 Skill 逐一审计测试依赖。
-- [[https://docs.github.com/en/actions][GitHub Actions 文档]]：可按 Artifact 策略设置保留时间；具体界面、默认策略和权限需以仓库配置核实。
-- 本页所列目录是治理建议，*不是已完成的仓库迁移记录*。当前仓库可删除文件清单尚未建立，不应据此自动批量删除。
+- [[https://github.com/lovemoganna/Org-Skills/tree/f59675d5e25ea273162a4dbe48305c2ddc84a36e][Org-Skills 固定提交]]、[[https://github.com/lovemoganna/Org-Skills/blob/f59675d5e25ea273162a4dbe48305c2ddc84a36e/MAINTENANCE.md][维护规范]]：实际目录、文件和约束。
+- [[https://docs.github.com/en/actions][GitHub Actions 官方文档]]：参考 Artifact 及工作流机制，不代表当前仓库已设置这些保留期。
+- 当前没有逐文件覆盖率报告或安全删除测试。任何“可删除清单”必须由独立审计生成，不能从本文直接推断。
