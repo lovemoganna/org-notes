@@ -102,7 +102,7 @@
 - 连续两轮没有实质改善或出现重大回归：停止本轮修复，在受控分支或可恢复快照上回退本轮改动，不覆盖其他人的新提交。
 
 * 与仓库治理的分工
-调试闭环解决“如何把 Skill 改对”；[[wiki:6cec6b1a-4bfe-589e-a1c7-71be38dc6e85][Skill 仓库测试资产治理]]解决“什么应长期留在 Git、哪些文件应清理”。两篇互相补位，不复制相同维护规程。
+调试闭环解决“如何把 Skill 改对”；[[wiki:6cec6b1a-4bfe-589e-a1c7-71be38dc6e85][Skill 仓库测试资产治理]]解决“什么应长期留在 Git、哪些文件应清理”。两篇互相补位，不复制相同维护规程。Org Museum 的 =Museum-Update= 提交校验要求每次只改一篇已有 Org 源文件；多篇内容可分别准备，但应逐篇提交和验收。
 
 * 事实来源与验证边界
 - [[https://github.com/lovemoganna/Org-Skills/blob/f59675d5e25ea273162a4dbe48305c2ddc84a36e/skills/note-reforge/SKILL.md][note-reforge canonical]]；[[https://github.com/lovemoganna/Org-Skills/blob/f59675d5e25ea273162a4dbe48305c2ddc84a36e/skills/loop-engineering-meta/SKILL.md][loop-engineering-meta]]；[[https://github.com/lovemoganna/Org-Skills/blob/f59675d5e25ea273162a4dbe48305c2ddc84a36e/skills/sketchnote-generator/SKILL.md][sketchnote-generator]]：2026-10-10 已读取的 Git 快照，不代表永久最新。
