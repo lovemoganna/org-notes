@@ -9,8 +9,10 @@
 
 这篇笔记讨论如何让定时 Agent 在无人值守时可靠交付，而不是只要 cron 成功就算成功。以 Anthropic 的 Claude Managed Agents 示例为依据，重点保存增量读取、去重、临发复核、发布确认、持久状态与权限边界的具体机制。该示例是官方参考实现，不代表笔记作者已部署和实测。
 
-#+CAPTION: Agent 自动化中文手绘图解（依据原文制作；示意图中的规则请以正文与官方材料为准）
+#+CAPTION: Agent 自动化可靠性机制（网页适配版中文手绘图；细节以正文与官方来源为准）
 [[file:../../../note-assets/263f253c-869b-44f1-8c18-d4be58d2141e/agent-automation-sketchnote.webp]]
+
+原始长图备份：[[file:../../../note-assets/263f253c-869b-44f1-8c18-d4be58d2141e/agent-automation-sketchnote-original.webp][查看完整版长图]]。
 
 原文：[[https://claude.dev/blog/building-effective-agent-automations/][Building effective agent automations]]。
 * 先抓住关键判断
