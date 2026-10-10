@@ -14,6 +14,8 @@
 
 原始长图备份：[[file:../../../note-assets/263f253c-869b-44f1-8c18-d4be58d2141e/agent-automation-sketchnote-original.webp][查看完整版长图]]。
 
+小屏阅读时可点击新版手绘图，再选择“打开原图”查看细节；各步骤的完整解释保留在正文。
+
 原文：[[https://claude.dev/blog/building-effective-agent-automations/][Building effective agent automations]]。
 * 先抓住关键判断
 :PROPERTIES:
