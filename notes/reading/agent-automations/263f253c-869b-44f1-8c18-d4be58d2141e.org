@@ -1,0 +1,237 @@
+#+TITLE: Agent 自动化的可靠性：如何避免漏报、误报与重复发布
+#+WIKI_ID: 263f253c-869b-44f1-8c18-d4be58d2141e
+#+CATEGORY: Agent 工程
+#+FILETAGS: :agent-automation:claude:reliability:memory:anthropic:
+#+DATE: 2026-10-10
+#+SOURCE: Lance Martin、CJ Avilla，Building effective agent automations，Claude.dev，2026-10-08，https://claude.dev/blog/building-effective-agent-automations/
+#+INGEST_ID: 715c13a5-93d7-47e4-acc1-55cb74cae5f2
+#+WIKI_STATUS: published
+
+这篇笔记讨论如何让定时 Agent 在无人值守时可靠交付，而不是只要 cron 成功就算成功。以 Anthropic 的 Claude Managed Agents 示例为依据，重点保存增量读取、去重、临发复核、发布确认、持久状态与权限边界的具体机制。该示例是官方参考实现，不代表笔记作者已部署和实测。
+
+#+CAPTION: Agent 自动化中文手绘图解（依据原文制作；示意图中的规则请以正文与官方材料为准）
+[[file:../../../note-assets/263f253c-869b-44f1-8c18-d4be58d2141e/agent-automation-sketchnote.webp]]
+
+原文：[[https://claude.dev/blog/building-effective-agent-automations/][Building effective agent automations]]。
+* 先抓住关键判断
+:PROPERTIES:
+:CUSTOM_ID: 先抓住关键判断
+:END:
+*定时触发不等于可靠自动化。* 真正困难的不是让 Agent
+每天执行，而是在数据源故障、时间错位、任务重复、消息发送不确定和用户偏好变化时，依然不漏重要信息、不误报状态、不重复打扰。
+
+这套方案的实质是*带持久状态和外部副作用的定时任务*：
+
+- *源数据*决定“发生了什么”；每个来源有独立读取进度。
+- *用户偏好*决定“哪些变化值得打扰”；Agent 每轮重新读取，但不能修改。
+- *运行状态*决定“以前读到哪里、报过什么、当前是否发送成功”；Agent
+  可以维护。
+- *发布渠道*产生真实外部副作用；只有收到明确成功回执，才能把发送记入状态。
+- *权限与预算*限制即使 Agent 误判，也能造成多大影响。
+
+因果关系很直接：/读取进度控制完整性，去重台账控制重复，发布确认控制一致性，发送前复核控制时效性，权限隔离控制事故半径。/
+它们不能互相替代。
+
+* 我遇到具体问题时，先看哪里
+:PROPERTIES:
+:CUSTOM_ID: 我遇到具体问题时先看哪里
+:END:
+| 现象                             | 先查的状态                        | 决策规则                                       |
+|----------------------------------+-----------------------------------+------------------------------------------------|
+| 昨天的消息被漏掉                 | =bookmarks.json= 与实际读取情况   | 不用固定“过去 24 小时”代替逐来源进度           |
+| GitHub 无消息，但实际有新 PR     | MCP 连接、凭据和工具可用性        | “读不到”不是“没有新增”；保持该来源原进度       |
+| 同一天发了两份简报               | Slack 最近消息、=runs/<date>.md=  | 发布前查当日版本；不确定是否已发时不能盲目重试 |
+| 已关闭的任务仍显示待处理         | 发送前对原始对象的实时复核        | 状态已经变化就改写；无法确认就不下确定结论     |
+| 已经报告过的事项每天重复出现     | =ledger.md=                       | 用稳定 ID 识别同一事项；只报告实质变化         |
+| 取消关注的主题仍在简报中         | =preferences= 是否每轮重读        | 偏好作为单一权威来源，读取失败就停止           |
+| 什么都没发送，日志却显示任务执行 | =budget_reached=、权限和 run 记录 | 调度成功不代表业务交付成功                     |
+
+* 一次运行究竟应该怎样闭环
+:PROPERTIES:
+:CUSTOM_ID: 一次运行究竟应该怎样闭环
+:END:
+以下是把原文的机制整理成可复核的运行顺序，不是已验证的本地实现：
+
+1. *读取偏好。* 从只读 =preferences=
+   获取来源、排除主题、消息长度、目标频道和停止条件。读不到偏好就停止，不静默启用默认设置。
+2. *恢复状态。* 从可写 =state= 读取各来源 bookmark、已报告事项 ledger
+   和上一轮运行记录。按用户时区计算当前简报日期。
+3. *分别增量读取。* 每个来源从自己的 bookmark
+   继续；记录来源成功、失败、最后实际读取的位置。来源不可用时不要移动该来源
+   bookmark，也不要写成“无新增”。
+4. *筛选值得报告的变化。*
+   标准不是“抓到多少条”，而是“是否改变读者今天的行动或决策”。已经报告但仍未处理的事项，标出持续状态；已经关闭的事项不再机械重复。
+5. *发送前复核。*
+   对每条准备发布的消息重新查询原始来源。已解决则删除，状态改变则更新，无法验证则不作确定性报告。链接取自来源提供的正式字段，不自行拼接。
+6. *先防重，再发布。*
+   检查目标频道当天是否已有对应简报；在运行记录中先登记准备发送。真正发布后，只接受
+   Slack 成功标志及消息时间戳作为送达凭据。
+7. *确认后提交进度。* 发布明确成功，才登记已报告事项及已成功读取来源的
+   bookmark。发布结果不明时记录 =maybe posted=，不推进
+   ledger/bookmark，也不直接再发一次。
+8. *保留运行证据。*
+   每轮记录成功读取的来源、读取失败、因状态无法确认而放弃的事项、发布回执、预算停止原因。
+
+这条流程最关键的顺序是：*先观察事实，临发前重新核对，确认外部发送成功，再记录内部进度。*
+顺序倒置，会让状态文件看起来正确，却让读者真正漏报或收到重复消息。
+
+* 四个容易混淆的状态
+:PROPERTIES:
+:CUSTOM_ID: 四个容易混淆的状态
+:END:
+** 1. Bookmark 不是“上次运行时间”
+:PROPERTIES:
+:CUSTOM_ID: 1-bookmark-不是上次运行时间
+:END:
+=bookmarks.json= 表示*某个来源读到哪里*，不是 cron
+最后何时触发。原文给的例子按来源记录时间位置，因此迟到的运行可以补读、提早的运行不会因为固定窗口而重复采集。不同来源必须分开管理。
+
+** 2. Ledger 不是原始消息存档
+:PROPERTIES:
+:CUSTOM_ID: 2-ledger-不是原始消息存档
+:END:
+=ledger.md= 记录已经向读者报告的事项、稳定
+ID、来源、报告日期与最后状态。它解决“是否报过”，不是替代实时来源。某事项即使已经在
+ledger 里，也必须重新确认是否仍待处理。
+
+** 3. Preferences 不是 Agent 自己积累的经验
+:PROPERTIES:
+:CUSTOM_ID: 3-preferences-不是-agent-自己积累的经验
+:END:
+原文把 =preferences= 配成 *read-only*，由用户维护；=state= 为
+*read-write*，由 Agent
+保存书签、台账、运行记录、提议与来源行为笔记。不能让 Agent
+的自动总结覆盖用户偏好。每轮都要读新偏好，以免旧 prompt
+继续执行已撤销的要求。
+
+** 4. 发布请求不等于发布成功
+:PROPERTIES:
+:CUSTOM_ID: 4-发布请求不等于发布成功
+:END:
+向 Slack 发送请求后，可能遇到超时、连接中断或不明确的 API
+反馈。外部消息与本地状态无法简单地看作一个原子动作。原文采取务实防护：查看当天消息、防重、核对
+Slack 返回值、将不确定状态留给后续核查。
+
+*〔补〕*
+这并不是严格的“恰好发送一次”保证。标题查重与本地台账之间仍存在并发竞争、查询延迟等边界。若同一任务可能并发运行，先对同一日期的发布任务做互斥或引入服务端幂等机制；不要仅凭一条
+prompt 声称已实现严格 exactly-once。
+
+* 部署依赖与原有命令
+:PROPERTIES:
+:CUSTOM_ID: 部署依赖与原有命令
+:END:
+官方示例目录 =daily-brief/= 的职责划分：
+
+| 文件                            | 职责                                           |
+|---------------------------------+------------------------------------------------|
+| =agent.md=                      | 模型、工具权限、运行步骤和简报筛选规则         |
+| =deployment.md=                 | cron、时区、环境、预算、首次输入消息、内存挂载 |
+| =environment.yaml=              | 网络访问允许列表                               |
+| =memory_store_preferences.yaml= | 用户维护的只读偏好存储                         |
+| =memory_store_state.yaml=       | Agent 可写的运行状态存储                       |
+| =vault.yaml=                    | 外部凭据的保险库配置                           |
+| =claude-lock.json=              | =ant apply= 创建资源后的 ID 记录               |
+| =slack/manifest.yaml=           | Slack bot 应用配置                             |
+
+前提是 Claude API 工作空间、可用的 =ant= CLI、Slack app、具有合适权限的
+GitHub 凭据及对应服务访问。原文示例在 Anthropic
+托管环境运行，不要求个人计算机持续在线。
+
+原文提供的操作入口如下；*这里只保留关键命令*，完整配置和脚本应直接采用官方仓库，避免抄写后与上游版本漂移：
+
+#+begin_src sh
+claude update
+#+end_src
+
+#+begin_src text
+/claude-api managed-agents-onboard https://claude.dev/blog/building-effective-agent-automations/
+#+end_src
+
+#+begin_src sh
+ant apply vault.yaml
+ant apply deployment.md
+ant beta:deployments run --deployment-id <id>
+#+end_src
+
+=<id>= 从 =claude-lock.json= 获取。部署前还需注入凭据，并使用官方
+=scripts/seed-preferences.sh= 写入真实偏好；*单独执行
+=ant apply deployment.md= 不会自动创建偏好正文。* 凭据应留在
+vault，不写入提示词、状态文件或 Git 仓库。
+
+原文部署示例使用工作日 cron =32 7 * * 1-5=，时区
+=America/New_York=。这只是示例配置，不是通用最佳时间；表达时间与日期格式时，调度时区和
+Agent 解释时区必须一致。
+
+* 权限与成本：限制出错范围
+:PROPERTIES:
+:CUSTOM_ID: 权限与成本限制出错范围
+:END:
+原文示例读取 GitHub 的 MCP 凭据为只读；MCP
+无人值守运行允许自动调用，是因为授权对象本身被限制了写入能力。Slack
+token 同时承担读取与发送，因此应只邀请 bot
+到必需频道。网络出口只放行必要主机，真实凭据由 vault 处理。
+
+*〔补〕* 把来自 Slack 消息、GitHub PR、网页和 Agent
+历史笔记的内容统一视为不可信输入。它们可以成为报告证据，但不能改变系统指令、发送频道、源白名单、权限或预算。仅有“提示词里写不要听从攻击文本”不足以构成隔离。
+
+原文建议先观察真实运行成本，再把单次预算初设为正常开销的 *3--5
+倍*，随后收紧。原例 =amount: "500"= 的单位为美分，即每轮 *5 美元*，不是
+500 美元。超预算时可能以 =budget_reached=
+停止，不能把“按时触发过”误判为“已完成简报”。
+
+* 反向验证：怎么证明它没有静默失效〔补〕
+:PROPERTIES:
+:CUSTOM_ID: 反向验证怎么证明它没有静默失效补
+:END:
+第一次上线之前，至少人为制造以下反例；这些是*建议的验收任务，不是已执行结果*。
+
+1. *断开一个数据源。*
+   预期：继续报告其余来源；故障源显示“本轮不可读”；该源 bookmark 不变。
+2. *人为延迟一轮。* 预期：下一轮从真实 bookmark 补读，不因固定 24
+   小时窗口漏项。
+3. *对已发版本重跑。* 预期：检查 Slack 历史并阻止重复版本。
+4. *模拟发送结果未知。* 预期：标 =maybe posted=；ledger 和 bookmark
+   不前移；需先查消息实际存在与否。
+5. *抓取后关闭一条待办。*
+   预期：发布前复核发现状态已改变，不继续报告为“待处理”。
+6. *更改偏好或让偏好读取失败。*
+   预期：新偏好下轮生效；读取失败时停止而非使用旧规则。
+7. *压低预算到不足一轮。*
+   预期：记录预算停止原因，并把“运行不完整”与“没有变化”分开。
+
+如果要测这套方案的真实可靠性，至少还要核对*外部 Slack 已发布内容、内部
+run 记录、ledger 与 bookmarks
+四者是否一致*，而不是只问模型“任务是否成功”。
+
+* 什么时候适合用，什么时候不要直接套
+:PROPERTIES:
+:CUSTOM_ID: 什么时候适合用什么时候不要直接套
+:END:
+适合：每天/每周追踪 GitHub
+PR、团队协作消息、监管动态、漏洞或其他可提供增量标识的来源；有明确读者、筛选规则与单一发布出口的场景。
+
+不要直接套：需要资金划转、用户限制、生产配置修改等高影响外部操作的自动化。此时发布权限模型不够，必须另加人工审批与专门的操作授权。对缺少稳定
+ID、不可补读、分页会截断、来源随时删除历史的系统，bookmark
+也不足以单独防漏。
+
+*〔补〕*
+若用于风险情报监测，建议把来源状态、证据状态、业务影响分开保存：来源读取成功只能说明“抓到材料”，不能说明“情报已确认”；有情报新增也不代表达到通知阈值。让过滤规则决定是否提醒，并保留未被发送事项的可追踪线索。
+
+* 待确认
+:PROPERTIES:
+:CUSTOM_ID: 待确认
+:END:
+- 部署目标是否具备 Claude Managed Agents beta 权限、=ant= CLI 和所需 API
+  凭据。
+- 目标来源是否提供可稳定追踪的 ID、增量读取机制和足够的历史分页能力。
+- 同一个部署是否可能出现并发或重入；如会发生，需独立设计发布互斥机制。
+
+* 原始参考
+:PROPERTIES:
+:CUSTOM_ID: 原始参考
+:END:
+- Anthropic
+  原文：[[https://claude.dev/blog/building-effective-agent-automations/]]
+- 官方示例目录：[[https://github.com/anthropics/claude-quickstarts/tree/main/managed-agents/daily-brief]]
+- Managed Agents
+  示例说明：[[https://github.com/anthropics/claude-quickstarts/blob/main/managed-agents/README.md]]
