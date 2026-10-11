@@ -1,0 +1,52 @@
+name: Isolated Org Museum S01 renderer QA
+on:
+  push:
+    branches:
+      - test/org-museum-s01-render-only-20261011
+permissions:
+  contents: read
+jobs:
+  build-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: lovemoganna/org-museum.el
+          ref: 10d90d911410ed207095faf047f40d823d0cb4bc
+          path: _publisher
+          persist-credentials: false
+      - uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
+        with:
+          version: '30.2'
+      - name: Validate and build using canonical publisher
+        env:
+          LANG: C.UTF-8
+        run: |
+          python3 _publisher/tools/museum_pipeline.py validate --root .
+          python3 _publisher/tools/museum_pipeline.py build --root . --engine _publisher --output _site
+      - name: Assert rendered article and source receipt
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          doc=Path('_site/pages/collected/knowledge/ai-security-terminology/562b24a4-79f0-58e9-bb6f-12083904d9e7.html')
+          assert doc.is_file(), 'new article did not render'
+          html=doc.read_text(encoding='utf-8')
+          for token in ('AI 安全术语优化','可复制提示','Topic','已记录输出'):
+              assert token in html, 'missing rendered content: '+token
+          release=json.loads(Path('_site/museum-release.json').read_text(encoding='utf-8'))
+          print('ORG-MUSEUM-S01-RENDER-CHECK-PASS')
+          print('Rendered bytes',len(html),'sourceCommit',release.get('sourceCommit'))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: org-museum-s01-builder-proof
+          path: |
+            _site/pages/collected/knowledge/ai-security-terminology/562b24a4-79f0-58e9-bb6f-12083904d9e7.html
+            _site/museum-release.json
+          retention-days: 7
