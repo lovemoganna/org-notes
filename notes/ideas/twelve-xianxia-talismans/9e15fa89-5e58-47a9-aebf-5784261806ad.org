@@ -16,10 +16,11 @@
 :CUSTOM_ID: zodiac-totems
 :END:
 
-#+ATTR_HTML: :class totem-gallery
-| [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/01-shu.webp]] 鼠 · 化静为动 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/02-niu.webp]] 牛 · 搬山怪力 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/03-hu.webp]] 虎 · 调和阴阳 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/04-tu.webp]] 兔 · 一瞬万里 |
-| [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/05-long.webp]] 龙 · 神龙烈火 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/06-she.webp]] 蛇 · 隐匿虚空 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/07-ma.webp]] 马 · 万劫不染 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/08-yang.webp]] 羊 · 真修阳神 |
-| [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/09-hou.webp]] 猴 · 七十二变 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/10-ji.webp]] 鸡 · 神识念力 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/11-gou.webp]] 狗 · 长生不老 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/12-zhu.webp]] 猪 · 万物洞察 |
+#+ATTR_HTML: :width 660px :style "min-width:0;width:100%;max-width:660px;table-layout:fixed;margin:0 auto;"
+| [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/01-shu.webp]] 鼠 · 化静为动 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/02-niu.webp]] 牛 · 搬山怪力 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/03-hu.webp]] 虎 · 调和阴阳 |
+| [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/04-tu.webp]] 兔 · 一瞬万里 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/05-long.webp]] 龙 · 神龙烈火 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/06-she.webp]] 蛇 · 隐匿虚空 |
+| [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/07-ma.webp]] 马 · 万劫不染 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/08-yang.webp]] 羊 · 真修阳神 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/09-hou.webp]] 猴 · 七十二变 |
+| [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/10-ji.webp]] 鸡 · 神识念力 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/11-gou.webp]] 狗 · 长生不老 | [[file:../../../note-assets/9e15fa89-5e58-47a9-aebf-5784261806ad/12-zhu.webp]] 猪 · 万物洞察 |
 
 * 十二神通
 :PROPERTIES:
