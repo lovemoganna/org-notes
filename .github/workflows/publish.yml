@@ -14,6 +14,7 @@ on:
       - 'ai-public.json'
       - 'museum.json'
       - 'tools/check_wiki_integrity.py'
+      - 'tools/test_wiki_integrity.py'
       - '.github/workflows/publish.yml'
   workflow_dispatch:
 
@@ -58,6 +59,8 @@ jobs:
           assert config['publisher']['commit'] == actual
           PY
           python3 _publisher/tools/museum_pipeline.py validate --root .
+      - name: Run Wiki disposable Git and negative regressions
+        run: python3 tools/test_wiki_integrity.py
       - name: Verify Wiki source integrity
         run: python3 tools/check_wiki_integrity.py .
       - name: Protect identities of declared URL updates
