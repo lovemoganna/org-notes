@@ -78,19 +78,6 @@ FROM (
 ) AS t(x);
 #+end_src
 
-
-** 查看/选择数据 · 随机抽样预览（大表快速摸底）
-DuckDB 概念：SAMPLE Clause (抽样子句)。SQL 入口：USING SAMPLE n [ROWS|%]。
-
-对应 Excel 中从大表抽取样本做快速检查；在 FROM/JOIN 后、WHERE/聚合前对输入 Relation 抽样。补齐“减少数据量但不是条件过滤”的独立边界，与 WHERE/LIMIT 不等价。
-
-Relation：N 行输入 Relation → K 行样本 Relation（列结构不变；按采样方法、比例或行数缩减）
-
-#+begin_src sql :exports code
-SELECT *
-FROM range(100) t(x) USING SAMPLE 5 ROWS;
-#+end_src
-
 * 关系命名与别名
 
 概括图：第 2 章 关系命名与别名。
@@ -210,26 +197,6 @@ ORDER BY salary DESC
 LIMIT 2;
 #+end_src
 
-
-** 排序与取前 N 行 · 分页跳过前 N 行
-DuckDB 概念：OFFSET Clause (结果偏移子句)。SQL 入口：OFFSET n。
-
-对应分页或跳过前几行；OFFSET 逻辑上在查询末尾应用，通常与 ORDER BY、LIMIT 配合。补齐 LIMIT 只控制返回数量、不控制起始位置的边界。
-
-Relation：N 行有序 Relation → 跳过前 n 行 → 从指定起点继续输出 Relation
-
-#+begin_src sql :exports code
-SELECT x
-FROM (
-  VALUES (1),
-   (2),
-   (3)
-) t(x)
-ORDER BY x
-LIMIT 2
-OFFSET 1;
-#+end_src
-
 * 消除重复
 
 概括图：第 5 章 消除重复。
@@ -251,24 +218,6 @@ FROM (
    ('Sales'),
    ('Tech')
 ) t(dept);
-#+end_src
-
-
-** 消除重复 · 按键保留排序第一条
-DuckDB 概念：DISTINCT ON Clause (按键保留单行)。SQL 入口：SELECT DISTINCT ON (key) ... ORDER BY ...。
-
-对应按业务 Key 去重并保留代表记录；ORDER BY 决定每个 Key 最先保留哪一行。补齐普通 DISTINCT 只能按完整输出行去重、无法指定每组保留哪条记录的边界。
-
-Relation：N 行 Relation → 按 Key 分组 → 每个 Key 保留排序首行的 Relation
-
-#+begin_src sql :exports code
-SELECT DISTINCT ON (k) k, v
-FROM (
-  VALUES ('a', 2),
-   ('a', 1),
-   ('b', 3)
-) t(k, v)
-ORDER BY k, v;
 #+end_src
 
 * 分类汇总与聚合
@@ -567,88 +516,6 @@ FULL JOIN (
 ) r(id, dept) USING (id);
 #+end_src
 
-
-** 横向关联与匹配 (JOIN) · 生成全部组合（笛卡尔积）
-DuckDB 概念：CROSS JOIN (交叉连接)。SQL 入口：a CROSS JOIN b。
-
-用于两组数据做全组合展开；不使用匹配条件，返回左右 Relation 的所有行组合。补齐“无条件连接”边界，与 INNER/OUTER JOIN 的条件匹配语义不同。
-
-Relation：L 行 × R 行 → L×R 行组合 Relation（横向拼接双方列）
-
-#+begin_src sql :exports code
-SELECT *
-FROM (
-  VALUES (1),
-   (2)
-) a(x)
-CROSS JOIN (
-  VALUES ('A'),
-   ('B')
-) b(y);
-#+end_src
-
-** 横向关联与匹配 (JOIN) · 只判断右表是否存在匹配
-DuckDB 概念：SEMI JOIN (半连接)。SQL 入口：a SEMI JOIN b USING(key)。
-
-对应 Excel 中用 MATCH/XMATCH 筛出“右表存在”的主表记录；只返回左表列且每个左行最多保留一次。补齐“存在性筛选、不补右表列”的独立边界。
-
-Relation：左 Relation + 右 Relation → 左表匹配子集 Relation（列结构保持左表，行数 ≤ 左表）
-
-#+begin_src sql :exports code
-SELECT *
-FROM (
-  VALUES (1),
-   (2),
-   (3)
-) a(id)
-SEMI JOIN (
-  VALUES (2),
-   (3)
-) b(id) USING (id);
-#+end_src
-
-** 横向关联与匹配 (JOIN) · 只保留右表不存在的记录
-DuckDB 概念：ANTI JOIN (反连接)。SQL 入口：a ANTI JOIN b USING(key)。
-
-对应 Excel 中筛出“主表有、名单表没有”的记录；只返回左表未匹配行。补齐“反存在性筛选”边界，并与 EXCEPT 的整行集合差保持区分。
-
-Relation：左 Relation + 右 Relation → 左表未匹配子集 Relation（列结构保持左表，行数 ≤ 左表）
-
-#+begin_src sql :exports code
-SELECT *
-FROM (
-  VALUES (1),
-   (2),
-   (3)
-) a(id)
-ANTI JOIN (
-  VALUES (2),
-   (3)
-) b(id) USING (id);
-#+end_src
-
-
-** 横向关联与匹配 (JOIN) · 时序最近值匹配
-DuckDB 概念：ASOF JOIN (时序近邻连接)。SQL 入口：a ASOF [LEFT] JOIN b ON equality AND inequality。
-
-用于行情、价格、状态快照等时序近邻匹配；按时间或有序字段为左侧每行寻找满足条件的最近一条右侧记录。补齐普通等值 JOIN 无法直接表达最近历史值的边界。
-
-Relation：左 Relation + 有序右 Relation → 每个左行最多匹配一个最近右行 → 时序对齐 Relation
-
-#+begin_src sql :exports code
-SELECT l.t, r.v
-FROM (
-  VALUES (5),
-   (10)
-) l(t)
-ASOF
-LEFT JOIN (
-  VALUES (3, 'a'),
-   (8, 'b')
-) r(t, v) ON l.t >= r.t
-ORDER BY l.t;
-#+end_src
-
 * 纵向追加与集合计算
 
 概括图：第 9 章 纵向追加与集合计算。
@@ -787,20 +654,6 @@ FROM (
 ) u(x);
 #+end_src
 
-
-** 纵向追加与集合计算 · 按列名对齐追加
-DuckDB 概念：UNION [ALL] BY NAME (按列名纵向合并)。SQL 入口：q1 UNION [ALL] BY NAME q2。
-
-对应按表头名称对齐后追加多张表；输入列顺序或数量不同时仍可合并，缺失列补 NULL。补齐普通 UNION 只能按列位置对齐的边界。
-
-Relation：不同列布局的 Relation A + B → 按列名对齐 / 缺失补 NULL → 单一纵向 Relation
-
-#+begin_src sql :exports code
-SELECT 1 AS a
-UNION ALL BY NAME
-SELECT 2 AS b;
-#+end_src
-
 * 模块化分步与中间结果
 
 概括图：第 10 章 模块化分步与中间结果。
@@ -861,26 +714,6 @@ FROM (
 ) s;
 #+end_src
 
-
-** 模块化分步与中间结果 · 递归展开层级 / 路径
-DuckDB 概念：Recursive CTE (递归公用表表达式)。SQL 入口：WITH RECURSIVE cte AS (...)。
-
-用于树、层级、路径和迭代计算；允许 CTE 在递归项中引用自身。补齐普通 CTE 无法表达的自引用迭代边界，并需要明确终止条件。
-
-Relation：Anchor Relation → 递归迭代追加 → 最终递归 Relation
-
-#+begin_src sql :exports code
-WITH RECURSIVE t(n) AS (
-  VALUES (1)
-  UNION ALL
-  SELECT n + 1
-  FROM t
-  WHERE n < 3
-)
-SELECT *
-FROM t;
-#+end_src
-
 * 原生动态表生成
 
 概括图：第 11 章 原生动态表生成。
@@ -929,6 +762,111 @@ SELECT *
 FROM read_parquet('fixtures/users.parquet');
 #+end_src
 
+* 查看/选择数据
+
+概括图：第 1 章 查看/选择数据（同主题补充）。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-01-overview.png]]
+
+** 查看/选择数据 · 随机抽样预览（大表快速摸底）
+DuckDB 概念：SAMPLE Clause (抽样子句)。SQL 入口：USING SAMPLE n [ROWS|%]。
+
+对应 Excel 中从大表抽取样本做快速检查；在 FROM/JOIN 后、WHERE/聚合前对输入 Relation 抽样。补齐“减少数据量但不是条件过滤”的独立边界，与 WHERE/LIMIT 不等价。
+
+Relation：N 行输入 Relation → K 行样本 Relation（列结构不变；按采样方法、比例或行数缩减）
+
+#+begin_src sql :exports code
+SELECT *
+FROM range(100) t(x) USING SAMPLE 5 ROWS;
+#+end_src
+
+* 横向关联与匹配 (JOIN)
+
+概括图：第 8 章 横向关联与匹配 (JOIN)（同主题补充）。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-08-overview.png]]
+
+** 横向关联与匹配 (JOIN) · 生成全部组合（笛卡尔积）
+DuckDB 概念：CROSS JOIN (交叉连接)。SQL 入口：a CROSS JOIN b。
+
+用于两组数据做全组合展开；不使用匹配条件，返回左右 Relation 的所有行组合。补齐“无条件连接”边界，与 INNER/OUTER JOIN 的条件匹配语义不同。
+
+Relation：L 行 × R 行 → L×R 行组合 Relation（横向拼接双方列）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1),
+   (2)
+) a(x)
+CROSS JOIN (
+  VALUES ('A'),
+   ('B')
+) b(y);
+#+end_src
+
+** 横向关联与匹配 (JOIN) · 只判断右表是否存在匹配
+DuckDB 概念：SEMI JOIN (半连接)。SQL 入口：a SEMI JOIN b USING(key)。
+
+对应 Excel 中用 MATCH/XMATCH 筛出“右表存在”的主表记录；只返回左表列且每个左行最多保留一次。补齐“存在性筛选、不补右表列”的独立边界。
+
+Relation：左 Relation + 右 Relation → 左表匹配子集 Relation（列结构保持左表，行数 ≤ 左表）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1),
+   (2),
+   (3)
+) a(id)
+SEMI JOIN (
+  VALUES (2),
+   (3)
+) b(id) USING (id);
+#+end_src
+
+** 横向关联与匹配 (JOIN) · 只保留右表不存在的记录
+DuckDB 概念：ANTI JOIN (反连接)。SQL 入口：a ANTI JOIN b USING(key)。
+
+对应 Excel 中筛出“主表有、名单表没有”的记录；只返回左表未匹配行。补齐“反存在性筛选”边界，并与 EXCEPT 的整行集合差保持区分。
+
+Relation：左 Relation + 右 Relation → 左表未匹配子集 Relation（列结构保持左表，行数 ≤ 左表）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1),
+   (2),
+   (3)
+) a(id)
+ANTI JOIN (
+  VALUES (2),
+   (3)
+) b(id) USING (id);
+#+end_src
+
+* 模块化分步与中间结果
+
+概括图：第 10 章 模块化分步与中间结果（同主题补充）。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-10-overview.png]]
+
+** 模块化分步与中间结果 · 递归展开层级 / 路径
+DuckDB 概念：Recursive CTE (递归公用表表达式)。SQL 入口：WITH RECURSIVE cte AS (...)。
+
+用于树、层级、路径和迭代计算；允许 CTE 在递归项中引用自身。补齐普通 CTE 无法表达的自引用迭代边界，并需要明确终止条件。
+
+Relation：Anchor Relation → 递归迭代追加 → 最终递归 Relation
+
+#+begin_src sql :exports code
+WITH RECURSIVE t(n) AS (
+  VALUES (1)
+  UNION ALL
+  SELECT n + 1
+  FROM t
+  WHERE n < 3
+)
+SELECT *
+FROM t;
+#+end_src
+
 * 行列重塑与透视
 
 概括图：第 13 章 行列重塑与透视。
@@ -970,6 +908,96 @@ FROM (
   UNPIVOT s ON q1,
   q2 INTO NAME quarter VALUE amount
 );
+#+end_src
+
+* 排序与取前 N 行
+
+概括图：第 4 章 排序与取前 N 行（同主题补充）。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-04-overview.png]]
+
+** 排序与取前 N 行 · 分页跳过前 N 行
+DuckDB 概念：OFFSET Clause (结果偏移子句)。SQL 入口：OFFSET n。
+
+对应分页或跳过前几行；OFFSET 逻辑上在查询末尾应用，通常与 ORDER BY、LIMIT 配合。补齐 LIMIT 只控制返回数量、不控制起始位置的边界。
+
+Relation：N 行有序 Relation → 跳过前 n 行 → 从指定起点继续输出 Relation
+
+#+begin_src sql :exports code
+SELECT x
+FROM (
+  VALUES (1),
+   (2),
+   (3)
+) t(x)
+ORDER BY x
+LIMIT 2
+OFFSET 1;
+#+end_src
+
+* 消除重复
+
+概括图：第 5 章 消除重复（同主题补充）。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-05-overview.png]]
+
+** 消除重复 · 按键保留排序第一条
+DuckDB 概念：DISTINCT ON Clause (按键保留单行)。SQL 入口：SELECT DISTINCT ON (key) ... ORDER BY ...。
+
+对应按业务 Key 去重并保留代表记录；ORDER BY 决定每个 Key 最先保留哪一行。补齐普通 DISTINCT 只能按完整输出行去重、无法指定每组保留哪条记录的边界。
+
+Relation：N 行 Relation → 按 Key 分组 → 每个 Key 保留排序首行的 Relation
+
+#+begin_src sql :exports code
+SELECT DISTINCT ON (k) k, v
+FROM (
+  VALUES ('a', 2),
+   ('a', 1),
+   ('b', 3)
+) t(k, v)
+ORDER BY k, v;
+#+end_src
+
+* 纵向追加与集合计算
+
+概括图：第 9 章 纵向追加与集合计算（同主题补充）。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-09-overview.png]]
+
+** 纵向追加与集合计算 · 按列名对齐追加
+DuckDB 概念：UNION [ALL] BY NAME (按列名纵向合并)。SQL 入口：q1 UNION [ALL] BY NAME q2。
+
+对应按表头名称对齐后追加多张表；输入列顺序或数量不同时仍可合并，缺失列补 NULL。补齐普通 UNION 只能按列位置对齐的边界。
+
+Relation：不同列布局的 Relation A + B → 按列名对齐 / 缺失补 NULL → 单一纵向 Relation
+
+#+begin_src sql :exports code
+SELECT 1 AS a
+UNION ALL BY NAME
+SELECT 2 AS b;
+#+end_src
+
+* 横向关联与匹配 (JOIN)
+
+概括图：第 8 章 横向关联与匹配 (JOIN)（同主题补充）。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-08-overview.png]]
+
+** 横向关联与匹配 (JOIN) · 时序最近值匹配
+DuckDB 概念：ASOF JOIN (时序近邻连接)。SQL 入口：a ASOF [LEFT] JOIN b ON equality AND inequality。
+
+用于行情、价格、状态快照等时序近邻匹配；按时间或有序字段为左侧每行寻找满足条件的最近一条右侧记录。补齐普通等值 JOIN 无法直接表达最近历史值的边界。
+
+Relation：左 Relation + 有序右 Relation → 每个左行最多匹配一个最近右行 → 时序对齐 Relation
+
+#+begin_src sql :exports code
+SELECT l.t, r.v
+FROM (
+  VALUES (5),
+   (10)
+) l(t)
+ASOF
+LEFT JOIN (
+  VALUES (3, 'a'),
+   (8, 'b')
+) r(t, v) ON l.t >= r.t
+ORDER BY l.t;
 #+end_src
 
 * Connection：会话级能力
