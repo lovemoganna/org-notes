@@ -1,0 +1,111 @@
+#+TITLE: llm-wiki-maintainer：让 Org 知识库持续修正
+#+WIKI_ID: cdac8763-c1a6-4b2d-9e72-0beabb327570
+#+CATEGORY: AI 工程与知识管理
+#+FILETAGS: :ai:skills:org:wiki:knowledge:
+#+DATE: 2026-10-12
+#+SOURCE: lovemoganna/Org-Skills，commit 8dbdc7e149938f8d4b3bd2f1cbbd793067de0925；skills/llm-wiki-maintainer/SKILL.md、references/operations.md 与回归记录
+#+INGEST_ID: bbd364aa-6879-4c91-9709-222f9d84eaf2
+#+WIKI_STATUS: published
+
+* 这个 Skill 解决什么问题
+
+长期笔记最难的不是新增文章，而是判断新资料应当改变哪些旧知识。只把每篇资料写成独立摘要，会留下重复结论、过期命令、相互矛盾的说法和无人维护的链接。=llm-wiki-maintainer= 的任务是维护已有 Org 知识网络：检索旧页、固定来源证据、提出最小更新，并验证发布后的结果。
+
+它是一个*知识维护编排 Skill*，不是独立运行的知识数据库，也不是能够无需监督自行改写所有文章的 Agent。真实的笔记存储在 GitHub 仓库 =lovemoganna/org-notes=；=org-museum.el= 负责 HTML 发布。只有来源、语义、身份、授权和构建检查都满足条件，才应提交变化。
+
+* 四种工作模式
+
+| 模式 | 输入 | 结果 | 默认写入 |
+|------+------|------+----------|
+| Ingest | URL、文件或主题 | 查找相关旧页，提出新建或更新方案 | 需要授权 |
+| Answer | 具体问题 | 从已有 Org 页面给出带出处的回答 | 不写入 |
+| Audit | 仓库或主题范围 | 查身份冲突、断链、过期事实、证据缺口 | 不写入 |
+| Synthesize | 多篇同主题材料 | 整合共同概念、差异与证据支持的关系 | 需要授权 |
+
+=Ingest= 应优先判断旧页面是否已承载这个主题。已有页面适合追加时，不为同一概念再建一篇孤立笔记。=Answer= 不能因为发现新知识就自动留存问题或问答日志。=Audit= 可以报告缺陷，修复仍需授权。=Synthesize= 不能把共同出现误判为因果关系。
+
+* 证据进入知识库的判断规则
+
+一条资料至少要回答：它来自哪里，原文的哪一处，何时取得，适用哪个版本或时间范围，是否已在 Wiki 中出现。=wiki_loop.py= 通过只读预检把这些条件变成可检查的输入；并不会直接判定文章中的事实为真。
+
+| 预检结果 | 实际含义 | 下一步 |
+|----------+----------+--------|
+| =NOOP_ALREADY_INDEXED= | 同 URL、SHA256、定位已被明确记录 | 不重复摄入 |
+| =NOOP_DUPLICATE_INPUT= | 本批次输入重复 | 跳过重复项 |
+| =REVIEW_EXISTING_SOURCE= | URL 已引用，但不能认定为同一份证据 | 比对快照、段落和旧结论 |
+| =PROPOSE_UPDATE= | 存在指定旧页面，可考虑增量更新 | 审阅原文并提出最小差异 |
+| =PROPOSE_NEW= | 未找到对应目标页面 | 先排除语义重复，再决定新建 |
+| =BLOCKED= | 来源、路径、身份或关系未达要求 | 不提交，报告原因 |
+
+这里有两个不能省略的区别。
+
+第一，*同一个 URL 不等于同一条知识*。网站正文可能变动；同一快照的不同段落也可能支持不同主张。当前去重记录使用 =URL + SHA256 + locator=，避免把第二处证据当作重复内容。
+
+第二，*SHA256 只校验快照字节一致*。它不能证明快照确实来自填报的 URL，不能证实原文结论，也不能完成全部隐私审查。来源可读性、段落含义和证据强度仍需要独立复核。
+
+* 对话调用
+
+#+begin_example
+用 llm-wiki-maintainer 维护知识库：[来源 URL 或文件]
+用 llm-wiki-maintainer 回答：[具体问题]
+用 llm-wiki-maintainer 检查知识库：[范围]
+用 llm-wiki-maintainer 整合：[主题或来源集]
+#+end_example
+
+例如，发现某个 SQL Skill 改了入口命令，不应直接删掉旧笔记。先固定旧页面所处的日期或 Commit，核对新仓库版本，再把变化标记为“版本漂移”。历史调用方式保留其当时的适用范围；只有同一对象、时间、条件与命题确实互斥时，才进入事实冲突审查。
+
+对于同期双方立场不同的声明，也不能仅凭“相反措辞”认定严格逻辑矛盾。监管指控、当事人声明和有明确覆盖范围的裁决，应分别标注证据状态。
+
+* 命令行预检
+
+以下命令来自 v0.2 的操作规程。使用前应获取实际仓库及来源快照；这里不声称运行命令即可自动完成知识摄入。
+
+** 审计已有 Org 页面
+
+#+begin_src sh
+python3 skills/llm-wiki-maintainer/scripts/wiki_loop.py audit --repo /path/to/org-notes
+#+end_src
+
+=gate= 为 =PASS= 时，仅表示该工具覆盖的页面身份、引用关系与已删除页面检查没有发现阻断项。网站的附件检查和 HTML 链接校验仍由原发布流水线负责。
+
+** 冻结来源并提出更新计划
+
+先在未公开的临时目录准备来源快照及清单。每条清单需要 =url=、=locator=、=retrieved_at=、=sha256=、=snapshot_file=，并按实际情况给出 =target_wiki_id=、=related_wiki_ids= 和 =revision=。
+
+#+begin_src sh
+python3 skills/llm-wiki-maintainer/scripts/wiki_loop.py plan \
+  --repo /path/to/org-notes \
+  --manifest /private/evidence/sources.json \
+  --evidence-dir /private/evidence
+#+end_src
+
+=plan= 返回候选状态和确定性事件键，=writes_performed= 为 =0=。快照哈希不符、定位缺失、关联目标不存在或来源含典型敏感凭据时应阻断。输出 =PROPOSE_UPDATE= 也不代表已经修改文件。
+
+正式写入前要重新确认 Git HEAD 未改变。若其他人已经提交，必须重读并重建差异，不能强推覆盖。
+
+* 与其他 Skill 的分工
+
+=llm-wiki-maintainer= 管理“哪些知识应更新、与谁有关、证据够不够”。=note-reforge= 负责将有价值的旧素材炼化成长期可用的笔记；=org-museum-ingest= 负责合法路径、Org 身份、GitHub 提交与发布；=loop-engineering-meta= 负责复现失败、定位根因、最小修复与回归。
+
+这四种职责不能互相替代：一篇文章格式良好，不代表结论真实；一次 Git 提交成功，也不等于线上页面已经正确发布。
+
+* 维护取舍〔补〕
+
+准备更新一篇老笔记时，默认先做三项判断：新证据是否确实增加了信息；新结论会影响哪些已存在的主张与关系；如果不改动，是否会给后来阅读的人造成错误理解。三项都没有实际变化时，选择 =NOOP=，比为了显示“AI 工作过”而制造一次提交更合理。
+
+对于有价值但证据不足的材料，保留可核实的来源和具体疑点，不抢先把推论写进正文。读者真正需要的不是最多的页面，而是知道某个结论“何时成立、凭什么成立、什么时候需要重查”。
+
+* 已验证范围与限制
+
+2026-10-12 的 =Org-Skills= GitHub Actions Run =38261421094=：原有 17 项合成证据冲突契约测试、新增 19 项预检对抗测试及对当时 21 篇 =org-notes= 页面进行的只读审计通过。测试覆盖重复输入、证据定位、敏感快照阻断、旧页面身份拒绝和 Git HEAD 漂移等工程约束。21 篇是该次回执的数量，不是网站永久固定的文章总数。
+
+没有完成端到端验证的能力，不应宣称已完成：真实来源之间严格同条件的 P/非 P 冲突、完整自然语言多来源问答、真实来源撤回后的语义更新，以及无人监督的长期自主维护。
+
+用户已主动删除的两篇人工维护文章——=Org Wiki 知识导航索引= 和 =Org Wiki 维护日志=——不属于必需依赖。Skill 的现行规则禁止自动重建它们。站点自身的导航、Org 路径和实际 Wiki 关系仍可用于发现知识。
+
+* 来源与延伸
+
+- [[https://github.com/lovemoganna/Org-Skills/blob/8dbdc7e149938f8d4b3bd2f1cbbd793067de0925/skills/llm-wiki-maintainer/SKILL.md][llm-wiki-maintainer v0.2.0 原始 Skill（私有仓库，需相应权限）]]
+- [[https://github.com/lovemoganna/Org-Skills/blob/8dbdc7e149938f8d4b3bd2f1cbbd793067de0925/skills/llm-wiki-maintainer/references/operations.md][操作规程与预检状态定义（私有仓库，需相应权限）]]
+- [[https://github.com/lovemoganna/Org-Skills/actions/runs/38261421094][2026-10-12 回归测试记录（可见性受仓库权限限制）]]
+- [[wiki:b0f76f51-5884-54b7-9ccc-2d43a989d1a3][延伸：Skill 调试与精简的可执行方法]]
