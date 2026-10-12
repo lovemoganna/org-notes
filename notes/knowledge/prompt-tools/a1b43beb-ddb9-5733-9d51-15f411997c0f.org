@@ -25,7 +25,7 @@
 
 * 原文工具名单
 
-原文介绍了 IBM watsonx.ai、Spellbook、Dust、PromptPerfect、GitHub、OpenAI Playground、LangChain、PromptBase，以及 promp(l)ify 管理工具。其功能归属与服务情况需要按*现在的官方文档*另行核对，不能据此直接形成采购建议。〔补〕
+原文介绍了 IBM watsonx.ai、Spellbook、Dust、PromptPerfect、GitHub、OpenAI Playground、LangChain、PromptBase，以及 promplify 管理工具。其功能归属与服务情况需要按*现在的官方文档*另行核对，不能据此直接形成采购建议。〔补〕
 
 * 下决定前
 
