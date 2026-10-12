@@ -6,8 +6,8 @@
 <title>DuckDB MPV</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=4084c12f7143"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=1329463e6fd1">
+<script src="../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=b6d231cd70d8">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=4045495a6691"></script>
@@ -18,7 +18,7 @@
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -378,7 +378,7 @@
 <ul>
 <li><a href="#section-eb60120e0eaa">1.1. Overview</a>
 <ul>
-<li><a href="#section-e7ce96e6309f">1.1.1. 基础</a></li>
+<li><a href="#section-13005af3ee81">1.1.1. 基础</a></li>
 </ul>
 </li>
 <li><a href="#section-24c3970e829a">1.2. Content</a></li>
@@ -393,15 +393,15 @@
 </div>
 </div>
 <div id="outline-container-section-b00cd6f2010a" class="outline-2">
-<h2 id="section-b00cd6f2010a"><span class="section-number-2">1.</span> DuckDB MPV</h2>
+<h2 id="section-b00cd6f2010a"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">DuckDB MPV</span></h2>
 <div class="outline-text-2" id="text-1">
 </div>
 <div id="outline-container-section-eb60120e0eaa" class="outline-3">
-<h3 id="section-eb60120e0eaa"><span class="section-number-3">1.1.</span> Overview</h3>
+<h3 id="section-eb60120e0eaa"><span class="section-number-3">1.1.</span> <span class="museum-heading-level-2">Overview</span></h3>
 <div class="outline-text-3" id="text-1-1">
 </div>
-<div id="outline-container-section-e7ce96e6309f" class="outline-4">
-<h4 id="section-e7ce96e6309f"><span class="section-number-4">1.1.1.</span> 基础</h4>
+<div id="outline-container-section-13005af3ee81" class="outline-4">
+<h4 id="section-13005af3ee81"><span class="section-number-4">1.1.1.</span> <span class="museum-heading-level-3">基础</span></h4>
 <div class="outline-text-4" id="text-1-1-1">
 <div class="org-src-container">
 <pre class="src src-duckdb"><code class="language-sql">SELECT *
@@ -417,21 +417,21 @@
 2,ETH,2000</code></pre></div>
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-38bbebb72835"></a>本质<br>
+<li><a id="org-museum-ref-38bbebb72835"></a><span class="museum-heading-level-4">本质</span><br>
 <div class="outline-text-5" id="text-1-1-1-1">
 <p>
 临时构造数据。
 </p>
 </div>
 </li>
-<li><a id="org-museum-ref-0629df5f5abc"></a>自然解释<br>
+<li><a id="org-museum-ref-0629df5f5abc"></a><span class="museum-heading-level-4">自然解释</span><br>
 <div class="outline-text-5" id="text-1-1-1-2">
 <p>
 直接在 SQL 里临时造出一张 2 行 3 列的表，并原样返回全部数据。
 </p>
 </div>
 </li>
-<li><a id="org-museum-ref-c2819280fa99"></a>数据操作<br>
+<li><a id="org-museum-ref-c2819280fa99"></a><span class="museum-heading-level-4">数据操作</span><br>
 <div class="outline-text-5" id="text-1-1-1-3">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">代码里写死的数据
@@ -448,7 +448,7 @@ id | asset | amount
 </div>
 </div>
 </li>
-<li><a id="org-museum-ref-19841890dcd3"></a>关键解释<br>
+<li><a id="org-museum-ref-19841890dcd3"></a><span class="museum-heading-level-4">关键解释</span><br>
 <div class="outline-text-5" id="text-1-1-1-4">
 <div class="org-src-container">
 <pre class="src src-duckdb"><code class="language-sql">-- → 临时生成两行数据，不需要读取真实数据库表。
@@ -465,7 +465,7 @@ SELECT *
 </div>
 </div>
 </li>
-<li><a id="org-museum-ref-1ac5748c92bd"></a>执行链<br>
+<li><a id="org-museum-ref-1ac5748c92bd"></a><span class="museum-heading-level-4">执行链</span><br>
 <div class="outline-text-5" id="text-1-1-1-5">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown">写入固定值 → 组成临时表 → 命名列 → 原样输出
@@ -477,15 +477,15 @@ SELECT *
 </div>
 </div>
 <div id="outline-container-section-24c3970e829a" class="outline-3">
-<h3 id="section-24c3970e829a"><span class="section-number-3">1.2.</span> Content</h3>
+<h3 id="section-24c3970e829a"><span class="section-number-3">1.2.</span> <span class="museum-heading-level-2">Content</span></h3>
 </div>
 
 <div id="outline-container-section-c731e2cd235c" class="outline-3">
-<h3 id="section-c731e2cd235c"><span class="section-number-3">1.3.</span> References</h3>
+<h3 id="section-c731e2cd235c"><span class="section-number-3">1.3.</span> <span class="museum-heading-level-2">References</span></h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
 <div id="outline-container-section-f7903f261ea5" class="outline-4">
-<h4 id="section-f7903f261ea5"><span class="section-number-4">1.3.1.</span> Prompts</h4>
+<h4 id="section-f7903f261ea5"><span class="section-number-4">1.3.1.</span> <span class="museum-heading-level-3">Prompts</span></h4>
 <div class="outline-text-4" id="text-1-3-1">
 <div class="org-src-container">
 <pre class="src src-markdown"><code class="language-markdown"># 小白友好代码结构化解读 Loop
@@ -694,6 +694,7 @@ FROM (
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -743,10 +744,12 @@ FROM (
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>08</span></div>
     <ul>
       <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
       <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="duckdb-ontology-slicing-tutorial.html">DuckDB Ontology Slicing Tutorial</a></li>
       <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
       <li><a href="duckdb-dataset.html">duckdb-dataset</a></li>
@@ -793,10 +796,10 @@ FROM (
 
 <script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
-<script defer src="../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
 <script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
 <script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=052370387dd2"></script>
+<script defer src="../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
 </body>
 </html>

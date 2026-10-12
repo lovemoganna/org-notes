@@ -6,8 +6,8 @@
 <title>00 DuckDB 最小入门</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=4084c12f7143"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=1329463e6fd1">
+<script src="../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=b6d231cd70d8">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=4045495a6691"></script>
@@ -18,7 +18,7 @@
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -321,55 +321,55 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-646ba4ca1fe5">1. DuckDB 环境说明</a>
+<li><a href="#section-de9c08cd4c7d">1. DuckDB 环境说明</a>
 <ul>
-<li><a href="#section-4349bf3cc226">1.1. 两层能力说明</a></li>
-<li><a href="#section-96dce9185559">1.2. Babel 扩展入口配置</a>
+<li><a href="#section-9fa60c8f605f">1.1. 两层能力说明</a></li>
+<li><a href="#section-ff79dc0730e0">1.2. Babel 扩展入口配置</a>
 <ul>
-<li><a href="#section-3c1632cb144f">1.2.1. 手动加载方式</a></li>
-<li><a href="#section-87644d751b67">1.2.2. 注意事项</a></li>
+<li><a href="#section-cba587eb17a2">1.2.1. 手动加载方式</a></li>
+<li><a href="#section-a6a4ea389f60">1.2.2. 注意事项</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#section-f7a698a2aeb9">2. 创建测试表</a>
+<li><a href="#section-3f6e705f0b3c">2. 创建测试表</a>
 <ul>
-<li><a href="#section-13df321de6e9">2.1. 建表说明</a></li>
-<li><a href="#section-1566ee03d923">2.2. 建表代码块</a></li>
+<li><a href="#section-be0506b205d4">2.1. 建表说明</a></li>
+<li><a href="#section-06d6cf697ebd">2.2. 建表代码块</a></li>
 </ul>
 </li>
-<li><a href="#section-c4a2b37549e8">3. 插入或导入测试数据</a>
+<li><a href="#section-75234979a492">3. 插入或导入测试数据</a>
 <ul>
-<li><a href="#section-371b6adc980f">3.1. 数据说明</a></li>
-<li><a href="#section-302a99b50d20">3.2. 插入代码块</a></li>
+<li><a href="#section-2bf30fec543b">3.1. 数据说明</a></li>
+<li><a href="#section-e34abfbb9b76">3.2. 插入代码块</a></li>
 </ul>
 </li>
-<li><a href="#section-8b5a672c68cf">4. 执行基础 SELECT 查询</a>
+<li><a href="#section-7ceabdea193b">4. 执行基础 SELECT 查询</a>
 <ul>
-<li><a href="#section-1a2891f0baa0">4.1. 查询说明</a></li>
-<li><a href="#section-c6ba273d0777">4.2. 查询代码块</a></li>
+<li><a href="#section-79f4feb612cf">4.1. 查询说明</a></li>
+<li><a href="#section-d74b7247a6f7">4.2. 查询代码块</a></li>
 </ul>
 </li>
-<li><a href="#section-304becc9b43e">5. 展示查询结果</a>
+<li><a href="#section-52df1f1fde32">5. 展示查询结果</a>
 <ul>
-<li><a href="#section-5417dc1fa9be">5.1. 预期结果说明</a></li>
-<li><a href="#section-5417dc1fa9be">5.2. 预期结果示例</a></li>
+<li><a href="#section-651dc83e7de6">5.1. 预期结果说明</a></li>
+<li><a href="#section-7b0d3150763f">5.2. 预期结果示例</a></li>
 </ul>
 </li>
-<li><a href="#section-304becc9b43e">6. 学习路径提示</a></li>
+<li><a href="#section-ed016bf356df">6. 学习路径提示</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-646ba4ca1fe5" class="outline-2">
-<h2 id="section-646ba4ca1fe5"><span class="section-number-2">1.</span> DuckDB 环境说明</h2>
+<div id="outline-container-section-de9c08cd4c7d" class="outline-2">
+<h2 id="section-de9c08cd4c7d"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">DuckDB 环境说明</span></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本章是整套教程的入口。先在 Org Mode 中创建 DuckDB 数据库、建表、插入测
 试数据，再执行第一条查询。后续 01-10 章都基于这里创建的 <code>_work/tutorial.duckdb</code>.
 </p>
 </div>
-<div id="outline-container-section-4349bf3cc226" class="outline-3">
-<h3 id="section-4349bf3cc226"><span class="section-number-3">1.1.</span> 两层能力说明</h3>
+<div id="outline-container-section-9fa60c8f605f" class="outline-3">
+<h3 id="section-9fa60c8f605f"><span class="section-number-3">1.1.</span> <span class="museum-heading-level-2">两层能力说明</span></h3>
 <div class="outline-text-3" id="text-1-1">
 <p>
 本教程区分两层能力：
@@ -381,8 +381,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-96dce9185559" class="outline-3">
-<h3 id="section-96dce9185559"><span class="section-number-3">1.2.</span> Babel 扩展入口配置</h3>
+<div id="outline-container-section-ff79dc0730e0" class="outline-3">
+<h3 id="section-ff79dc0730e0"><span class="section-number-3">1.2.</span> <span class="museum-heading-level-2">Babel 扩展入口配置</span></h3>
 <div class="outline-text-3" id="text-1-2">
 <p>
 本机已经在 ~/.emacs.d/lisp+/Org/Core/Babels= 配置了 Babel 扩展入口。该目录的 <code>index.el</code> 会加载 <code>base-ob-duckdb.el</code>，并通过 <code>use-package ob-duckdb</code> 管理 DuckDB Babel 支持。
@@ -392,8 +392,8 @@
 如果你的完整 Emacs 配置已经加载了这个入口，打开本文件后即可在 <code>duckdb</code> 代码块上使用 <code>C-c C-c</code>。
 </p>
 </div>
-<div id="outline-container-section-3c1632cb144f" class="outline-4">
-<h4 id="section-3c1632cb144f"><span class="section-number-4">1.2.1.</span> 手动加载方式</h4>
+<div id="outline-container-section-cba587eb17a2" class="outline-4">
+<h4 id="section-cba587eb17a2"><span class="section-number-4">1.2.1.</span> <span class="museum-heading-level-3">手动加载方式</span></h4>
 <div class="outline-text-4" id="text-1-2-1">
 <p>
 若需要手动加载，可使用：
@@ -405,8 +405,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-87644d751b67" class="outline-4">
-<h4 id="section-87644d751b67"><span class="section-number-4">1.2.2.</span> 注意事项</h4>
+<div id="outline-container-section-a6a4ea389f60" class="outline-4">
+<h4 id="section-a6a4ea389f60"><span class="section-number-4">1.2.2.</span> <span class="museum-heading-level-3">注意事项</span></h4>
 <div class="outline-text-4" id="text-1-2-2">
 <p>
 注意：这个入口依赖你正常 Emacs 配置里的 <code>straight/use-package</code> 环境；在 <code>emacs -Q</code> 这类干净环境中直接加载可能不完整。
@@ -415,20 +415,20 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-f7a698a2aeb9" class="outline-2">
-<h2 id="section-f7a698a2aeb9"><span class="section-number-2">2.</span> 创建测试表</h2>
+<div id="outline-container-section-3f6e705f0b3c" class="outline-2">
+<h2 id="section-3f6e705f0b3c"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">创建测试表</span></h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-section-13df321de6e9" class="outline-3">
-<h3 id="section-13df321de6e9"><span class="section-number-3">2.1.</span> 建表说明</h3>
+<div id="outline-container-section-be0506b205d4" class="outline-3">
+<h3 id="section-be0506b205d4"><span class="section-number-3">2.1.</span> <span class="museum-heading-level-2">建表说明</span></h3>
 <div class="outline-text-3" id="text-2-1">
 <p>
 执行下面代码块会重建四张测试表。它会删除旧表，所以适合在学习开始前重跑，确保后续章节状态一致。
 </p>
 </div>
 </div>
-<div id="outline-container-section-1566ee03d923" class="outline-3">
-<h3 id="section-1566ee03d923"><span class="section-number-3">2.2.</span> 建表代码块</h3>
+<div id="outline-container-section-06d6cf697ebd" class="outline-3">
+<h3 id="section-06d6cf697ebd"><span class="section-number-3">2.2.</span> <span class="museum-heading-level-2">建表代码块</span></h3>
 <div class="outline-text-3" id="text-2-2">
 <div class="org-src-container">
 <pre class="src src-duckdb" id="org-museum-ref-fc63c5976e9d"><code class="language-sql">DROP TABLE IF EXISTS order_items;
@@ -481,20 +481,20 @@ schema ready</code></pre></div>
 </div>
 </div>
 </div>
-<div id="outline-container-section-c4a2b37549e8" class="outline-2">
-<h2 id="section-c4a2b37549e8"><span class="section-number-2">3.</span> 插入或导入测试数据</h2>
+<div id="outline-container-section-75234979a492" class="outline-2">
+<h2 id="section-75234979a492"><span class="section-number-2">3.</span> <span class="museum-heading-level-1">插入或导入测试数据</span></h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-section-371b6adc980f" class="outline-3">
-<h3 id="section-371b6adc980f"><span class="section-number-3">3.1.</span> 数据说明</h3>
+<div id="outline-container-section-2bf30fec543b" class="outline-3">
+<h3 id="section-2bf30fec543b"><span class="section-number-3">3.1.</span> <span class="museum-heading-level-2">数据说明</span></h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 执行下面代码块会插入本教程使用的最小业务数据：客户、商品、订单和订单明细。
 </p>
 </div>
 </div>
-<div id="outline-container-section-302a99b50d20" class="outline-3">
-<h3 id="section-302a99b50d20"><span class="section-number-3">3.2.</span> 插入代码块</h3>
+<div id="outline-container-section-e34abfbb9b76" class="outline-3">
+<h3 id="section-e34abfbb9b76"><span class="section-number-3">3.2.</span> <span class="museum-heading-level-2">插入代码块</span></h3>
 <div class="outline-text-3" id="text-3-2">
 <div class="org-src-container">
 <pre class="src src-duckdb" id="org-museum-ref-14bd0f1ee851"><code class="language-sql">INSERT INTO customers VALUES
@@ -539,20 +539,20 @@ seed ready</code></pre></div>
 </div>
 </div>
 </div>
-<div id="outline-container-section-8b5a672c68cf" class="outline-2">
-<h2 id="section-8b5a672c68cf"><span class="section-number-2">4.</span> 执行基础 SELECT 查询</h2>
+<div id="outline-container-section-7ceabdea193b" class="outline-2">
+<h2 id="section-7ceabdea193b"><span class="section-number-2">4.</span> <span class="museum-heading-level-1">执行基础 SELECT 查询</span></h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-section-1a2891f0baa0" class="outline-3">
-<h3 id="section-1a2891f0baa0"><span class="section-number-3">4.1.</span> 查询说明</h3>
+<div id="outline-container-section-79f4feb612cf" class="outline-3">
+<h3 id="section-79f4feb612cf"><span class="section-number-3">4.1.</span> <span class="museum-heading-level-2">查询说明</span></h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 确认数据写入成功后，执行第一条查询。后续章节会继续使用这些表。
 </p>
 </div>
 </div>
-<div id="outline-container-section-c6ba273d0777" class="outline-3">
-<h3 id="section-c6ba273d0777"><span class="section-number-3">4.2.</span> 查询代码块</h3>
+<div id="outline-container-section-d74b7247a6f7" class="outline-3">
+<h3 id="section-d74b7247a6f7"><span class="section-number-3">4.2.</span> <span class="museum-heading-level-2">查询代码块</span></h3>
 <div class="outline-text-3" id="text-4-2">
 <div class="org-src-container">
 <pre class="src src-duckdb" id="org-museum-ref-b13e19467439"><code class="language-sql">SELECT customer_id, name, city
@@ -615,20 +615,20 @@ ORDER BY customer_id;
 </div>
 </div>
 </div>
-<div id="outline-container-section-304becc9b43e" class="outline-2">
-<h2 id="section-304becc9b43e"><span class="section-number-2">5.</span> 展示查询结果</h2>
+<div id="outline-container-section-52df1f1fde32" class="outline-2">
+<h2 id="section-52df1f1fde32"><span class="section-number-2">5.</span> <span class="museum-heading-level-1">展示查询结果</span></h2>
 <div class="outline-text-2" id="text-5">
 </div>
-<div id="outline-container-section-5417dc1fa9be" class="outline-3">
-<h3 id="section-5417dc1fa9be"><span class="section-number-3">5.1.</span> 预期结果说明</h3>
+<div id="outline-container-section-651dc83e7de6" class="outline-3">
+<h3 id="section-651dc83e7de6"><span class="section-number-3">5.1.</span> <span class="museum-heading-level-2">预期结果说明</span></h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 执行上面的代码块后，应看到五位客户。结果内容应等价于：
 </p>
 </div>
 </div>
-<div id="outline-container-section-5417dc1fa9be" class="outline-3">
-<h3 id="section-5417dc1fa9be"><span class="section-number-3">5.2.</span> 预期结果示例</h3>
+<div id="outline-container-section-7b0d3150763f" class="outline-3">
+<h3 id="section-7b0d3150763f"><span class="section-number-3">5.2.</span> <span class="museum-heading-level-2">预期结果示例</span></h3>
 <div class="outline-text-3" id="text-5-2">
 <pre class="example" id="org-museum-ref-e4766b60284f"><code class="language-plaintext">
 customer_id,name,city
@@ -641,8 +641,8 @@ customer_id,name,city
 </div>
 </div>
 </div>
-<div id="outline-container-section-304becc9b43e" class="outline-2">
-<h2 id="section-304becc9b43e"><span class="section-number-2">6.</span> 学习路径提示</h2>
+<div id="outline-container-section-ed016bf356df" class="outline-2">
+<h2 id="section-ed016bf356df"><span class="section-number-2">6.</span> <span class="museum-heading-level-1">学习路径提示</span></h2>
 <div class="outline-text-2" id="text-6">
 <p>
 完成本章后，按顺序进入 01-10 章。每一章都假设 <code>_work/tutorial.duckdb</code> 已经由本章创建并写入测试数据。
@@ -678,6 +678,7 @@ customer_id,name,city
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -727,10 +728,12 @@ customer_id,name,city
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>08</span></div>
     <ul>
       <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
       <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="duckdb-ontology-slicing-tutorial.html">DuckDB Ontology Slicing Tutorial</a></li>
       <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
       <li><a href="duckdb-dataset.html">duckdb-dataset</a></li>
@@ -777,10 +780,10 @@ customer_id,name,city
 
 <script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
-<script defer src="../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
 <script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
 <script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=052370387dd2"></script>
+<script defer src="../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
 </body>
 </html>

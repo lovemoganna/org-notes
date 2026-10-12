@@ -7,8 +7,8 @@
 <meta name="description" content="用一个课程模型展示自定义“依赖”关系，以及类型、标签、权重与线条样式。" />
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=4084c12f7143"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=1329463e6fd1">
+<script src="../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=b6d231cd70d8">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=4045495a6691"></script>
@@ -19,7 +19,7 @@
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -161,14 +161,14 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-caf5a0555517">1. 一个小型课程本体</a></li>
-<li><a href="#section-caf5a0555517">2. 在图谱中观察什么</a></li>
-<li><a href="#section-f0356786b7b0">3. 操作练习</a></li>
+<li><a href="#section-a912fb4f0e17">1. 一个小型课程本体</a></li>
+<li><a href="#section-ab691963968d">2. 在图谱中观察什么</a></li>
+<li><a href="#section-d71b821dc10c">3. 操作练习</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-caf5a0555517" class="outline-2">
-<h2 id="section-caf5a0555517"><span class="section-number-2">1.</span> 一个小型课程本体</h2>
+<div id="outline-container-section-a912fb4f0e17" class="outline-2">
+<h2 id="section-a912fb4f0e17"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">一个小型课程本体</span></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 这里把“课程”“学生”和“选课记录”作为三类实体。学生与课程通过选课记录关联，
@@ -180,8 +180,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-caf5a0555517" class="outline-2">
-<h2 id="section-caf5a0555517"><span class="section-number-2">2.</span> 在图谱中观察什么</h2>
+<div id="outline-container-section-ab691963968d" class="outline-2">
+<h2 id="section-ab691963968d"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">在图谱中观察什么</span></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 从本篇指向“关系示例 02｜DuckDB 实践”的边，类型是“依赖”，显示文字是
@@ -194,8 +194,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-f0356786b7b0" class="outline-2">
-<h2 id="section-f0356786b7b0"><span class="section-number-2">3.</span> 操作练习</h2>
+<div id="outline-container-section-d71b821dc10c" class="outline-2">
+<h2 id="section-d71b821dc10c"><span class="section-number-2">3.</span> <span class="museum-heading-level-1">操作练习</span></h2>
 <div class="outline-text-2" id="text-3">
 <p>
 把顶部关系的 <code>direction</code> 从 <code>forward</code> 改为 <code>both</code>，保存并刷新可编辑图谱，
@@ -232,6 +232,7 @@
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -281,10 +282,12 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>08</span></div>
     <ul>
       <li><a href="../sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="../sql/duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
       <li><a href="../sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="../sql/duckdb-ontology-slicing-tutorial.html">DuckDB Ontology Slicing Tutorial</a></li>
       <li><a href="../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
       <li><a href="../sql/duckdb-dataset.html">duckdb-dataset</a></li>
@@ -331,10 +334,10 @@
 
 <script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
-<script defer src="../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
 <script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
 <script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=052370387dd2"></script>
+<script defer src="../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
 </body>
 </html>
