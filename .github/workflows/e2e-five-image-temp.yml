@@ -1,0 +1,29 @@
+name: Isolated Five Image Generation (not a release)
+on:
+  push:
+    branches: [test/e2e-five-image-assets-20261012]
+    paths:
+      - 'tools/e2e-five-image-generator.py'
+      - 'tools/e2e-five-image-spec.json'
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk >/dev/null
+          python3 -m pip install Pillow --break-system-packages -q
+      - run: python3 tools/e2e-five-image-generator.py
+      - name: Commit only the five real image assets on isolated branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add note-assets/
+          git diff --cached --quiet && exit 1
+          git commit -m "test-assets: create five rendered sketchnotes"
+          git push origin HEAD:test/e2e-five-image-assets-20261012
