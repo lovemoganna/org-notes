@@ -56,8 +56,11 @@ def add_event_once(root, identity, event):
     index_text, log_text = index.read_text(), log.read_text()
     if f":CUSTOM_ID: {event}" in log_text or f"[[wiki:{identity}]" in index_text:
         return "NOOP"
-    # Test fixture materialization; real sources require a separate evidence gate.
-    write(root, identity, "* Source\nRecorded once")
+    # Controlled fixture: supplement the existing concept, not only a standalone page.
+    concept = root / "notes" / "knowledge" / "fixture" / (BASE + ".org")
+    prior = concept.read_text()
+    write(root, identity, "* Source\nSynthetic supplementary evidence")
+    concept.write_text(prior + f"\n* Related evidence\n[[wiki:{identity}][Supplement]]\n")
     index.write_text(index_text + f"\n[[wiki:{identity}][Added]]\n")
     log.write_text(log_text + f"\n* Event\n:PROPERTIES:\n:CUSTOM_ID: {event}\n:END:\n")
     return "CHANGED"
@@ -84,7 +87,8 @@ def main():
         before = git(alice, "rev-parse", "HEAD").stdout.strip()
         assert add_event_once(alice, NEW, "event-new") == "CHANGED"
         assert validate(alice)["notes"] == 4
-        assert original == (alice / "notes" / "knowledge" / "fixture" / (BASE + ".org")).read_bytes()
+        revised_concept = (alice / "notes" / "knowledge" / "fixture" / (BASE + ".org")).read_bytes()
+        assert revised_concept.startswith(original) and NEW.encode() in revised_concept
         git(alice, "add", "notes")
         git(alice, "commit", "-m", "ingest")
         after = git(alice, "rev-parse", "HEAD").stdout.strip()
@@ -92,10 +96,10 @@ def main():
         assert add_event_once(alice, NEW, "event-new") == "NOOP"
         assert git(alice, "status", "--porcelain").stdout.strip() == ""
         assert git(alice, "rev-parse", "HEAD").stdout.strip() == after
-        print("PASS T01/T02/T14: real Git ingest, preserved old source, second run NOOP")
+        print("PASS T01-fixture/T02/T14: concept appended with linked evidence, second run NOOP")
         assert validate(bob)["notes"] == 3
         assert git(bob, "status", "--porcelain").stdout.strip() == ""
-        print("PASS T06: read-only audit does not write")
+        print("PASS T06-precondition: audit is read-only; answer citations not tested")
         # Bob advances the remote while Alice still holds a commit from old base.
         b_file = bob / "notes" / "knowledge" / "fixture" / (BASE + ".org")
         b_file.write_text(b_file.read_text() + "\n* Bob edit\nIndependent change\n")
