@@ -41,4 +41,4 @@
 :END:
 事件键：remove-wiki-fixture-binance-cftc-20261012。根据用户要求，从网站发布源移除 2026-10-12 为 Wiki 冲突测试创建的四篇 Binance/CFTC 页面。删除对象 WIKI_ID：7e542dd5-3941-458b-9690-623efd86c2ca、3b2c0e11-cd75-4e23-a278-693b295a6a64、db01ed37-977e-4591-8b46-357112e1b05d、890b1eab-fd33-449e-bcce-420e0ecaccc9。
 同步撤销导航索引中的四个入口；维护日志保留历史事件与描述，但不再链接到已删除文章。本操作仅下线网站上的测试文章，不删除原始一手来源，不更改此前已存在的 SQL 测试笔记、Wiki 索引页面及维护日志身份。
-来源历史：GitHub 提交 f5f6e72826e444953ed54e19e438283833771dd5。发布状态须以本次 GitHub Pages Build、Deploy 和线上回执为准。
+来源历史：GitHub 提交 f5f6e72826e444953ed54e19e438283833771dd5。发布状态须以本次 GitHub Pages Build、Deploy 和线上回执为准。首次批量删除提交 098c685 错用单页 =Museum-Update:= 前缀，触发仅允许单篇 Org 更新的门禁（Actions 38256987210），因此该次发布失败。重新采用普通批量维护提交触发全站验收，不放宽单页身份门禁。
