@@ -1,0 +1,53 @@
+#+TITLE: 提示工具的选择
+#+WIKI_ID: a1018dc0-c2de-5fa2-b500-743e7984f0ed
+#+CATEGORY: 知识炼化
+#+FILETAGS: :knowledge:prompt:reforge:
+#+DATE: 2026-10-12
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
+#+INGEST_ID: a1018dc0-c2de-5fa2-b500-743e7984f0ed
+#+WIKI_STATUS: draft
+
+选提示工具前先判断工作环节，再验证产品现状。原稿收录的是一个历史工具清单，不能从旧说明直接推断 2026 年的定价、支持模型或 API 仍有效。
+
+* 按任务选工具
+
+| 实际需求 | 原稿对应能力 | 应怎样验收 |
+|----------+-----------------+--------------------|
+| 还没有写好输入 | 提示建议、预定义提示库 | 生成的模板能否覆盖真实任务？ |
+| 指令层级混乱 | 结构优化 | 修改前后理解是否一致？ |
+| 同一任务反复调整 | 迭代优化 | 能否保留版本、输入和结果？ |
+| 需要领域信息 | 领域特定支持 | 事实来源是否可复核？ |
+| 担心偏差 | 偏差缓解 | 是否在真实样本上比较偏差？ |
+
+* 原稿提到的产品
+
+原文提到了 IBM watsonx.ai、Spellbook、Dust、PromptPerfect、PromptBase，也列出 OpenAI Playground、LangChain、GitHub 和 promp(l)ify。以上为原稿历史提及，不代表本轮逐一确认仍存在相同功能。
+
+* 购买或接入前
+
+1. 到产品最新的官方文档确认支持的模型、服务地域、价格和部署方式。〔补〕
+2. 使用自己的三组典型输入与一组失败案例核验；需要版本追踪时检查能否导出完整输入和响应。〔补〕
+3. 对不能确认的 SDK 或代码示例，只保留为历史示例，不把它写成“已运行”。
+
+* 原稿 Python 示例（未验证）
+
+这段示例只说明原稿希望怎样调用 =PromptPerfect=；模块、函数名及参数兼容性未经本轮安装测试，请勿作为即用安装指引。
+
+#+begin_src python
+# 导入PromptPerfect库
+from promptperfect import optimize_prompt
+
+# 定义原始提示
+original_prompt = "Generate a summary of the latest AI trends."
+
+# 优化提示
+optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
+
+# 输出优化结果
+print("Original Prompt:", original_prompt)
+print("Optimized Prompt:", optimized_prompt)
+#+end_src
+
+* 来源与限制
+
+上述产品名称、功能和代码均为原稿历史记录；没有进行当前产品功能或 SDK 的实时验证。
