@@ -137,7 +137,26 @@ def main():
         write(root, BASE, "* Sample\n#+begin_example\n[[wiki:fake-id][literal]]\n#+end_example")
         assert validate(root)["notes"] == 3
     print("PASS G3: source-code literals are not treated as references")
-    print("WIKI_GIT_E2E_PASS: isolated Git + integrity negative tests; T17 live contradiction NOT_TESTED")
+    # Use the exact publisher checked out by the release workflow, not a local imitation.
+    import importlib.util
+    publisher_path = Path("_publisher/tools/museum_pipeline.py")
+    if not publisher_path.is_file():
+        raise AssertionError("pinned publisher missing; privacy gate not tested")
+    spec = importlib.util.spec_from_file_location("museum_privacy", publisher_path)
+    publisher = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(publisher)
+    for example in ("gh" + "p_" + "Z" * 32,
+                    "API_KEY=" + "Z" * 24,
+                    "file:" + "///Users/Private/secret.txt"):
+        try:
+            publisher.privacy(example, "isolated synthetic fixture")
+        except publisher.Invalid:
+            pass
+        else:
+            raise AssertionError("pinned publisher accepted sensitive fixture")
+    publisher.privacy("The source records no credentials.", "safe fixture")
+    print("PASS T09-fixture: actual pinned publisher rejects synthetic credentials/private paths")
+    print("WIKI_GIT_E2E_PASS: isolated Git, actual publisher privacy gate, and integrity negatives; T17 live contradiction NOT_TESTED")
 
 if __name__ == "__main__":
     main()
