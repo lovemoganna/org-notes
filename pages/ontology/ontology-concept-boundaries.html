@@ -7,8 +7,8 @@
 <meta name="description" content="一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。" />
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=4084c12f7143"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=1329463e6fd1">
+<script src="../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=b6d231cd70d8">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=4045495a6691"></script>
@@ -19,7 +19,7 @@
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -309,21 +309,21 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-f22d95f0c521">1. 导言：本体不是术语表，而是一组可被检验的承诺</a></li>
-<li><a href="#section-7c9aa7d1267f">2. 一、从业务问题开始，而不是从类名开始</a></li>
-<li><a href="#section-b449d1342689">3. 二、概念边界：用判定标准区分类、属性与事件</a></li>
-<li><a href="#section-37b8e5ba3287">4. 三、身份：相同、相似与同名不能混为一谈</a></li>
-<li><a href="#section-36dc28059322">5. 四、关系设计：让谓词表达业务，而不是表达存储结构</a></li>
-<li><a href="#section-7123cfef7365">6. 五、约束与推理必须分开</a></li>
-<li><a href="#section-d5b051005102">7. 六、从本体到数据库：映射不是等价</a></li>
-<li><a href="#section-7123cfef7365">8. 七、最小可验证建模循环</a></li>
-<li><a href="#section-0911b9dd20de">9. 八、建模检查清单</a></li>
-<li><a href="#section-ada361075798">10. 结语：好本体的价值是减少误解</a></li>
+<li><a href="#section-9f1dbd72d119">1. 导言：本体不是术语表，而是一组可被检验的承诺</a></li>
+<li><a href="#section-090cdf692c65">2. 一、从业务问题开始，而不是从类名开始</a></li>
+<li><a href="#section-7ca9dec95104">3. 二、概念边界：用判定标准区分类、属性与事件</a></li>
+<li><a href="#section-20f26db7ae7a">4. 三、身份：相同、相似与同名不能混为一谈</a></li>
+<li><a href="#section-01edd0f9f49c">5. 四、关系设计：让谓词表达业务，而不是表达存储结构</a></li>
+<li><a href="#section-f9aa735debd9">6. 五、约束与推理必须分开</a></li>
+<li><a href="#section-b12c40c677d8">7. 六、从本体到数据库：映射不是等价</a></li>
+<li><a href="#section-7313facae008">8. 七、最小可验证建模循环</a></li>
+<li><a href="#section-33f76d1d0b7c">9. 八、建模检查清单</a></li>
+<li><a href="#section-e6f9b2562ac1">10. 结语：好本体的价值是减少误解</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-f22d95f0c521" class="outline-2">
-<h2 id="section-f22d95f0c521"><span class="section-number-2">1.</span> 导言：本体不是术语表，而是一组可被检验的承诺</h2>
+<div id="outline-container-section-9f1dbd72d119" class="outline-2">
+<h2 id="section-9f1dbd72d119"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">导言：本体不是术语表，而是一组可被检验的承诺</span></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 在知识系统里，“把字段改成更专业的名字”不等于完成了本体建模。术语表只回答“我们怎样称呼它”，本体还要回答：它是什么、它不是什么、它与什么发生关系、哪些陈述允许成立，以及系统凭什么得出结论。
@@ -345,8 +345,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-7c9aa7d1267f" class="outline-2">
-<h2 id="section-7c9aa7d1267f"><span class="section-number-2">2.</span> 一、从业务问题开始，而不是从类名开始</h2>
+<div id="outline-container-section-090cdf692c65" class="outline-2">
+<h2 id="section-090cdf692c65"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">一、从业务问题开始，而不是从类名开始</span></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 建模的第一步不是画图，而是收集系统必须回答的问题。问题决定需要哪些概念，证据决定系统是否有资格回答。
@@ -419,8 +419,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-b449d1342689" class="outline-2">
-<h2 id="section-b449d1342689"><span class="section-number-2">3.</span> 二、概念边界：用判定标准区分类、属性与事件</h2>
+<div id="outline-container-section-7ca9dec95104" class="outline-2">
+<h2 id="section-7ca9dec95104"><span class="section-number-2">3.</span> <span class="museum-heading-level-1">二、概念边界：用判定标准区分类、属性与事件</span></h2>
 <div class="outline-text-2" id="text-3">
 <p>
 一个名字应该成为类、属性还是事件，可以用三个问题判断：
@@ -492,8 +492,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-37b8e5ba3287" class="outline-2">
-<h2 id="section-37b8e5ba3287"><span class="section-number-2">4.</span> 三、身份：相同、相似与同名不能混为一谈</h2>
+<div id="outline-container-section-20f26db7ae7a" class="outline-2">
+<h2 id="section-20f26db7ae7a"><span class="section-number-2">4.</span> <span class="museum-heading-level-1">三、身份：相同、相似与同名不能混为一谈</span></h2>
 <div class="outline-text-2" id="text-4">
 <p>
 身份错误会直接污染整张知识图谱。两个记录字段相似，不代表它们是同一个对象；两个名称相同，也不代表它们可以合并。
@@ -514,8 +514,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-36dc28059322" class="outline-2">
-<h2 id="section-36dc28059322"><span class="section-number-2">5.</span> 四、关系设计：让谓词表达业务，而不是表达存储结构</h2>
+<div id="outline-container-section-01edd0f9f49c" class="outline-2">
+<h2 id="section-01edd0f9f49c"><span class="section-number-2">5.</span> <span class="museum-heading-level-1">四、关系设计：让谓词表达业务，而不是表达存储结构</span></h2>
 <div class="outline-text-2" id="text-5">
 <p>
 关系名称应当能组成自然且明确的句子：
@@ -600,8 +600,8 @@ ex:placedBy a owl:ObjectProperty ;
 </div>
 </div>
 </div>
-<div id="outline-container-section-7123cfef7365" class="outline-2">
-<h2 id="section-7123cfef7365"><span class="section-number-2">6.</span> 五、约束与推理必须分开</h2>
+<div id="outline-container-section-f9aa735debd9" class="outline-2">
+<h2 id="section-f9aa735debd9"><span class="section-number-2">6.</span> <span class="museum-heading-level-1">五、约束与推理必须分开</span></h2>
 <div class="outline-text-2" id="text-6">
 <p>
 “事实不完整”和“事实为假”不是一回事。在开放世界语义下，没有记录 <code>placedBy</code> 并不能自动证明订单没有客户；它可能只是证据尚未进入系统。数据质量约束则可以要求发布前每个订单必须具备一个客户。
@@ -638,8 +638,8 @@ WHERE {
 </p>
 </div>
 </div>
-<div id="outline-container-section-d5b051005102" class="outline-2">
-<h2 id="section-d5b051005102"><span class="section-number-2">7.</span> 六、从本体到数据库：映射不是等价</h2>
+<div id="outline-container-section-b12c40c677d8" class="outline-2">
+<h2 id="section-b12c40c677d8"><span class="section-number-2">7.</span> <span class="museum-heading-level-1">六、从本体到数据库：映射不是等价</span></h2>
 <div class="outline-text-2" id="text-7">
 <p>
 关系数据库和本体关注的重点不同。表结构强调存储、完整性和执行效率；本体强调概念、语义和跨来源解释。两者可以映射，但不能简单宣称一一等价。
@@ -671,8 +671,8 @@ WHERE {
 </p>
 </div>
 </div>
-<div id="outline-container-section-7123cfef7365" class="outline-2">
-<h2 id="section-7123cfef7365"><span class="section-number-2">8.</span> 七、最小可验证建模循环</h2>
+<div id="outline-container-section-7313facae008" class="outline-2">
+<h2 id="section-7313facae008"><span class="section-number-2">8.</span> <span class="museum-heading-level-1">七、最小可验证建模循环</span></h2>
 <div class="outline-text-2" id="text-8">
 <p>
 一个适合实际项目的最小循环如下：
@@ -692,8 +692,8 @@ WHERE {
 </p>
 </div>
 </div>
-<div id="outline-container-section-0911b9dd20de" class="outline-2">
-<h2 id="section-0911b9dd20de"><span class="section-number-2">9.</span> 八、建模检查清单</h2>
+<div id="outline-container-section-33f76d1d0b7c" class="outline-2">
+<h2 id="section-33f76d1d0b7c"><span class="section-number-2">9.</span> <span class="museum-heading-level-1">八、建模检查清单</span></h2>
 <div class="outline-text-2" id="text-9">
 <ul class="org-ul">
 <li class="off"><code>[&nbsp;]</code> 每个核心概念都有清晰的纳入与排除条件。</li>
@@ -706,8 +706,8 @@ WHERE {
 </ul>
 </div>
 </div>
-<div id="outline-container-section-ada361075798" class="outline-2">
-<h2 id="section-ada361075798"><span class="section-number-2">10.</span> 结语：好本体的价值是减少误解</h2>
+<div id="outline-container-section-e6f9b2562ac1" class="outline-2">
+<h2 id="section-e6f9b2562ac1"><span class="section-number-2">10.</span> <span class="museum-heading-level-1">结语：好本体的价值是减少误解</span></h2>
 <div class="outline-text-2" id="text-10">
 <p>
 本体的目标不是制造更多概念，而是让不同模块、不同数据源和不同使用者对同一事实采用一致且可检验的解释。概念边界解决“我们在谈什么”，身份解决“它是不是同一个”，关系解决“它如何连接”，约束和推理解决“系统可以得出什么”。
@@ -753,6 +753,7 @@ WHERE {
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -852,10 +853,10 @@ WHERE {
 
 <script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
-<script defer src="../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
 <script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
 <script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=052370387dd2"></script>
+<script defer src="../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
 </body>
 </html>

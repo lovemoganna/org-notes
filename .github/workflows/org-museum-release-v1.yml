@@ -26,7 +26,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           repository: lovemoganna/org-museum.el
-          ref: 10d90d911410ed207095faf047f40d823d0cb4bc
+          ref: 3549519e82649d54e65042b459956a19e35577a3
           path: _publisher
           persist-credentials: false
       - name: Install Emacs 30.2

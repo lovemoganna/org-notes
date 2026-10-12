@@ -1,0 +1,21 @@
+#+TITLE: 来源：CFTC 2023-03-27 对 Binance 美国客户准入的指控
+#+WIKI_ID: 3b2c0e11-cd75-4e23-a278-693b295a6a64
+#+CATEGORY: 监管一手来源
+#+FILETAGS: :crypto:risk:cftc:source:
+#+DATE: 2026-10-12
+#+SOURCE: CFTC，2023-03-27，Release 8680-23，https://www.cftc.gov/PressRoom/PressReleases/8680-23
+#+INGEST_ID: c1ff903d-677a-4bce-9fc3-6aaee10f03e7
+#+WIKI_STATUS: published
+
+* 来源与定位
+发布者：美国商品期货交易委员会（CFTC）。原文：[[https://www.cftc.gov/PressRoom/PressReleases/8680-23][Release 8680-23]]；读取日：2026-10-12。原始网页保留在来源机构，本页仅存可追溯摘录与概括，不声称已保存原文副本。
+定位：原文 Case Background 段落，涉及 July 2019、U.S. persons、VIP customers、compliance controls。
+
+* 来源主张
+CFTC 在 2023-03-27 提起民事诉讼，主张 Binance 自 2019 年 7 月起为美国人士提供商品衍生品交易，并指控公司指导部分重要美国客户规避其准入控制。CFTC 还指控在相关期间内客户身份验证及 AML 相关控制存在缺陷。
+
+* 证据状态
+这是 2023-03-27 的监管机关诉讼主张，不应回写为“2023-03-27 已由法院认定”。该案的后续法院命令另见 [[wiki:890b1eab-fd33-449e-bcce-420e0ecaccc9][CFTC 2023-12-18 法院命令公告]]。
+
+* 与相反来源的关系
+2023-03-27 同日 Binance CEO 对其美国客户阻断措施给出不同说明。两者针对相同业务控制的有效性持对立立场。参见 [[wiki:db01ed37-977e-4591-8b46-357112e1b05d][Binance CEO 官方回应]] 和 [[wiki:7e542dd5-3941-458b-9690-623efd86c2ca][综合案例与证据裁决]]。

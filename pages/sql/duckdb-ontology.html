@@ -6,8 +6,8 @@
 <title>DuckDB 本体建模</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../resources/org-museum-theme.js?v=4084c12f7143"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=1329463e6fd1">
+<script src="../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=b6d231cd70d8">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=4045495a6691"></script>
@@ -18,7 +18,7 @@
 <header class="museum-topbar" data-home-href="../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -284,22 +284,22 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-7523c98c269e">1. 一句话</a></li>
-<li><a href="#section-1ba84fd514d9">2. 为什么要放进 org-roam</a></li>
-<li><a href="#section-4b3c7db5b8e8">3. 核心映射</a></li>
-<li><a href="#section-1d10ee423c30">4. 学生表例子</a></li>
-<li><a href="#section-0fcd55d49463">5. 卡片：Class</a></li>
-<li><a href="#section-b0aab6130d6f">6. 卡片：Individual</a></li>
-<li><a href="#section-83bd9bc121b7">7. 卡片：DataProperty</a></li>
-<li><a href="#section-f4af4aba090c">8. 卡片：ObjectProperty</a></li>
-<li><a href="#section-4c0febe1311d">9. 卡片：CTE 与派生概念</a></li>
-<li><a href="#section-4b3c7db5b8e8">10. 复习问题</a></li>
-<li><a href="#section-7523c98c269e">11. 下一步</a></li>
+<li><a href="#section-e12f231d3beb">1. 一句话</a></li>
+<li><a href="#section-ab6296efa124">2. 为什么要放进 org-roam</a></li>
+<li><a href="#section-904a2134fb8f">3. 核心映射</a></li>
+<li><a href="#section-6702f41c5e2a">4. 学生表例子</a></li>
+<li><a href="#section-0f55468c1ad0">5. 卡片：Class</a></li>
+<li><a href="#section-97f4d34da26b">6. 卡片：Individual</a></li>
+<li><a href="#section-a28405ee7d5f">7. 卡片：DataProperty</a></li>
+<li><a href="#section-49b8ea3e2b40">8. 卡片：ObjectProperty</a></li>
+<li><a href="#section-95ff6a37a663">9. 卡片：CTE 与派生概念</a></li>
+<li><a href="#section-f87ada724abe">10. 复习问题</a></li>
+<li><a href="#section-5ee4fb1ea417">11. 下一步</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-7523c98c269e" class="outline-2">
-<h2 id="section-7523c98c269e"><span class="section-number-2">1.</span> 一句话</h2>
+<div id="outline-container-section-e12f231d3beb" class="outline-2">
+<h2 id="section-e12f231d3beb"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">一句话</span></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 DuckDB 负责把数据查出来；本体建模负责把数据背后的“东西、属性、关系”说清楚。
@@ -310,8 +310,8 @@ DuckDB 负责把数据查出来；本体建模负责把数据背后的“东西�
 </p>
 </div>
 </div>
-<div id="outline-container-section-1ba84fd514d9" class="outline-2">
-<h2 id="section-1ba84fd514d9"><span class="section-number-2">2.</span> 为什么要放进 org-roam</h2>
+<div id="outline-container-section-ab6296efa124" class="outline-2">
+<h2 id="section-ab6296efa124"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">为什么要放进 org-roam</span></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 配置目录里的教程适合“按章节学习”。org-roam 里的节点适合“反复想起、反复连接、慢慢内化”。
@@ -330,8 +330,8 @@ DuckDB 负责把数据查出来；本体建模负责把数据背后的“东西�
 </ul>
 </div>
 </div>
-<div id="outline-container-section-4b3c7db5b8e8" class="outline-2">
-<h2 id="section-4b3c7db5b8e8"><span class="section-number-2">3.</span> 核心映射</h2>
+<div id="outline-container-section-904a2134fb8f" class="outline-2">
+<h2 id="section-904a2134fb8f"><span class="section-number-2">3.</span> <span class="museum-heading-level-1">核心映射</span></h2>
 <div class="outline-text-2" id="text-3">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
 
@@ -390,8 +390,8 @@ DuckDB 负责把数据查出来；本体建模负责把数据背后的“东西�
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-1d10ee423c30" class="outline-2">
-<h2 id="section-1d10ee423c30"><span class="section-number-2">4.</span> 学生表例子</h2>
+<div id="outline-container-section-6702f41c5e2a" class="outline-2">
+<h2 id="section-6702f41c5e2a"><span class="section-number-2">4.</span> <span class="museum-heading-level-1">学生表例子</span></h2>
 <div class="outline-text-2" id="text-4">
 <p>
 以 <code>students/classes</code> 为例：
@@ -417,8 +417,8 @@ class_1 hasName "一班"
 </blockquote>
 </div>
 </div>
-<div id="outline-container-section-0fcd55d49463" class="outline-2">
-<h2 id="section-0fcd55d49463"><span class="section-number-2">5.</span> 卡片：Class</h2>
+<div id="outline-container-section-0f55468c1ad0" class="outline-2">
+<h2 id="section-0f55468c1ad0"><span class="section-number-2">5.</span> <span class="museum-heading-level-1">卡片：Class</span></h2>
 <div class="outline-text-2" id="text-5">
 <p>
 <code>Class</code> 是“一类东西”。
@@ -439,8 +439,8 @@ ScoreBand
 </p>
 </div>
 </div>
-<div id="outline-container-section-b0aab6130d6f" class="outline-2">
-<h2 id="section-b0aab6130d6f"><span class="section-number-2">6.</span> 卡片：Individual</h2>
+<div id="outline-container-section-97f4d34da26b" class="outline-2">
+<h2 id="section-97f4d34da26b"><span class="section-number-2">6.</span> <span class="museum-heading-level-1">卡片：Individual</span></h2>
 <div class="outline-text-2" id="text-6">
 <p>
 <code>Individual</code> 是一个具体东西。
@@ -462,8 +462,8 @@ class_2
 </p>
 </div>
 </div>
-<div id="outline-container-section-83bd9bc121b7" class="outline-2">
-<h2 id="section-83bd9bc121b7"><span class="section-number-2">7.</span> 卡片：DataProperty</h2>
+<div id="outline-container-section-a28405ee7d5f" class="outline-2">
+<h2 id="section-a28405ee7d5f"><span class="section-number-2">7.</span> <span class="museum-heading-level-1">卡片：DataProperty</span></h2>
 <div class="outline-text-2" id="text-7">
 <p>
 <code>DataProperty</code> 是“对象到值”。
@@ -480,8 +480,8 @@ student_1 hasScore 90
 </p>
 </div>
 </div>
-<div id="outline-container-section-f4af4aba090c" class="outline-2">
-<h2 id="section-f4af4aba090c"><span class="section-number-2">8.</span> 卡片：ObjectProperty</h2>
+<div id="outline-container-section-49b8ea3e2b40" class="outline-2">
+<h2 id="section-49b8ea3e2b40"><span class="section-number-2">8.</span> <span class="museum-heading-level-1">卡片：ObjectProperty</span></h2>
 <div class="outline-text-2" id="text-8">
 <p>
 <code>ObjectProperty</code> 是“对象到对象”。
@@ -513,8 +513,8 @@ SQL 用列相等连接表；本体给这个连接起名字。
 </p>
 </div>
 </div>
-<div id="outline-container-section-4c0febe1311d" class="outline-2">
-<h2 id="section-4c0febe1311d"><span class="section-number-2">9.</span> 卡片：CTE 与派生概念</h2>
+<div id="outline-container-section-95ff6a37a663" class="outline-2">
+<h2 id="section-95ff6a37a663"><span class="section-number-2">9.</span> <span class="museum-heading-level-1">卡片：CTE 与派生概念</span></h2>
 <div class="outline-text-2" id="text-9">
 <p>
 CTE 可以帮你发现“正在变成概念的查询”。
@@ -540,8 +540,8 @@ FROM high_score_students;
 </p>
 </div>
 </div>
-<div id="outline-container-section-4b3c7db5b8e8" class="outline-2">
-<h2 id="section-4b3c7db5b8e8"><span class="section-number-2">10.</span> 复习问题</h2>
+<div id="outline-container-section-f87ada724abe" class="outline-2">
+<h2 id="section-f87ada724abe"><span class="section-number-2">10.</span> <span class="museum-heading-level-1">复习问题</span></h2>
 <div class="outline-text-2" id="text-10">
 <p>
 每次学完一段 DuckDB，可以拿这几个问题检查是否真的内化：
@@ -557,8 +557,8 @@ FROM high_score_students;
 </ol>
 </div>
 </div>
-<div id="outline-container-section-7523c98c269e" class="outline-2">
-<h2 id="section-7523c98c269e"><span class="section-number-2">11.</span> 下一步</h2>
+<div id="outline-container-section-5ee4fb1ea417" class="outline-2">
+<h2 id="section-5ee4fb1ea417"><span class="section-number-2">11.</span> <span class="museum-heading-level-1">下一步</span></h2>
 <div class="outline-text-2" id="text-11">
 <p>
 下次学新的 DuckDB 文件时，不要急着只看 SQL 结果。顺手补一句：
@@ -600,6 +600,7 @@ FROM high_score_students;
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -699,10 +700,10 @@ FROM high_score_students;
 
 <script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
-<script defer src="../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
 <script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
 <script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../resources/org-museum-article.js?v=052370387dd2"></script>
+<script defer src="../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
 </body>
 </html>

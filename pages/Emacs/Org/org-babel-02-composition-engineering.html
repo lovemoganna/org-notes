@@ -6,8 +6,8 @@
 <title>Org Babel 02｜组合、复用与工程化</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../../resources/org-museum-theme.js?v=4084c12f7143"></script>
-<link rel="stylesheet" href="../../../resources/org-museum.css?v=1329463e6fd1">
+<script src="../../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=b6d231cd70d8">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../../resources/org-museum-theme.js?v=4045495a6691"></script>
@@ -18,7 +18,7 @@
 <header class="museum-topbar" data-home-href="../../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -508,30 +508,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-da2c6151d691">1. 关系导航</a></li>
-<li><a href="#section-543f1a098282">2. 1. 贯穿模型</a></li>
-<li><a href="#section-278301a31626">3. 2. Noweb：组合源码，而不是复制源码</a></li>
-<li><a href="#section-211d87638076">4. 3. Session：共享状态要显式</a></li>
-<li><a href="#section-cffc07b1e603">5. 4. Cache：只缓存纯计算</a></li>
-<li><a href="#section-905e763a1fc9">6. 5. Tangle：Org 才是 Source of Truth</a></li>
+<li><a href="#section-8460361bdb08">1. 关系导航</a></li>
+<li><a href="#section-eeb81fb8a642">2. 1. 贯穿模型</a></li>
+<li><a href="#section-78033e101669">3. 2. Noweb：组合源码，而不是复制源码</a></li>
+<li><a href="#section-c53193e0af99">4. 3. Session：共享状态要显式</a></li>
+<li><a href="#section-6ffb2fed9911">5. 4. Cache：只缓存纯计算</a></li>
+<li><a href="#section-12f6aff46ab5">6. 5. Tangle：Org 才是 Source of Truth</a></li>
 <li><a href="#library-of-babel">7. 6. Library of Babel：跨文件复用</a></li>
 <li><a href="#order-pipeline">8. 7. 完整案例：订单分析流水线</a>
 <ul>
-<li><a href="#section-2841a7a14860">8.1. 7.1 Parameters</a></li>
-<li><a href="#section-4a28296b1d5c">8.2. 7.2 Block Contract：filter-orders</a></li>
-<li><a href="#section-d2ff3820e4fa">8.3. 7.3 Block Contract：summarize-orders</a></li>
-<li><a href="#section-082821444acc">8.4. 7.4 Minimal Call</a></li>
-<li><a href="#section-83a7b72f0fb5">8.5. 7.5 报告文本</a></li>
+<li><a href="#section-d15e5cfea79d">8.1. 7.1 Parameters</a></li>
+<li><a href="#section-501691343286">8.2. 7.2 Block Contract：filter-orders</a></li>
+<li><a href="#section-366babce6746">8.3. 7.3 Block Contract：summarize-orders</a></li>
+<li><a href="#section-c50c8fd9f7e5">8.4. 7.4 Minimal Call</a></li>
+<li><a href="#section-3d337f1d70f3">8.5. 7.5 报告文本</a></li>
 </ul>
 </li>
-<li><a href="#section-b3608b27ee2f">9. 8. Golden Regression：修当前问题不能破坏历史能力</a></li>
-<li><a href="#section-3e089a23fcc1">10. 9. Library、Tangle、Session 应该怎么选</a></li>
-<li><a href="#section-eef8d7be4612">11. 10. 三层练习</a></li>
+<li><a href="#section-e68adf80a1a2">9. 8. Golden Regression：修当前问题不能破坏历史能力</a></li>
+<li><a href="#section-2f0dcc842f67">10. 9. Library、Tangle、Session 应该怎么选</a></li>
+<li><a href="#section-22f13e8fd80d">11. 10. 三层练习</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-da2c6151d691" class="outline-2">
-<h2 id="section-da2c6151d691"><span class="section-number-2">1.</span> 关系导航</h2>
+<div id="outline-container-section-8460361bdb08" class="outline-2">
+<h2 id="section-8460361bdb08"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">关系导航</span></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本文件承载“把会运行的 Block 变成工程系统”。订单案例、Contract 与 Golden Regression 放在同一模块，避免验证逻辑与被测实现被拆散。
@@ -575,21 +575,21 @@
 
 <tr>
 <td class="org-left">示例</td>
-<td class="org-left">[BROKEN LINK: order-pipeline]</td>
+<td class="org-left"><a href="#order-pipeline">订单分析流水线</a></td>
 <td class="org-left">本模块的贯穿实例</td>
 </tr>
 
 <tr>
 <td class="org-left">复用</td>
-<td class="org-left">[BROKEN LINK: library-of-babel]</td>
+<td class="org-left"><a href="#library-of-babel">Library of Babel</a></td>
 <td class="org-left">多文档共享稳定 Block</td>
 </tr>
 </tbody>
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-543f1a098282" class="outline-2">
-<h2 id="section-543f1a098282"><span class="section-number-2">2.</span> 1. 贯穿模型</h2>
+<div id="outline-container-section-eeb81fb8a642" class="outline-2">
+<h2 id="section-eeb81fb8a642"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">1. 贯穿模型</span></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 贯穿案例：从订单表中过滤指定国家、状态和最低金额，再汇总并生成报告。
@@ -662,8 +662,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-278301a31626" class="outline-2">
-<h2 id="section-278301a31626"><span class="section-number-2">3.</span> 2. Noweb：组合源码，而不是复制源码</h2>
+<div id="outline-container-section-78033e101669" class="outline-2">
+<h2 id="section-78033e101669"><span class="section-number-2">3.</span> <span class="museum-heading-level-1">2. Noweb：组合源码，而不是复制源码</span></h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Noweb 解决“把多个代码片段组合成一段最终源码”的问题。
@@ -707,8 +707,8 @@ return round(value, 2)
 </p>
 </div>
 </div>
-<div id="outline-container-section-211d87638076" class="outline-2">
-<h2 id="section-211d87638076"><span class="section-number-2">4.</span> 3. Session：共享状态要显式</h2>
+<div id="outline-container-section-c53193e0af99" class="outline-2">
+<h2 id="section-c53193e0af99"><span class="section-number-2">4.</span> <span class="museum-heading-level-1">3. Session：共享状态要显式</span></h2>
 <div class="outline-text-2" id="text-4">
 <p>
 默认使用无状态 Block；它更容易单独重跑、缓存和回归。
@@ -747,8 +747,8 @@ print(x)
 </p>
 </div>
 </div>
-<div id="outline-container-section-cffc07b1e603" class="outline-2">
-<h2 id="section-cffc07b1e603"><span class="section-number-2">5.</span> 4. Cache：只缓存纯计算</h2>
+<div id="outline-container-section-6ffb2fed9911" class="outline-2">
+<h2 id="section-6ffb2fed9911"><span class="section-number-2">5.</span> <span class="museum-heading-level-1">4. Cache：只缓存纯计算</span></h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-8c9828c6bdd2"><code class="language-python">return n * n
@@ -772,8 +772,8 @@ print(x)
 </p>
 </div>
 </div>
-<div id="outline-container-section-905e763a1fc9" class="outline-2">
-<h2 id="section-905e763a1fc9"><span class="section-number-2">6.</span> 5. Tangle：Org 才是 Source of Truth</h2>
+<div id="outline-container-section-12f6aff46ab5" class="outline-2">
+<h2 id="section-12f6aff46ab5"><span class="section-number-2">6.</span> <span class="museum-heading-level-1">5. Tangle：Org 才是 Source of Truth</span></h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Tangle 把 Org 中的代码抽取为正常源码文件。
@@ -835,8 +835,8 @@ Runtime Error
 </div>
 </div>
 <div id="outline-container-library-of-babel" class="outline-2">
-<h2 id="library-of-babel"><span class="section-number-2">7.</span> 6. Library of Babel：跨文件复用</h2>
-<div class="outline-text-2" id="text-7">
+<span id="section-26225e24bcf3" class="museum-heading-alias"></span><h2 id="library-of-babel"><span class="section-number-2">7.</span> <span class="museum-heading-level-1">6. Library of Babel：跨文件复用</span></h2>
+<div class="outline-text-2" id="text-library-of-babel">
 <p>
 当某个 Block 已稳定并被多个 Org 文件复用，把它放入公共 Org 文件，例如 <code>babel/core.org</code>：
 </p>
@@ -903,14 +903,14 @@ return 0 if total == 0 else round(part / total * 100, 2)
 </div>
 </div>
 <div id="outline-container-order-pipeline" class="outline-2">
-<h2 id="order-pipeline"><span class="section-number-2">8.</span> 7. 完整案例：订单分析流水线</h2>
-<div class="outline-text-2" id="text-8">
+<span id="section-61114a9dc118" class="museum-heading-alias"></span><h2 id="order-pipeline"><span class="section-number-2">8.</span> <span class="museum-heading-level-1">7. 完整案例：订单分析流水线</span></h2>
+<div class="outline-text-2" id="text-order-pipeline">
 <p>
 现在把 01 模块的执行基础与本文件的组合机制串起来。
 </p>
 </div>
-<div id="outline-container-section-2841a7a14860" class="outline-3">
-<h3 id="section-2841a7a14860"><span class="section-number-3">8.1.</span> 7.1 Parameters</h3>
+<div id="outline-container-section-d15e5cfea79d" class="outline-3">
+<h3 id="section-d15e5cfea79d"><span class="section-number-3">8.1.</span> <span class="museum-heading-level-2">7.1 Parameters</span></h3>
 <div class="outline-text-3" id="text-8-1">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
 
@@ -957,8 +957,8 @@ return 0 if total == 0 else round(part / total * 100, 2)
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-4a28296b1d5c" class="outline-3">
-<h3 id="section-4a28296b1d5c"><span class="section-number-3">8.2.</span> 7.2 Block Contract：filter-orders</h3>
+<div id="outline-container-section-501691343286" class="outline-3">
+<h3 id="section-501691343286"><span class="section-number-3">8.2.</span> <span class="museum-heading-level-2">7.2 Block Contract：filter-orders</span></h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
 Input Contract：
@@ -1020,8 +1020,8 @@ return selected
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-d2ff3820e4fa" class="outline-3">
-<h3 id="section-d2ff3820e4fa"><span class="section-number-3">8.3.</span> 7.3 Block Contract：summarize-orders</h3>
+<div id="outline-container-section-366babce6746" class="outline-3">
+<h3 id="section-366babce6746"><span class="section-number-3">8.3.</span> <span class="museum-heading-level-2">7.3 Block Contract：summarize-orders</span></h3>
 <div class="outline-text-3" id="text-8-3">
 <p>
 Input：经过过滤的订单行。
@@ -1053,8 +1053,8 @@ return [[count, total]]
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-082821444acc" class="outline-3">
-<h3 id="section-082821444acc"><span class="section-number-3">8.4.</span> 7.4 Minimal Call</h3>
+<div id="outline-container-section-c50c8fd9f7e5" class="outline-3">
+<h3 id="section-c50c8fd9f7e5"><span class="section-number-3">8.4.</span> <span class="museum-heading-level-2">7.4 Minimal Call</span></h3>
 <div class="outline-text-3" id="text-8-4">
 <p>
 正常使用时只改这一行：
@@ -1069,8 +1069,8 @@ return [[count, total]]
 </p>
 </div>
 </div>
-<div id="outline-container-section-83a7b72f0fb5" class="outline-3">
-<h3 id="section-83a7b72f0fb5"><span class="section-number-3">8.5.</span> 7.5 报告文本</h3>
+<div id="outline-container-section-3d337f1d70f3" class="outline-3">
+<h3 id="section-3d337f1d70f3"><span class="section-number-3">8.5.</span> <span class="museum-heading-level-2">7.5 报告文本</span></h3>
 <div class="outline-text-3" id="text-8-5">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-316a9fe00494"><code class="language-python">count, total = summary[0]
@@ -1105,8 +1105,8 @@ orders + country + status + min_amount
 </div>
 </div>
 </div>
-<div id="outline-container-section-b3608b27ee2f" class="outline-2">
-<h2 id="section-b3608b27ee2f"><span class="section-number-2">9.</span> 8. Golden Regression：修当前问题不能破坏历史能力</h2>
+<div id="outline-container-section-e68adf80a1a2" class="outline-2">
+<h2 id="section-e68adf80a1a2"><span class="section-number-2">9.</span> <span class="museum-heading-level-1">8. Golden Regression：修当前问题不能破坏历史能力</span></h2>
 <div class="outline-text-2" id="text-9">
 <p>
 维护四个稳定 Case：
@@ -1182,8 +1182,8 @@ GOLDEN_PASS
 </p>
 </div>
 </div>
-<div id="outline-container-section-3e089a23fcc1" class="outline-2">
-<h2 id="section-3e089a23fcc1"><span class="section-number-2">10.</span> 9. Library、Tangle、Session 应该怎么选</h2>
+<div id="outline-container-section-2f0dcc842f67" class="outline-2">
+<h2 id="section-2f0dcc842f67"><span class="section-number-2">10.</span> <span class="museum-heading-level-1">9. Library、Tangle、Session 应该怎么选</span></h2>
 <div class="outline-text-2" id="text-10">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table>
 
@@ -1237,8 +1237,8 @@ GOLDEN_PASS
 </p>
 </div>
 </div>
-<div id="outline-container-section-eef8d7be4612" class="outline-2">
-<h2 id="section-eef8d7be4612"><span class="section-number-2">11.</span> 10. 三层练习</h2>
+<div id="outline-container-section-22f13e8fd80d" class="outline-2">
+<h2 id="section-22f13e8fd80d"><span class="section-number-2">11.</span> <span class="museum-heading-level-1">10. 三层练习</span></h2>
 <div class="outline-text-2" id="text-11">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 6"><table>
 
@@ -1317,6 +1317,7 @@ GOLDEN_PASS
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -1416,10 +1417,10 @@ GOLDEN_PASS
 
 <script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
-<script defer src="../../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
+<script defer src="../../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
 <script defer src="../../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
 <script defer src="../../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../../resources/org-museum-article.js?v=052370387dd2"></script>
+<script defer src="../../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
 </body>
 </html>

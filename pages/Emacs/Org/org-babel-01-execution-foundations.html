@@ -7,8 +7,8 @@
 <meta name="description" content="ORG JOURNAL Recording" />
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../../resources/org-museum-theme.js?v=4084c12f7143"></script>
-<link rel="stylesheet" href="../../../resources/org-museum.css?v=1329463e6fd1">
+<script src="../../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=b6d231cd70d8">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../../resources/org-museum-theme.js?v=4045495a6691"></script>
@@ -19,7 +19,7 @@
 <header class="museum-topbar" data-home-href="../../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -516,50 +516,50 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-6039b400e52b">1. 关系导航</a></li>
-<li><a href="#section-dca40dc4fa45">2. 怎么使用这组三模块</a></li>
-<li><a href="#section-5d9afde926e7">3. 环境与配置</a>
+<li><a href="#section-8b2447c66ffd">1. 关系导航</a></li>
+<li><a href="#section-59a897659a14">2. 怎么使用这组三模块</a></li>
+<li><a href="#section-6d05e8eb71d1">3. 环境与配置</a>
 <ul>
-<li><a href="#section-5f9b07f32ac6">3.1. 最小运行条件</a></li>
-<li><a href="#section-3dc85d13f19a">3.2. Babel 配置</a></li>
-<li><a href="#section-fba6928b6983">3.3. Reproducibility</a></li>
+<li><a href="#section-7983e144ce92">3.1. 最小运行条件</a></li>
+<li><a href="#section-07d6d0897943">3.2. Babel 配置</a></li>
+<li><a href="#section-82f1daa3b0e6">3.3. Reproducibility</a></li>
 </ul>
 </li>
-<li><a href="#section-dca40dc4fa45">4. 先把最小执行链跑通</a>
+<li><a href="#section-26ed4dcd35de">4. 先把最小执行链跑通</a>
 <ul>
-<li><a href="#section-f5e2c3dcccc3">4.1. Python：<code>:results value</code></a></li>
-<li><a href="#section-36b6e1c1e04f">4.2. Python：<code>:results output</code></a></li>
-<li><a href="#section-2976b7dbc996">4.3. POSIX sh</a></li>
+<li><a href="#section-cb7749727cbc">4.1. Python：<code>:results value</code></a></li>
+<li><a href="#section-facf4626cfa6">4.2. Python：<code>:results output</code></a></li>
+<li><a href="#section-6cac42053105">4.3. POSIX sh</a></li>
 </ul>
 </li>
-<li><a href="#section-fcbc5dbbcbed">5. Header Args：真正控制执行行为的接口</a>
+<li><a href="#section-4eab0b12131e">5. Header Args：真正控制执行行为的接口</a>
 <ul>
-<li><a href="#section-44d4b1c2f8ac">5.1. 用实际结果验证覆盖关系</a></li>
+<li><a href="#section-60b63576c29e">5.1. 用实际结果验证覆盖关系</a></li>
 </ul>
 </li>
-<li><a href="#section-ec9d10a2bd67">6. 参数传递：把变化从代码中抽出来</a>
+<li><a href="#section-baaf8466db9a">6. 参数传递：把变化从代码中抽出来</a>
 <ul>
-<li><a href="#section-6dbf3418937e">6.1. 标量参数</a></li>
-<li><a href="#section-a59733a0fe8d">6.2. 多参数不是“多复制几份代码”</a></li>
-<li><a href="#section-a3be977692dd">6.3. Org Table → Python</a></li>
+<li><a href="#section-452bd2e8f8b8">6.1. 标量参数</a></li>
+<li><a href="#section-88f5f39d06c5">6.2. 多参数不是“多复制几份代码”</a></li>
+<li><a href="#section-8ee5538c12b0">6.3. Org Table → Python</a></li>
 </ul>
 </li>
-<li><a href="#section-d8623fe8fdf2">7. Block → Block：把结果当下一步输入</a></li>
-<li><a href="#section-d4c98e8a7456">8. #+call：给复杂 Block 一个轻量调用面</a></li>
-<li><a href="#section-5fe118b0a110">9. 结果管理：不要只会 #+RESULTS</a>
+<li><a href="#section-22b9330504af">7. Block → Block：把结果当下一步输入</a></li>
+<li><a href="#section-243f44d249cb">8. #+call：给复杂 Block 一个轻量调用面</a></li>
+<li><a href="#section-419fde220eec">9. 结果管理：不要只会 #+RESULTS</a>
 <ul>
-<li><a href="#section-231ac5ebd250">9.1. replace：默认适合可重复实验</a></li>
-<li><a href="#section-0e048267ab9d">9.2. verbatim：禁止列表被自动转成表格</a></li>
-<li><a href="#section-b66f83633474">9.3. table：结果继续成为数据</a></li>
-<li><a href="#section-a9b7a22b573b">9.4. silent / none / discard：都不写结果，但语义不同</a></li>
-<li><a href="#section-884c53dfa32b">9.5. append：只在你真的需要历史记录时用</a></li>
+<li><a href="#section-70361724272e">9.1. replace：默认适合可重复实验</a></li>
+<li><a href="#section-d4158d65d239">9.2. verbatim：禁止列表被自动转成表格</a></li>
+<li><a href="#section-52fa53a28dbf">9.3. table：结果继续成为数据</a></li>
+<li><a href="#section-951e68b3c217">9.4. silent / none / discard：都不写结果，但语义不同</a></li>
+<li><a href="#section-4e156afbf71a">9.5. append：只在你真的需要历史记录时用</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-6039b400e52b" class="outline-2">
-<h2 id="section-6039b400e52b"><span class="section-number-2">1.</span> 关系导航</h2>
+<div id="outline-container-section-8b2447c66ffd" class="outline-2">
+<h2 id="section-8b2447c66ffd"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">关系导航</span></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本文件是三模块入口。三份笔记统一使用 Org 原生 <code>file:</code> 链接，并在目标文件显式回链；不硬编码未核验的 org-museum.el 私有关系字段。只建立会影响学习或复用的关系。
@@ -614,8 +614,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-dca40dc4fa45" class="outline-2">
-<h2 id="section-dca40dc4fa45"><span class="section-number-2">2.</span> 怎么使用这组三模块</h2>
+<div id="outline-container-section-59a897659a14" class="outline-2">
+<h2 id="section-59a897659a14"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">怎么使用这组三模块</span></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 第一次按顺序执行；之后日常只改参数和最小调用。主链：
@@ -683,12 +683,12 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-5d9afde926e7" class="outline-2">
-<h2 id="section-5d9afde926e7"><span class="section-number-2">3.</span> 环境与配置</h2>
+<div id="outline-container-section-6d05e8eb71d1" class="outline-2">
+<h2 id="section-6d05e8eb71d1"><span class="section-number-2">3.</span> <span class="museum-heading-level-1">环境与配置</span></h2>
 <div class="outline-text-2" id="text-3">
 </div>
-<div id="outline-container-section-5f9b07f32ac6" class="outline-3">
-<h3 id="section-5f9b07f32ac6"><span class="section-number-3">3.1.</span> 最小运行条件</h3>
+<div id="outline-container-section-7983e144ce92" class="outline-3">
+<h3 id="section-7983e144ce92"><span class="section-number-3">3.1.</span> <span class="museum-heading-level-2">最小运行条件</span></h3>
 <div class="outline-text-3" id="text-3-1">
 <p>
 需要：
@@ -724,8 +724,8 @@ Windows 如果只有 <code>python.exe</code>，把后文的 Python command 改�
 </p>
 </div>
 </div>
-<div id="outline-container-section-3dc85d13f19a" class="outline-3">
-<h3 id="section-3dc85d13f19a"><span class="section-number-3">3.2.</span> Babel 配置</h3>
+<div id="outline-container-section-07d6d0897943" class="outline-3">
+<h3 id="section-07d6d0897943"><span class="section-number-3">3.2.</span> <span class="museum-heading-level-2">Babel 配置</span></h3>
 <div class="outline-text-3" id="text-3-2">
 <p>
 把下面配置放入 Emacs 配置后重启，或直接 <code>M-x eval-buffer</code>。
@@ -764,8 +764,8 @@ Windows 如果只有 <code>python.exe</code>，把后文的 Python command 改�
 </p>
 </div>
 </div>
-<div id="outline-container-section-fba6928b6983" class="outline-3">
-<h3 id="section-fba6928b6983"><span class="section-number-3">3.3.</span> Reproducibility</h3>
+<div id="outline-container-section-82f1daa3b0e6" class="outline-3">
+<h3 id="section-82f1daa3b0e6"><span class="section-number-3">3.3.</span> <span class="museum-heading-level-2">Reproducibility</span></h3>
 <div class="outline-text-3" id="text-3-3">
 <p>
 环境变化会直接改变 Babel 行为。先记录版本，不要把环境漂移误诊成代码错误。
@@ -813,12 +813,12 @@ Windows 如果只有 <code>python.exe</code>，把后文的 Python command 改�
 </div>
 </div>
 </div>
-<div id="outline-container-section-dca40dc4fa45" class="outline-2">
-<h2 id="section-dca40dc4fa45"><span class="section-number-2">4.</span> 先把最小执行链跑通</h2>
+<div id="outline-container-section-26ed4dcd35de" class="outline-2">
+<h2 id="section-26ed4dcd35de"><span class="section-number-2">4.</span> <span class="museum-heading-level-1">先把最小执行链跑通</span></h2>
 <div class="outline-text-2" id="text-4">
 </div>
-<div id="outline-container-section-f5e2c3dcccc3" class="outline-3">
-<h3 id="section-f5e2c3dcccc3"><span class="section-number-3">4.1.</span> Python：<code>:results value</code></h3>
+<div id="outline-container-section-cb7749727cbc" class="outline-3">
+<h3 id="section-cb7749727cbc"><span class="section-number-3">4.1.</span> <span class="museum-heading-level-2">Python：<code>:results value</code></span></h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
 非 Session 的 Python <code>value</code> 模式可以显式 <code>return</code>:
@@ -838,8 +838,8 @@ Contract：结果必须等于 5。
 </p>
 </div>
 </div>
-<div id="outline-container-section-36b6e1c1e04f" class="outline-3">
-<h3 id="section-36b6e1c1e04f"><span class="section-number-3">4.2.</span> Python：<code>:results output</code></h3>
+<div id="outline-container-section-facf4626cfa6" class="outline-3">
+<h3 id="section-facf4626cfa6"><span class="section-number-3">4.2.</span> <span class="museum-heading-level-2">Python：<code>:results output</code></span></h3>
 <div class="outline-text-3" id="text-4-2">
 <p>
 <code>output</code> 收集 stdout，不读取最终表达式值:
@@ -857,8 +857,8 @@ beta
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-2976b7dbc996" class="outline-3">
-<h3 id="section-2976b7dbc996"><span class="section-number-3">4.3.</span> POSIX sh</h3>
+<div id="outline-container-section-6cac42053105" class="outline-3">
+<h3 id="section-6cac42053105"><span class="section-number-3">4.3.</span> <span class="museum-heading-level-2">POSIX sh</span></h3>
 <div class="outline-text-3" id="text-4-3">
 <div class="org-src-container">
 <pre class="src src-sh" id="org-museum-ref-6e96b5b00b41"><code class="language-bash">printf '%s\n' "babel-shell-ok"
@@ -875,8 +875,8 @@ babel-shell-ok
 </div>
 </div>
 </div>
-<div id="outline-container-section-fcbc5dbbcbed" class="outline-2">
-<h2 id="section-fcbc5dbbcbed"><span class="section-number-2">5.</span> Header Args：真正控制执行行为的接口</h2>
+<div id="outline-container-section-4eab0b12131e" class="outline-2">
+<h2 id="section-4eab0b12131e"><span class="section-number-2">5.</span> <span class="museum-heading-level-1">Header Args：真正控制执行行为的接口</span></h2>
 <div class="outline-text-2" id="text-5">
 <p>
 常用 Header Args：
@@ -948,8 +948,8 @@ babel-shell-ok
 Header Args 可以定义在全局、文件、Subtree、Block 和 <code>#+call:</code> 层级。越局部的设置优先级越高。
 </p>
 </div>
-<div id="outline-container-section-44d4b1c2f8ac" class="outline-3">
-<h3 id="section-44d4b1c2f8ac"><span class="section-number-3">5.1.</span> 用实际结果验证覆盖关系</h3>
+<div id="outline-container-section-60b63576c29e" class="outline-3">
+<h3 id="section-60b63576c29e"><span class="section-number-3">5.1.</span> <span class="museum-heading-level-2">用实际结果验证覆盖关系</span></h3>
 <div class="outline-text-3" id="text-5-1">
 <p>
 文件顶部给 Python 设置了 <code>:results value replace</code>.下面在 Block 层覆盖成 <code>output</code>:
@@ -974,12 +974,12 @@ local-output
 </div>
 </div>
 </div>
-<div id="outline-container-section-ec9d10a2bd67" class="outline-2">
-<h2 id="section-ec9d10a2bd67"><span class="section-number-2">6.</span> 参数传递：把变化从代码中抽出来</h2>
+<div id="outline-container-section-baaf8466db9a" class="outline-2">
+<h2 id="section-baaf8466db9a"><span class="section-number-2">6.</span> <span class="museum-heading-level-1">参数传递：把变化从代码中抽出来</span></h2>
 <div class="outline-text-2" id="text-6">
 </div>
-<div id="outline-container-section-6dbf3418937e" class="outline-3">
-<h3 id="section-6dbf3418937e"><span class="section-number-3">6.1.</span> 标量参数</h3>
+<div id="outline-container-section-452bd2e8f8b8" class="outline-3">
+<h3 id="section-452bd2e8f8b8"><span class="section-number-3">6.1.</span> <span class="museum-heading-level-2">标量参数</span></h3>
 <div class="outline-text-3" id="text-6-1">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-63a483b76276"><code class="language-python">return round(subtotal * (1 + tax_rate) - discount, 2)
@@ -1007,8 +1007,8 @@ local-output
 </p>
 </div>
 </div>
-<div id="outline-container-section-a59733a0fe8d" class="outline-3">
-<h3 id="section-a59733a0fe8d"><span class="section-number-3">6.2.</span> 多参数不是“多复制几份代码”</h3>
+<div id="outline-container-section-88f5f39d06c5" class="outline-3">
+<h3 id="section-88f5f39d06c5"><span class="section-number-3">6.2.</span> <span class="museum-heading-level-2">多参数不是“多复制几份代码”</span></h3>
 <div class="outline-text-3" id="text-6-2">
 <p>
 下面只有一个实现：
@@ -1036,8 +1036,8 @@ True
 </p>
 </div>
 </div>
-<div id="outline-container-section-a3be977692dd" class="outline-3">
-<h3 id="section-a3be977692dd"><span class="section-number-3">6.3.</span> Org Table → Python</h3>
+<div id="outline-container-section-8ee5538c12b0" class="outline-3">
+<h3 id="section-8ee5538c12b0"><span class="section-number-3">6.3.</span> <span class="museum-heading-level-2">Org Table → Python</span></h3>
 <div class="outline-text-3" id="text-6-3">
 <p>
 Org 表可以直接成为 <code>:var</code> 输入。示例直接使用列位置。这里的表有“表头 +
@@ -1094,8 +1094,8 @@ amount</code>. 如果显式设成 <code>:colnames no</code>, 表头也会进入 
 </div>
 </div>
 </div>
-<div id="outline-container-section-d8623fe8fdf2" class="outline-2">
-<h2 id="section-d8623fe8fdf2"><span class="section-number-2">7.</span> Block → Block：把结果当下一步输入</h2>
+<div id="outline-container-section-22b9330504af" class="outline-2">
+<h2 id="section-22b9330504af"><span class="section-number-2">7.</span> <span class="museum-heading-level-1">Block → Block：把结果当下一步输入</span></h2>
 <div class="outline-text-2" id="text-7">
 <p>
 先生成一组数：
@@ -1174,8 +1174,8 @@ sum-squares
 </p>
 </div>
 </div>
-<div id="outline-container-section-d4c98e8a7456" class="outline-2">
-<h2 id="section-d4c98e8a7456"><span class="section-number-2">8.</span> #+call：给复杂 Block 一个轻量调用面</h2>
+<div id="outline-container-section-243f44d249cb" class="outline-2">
+<h2 id="section-243f44d249cb"><span class="section-number-2">8.</span> <span class="museum-heading-level-1">#+call：给复杂 Block 一个轻量调用面</span></h2>
 <div class="outline-text-2" id="text-8">
 <p>
 命名 Block 可以像函数一样调用：
@@ -1233,8 +1233,8 @@ sum-squares
 </p>
 </div>
 </div>
-<div id="outline-container-section-5fe118b0a110" class="outline-2">
-<h2 id="section-5fe118b0a110"><span class="section-number-2">9.</span> 结果管理：不要只会 #+RESULTS</h2>
+<div id="outline-container-section-419fde220eec" class="outline-2">
+<h2 id="section-419fde220eec"><span class="section-number-2">9.</span> <span class="museum-heading-level-1">结果管理：不要只会 #+RESULTS</span></h2>
 <div class="outline-text-2" id="text-9">
 <p>
 <code>:results</code> 至少要同时考虑四件事：
@@ -1247,8 +1247,8 @@ Format:     raw / verbatim / code ...
 Handling:   replace / append / prepend / silent
 </code></pre>
 </div>
-<div id="outline-container-section-231ac5ebd250" class="outline-3">
-<h3 id="section-231ac5ebd250"><span class="section-number-3">9.1.</span> replace：默认适合可重复实验</h3>
+<div id="outline-container-section-70361724272e" class="outline-3">
+<h3 id="section-70361724272e"><span class="section-number-3">9.1.</span> <span class="museum-heading-level-2">replace：默认适合可重复实验</span></h3>
 <div class="outline-text-3" id="text-9-1">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-22b10635b0c3"><code class="language-python">return n ** 2
@@ -1264,8 +1264,8 @@ Handling:   replace / append / prepend / silent
 </p>
 </div>
 </div>
-<div id="outline-container-section-0e048267ab9d" class="outline-3">
-<h3 id="section-0e048267ab9d"><span class="section-number-3">9.2.</span> verbatim：禁止列表被自动转成表格</h3>
+<div id="outline-container-section-d4158d65d239" class="outline-3">
+<h3 id="section-d4158d65d239"><span class="section-number-3">9.2.</span> <span class="museum-heading-level-2">verbatim：禁止列表被自动转成表格</span></h3>
 <div class="outline-text-3" id="text-9-2">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-6057860d38f3"><code class="language-python">return [1, 2, 3]
@@ -1277,8 +1277,8 @@ Handling:   replace / append / prepend / silent
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-b66f83633474" class="outline-3">
-<h3 id="section-b66f83633474"><span class="section-number-3">9.3.</span> table：结果继续成为数据</h3>
+<div id="outline-container-section-52fa53a28dbf" class="outline-3">
+<h3 id="section-52fa53a28dbf"><span class="section-number-3">9.3.</span> <span class="museum-heading-level-2">table：结果继续成为数据</span></h3>
 <div class="outline-text-3" id="text-9-3">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-9cc3aa3169db"><code class="language-python">return [["u01", 100], ["u02", 200]]
@@ -1307,8 +1307,8 @@ Handling:   replace / append / prepend / silent
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-a9b7a22b573b" class="outline-3">
-<h3 id="section-a9b7a22b573b"><span class="section-number-3">9.4.</span> silent / none / discard：都不写结果，但语义不同</h3>
+<div id="outline-container-section-951e68b3c217" class="outline-3">
+<h3 id="section-951e68b3c217"><span class="section-number-3">9.4.</span> <span class="museum-heading-level-2">silent / none / discard：都不写结果，但语义不同</span></h3>
 <div class="outline-text-3" id="text-9-4">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-3b1445f8e1b4"><code class="language-python">print("this runs but is not inserted")
@@ -1320,8 +1320,8 @@ Handling:   replace / append / prepend / silent
 </p>
 </div>
 </div>
-<div id="outline-container-section-884c53dfa32b" class="outline-3">
-<h3 id="section-884c53dfa32b"><span class="section-number-3">9.5.</span> append：只在你真的需要历史记录时用</h3>
+<div id="outline-container-section-4e156afbf71a" class="outline-3">
+<h3 id="section-4e156afbf71a"><span class="section-number-3">9.5.</span> <span class="museum-heading-level-2">append：只在你真的需要历史记录时用</span></h3>
 <div class="outline-text-3" id="text-9-5">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-8486552c2562"><code class="language-python">print("one-run")
@@ -1376,6 +1376,7 @@ one-run
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -1475,10 +1476,10 @@ one-run
 
 <script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
-<script defer src="../../../resources/org-museum-org-view.js?v=83fab307c0d4"></script>
+<script defer src="../../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
 <script defer src="../../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
 <script defer src="../../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
 
-<script defer src="../../../resources/org-museum-article.js?v=052370387dd2"></script>
+<script defer src="../../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
 </body>
 </html>

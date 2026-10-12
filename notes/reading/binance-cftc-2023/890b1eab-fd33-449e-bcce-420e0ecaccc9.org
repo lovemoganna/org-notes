@@ -1,0 +1,22 @@
+#+TITLE: 来源：CFTC 2023-12-18 Binance 法院命令公告
+#+WIKI_ID: 890b1eab-fd33-449e-bcce-420e0ecaccc9
+#+CATEGORY: 监管司法进展
+#+FILETAGS: :crypto:risk:cftc:court:source:
+#+DATE: 2026-10-12
+#+SOURCE: CFTC，2023-12-18，Release 8837-23，https://www.cftc.gov/PressRoom/PressReleases/8837-23
+#+INGEST_ID: c1ff903d-677a-4bce-9fc3-6aaee10f03e7
+#+WIKI_STATUS: published
+
+* 来源与定位
+发布者：美国商品期货交易委员会（CFTC）。原文：[[https://www.cftc.gov/PressRoom/PressReleases/8837-23][Release 8837-23]]；读取日：2026-10-12。
+定位：公告首段、Case Background 中有关美国客户及 prime broker sub-accounts 的段落。本页根据官方公告记录法院命令，不声称独立阅读了完整裁判文书。
+
+* 后续程序事实
+CFTC 于 2023-12-18 公布，美国联邦法院已经批准相关和解及永久禁令。按 CFTC 公告，法院认定 Zhao 和 Binance 违反《商品交易法》及 CFTC 规则。公告称 Binance 曾招揽美国客户，部分 prime broker 子账户不受 Binance KYC 流程约束，并使美国客户直接参与该平台的衍生品交易。
+公告列出的金额包括 Binance 13.5 亿美元非法获益返还和 13.5 亿美元民事罚款，Zhao 另有 1.5 亿美元民事罚款；这些项目不能与 DOJ、FinCEN、OFAC 处罚未经核实直接相加。
+
+* 证据边界
+这是后续司法裁决的官方机关公告，证据效力高于当年尚未裁定的诉讼指控或企业单方声明，但不代表 2023-03-27 每一个起诉细节都已分别由法院认定，也不能用来评价 2026 年的当前控制运行情况。
+
+* 关联
+[[wiki:3b2c0e11-cd75-4e23-a278-693b295a6a64][2023-03-27 CFTC 起诉主张]]；[[wiki:db01ed37-977e-4591-8b46-357112e1b05d][2023-03-27 Binance 公司回应]]；[[wiki:7e542dd5-3941-458b-9690-623efd86c2ca][争议与裁决综合案例]]。
