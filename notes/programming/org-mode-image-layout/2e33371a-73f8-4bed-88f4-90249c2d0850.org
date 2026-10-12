@@ -40,6 +40,76 @@
 
 以上是 Org Museum 当前发布器使用过的表格写法。其他导出器可能采用不同的 HTML 结构或 CSS，不能保证直接照搬即生效。特别注意：在本站的导出流程中，给 `:style` 值额外加引号曾造成生成的 HTML 样式值包含引号；因此此例不额外加引号。
 
+* 如何添加附件：本地管理与网站发布
+同一份 Org 笔记可能在 Emacs 本地使用，也可能导出到 Org Museum。两种方式的附件路径不同：本地优先用 `org-attach` 管理文件；公开发布优先用仓库内的相对路径和 `file:` 链接。
+
+** Emacs 本地：org-attach
+将光标移到目标 Org 标题，按 `C-c C-a` 打开附件菜单。常用操作：
+
+| 按键 | 操作 |
+|------+------|
+| `C-c C-a c` | 复制文件到该标题的附件目录 |
+| `C-c C-a m` | 将文件移动到附件目录 |
+| `C-c C-a o` | 打开附件 |
+| `C-c C-a f` | 打开附件目录 |
+
+附件与标题关联。使用基于 `ID` 的附件管理时，可按以下方式引用：
+
+#+begin_example
+* 项目资料
+:PROPERTIES:
+:ID: 12345678-1234-1234-1234-123456789abc
+:END:
+
+[[attachment:report.pdf][查看报告]]
+[[attachment:screenshot.png]]
+#+end_example
+
+`org-attach` 的实际存储目录可配置。添加附件后应检查文件确实存在，并确认 `attachment:` 链接可在当前 Emacs 配置下打开。不能假设这类本地链接会被网站发布器自动打包。
+
+** 普通 Org 文件：相对路径
+如果自行维护图片或 PDF 目录，可以直接使用相对路径：
+
+#+begin_example
+#+ATTR_HTML: :width 240px
+[[file:images/diagram.png]]
+
+[[file:attachments/report.pdf][查看 PDF 报告]]
+#+end_example
+
+图片链接可在 HTML 中显示为图片，PDF 等文件通常显示为可点击链接；具体结果取决于导出器。Org 文件只保存路径引用，不包含附件的二进制数据。
+
+** Org Museum：note-assets 目录
+当前公开仓库的源笔记采用 `notes/<kind>/<topic>/<id>.org`，附件统一放在 `note-assets/<同一 id>/`。以三级目录中的 Org 文件为例：
+
+#+begin_example
+notes/
+  programming/
+    my-topic/
+      <id>.org
+note-assets/
+  <id>/
+    diagram.png
+    report.pdf
+#+end_example
+
+在 `<id>.org` 中引用：
+
+#+begin_example
+#+ATTR_HTML: :width 240px
+[[file:../../../note-assets/<id>/diagram.png]]
+
+[[file:../../../note-assets/<id>/report.pdf][查看 PDF 报告]]
+#+end_example
+
+`../../../` 适用于上述目录层级；移动笔记后要重新核对相对路径。该仓库限制附件位于 `notes/` 或 `note-assets/` 内，附件格式和单文件大小须符合发布契约，当前单文件上限为 20 MiB。不要将本地绝对路径或未随仓库提交的 `org-attach` 文件直接用于公开网页。
+
+** 附件发布验收
+1. 在源仓库中确认 Org 文件和每个附件都已提交，文件名大小写与链接一致。
+2. 检查图片实际显示、缩略图尺寸、PDF 链接，以及移动端是否溢出。
+3. 核对导出的 HTML 与最终发布包：资源路径有效，不只是本机预览正常。
+4. 部署后打开线上网页，确认图片和附件能访问，并核对版本属于此次提交。
+
 * 怎么证明修改真正生效
 1. 检查 `#+ATTR_HTML:` 是否紧贴需要控制的对象，不能误把表格属性当成图片属性。
 2. 导出 HTML，核对生成的 `img` 或 `table` 属性以及浏览器中的实际展示尺寸。
