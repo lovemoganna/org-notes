@@ -1,0 +1,40 @@
+name: Isolated two-type Note Reforge publisher regression
+on:
+  push:
+    branches: [test/note-reforge-reuse-two-types-20261011]
+permissions:
+  contents: read
+jobs:
+  build-and-fidelity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: lovemoganna/org-museum.el
+          ref: 10d90d911410ed207095faf047f40d823d0cb4bc
+          path: _publisher
+          persist-credentials: false
+      - uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
+        with:
+          version: '30.2'
+      - name: Verify canonical source, fidelity, and real publisher
+        env:
+          LANG: C.UTF-8
+        run: |
+          python3 tests/note-reforge-two-types/verify.py
+          python3 _publisher/tools/museum_pipeline.py validate --root .
+          python3 _publisher/tools/museum_pipeline.py build --root . --engine _publisher --output _site
+          python3 tests/note-reforge-two-types/check_render.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: note-reforge-two-types-emacs-render
+          path: |
+            _site/pages/collected/knowledge/project-operations/6e9c2b10-7e84-459e-a5f1-d98019ed0a33.html
+            _site/pages/collected/knowledge/thinking-reconstruction/a43396bc-3822-4d8d-b0a0-87b637182dad.html
+            _site/museum-release.json
+          retention-days: 7
