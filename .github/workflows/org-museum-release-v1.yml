@@ -1,0 +1,63 @@
+name: Org Museum Release V1 · PR Review
+on:
+  pull_request:
+    paths:
+      - 'notes/**'
+      - 'note-assets/**'
+      - 'tools/org_museum_release_v1.py'
+      - '.github/workflows/org-museum-release-v1.yml'
+  push:
+    branches: [test/org-museum-release-v1-20261012]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Checkout fixed Org Museum publisher
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          repository: lovemoganna/org-museum.el
+          ref: 10d90d911410ed207095faf047f40d823d0cb4bc
+          path: _publisher
+          persist-credentials: false
+      - name: Install Emacs 30.2
+        uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
+        with:
+          version: '30.2'
+      - name: Stage five real-source smoke fixtures (isolated branch only)
+        if: github.ref == 'refs/heads/test/org-museum-release-v1-20261012'
+        run: python3 tools/org_museum_release_v1.py fixtures
+      - name: Validate and render with the production publisher
+        env:
+          LANG: C.UTF-8
+        run: |
+          python3 _publisher/tools/museum_pipeline.py validate --root .
+          python3 _publisher/tools/museum_pipeline.py build --root . --engine _publisher --output _site
+      - name: Make single-file HTML review and machine-readable audit
+        shell: bash
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+        run: |
+          set -euo pipefail
+          if [ -n "${PR_BASE}" ]; then BASE="$PR_BASE"; else BASE="$(git rev-parse HEAD^)"; fi
+          if [ -f _review/fixtures.json ]; then
+            python3 tools/org_museum_release_v1.py audit --base "$BASE" --fixtures _review/fixtures.json --site _site
+          else
+            python3 tools/org_museum_release_v1.py audit --base "$BASE" --site _site
+          fi
+      - name: Upload PR review report (never deploy)
+        uses: actions/upload-artifact@v4
+        with:
+          name: org-museum-release-v1-review
+          path: |
+            _review/review.html
+            _review/audit.json
+            _review/fixtures.json
+          retention-days: 14

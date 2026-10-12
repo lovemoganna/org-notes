@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "sourceRepository": "lovemoganna/Prompts",
+  "sourceCommit": "0fdfdde53854523a9bd8704a1ac2c2c785702072",
+  "testKind": "real-source fidelity/render fixtures; NOT AI-reforged output or sketchnote result",
+  "cases": [
+    {
+      "id": "T01",
+      "kind": "基础知识",
+      "slug": "prompt-basics",
+      "title": "提示词基础",
+      "path": "Major/1.什么是提示词.md",
+      "sha": "1c9ed5231580eb25d96e75da70ed5981dc5a877c",
+      "question": "提示词为什么需要明确指令、上下文、输入与预期输出？"
+    },
+    {
+      "id": "T02",
+      "kind": "实践教程",
+      "slug": "prompt-practices",
+      "title": "提示词实践",
+      "path": "Major/3.提示实践.md",
+      "sha": "abdb5480bacec8a42cea0cbdbdef6c636e484ae9",
+      "question": "怎样检查提示的清晰性与上下文是否充分？"
+    },
+    {
+      "id": "T03",
+      "kind": "工具比较",
+      "slug": "prompt-tools",
+      "title": "提示词工具",
+      "path": "Major/4.提示工具.md",
+      "sha": "d9a479eb1f97ea7f195a515067971a496ca8496a",
+      "question": "有哪些工具类别，选择时如何确认当前可用性？"
+    },
+    {
+      "id": "T04",
+      "kind": "项目经验",
+      "slug": "stakeholder-conflicts",
+      "title": "相关方冲突预判",
+      "path": "Original/Work/Project/5-冲突预判.md",
+      "sha": "01f58b5d93f03387979a257792b068fb018ce17a",
+      "question": "冲突出现前应如何识别相关方利益与决策权？"
+    },
+    {
+      "id": "T05",
+      "kind": "提示模板",
+      "slug": "prompt-quality-check",
+      "title": "提示词质量检查",
+      "path": "Original/Meta/Prompt_Word_Quality_Inspection_Tools.md",
+      "sha": "81aad0de95a86ab0c9983dbd9ae97dc10c30fd36",
+      "question": "怎样保证可复制模板和约束条件完整保留？"
+    }
+  ]
+}
