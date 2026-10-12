@@ -1,0 +1,18 @@
+#+TITLE: Org Wiki 维护日志
+#+WIKI_ID: 71e02e9d-80ff-4a75-a7aa-092532c14fd0
+#+CATEGORY: 知识库维护
+#+FILETAGS: :wiki:maintenance:log:
+#+DATE: 2026-10-12
+#+SOURCE: GitHub lovemoganna/org-notes 基线 9344ce375ca5e274dff68254f79da50453314e29；本次 llm-wiki-maintainer 维护任务的变更记录
+#+INGEST_ID: 679a273b-0dcc-4a55-a00b-40286a1bbfac
+#+WIKI_STATUS: published
+
+* 2026-10-12 SQL 测试知识关联
+:PROPERTIES:
+:CUSTOM_ID: ingest-2026-10-12-sql-testing
+:END:
+事件：llm-wiki-maintainer 初次真实增量整合。基线 Commit：9344ce375ca5e274dff68254f79da50453314e29。
+对象：[[wiki:b31e6f82-9a47-4c05-8d2b-71f6a93e5c20][sql-business-thinking 测试任务]]、[[wiki:e1e502b9-f876-47d6-813f-e4d5ea51983a][SQL 与本体约束盲测案例]]。
+动作：保留两个原页面的身份和原有文本；增加互相引用及角色说明；创建 [[wiki:a4b7cf91-5db8-4a2f-90e2-89f3ea14bcd5][知识导航索引]] 和本日志。
+证据：两篇笔记中的任务边界、S01–S13 和 T01–T10 用例。用例是待执行材料，不视为测试通过。
+状态：本事件记录本次源码变更；GitHub Pages 的发布及在线内容需由 Actions 和版本回执另行证明。
