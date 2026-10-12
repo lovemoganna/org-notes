@@ -1,0 +1,67 @@
+[
+  {
+    "id": "T01",
+    "title": "提示词基础",
+    "assetPath": "note-assets/76f27ba1-133a-52fd-8338-34fa30a10f86/sketchnote-header.webp",
+    "modules": [
+      "指令|做什么",
+      "上下文|背景与读者",
+      "输入数据|来源与材料",
+      "输出指标|质量与格式"
+    ],
+    "caveat": "四要素不代替事实核查",
+    "accent": "#087F82"
+  },
+  {
+    "id": "T02",
+    "title": "提示词质检",
+    "assetPath": "note-assets/50b6dade-5b27-59d6-a562-51184ce8acfa/sketchnote-header.webp",
+    "modules": [
+      "清晰性|30%",
+      "上下文|25%",
+      "精确性|25%",
+      "角色扮演|20%"
+    ],
+    "caveat": "原文的 3–5 次试运行是建议，并非本轮实测",
+    "accent": "#B65A4C"
+  },
+  {
+    "id": "T03",
+    "title": "提示词工具选型",
+    "assetPath": "note-assets/f010c928-bf93-53d5-b640-159a47821a8a/sketchnote-header.webp",
+    "modules": [
+      "明确需求|先识别任务",
+      "比较基线|不用工具时",
+      "服务核实|当前功能",
+      "数据边界|权限与成本"
+    ],
+    "caveat": "历史产品描述不代表当前仍可用",
+    "accent": "#526B9C"
+  },
+  {
+    "id": "T04",
+    "title": "相关方冲突预判",
+    "assetPath": "note-assets/6981c46e-0b74-55f1-9282-c139e75356bb/sketchnote-header.webp",
+    "modules": [
+      "目标差异|优先级",
+      "权责边界|谁批准",
+      "时程资源|找冲突",
+      "登记复核|留证据"
+    ],
+    "caveat": "deepfunk、4 周时差及 C001/C002 是模拟案例",
+    "accent": "#9B6649"
+  },
+  {
+    "id": "T05",
+    "title": "提示词效能评审",
+    "assetPath": "note-assets/5ba3ad85-46b3-57c0-a9d2-ef7dbfeacf1a/sketchnote-header.webp",
+    "modules": [
+      "任务解读|输入输出",
+      "目标定位|场景",
+      "结构审查|约束",
+      "效果验证|执行证据"
+    ],
+    "caveat": "模型自评分不等于独立测评",
+    "accent": "#417C70"
+  }
+]

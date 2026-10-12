@@ -1,0 +1,139 @@
+#+TITLE: 提示词基础
+#+WIKI_ID: 76f27ba1-133a-52fd-8338-34fa30a10f86
+#+CATEGORY: 知识炼化
+#+FILETAGS: :note-reforge:prompt:review:
+#+DATE: 2026-10-12
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md
+#+INGEST_ID: 76f27ba1-133a-52fd-8338-34fa30a10f86
+#+WIKI_STATUS: draft
+
+#+CAPTION: 本篇知识结构手绘风示意；原始事实与示例以正文及冻结原文为准
+#+ATTR_HTML: :width 100%
+[[file:../../../note-assets/76f27ba1-133a-52fd-8338-34fa30a10f86/sketchnote-header.webp]]
+
+* 四项输入
+| 要素 | 决策问题 | 失败信号 |
+|------+----------+----------|
+| 指令 | 做什么动作？ | 只有主题没有任务 |
+| 上下文 | 面向谁和什么场景？ | 视角含糊 |
+| 输入数据 | 依赖什么资料？ | 容易自行补全事实 |
+| 输出指标 | 质量如何验收？ | 只检查格式不检查准确性 |
+
+原文将输出指标同时用于*结果的格式与质量要求*，而不仅是呈现样式。明确四要素有助于减少歧义，但并不保证模型生成事实准确。
+
+* 下一次怎么用
+1. 写明任务、受众、来源和不能越过的事实边界。
+2. 固定一份输入，比较旧提示和新版在完成目标、来源引用及漏项方面的差别。〔补〕
+3. 只修复真正失败的约束，把测试条件和输出一起保存。〔补〕
+
+* 原文 XML 优化器
+以下是原作者提供的 =prompt_optimizer= 版本 2.0 模板，逐字保留；未在本轮安装、运行或验证其效果。
+#+begin_src xml
+<!-- 提示词优化助手模板定义 -->
+<template id="prompt_optimizer">
+  <header>
+    <title>提示词优化助手</title>
+    <version>2.0</version>
+    <description>用于分析和优化现有提示词，提高AI响应质量</description>
+    
+    <!-- 简化调用格式说明 -->
+    <usage>
+      复制以下简化格式并填写相应值即可调用此模板:
+      
+      @prompt_optimizer
+      用户级别: [初学者/中级用户/专业用户]
+      任务类型: [您的任务]
+      当前问题: [现有问题]
+      原始提示: [您的提示词]
+      期望输出: [理想输出描述]
+      优化重点: [可选:简洁性/创造性/专业性/教学性]
+      建议数量: [可选:数字]
+      模型目标: [可选:通用/Claude专用/GPT专用]
+      自定义要求: [可选:额外要求]
+    </usage>
+  </header>
+  
+  <instructions>
+    作为提示词优化顾问，我将帮助优化原始提示，使其产生更精确、更符合期望的AI响应。
+  </instructions>
+  
+  <context>
+    <user_level>{user_level}</user_level>
+    <task_type>{task_type}</task_type>
+    <current_issues>{current_issues}</current_issues>
+  </context>
+  
+  <input>
+    <original_prompt>{original_prompt}</original_prompt>
+    <desired_output>{desired_output}</desired_output>
+  </input>
+  
+  <output_requirements>
+    <requirement>诊断原始提示的3个主要问题</requirement>
+    <requirement>提供优化后的提示词，并明确标示出修改</requirement>
+    <requirement>解释每项改动的目的和预期效果</requirement>
+    <requirement>提供{suggestion_count=3}个进一步优化的方向建议</requirement>
+    <custom_requirement>{custom_requirement}</custom_requirement>
+  </output_requirements>
+  
+  <additional_preferences>
+    <optimization_focus>{optimization_focus=专业性}</optimization_focus>
+    <model_target>{model_target=通用}</model_target>
+  </additional_preferences>
+</template>
+
+@prompt_optimizer
+用户级别: 专业用户
+任务类型: 数据科学代码生成
+当前问题: 代码不够优化，缺乏异常处理，注释不清晰，无法处理大规模数据集
+原始提示: 写Python代码分析COVID-19数据集，找出感染率与人口密度的相关性，并生成可视化图表。
+
+期望输出: 一段高效、可扩展的Python代码，包含：
+1. 完整的数据预处理流程
+2. 健壮的异常处理机制
+3. 多种统计分析方法对比
+4. 专业水准的数据可视化
+5. 详细的代码注释和文档字符串
+6. 针对大数据集的性能优化策略
+
+优化重点: 专业性
+建议数量: 5
+模型目标: Claude专用
+自定义要求: 请提供一个评估矩阵，用于比较优化前后提示词在不同维度上的表现差异。同时，添加一个简短的"提示词模板"，方便我未来为类似数据科学任务创建提示词。
+
+---
+
+@prompt_optimizer
+用户级别: 中级用户
+任务类型: 创意小说写作
+当前问题: 角色发展不足，对话平淡，情节缺乏张力
+原始提示: 写一个科幻短篇故事，关于一个宇航员在太空站发现了一个神秘物体。
+
+期望输出: 一个情节紧凑、角色丰满的科幻短篇，包含引人入胜的开场，令人惊讶的转折，以及发人深省的结局。
+
+优化重点: 创造性
+建议数量: 4
+模型目标: 通用
+自定义要求: 包含一个"角色设计模板"部分，帮助我在后续提示中更好地构建复杂角色。
+
+---
+
+@prompt_optimizer
+用户级别: 初学者
+任务类型: 教育内容生成
+当前问题: 解释过于复杂，缺乏实例，不符合目标年龄段认知水平
+原始提示: 解释光合作用原理给小学生听。
+
+期望输出: 一个生动、形象且科学准确的光合作用解释，适合8-10岁儿童理解，包含简单类比、互动问题和有趣事实。
+
+优化重点: 教学性
+建议数量: 3
+模型目标: GPT专用
+自定义要求: 提供一个"知识阶梯"结构，展示如何将复杂概念分解为递进式的学习步骤。另外，标注出哪些部分是基础概念，哪些是拓展内容，以便我灵活调整教学深度。
+#+end_src
+
+* 选择边界
+原文提示需注意四类盲区：迭代过程、模型差异、领域差异、伦理风险。额外增加角色设定无法代替验证事实。
+
+* 来源
+[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md][冻结原文]]。建议性新增内容以〔补〕标注。
