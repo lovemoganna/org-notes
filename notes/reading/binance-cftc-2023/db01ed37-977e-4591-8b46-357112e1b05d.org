@@ -1,0 +1,21 @@
+#+TITLE: 来源：Binance CEO 2023-03-27 对 CFTC 指控的回应
+#+WIKI_ID: db01ed37-977e-4591-8b46-357112e1b05d
+#+CATEGORY: 企业一手声明
+#+FILETAGS: :crypto:risk:binance:source:
+#+DATE: 2026-10-12
+#+SOURCE: Binance Blog，CZ，2023-03-27，https://www.binance.com/en/blog/from-our-ceo/2408916493005890282
+#+INGEST_ID: c1ff903d-677a-4bce-9fc3-6aaee10f03e7
+#+WIKI_STATUS: published
+
+* 来源与定位
+发布者：Binance CEO Changpeng Zhao。原文：[[https://www.binance.com/en/blog/from-our-ceo/2408916493005890282][CZ’s Response to the CFTC Complaint]]；读取日：2026-10-12。原始网页保留在发布方，本页不声称保存原文副本。
+定位：文章首段、Technology for Compliance & US Blocks 小节。
+
+* 来源主张
+Binance CEO 表示对 CFTC 指控中多项问题的描述存在异议，强调 Binance.com 有强制 KYC 计划，并使用国籍、IP、VPN 端点、运营商、设备指纹和支付等多种信号识别、限制美国用户。
+
+* 证据状态与限定
+这是一份企业自身立场，不是第三方独立确认的控制有效性报告。“实施阻断措施”不等于“所有美国客户都被成功阻断”；不能将其改写为绝对零违规。其后续法律裁决另见 [[wiki:890b1eab-fd33-449e-bcce-420e0ecaccc9][CFTC 法院命令公告]]。
+
+* 与相反来源的关系
+CFTC 2023-03-27 的诉讼公告指称，美国用户仍能参与交易且控制曾遭规避。参见 [[wiki:3b2c0e11-cd75-4e23-a278-693b295a6a64][同期 CFTC 监管指控]] 和 [[wiki:7e542dd5-3941-458b-9690-623efd86c2ca][综合案例与证据裁决]]。保留双方原始表述，禁止以企业声明否定监管起诉这一事实。
