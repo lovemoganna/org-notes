@@ -1,0 +1,1220 @@
+#+TITLE: DuckDB SQL：从 Excel 到 Relation（全景教程）
+#+WIKI_ID: 1a5d49f3-4ac5-49cc-a1cd-48c014530351
+#+CATEGORY: DuckDB / SQL
+#+FILETAGS: :duckdb:sql:excel:relation:
+#+DATE: 2026-10-12
+#+SOURCE: 用户提供的《DuckDB SQL 语法与认知迁移全景看板》，原始出处未提供
+#+INGEST_ID: 5f874c69-a105-4e6b-a5d9-537e56720d2e
+#+WIKI_STATUS: published
+
+本教程以 Excel 用户任务为主线，覆盖 13 类 Query 场景、50 项查询语法、9 项 Connection 能力和 8 项 Catalog 能力。67 段 SQL 只调整缩进、空格及换行，未修改查询标识符、函数或字面量。
+
+先判断目标输出粒度，再观察输入 Relation、SQL 运算与输出 Relation。示例没有附带未经运行确认的查询结果。
+
+* 阅读与执行约束
+先学习 SELECT、FROM、WHERE、GROUP BY，再学习 JOIN、窗口、集合运算和对象生命周期。
+read_csv/read_parquet 示例依赖本地 fixtures 文件。CREATE/ATTACH 示例可能修改连接状态；在独立会话中练习。跨连接持久化实验需要磁盘数据库。
+
+
+* 查看/选择数据
+
+** 查看/选择数据 · 浏览整表数据网格
+DuckDB 概念：SELECT Statement (全量查询语句)。SQL 入口：SELECT ...。
+
+发起完整查询并返回结果 Relation；对应在 Excel 中打开工作表直接查看全部网格数据。
+
+Relation：输入源 Relation → 全量扫描输出查询结果 Relation
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1, 'Alice', 'Sales', 5000),
+   (2, 'Bob', 'Tech', 7000)
+) t(id, name, dept, salary);
+#+end_src
+
+** 查看/选择数据 · 选取特定几列（隐藏无关列）
+DuckDB 概念：Projection / SELECT Clause (列级投影)。SQL 入口：SELECT col1, col2 FROM ...。
+
+对应在 Excel 中隐藏不需要的列或仅复制目标列；SQL 在 SELECT 子句按需指定输出列表达式。
+
+Relation：N 列输入 Relation → M 列目标投影 Relation（行数不变，列宽缩减或表达式新增）
+
+#+begin_src sql :exports code
+SELECT name, salary
+FROM (
+  VALUES (1, 'Alice', 5000),
+   (2, 'Bob', 7000)
+) t(id, name, salary);
+#+end_src
+
+** 查看/选择数据 · 手工录入静态小表格
+DuckDB 概念：VALUES Clause (固定行构造器)。SQL 入口：VALUES (...), (...)。
+
+对应在 Excel 空白网格中直接手工录入 3~5 行数据；VALUES 可独立作为内存临时表或作为测试数据输入。
+
+Relation：无输入数据源 → 生成 N 行 M 列内存临时 Relation 数据流
+
+#+begin_src sql :exports code
+VALUES (1, 'Alice', 'Sales'), (2, 'Bob', 'Tech'), (3, 'Charlie', 'Sales');
+#+end_src
+
+** 查看/选择数据 · 指定数据源（切换引用表）
+DuckDB 概念：FROM Clause (数据源子句)。SQL 入口：FROM relation。
+
+对应在 Excel 公式中指定具体引用的工作表或数据透视表源；为当前 Query 管道提供底层关系输入流。
+
+Relation：物理表/视图/宏/文件 → 进入当前查询执行引擎的输入 Relation
+
+#+begin_src sql :exports code
+SELECT x
+FROM (
+  VALUES (1),
+   (2)
+) AS t(x);
+#+end_src
+
+* 关系命名与别名
+
+** 关系命名与别名 · 简化引用名称（区域简写）
+DuckDB 概念：Table Alias / AS alias (关系别名)。SQL 入口：FROM (...) AS t(col)。
+
+对应在 Excel 中给长引用区域或公式设置名称框简写；在当前查询内为复杂数据源或字段快速绑定局部短别名。
+
+Relation：匿名/复杂嵌套 Relation → 赋予当前 Query 局部符号绑定的命名 Relation
+
+#+begin_src sql :exports code
+SELECT t.name
+FROM (
+  VALUES ('Alice'),
+   ('Bob')
+) AS t(name);
+#+end_src
+
+* 筛选与行过滤
+
+** 筛选与行过滤 · 基础行过滤（多条件勾选）
+DuckDB 概念：WHERE Clause (行级前置过滤)。SQL 入口：WHERE condition。
+
+对应在 Excel 自动筛选中勾选条件或设定区间；在执行任何聚合汇总前剔除不符合要求的底层明细行。
+
+Relation：N 行输入 Relation → ≤N 行过滤结果 Relation（列结构不变，按行条件快速收敛）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1, 'Alice', 5000),
+   (2, 'Bob', 7000)
+) t(id, name, salary)
+WHERE salary >= 6000;
+#+end_src
+
+** 筛选与行过滤 · 汇总指标过滤（透视表值筛选）
+DuckDB 概念：HAVING Clause (聚合组后置过滤)。SQL 入口：HAVING aggregate_condition。
+
+对应在 Excel 透视表中对汇总结果进行“值筛选”（如部门总薪资 > 8000）；必须且只能针对聚合后的组结果做过滤。
+
+Relation：G 组聚合 Relation → ≤G 组满足条件的聚合 Relation（仅保留符合组指标的记录）
+
+#+begin_src sql :exports code
+SELECT dept, SUM(salary) AS total
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept
+HAVING SUM(salary) > 8000;
+#+end_src
+
+** 筛选与行过滤 · 排名位次筛选（每组前 N 名）
+DuckDB 概念：QUALIFY Clause (窗口专用过滤)。SQL 入口：QUALIFY window_condition。
+
+DuckDB 标志性极简语法！对应在 Excel 组内排名后勾选“前 1 名”；无需编写多层嵌套子查询，直接依窗口函数过滤。
+
+Relation：窗口计算 Relation → 依窗口排名/序号过滤的子集 Relation（极大消除嵌套开销）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES ('Alice', 'Sales', 5000),
+   ('Charlie', 'Sales', 6000),
+   ('Bob', 'Tech', 7000)
+) t(name, dept, salary)
+QUALIFY ROW_NUMBER() OVER (PARTITION BY dept
+  ORDER BY salary DESC) = 1;
+#+end_src
+
+* 排序与取前 N 行
+
+** 排序与取前 N 行 · 确定性展示次序（升序/降序）
+DuckDB 概念：ORDER BY Clause (排序子句)。SQL 入口：ORDER BY col [ASC|DESC]。
+
+对应在 Excel“数据 - 排序”并设置主要与次要关键字；改变输出行的展示顺序，不改变行数与列结构。
+
+Relation：无序输入 Relation → 具有确定性物理/逻辑展现次序的有序 Relation
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (2, 'Bob'),
+   (1, 'Alice')
+) t(id, name)
+ORDER BY id ASC;
+#+end_src
+
+** 排序与取前 N 行 · 截取最高/头部数据（Top N）
+DuckDB 概念：LIMIT Clause (行数限制子句)。SQL 入口：LIMIT n [OFFSET m]。
+
+对应在 Excel 中筛选“前 10 项”或手动截取头部数据行；截断数据流，仅输出指定数量的前 N 条记录。
+
+Relation：N 行 Relation → min(N, n) 行截取 Relation（与 ORDER BY 结合极速生成榜单）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000),
+   ('Charlie', 6000)
+) t(name, salary)
+ORDER BY salary DESC
+LIMIT 2;
+#+end_src
+
+* 消除重复
+
+** 消除重复 · 提取唯一不重复清单
+DuckDB 概念：DISTINCT Clause (结果集去重)。SQL 入口：SELECT DISTINCT col1, ...。
+
+对应在 Excel 中点击“删除重复项”或动态数组公式 =UNIQUE()；剔除完全相同的冗余行，仅保留唯一行组合。
+
+Relation：含冗余行 Relation → 行组合完全唯一的紧凑 Relation（基于选定列收敛基数）
+
+#+begin_src sql :exports code
+SELECT DISTINCT dept
+FROM (
+  VALUES ('Sales'),
+   ('Tech'),
+   ('Sales'),
+   ('Tech')
+) t(dept);
+#+end_src
+
+* 分类汇总与聚合
+
+** 分类汇总与聚合 · 按维度折叠（透视表行标签）
+DuckDB 概念：GROUP BY Clause (分组子句)。SQL 入口：GROUP BY expr。
+
+对应在 Excel 透视表中将维度拖入“行区域”；将输入 Relation 依指定字段折叠为多个相互独立的聚合分组。
+
+Relation：N 行明细记录 Relation → G 个独立分组的中间聚合态 Relation
+
+#+begin_src sql :exports code
+SELECT dept
+FROM (
+  VALUES ('Sales'),
+   ('Sales'),
+   ('Tech')
+) t(dept)
+GROUP BY dept;
+#+end_src
+
+** 分类汇总与聚合 · 统计行数/非空计数
+DuckDB 概念：COUNT Aggregate Function (计数聚合函数)。SQL 入口：COUNT(*) / COUNT(col)。
+
+对应在 Excel 中使用 =COUNTA() 公式或透视表计数字段；统计组内总行数或指定表达式非 NULL 值数量。
+
+Relation：多行/组内多值输入 → 单个整数统计标量（将多行明细折叠压缩为单个汇总数值）
+
+#+begin_src sql :exports code
+SELECT dept, COUNT(*) AS head_count
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+#+end_src
+
+** 分类汇总与聚合 · 数值累加求和
+DuckDB 概念：SUM Aggregate Function (求和聚合函数)。SQL 入口：SUM(expr)。
+
+对应在 Excel 中使用 =SUM() 公式或透视表求和；对全表或分组内的数值列进行累加折叠计算。
+
+Relation：多行数值序列 → 单一求和标量（配合 GROUP BY 产生组级总和列）
+
+#+begin_src sql :exports code
+SELECT dept, SUM(salary) AS total_salary
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+#+end_src
+
+** 分类汇总与聚合 · 计算算术平均值
+DuckDB 概念：AVG Aggregate Function (均值聚合函数)。SQL 入口：AVG(expr)。
+
+对应在 Excel 中使用 =AVERAGE() 公式；计算指定列非空数值的平均水平，自动忽略 NULL 空值。
+
+Relation：多行数值序列 → 单一浮点平均值标量（折叠多行样本为集中趋势指标）
+
+#+begin_src sql :exports code
+SELECT dept, AVG(salary) AS avg_salary
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+#+end_src
+
+** 分类汇总与聚合 · 提取组内/全表极小值
+DuckDB 概念：MIN Aggregate Function (极小值聚合函数)。SQL 入口：MIN(expr)。
+
+对应在 Excel 中使用 =MIN() 公式；扫描组内或整表记录，返回对应字段数值、日期或文本的最小值。
+
+Relation：多行字段样本 → 对应数据类型的单个极小值标量
+
+#+begin_src sql :exports code
+SELECT dept, MIN(salary) AS min_sal
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+#+end_src
+
+** 分类汇总与聚合 · 提取组内/全表极大值
+DuckDB 概念：MAX Aggregate Function (极大值聚合函数)。SQL 入口：MAX(expr)。
+
+对应在 Excel 中使用 =MAX() 公式；扫描组内或整表记录，返回对应字段数值、日期或文本的最大值。
+
+Relation：多行字段样本 → 对应数据类型的单个极大值标量
+
+#+begin_src sql :exports code
+SELECT dept, MAX(salary) AS max_sal
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+#+end_src
+
+* 组内排名与时序分析
+
+** 组内排名与时序分析 · 声明窗口分析上下文
+DuckDB 概念：OVER Clause (窗口子句)。SQL 入口：function() OVER (...)。
+
+对应在 Excel 中以整列公式锁定特定范围上下文；为聚合或分析函数注入分区、排序与滑动窗口范围。
+
+Relation：明细 Relation → 附加计算上下文属性（行数保持 1:1，绝不折叠底层数据行）
+
+#+begin_src sql :exports code
+SELECT name, salary, SUM(salary) OVER (
+  ORDER BY salary) AS run_sum
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000)
+) t(name, salary);
+#+end_src
+
+** 组内排名与时序分析 · 窗口规则命名与复用
+DuckDB 概念：WINDOW Clause (命名窗口子句)。SQL 入口：WINDOW w AS (...)。
+
+对应在 Excel 中定义命名区域供多个公式复用；在查询末尾集中命名窗口，消除重复冗余的 OVER 定义。
+
+Relation：查询语法修饰 → 为窗口分区排序定义命名别名，执行期零额外开销
+
+#+begin_src sql :exports code
+SELECT name, SUM(salary) OVER w, AVG(salary) OVER w
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000)
+) t(name, salary)
+WINDOW w AS (
+  ORDER BY salary);
+#+end_src
+
+** 组内排名与时序分析 · 连续自然序号（组内流水号）
+DuckDB 概念：ROW_NUMBER Window Function (行号窗口函数)。SQL 入口：ROW_NUMBER() OVER (...)。
+
+对应在 Excel 中按组内行从 1 开始自动填充递增序号；为窗口排序生成严格唯一的连续整数。
+
+Relation：原始 Relation → 新增连续整数序列列（行数严格保持不变，标定绝对物理位次）
+
+#+begin_src sql :exports code
+SELECT name, dept, ROW_NUMBER() OVER (PARTITION BY dept
+  ORDER BY salary DESC) AS seq
+FROM (
+  VALUES ('Alice', 'Sales', 5000),
+   ('Charlie', 'Sales', 6000),
+   ('Bob', 'Tech', 7000)
+) t(name, dept, salary);
+#+end_src
+
+** 组内排名与时序分析 · 业务名次（支持同分跳号）
+DuckDB 概念：RANK Window Function (排名窗口函数)。SQL 入口：RANK() OVER (...)。
+
+完全对应 Excel =RANK.EQ() 公式；同分记录共享相同排名，后续名次自动产生跳号（如 1, 1, 3），维持业务名次公信力。
+
+Relation：原始 Relation → 新增业务名次列（行数保持 1:1，建立严谨的竞争评级）
+
+#+begin_src sql :exports code
+SELECT name, salary, RANK() OVER (
+  ORDER BY salary DESC) AS rank_no
+FROM (
+  VALUES ('Alice', 6000),
+   ('Bob', 7000),
+   ('Charlie', 6000)
+) t(name, salary);
+#+end_src
+
+** 组内排名与时序分析 · 抓取上期数值做增量环比
+DuckDB 概念：LAG Window Function (前行取值窗口函数)。SQL 入口：LAG(col, offset) OVER (...)。
+
+对应在 Excel 单元格中直接引用上一行公式 =C3-C2；依指定业务时序向前回溯抓取指定行数的历史数据。
+
+Relation：原始明细 Relation → 新增时序历史回溯列（首行或越界自动填充 NULL）
+
+#+begin_src sql :exports code
+SELECT name, salary, LAG(salary) OVER (
+  ORDER BY salary) AS prev_sal, salary - LAG(salary) OVER (
+  ORDER BY salary) AS diff
+FROM (
+  VALUES ('Alice', 5000),
+   ('Charlie', 6000),
+   ('Bob', 7000)
+) t(name, salary);
+#+end_src
+
+** 组内排名与时序分析 · 抓取下期数值做前瞻比对
+DuckDB 概念：LEAD Window Function (后行取值窗口函数)。SQL 入口：LEAD(col, offset) OVER (...)。
+
+对应在 Excel 单元格中直接引用下一行公式 =C3-C4；依指定业务时序向后抓取未来行数据，进行预测对齐。
+
+Relation：原始明细 Relation → 新增时序未来前瞻列（尾行或越界自动填充 NULL）
+
+#+begin_src sql :exports code
+SELECT name, salary, LEAD(salary) OVER (
+  ORDER BY salary) AS next_sal
+FROM (
+  VALUES ('Alice', 5000),
+   ('Charlie', 6000),
+   ('Bob', 7000)
+) t(name, salary);
+#+end_src
+
+* 横向关联与匹配 (JOIN)
+
+** 横向关联与匹配 (JOIN) · 仅保留双方完全匹配记录
+DuckDB 概念：INNER JOIN (内连接)。SQL 入口：a INNER JOIN b ON cond。
+
+对应 Power Query 中的“内部联接”；两张数据表仅保留关联键完全吻合的记录，任何单边缺失的孤儿行均直接丢弃。
+
+Relation：两张独立 Relation → 仅保留两侧匹配键交叉项的复合宽表 Relation
+
+#+begin_src sql :exports code
+SELECT l.id, l.name, r.bonus
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) l(id, name)
+INNER JOIN (
+  VALUES (2, 800),
+   (3, 500)
+) r(id, bonus) USING (id);
+#+end_src
+
+** 横向关联与匹配 (JOIN) · 跨表匹配补充属性（查表补列）
+DuckDB 概念：LEFT JOIN (左外连接)。SQL 入口：a LEFT JOIN b ON cond。
+
+完全对应 Excel =XLOOKUP() 或 =VLOOKUP() 匹配补全列；保留主表全部记录，未匹配到的附表属性自动填入 NULL。
+
+Relation：主 Relation (左) + 辅 Relation (右) → 维持主表行数基数且横向扩充新属性列
+
+#+begin_src sql :exports code
+SELECT l.id, l.name, r.bonus
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) l(id, name)
+LEFT JOIN (
+  VALUES (2, 800)
+) r(id, bonus) USING (id);
+#+end_src
+
+** 横向关联与匹配 (JOIN) · 反向对齐（保留右表全量）
+DuckDB 概念：RIGHT JOIN (右外连接)。SQL 入口：a RIGHT JOIN b ON cond。
+
+对应以辅助表/名单库为基准对齐业务明细；与 LEFT JOIN 保留方向相反，左表未对齐记录处自动填补 NULL。
+
+Relation：左 Relation + 右 Relation → 维持右表行数基数且横向补全左表匹配属性
+
+#+begin_src sql :exports code
+SELECT COALESCE(l.id, r.id) AS id, l.name, r.dept
+FROM (
+  VALUES (1, 'Alice')
+) l(id, name)
+RIGHT JOIN (
+  VALUES (1, 'Sales'),
+   (2, 'Tech')
+) r(id, dept) USING (id);
+#+end_src
+
+** 横向关联与匹配 (JOIN) · 双方全景对齐（两表合并差集）
+DuckDB 概念：FULL JOIN (全外连接)。SQL 入口：a FULL JOIN b ON cond。
+
+对应 Power Query 中的“完全外部联接”；合并两表全部记录，任何一侧未对齐时另一侧属性字段均填充 NULL。
+
+Relation：两个输入 Relation → 包含双方全部键值的最全宽表 Relation（不丢弃任何单边记录）
+
+#+begin_src sql :exports code
+SELECT COALESCE(l.id, r.id) AS id, l.name, r.dept
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) l(id, name)
+FULL JOIN (
+  VALUES (2, 'Tech'),
+   (3, 'HR')
+) r(id, dept) USING (id);
+#+end_src
+
+* 纵向追加与集合计算
+
+** 纵向追加与集合计算 · 多表纵向堆叠并全局去重
+DuckDB 概念：UNION (并集去重)。SQL 入口：q1 UNION q2。
+
+对应在 Excel 中复制多张月度表上下粘贴合并并点击“删除重复项”；纵向合并多个查询结果集并剔除完全重复行。
+
+Relation：两个同构 Relation → 纵向合并且全局去重的单一 Relation（行数 ≤ 两表总和）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+UNION
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (3, 'Charlie')
+) u(id, name);
+#+end_src
+
+** 纵向追加与集合计算 · 极速无损堆叠（追加查询）
+DuckDB 概念：UNION ALL (并集保留重复)。SQL 入口：q1 UNION ALL q2。
+
+完全对应 Power Query 中的“追加查询”；原样上下拼接合并多个表格的全部数据行，不执行去重，性能最高。
+
+Relation：两个同构 Relation → 纵向全量追加累加 Relation（行数严格等于两表行数之和）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+UNION ALL
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (3, 'Charlie')
+) u(id, name);
+#+end_src
+
+** 纵向追加与集合计算 · 提取两表共同记录（求交集）
+DuckDB 概念：INTERSECT (交集去重)。SQL 入口：q1 INTERSECT q2。
+
+对应在 Excel 中比对两张名单筛选出两边均有的人员；仅保留同时存在于两个查询结果中的唯一行记录。
+
+Relation：两个同构 Relation → 仅包含双方完全重合行的唯一 Relation（集合语义）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+INTERSECT
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (3, 'Charlie')
+) u(id, name);
+#+end_src
+
+** 纵向追加与集合计算 · 提取共有行且保留频次
+DuckDB 概念：INTERSECT ALL (交集保留重复)。SQL 入口：q1 INTERSECT ALL q2。
+
+对应带频次权重的重合项核对；按多重集 (Bag) 最小出现次数保留交集行，精准反映重复出现的交集基数。
+
+Relation：两个同构 Relation → 按最小重合次数输出共有行的多重集 Relation
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1),
+   (1),
+   (2)
+) t(x)
+INTERSECT ALL
+SELECT *
+FROM (
+  VALUES (1),
+   (1),
+   (1),
+   (3)
+) u(x);
+#+end_src
+
+** 纵向追加与集合计算 · 提取左表独有项（核对差异丢件）
+DuckDB 概念：EXCEPT (差集去重)。SQL 入口：q1 EXCEPT q2。
+
+对应在 Excel 中比对找出“A表有但B表没有”的差异人员清单；从左查询中剔除右查询出现的记录并去重。
+
+Relation：两个同构 Relation → 仅包含左表独有行的唯一 Relation（精准识别单边差异）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob'),
+   (3, 'Charlie')
+) t(id, name)
+EXCEPT
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) u(id, name);
+#+end_src
+
+** 纵向追加与集合计算 · 账目核对（按频次扣减找差）
+DuckDB 概念：EXCEPT ALL (差集保留重复)。SQL 入口：q1 EXCEPT ALL q2。
+
+对应严谨的账目与库存对账（如A表出库2次B表入库1次差1次）；按多重集频次逐一相减，找出未平账条目。
+
+Relation：两个同构 Relation → 按频次差值输出差异行的 Relation（自动化回归与对账利器）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1),
+   (1),
+   (2),
+   (3)
+) t(x)
+EXCEPT ALL
+SELECT *
+FROM (
+  VALUES (1),
+   (2)
+) u(x);
+#+end_src
+
+* 模块化分步与中间结果
+
+** 模块化分步与中间结果 · 声明式公用表表达式入口
+DuckDB 概念：WITH Clause (WITH 子句)。SQL 入口：WITH cte AS (...) SELECT ...。
+
+对应在 Excel 中为多步骤复杂建模划分独立的子流程；作为声明一个或多个命名中间查询的顶层语法入口。
+
+Relation：查询语法前置声明 → 建立后续执行上下文中的具名子查询空间
+
+#+begin_src sql :exports code
+WITH cte(x) AS (
+  VALUES (1),
+   (2)
+)
+SELECT *
+FROM cte
+ORDER BY x;
+#+end_src
+
+** 模块化分步与中间结果 · 命名辅助工作表（链式编排）
+DuckDB 概念：CTE (公用表表达式 / CTE)。SQL 入口：WITH cte_a AS (...), cte_b AS (...) ...。
+
+对应在 Excel 中新建独立的“辅助 Sheet”并命名区域；让多阶段复杂计算自顶向下线性流水线编排，条理清晰。
+
+Relation：命名查询逻辑 → 在当前 Query 生命周期内生成可多次安全引用的中间 Relation
+
+#+begin_src sql :exports code
+WITH high_pay AS (
+  SELECT *
+  FROM (
+    VALUES ('Bob', 'Tech', 7000), ('David', 'Tech', 8000)
+) t(name, dept, salary)
+)
+SELECT dept, COUNT(*)
+FROM high_pay
+GROUP BY dept;
+#+end_src
+
+** 模块化分步与中间结果 · 公式嵌套（内联瞬时计算）
+DuckDB 概念：Subquery (子查询 / 内联临时关系)。SQL 入口：FROM (SELECT ...) AS sub。
+
+对应在 Excel 单元格中公式层层嵌套（如 =INDEX(MATCH())）；内层子查询瞬时输出中间数据集供外层直接消费。
+
+Relation：局部嵌套执行 → 输出匿名瞬时 Relation 直接供给外层子句消费
+
+#+begin_src sql :exports code
+SELECT AVG(salary) AS avg_sal
+FROM (
+  SELECT salary
+  FROM (
+    VALUES (5000), (7000), (8000)
+) t(salary)
+  WHERE salary >= 6000
+) s;
+#+end_src
+
+* 原生动态表生成
+
+** 原生动态表生成 · 自动生成序列网格（序列填充）
+DuckDB 概念：Table Function Call (表函数调用)。SQL 入口：FROM range(n)。
+
+对应在 Excel 中使用“编辑 - 填充 - 序列”或动态数组公式 =SEQUENCE()；直接调用表函数生成结构化数据源。
+
+Relation：参数化算法输入 → 动态生成由计算规则驱动的结构化 Relation 数据源
+
+#+begin_src sql :exports code
+SELECT *
+FROM range(3) t(x);
+#+end_src
+
+* 外部文件直读
+
+** 外部文件直读 · 直接解析 CSV 文件
+DuckDB 概念：read_csv Table Function (CSV 表函数读取)。SQL 入口：FROM read_csv('file.csv')。
+
+对应在 Excel 中直接双击打开本地或云端 .csv 表格；DuckDB 原生多线程极速解析并推断表结构，无需预建表。
+
+Relation：磁盘/远程 CSV 纯文本文件 → 强类型二维关系流 Relation（零预建表成本）
+
+#+begin_src sql :exports code
+SELECT *
+FROM read_csv('fixtures/users.csv');
+#+end_src
+
+** 外部文件直读 · 直接解析分析型 Parquet 列存
+DuckDB 概念：read_parquet Table Function (Parquet 列存表函数读取)。SQL 入口：FROM read_parquet('file.parquet')。
+
+对应在 Excel 中打开现代大数据标准列存文件；支持列裁剪与谓词下推，仅加载所需字段，秒级分析海量数据。
+
+Relation：二进制 Parquet 列存文件 → 内存向量化 Relation（零转换开销，工业级分析）
+
+#+begin_src sql :exports code
+SELECT *
+FROM read_parquet('fixtures/users.parquet');
+#+end_src
+
+* 查看/选择数据
+
+** 查看/选择数据 · 随机抽样预览（大表快速摸底）
+DuckDB 概念：SAMPLE Clause (抽样子句)。SQL 入口：USING SAMPLE n [ROWS|%]。
+
+对应 Excel 中从大表抽取样本做快速检查；在 FROM/JOIN 后、WHERE/聚合前对输入 Relation 抽样。补齐“减少数据量但不是条件过滤”的独立边界，与 WHERE/LIMIT 不等价。
+
+Relation：N 行输入 Relation → K 行样本 Relation（列结构不变；按采样方法、比例或行数缩减）
+
+#+begin_src sql :exports code
+SELECT *
+FROM range(100) t(x) USING SAMPLE 5 ROWS;
+#+end_src
+
+* 横向关联与匹配 (JOIN)
+
+** 横向关联与匹配 (JOIN) · 生成全部组合（笛卡尔积）
+DuckDB 概念：CROSS JOIN (交叉连接)。SQL 入口：a CROSS JOIN b。
+
+用于两组数据做全组合展开；不使用匹配条件，返回左右 Relation 的所有行组合。补齐“无条件连接”边界，与 INNER/OUTER JOIN 的条件匹配语义不同。
+
+Relation：L 行 × R 行 → L×R 行组合 Relation（横向拼接双方列）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1),
+   (2)
+) a(x)
+CROSS JOIN (
+  VALUES ('A'),
+   ('B')
+) b(y);
+#+end_src
+
+** 横向关联与匹配 (JOIN) · 只判断右表是否存在匹配
+DuckDB 概念：SEMI JOIN (半连接)。SQL 入口：a SEMI JOIN b USING(key)。
+
+对应 Excel 中用 MATCH/XMATCH 筛出“右表存在”的主表记录；只返回左表列且每个左行最多保留一次。补齐“存在性筛选、不补右表列”的独立边界。
+
+Relation：左 Relation + 右 Relation → 左表匹配子集 Relation（列结构保持左表，行数 ≤ 左表）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1),
+   (2),
+   (3)
+) a(id)
+SEMI JOIN (
+  VALUES (2),
+   (3)
+) b(id) USING (id);
+#+end_src
+
+** 横向关联与匹配 (JOIN) · 只保留右表不存在的记录
+DuckDB 概念：ANTI JOIN (反连接)。SQL 入口：a ANTI JOIN b USING(key)。
+
+对应 Excel 中筛出“主表有、名单表没有”的记录；只返回左表未匹配行。补齐“反存在性筛选”边界，并与 EXCEPT 的整行集合差保持区分。
+
+Relation：左 Relation + 右 Relation → 左表未匹配子集 Relation（列结构保持左表，行数 ≤ 左表）
+
+#+begin_src sql :exports code
+SELECT *
+FROM (
+  VALUES (1),
+   (2),
+   (3)
+) a(id)
+ANTI JOIN (
+  VALUES (2),
+   (3)
+) b(id) USING (id);
+#+end_src
+
+* 模块化分步与中间结果
+
+** 模块化分步与中间结果 · 递归展开层级 / 路径
+DuckDB 概念：Recursive CTE (递归公用表表达式)。SQL 入口：WITH RECURSIVE cte AS (...)。
+
+用于树、层级、路径和迭代计算；允许 CTE 在递归项中引用自身。补齐普通 CTE 无法表达的自引用迭代边界，并需要明确终止条件。
+
+Relation：Anchor Relation → 递归迭代追加 → 最终递归 Relation
+
+#+begin_src sql :exports code
+WITH RECURSIVE t(n) AS (
+  VALUES (1)
+  UNION ALL
+  SELECT n + 1
+  FROM t
+  WHERE n < 3
+)
+SELECT *
+FROM t;
+#+end_src
+
+* 行列重塑与透视
+
+** 行列重塑与透视 · 长表转宽表（动态透视）
+DuckDB 概念：PIVOT Statement (透视语句)。SQL 入口：PIVOT dataset ON ... USING ...。
+
+对应 Excel 数据透视表的“列字段 + 值汇总”；把某列不同值展开为新列，并通过聚合填充值。补齐 GROUP BY 只做分组汇总、不能直接完成行转列的边界。
+
+Relation：长表 Relation → 按类别展开列并聚合的宽表 Relation
+
+#+begin_src sql :exports code
+WITH s(item, q, amt) AS (
+  VALUES ('A', 'Q1', 10),
+   ('A', 'Q2', 20)
+)
+SELECT *
+FROM (
+  PIVOT s ON q USING SUM(amt)
+  GROUP BY item
+);
+#+end_src
+
+** 行列重塑与透视 · 宽表转长表（列堆叠）
+DuckDB 概念：UNPIVOT Statement (逆透视语句)。SQL 入口：UNPIVOT dataset ON ... INTO NAME ... VALUE ...。
+
+对应 Excel / Power Query 的“取消透视列”；把多个列堆叠为名称列和值列。它是 PIVOT 的逆变换，补齐宽表恢复成长表的独立边界。
+
+Relation：宽表 Relation → 多列堆叠为名称 / 值字段的长表 Relation
+
+#+begin_src sql :exports code
+WITH s(id, q1, q2) AS (
+  VALUES (1, 10, 20)
+)
+SELECT *
+FROM (
+  UNPIVOT s ON q1,
+  q2 INTO NAME quarter VALUE amount
+);
+#+end_src
+
+* 排序与取前 N 行
+
+** 排序与取前 N 行 · 分页跳过前 N 行
+DuckDB 概念：OFFSET Clause (结果偏移子句)。SQL 入口：OFFSET n。
+
+对应分页或跳过前几行；OFFSET 逻辑上在查询末尾应用，通常与 ORDER BY、LIMIT 配合。补齐 LIMIT 只控制返回数量、不控制起始位置的边界。
+
+Relation：N 行有序 Relation → 跳过前 n 行 → 从指定起点继续输出 Relation
+
+#+begin_src sql :exports code
+SELECT x
+FROM (
+  VALUES (1),
+   (2),
+   (3)
+) t(x)
+ORDER BY x
+LIMIT 2
+OFFSET 1;
+#+end_src
+
+* 消除重复
+
+** 消除重复 · 按键保留排序第一条
+DuckDB 概念：DISTINCT ON Clause (按键保留单行)。SQL 入口：SELECT DISTINCT ON (key) ... ORDER BY ...。
+
+对应按业务 Key 去重并保留代表记录；ORDER BY 决定每个 Key 最先保留哪一行。补齐普通 DISTINCT 只能按完整输出行去重、无法指定每组保留哪条记录的边界。
+
+Relation：N 行 Relation → 按 Key 分组 → 每个 Key 保留排序首行的 Relation
+
+#+begin_src sql :exports code
+SELECT DISTINCT ON (k) k, v
+FROM (
+  VALUES ('a', 2),
+   ('a', 1),
+   ('b', 3)
+) t(k, v)
+ORDER BY k, v;
+#+end_src
+
+* 纵向追加与集合计算
+
+** 纵向追加与集合计算 · 按列名对齐追加
+DuckDB 概念：UNION [ALL] BY NAME (按列名纵向合并)。SQL 入口：q1 UNION [ALL] BY NAME q2。
+
+对应按表头名称对齐后追加多张表；输入列顺序或数量不同时仍可合并，缺失列补 NULL。补齐普通 UNION 只能按列位置对齐的边界。
+
+Relation：不同列布局的 Relation A + B → 按列名对齐 / 缺失补 NULL → 单一纵向 Relation
+
+#+begin_src sql :exports code
+SELECT 1 AS a
+UNION ALL BY NAME
+SELECT 2 AS b;
+#+end_src
+
+* 横向关联与匹配 (JOIN)
+
+** 横向关联与匹配 (JOIN) · 时序最近值匹配
+DuckDB 概念：ASOF JOIN (时序近邻连接)。SQL 入口：a ASOF [LEFT] JOIN b ON equality AND inequality。
+
+用于行情、价格、状态快照等时序近邻匹配；按时间或有序字段为左侧每行寻找满足条件的最近一条右侧记录。补齐普通等值 JOIN 无法直接表达最近历史值的边界。
+
+Relation：左 Relation + 有序右 Relation → 每个左行最多匹配一个最近右行 → 时序对齐 Relation
+
+#+begin_src sql :exports code
+SELECT l.t, r.v
+FROM (
+  VALUES (5),
+   (10)
+) l(t)
+ASOF
+LEFT JOIN (
+  VALUES (3, 'a'),
+   (8, 'b')
+) r(t, v) ON l.t >= r.t
+ORDER BY l.t;
+#+end_src
+
+* Connection：会话级能力
+下列临时对象随当前连接生命周期管理，不能将它们当成磁盘持久化资产。
+
+** 高频｜临时沙盒计算 · 中间结果物理落盘加速 (Excel 无对应)
+DuckDB 概念：Temporary Table (连接级临时表)。SQL 入口：CREATE TEMP TABLE。
+
+在当前 Connection 中保存可被后续 Query 重复引用的临时物理表；会话断开自动清空销毁，不污染全局 Catalog。
+
+Relation：输入 Relation → 写入当前会话专属临时物理表存储 (temp.main)
+
+#+begin_src sql :exports code
+CREATE TEMP TABLE tt AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name);
+
+SELECT *
+FROM tt
+ORDER BY id;
+#+end_src
+
+** 临时查询别名 · 动态命名区域复用 (会话级虚拟逻辑)
+DuckDB 概念：Temporary View (连接级临时视图)。SQL 入口：CREATE TEMP VIEW。
+
+在当前连接中为复杂查询建立临时逻辑别名；类似打开工作簿时的临时动态区域，每次引用实时计算，不占磁盘。
+
+Relation：Query 逻辑定义 → 注册为会话内动态计算虚拟关系 (零物理存储开销)
+
+#+begin_src sql :exports code
+CREATE TEMP VIEW tv AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name);
+
+SELECT *
+FROM tv
+ORDER BY id;
+#+end_src
+
+** 会话自定义函数 · 临时 LAMBDA 标量计算 (统一会话公式)
+DuckDB 概念：Temporary Scalar Macro (连接级临时标量宏)。SQL 入口：CREATE TEMP MACRO。
+
+在当前连接中复用返回单一值的自定义标量表达式；类似工作簿内的私有 LAMBDA 函数，连接关闭即销毁。
+
+Relation：标量表达式定义 → 注入会话表达式引擎 (用于 SELECT/WHERE 逐行计算，不直接产生 Relation)
+
+#+begin_src sql :exports code
+CREATE TEMP MACRO add_tax(p) AS p * 1.1;
+
+SELECT name, add_tax(salary) AS total
+FROM (
+  VALUES ('Alice', 5000)
+) t(name, salary);
+#+end_src
+
+** 参数化动态表 · 溢出数组动态生成 (会话级表函数)
+DuckDB 概念：Temporary Table Macro (连接级临时表宏)。SQL 入口：CREATE TEMP MACRO ... AS TABLE。
+
+在当前连接中定义接收参数并返回关系行集的动态表宏；类似 Excel 动态溢出数组函数，会话结束自动清空。
+
+Relation：参数化查询定义 → 封装为可传入参数并输出动态 Relation 的会话级函数流
+
+#+begin_src sql :exports code
+CREATE TEMP MACRO get_dept(d) AS TABLE
+SELECT *
+FROM (
+  VALUES ('Sales', 'Alice'),
+   ('Tech', 'Bob')
+) t(dept, name)
+WHERE dept = d;
+
+SELECT *
+FROM get_dept('Sales');
+#+end_src
+
+** 会话级自增编号 · 临时流水号生成器 (Excel 无直接对应)
+DuckDB 概念：Temporary Sequence (连接级临时序列)。SQL 入口：CREATE TEMP SEQUENCE。
+
+在当前 Connection 中创建临时序列号生成器；仅当前连接可见，连接关闭自动删除。适合测试主键、批次号或临时编号，不污染持久 Catalog。
+
+Relation：序列定义 → 会话级状态对象；nextval() 每次返回一个 BIGINT 标量，不直接生成 Relation
+
+#+begin_src sql :exports code
+CREATE TEMP SEQUENCE tmp_seq START 1;
+
+SELECT nextval('tmp_seq') AS id;
+#+end_src
+
+** 参数化重复查询 · 预编译查询模板复用
+DuckDB 概念：Prepared Statement (连接级预备语句)。SQL 入口：PREPARE / EXECUTE / DEALLOCATE。
+
+把参数化 SQL 在当前连接中注册为具名预备语句，再用不同参数重复执行；类似固定公式模板反复代入参数。
+
+Relation：SQL 模板 + 参数位 → 会话级已准备语句；EXECUTE 时才产生标量或 Relation 结果
+
+#+begin_src sql :exports code
+PREPARE q AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+WHERE id >= $1;
+
+EXECUTE q(2);
+
+DEALLOCATE q;
+#+end_src
+
+** 挂载多个数据库文件 · 跨库查询 / 数据搬运
+DuckDB 概念：Attached Database (会话级附加数据库)。SQL 入口：ATTACH / DETACH。
+
+在当前 DuckDB 实例中临时挂载另一个数据库文件并赋予 Catalog 名称；挂载定义不跨会话持久化，可直接跨 Catalog 查询和迁移数据。
+
+Relation：数据库文件 → 加入当前会话可解析 Catalog 集合；DETACH 后从名称空间移除
+
+#+begin_src sql :exports code
+ATTACH ':memory:' AS aux;
+
+CREATE TABLE aux.t(i INTEGER);
+
+SELECT *
+FROM aux.t;
+
+DETACH aux;
+#+end_src
+
+** 切换默认数据库 / Schema · 省略全限定名
+DuckDB 概念：Default Database / Schema (会话级默认命名空间)。SQL 入口：USE catalog[.schema]。
+
+切换后续 SQL 默认解析的数据库与 Schema；未写全限定名的 CREATE/SELECT 会以该上下文解析。只改变当前会话名称解析上下文，不创建对象。
+
+Relation：会话命名空间状态切换 → 后续未限定对象名解析目标改变；Relation 本身不变化
+
+#+begin_src sql :exports code
+ATTACH ':memory:' AS aux2;
+
+CREATE SCHEMA aux2.s;
+
+USE aux2.s;
+
+CREATE TABLE t(i INTEGER);
+#+end_src
+
+** 跨多个 Catalog / Schema 查名 · 控制对象解析优先级
+DuckDB 概念：Catalog Search Path (会话级搜索路径)。SQL 入口：SET search_path。
+
+定义未限定对象名的查找顺序；适合同时挂载多个数据库时减少 catalog.schema 前缀。与 USE 的单一默认上下文不同，search_path 可包含多个解析位置。
+
+Relation：会话名称解析规则更新 → 后续对象引用按路径顺序绑定；不直接改变 Relation
+
+#+begin_src sql :exports code
+ATTACH ':memory:' AS db1;
+
+ATTACH ':memory:' AS db2;
+
+SET search_path = 'db1,db2';
+#+end_src
+
+* Database Catalog：库级持久化对象
+以下示例须用磁盘数据库并重新建立连接，才能验证真实持久化属性。
+
+** 高频｜持久化数据落盘 · 保存为正式工作表 (跨连接全局共享)
+DuckDB 概念：Table (持久化物理基表)。SQL 入口：CREATE TABLE。
+
+创建正式物理持久化基表；对应 Excel 保存到磁盘 .xlsx 的实体 Sheet，受 Schema 管控，全局持久共享。
+
+Relation：输入 Relation / 结构定义 → 写入数据库持久化存储文件 (物理持久化)
+
+#+begin_src sql :exports code
+CREATE TABLE t AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) v(id, name);
+
+SELECT *
+FROM t
+ORDER BY id;
+#+end_src
+
+** 高频｜持久化查询视图 · Power Query 仅创建连接 (逻辑解耦)
+DuckDB 概念：View (持久化逻辑视图)。SQL 入口：CREATE VIEW。
+
+将查询逻辑注册为全局持久化逻辑关系对象；对应 Power Query 仅创建连接，底层数据更新时自动同步最新结果。
+
+Relation：Query 逻辑定义 → 注册为库级 Schema 虚拟关系对象 (动态执行，杜绝冗余副本)
+
+#+begin_src sql :exports code
+CREATE VIEW v AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name);
+
+SELECT *
+FROM v
+ORDER BY id;
+#+end_src
+
+** 全局业务公式 · 加载项 Add-in 自定义标量函数 (全局复用)
+DuckDB 概念：Scalar Macro (持久化标量宏)。SQL 入口：CREATE MACRO。
+
+在数据库 Catalog 中永久保存自定义标量函数；类似 Excel 全局加载项公式，库内所有连接与分析师均可调用。
+
+Relation：标量表达式定义 → 持久化登记至数据库 Catalog (全局标量计算规则，不直接产生 Relation)
+
+#+begin_src sql :exports code
+CREATE MACRO bonus_calc(s) AS s * 0.15;
+
+SELECT name, bonus_calc(salary) AS bonus
+FROM (
+  VALUES ('Alice', 5000)
+) t(name, salary);
+#+end_src
+
+** 参数化报表生成器 · 全局动态行集生成 (库级表宏)
+DuckDB 概念：Table Macro (持久化表宏)。SQL 入口：CREATE MACRO ... AS TABLE。
+
+在数据库 Catalog 中永久保存参数化表宏；所有连接均可传入参数动态生成关系数据流，实现报表逻辑复用。
+
+Relation：参数化查询定义 → 持久化登记至 Catalog 作为全局参数化 Relation 生成器
+
+#+begin_src sql :exports code
+CREATE MACRO filter_by_min_sal(ms) AS TABLE
+SELECT *
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000)
+) t(name, salary)
+WHERE salary >= ms;
+
+SELECT *
+FROM filter_by_min_sal(6000);
+#+end_src
+
+** 对象分组与命名空间 · 按业务域隔离同名对象
+DuckDB 概念：Schema (持久化命名空间)。SQL 入口：CREATE SCHEMA。
+
+在数据库 Catalog 内创建持久命名空间，用于组织 Table、View、Sequence、Macro 等对象并避免重名；默认 Schema 为 main。
+
+Relation：Catalog 结构 → 新增持久 Schema 命名空间；不直接产生 Relation
+
+#+begin_src sql :exports code
+CREATE SCHEMA analytics;
+
+CREATE TABLE analytics.t(i INTEGER);
+#+end_src
+
+** 持久自增编号 · 全局流水号 / 主键编号
+DuckDB 概念：Sequence (持久化序列)。SQL 入口：CREATE SEQUENCE。
+
+在 Catalog 中持久保存 BIGINT 序列生成器，可通过 nextval()/currval() 取值，并常用于表字段 DEFAULT 主键编号。
+
+Relation：序列状态持久化 → nextval() 推进并返回标量；不直接生成 Relation
+
+#+begin_src sql :exports code
+CREATE SEQUENCE id_seq START 1;
+
+SELECT nextval('id_seq') AS id;
+#+end_src
+
+** 高选择性点查加速 · 唯一性约束辅助
+DuckDB 概念：Index (持久化二级索引)。SQL 入口：CREATE [UNIQUE] INDEX。
+
+为表列或表达式建立持久化 ART 二级索引；可加速高选择性点查，UNIQUE INDEX 同时约束重复值。它改变访问路径，不改变表的逻辑 Relation。
+
+Relation：Table 数据 → 建立持久索引访问路径；输出 Relation 结构不变，优化器可改变扫描方式
+
+#+begin_src sql :exports code
+CREATE TABLE idx_demo(id INTEGER, name VARCHAR);
+
+CREATE INDEX idx_demo_id ON idx_demo(id);
+#+end_src
+
+** 统一业务字段类型 · 枚举 / STRUCT / UNION 复用
+DuckDB 概念：User-Defined Type (持久化自定义类型)。SQL 入口：CREATE TYPE。
+
+在 Catalog 中定义可复用数据类型，如 ENUM、STRUCT、UNION 或类型别名；让多个表共享一致的字段语义与结构定义。
+
+Relation：类型定义 → 注册为 Catalog 数据类型；不产生 Relation，后续表列可直接引用
+
+#+begin_src sql :exports code
+CREATE TYPE mood AS ENUM('happy', 'sad');
+
+CREATE TABLE people(id INTEGER, state mood);
+#+end_src
+
+* 验收边界
+本教程的全部 SQL 来自用户原始材料，只做了语法排版，没有声明已运行。执行时检查输出行数、列数、JOIN 关联基数、NULL、重复项和生命周期。
