@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>DuckDB Ontology Slicing Tutorial</title>
 <meta name="generator" content="Org Mode" />
+<link rel="alternate" type="text/org" href="duckdb-ontology-slicing-tutorial.org" />
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
 <link rel="stylesheet" href="../../resources/org-museum.css?v=1d7863d341d2">
@@ -114,7 +115,7 @@
   <a class="article-category" href="../../index.html?category=Sql#recent-updates">Sql</a>
   <dl>
     <div><dt>修改日期</dt><dd><time datetime="2026-10-12">2026-10-12</time></dd></div>
-    <div><dt>阅读时间</dt><dd>约 14 分钟</dd></div>
+    <div><dt>阅读时间</dt><dd>约 55 分钟</dd></div>
     <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=sql#recent-updates" data-tag="sql" title="查看包含标签 #sql 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">sql</span></a></dd></div>
   </dl>
   <nav class="article-back-nav" aria-label="文章返回导航">
@@ -122,246 +123,806 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="5f427bdb86ab9044b8a22d599f798ee4f5fe3bc395e108a39efbcc35861455af"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: duckdb-ontology-slicing-tutorial</span></span>
-<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Sql</span></span>
-<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: published</span></span>
-<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :sql:</span></span>
-<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* DuckDB Tutorial</span></span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Overview</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 学习规则</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line">#+wiki_id: duckdb-ontology-slicing-tutorial</span>
+<span class="museum-org-line museum-org-meta-line">#+category: Sql</span>
+<span class="museum-org-line museum-org-meta-line">#+wiki_status: published</span>
+<span class="museum-org-line museum-org-meta-line">#+filetags: :sql:</span>
+<span class="museum-org-line museum-org-meta-line">#+TITLE: DuckDB Ontology Slicing Tutorial</span>
+<span class="museum-org-line museum-org-meta-line">#+DATE: 2026-10-12</span>
+<span class="museum-org-line museum-org-meta-line">#+startup: content align inlineimages indent hidestars</span>
+<span class="museum-org-line museum-org-heading-line">* DuckDB Tutorial</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line museum-org-heading-line">** Overview</span>
+<span class="museum-org-line museum-org-heading-line">*** 学习规则</span>
 <span class="museum-org-line">一次只学一个概念，执行一条简单 SQL，看到真实结果，再进入下一步。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Roadmap</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 认识对象</span></span>
+<span class="museum-org-line museum-org-heading-line">*** Roadmap</span>
+<span class="museum-org-line museum-org-heading-line">**** 认识对象</span>
 <span class="museum-org-line">从真实的 users 表理解什么是实体、实例、属性。不创建图谱。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 认识关系</span></span>
+<span class="museum-org-line museum-org-heading-line">**** 认识关系</span>
 <span class="museum-org-line">检查 users 和 fiat_transactions 是否通过真实字段建立关联。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 认识切片</span></span>
+<span class="museum-org-line museum-org-heading-line">**** 认识切片</span>
 <span class="museum-org-line">根据一个真实业务问题，只提取有关的用户、交易和关系。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 动态展示</span></span>
+<span class="museum-org-line museum-org-heading-line">**** 动态展示</span>
 <span class="museum-org-line">将真实 SQL 查询结果绘制为局部知识图谱，修改问题后重新计算。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Content</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 导入数据</span></span>
-<span class="museum-org-line">引用这个 <span class="org-face-org-link">[[file:exchange_funds_flow_dataset.xlsx]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">数据</span><span class="org-face-org-link">集</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>，主要包含四张表，包括 users, fiat_transactions, crypto_transactions, exchange_rates.</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 校验数据</span></span>
+<span class="museum-org-line museum-org-heading-line">** Content</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">*** 后续课程目录（第五至第十八课）</span>
+<span class="museum-org-line">以下课程沿用本文前四步和已导入的真实数据。每次只执行所需查询；不修改原始业务表。第五课的浏览器交互尚需在实际 Editor Pro 中单独验收。</span>
+<span class="museum-org-line">| 阶段 | 课程 | 本阶段验收 |</span>
+<span class="museum-org-line">|------+------|------------|</span>
+<span class="museum-org-line">| 一：切片与投影 | Step 5–6 | 真实查询生成可追溯的图、表与指标 |</span>
+<span class="museum-org-line">| 二：正式建模 | Step 7–10 | 对象、属性、关系、映射有明确契约 |</span>
+<span class="museum-org-line">| 三：实例与多源 | Step 11–13 | 实例数量与真实记录一致，不重复聚合 |</span>
+<span class="museum-org-line">| 四：任务驱动 | Step 14–16 | 按任务切片并投影，标明风险判断边界 |</span>
+<span class="museum-org-line">| 五：工程验证 | Step 17–18 | 行动只读演示，差异与规则可追溯 |</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">*** 导入数据</span>
+<span class="museum-org-line">引用这个 [[file:exchange_funds_flow_dataset.xlsx][数据集]]，主要包含四张表，包括 users, fiat_transactions, crypto_transactions, exchange_rates.</span>
+<span class="museum-org-line museum-org-heading-line">**** 校验数据</span>
 <span class="museum-org-line">1. 目的: 检查四张指定的数据表是否存在</span>
 <span class="museum-org-line">2. 注意: information_schema.tables 是 DuckDB 的系统目录视图，用来查询当前连接可见的表和视图信息。</span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    table_schema,           -- 数据表所属的 Schema，例如 main</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    TABLE_NAME              -- 数据表名称</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM information_schema.tables</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  WHERE table_name IN (</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'users',                -- 用户表</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'fiat_transactions',    -- 法币交易表</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'crypto_transactions',  -- 加密货币交易表</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'exchange_rates'        -- 汇率表</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  )</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   ORDER BY TABLE_NAME;     -- 按表名排序</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 练习过程</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Step 1 认识对象</span></span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src duckdb</span></span>
+<span class="museum-org-line">  SELECT</span>
+<span class="museum-org-line">    table_schema,           -- 数据表所属的 Schema，例如 main</span>
+<span class="museum-org-line">    TABLE_NAME              -- 数据表名称</span>
+<span class="museum-org-line">  FROM information_schema.tables</span>
+<span class="museum-org-line">  WHERE table_name IN (</span>
+<span class="museum-org-line">    &#39;users&#39;,                -- 用户表</span>
+<span class="museum-org-line">    &#39;fiat_transactions&#39;,    -- 法币交易表</span>
+<span class="museum-org-line">    &#39;crypto_transactions&#39;,  -- 加密货币交易表</span>
+<span class="museum-org-line">    &#39;exchange_rates&#39;        -- 汇率表</span>
+<span class="museum-org-line">  )</span>
+<span class="museum-org-line">   ORDER BY TABLE_NAME;     -- 按表名排序</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading-line">*** 练习过程</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 1 认识对象</span>
 <span class="museum-org-line">理解：数据库里的 users，为什么可以成为本体中的 User 对象？</span>
 <span class="museum-org-line">目标：从真实数据中识别候选业务对象。不让 AI 凭空创建对象。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 本体建模</span></span>
+<span class="museum-org-line museum-org-heading-line">***** 本体建模</span>
 <span class="museum-org-line">1. 检查实际字段，确认每行是否代表一个用户。确认后，将每行映射为一个 `User` 实例，将字段映射为属性。</span>
 <span class="museum-org-line">2. 注意这只是本体建模的第一步。数据库表不等于本体。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-6"><span class="org-face-org-level-6">****** 查看用户表</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT * FROM main.users LIMIT 3;</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+downloaded: screenshot @ 2026-10-11 21:04:24</span></span>
-<span class="museum-org-line"><span class="org-face-org-link">[</span><span class="org-face-org-link">[</span><span class="org-face-org-link">file:../../../../Org/images/2026-10-11-21_04_24-duckdb_tutorial_duckdb_tutorial_content_导入数据_查看用户表.pn</span><span class="org-face-org-link">g</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 简单指标</span></span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    COUNT(*) AS user_count</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.users;</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Step 2 认识关系</span></span>
+<span class="museum-org-line museum-org-heading-line">****** 查看用户表</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src duckdb</span></span>
+<span class="museum-org-line">  SELECT * FROM main.users LIMIT 3;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line museum-org-meta-line">#+downloaded: screenshot @ 2026-10-11 21:04:24</span>
+<span class="museum-org-line">[[file:../../../../Org/images/2026-10-11-21_04_24-duckdb_tutorial_duckdb_tutorial_content_导入数据_查看用户表.png]]</span>
+<span class="museum-org-line museum-org-heading-line">***** 简单指标</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src duckdb</span></span>
+<span class="museum-org-line">  SELECT</span>
+<span class="museum-org-line">    COUNT(*) AS user_count</span>
+<span class="museum-org-line">  FROM main.users;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading-line">**** Step 2 认识关系</span>
 <span class="museum-org-line">理解如何证明用户与其交易存在关联。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 找表与表之间的关联</span></span>
+<span class="museum-org-line museum-org-heading-line">***** 找表与表之间的关联</span>
 <span class="museum-org-line">执行下面的代码，看两张表是否都存在 uid 字段。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-6"><span class="org-face-org-level-6">****** user 表</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -- 查看用户 UID 和用户名</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      uid,</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      user_name</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.users</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LIMIT 2;</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-6"><span class="org-face-org-level-6">****** fiat 转账表</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -- 查看交易属于哪个 UID</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      fiat_order_id,</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      uid,</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      amount,</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      status</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.fiat_transactions</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LIMIT 2;</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 查询对象（对象表）的业务行为（关系表）</span></span>
-<span class="museum-org-line">例如，我们要查询用户 Alice Chen 的法币交易记录。对应的 SQL 操作是查找 UID 为 "784231905" 的法币交易。</span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    u.user_name,		-- 用户名称</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.fiat_order_id,		-- 法币订单号</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.amount,			-- 交易金额</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.status			-- 交易状态</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.users AS u</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    -- 通过共同的 uid 建立关联</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         JOIN main.fiat_transactions AS f</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  	   ON CAST(u.uid AS VARCHAR) = CAST(f.uid AS VARCHAR)</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    -- 只查询指定用户</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  WHERE</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      CAST(u.uid AS VARCHAR) = '784231905'</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    -- 按订单号排列</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ORDER BY</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.fiat_order_id;</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">使用 CAST，因为源工作簿的两张表中，UID 分别呈现为文本值和数值。等确认 DuckDB 实际导入类型后，可以统一为更合适的关联类型。更多可以参见 <span class="org-face-org-link">[[file:duckdb-keywords-cast.org]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">关键字 CAST：类型转换与表关</span><span class="org-face-org-link">联</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 研究本体</span></span>
+<span class="museum-org-line museum-org-heading-line">****** user 表</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src duckdb</span></span>
+<span class="museum-org-line">  -- 查看用户 UID 和用户名</span>
+<span class="museum-org-line">  SELECT</span>
+<span class="museum-org-line">      uid,</span>
+<span class="museum-org-line">      user_name</span>
+<span class="museum-org-line">  FROM main.users</span>
+<span class="museum-org-line">  LIMIT 2;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading-line">****** fiat 转账表</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src duckdb</span></span>
+<span class="museum-org-line">  -- 查看交易属于哪个 UID</span>
+<span class="museum-org-line">  SELECT</span>
+<span class="museum-org-line">      fiat_order_id,</span>
+<span class="museum-org-line">      uid,</span>
+<span class="museum-org-line">      amount,</span>
+<span class="museum-org-line">      status</span>
+<span class="museum-org-line">  FROM main.fiat_transactions</span>
+<span class="museum-org-line">  LIMIT 2;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading-line">***** 查询对象（对象表）的业务行为（关系表）</span>
+<span class="museum-org-line">例如，我们要查询用户 Alice Chen 的法币交易记录。对应的 SQL 操作是查找 UID 为 &quot;784231905&quot; 的法币交易。</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src duckdb</span></span>
+<span class="museum-org-line">  SELECT</span>
+<span class="museum-org-line">    u.user_name,		-- 用户名称</span>
+<span class="museum-org-line">    f.fiat_order_id,		-- 法币订单号</span>
+<span class="museum-org-line">    f.amount,			-- 交易金额</span>
+<span class="museum-org-line">    f.status			-- 交易状态</span>
+<span class="museum-org-line">  FROM main.users AS u</span>
+<span class="museum-org-line">    -- 通过共同的 uid 建立关联</span>
+<span class="museum-org-line">         JOIN main.fiat_transactions AS f</span>
+<span class="museum-org-line">  	   ON CAST(u.uid AS VARCHAR) = CAST(f.uid AS VARCHAR)</span>
+<span class="museum-org-line">    -- 只查询指定用户</span>
+<span class="museum-org-line">  WHERE</span>
+<span class="museum-org-line">      CAST(u.uid AS VARCHAR) = &#39;784231905&#39;</span>
+<span class="museum-org-line">    -- 按订单号排列</span>
+<span class="museum-org-line">  ORDER BY</span>
+<span class="museum-org-line">      f.fiat_order_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">使用 CAST，因为源工作簿的两张表中，UID 分别呈现为文本值和数值。等确认 DuckDB 实际导入类型后，可以统一为更合适的关联类型。更多可以参见 [[file:duckdb-keywords-cast.org][关键字 CAST：类型转换与表关联]]。</span>
+<span class="museum-org-line museum-org-heading-line">***** 研究本体</span>
 <span class="museum-org-line">现在我们发现了一个可验证的事实：一个 用户(User) 可以关联多条 法币转账(FiatTransaction)。它们之间的关系很明显就是一对多。</span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+downloaded: screenshot @ 2026-10-11 23:24:14</span></span>
-<span class="museum-org-line"><span class="org-face-org-link">[</span><span class="org-face-org-link">[</span><span class="org-face-org-link">file:../../../../Org/images/2026-10-11-23_24_14-duckdb_tutorial_duckdb_tutorial_content_练习过程_step_2_认识关系_研究本体.pn</span><span class="org-face-org-link">g</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 本节学会了什么？</span></span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体概念 | 对应内容                            |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----------+-------------------------------------|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象类型 | </span><span class="org-face-org-verbatim org-face-org-formula">=User, </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-formula">=FiatTransaction=</span><span class="org-face-org-formula">            </span><span class="org-face-org-table">|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象实例 | Alice Chen 的用户记录、具体交易订单 |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象属性 | </span><span class="org-face-org-verbatim org-face-org-formula">=UID, </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-formula">=amount, </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-verbatim org-face-org-formula">=status=</span><span class="org-face-org-formula">             </span><span class="org-face-org-table">|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象关系 | 用户拥有交易记录                    |</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Step 3 认识切片</span></span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line museum-org-meta-line">#+downloaded: screenshot @ 2026-10-11 23:24:14</span>
+<span class="museum-org-line">[[file:../../../../Org/images/2026-10-11-23_24_14-duckdb_tutorial_duckdb_tutorial_content_练习过程_step_2_认识关系_研究本体.png]]</span>
+<span class="museum-org-line museum-org-heading-line">***** 本节学会了什么？</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">| 本体概念 | 对应内容                            |</span>
+<span class="museum-org-line">|----------+-------------------------------------|</span>
+<span class="museum-org-line">| 对象类型 | =User, =FiatTransaction=            |</span>
+<span class="museum-org-line">| 对象实例 | Alice Chen 的用户记录、具体交易订单 |</span>
+<span class="museum-org-line">| 对象属性 | =UID, =amount, =status=             |</span>
+<span class="museum-org-line">| 对象关系 | 用户拥有交易记录                    |</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 3 认识切片</span>
 <span class="museum-org-line">从一个用户理解业务关系，并用 SQL 构建局部图谱。从真实 Excel 数据中，找到 Alice Chen 和她的所有法币交易，并把关联结果变成一张小图。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 先找到人</span></span>
-<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: 查找 Alice Chen 的用户记录</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    uid,          -- 用户唯一编号</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    user_name     -- 用户姓名</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.users</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  WHERE user_name = 'Alice Chen';</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 先找到人</span>
+<span class="museum-org-line museum-org-meta-line">#+name: 查找 Alice Chen 的用户记录</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src duckdb</span></span>
+<span class="museum-org-line">  SELECT</span>
+<span class="museum-org-line">    uid,          -- 用户唯一编号</span>
+<span class="museum-org-line">    user_name     -- 用户姓名</span>
+<span class="museum-org-line">  FROM main.users</span>
+<span class="museum-org-line">  WHERE user_name = &#39;Alice Chen&#39;;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line"> </span>
 <span class="museum-org-line">这里学到的概念：对象。Alice Chen 是一个真实的 User 对象实例，uid 是识别她的编号。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 找到她的全部交易</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">根据 UID 关联用户和法币交易</span></span>
-<span class="museum-org-line museum-org-block-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      u.user_name,       </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">用户姓名</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.fiat_order_id,   </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易订单号</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.amount,          </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易金额</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.status           </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易状态</span></span>
-<span class="museum-org-line museum-org-block-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> main.users </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> u</span></span>
-<span class="museum-org-line museum-org-block-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">JOIN</span><span class="org-face-org-block"> main.fiat_transactions </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> f</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">ON</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(u.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">) =</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(f.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">)</span></span>
-<span class="museum-org-line museum-org-block-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">WHERE</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(u.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">) = </span><span class="org-face-font-lock-string-face org-face-org-block">'784231905'</span></span>
-<span class="museum-org-line museum-org-block-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">ORDER</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">BY</span><span class="org-face-org-block"> f.fiat_order_id;</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 找到她的全部交易</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">  -- 根据 UID 关联用户和法币交易</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">  SELECT</span>
+<span class="museum-org-line">      u.user_name,       -- 用户姓名</span>
+<span class="museum-org-line">      f.fiat_order_id,   -- 交易订单号</span>
+<span class="museum-org-line">      f.amount,          -- 交易金额</span>
+<span class="museum-org-line">      f.status           -- 交易状态</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">  FROM main.users AS u</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">  JOIN main.fiat_transactions AS f</span>
+<span class="museum-org-line">      ON CAST(u.uid AS VARCHAR) =</span>
+<span class="museum-org-line">         CAST(f.uid AS VARCHAR)</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">  WHERE CAST(u.uid AS VARCHAR) = &#39;784231905&#39;</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">  ORDER BY f.fiat_order_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line"> </span>
 <span class="museum-org-line">这里学到的概念：关系。</span>
 <span class="museum-org-line">JOIN 利用两张表共有的 uid，证明 Alice Chen 关联了这四笔交易。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 构建局部图谱</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -- 提取 Alice Chen 的局部图谱关系</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'User:' || CAST(u.uid AS VARCHAR)</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      AS source_node,      -- 起点：用户</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'HAS_TRANSACTION'</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      AS relation_type,    -- 关系：拥有交易</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'FiatTransaction:' || f.fiat_order_id</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      AS target_node       -- 终点：法币交易</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FROM main.users AS u</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         JOIN main.fiat_transactions AS f</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  	   ON CAST(u.uid AS VARCHAR) =</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  	      CAST(f.uid AS VARCHAR)</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   WHERE CAST(u.uid AS VARCHAR) = '784231905'</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   ORDER BY f.fiat_order_id;</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 本节学会了什么？</span></span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 概念                   | 真实操作                           |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------------------------+------------------------------------|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象（Entity）         | 找到 Alice Chen                    |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 关系（Relation）       | 通过 UID 找到四笔交易              |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体切片（Slicing）    | 只提取 Alice Chen 相关的节点和边   |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 任务投影（Projection） | 将查询结果表示为绘图所需的节点和边 |</span></span>
-<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 构建局部图谱</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src duckdb</span></span>
+<span class="museum-org-line">  -- 提取 Alice Chen 的局部图谱关系</span>
+<span class="museum-org-line">  SELECT</span>
+<span class="museum-org-line">    &#39;User:&#39; || CAST(u.uid AS VARCHAR)</span>
+<span class="museum-org-line">      AS source_node,      -- 起点：用户</span>
+<span class="museum-org-line">    &#39;HAS_TRANSACTION&#39;</span>
+<span class="museum-org-line">      AS relation_type,    -- 关系：拥有交易</span>
+<span class="museum-org-line">    &#39;FiatTransaction:&#39; || f.fiat_order_id</span>
+<span class="museum-org-line">      AS target_node       -- 终点：法币交易</span>
+<span class="museum-org-line">    FROM main.users AS u</span>
+<span class="museum-org-line">         JOIN main.fiat_transactions AS f</span>
+<span class="museum-org-line">  	   ON CAST(u.uid AS VARCHAR) =</span>
+<span class="museum-org-line">  	      CAST(f.uid AS VARCHAR)</span>
+<span class="museum-org-line">   WHERE CAST(u.uid AS VARCHAR) = &#39;784231905&#39;</span>
+<span class="museum-org-line">   ORDER BY f.fiat_order_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading-line">***** 本节学会了什么？</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">| 概念                   | 真实操作                           |</span>
+<span class="museum-org-line">|------------------------+------------------------------------|</span>
+<span class="museum-org-line">| 对象（Entity）         | 找到 Alice Chen                    |</span>
+<span class="museum-org-line">| 关系（Relation）       | 通过 UID 找到四笔交易              |</span>
+<span class="museum-org-line">| 本体切片（Slicing）    | 只提取 Alice Chen 相关的节点和边   |</span>
+<span class="museum-org-line">| 任务投影（Projection） | 将查询结果表示为绘图所需的节点和边 |</span>
+<span class="museum-org-line"> </span>
 <span class="museum-org-line">严格来说，本节完成的是基于真实关系数据的局部子图查询。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Step 4 动态展示</span></span>
+<span class="museum-org-line museum-org-heading-line">**** Step 4 动态展示</span>
 <span class="museum-org-line">只改一个用户名，DuckDB 就自动找到这个用户和他的所有法币交易。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 执行一条 SQL</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">第一步：输入要研究的用户名</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">WITH</span><span class="org-face-org-block"> target </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> (</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">'Alice Chen'</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> user_name</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  )</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">第二步：提取用户与交易之间的关系</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    u.user_name </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> user_node,         </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">用户节点</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-string-face org-face-org-block">'HAS_TRANSACTION'</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> relation,    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">关系类型</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.fiat_order_id </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> trade_node,    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易节点</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.amount,                         </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">金额</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.status                          </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易状态</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> main.users </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> u</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">第三步：通过 UID 找到真实关联交易</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         </span><span class="org-face-font-lock-keyword-face org-face-org-block">JOIN</span><span class="org-face-org-block"> main.fiat_transactions </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> f</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-org-block">	</span><span class="org-face-org-block">   </span><span class="org-face-font-lock-keyword-face org-face-org-block">ON</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(u.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">) =</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-org-block">	</span><span class="org-face-org-block">      </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(f.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">)</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">第四步：只保留指定用户的数据</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   </span><span class="org-face-font-lock-keyword-face org-face-org-block">WHERE</span><span class="org-face-org-block"> u.user_name = (</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span><span class="org-face-org-block"> user_name </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> target</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   )</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   </span><span class="org-face-font-lock-keyword-face org-face-org-block">ORDER</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">BY</span><span class="org-face-org-block"> f.fiat_order_id;</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 执行一条 SQL</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">  -- 第一步：输入要研究的用户名</span>
+<span class="museum-org-line">  WITH target AS (</span>
+<span class="museum-org-line">    SELECT &#39;Alice Chen&#39; AS user_name</span>
+<span class="museum-org-line">  )</span>
+<span class="museum-org-line">    -- 第二步：提取用户与交易之间的关系</span>
+<span class="museum-org-line">  SELECT</span>
+<span class="museum-org-line">    u.user_name AS user_node,         -- 用户节点</span>
+<span class="museum-org-line">    &#39;HAS_TRANSACTION&#39; AS relation,    -- 关系类型</span>
+<span class="museum-org-line">    f.fiat_order_id AS trade_node,    -- 交易节点</span>
+<span class="museum-org-line">    f.amount,                         -- 金额</span>
+<span class="museum-org-line">    f.status                          -- 交易状态</span>
+<span class="museum-org-line">    FROM main.users AS u</span>
+<span class="museum-org-line">    -- 第三步：通过 UID 找到真实关联交易</span>
+<span class="museum-org-line">         JOIN main.fiat_transactions AS f</span>
+<span class="museum-org-line">  	   ON CAST(u.uid AS VARCHAR) =</span>
+<span class="museum-org-line">  	      CAST(f.uid AS VARCHAR)</span>
+<span class="museum-org-line">    -- 第四步：只保留指定用户的数据</span>
+<span class="museum-org-line">   WHERE u.user_name = (</span>
+<span class="museum-org-line">     SELECT user_name FROM target</span>
+<span class="museum-org-line">   )</span>
+<span class="museum-org-line">   ORDER BY f.fiat_order_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line"> </span>
 <span class="museum-org-line">只需要理解两个关键动作： target 告诉 DuckDB 当前研究谁；JOIN 找到属于这个用户的所有交易。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 现在只改一个地方</span></span>
+<span class="museum-org-line museum-org-heading-line">***** 现在只改一个地方</span>
 <span class="museum-org-line">把 SQL 第三行：</span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT 'Alice Chen' AS user_name</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src duckdb</span></span>
+<span class="museum-org-line">  SELECT &#39;Alice Chen&#39; AS user_name</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line"> </span>
 <span class="museum-org-line">改成</span>
-<span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
-<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">'Bob Miller'</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> user_name</span></span>
-<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
-<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">  SELECT &#39;Bob Miller&#39; AS user_name</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line"> </span>
 <span class="museum-org-line">其他内容完全不动，再运行一次。你会发现：SQL 的关联规则没有变，只是当前研究的用户变了。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 这跟本体切片有什么关系？</span></span>
-<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+downloaded: screenshot @ 2026-10-12 01:46:45</span></span>
-<span class="museum-org-line"><span class="org-face-org-link">[</span><span class="org-face-org-link">[</span><span class="org-face-org-link">file:../../../../Org/images/2026-10-12-01_46_45-duckdb_ontology_slicing_tutorial_duckdb_tutorial_content_练习过程_step_4_动态展示_这跟本体切片有什么关系.pn</span><span class="org-face-org-link">g</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span></span>
-<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 这跟本体切片有什么关系？</span>
+<span class="museum-org-line museum-org-meta-line">#+downloaded: screenshot @ 2026-10-12 01:46:45</span>
+<span class="museum-org-line">[[file:../../../../Org/images/2026-10-12-01_46_45-duckdb_ontology_slicing_tutorial_duckdb_tutorial_content_练习过程_step_4_动态展示_这跟本体切片有什么关系.png]]</span>
+<span class="museum-org-line"> </span>
 <span class="museum-org-line">完整数据始终保留。我们只是根据当前用户，挑选相关对象和关系。严格来说，这仍是基于 SQL 的局部子图查询，还不是自动语义本体切片系统。</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">以上为前四课内容。继续执行 Step 5 至 Step 18，每课均按真实 SQL 的结果验收。</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 5 真实查询驱动交互式局部图谱</span>
+<span class="museum-org-line">目标：用输入的用户名重新查询真实 DuckDB，返回用户、交易和关系。图必须来自本次结果，不能使用静态节点或 Mock。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">那接下来该做什么？</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** References</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 术语</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 术语     | 概念                | 一句人话                                     |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----------+---------------------+----------------------------------------------|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 不重不漏 | MECE                | 给知识做分类，尽量避免重复和遗漏             |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体     | Ontology            | 定义知识对象、属性以及它们之间的关系         |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体切片 | Ontology Slicing    | 根据问题，只取相关的局部知识                 |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体投影 | Ontology Projection | 把局部知识转换成 SQL、图解或其他可使用的形式 |</span></span>
+<span class="museum-org-line">说明：第四课只是改变 SQL 筛选条件。第五课增加完整性处理：LEFT JOIN 保留没有交易的用户；前端将每一行转换为 User 节点、FiatTransaction 节点和 HAS_TRANSACTION 边。图形布局只是展示规则，不是新的业务事实。</span>
 <span class="museum-org-line">&nbsp;</span>
-<span class="museum-org-line">用现在的 炼化 Skill 把上面的输出内容优化一轮，以 org mode 的语法整理输出。</span>
+<span class="museum-org-line museum-org-heading-line">***** 查询节点与关系（复制运行）</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">-- 把目标姓名改成其他真实姓名，再执行整条 SQL</span>
+<span class="museum-org-line">WITH target AS (</span>
+<span class="museum-org-line">  SELECT &#39;Alice Chen&#39; AS user_name</span>
+<span class="museum-org-line">)</span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  CAST(u.uid AS VARCHAR) AS uid,</span>
+<span class="museum-org-line">  u.user_name,</span>
+<span class="museum-org-line">  CASE WHEN f.fiat_order_id IS NOT NULL</span>
+<span class="museum-org-line">       THEN &#39;HAS_TRANSACTION&#39; ELSE NULL END AS relation,</span>
+<span class="museum-org-line">  CAST(f.fiat_order_id AS VARCHAR) AS fiat_order_id,</span>
+<span class="museum-org-line">  CAST(f.amount AS DOUBLE) AS amount,</span>
+<span class="museum-org-line">  CAST(f.currency AS VARCHAR) AS currency,</span>
+<span class="museum-org-line">  CAST(f.status AS VARCHAR) AS status</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">LEFT JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">WHERE u.user_name = (SELECT user_name FROM target)</span>
+<span class="museum-org-line">ORDER BY f.fiat_order_id NULLS LAST;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：每一行同时保留 User 身份与可能存在的交易。uid 和 fiat_order_id 是节点的稳定标识。Jonas Weber 即使无交易也应返回一条用户行，订单号为 NULL。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">Alice Chen 应有 1 个用户节点、4 个交易节点、4 条边；Bob Miller 也是 1+4+4；Jonas Weber 为 1+0+0；不存在的姓名为 0+0+0。逐项核对真实 SQL 结果，不把预期写死到渲染数据中。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">只有查询返回交易订单号时才创建交易节点和关系边。修改用户名应清空旧图、取消旧查询结果的写入，点击节点展示本次 SQL 返回的 UID、订单号、金额、币种及状态。浏览器交互必须在实际 Editor Pro 中另行验收；SQL 通过不代表 UI 已验收。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 6 本体投影：同一切片的三种视图</span>
+<span class="museum-org-line">目标：理解切片决定取哪些事实，投影决定如何组织事实；用 Alice Chen 的真实交易生成关系、明细、指标三种视图。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：不能把投影当成数据修改。关系投影保留 source、relation、target；明细投影显示订单和状态；指标投影先按币种分组，单独处理失败、待处理记录。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 关系投影：生成边列表</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">-- 一行对应一条实际关联边；没有交易时没有边</span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  &#39;User:&#39; || CAST(u.uid AS VARCHAR) AS source_node,</span>
+<span class="museum-org-line">  &#39;HAS_TRANSACTION&#39; AS relation_type,</span>
+<span class="museum-org-line">  &#39;FiatTransaction:&#39; || CAST(f.fiat_order_id AS VARCHAR) AS target_node</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">WHERE u.user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">ORDER BY f.fiat_order_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：预期四条边。所有目标订单号都必须来自原表，不能补造节点。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 明细投影：保留每笔交易</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  f.fiat_order_id, f.direction, f.currency,</span>
+<span class="museum-org-line">  f.amount, f.fee, f.status</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">WHERE u.user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">ORDER BY f.fiat_order_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：预期四行。包括 300 EUR 的 failed withdrawal；不能因为失败而从关系视图中删除。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 指标投影：先定义状态与币种口径</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  f.currency,</span>
+<span class="museum-org-line">  COUNT(*) AS all_orders,</span>
+<span class="museum-org-line">  COUNT(*) FILTER (WHERE f.status = &#39;completed&#39;) AS completed_orders,</span>
+<span class="museum-org-line">  SUM(CASE WHEN f.direction = &#39;deposit&#39;</span>
+<span class="museum-org-line">                AND f.status = &#39;completed&#39;</span>
+<span class="museum-org-line">           THEN f.amount ELSE 0 END) AS completed_deposits,</span>
+<span class="museum-org-line">  SUM(CASE WHEN f.direction = &#39;withdrawal&#39;</span>
+<span class="museum-org-line">                AND f.status = &#39;completed&#39;</span>
+<span class="museum-org-line">           THEN f.amount ELSE 0 END) AS completed_withdrawals</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">WHERE u.user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">GROUP BY f.currency</span>
+<span class="museum-org-line">ORDER BY f.currency;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：根据原始数据，Alice Chen 的 EUR 订单 4 笔，其中 completed 3 笔；已完成入金 3500 EUR，已完成出金 500 EUR。这些只是状态和方向口径，不等于账户余额。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">三种投影应能从同一批原始订单反向追溯。Alice Chen 的边数与明细订单数都是 4；failed 保留在明细和关系中，但不计入 completed 金额。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">不同币种金额不可直接相加。完整性比较只针对相同切片条件；显示方式改变不应改变交易 ID、金额或状态。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 7 手动定义对象类型（Entity Schema）</span>
+<span class="museum-org-line">目标：先写出对象类型的明确定义，再用 SQL 检查它们是否存在于真实表中，不由 AI 自动猜测或直接建表。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：本课建立一个教学用 Schema 契约：User 的候选标识为 uid，FiatTransaction 的候选标识为 fiat_order_id。对象类型是业务定义，不等同于一张物理表。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 核对两个对象类型的实际字段</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">-- 检查当前数据库已有表，不做 CREATE 或 INSERT</span>
+<span class="museum-org-line">DESCRIBE main.users;</span>
+<span class="museum-org-line">DESCRIBE main.fiat_transactions;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：逐项确认 uid、user_name、fiat_order_id、amount、currency、status 的列名和实际导入类型。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 核对候选主键</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  COUNT(*) AS user_rows,</span>
+<span class="museum-org-line">  COUNT(DISTINCT CAST(uid AS VARCHAR)) AS unique_uid,</span>
+<span class="museum-org-line">  COUNT(*) FILTER (WHERE uid IS NULL) AS null_uid</span>
+<span class="museum-org-line">FROM main.users;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：同样对 fiat_transactions 的 fiat_order_id 运行唯一性检查后，才能确认两种实例 ID 规则。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">本课的验收物不是新建数据库表，而是一份可复查的对象定义：对象名称、业务含义、来源表、候选主键、属性范围。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">示范定义：User(uid)、FiatTransaction(fiat_order_id)。在未校验主键之前不能把候选字段写成已验证约束；保留实际类型与语义类型的区别。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 8 属性建模与类型约束（Property）</span>
+<span class="museum-org-line">目标：把表字段定义成对象属性，检查空值、字段类型与取值；不凭字段名猜测语义。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：示例映射：User.user_name ← users.user_name；FiatTransaction.amount ← fiat_transactions.amount；FiatTransaction.currency ← currency；FiatTransaction.status ← status。这是待批准的模型映射，不是自动生成的数据库事实。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 检查属性为空的情况</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  COUNT(*) AS orders,</span>
+<span class="museum-org-line">  COUNT(*) FILTER (WHERE amount IS NULL) AS missing_amount,</span>
+<span class="museum-org-line">  COUNT(*) FILTER (WHERE currency IS NULL) AS missing_currency,</span>
+<span class="museum-org-line">  COUNT(*) FILTER (WHERE status IS NULL) AS missing_status</span>
+<span class="museum-org-line">FROM main.fiat_transactions;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：结果中的缺失数由当前真实导入数据决定，不预设为零。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 检查金额和状态分布</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT currency, status,</span>
+<span class="museum-org-line">       COUNT(*) AS orders,</span>
+<span class="museum-org-line">       MIN(amount) AS min_amount,</span>
+<span class="museum-org-line">       MAX(amount) AS max_amount</span>
+<span class="museum-org-line">FROM main.fiat_transactions</span>
+<span class="museum-org-line">GROUP BY currency, status</span>
+<span class="museum-org-line">ORDER BY currency, status;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：每个币种与状态分别观察金额范围。没有证据时，不擅自规定所有负数、零值都是异常。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">记录属性的来源列、可空性、允许值、计量单位和验证 SQL；列出未能确定的语义。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">amount 的单位取自同一记录的 currency；不能忽略币种。时间列的 Excel 导入类型须由 DESCRIBE 实测，不假定为 TIMESTAMP。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 9 关系类型、方向与基数（Relation）</span>
+<span class="museum-org-line">目标：把 HAS_TRANSACTION 从 JOIN 提升为可验证的关系契约，明确起点、终点、关联字段和基数。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：候选关系：User(uid) HAS_TRANSACTION FiatTransaction(uid)。预期一个用户可以对应多笔订单；一笔订单只应属于一个用户。通过反例检查来证明本数据是否满足。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 检查有没有找不到用户的订单</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  COUNT(*) AS missing_owner_orders</span>
+<span class="museum-org-line">FROM main.fiat_transactions f</span>
+<span class="museum-org-line">LEFT JOIN main.users u</span>
+<span class="museum-org-line">  ON TRY_CAST(f.uid AS BIGINT) = TRY_CAST(u.uid AS BIGINT)</span>
+<span class="museum-org-line">WHERE u.uid IS NULL;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：此处查找孤立交易，不需要新建关系表。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 检查用户与订单的关联基数</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  CAST(u.uid AS VARCHAR) AS uid,</span>
+<span class="museum-org-line">  u.user_name,</span>
+<span class="museum-org-line">  COUNT(f.fiat_order_id) AS fiat_order_count</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">LEFT JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">GROUP BY u.uid, u.user_name</span>
+<span class="museum-org-line">ORDER BY fiat_order_count DESC, uid;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：关注 0 笔和多笔的用户。LEFT JOIN 使无交易用户仍保留在结果里。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">检查订单号唯一性、孤立订单数、用户交易笔数。起点终点反向颠倒、同一订单归属两个用户，都应作为错误被拦截。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">SQL 的 JOIN 只能证明记录按某字段匹配。关系名称 HAS_TRANSACTION 是教学模型定义，不能据此推断用户实际拥有第三方地址或所有经济受益权。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 10 数据映射：真实字段到本体 Schema</span>
+<span class="museum-org-line">目标：将真实表字段转换成统一的对象标识与属性，形成可重复执行的映射规则，不修改业务表。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：映射分三部分：source table、source column、target property。需要显式类型转换时记录原因。UID 当前样本可以转为 BIGINT，但其他数据集未必成立。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 输出规范化 User 实例</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  &#39;User:&#39; || CAST(TRY_CAST(uid AS BIGINT) AS VARCHAR) AS object_id,</span>
+<span class="museum-org-line">  CAST(uid AS VARCHAR) AS source_uid,</span>
+<span class="museum-org-line">  user_name, country_code, kyc_level, account_status</span>
+<span class="museum-org-line">FROM main.users</span>
+<span class="museum-org-line">ORDER BY object_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：这里使用虚拟结果作为 User 的映射产物，不创建持久表。若 UID 不能无损转换，应先报错而非默默丢弃。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 比对映射前后行数</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">WITH mapped AS (</span>
+<span class="museum-org-line">  SELECT &#39;User:&#39; || CAST(TRY_CAST(uid AS BIGINT) AS VARCHAR) AS object_id</span>
+<span class="museum-org-line">  FROM main.users</span>
+<span class="museum-org-line">)</span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  (SELECT COUNT(*) FROM main.users) AS source_rows,</span>
+<span class="museum-org-line">  COUNT(*) AS mapped_rows,</span>
+<span class="museum-org-line">  COUNT(DISTINCT object_id) AS unique_objects,</span>
+<span class="museum-org-line">  COUNT(*) FILTER (WHERE object_id IS NULL) AS invalid_ids</span>
+<span class="museum-org-line">FROM mapped;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：行数一致、ID 不为空且不重复是基础门槛；仍需对照源记录检查每个字段映射是否正确。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">可复核字段映射清单及 SQL。异常转换值不生成虚假的合格对象，不把缺失 ID 自动填成固定字符串。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">这只是只读映射投影，不是正式持久化本体存储。若要在 Editor Pro 保存手动模型配置，需要单独设计存储与版本机制。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 11 实例化：生成对象与边的只读结果</span>
+<span class="museum-org-line">目标：从真实 users 和 fiat_transactions 投影对象实例与关系实例，确认没有生成重复实例。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：本课只使用 CTE 输出节点清单，不 CREATE TABLE。对象 ID 必须包含类型前缀，避免 User UID 与订单号恰好相同造成冲突。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 生成全部对象节点</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">WITH nodes AS (</span>
+<span class="museum-org-line">  SELECT &#39;User:&#39; || CAST(uid AS VARCHAR) AS node_id,</span>
+<span class="museum-org-line">         &#39;User&#39; AS node_type</span>
+<span class="museum-org-line">  FROM main.users</span>
+<span class="museum-org-line">  UNION ALL</span>
+<span class="museum-org-line">  SELECT &#39;FiatTransaction:&#39; || CAST(fiat_order_id AS VARCHAR),</span>
+<span class="museum-org-line">         &#39;FiatTransaction&#39;</span>
+<span class="museum-org-line">  FROM main.fiat_transactions</span>
+<span class="museum-org-line">)</span>
+<span class="museum-org-line">SELECT node_type,</span>
+<span class="museum-org-line">       COUNT(*) AS total_nodes,</span>
+<span class="museum-org-line">       COUNT(DISTINCT node_id) AS unique_nodes</span>
+<span class="museum-org-line">FROM nodes</span>
+<span class="museum-org-line">GROUP BY node_type</span>
+<span class="museum-org-line">ORDER BY node_type;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：源工作簿有 10 个用户、25 笔法币订单；这是源记录数的核对基准，不等于未来所有数据集的固定值。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 生成真实关系边</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  &#39;User:&#39; || CAST(u.uid AS VARCHAR) AS source_id,</span>
+<span class="museum-org-line">  &#39;HAS_TRANSACTION&#39; AS relation_type,</span>
+<span class="museum-org-line">  &#39;FiatTransaction:&#39; || CAST(f.fiat_order_id AS VARCHAR) AS target_id</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">ORDER BY target_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：边数应与找到有效用户的交易订单数一致，不能通过额外笛卡尔积增加边。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">对比源用户数、源订单数、节点去重数、交易关联数。对孤立订单保留异常证据，而不是强行连接到不存在的用户。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">实例化结果是查询时动态生成的视图，不自动持久保存；物理存储版本管理属于后续工程化阶段。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 12 多源建模：链上交易与汇率</span>
+<span class="museum-org-line">目标：将 crypto_transactions 和 exchange_rates 纳入勘察，先核实键与粒度，再允许扩展关系。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：crypto_transactions 的候选订单标识为 crypto_order_id，用户关联候选键为 uid。exchange_rates 记录 asset、quote_currency、rate_to_usdt、effective_date，它是一张带生效日期的参考汇率表，而不是每笔交易都拥有的实时价格。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 检查加密交易和法币交易是否共享用户</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  u.user_name,</span>
+<span class="museum-org-line">  COUNT(DISTINCT c.crypto_order_id) AS crypto_orders</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">LEFT JOIN main.crypto_transactions c</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(c.uid AS BIGINT)</span>
+<span class="museum-org-line">GROUP BY u.uid, u.user_name</span>
+<span class="museum-org-line">ORDER BY crypto_orders DESC, u.user_name;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：对照法币交易的关联情况，不要把 fiat_transactions 与 crypto_transactions 两张明细表直接 JOIN 后再 SUM 金额。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 诊断币种是否有参考汇率</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT DISTINCT</span>
+<span class="museum-org-line">  c.asset,</span>
+<span class="museum-org-line">  r.quote_currency,</span>
+<span class="museum-org-line">  r.rate_to_usdt,</span>
+<span class="museum-org-line">  r.effective_date</span>
+<span class="museum-org-line">FROM main.crypto_transactions c</span>
+<span class="museum-org-line">LEFT JOIN main.exchange_rates r</span>
+<span class="museum-org-line">  ON c.asset = r.asset</span>
+<span class="museum-org-line">ORDER BY c.asset, r.effective_date;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：检查每个 asset 在参考表中的匹配情况及生效日期。相同资产多条汇率可能放大交易行数，不能不验证就直接相乘。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">明确四张表的粒度、真实可用的连接条件和未覆盖的资产。新关系必须能从真实数据反查源记录。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">汇率表只有少量参考快照，不代表交易发生时的价格；未经日期和计价币种匹配验证，不将参考汇率用于历史 PnL、实际账面余额或合规结论。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 13 特征与计算函数：指标口径</span>
+<span class="museum-org-line">目标：把已验证的字段组合为可复用指标，区分订单数、交易方向、状态与币种。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：本课建立一个最小聚合规则：先固定用户、状态、方向与币种，再聚合金额。不要把全部法币交易金额混合算成所谓账户余额。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 按用户、币种和交易方向聚合</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  u.user_name,</span>
+<span class="museum-org-line">  f.currency,</span>
+<span class="museum-org-line">  f.direction,</span>
+<span class="museum-org-line">  f.status,</span>
+<span class="museum-org-line">  COUNT(*) AS order_count,</span>
+<span class="museum-org-line">  SUM(f.amount) AS amount_sum</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">WHERE u.user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">GROUP BY u.user_name, f.currency, f.direction, f.status</span>
+<span class="museum-org-line">ORDER BY f.currency, f.direction, f.status;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：会显示 completed deposit、completed withdrawal 以及 failed withdrawal 不同分组。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 检查已完成交易的净流量（非余额）</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  f.currency,</span>
+<span class="museum-org-line">  SUM(CASE</span>
+<span class="museum-org-line">      WHEN f.status = &#39;completed&#39; AND f.direction = &#39;deposit&#39;</span>
+<span class="museum-org-line">        THEN f.amount</span>
+<span class="museum-org-line">      WHEN f.status = &#39;completed&#39; AND f.direction = &#39;withdrawal&#39;</span>
+<span class="museum-org-line">        THEN -f.amount</span>
+<span class="museum-org-line">      ELSE 0 END) AS completed_net_flow</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">WHERE u.user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">GROUP BY f.currency;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：当前数据预期 EUR completed_net_flow 为 3000。它只是样本法币收支净额，不等于账户资产余额。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">同一指标要明确筛选条件、计量单位和状态定义。对照交易明细，确认失败订单未进入 completed 净流量。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">法币与加密资产不可在原单位下合计；余额、收益或 AML 结论均需要额外数据与规则，不能凭此指标推断。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 14 任务驱动切片：按问题选择对象</span>
+<span class="museum-org-line">目标：从单表固定查询升级为根据调查目标选择 User、FiatTransaction 和 CryptoTransaction；独立提取两类交易，不制造交叉倍增。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：任务示例：查看 Alice Chen 关联的全部法币及链上交易。这里的任务映射规则仍是明确写出的 SQL，尚不属于 AI 自动规划或通用推理。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 查询用户的两类交易</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">WITH selected_user AS (</span>
+<span class="museum-org-line">  SELECT uid, user_name</span>
+<span class="museum-org-line">  FROM main.users</span>
+<span class="museum-org-line">  WHERE user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">),</span>
+<span class="museum-org-line">transactions AS (</span>
+<span class="museum-org-line">  SELECT TRY_CAST(uid AS BIGINT) AS uid_key,</span>
+<span class="museum-org-line">         &#39;FiatTransaction&#39; AS object_type,</span>
+<span class="museum-org-line">         CAST(fiat_order_id AS VARCHAR) AS object_id,</span>
+<span class="museum-org-line">         currency AS asset_or_currency, amount, status</span>
+<span class="museum-org-line">  FROM main.fiat_transactions</span>
+<span class="museum-org-line">  UNION ALL</span>
+<span class="museum-org-line">  SELECT TRY_CAST(uid AS BIGINT),</span>
+<span class="museum-org-line">         &#39;CryptoTransaction&#39;,</span>
+<span class="museum-org-line">         CAST(crypto_order_id AS VARCHAR),</span>
+<span class="museum-org-line">         asset, amount, status</span>
+<span class="museum-org-line">  FROM main.crypto_transactions</span>
+<span class="museum-org-line">)</span>
+<span class="museum-org-line">SELECT u.user_name, t.object_type, t.object_id,</span>
+<span class="museum-org-line">       t.asset_or_currency, t.amount, t.status</span>
+<span class="museum-org-line">FROM selected_user u</span>
+<span class="museum-org-line">LEFT JOIN transactions t</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = t.uid_key</span>
+<span class="museum-org-line">ORDER BY t.object_type, t.object_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：FiatTransaction 和 CryptoTransaction 的 ID 分开保留；同一资产的金额仍要看 source type、单位和状态。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">每类交易数量应分别等于其原始表针对同一 UID 的计数；没有关联交易的用户也应被保留。新的业务问题只能选择真实存在的对象与关系。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">这里只演示两类交易的一跳用户关系。没有地址所有权证明时，不能把相同地址、相同金额或临近时间强行解释为跨链资金路径。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 15 任务驱动投影：业务视图的切换</span>
+<span class="museum-org-line">目标：让同一份查询结果生成调查表、统计摘要和图谱边，且字段选择服从任务口径。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：关系图表达关联，明细表表达单笔证据，聚合表回答数量与分布。投影应保留原始 ID 和来源类型，便于回到用户与订单核查。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 调查明细投影：待跟进订单</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  u.user_name, f.fiat_order_id,</span>
+<span class="museum-org-line">  f.currency, f.amount, f.direction, f.status</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">WHERE u.user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">  AND f.status IN (&#39;failed&#39;, &#39;pending&#39;)</span>
+<span class="museum-org-line">ORDER BY f.fiat_order_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：Alice 的实际数据包含一笔 failed withdrawal。筛选结果只是调查候选记录，不等于发生欺诈。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 统计投影：状态分布</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT f.status, COUNT(*) AS orders</span>
+<span class="museum-org-line">FROM main.users u</span>
+<span class="museum-org-line">JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">WHERE u.user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">GROUP BY f.status</span>
+<span class="museum-org-line">ORDER BY f.status;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：应该能与上一课的明细按相同状态口径核对。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">切换用户名时，所有视图必须重查同一数据源。图谱展示的订单数量、明细行数、统计合计在同一筛选条件下可相互核对。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">按状态筛选后的调查明细不代表完整切片；页面必须显示过滤条件，禁止把 filtered_count 当成 all_count。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 16 特征组合与风险模式：证据等级</span>
+<span class="museum-org-line">目标：将状态等可观察特征与风险判断严格分开，输出可核验的候选调查事项，而不是自动判定违法或欺诈。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：教学规则：failed 标记为状态异常待复核，pending 标记为处理状态待跟进，其余仅显示记录状态。该规则是演示建议，不是已核验的 AML/Fraud 命中策略。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 生成可解释的待办标记</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  f.fiat_order_id,</span>
+<span class="museum-org-line">  f.status,</span>
+<span class="museum-org-line">  CASE</span>
+<span class="museum-org-line">    WHEN f.status = &#39;failed&#39; THEN &#39;状态异常：需复核&#39;</span>
+<span class="museum-org-line">    WHEN f.status = &#39;pending&#39; THEN &#39;未完成：需跟进&#39;</span>
+<span class="museum-org-line">    ELSE &#39;无本规则标记&#39;</span>
+<span class="museum-org-line">  END AS review_label</span>
+<span class="museum-org-line">FROM main.fiat_transactions f</span>
+<span class="museum-org-line">WHERE f.uid IS NOT NULL</span>
+<span class="museum-org-line">ORDER BY f.fiat_order_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：每条标签都能根据原始 status 字段重算；无本规则标记不等于零风险。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">逐条对照原始状态；统计多少笔被标记，说明规则和证据，不产生未经证实的风险分数或人员关联。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">状态失败、待处理不能单独证明 AML 或 Fraud 风险。正式风险场景需要更多经证实的特征、反例和冲突处理规则。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 17 行动与权限：只读调查候选队列</span>
+<span class="museum-org-line">目标：把分析结果转化为有来源和理由的调查候选项，同时保持原始数据不变。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：本课仅生成待审核列表；不自动冻结资产、修改状态、发 RFI 或生成 STR。执行类动作要在产品中单独定义操作者、授权、复核和审计事件。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 生成候选调查动作（只读）</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  f.fiat_order_id,</span>
+<span class="museum-org-line">  f.uid,</span>
+<span class="museum-org-line">  f.status,</span>
+<span class="museum-org-line">  CASE</span>
+<span class="museum-org-line">    WHEN f.status = &#39;failed&#39; THEN &#39;人工复核失败原因&#39;</span>
+<span class="museum-org-line">    WHEN f.status = &#39;pending&#39; THEN &#39;核查处理进度&#39;</span>
+<span class="museum-org-line">    ELSE NULL</span>
+<span class="museum-org-line">  END AS proposed_action</span>
+<span class="museum-org-line">FROM main.fiat_transactions f</span>
+<span class="museum-org-line">WHERE f.status IN (&#39;failed&#39;, &#39;pending&#39;)</span>
+<span class="museum-org-line">ORDER BY f.fiat_order_id;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：执行的是 SELECT，不是 UPDATE。每条动作建议必须保留订单号、原始状态和推荐理由。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">核对候选订单全部来自真实交易；提出动作和实际执行动作严格分离；若无授权，不得触发任何写操作。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">调查结论、RFI、STR、账户冻结等属于受控业务流程。示例 SQL 不意味着系统已实现角色权限或动作回写。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">**** Step 18 验证与版本：反向差异举证</span>
+<span class="museum-org-line">目标：统一验证数据源、对象主键、关系映射、切片范围、投影输出和查询变更，形成可复测的最小质量门槛。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">说明：比对的不是页面看起来像不像，而是原始数据有没有遗漏、重复或改变。记录每次规则版本、查询 SQL、源表记录数和验证结果；失败时先定位原因再修改。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 数据完整性与孤立交易检查</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">SELECT</span>
+<span class="museum-org-line">  (SELECT COUNT(*) FROM main.users) AS users_rows,</span>
+<span class="museum-org-line">  (SELECT COUNT(*) FROM main.fiat_transactions) AS fiat_rows,</span>
+<span class="museum-org-line">  (SELECT COUNT(DISTINCT CAST(uid AS VARCHAR))</span>
+<span class="museum-org-line">   FROM main.users) AS unique_users,</span>
+<span class="museum-org-line">  (SELECT COUNT(DISTINCT CAST(fiat_order_id AS VARCHAR))</span>
+<span class="museum-org-line">   FROM main.fiat_transactions) AS unique_fiat_orders,</span>
+<span class="museum-org-line">  (SELECT COUNT(*)</span>
+<span class="museum-org-line">   FROM main.fiat_transactions f</span>
+<span class="museum-org-line">   LEFT JOIN main.users u</span>
+<span class="museum-org-line">     ON TRY_CAST(f.uid AS BIGINT) = TRY_CAST(u.uid AS BIGINT)</span>
+<span class="museum-org-line">   WHERE u.uid IS NULL) AS missing_user_links;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：使用原始表实时重算。当前工作簿样本包含 10 用户、25 法币订单；孤立订单数需以查询结果为准。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 核对不同查询写法产生的交易集合</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+begin_src sql</span></span>
+<span class="museum-org-line">-- 若两种关联方法结果不同，返回差异订单，不能直接忽略</span>
+<span class="museum-org-line">WITH a AS (</span>
+<span class="museum-org-line">  SELECT f.fiat_order_id</span>
+<span class="museum-org-line">  FROM main.users u</span>
+<span class="museum-org-line">  JOIN main.fiat_transactions f</span>
+<span class="museum-org-line">    ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)</span>
+<span class="museum-org-line">  WHERE u.user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">),</span>
+<span class="museum-org-line">b AS (</span>
+<span class="museum-org-line">  SELECT f.fiat_order_id</span>
+<span class="museum-org-line">  FROM main.fiat_transactions f</span>
+<span class="museum-org-line">  WHERE TRY_CAST(f.uid AS BIGINT) = (</span>
+<span class="museum-org-line">    SELECT TRY_CAST(uid AS BIGINT)</span>
+<span class="museum-org-line">    FROM main.users WHERE user_name = &#39;Alice Chen&#39;</span>
+<span class="museum-org-line">  )</span>
+<span class="museum-org-line">)</span>
+<span class="museum-org-line">SELECT &#39;a_only&#39; AS side, fiat_order_id FROM (</span>
+<span class="museum-org-line">  SELECT fiat_order_id FROM a EXCEPT ALL SELECT fiat_order_id FROM b</span>
+<span class="museum-org-line">)</span>
+<span class="museum-org-line">UNION ALL</span>
+<span class="museum-org-line">SELECT &#39;b_only&#39;, fiat_order_id FROM (</span>
+<span class="museum-org-line">  SELECT fiat_order_id FROM b EXCEPT ALL SELECT fiat_order_id FROM a</span>
+<span class="museum-org-line">);</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-block">#+end_src</span></span>
+<span class="museum-org-line">结果解释：预期返回 0 行。只表示两种 SQL 的结果一致，还需要源数据及业务规则检查；共享错误可能同时存在。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 验收条件</span>
+<span class="museum-org-line">验收顺序：数据源范围正确；对象 ID 唯一；关系无非法引用；切片范围可解释；同口径投影无重复计数；切换或错误后不残留旧图；执行日志可追溯。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">***** 适用边界</span>
+<span class="museum-org-line">每次改映射或筛选规则都应重新运行用例。SQL 对照通过不等于浏览器功能、CI 安全审计或发布流程自动通过。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading-line">** References</span>
+<span class="museum-org-line museum-org-heading-line">*** 术语</span>
+<span class="museum-org-line">| 术语     | 概念                | 一句人话                                     |</span>
+<span class="museum-org-line">|----------+---------------------+----------------------------------------------|</span>
+<span class="museum-org-line">| 不重不漏 | MECE                | 给知识做分类，尽量避免重复和遗漏             |</span>
+<span class="museum-org-line">| 本体     | Ontology            | 定义知识对象、属性以及它们之间的关系         |</span>
+<span class="museum-org-line">| 本体切片 | Ontology Slicing    | 根据问题，只取相关的局部知识                 |</span>
+<span class="museum-org-line">| 本体投影 | Ontology Projection | 把局部知识转换成 SQL、图解或其他可使用的形式 |</span>
+<span class="museum-org-line"> </span>
+<span class="museum-org-line">本教程的术语、查询和验收条件应以当前真实数据与代码实测为准。</span>
 </code></pre></section>
 <h1 class="title">DuckDB Ontology Slicing Tutorial</h1>
 <div id="table-of-contents" role="doc-toc">
@@ -378,6 +939,7 @@
 </li>
 <li><a href="#section-0fa2994898d3">1.2. Content</a>
 <ul>
+<li><a href="#course-roadmap">课程总目录（18 课）</a></li>
 <li><a href="#section-f0fe77f4cff5">1.2.1. 导入数据</a></li>
 <li><a href="#section-303867bf103f">1.2.2. 练习过程</a></li>
 </ul>
@@ -448,6 +1010,29 @@
 <h3 id="section-0fa2994898d3"><span class="section-number-3">1.2.</span> <span class="museum-heading-level-2">Content</span></h3>
 <div class="outline-text-3" id="text-1-2">
 </div>
+<section id="course-roadmap" class="outline-4" aria-label="18 课总目录">
+<h4>课程总目录：对象、切片、投影与工程验证（共 18 课）</h4>
+<p>已完成的 SQL 查询与图谱渲染要分开验收。每课在 DuckDB Editor Pro 当前已导入的真实表上执行；不得读取其他工作表、建立 Mock 节点或修改原始业务表。</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:0.55rem;margin:1rem 0 1.5rem"><a href="#org-museum-ref-144a17075455" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 1 认识对象</a>
+<a href="#org-museum-ref-2c96d7cc62a2" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 2 认识关系</a>
+<a href="#org-museum-ref-950438226a91" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 3 认识切片</a>
+<a href="#org-museum-ref-8cd137ee1eea" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 4 动态展示</a>
+<a href="#org-museum-course-step-05" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 5 真实查询驱动交互式局部图谱</a>
+<a href="#org-museum-course-step-06" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 6 本体投影：同一切片的三种视图</a>
+<a href="#org-museum-course-step-07" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 7 手动定义对象类型（Entity Schema）</a>
+<a href="#org-museum-course-step-08" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 8 属性建模与类型约束（Property）</a>
+<a href="#org-museum-course-step-09" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 9 关系类型、方向与基数（Relation）</a>
+<a href="#org-museum-course-step-10" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 10 数据映射：真实字段到本体 Schema</a>
+<a href="#org-museum-course-step-11" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 11 实例化：生成对象与边的只读结果</a>
+<a href="#org-museum-course-step-12" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 12 多源建模：链上交易与汇率</a>
+<a href="#org-museum-course-step-13" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 13 特征与计算函数：指标口径</a>
+<a href="#org-museum-course-step-14" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 14 任务驱动切片：按问题选择对象</a>
+<a href="#org-museum-course-step-15" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 15 任务驱动投影：业务视图的切换</a>
+<a href="#org-museum-course-step-16" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 16 特征组合与风险模式：证据等级</a>
+<a href="#org-museum-course-step-17" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 17 行动与权限：只读调查候选队列</a>
+<a href="#org-museum-course-step-18" style="display:block;padding:0.48rem 0.7rem;border:1px solid var(--border-color, #48505b);border-radius:8px;text-decoration:none;font-size:0.88rem;">Step 18 验证与版本：反向差异举证</a></div>
+<p>课程阶段：1—6 真实数据与投影；7—10 正式 Schema 与映射；11—13 实例与多源；14—16 任务驱动分析；17—18 行动边界与验证。</p>
+</section>
 <div id="outline-container-section-f0fe77f4cff5" class="outline-4">
 <h4 id="section-f0fe77f4cff5"><span class="section-number-4">1.2.1.</span> <span class="museum-heading-level-3">导入数据</span></h4>
 <div class="outline-text-4" id="text-1-2-1">
@@ -854,6 +1439,437 @@ SELECT
 </li>
 </ol>
 </li>
+<li id="org-museum-course-step-05"><span class="museum-heading-level-4">Step 5 真实查询驱动交互式局部图谱</span><br>
+<div class="outline-text-5"><p>目标：用输入的用户名重新查询真实 DuckDB，返回用户、交易和关系。图必须来自本次结果，不能使用静态节点或 Mock。</p>
+<p>说明：第四课只是改变 SQL 筛选条件。第五课增加完整性处理：LEFT JOIN 保留没有交易的用户；前端将每一行转换为 User 节点、FiatTransaction 节点和 HAS_TRANSACTION 边。图形布局只是展示规则，不是新的业务事实。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">查询节点与关系（复制运行）</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">-- 把目标姓名改成其他真实姓名，再执行整条 SQL
+WITH target AS (
+  SELECT &#39;Alice Chen&#39; AS user_name
+)
+SELECT
+  CAST(u.uid AS VARCHAR) AS uid,
+  u.user_name,
+  CASE WHEN f.fiat_order_id IS NOT NULL
+       THEN &#39;HAS_TRANSACTION&#39; ELSE NULL END AS relation,
+  CAST(f.fiat_order_id AS VARCHAR) AS fiat_order_id,
+  CAST(f.amount AS DOUBLE) AS amount,
+  CAST(f.currency AS VARCHAR) AS currency,
+  CAST(f.status AS VARCHAR) AS status
+FROM main.users u
+LEFT JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+WHERE u.user_name = (SELECT user_name FROM target)
+ORDER BY f.fiat_order_id NULLS LAST;
+</code></pre></div>
+<p>结果解释：每一行同时保留 User 身份与可能存在的交易。uid 和 fiat_order_id 是节点的稳定标识。Jonas Weber 即使无交易也应返回一条用户行，订单号为 NULL。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>Alice Chen 应有 1 个用户节点、4 个交易节点、4 条边；Bob Miller 也是 1+4+4；Jonas Weber 为 1+0+0；不存在的姓名为 0+0+0。逐项核对真实 SQL 结果，不把预期写死到渲染数据中。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>只有查询返回交易订单号时才创建交易节点和关系边。修改用户名应清空旧图、取消旧查询结果的写入，点击节点展示本次 SQL 返回的 UID、订单号、金额、币种及状态。浏览器交互必须在实际 Editor Pro 中另行验收；SQL 通过不代表 UI 已验收。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-06"><span class="museum-heading-level-4">Step 6 本体投影：同一切片的三种视图</span><br>
+<div class="outline-text-5"><p>目标：理解切片决定取哪些事实，投影决定如何组织事实；用 Alice Chen 的真实交易生成关系、明细、指标三种视图。</p>
+<p>说明：不能把投影当成数据修改。关系投影保留 source、relation、target；明细投影显示订单和状态；指标投影先按币种分组，单独处理失败、待处理记录。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">关系投影：生成边列表</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">-- 一行对应一条实际关联边；没有交易时没有边
+SELECT
+  &#39;User:&#39; || CAST(u.uid AS VARCHAR) AS source_node,
+  &#39;HAS_TRANSACTION&#39; AS relation_type,
+  &#39;FiatTransaction:&#39; || CAST(f.fiat_order_id AS VARCHAR) AS target_node
+FROM main.users u
+JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+WHERE u.user_name = &#39;Alice Chen&#39;
+ORDER BY f.fiat_order_id;
+</code></pre></div>
+<p>结果解释：预期四条边。所有目标订单号都必须来自原表，不能补造节点。</p></div></li>
+<li><span class="museum-heading-level-5">明细投影：保留每笔交易</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  f.fiat_order_id, f.direction, f.currency,
+  f.amount, f.fee, f.status
+FROM main.users u
+JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+WHERE u.user_name = &#39;Alice Chen&#39;
+ORDER BY f.fiat_order_id;
+</code></pre></div>
+<p>结果解释：预期四行。包括 300 EUR 的 failed withdrawal；不能因为失败而从关系视图中删除。</p></div></li>
+<li><span class="museum-heading-level-5">指标投影：先定义状态与币种口径</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  f.currency,
+  COUNT(*) AS all_orders,
+  COUNT(*) FILTER (WHERE f.status = &#39;completed&#39;) AS completed_orders,
+  SUM(CASE WHEN f.direction = &#39;deposit&#39;
+                AND f.status = &#39;completed&#39;
+           THEN f.amount ELSE 0 END) AS completed_deposits,
+  SUM(CASE WHEN f.direction = &#39;withdrawal&#39;
+                AND f.status = &#39;completed&#39;
+           THEN f.amount ELSE 0 END) AS completed_withdrawals
+FROM main.users u
+JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+WHERE u.user_name = &#39;Alice Chen&#39;
+GROUP BY f.currency
+ORDER BY f.currency;
+</code></pre></div>
+<p>结果解释：根据原始数据，Alice Chen 的 EUR 订单 4 笔，其中 completed 3 笔；已完成入金 3500 EUR，已完成出金 500 EUR。这些只是状态和方向口径，不等于账户余额。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>三种投影应能从同一批原始订单反向追溯。Alice Chen 的边数与明细订单数都是 4；failed 保留在明细和关系中，但不计入 completed 金额。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>不同币种金额不可直接相加。完整性比较只针对相同切片条件；显示方式改变不应改变交易 ID、金额或状态。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-07"><span class="museum-heading-level-4">Step 7 手动定义对象类型（Entity Schema）</span><br>
+<div class="outline-text-5"><p>目标：先写出对象类型的明确定义，再用 SQL 检查它们是否存在于真实表中，不由 AI 自动猜测或直接建表。</p>
+<p>说明：本课建立一个教学用 Schema 契约：User 的候选标识为 uid，FiatTransaction 的候选标识为 fiat_order_id。对象类型是业务定义，不等同于一张物理表。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">核对两个对象类型的实际字段</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">-- 检查当前数据库已有表，不做 CREATE 或 INSERT
+DESCRIBE main.users;
+DESCRIBE main.fiat_transactions;
+</code></pre></div>
+<p>结果解释：逐项确认 uid、user_name、fiat_order_id、amount、currency、status 的列名和实际导入类型。</p></div></li>
+<li><span class="museum-heading-level-5">核对候选主键</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  COUNT(*) AS user_rows,
+  COUNT(DISTINCT CAST(uid AS VARCHAR)) AS unique_uid,
+  COUNT(*) FILTER (WHERE uid IS NULL) AS null_uid
+FROM main.users;
+</code></pre></div>
+<p>结果解释：同样对 fiat_transactions 的 fiat_order_id 运行唯一性检查后，才能确认两种实例 ID 规则。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>本课的验收物不是新建数据库表，而是一份可复查的对象定义：对象名称、业务含义、来源表、候选主键、属性范围。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>示范定义：User(uid)、FiatTransaction(fiat_order_id)。在未校验主键之前不能把候选字段写成已验证约束；保留实际类型与语义类型的区别。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-08"><span class="museum-heading-level-4">Step 8 属性建模与类型约束（Property）</span><br>
+<div class="outline-text-5"><p>目标：把表字段定义成对象属性，检查空值、字段类型与取值；不凭字段名猜测语义。</p>
+<p>说明：示例映射：User.user_name ← users.user_name；FiatTransaction.amount ← fiat_transactions.amount；FiatTransaction.currency ← currency；FiatTransaction.status ← status。这是待批准的模型映射，不是自动生成的数据库事实。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">检查属性为空的情况</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  COUNT(*) AS orders,
+  COUNT(*) FILTER (WHERE amount IS NULL) AS missing_amount,
+  COUNT(*) FILTER (WHERE currency IS NULL) AS missing_currency,
+  COUNT(*) FILTER (WHERE status IS NULL) AS missing_status
+FROM main.fiat_transactions;
+</code></pre></div>
+<p>结果解释：结果中的缺失数由当前真实导入数据决定，不预设为零。</p></div></li>
+<li><span class="museum-heading-level-5">检查金额和状态分布</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT currency, status,
+       COUNT(*) AS orders,
+       MIN(amount) AS min_amount,
+       MAX(amount) AS max_amount
+FROM main.fiat_transactions
+GROUP BY currency, status
+ORDER BY currency, status;
+</code></pre></div>
+<p>结果解释：每个币种与状态分别观察金额范围。没有证据时，不擅自规定所有负数、零值都是异常。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>记录属性的来源列、可空性、允许值、计量单位和验证 SQL；列出未能确定的语义。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>amount 的单位取自同一记录的 currency；不能忽略币种。时间列的 Excel 导入类型须由 DESCRIBE 实测，不假定为 TIMESTAMP。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-09"><span class="museum-heading-level-4">Step 9 关系类型、方向与基数（Relation）</span><br>
+<div class="outline-text-5"><p>目标：把 HAS_TRANSACTION 从 JOIN 提升为可验证的关系契约，明确起点、终点、关联字段和基数。</p>
+<p>说明：候选关系：User(uid) HAS_TRANSACTION FiatTransaction(uid)。预期一个用户可以对应多笔订单；一笔订单只应属于一个用户。通过反例检查来证明本数据是否满足。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">检查有没有找不到用户的订单</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  COUNT(*) AS missing_owner_orders
+FROM main.fiat_transactions f
+LEFT JOIN main.users u
+  ON TRY_CAST(f.uid AS BIGINT) = TRY_CAST(u.uid AS BIGINT)
+WHERE u.uid IS NULL;
+</code></pre></div>
+<p>结果解释：此处查找孤立交易，不需要新建关系表。</p></div></li>
+<li><span class="museum-heading-level-5">检查用户与订单的关联基数</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  CAST(u.uid AS VARCHAR) AS uid,
+  u.user_name,
+  COUNT(f.fiat_order_id) AS fiat_order_count
+FROM main.users u
+LEFT JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+GROUP BY u.uid, u.user_name
+ORDER BY fiat_order_count DESC, uid;
+</code></pre></div>
+<p>结果解释：关注 0 笔和多笔的用户。LEFT JOIN 使无交易用户仍保留在结果里。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>检查订单号唯一性、孤立订单数、用户交易笔数。起点终点反向颠倒、同一订单归属两个用户，都应作为错误被拦截。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>SQL 的 JOIN 只能证明记录按某字段匹配。关系名称 HAS_TRANSACTION 是教学模型定义，不能据此推断用户实际拥有第三方地址或所有经济受益权。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-10"><span class="museum-heading-level-4">Step 10 数据映射：真实字段到本体 Schema</span><br>
+<div class="outline-text-5"><p>目标：将真实表字段转换成统一的对象标识与属性，形成可重复执行的映射规则，不修改业务表。</p>
+<p>说明：映射分三部分：source table、source column、target property。需要显式类型转换时记录原因。UID 当前样本可以转为 BIGINT，但其他数据集未必成立。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">输出规范化 User 实例</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  &#39;User:&#39; || CAST(TRY_CAST(uid AS BIGINT) AS VARCHAR) AS object_id,
+  CAST(uid AS VARCHAR) AS source_uid,
+  user_name, country_code, kyc_level, account_status
+FROM main.users
+ORDER BY object_id;
+</code></pre></div>
+<p>结果解释：这里使用虚拟结果作为 User 的映射产物，不创建持久表。若 UID 不能无损转换，应先报错而非默默丢弃。</p></div></li>
+<li><span class="museum-heading-level-5">比对映射前后行数</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">WITH mapped AS (
+  SELECT &#39;User:&#39; || CAST(TRY_CAST(uid AS BIGINT) AS VARCHAR) AS object_id
+  FROM main.users
+)
+SELECT
+  (SELECT COUNT(*) FROM main.users) AS source_rows,
+  COUNT(*) AS mapped_rows,
+  COUNT(DISTINCT object_id) AS unique_objects,
+  COUNT(*) FILTER (WHERE object_id IS NULL) AS invalid_ids
+FROM mapped;
+</code></pre></div>
+<p>结果解释：行数一致、ID 不为空且不重复是基础门槛；仍需对照源记录检查每个字段映射是否正确。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>可复核字段映射清单及 SQL。异常转换值不生成虚假的合格对象，不把缺失 ID 自动填成固定字符串。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>这只是只读映射投影，不是正式持久化本体存储。若要在 Editor Pro 保存手动模型配置，需要单独设计存储与版本机制。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-11"><span class="museum-heading-level-4">Step 11 实例化：生成对象与边的只读结果</span><br>
+<div class="outline-text-5"><p>目标：从真实 users 和 fiat_transactions 投影对象实例与关系实例，确认没有生成重复实例。</p>
+<p>说明：本课只使用 CTE 输出节点清单，不 CREATE TABLE。对象 ID 必须包含类型前缀，避免 User UID 与订单号恰好相同造成冲突。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">生成全部对象节点</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">WITH nodes AS (
+  SELECT &#39;User:&#39; || CAST(uid AS VARCHAR) AS node_id,
+         &#39;User&#39; AS node_type
+  FROM main.users
+  UNION ALL
+  SELECT &#39;FiatTransaction:&#39; || CAST(fiat_order_id AS VARCHAR),
+         &#39;FiatTransaction&#39;
+  FROM main.fiat_transactions
+)
+SELECT node_type,
+       COUNT(*) AS total_nodes,
+       COUNT(DISTINCT node_id) AS unique_nodes
+FROM nodes
+GROUP BY node_type
+ORDER BY node_type;
+</code></pre></div>
+<p>结果解释：源工作簿有 10 个用户、25 笔法币订单；这是源记录数的核对基准，不等于未来所有数据集的固定值。</p></div></li>
+<li><span class="museum-heading-level-5">生成真实关系边</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  &#39;User:&#39; || CAST(u.uid AS VARCHAR) AS source_id,
+  &#39;HAS_TRANSACTION&#39; AS relation_type,
+  &#39;FiatTransaction:&#39; || CAST(f.fiat_order_id AS VARCHAR) AS target_id
+FROM main.users u
+JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+ORDER BY target_id;
+</code></pre></div>
+<p>结果解释：边数应与找到有效用户的交易订单数一致，不能通过额外笛卡尔积增加边。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>对比源用户数、源订单数、节点去重数、交易关联数。对孤立订单保留异常证据，而不是强行连接到不存在的用户。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>实例化结果是查询时动态生成的视图，不自动持久保存；物理存储版本管理属于后续工程化阶段。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-12"><span class="museum-heading-level-4">Step 12 多源建模：链上交易与汇率</span><br>
+<div class="outline-text-5"><p>目标：将 crypto_transactions 和 exchange_rates 纳入勘察，先核实键与粒度，再允许扩展关系。</p>
+<p>说明：crypto_transactions 的候选订单标识为 crypto_order_id，用户关联候选键为 uid。exchange_rates 记录 asset、quote_currency、rate_to_usdt、effective_date，它是一张带生效日期的参考汇率表，而不是每笔交易都拥有的实时价格。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">检查加密交易和法币交易是否共享用户</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  u.user_name,
+  COUNT(DISTINCT c.crypto_order_id) AS crypto_orders
+FROM main.users u
+LEFT JOIN main.crypto_transactions c
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(c.uid AS BIGINT)
+GROUP BY u.uid, u.user_name
+ORDER BY crypto_orders DESC, u.user_name;
+</code></pre></div>
+<p>结果解释：对照法币交易的关联情况，不要把 fiat_transactions 与 crypto_transactions 两张明细表直接 JOIN 后再 SUM 金额。</p></div></li>
+<li><span class="museum-heading-level-5">诊断币种是否有参考汇率</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT DISTINCT
+  c.asset,
+  r.quote_currency,
+  r.rate_to_usdt,
+  r.effective_date
+FROM main.crypto_transactions c
+LEFT JOIN main.exchange_rates r
+  ON c.asset = r.asset
+ORDER BY c.asset, r.effective_date;
+</code></pre></div>
+<p>结果解释：检查每个 asset 在参考表中的匹配情况及生效日期。相同资产多条汇率可能放大交易行数，不能不验证就直接相乘。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>明确四张表的粒度、真实可用的连接条件和未覆盖的资产。新关系必须能从真实数据反查源记录。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>汇率表只有少量参考快照，不代表交易发生时的价格；未经日期和计价币种匹配验证，不将参考汇率用于历史 PnL、实际账面余额或合规结论。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-13"><span class="museum-heading-level-4">Step 13 特征与计算函数：指标口径</span><br>
+<div class="outline-text-5"><p>目标：把已验证的字段组合为可复用指标，区分订单数、交易方向、状态与币种。</p>
+<p>说明：本课建立一个最小聚合规则：先固定用户、状态、方向与币种，再聚合金额。不要把全部法币交易金额混合算成所谓账户余额。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">按用户、币种和交易方向聚合</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  u.user_name,
+  f.currency,
+  f.direction,
+  f.status,
+  COUNT(*) AS order_count,
+  SUM(f.amount) AS amount_sum
+FROM main.users u
+JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+WHERE u.user_name = &#39;Alice Chen&#39;
+GROUP BY u.user_name, f.currency, f.direction, f.status
+ORDER BY f.currency, f.direction, f.status;
+</code></pre></div>
+<p>结果解释：会显示 completed deposit、completed withdrawal 以及 failed withdrawal 不同分组。</p></div></li>
+<li><span class="museum-heading-level-5">检查已完成交易的净流量（非余额）</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  f.currency,
+  SUM(CASE
+      WHEN f.status = &#39;completed&#39; AND f.direction = &#39;deposit&#39;
+        THEN f.amount
+      WHEN f.status = &#39;completed&#39; AND f.direction = &#39;withdrawal&#39;
+        THEN -f.amount
+      ELSE 0 END) AS completed_net_flow
+FROM main.users u
+JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+WHERE u.user_name = &#39;Alice Chen&#39;
+GROUP BY f.currency;
+</code></pre></div>
+<p>结果解释：当前数据预期 EUR completed_net_flow 为 3000。它只是样本法币收支净额，不等于账户资产余额。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>同一指标要明确筛选条件、计量单位和状态定义。对照交易明细，确认失败订单未进入 completed 净流量。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>法币与加密资产不可在原单位下合计；余额、收益或 AML 结论均需要额外数据与规则，不能凭此指标推断。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-14"><span class="museum-heading-level-4">Step 14 任务驱动切片：按问题选择对象</span><br>
+<div class="outline-text-5"><p>目标：从单表固定查询升级为根据调查目标选择 User、FiatTransaction 和 CryptoTransaction；独立提取两类交易，不制造交叉倍增。</p>
+<p>说明：任务示例：查看 Alice Chen 关联的全部法币及链上交易。这里的任务映射规则仍是明确写出的 SQL，尚不属于 AI 自动规划或通用推理。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">查询用户的两类交易</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">WITH selected_user AS (
+  SELECT uid, user_name
+  FROM main.users
+  WHERE user_name = &#39;Alice Chen&#39;
+),
+transactions AS (
+  SELECT TRY_CAST(uid AS BIGINT) AS uid_key,
+         &#39;FiatTransaction&#39; AS object_type,
+         CAST(fiat_order_id AS VARCHAR) AS object_id,
+         currency AS asset_or_currency, amount, status
+  FROM main.fiat_transactions
+  UNION ALL
+  SELECT TRY_CAST(uid AS BIGINT),
+         &#39;CryptoTransaction&#39;,
+         CAST(crypto_order_id AS VARCHAR),
+         asset, amount, status
+  FROM main.crypto_transactions
+)
+SELECT u.user_name, t.object_type, t.object_id,
+       t.asset_or_currency, t.amount, t.status
+FROM selected_user u
+LEFT JOIN transactions t
+  ON TRY_CAST(u.uid AS BIGINT) = t.uid_key
+ORDER BY t.object_type, t.object_id;
+</code></pre></div>
+<p>结果解释：FiatTransaction 和 CryptoTransaction 的 ID 分开保留；同一资产的金额仍要看 source type、单位和状态。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>每类交易数量应分别等于其原始表针对同一 UID 的计数；没有关联交易的用户也应被保留。新的业务问题只能选择真实存在的对象与关系。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>这里只演示两类交易的一跳用户关系。没有地址所有权证明时，不能把相同地址、相同金额或临近时间强行解释为跨链资金路径。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-15"><span class="museum-heading-level-4">Step 15 任务驱动投影：业务视图的切换</span><br>
+<div class="outline-text-5"><p>目标：让同一份查询结果生成调查表、统计摘要和图谱边，且字段选择服从任务口径。</p>
+<p>说明：关系图表达关联，明细表表达单笔证据，聚合表回答数量与分布。投影应保留原始 ID 和来源类型，便于回到用户与订单核查。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">调查明细投影：待跟进订单</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  u.user_name, f.fiat_order_id,
+  f.currency, f.amount, f.direction, f.status
+FROM main.users u
+JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+WHERE u.user_name = &#39;Alice Chen&#39;
+  AND f.status IN (&#39;failed&#39;, &#39;pending&#39;)
+ORDER BY f.fiat_order_id;
+</code></pre></div>
+<p>结果解释：Alice 的实际数据包含一笔 failed withdrawal。筛选结果只是调查候选记录，不等于发生欺诈。</p></div></li>
+<li><span class="museum-heading-level-5">统计投影：状态分布</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT f.status, COUNT(*) AS orders
+FROM main.users u
+JOIN main.fiat_transactions f
+  ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+WHERE u.user_name = &#39;Alice Chen&#39;
+GROUP BY f.status
+ORDER BY f.status;
+</code></pre></div>
+<p>结果解释：应该能与上一课的明细按相同状态口径核对。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>切换用户名时，所有视图必须重查同一数据源。图谱展示的订单数量、明细行数、统计合计在同一筛选条件下可相互核对。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>按状态筛选后的调查明细不代表完整切片；页面必须显示过滤条件，禁止把 filtered_count 当成 all_count。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-16"><span class="museum-heading-level-4">Step 16 特征组合与风险模式：证据等级</span><br>
+<div class="outline-text-5"><p>目标：将状态等可观察特征与风险判断严格分开，输出可核验的候选调查事项，而不是自动判定违法或欺诈。</p>
+<p>说明：教学规则：failed 标记为状态异常待复核，pending 标记为处理状态待跟进，其余仅显示记录状态。该规则是演示建议，不是已核验的 AML/Fraud 命中策略。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">生成可解释的待办标记</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  f.fiat_order_id,
+  f.status,
+  CASE
+    WHEN f.status = &#39;failed&#39; THEN &#39;状态异常：需复核&#39;
+    WHEN f.status = &#39;pending&#39; THEN &#39;未完成：需跟进&#39;
+    ELSE &#39;无本规则标记&#39;
+  END AS review_label
+FROM main.fiat_transactions f
+WHERE f.uid IS NOT NULL
+ORDER BY f.fiat_order_id;
+</code></pre></div>
+<p>结果解释：每条标签都能根据原始 status 字段重算；无本规则标记不等于零风险。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>逐条对照原始状态；统计多少笔被标记，说明规则和证据，不产生未经证实的风险分数或人员关联。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>状态失败、待处理不能单独证明 AML 或 Fraud 风险。正式风险场景需要更多经证实的特征、反例和冲突处理规则。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-17"><span class="museum-heading-level-4">Step 17 行动与权限：只读调查候选队列</span><br>
+<div class="outline-text-5"><p>目标：把分析结果转化为有来源和理由的调查候选项，同时保持原始数据不变。</p>
+<p>说明：本课仅生成待审核列表；不自动冻结资产、修改状态、发 RFI 或生成 STR。执行类动作要在产品中单独定义操作者、授权、复核和审计事件。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">生成候选调查动作（只读）</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  f.fiat_order_id,
+  f.uid,
+  f.status,
+  CASE
+    WHEN f.status = &#39;failed&#39; THEN &#39;人工复核失败原因&#39;
+    WHEN f.status = &#39;pending&#39; THEN &#39;核查处理进度&#39;
+    ELSE NULL
+  END AS proposed_action
+FROM main.fiat_transactions f
+WHERE f.status IN (&#39;failed&#39;, &#39;pending&#39;)
+ORDER BY f.fiat_order_id;
+</code></pre></div>
+<p>结果解释：执行的是 SELECT，不是 UPDATE。每条动作建议必须保留订单号、原始状态和推荐理由。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>核对候选订单全部来自真实交易；提出动作和实际执行动作严格分离；若无授权，不得触发任何写操作。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>调查结论、RFI、STR、账户冻结等属于受控业务流程。示例 SQL 不意味着系统已实现角色权限或动作回写。</p></div></li>
+</ol>
+</li>
+<li id="org-museum-course-step-18"><span class="museum-heading-level-4">Step 18 验证与版本：反向差异举证</span><br>
+<div class="outline-text-5"><p>目标：统一验证数据源、对象主键、关系映射、切片范围、投影输出和查询变更，形成可复测的最小质量门槛。</p>
+<p>说明：比对的不是页面看起来像不像，而是原始数据有没有遗漏、重复或改变。记录每次规则版本、查询 SQL、源表记录数和验证结果；失败时先定位原因再修改。</p></div>
+<ol class="org-ol">
+<li><span class="museum-heading-level-5">数据完整性与孤立交易检查</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">SELECT
+  (SELECT COUNT(*) FROM main.users) AS users_rows,
+  (SELECT COUNT(*) FROM main.fiat_transactions) AS fiat_rows,
+  (SELECT COUNT(DISTINCT CAST(uid AS VARCHAR))
+   FROM main.users) AS unique_users,
+  (SELECT COUNT(DISTINCT CAST(fiat_order_id AS VARCHAR))
+   FROM main.fiat_transactions) AS unique_fiat_orders,
+  (SELECT COUNT(*)
+   FROM main.fiat_transactions f
+   LEFT JOIN main.users u
+     ON TRY_CAST(f.uid AS BIGINT) = TRY_CAST(u.uid AS BIGINT)
+   WHERE u.uid IS NULL) AS missing_user_links;
+</code></pre></div>
+<p>结果解释：使用原始表实时重算。当前工作簿样本包含 10 用户、25 法币订单；孤立订单数需以查询结果为准。</p></div></li>
+<li><span class="museum-heading-level-5">核对不同查询写法产生的交易集合</span><br><div class="outline-text-6"><div class="org-src-container"><pre class="src src-sql"><code class="language-sql">-- 若两种关联方法结果不同，返回差异订单，不能直接忽略
+WITH a AS (
+  SELECT f.fiat_order_id
+  FROM main.users u
+  JOIN main.fiat_transactions f
+    ON TRY_CAST(u.uid AS BIGINT) = TRY_CAST(f.uid AS BIGINT)
+  WHERE u.user_name = &#39;Alice Chen&#39;
+),
+b AS (
+  SELECT f.fiat_order_id
+  FROM main.fiat_transactions f
+  WHERE TRY_CAST(f.uid AS BIGINT) = (
+    SELECT TRY_CAST(uid AS BIGINT)
+    FROM main.users WHERE user_name = &#39;Alice Chen&#39;
+  )
+)
+SELECT &#39;a_only&#39; AS side, fiat_order_id FROM (
+  SELECT fiat_order_id FROM a EXCEPT ALL SELECT fiat_order_id FROM b
+)
+UNION ALL
+SELECT &#39;b_only&#39;, fiat_order_id FROM (
+  SELECT fiat_order_id FROM b EXCEPT ALL SELECT fiat_order_id FROM a
+);
+</code></pre></div>
+<p>结果解释：预期返回 0 行。只表示两种 SQL 的结果一致，还需要源数据及业务规则检查；共享错误可能同时存在。</p></div></li>
+<li><span class="museum-heading-level-5">验收条件</span><br><div class="outline-text-6"><p>验收顺序：数据源范围正确；对象 ID 唯一；关系无非法引用；切片范围可解释；同口径投影无重复计数；切换或错误后不残留旧图；执行日志可追溯。</p></div></li>
+<li><span class="museum-heading-level-5">适用边界</span><br><div class="outline-text-6"><p>每次改映射或筛选规则都应重新运行用例。SQL 对照通过不等于浏览器功能、CI 安全审计或发布流程自动通过。</p></div></li>
+</ol>
+</li>
+
 </ol>
 </div>
 </div>
