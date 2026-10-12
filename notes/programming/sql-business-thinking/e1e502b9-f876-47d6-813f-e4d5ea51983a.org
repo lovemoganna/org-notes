@@ -405,4 +405,4 @@ FROM read_xlsx(
 
 * 2026-10-12 旧测试资产的调用边界
 S01–S13 记录旧版 =sql-business-thinking= 的测试提示，T01–T10 用于另一个本体 Skill。原测试提示、数据约束和状态均保留。[[https://github.com/lovemoganna/Org-Skills/commit/bc0d90f0f886b029b914b09868bb20f2a06ed0bc][2026-10-10 拆分提交]] 和 [[https://github.com/lovemoganna/Org-Skills/blob/2f2f67e37ef79522ac0da3e41b49373dbaec9e1a/skills/sql-business-thinking/SKILL.md][当前入口源码]] 说明旧入口现在只负责兼容路由，不独立分析或验证。
-需要测试当前双 Skill 时，应另建适配用例：由 =business-reasoning= 产出 Analysis Packet，由 =analysis-verifier= 依据原始数据白名单、固定 SQL 和执行环境独立验收。禁止静默改写历史提示或凭预期结果宣布测试通过。参见 [[wiki:c7fa8c19-59d3-49c1-a786-72f102daa568#skill-routing-2026-10-12][入口版本说明]]。本次未运行 23 个用例。
+需要测试当前双 Skill 时，应另建适配用例：由 =business-reasoning= 产出 Analysis Packet，由 =analysis-verifier= 依据原始数据白名单、固定 SQL 和执行环境独立验收。禁止静默改写历史提示或凭预期结果宣布测试通过。参见 [[wiki:c7fa8c19-59d3-49c1-a786-72f102daa568][入口版本说明]]。本次未运行 23 个用例。
