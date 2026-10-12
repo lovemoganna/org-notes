@@ -1,0 +1,59 @@
+#+TITLE: 提示词工具的选择
+#+WIKI_ID: 728cf2ef-6d03-5492-ad30-24aab5d60d15
+#+CATEGORY: 知识炼化
+#+FILETAGS: :note-reforge:prompt:original-source:
+#+DATE: 2026-10-12
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
+#+INGEST_ID: dda4dd69-03f9-52b7-a406-7fb177d644a4
+#+WIKI_STATUS: draft
+
+#+CAPTION: 按任务选能力，别把旧描述当现状；图中是编辑归纳，不是已验证的实测结论
+#+ATTR_HTML: :width 860px
+[[file:../../../note-assets/728cf2ef-6d03-5492-ad30-24aab5d60d15/sketchnote-header.webp]]
+
+* 选择工具之前先确认什么
+原稿罗列了多家提示工程产品，但工具名称、API 和功能会随时间变化。*这份历史资料只能帮助列出候选，不能直接当作 2026 年的产品规格。* 实际选择先确定任务缺口，再核对当前官方文档。
+
+* 从六种能力反推需求
+| 任务缺口 | 原文对应能力 | 验证方式 |
+|----------+--------------+----------|
+| 不知道从何提问 | 提示建议 | 是否能给出相关初稿 |
+| 输出结构混乱 | 提示结构优化 | 能否满足固定格式 |
+| 需要多次改写 | 迭代优化 | 是否可复现版本变化 |
+| 需要减少偏差 | 偏差缓解 | 用反例检查失误而非相信宣传 |
+| 特定行业任务 | 领域支持 | 核对数据边界、合规与术语 |
+| 多人复用 | 预定义提示库 | 核对版本、权限与可导出性 |
+
+* 原文列出的工具怎样理解
+- *IBM watsonx.ai / Prompt Lab*：原稿用于说明模型实验与提示测试一类平台；具体功能以当前文档为准。
+- *Spellbook、Dust、PromptPerfect*：原稿分别以提示编辑、链式提示和自动优化举例。这些属于历史性描述，未在本轮复核现行产品接口、价格、可用地区及服务状态。
+- *PromptBase、OpenAI Playground、GitHub、LangChain、promplify*：分别代表提示市场、模型实验、代码资料、应用编排与管理类用途；名称出现不代表推荐、支持或已经完成测试。
+
+* 不把演示代码当作可运行事实
+原稿给出如下 Python 片段。它是*未运行的历史演示*，在安装包名、SDK 签名、模型参数获得官方验证前，不应直接作为当前可执行教程。
+
+#+begin_src python
+from promptperfect import optimize_prompt
+original_prompt = "Generate a summary of the latest AI trends."
+optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
+print("Original Prompt:", original_prompt)
+print("Optimized Prompt:", optimized_prompt)
+#+end_src
+
+* 一个可复核的选择流程
+1. 提出一个固定任务及合格答案标准。
+2. 阅读产品当前官方说明，核对接入、权限、计费、保留期和版本。
+3. 对同一任务实际测试免费或试用能力，保留输入与输出。
+4. 与直接使用现有模型比较；若工具不减少人工工作或错误，就不引入。〔补〕
+
+* 边界
+没有进行实时产品接入测试，也没有证据支持“某工具今天一定具备某功能”。
+
+* 固定原始来源
+
+来源固定在 Git 提交 =0fdfdde5=；原始字节另存为文内附件，可与来源 Git Blob =d9a479eb1f97ea7f195a515067971a496ca8496a= 逐字节复核。
+
+[[file:../../../note-assets/728cf2ef-6d03-5492-ad30-24aab5d60d15/original-source.txt][打开完整原始材料（原样保存）]]
+
+来源链接：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md][GitHub 冻结版本]]。
+
