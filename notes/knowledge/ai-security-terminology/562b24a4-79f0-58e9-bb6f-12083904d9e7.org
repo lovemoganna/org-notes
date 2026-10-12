@@ -7,9 +7,9 @@
 #+INGEST_ID: 70c54fd0-d498-5023-bad4-2770950b906b
 #+WIKI_STATUS: published
 
-#+CAPTION: 临时构建测试图片（仅验证资源路径和渲染；非本笔记正式头图）
+#+CAPTION: AI 安全术语优化：五步流程手绘图；模板示例语法请以正文代码块为准
 #+ATTR_HTML: :width 860px
-[[file:../../../note-assets/562b24a4-79f0-58e9-bb6f-12083904d9e7/sketchnote-header.png]]
+[[file:../../../note-assets/562b24a4-79f0-58e9-bb6f-12083904d9e7/sketchnote-header.webp]]
 
 针对术语定义过于笼统、标注和模型难以一致理解的问题，先明确术语、现有定义和待解决的歧义，再要求输出简洁定义与详细定义。这里记录的是一次提示词优化实践，不是对攻击原理已完成独立安全验证的结论。
 
