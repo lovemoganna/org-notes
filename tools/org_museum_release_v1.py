@@ -115,6 +115,15 @@ def audit(args):
     notes=[f for f in changes if f.endswith(".org") and f.startswith(KEEP)]
     assets=[f for f in changes if f.startswith(ASSETS)]
     infra=[f for f in changes if f not in notes and f not in assets]
+    fixture_data=[]
+    if args.fixtures:
+        fixture_data=json.loads((ROOT/args.fixtures).read_text(encoding="utf-8"))
+        if len(fixture_data)!=5 or len({x["id"] for x in fixture_data})!=5:
+            raise ValueError("exactly five distinct fixtures required")
+        paths=[x["note"] for x in fixture_data]
+        if len(set(paths))!=5 or any(not x.startswith(KEEP) for x in paths):
+            raise ValueError("fixture scope mismatch")
+        notes=paths
     report={"schemaVersion":1,"commit":head,"base":base,
       "gate":"PASS" if notes and not infra else ("INFRA_ONLY" if not notes and not assets else "BLOCK"),
       "notes":[],"assets":assets,"infra":infra,
@@ -141,13 +150,15 @@ def audit(args):
               "sha256":hashlib.sha256(path.read_bytes()).hexdigest(),
               "source":meta["SOURCE"],"assets":len(body_assets),"sections":headings(data)})
     if args.fixtures:
-        data=json.loads((ROOT/args.fixtures).read_text(encoding="utf-8"))
-        for x in data:
+        for x in fixture_data:
             p=ROOT/x["note"]
-            assert p.exists() and x["sha256"] and x["source_blob"]
-        report["fixtures"]=data
-        report["gate"]="FIXTURE_PASS" if len(data)==5 else "BLOCK"
+            if not (p.exists() and x["sha256"] and x["source_blob"]):
+                raise ValueError("unverified fixture: "+x["id"])
+        report["fixtures"]=fixture_data
+        # Integration of five real source files is not a release approval.
+        report["gate"]="FIXTURE_PASS" if len(report["notes"])==5 else "BLOCK"
     if args.site:
+        report["_site"]=args.site
         relobj=ROOT/args.site/"museum-release.json"
         if not relobj.is_file():raise ValueError("canonical publisher did not create museum-release.json")
         release=json.loads(relobj.read_text(encoding="utf-8"))
@@ -171,6 +182,8 @@ def audit(args):
     # Never call the content quality passed: it remains a separate human/model gate.
     if report["gate"]=="BLOCK":
         raise SystemExit(1)
+    if args.fixtures and (len(report["notes"])!=5 or any(not x.get("exportVerified") for x in report["notes"])):
+        raise ValueError("five fixture files have not been independently matched to the exported HTML")
 
 def generate_html(report,folder):
     # No external scripts, styles or networks. Full Org source and actual exported HTML
