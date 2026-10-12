@@ -12,7 +12,7 @@
 
 * 知识与方法
 - [[wiki:562b24a4-79f0-58e9-bb6f-12083904d9e7][AI 安全术语优化]]：AI 安全术语和表达规范。
-- [[wiki:0bf93216-10b0-41c7-93b0-c53218a90821][AI Skills 怎么选才有效？16 个公开项目的场景决策与调用实战]]：AI Skills 选型、调用场景及已有实践。
+- [[wiki:0bf93216-10b0-41c7-93b0-c53218a90821][AI Skills 怎么选才有效？16 个公开项目的场景决策与调用实战]]：2026-10-09 历史选型；SQL Skill 当前入口见 2026-10-12 核验。
 - [[wiki:c7fa8c19-59d3-49c1-a786-72f102daa568][遇到什么需求，就调用什么 Skill？2026 年 10 月]]：AI Skills 选型、调用场景及已有实践。
 - [[wiki:f9173045-536d-4350-ad6b-72a36a42b4c2][Claude Code 工程化 | Engineering Claude Code]]：Claude Code 工程流程与风险门禁。
 - [[wiki:2e6386cf-04d1-4dd9-9dd6-76a982c7a35e][三魂七魄 | Three Souls and Seven Spirits]]：知识整理中的三魂七魄框架。
@@ -25,8 +25,8 @@
 * 编程与数据
 - [[wiki:2e33371a-73f8-4bed-88f4-90249c2d0850][Org Mode 图片尺寸调试]]：Org Mode 图片尺寸与排版调试。
 - [[wiki:python-sum-function][Python：复用求和函数与判断验证状态]]：Python 求和函数与验证状态。
-- [[wiki:b31e6f82-9a47-4c05-8d2b-71f6a93e5c20][sql-business-thinking Skill 测试任务]]：SQL Skill 测试任务与盲测资产。
-- [[wiki:e1e502b9-f876-47d6-813f-e4d5ea51983a][SQL 与本体约束分析怎么做盲测？23 个可复用案例]]：SQL Skill 测试任务与盲测资产。
+- [[wiki:b31e6f82-9a47-4c05-8d2b-71f6a93e5c20][sql-business-thinking Skill 测试任务]]：历史测试任务；双 Skill 拆分后执行需重新核对入口。
+- [[wiki:e1e502b9-f876-47d6-813f-e4d5ea51983a][SQL 与本体约束分析怎么做盲测？23 个可复用案例]]：23 个历史用例；双 Skill 当前测试应另建适配用例。
 
 * 阅读资料
 - [[wiki:263f253c-869b-44f1-8c18-d4be58d2141e][Agent 自动化的可靠性：如何避免漏报、误报与重复发布]]：Agent 自动化的漏报、误报与重复发布风险。

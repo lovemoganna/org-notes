@@ -16,3 +16,12 @@
 动作：保留两个原页面的身份和原有文本；增加互相引用及角色说明；创建 [[wiki:a4b7cf91-5db8-4a2f-90e2-89f3ea14bcd5][知识导航索引]] 和本日志。
 证据：两篇笔记中的任务边界、S01–S13 和 T01–T10 用例。用例是待执行材料，不视为测试通过。
 状态：本事件记录本次源码变更；GitHub Pages 的发布及在线内容需由 Actions 和版本回执另行证明。
+
+* 2026-10-12 SQL Skill 来源版本核验
+:PROPERTIES:
+:CUSTOM_ID: source-drift-2026-10-12-sql-routing
+:END:
+事件键：source-drift-2026-10-12-sql-routing；裁决：已核验版本漂移，不是同一版本事实互斥。
+旧来源：[[wiki:c7fa8c19-59d3-49c1-a786-72f102daa568][2026-10-09 选型说明]]、[[wiki:b31e6f82-9a47-4c05-8d2b-71f6a93e5c20][SQL 测试任务]]、[[wiki:e1e502b9-f876-47d6-813f-e4d5ea51983a][23 个盲测案例]]。
+新证据：[[https://github.com/lovemoganna/Org-Skills/commit/bc0d90f0f886b029b914b09868bb20f2a06ed0bc][2026-10-10 bc0d90f 拆分提交]]、[[https://github.com/lovemoganna/Org-Skills/blob/2f2f67e37ef79522ac0da3e41b49373dbaec9e1a/skills/sql-business-thinking/SKILL.md][2026-10-12 入口源码快照]]。
+操作：原文只追加当前路由说明与证据，更新 [[wiki:a4b7cf91-5db8-4a2f-90e2-89f3ea14bcd5][索引]] 中三项描述。没有运行 SQL 或重写历史用例。重复处理同一事件键不得再次写入。

@@ -21,3 +21,6 @@
 
 * 相关知识
 本页规定探索性测试和修改边界。可执行的分场景盲测材料见 [[wiki:e1e502b9-f876-47d6-813f-e4d5ea51983a][SQL 与本体约束分析：23 个可复用案例]]；其中的测试提示不等于实际通过证据。
+
+* 2026-10-12 旧测试任务的当前适用边界
+该任务保留 2026-10-04 的原始要求；其“按当前 Skill 原样执行”必须以执行时实际 HEAD 为准。[[https://github.com/lovemoganna/Org-Skills/commit/bc0d90f0f886b029b914b09868bb20f2a06ed0bc][2026-10-10 Git 提交]] 将 =sql-business-thinking= 调整为兼容路由。现在由 =business-reasoning= 产生 Analysis Packet，交给 =analysis-verifier= 独立复核；不能用角色扮演冒充独立验证。这是版本变化，不表示原任务在当时无效。参见 [[wiki:c7fa8c19-59d3-49c1-a786-72f102daa568#skill-routing-2026-10-12][入口版本说明]]。本次未执行 SQL。
