@@ -18,6 +18,10 @@ read_csv/read_parquet 示例依赖本地 fixtures 文件。CREATE/ATTACH 示例�
 
 * 查看/选择数据
 
+概括图：第 1 章 查看/选择数据。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-01-overview.png]]
+
+
 ** 查看/选择数据 · 浏览整表数据网格
 DuckDB 概念：SELECT Statement (全量查询语句)。SQL 入口：SELECT ...。
 
@@ -76,6 +80,10 @@ FROM (
 
 * 关系命名与别名
 
+概括图：第 2 章 关系命名与别名。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-02-overview.png]]
+
+
 ** 关系命名与别名 · 简化引用名称（区域简写）
 DuckDB 概念：Table Alias / AS alias (关系别名)。SQL 入口：FROM (...) AS t(col)。
 
@@ -92,6 +100,10 @@ FROM (
 #+end_src
 
 * 筛选与行过滤
+
+概括图：第 3 章 筛选与行过滤。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-03-overview.png]]
+
 
 ** 筛选与行过滤 · 基础行过滤（多条件勾选）
 DuckDB 概念：WHERE Clause (行级前置过滤)。SQL 入口：WHERE condition。
@@ -147,6 +159,10 @@ QUALIFY ROW_NUMBER() OVER (PARTITION BY dept
 
 * 排序与取前 N 行
 
+概括图：第 4 章 排序与取前 N 行。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-04-overview.png]]
+
+
 ** 排序与取前 N 行 · 确定性展示次序（升序/降序）
 DuckDB 概念：ORDER BY Clause (排序子句)。SQL 入口：ORDER BY col [ASC|DESC]。
 
@@ -183,6 +199,10 @@ LIMIT 2;
 
 * 消除重复
 
+概括图：第 5 章 消除重复。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-05-overview.png]]
+
+
 ** 消除重复 · 提取唯一不重复清单
 DuckDB 概念：DISTINCT Clause (结果集去重)。SQL 入口：SELECT DISTINCT col1, ...。
 
@@ -201,6 +221,10 @@ FROM (
 #+end_src
 
 * 分类汇总与聚合
+
+概括图：第 6 章 分类汇总与聚合。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-06-overview.png]]
+
 
 ** 分类汇总与聚合 · 按维度折叠（透视表行标签）
 DuckDB 概念：GROUP BY Clause (分组子句)。SQL 入口：GROUP BY expr。
@@ -306,6 +330,10 @@ GROUP BY dept;
 
 * 组内排名与时序分析
 
+概括图：第 7 章 组内排名与时序分析。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-07-overview.png]]
+
+
 ** 组内排名与时序分析 · 声明窗口分析上下文
 DuckDB 概念：OVER Clause (窗口子句)。SQL 入口：function() OVER (...)。
 
@@ -410,6 +438,10 @@ FROM (
 
 * 横向关联与匹配 (JOIN)
 
+概括图：第 8 章 横向关联与匹配 (JOIN)。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-08-overview.png]]
+
+
 ** 横向关联与匹配 (JOIN) · 仅保留双方完全匹配记录
 DuckDB 概念：INNER JOIN (内连接)。SQL 入口：a INNER JOIN b ON cond。
 
@@ -485,6 +517,10 @@ FULL JOIN (
 #+end_src
 
 * 纵向追加与集合计算
+
+概括图：第 9 章 纵向追加与集合计算。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-09-overview.png]]
+
 
 ** 纵向追加与集合计算 · 多表纵向堆叠并全局去重
 DuckDB 概念：UNION (并集去重)。SQL 入口：q1 UNION q2。
@@ -620,6 +656,10 @@ FROM (
 
 * 模块化分步与中间结果
 
+概括图：第 10 章 模块化分步与中间结果。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-10-overview.png]]
+
+
 ** 模块化分步与中间结果 · 声明式公用表表达式入口
 DuckDB 概念：WITH Clause (WITH 子句)。SQL 入口：WITH cte AS (...) SELECT ...。
 
@@ -676,6 +716,10 @@ FROM (
 
 * 原生动态表生成
 
+概括图：第 11 章 原生动态表生成。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-11-overview.png]]
+
+
 ** 原生动态表生成 · 自动生成序列网格（序列填充）
 DuckDB 概念：Table Function Call (表函数调用)。SQL 入口：FROM range(n)。
 
@@ -689,6 +733,10 @@ FROM range(3) t(x);
 #+end_src
 
 * 外部文件直读
+
+概括图：第 12 章 外部文件直读。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-12-overview.png]]
+
 
 ** 外部文件直读 · 直接解析 CSV 文件
 DuckDB 概念：read_csv Table Function (CSV 表函数读取)。SQL 入口：FROM read_csv('file.csv')。
@@ -812,6 +860,10 @@ FROM t;
 
 * 行列重塑与透视
 
+概括图：第 13 章 行列重塑与透视。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-13-overview.png]]
+
+
 ** 行列重塑与透视 · 长表转宽表（动态透视）
 DuckDB 概念：PIVOT Statement (透视语句)。SQL 入口：PIVOT dataset ON ... USING ...。
 
@@ -928,6 +980,10 @@ ORDER BY l.t;
 #+end_src
 
 * Connection：会话级能力
+
+概括图：第 14 章 Connection：会话级能力。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-14-overview.png]]
+
 下列临时对象随当前连接生命周期管理，不能将它们当成磁盘持久化资产。
 
 ** 高频｜临时沙盒计算 · 中间结果物理落盘加速 (Excel 无对应)
@@ -1088,6 +1144,10 @@ SET search_path = 'db1,db2';
 #+end_src
 
 * Database Catalog：库级持久化对象
+
+概括图：第 15 章 Database Catalog：库级持久化对象。
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/chapter-15-overview.png]]
+
 以下示例须用磁盘数据库并重新建立连接，才能验证真实持久化属性。
 
 ** 高频｜持久化数据落盘 · 保存为正式工作表 (跨连接全局共享)
