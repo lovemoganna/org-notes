@@ -234,7 +234,7 @@ nav{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}button{border:1px solid #c
 .panel{display:none;background:white;border:1px solid #e1e5e8;border-radius:16px;padding:25px;margin:18px 0;box-shadow:0 4px 18px #102c370b}
 .panel:first-of-type{display:block}.header{width:100%;max-height:420px;object-fit:contain;border-radius:8px}
 pre{white-space:pre-wrap;overflow-wrap:anywhere;border:1px solid #e6e6e6;background:#f8f9fa;padding:18px;border-radius:10px;font:13px/1.65 ui-monospace,monospace;max-height:680px;overflow:auto}
-summary{cursor:pointer;font-weight:600;margin:13px 0}section p.small{color:#67757a;font-size:13px}
+summary{cursor:pointer;font-weight:600;margin:13px 0}code{overflow-wrap:anywhere;word-break:break-word}section p.small{color:#67757a;font-size:13px}
 .cards{display:flex;gap:12px;flex-wrap:wrap}.cards div{padding:16px;background:#fff;border:1px solid #dce2e4;border-radius:12px;min-width:160px;flex:1}
 footer{color:#62727a;margin:35px 0}@media(max-width:600px){header{padding:22px 16px}h1{font-size:23px}.panel{padding:13px}pre{font-size:12px}}
 </style><header><h1>Org Museum · 发布流水线 V1</h1><p>真实 Emacs 预览 / 来源快照 / 人工内容放行严格分离</p></header>
