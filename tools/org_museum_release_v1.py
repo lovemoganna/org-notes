@@ -124,8 +124,20 @@ def audit(args):
         if len(set(paths))!=5 or any(not x.startswith(KEEP) for x in paths):
             raise ValueError("fixture scope mismatch")
         notes=paths
+    allowed_infra={"tools/org_museum_release_v1.py","tools/release-v1-fixtures.json",
+                   "tools/org-museum-release-v1.md","tools/test_org_museum_release_v1.py",
+                   ".github/workflows/org-museum-release-v1.yml"}
+    outside=[f for f in infra if f not in allowed_infra]
+    if fixture_data:
+        status="FIXTURE_PENDING"
+    elif notes and not infra:
+        status="PASS"
+    elif not notes and not assets and not outside:
+        status="INFRA_ONLY"
+    else:
+        status="BLOCK"
     report={"schemaVersion":1,"commit":head,"base":base,
-      "gate":"PASS" if notes and not infra else ("INFRA_ONLY" if not notes and not assets else "BLOCK"),
+      "gate":status,
       "notes":[],"assets":assets,"infra":infra,
       "contentQuality":"REQUIRES_HUMAN_REVIEW","imageQuality":"REQUIRES_HUMAN_REVIEW"}
     if notes:
