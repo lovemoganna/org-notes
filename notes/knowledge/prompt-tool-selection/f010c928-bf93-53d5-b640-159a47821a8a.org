@@ -1,0 +1,58 @@
+#+TITLE: 提示词工具选型
+#+WIKI_ID: f010c928-bf93-53d5-b640-159a47821a8a
+#+CATEGORY: 知识炼化
+#+FILETAGS: :note-reforge:prompt:review:
+#+DATE: 2026-10-12
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
+#+INGEST_ID: f010c928-bf93-53d5-b640-159a47821a8a
+#+WIKI_STATUS: draft
+
+#+CAPTION: 本篇知识结构手绘风示意；原始事实与示例以正文及冻结原文为准
+#+ATTR_HTML: :width 100%
+[[file:../../../note-assets/f010c928-bf93-53d5-b640-159a47821a8a/sketchnote-header.webp]]
+
+* 先判断是否需要工具
+原文描述六类用途：提示建议、结构优化、迭代优化、偏差缓解、领域支持与预定义提示库。先确认业务目标，再选满足该目标的具体能力。〔补〕
+
+| 想解决的问题 | 先验证什么 |
+|--------------+------------|
+| 多人使用同一模板 | 变量替换、版本和权限 |
+| 对照提示效果 | 基线、回归与结果保存 |
+| 行业内容生成 | 事实证据与业务边界 |
+| 敏感资料处理 | 权限、留存与安全 |
+
+* 原文产品名录
+| 原文提及 | 原文讨论的方向 | 本轮核验状态 |
+|----------+------------------+--------------|
+| IBM watsonx.ai | Prompt Lab 与提示实验 | 未核验现状 |
+| Spellbook | 提示编辑和模板 | 未核验现状 |
+| Dust | 链式提示和协作 | 未核验现状 |
+| PromptPerfect | 提示优化 | 未核验现状 |
+| promp(l)ify | 一个实用工具 URL | 未核验现状 |
+
+这些是历史材料中的产品描述，不应据此断言 2026 年的供应商、功能、定价或可用性。
+
+* 原文 Python 示例
+以下代码属于来源材料的说明性示例。没有依赖版本、运行记录或有效 API 证据，不得当作已经验证的可运行代码。
+#+begin_src python
+# 导入PromptPerfect库
+from promptperfect import optimize_prompt
+
+# 定义原始提示
+original_prompt = "Generate a summary of the latest AI trends."
+
+# 优化提示
+optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
+
+# 输出优化结果
+print("Original Prompt:", original_prompt)
+print("Optimized Prompt:", optimized_prompt)
+#+end_src
+
+* 选型验收
+1. 使用同一输入先跑不用第三方工具的基线。〔补〕
+2. 检查候选工具当前官方文档和数据条款。〔补〕
+3. 比较实际产出、成本和可重复性，记录失败后再决策。〔补〕
+
+* 来源
+[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md][冻结原文]]；原文附 [[https://promplify.com/dashboard][历史 URL]]（本轮未核验）。
