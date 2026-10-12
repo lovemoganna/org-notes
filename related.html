@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <title>Org Museum · 关联阅读</title>
-  <script src="resources/org-museum-theme.js?v=4084c12f7143"></script>
-  <link rel="stylesheet" href="resources/org-museum.css?v=1329463e6fd1">
+  <script src="resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+  <link rel="stylesheet" href="resources/org-museum.css?v=1d7863d341d2">
   <link rel="stylesheet" href="resources/highlight.monokai.min.css?v=f0e099837087">
   <link rel="icon" href="data:,">
 </head>
@@ -14,7 +14,7 @@
 <header class="museum-topbar" data-home-href="index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-07" title="导出于 2026.10.07">2026.10.07</time>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索标题、分类或标签…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -116,6 +116,7 @@
   <div class="sidebar-search">
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -165,10 +166,12 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>06</span></div>
+    <div class="sidebar-cat-label">Sql <span>08</span></div>
     <ul>
       <li><a href="pages/sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="pages/sql/duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
       <li><a href="pages/sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="pages/sql/duckdb-ontology-slicing-tutorial.html">DuckDB Ontology Slicing Tutorial</a></li>
       <li><a href="pages/sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="pages/sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
       <li><a href="pages/sql/duckdb-dataset.html">duckdb-dataset</a></li>
@@ -194,7 +197,7 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
     <ul>
       <li><a href="pages/lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>
@@ -210,22 +213,45 @@
 </aside>
 <main id="main-content" class="museum-related-shell" tabindex="-1">
   <section id="related-index" class="related-index">
-    <header><p>关系书架</p><h1>显式 Org 关联阅读</h1><span>只展示笔记中真实存在的出链与入链。</span></header>
+    <header class="related-index-hero"><p class="related-hero-kicker">关系书架</p><h1>显式 Org 关联阅读</h1><span class="related-hero-subtitle">只展示笔记中真实存在的出链与入链。</span></header>
+    <div id="related-shelf-toolbar" class="related-shelf-toolbar">
+      <div class="related-search-row">
+        <label class="related-search-label">
+          <span class="sr-only">检索关联阅读</span>
+          <input type="search" id="related-shelf-search" class="related-shelf-search-input" placeholder="快速检索关联对、笔记标题、分类或标签…" autocomplete="off" spellcheck="false" aria-label="检索关联阅读">
+          <button type="button" class="related-search-clear" id="related-search-clear" aria-label="清空检索" hidden>✕</button>
+        </label>
+        <div class="related-group-controls" role="group" aria-label="分组方式">
+          <span class="related-control-label">分组：</span>
+          <button type="button" class="related-group-btn is-active" data-group-mode="category" aria-pressed="true">按主题分类</button>
+          <button type="button" class="related-group-btn" data-group-mode="note" aria-pressed="false">按笔记</button>
+          <button type="button" class="related-group-btn" data-group-mode="flat" aria-pressed="false">平铺</button>
+        </div>
+      </div>
+      <div class="related-filter-row">
+        <div id="related-category-pills" class="related-category-pills" role="group" aria-label="分类快捷筛选"></div>
+        <div id="related-matched-status" class="related-matched-status" role="status" aria-live="polite"></div>
+      </div>
+    </div>
     <div id="related-index-list" class="related-index-list"></div>
+    <div id="related-no-match" class="related-no-match" hidden>
+      <p>未找到符合条件的关联对。</p>
+      <button type="button" id="related-reset-filters" class="related-reset-btn">清除筛选条件</button>
+    </div>
     <p id="related-empty" class="museum-empty-copy" hidden>当前还没有可对读的显式关系。</p>
   </section>
   <section id="related-detail" class="related-detail" hidden>
     <div class="related-modebar" role="group" aria-label="对读内容密度"><button type="button" data-related-mode="summary" aria-pressed="true">摘要对读</button><button type="button" data-related-mode="full" aria-pressed="false">完整正文</button><button type="button" data-related-sync aria-pressed="false">同步滚动：关</button><a id="related-open-source" href="#">打开源笔记</a><a id="related-back-shelf" href="related.html">← 关系书架</a><a href="graph.html">返回知识图谱</a><a id="related-open-target" href="#">打开目标笔记</a><span class="related-mobile-segments" role="group" aria-label="移动端对读区域"><button type="button" data-related-pane="source" aria-pressed="true">源笔记</button><button type="button" data-related-pane="relation" aria-pressed="false">关系</button><button type="button" data-related-pane="target" aria-pressed="false">目标笔记</button></span></div>
     <div class="related-reading-grid">
       <article class="related-paper" data-related-panel="source" aria-label="源笔记"></article>
-      <aside class="related-bridge" aria-label="关系方向"><strong id="related-kind">显式 Org 链接</strong><span aria-hidden="true">→</span><p id="related-direction">源 → 目标</p><button type="button" id="related-swap" hidden>交换方向</button><a id="related-bridge-back" href="related.html">← 关系书架</a><a href="graph.html">返回知识图谱</a></aside>
+      <aside class="related-bridge" aria-label="关系方向"><strong id="related-kind">显式 Org 链接</strong><span aria-hidden="true">→</span><p id="related-direction">源 → 目标</p><button type="button" id="related-swap" hidden title="交换源与目标方向 (快捷键 X)">交换方向</button><a id="related-bridge-back" href="related.html">← 关系书架</a><a href="graph.html">返回知识图谱</a></aside>
       <article class="related-paper" data-related-panel="target" aria-label="目标笔记"></article>
     </div>
   </section>
 </main>
-<script src="resources/org-museum-related-data.js?v=0ed4d19f1883"></script>
+<script src="resources/org-museum-related-data.js?v=b24b8df416bb"></script>
 <script src="resources/highlight.min.js?v=846267d84aaa"></script>
 
-<script defer src="resources/org-museum-related.js?v=c4083edf7c3d"></script>
+<script defer src="resources/org-museum-related.js?v=f8def26e6aaa"></script>
 </body>
 </html>

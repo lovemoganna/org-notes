@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DuckDB Keywords | Cast</title>
+<meta name="generator" content="Org Mode" />
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=1d7863d341d2">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="duckdb-keywords-cast" data-page-title="DuckDB Keywords | Cast" data-page-category="Sql" data-page-tags="sql" data-page-status="draft" data-page-modified="2026-10-11" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
+    <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
+      <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+        <div class="museum-settings-section museum-settings-ai-section">
+          <div class="museum-settings-section-title">模型设置</div>
+          <form data-browser-config class="museum-settings-config-form">
+            <div class="museum-settings-field">
+              <label>接入方式<select name="provider">
+                <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
+                <option value="ollama">Ollama</option>
+              </select></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
+              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+            </div>
+            <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
+            <div class="museum-settings-field">
+              <label>选择模型
+                <div class="museum-settings-model-row">
+                  <select name="model_select" data-browser-model-select aria-label="选择模型">
+                    <option value="">(请先读取模型列表或手动输入)</option>
+                  </select>
+                  <button type="button" class="museum-settings-sub-btn" data-browser-cycle-model title="顺序切换至下一个模型" aria-label="顺序切换选择模型">顺序切换</button>
+                </div>
+              </label>
+            </div>
+            <div class="museum-settings-field">
+              <label>模型 ID<input name="model" list="museum-browser-model-list" placeholder="选择已加载模型或输入模型 ID" required></label>
+              <datalist id="museum-browser-model-list"></datalist>
+            </div>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-load>加载并测试模型</button>
+              <button type="button" data-browser-cancel-load hidden>取消加载</button>
+            </div>
+            <div class="museum-settings-status-box">
+              <span class="museum-settings-status-indicator" aria-hidden="true"></span>
+              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+            </div>
+            <details class="museum-settings-details">
+              <summary>回答偏好设置</summary>
+              <div class="museum-settings-field">
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+              </div>
+            </details>
+          </form>
+          <details class="museum-settings-details museum-ai-local-tools">
+            <summary>本地保存与同步</summary>
+            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-backup>导出知识库</button>
+              <button type="button" data-browser-org-export>导出 Org</button>
+              <button type="button" data-browser-sync-preview>预览同步</button>
+            </div>
+            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
+            <div data-browser-sync-result></div>
+          </details>
+        </div>
+      </div>
+    </div></details>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">DuckDB Keywords | Cast</a><span class="museum-identity-meta">SQL · 草稿</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="duckdb-keywords-cast" data-page-title="DuckDB Keywords | Cast" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+  <summary>文章信息</summary>
+<aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=Sql#recent-updates">SQL</a><span class="museum-status-badge">草稿</span>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-11">2026-10-11</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 6 分钟</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=sql#recent-updates" data-tag="sql" title="查看包含标签 #sql 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">sql</span></a></dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a data-reading-return href="../../index.html#recent-updates">← 全部笔记</a>
+  </nav>
+</aside>
+</details>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="8527f13f69ca30609188cf03620e979e563b66677d318122495702e6718993ec"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: duckdb-keywords-cast</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Sql</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: draft</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :sql:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* DuckDB Keywords | Cast</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Overview</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 关键字 CAST：类型转换与表关联</span></span>
+<span class="museum-org-line"><span class="org-face-org-verbatim">=CAST=</span> 用于转换数据类型。它不负责关联数据表。 <span class="org-face-org-verbatim">=JOIN ... ON=</span> 负责比较关联字段, <span class="org-face-org-verbatim">=WHERE=</span> 负责筛选记录。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Content</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** CAST 常见用法</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 写法                   | 作用       | 示例                     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------------------------+------------+--------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-table">=CAST(x AS VARCHAR)=</span><span class="org-face-org-table">   | 转为字符串 | </span><span class="org-face-org-verbatim org-face-org-formula">=123=</span><span class="org-face-org-formula"> 转为 </span><span class="org-face-org-verbatim org-face-org-formula">='123'=</span><span class="org-face-org-formula">       </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-table">=CAST(x AS INTEGER)=</span><span class="org-face-org-table">   | 转为整数   | </span><span class="org-face-org-verbatim org-face-org-formula">='123'=</span><span class="org-face-org-formula"> 转为 </span><span class="org-face-org-verbatim org-face-org-formula">=123=</span><span class="org-face-org-formula">       </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-table">=CAST(x AS DOUBLE)=</span><span class="org-face-org-table">    | 转为浮点数 | </span><span class="org-face-org-verbatim org-face-org-formula">='12.5'=</span><span class="org-face-org-formula"> 转为 </span><span class="org-face-org-verbatim org-face-org-formula">=12.5=</span><span class="org-face-org-formula">     </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-table">=CAST(x AS DATE)=</span><span class="org-face-org-table">      | 转为日期   | </span><span class="org-face-org-verbatim org-face-org-formula">='2026-10-11'=</span><span class="org-face-org-formula"> 转为日期  </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=CAST(x AS TIMESTAMP)=</span><span class="org-face-org-formula"> </span><span class="org-face-org-table">| 转为时间戳 | 日期时间字符串转为时间戳 |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 当前查询中的 CAST</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">目标：查询 UID 为 <span class="org-face-org-verbatim">=784231905=</span> 的法币交易，并返回用户名称、订单号、金额和状态。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">目标：查找 UID 为 784231905 的法币交易</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      u.user_name,       </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">用户名称</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.fiat_order_id,   </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">法币订单号</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.amount,          </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易金额</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.status           </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易状态</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> main.users </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> u</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">通过共同的 uid 建立关联</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">JOIN</span><span class="org-face-org-block"> main.fiat_transactions </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> f</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">ON</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(u.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">) = </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(f.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">只查询指定用户</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">WHERE</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(u.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">) = </span><span class="org-face-font-lock-string-face org-face-org-block">'784231905'</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">按订单号排列</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">ORDER</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">BY</span><span class="org-face-org-block"> f.fiat_order_id;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 位置                   | 作用                                          |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------------------------+-----------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=JOIN=</span><span class="org-face-org-formula"> 中的两个 </span><span class="org-face-org-verbatim org-face-org-formula">=CAST=</span><span class="org-face-org-formula"> </span><span class="org-face-org-table">| 将两张表的 </span><span class="org-face-org-verbatim org-face-org-table">=uid=</span><span class="org-face-org-table"> 转为字符串，再比较是否相同。 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-verbatim org-face-org-formula">=WHERE=</span><span class="org-face-org-formula"> 中的 </span><span class="org-face-org-verbatim org-face-org-formula">=CAST=</span><span class="org-face-org-formula">    </span><span class="org-face-org-table">| 将 </span><span class="org-face-org-verbatim org-face-org-table">=users.uid=</span><span class="org-face-org-table"> 转为字符串，再筛选指定用户。   |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">例如，假设 <span class="org-face-org-verbatim">=users.uid=</span> 是 <span class="org-face-org-verbatim">=BIGINT=</span>, 值为 <span class="org-face-org-verbatim">=784231905 。 而 </span><span class="org-face-org-verbatim org-face-org-verbatim">=fiat_transactions.uid=</span> 是 <span class="org-face-org-verbatim">=VARCHAR=</span>, 值为 <span class="org-face-org-verbatim">=784231905=</span>.</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">两个字段的类型不同。可以通过 <span class="org-face-org-verbatim">=CAST=</span> 转成相同类型，再比较其值。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(u.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">) = </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(f.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">以上仅为示例，不代表实际表结构。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 先检查 UID 的真实类型</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">直接查看字段定义，不需要先查询交易记录。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">查看两个表中 uid 字段的实际声明类型</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">table_name</span><span class="org-face-org-block">,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">column_name</span><span class="org-face-org-block">,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      data_type</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> information_schema.columns</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">WHERE</span><span class="org-face-org-block"> table_schema = </span><span class="org-face-font-lock-string-face org-face-org-block">'main'</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-keyword-face org-face-org-block">AND</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">table_name</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">IN</span><span class="org-face-org-block"> (</span><span class="org-face-font-lock-string-face org-face-org-block">'users'</span><span class="org-face-org-block">, </span><span class="org-face-font-lock-string-face org-face-org-block">'fiat_transactions'</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-keyword-face org-face-org-block">AND</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">column_name</span><span class="org-face-org-block"> = </span><span class="org-face-font-lock-string-face org-face-org-block">'uid'</span><span class="org-face-org-block">;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">也可以使用 <span class="org-face-org-verbatim">=typeof()=</span> 检查字段类型。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">检查 users 表的 uid 类型</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span><span class="org-face-org-block"> typeof(uid) </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> uid_type</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> main.users</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">LIMIT</span><span class="org-face-org-block"> 1;</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">检查 fiat_transactions 表的 uid 类型</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span><span class="org-face-org-block"> typeof(uid) </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> uid_type</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> main.fiat_transactions</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">LIMIT</span><span class="org-face-org-block"> 1;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">注意：=typeof(uid)= 查询至少需要返回一行数据。空表不会返回结果。检查字段定义时，优先使用 =information_schema.columns=。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 如何判断是否需要 CAST</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 情况             | 处理方式                           |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------------------+------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| UID 类型相同     | 通常无需 =CAST=，可直接比较。      |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| UID 类型不同     | 先核对字段含义，再统一比较类型。   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| UID 存在格式差异 | 先检查原始值，不能只依靠类型转换。 |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">类型转换可能增加计算开销，也可能改变比较结果。</span>
+<span class="museum-org-line">UID 是用户标识符。若原始值存在前导零等格式差异，转换类型不一定能正确关联。 <span class="org-face-org-verbatim">=CAST=</span> 不是数据清洗工具。</span>
+<span class="museum-org-line"><span class="org-face-bold">*待确认：*</span> 两张表的 <span class="org-face-org-verbatim">=uid=</span> 实际类型、原始值格式，以及上述 SQL 的执行结果，尚未经过验证。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** References</span></span>
+<span class="museum-org-line">更多可以使用 <span class="org-face-org-verbatim">=SELECT * FROM duckdb_keywords();=</span> 来了解。</span>
+</code></pre></section>
+<h1 class="title">DuckDB Keywords | Cast</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-bdfcdc055e4e">1. DuckDB Keywords | Cast</a>
+<ul>
+<li><a href="#section-9d7994a9963e">1.1. Overview</a>
+<ul>
+<li><a href="#section-deced39abca8">1.1.1. 关键字 CAST：类型转换与表关联</a></li>
+</ul>
+</li>
+<li><a href="#section-e2876ddb098e">1.2. Content</a>
+<ul>
+<li><a href="#section-757a9535d897">1.2.1. CAST 常见用法</a></li>
+<li><a href="#section-2b84a24cc458">1.2.2. 当前查询中的 CAST</a></li>
+<li><a href="#section-2b53b3b7b971">1.2.3. 先检查 UID 的真实类型</a></li>
+<li><a href="#section-92875c894db5">1.2.4. 如何判断是否需要 CAST</a></li>
+</ul>
+</li>
+<li><a href="#section-bc6fa06c451c">1.3. References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-bdfcdc055e4e" class="outline-2">
+<h2 id="section-bdfcdc055e4e"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">DuckDB Keywords | Cast</span></h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-section-9d7994a9963e" class="outline-3">
+<h3 id="section-9d7994a9963e"><span class="section-number-3">1.1.</span> <span class="museum-heading-level-2">Overview</span></h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-section-deced39abca8" class="outline-4">
+<h4 id="section-deced39abca8"><span class="section-number-4">1.1.1.</span> <span class="museum-heading-level-3">关键字 CAST：类型转换与表关联</span></h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+<code>CAST</code> 用于转换数据类型。它不负责关联数据表。 <code>JOIN ... ON</code> 负责比较关联字段, <code>WHERE</code> 负责筛选记录。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-section-e2876ddb098e" class="outline-3">
+<h3 id="section-e2876ddb098e"><span class="section-number-3">1.2.</span> <span class="museum-heading-level-2">Content</span></h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-section-757a9535d897" class="outline-4">
+<h4 id="section-757a9535d897"><span class="section-number-4">1.2.1.</span> <span class="museum-heading-level-3">CAST 常见用法</span></h4>
+<div class="outline-text-4" id="text-1-2-1">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">写法</th>
+<th scope="col" class="org-left">作用</th>
+<th scope="col" class="org-left">示例</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>CAST(x AS VARCHAR)</code></td>
+<td class="org-left">转为字符串</td>
+<td class="org-left"><code>123</code> 转为 <code>'123'</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>CAST(x AS INTEGER)</code></td>
+<td class="org-left">转为整数</td>
+<td class="org-left"><code>'123'</code> 转为 <code>123</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>CAST(x AS DOUBLE)</code></td>
+<td class="org-left">转为浮点数</td>
+<td class="org-left"><code>'12.5'</code> 转为 <code>12.5</code></td>
+</tr>
+
+<tr>
+<td class="org-left"><code>CAST(x AS DATE)</code></td>
+<td class="org-left">转为日期</td>
+<td class="org-left"><code>'2026-10-11'</code> 转为日期</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>CAST(x AS TIMESTAMP)</code></td>
+<td class="org-left">转为时间戳</td>
+<td class="org-left">日期时间字符串转为时间戳</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</div>
+<div id="outline-container-section-2b84a24cc458" class="outline-4">
+<h4 id="section-2b84a24cc458"><span class="section-number-4">1.2.2.</span> <span class="museum-heading-level-3">当前查询中的 CAST</span></h4>
+<div class="outline-text-4" id="text-1-2-2">
+<p>
+目标：查询 UID 为 <code>784231905</code> 的法币交易，并返回用户名称、订单号、金额和状态。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><code class="language-sql">-- 目标：查找 UID 为 784231905 的法币交易
+
+SELECT
+    u.user_name,       -- 用户名称
+    f.fiat_order_id,   -- 法币订单号
+    f.amount,          -- 交易金额
+    f.status           -- 交易状态
+
+FROM main.users AS u
+
+-- 通过共同的 uid 建立关联
+JOIN main.fiat_transactions AS f
+    ON CAST(u.uid AS VARCHAR) = CAST(f.uid AS VARCHAR)
+
+-- 只查询指定用户
+WHERE CAST(u.uid AS VARCHAR) = '784231905'
+
+-- 按订单号排列
+ORDER BY f.fiat_order_id;
+</code></pre>
+</div>
+
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 2"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">位置</th>
+<th scope="col" class="org-left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><code>JOIN</code> 中的两个 <code>CAST</code></td>
+<td class="org-left">将两张表的 <code>uid</code> 转为字符串，再比较是否相同。</td>
+</tr>
+
+<tr>
+<td class="org-left"><code>WHERE</code> 中的 <code>CAST</code></td>
+<td class="org-left">将 <code>users.uid</code> 转为字符串，再筛选指定用户。</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+例如，假设 <code>users.uid</code> 是 <code>BIGINT</code>, 值为 <code>784231905 。 而 =fiat_transactions.uid</code> 是 <code>VARCHAR</code>, 值为 <code>784231905</code>.
+</p>
+
+<p>
+两个字段的类型不同。可以通过 <code>CAST</code> 转成相同类型，再比较其值。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><code class="language-sql">CAST(u.uid AS VARCHAR) = CAST(f.uid AS VARCHAR)
+</code></pre>
+</div>
+
+<p>
+以上仅为示例，不代表实际表结构。
+</p>
+</div>
+</div>
+<div id="outline-container-section-2b53b3b7b971" class="outline-4">
+<h4 id="section-2b53b3b7b971"><span class="section-number-4">1.2.3.</span> <span class="museum-heading-level-3">先检查 UID 的真实类型</span></h4>
+<div class="outline-text-4" id="text-1-2-3">
+<p>
+直接查看字段定义，不需要先查询交易记录。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><code class="language-sql">-- 查看两个表中 uid 字段的实际声明类型
+SELECT
+    table_name,
+    column_name,
+    data_type
+FROM information_schema.columns
+WHERE table_schema = 'main'
+  AND table_name IN ('users', 'fiat_transactions')
+  AND column_name = 'uid';
+</code></pre>
+</div>
+
+<p>
+也可以使用 <code>typeof()</code> 检查字段类型。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><code class="language-sql">-- 检查 users 表的 uid 类型
+SELECT typeof(uid) AS uid_type
+FROM main.users
+LIMIT 1;
+
+-- 检查 fiat_transactions 表的 uid 类型
+SELECT typeof(uid) AS uid_type
+FROM main.fiat_transactions
+LIMIT 1;
+</code></pre>
+</div>
+
+<p>
+注意：<code>typeof(uid)</code> 查询至少需要返回一行数据。空表不会返回结果。检查字段定义时，优先使用 <code>information_schema.columns</code>。
+</p>
+</div>
+</div>
+<div id="outline-container-section-92875c894db5" class="outline-4">
+<h4 id="section-92875c894db5"><span class="section-number-4">1.2.4.</span> <span class="museum-heading-level-3">如何判断是否需要 CAST</span></h4>
+<div class="outline-text-4" id="text-1-2-4">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">情况</th>
+<th scope="col" class="org-left">处理方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">UID 类型相同</td>
+<td class="org-left">通常无需 <code>CAST</code>，可直接比较。</td>
+</tr>
+
+<tr>
+<td class="org-left">UID 类型不同</td>
+<td class="org-left">先核对字段含义，再统一比较类型。</td>
+</tr>
+
+<tr>
+<td class="org-left">UID 存在格式差异</td>
+<td class="org-left">先检查原始值，不能只依靠类型转换。</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+类型转换可能增加计算开销，也可能改变比较结果。
+UID 是用户标识符。若原始值存在前导零等格式差异，转换类型不一定能正确关联。 <code>CAST</code> 不是数据清洗工具。
+<b>待确认：</b> 两张表的 <code>uid</code> 实际类型、原始值格式，以及上述 SQL 的执行结果，尚未经过验证。
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-section-bc6fa06c451c" class="outline-3">
+<h3 id="section-bc6fa06c451c"><span class="section-number-3">1.3.</span> <span class="museum-heading-level-2">References</span></h3>
+<div class="outline-text-3" id="text-1-3">
+<p>
+更多可以使用 <code>SELECT * FROM duckdb_keywords();</code> 来了解。
+</p>
+</div>
+</div>
+</div>
+<nav class="org-museum-nav" aria-label="文章关系">
+<div class="org-museum-nav-backlinks"><span class="org-museum-nav-label">反向链接 / 01</span><span class="org-museum-relation-row"><a href="duckdb-ontology-slicing-tutorial.html" class="org-museum-link">DuckDB Ontology Slicing Tutorial</a><a href="../../related.html?source=duckdb-ontology-slicing-tutorial&amp;target=duckdb-keywords-cast" class="org-museum-compare-link" aria-label="关联阅读：DuckDB Ontology Slicing Tutorial">对读</a></span></div>
+</nav>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 01</h3>
+<ul class="org-museum-related-list">
+<li><a href="duckdb-ontology-slicing-tutorial.html">DuckDB Ontology Slicing Tutorial</a></li>
+</ul>
+<a class="local-graph-link" href="../../graph.html?focus=duckdb-keywords-cast">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-label="打开 AI Copilot (Ctrl+I)" title="打开 AI Copilot (Ctrl+I)">
+  <span class="museum-ai-trigger-icon" aria-hidden="true"></span>
+  <span class="museum-ai-trigger-text">AI Copilot</span>
+  <span class="museum-ai-trigger-dot" data-ai-trigger-dot data-state="idle" aria-hidden="true"></span>
+  <kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut>Ctrl+I</kbd>
+</button>
+<aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><select class="museum-ai-copilot-model-select" data-copilot-model-select aria-label="切换 AI 模型" title="切换当前使用的 AI 模型"><option value="">讨论模式</option></select><span class="museum-ai-copilot-badge" data-ai-engine-badge hidden role="button" tabindex="0" title="点击打开全局 AI 模型设置">讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="../../ai-center.html?pageId=duckdb-keywords-cast" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips><button type="button" class="museum-ai-chip museum-ai-chip-analyze" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>重新分析笔记</span></button></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="../../timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="../../related.html">关联阅读</a>
+  <a class="sidebar-nav-btn ai" href="../../ai-center.html">AI 中心</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="../Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>06</span></div>
+    <ul>
+      <li><a href="../ontology/关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
+      <li><a href="../ontology/关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
+      <li><a href="../ontology/关系示例-03-约束反例.html">关系示例 03｜约束反例</a></li>
+      <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">SQL <span>08</span></div>
+    <ul>
+      <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
+      <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="duckdb-ontology-slicing-tutorial.html">DuckDB Ontology Slicing Tutorial</a></li>
+      <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="duckdb-thinking.html">duckdb-thinking</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="../vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
+    <ul>
+      <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="../Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="../Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="../Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+<script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
+<script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
+<script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
+
+<script defer src="../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
+</body>
+</html>

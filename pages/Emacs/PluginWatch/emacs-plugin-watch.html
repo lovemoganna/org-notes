@@ -7,7 +7,7 @@
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
 <script src="../../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
-<link rel="stylesheet" href="../../../resources/org-museum.css?v=b6d231cd70d8">
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=1d7863d341d2">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../../resources/org-museum-theme.js?v=4045495a6691"></script>
@@ -329,23 +329,16 @@
 <span class="museum-org-line">- 事实: 本窗口有一个常用包正式版本、三个直接修复交互或兼容性的提交，以及一个围绕 Emacs 原生 Canvas 的社区演示。</span>
 <span class="museum-org-line">- 推测: Emacs 生态一端继续加深成熟文本/版本控制工作流，另一端开始用 native module 与 Canvas 探索更强图形界面。</span>
 <span class="museum-org-line">- 评论: 立即行动项是评估 Magit 与 gptel 配置；Canvas 演示适合观察，不宜误读为可直接部署的 core 能力。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)
-</span></span>
-<span class="museum-org-line">:PROPERTIES:
-</span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:ARCHIVED_AT:</span> <span class="org-face-org-property-value">2026-08-01 11:54:29 +08:00
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:ITEM_COUNT:</span> <span class="org-face-org-property-value">4
-</span></span>
-<span class="museum-org-line">:END:
-</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 窗口
-</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</span></span>
+<span class="museum-org-line">:PROPERTIES:</span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:ARCHIVED_AT:</span> <span class="org-face-org-property-value">2026-08-01 11:54:29 +08:00</span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:ITEM_COUNT:</span> <span class="org-face-org-property-value">4</span></span>
+<span class="museum-org-line">:END:</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 窗口</span></span>
 <span class="museum-org-line">- 本地: 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</span>
 <span class="museum-org-line">- UTC: 2026-07-29T11:25:49Z -&gt; 2026-07-30T11:25:49Z</span>
 <span class="museum-org-line">- 执行规则: Emacs 专项固定 24 小时；按 published_at_utc 倒序；不设固定条数上限；P0/P1 默认写入，P2 exceptional only。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 摘要（本窗口）
-</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 摘要（本窗口）</span></span>
 <span class="museum-org-line">- 新增条目: Emacs=4</span>
 <span class="museum-org-line">- P0=0 | P1=4 | P2=0</span>
 <span class="museum-org-line">- 去重跳过: 6</span>
@@ -353,144 +346,95 @@
 <span class="museum-org-line">- 来源采集失败: 0</span>
 <span class="museum-org-line">- 最值得关注方向: 诊断与 AI 前端继续从“功能可用”转向上下文正确性、现代工具兼容和可控交互。</span>
 <span class="museum-org-line">- 本窗口判断: 事实：ECA、Flycheck 与 agent-shell 均有直接影响交互或工具链的修复，社区同时出现 Hyperbole 可操作文本教程。推测：Emacs 内 AI 与诊断工具正进入细节可靠性竞争阶段。评论：这些增量不宏大，却会直接改变日常工作流是否可信、顺手。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）
-</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** ECA 不再向代理发送空路径与空位置的光标上下文 :P1:
-</span></span>
-<span class="museum-org-line">:PROPERTIES:
-</span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:DEDUP_ID:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/editor-code-assistant/eca-emacs/commit/9f198ffd123421e5662a0e1ce731fea022b64a1</span><span class="org-face-org-link org-face-org-property-value">0</span><span class="org-face-org-property-value">
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:SOURCE:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/editor-code-assistant/eca-emacs/commit/9f198ffd123421e5662a0e1ce731fea022b64a1</span><span class="org-face-org-link org-face-org-property-value">0</span><span class="org-face-org-property-value">
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:PUBLISHED_AT:</span> <span class="org-face-org-property-value">2026-07-30 07:16:33 +08:00
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:VALUE_TYPE:</span> <span class="org-face-org-property-value">ai-emacs
-</span></span>
-<span class="museum-org-line">:END:
-</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 中文简报（本窗口）</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** ECA 不再向代理发送空路径与空位置的光标上下文 :P1:</span></span>
+<span class="museum-org-line">:PROPERTIES:</span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:DEDUP_ID:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/editor-code-assistant/eca-emacs/commit/9f198ffd123421e5662a0e1ce731fea022b64a1</span><span class="org-face-org-link org-face-org-property-value">0</span><span class="org-face-org-property-value"></span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:SOURCE:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/editor-code-assistant/eca-emacs/commit/9f198ffd123421e5662a0e1ce731fea022b64a1</span><span class="org-face-org-link org-face-org-property-value">0</span><span class="org-face-org-property-value"></span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:PUBLISHED_AT:</span> <span class="org-face-org-property-value">2026-07-30 07:16:33 +08:00</span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:VALUE_TYPE:</span> <span class="org-face-org-property-value">ai-emacs</span></span>
+<span class="museum-org-line">:END:</span>
 <span class="museum-org-line">- 事件: ECA Emacs 于 7 月 30 日修复光标跟踪尚未建立时仍发送 nil 路径/位置的问题；发送前会尝试即时计算，仍未知则丢弃该上下文，并显示“@cursor(no file)”。</span>
 <span class="museum-org-line">- 影响: 使用 ECA 把当前编辑位置交给编码代理的用户，不再因空编辑器状态让模型误判工作文件；跨工作区最近缓冲区的选择也有测试覆盖。</span>
 <span class="museum-org-line">- 适用场景: 插件评估、配置决策、风险预警；尤其适合依赖自动注入当前文件位置的多项目 AI 编码工作流。</span>
-<span class="museum-org-line">- 建议关注点:
-</span>
+<span class="museum-org-line">- 建议关注点:</span>
 <span class="museum-org-line">  - 观察该修复进入正式 release 的时间。</span>
 <span class="museum-org-line">  - 在多项目、启动后尚未访问文件和外部缓冲区场景复测上下文标签。</span>
 <span class="museum-org-line">  - 关注服务端是否记录“无光标上下文”与“空上下文”的不同语义。</span>
-<span class="museum-org-line">- 判断校准:
-</span>
+<span class="museum-org-line">- 判断校准:</span>
 <span class="museum-org-line">  - 事实: 提交说明、代码与测试直接支持发送前补算、未知时丢弃及占位显示。</span>
 <span class="museum-org-line">  - 推测: 这会减少模型收到错误位置后产生的无关修改，但实际改善幅度取决于用户调用方式。</span>
 <span class="museum-org-line">  - 评论: AI 前端的关键不只是能传上下文，而是明确表达“已知”和“未知”。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Flycheck 38.4 开发线补齐现代检查器配置与 ESLint 9 项目识别 :P1:
-</span></span>
-<span class="museum-org-line">:PROPERTIES:
-</span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:DEDUP_ID:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/flycheck/flycheck/commit/e58fc733d4d2c99339940671f76362660cfda35</span><span class="org-face-org-link org-face-org-property-value">4</span><span class="org-face-org-property-value">
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:SOURCE:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/flycheck/flycheck/commit/e58fc733d4d2c99339940671f76362660cfda35</span><span class="org-face-org-link org-face-org-property-value">4</span><span class="org-face-org-property-value">
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:PUBLISHED_AT:</span> <span class="org-face-org-property-value">2026-07-30 00:34:33 +08:00
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:VALUE_TYPE:</span> <span class="org-face-org-property-value">compatibility
-</span></span>
-<span class="museum-org-line">:END:
-</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Flycheck 38.4 开发线补齐现代检查器配置与 ESLint 9 项目识别 :P1:</span></span>
+<span class="museum-org-line">:PROPERTIES:</span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:DEDUP_ID:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/flycheck/flycheck/commit/e58fc733d4d2c99339940671f76362660cfda35</span><span class="org-face-org-link org-face-org-property-value">4</span><span class="org-face-org-property-value"></span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:SOURCE:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/flycheck/flycheck/commit/e58fc733d4d2c99339940671f76362660cfda35</span><span class="org-face-org-link org-face-org-property-value">4</span><span class="org-face-org-property-value"></span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:PUBLISHED_AT:</span> <span class="org-face-org-property-value">2026-07-30 00:34:33 +08:00</span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:VALUE_TYPE:</span> <span class="org-face-org-property-value">compatibility</span></span>
+<span class="museum-org-line">:END:</span>
 <span class="museum-org-line">- 事件: Flycheck 在 38.3 发布后继续推进 38.4：识别 ESLint 9 的 eslint.config.* 作为项目根，并集中为 Ruff、Rust、Python、Go、YAML、Lua 等检查器增加参数入口。</span>
 <span class="museum-org-line">- 影响: 现代 JavaScript 项目可减少工作目录误判；需要按项目选择规则、目标版本或额外参数的用户，不必再完全依赖外部配置文件或自定义 checker。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、兼容性观察；适合多语言仓库、ESLint 9 flat config 和希望在 dir-local 中控制检查器的团队。</span>
-<span class="museum-org-line">- 建议关注点:
-</span>
+<span class="museum-org-line">- 建议关注点:</span>
 <span class="museum-org-line">  - 等待 38.4 release note 确认最终变量名与兼容范围。</span>
 <span class="museum-org-line">  - 测试 ESLint flat config 在无上层 node_modules 时的根目录识别。</span>
 <span class="museum-org-line">  - 检查本地自定义 checker 是否可被新增的标准参数变量替代。</span>
-<span class="museum-org-line">- 判断校准:
-</span>
+<span class="museum-org-line">- 判断校准:</span>
 <span class="museum-org-line">  - 事实: 提交与 changelog 明确加入 ESLint flat config 识别，并标注多项变量属于 Flycheck 38.4。</span>
 <span class="museum-org-line">  - 推测: 连续补齐参数入口显示维护方向正从大版本功能转向覆盖真实项目差异。</span>
 <span class="museum-org-line">  - 评论: 这是“工具能运行”到“工具能按项目正确运行”的重要第二步。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** agent-shell 修正后台窗口中的权限请求定位 :P1:
-</span></span>
-<span class="museum-org-line">:PROPERTIES:
-</span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:DEDUP_ID:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/xenodium/agent-shell/commit/29699ca26a73767611fbb4a05f9da90aaa4ea94</span><span class="org-face-org-link org-face-org-property-value">3</span><span class="org-face-org-property-value">
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:SOURCE:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/xenodium/agent-shell/commit/29699ca26a73767611fbb4a05f9da90aaa4ea94</span><span class="org-face-org-link org-face-org-property-value">3</span><span class="org-face-org-property-value">
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:PUBLISHED_AT:</span> <span class="org-face-org-property-value">2026-07-29 22:06:40 +08:00
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:VALUE_TYPE:</span> <span class="org-face-org-property-value">ai-emacs
-</span></span>
-<span class="museum-org-line">:END:
-</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** agent-shell 修正后台窗口中的权限请求定位 :P1:</span></span>
+<span class="museum-org-line">:PROPERTIES:</span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:DEDUP_ID:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/xenodium/agent-shell/commit/29699ca26a73767611fbb4a05f9da90aaa4ea94</span><span class="org-face-org-link org-face-org-property-value">3</span><span class="org-face-org-property-value"></span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:SOURCE:</span> <span class="org-face-org-link org-face-org-property-value">https://github.com/xenodium/agent-shell/commit/29699ca26a73767611fbb4a05f9da90aaa4ea94</span><span class="org-face-org-link org-face-org-property-value">3</span><span class="org-face-org-property-value"></span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:PUBLISHED_AT:</span> <span class="org-face-org-property-value">2026-07-29 22:06:40 +08:00</span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:VALUE_TYPE:</span> <span class="org-face-org-property-value">ai-emacs</span></span>
+<span class="museum-org-line">:END:</span>
 <span class="museum-org-line">- 事件: agent-shell 于 7 月 29 日修正权限按钮出现时的点位同步：即使 shell 窗口未被选中，也把目标位置同步到所有显示该缓冲区的窗口；未显示时保留缓冲区点位。</span>
 <span class="museum-org-line">- 影响: 使用提示栏、多个 frame 或后台代理会话的用户更容易看到等待授权的位置，减少代理看似“卡住”但实际等待人工许可的情况。</span>
 <span class="museum-org-line">- 适用场景: 配置决策、插件评估、风险预警；适合长时间运行、跨 frame 和需要频繁批准工具调用的代理会话。</span>
-<span class="museum-org-line">- 建议关注点:
-</span>
+<span class="museum-org-line">- 建议关注点:</span>
 <span class="museum-org-line">  - 验证多个窗口同时显示同一会话时的滚动与焦点行为。</span>
 <span class="museum-org-line">  - 观察后续是否加入更醒目的通知而不强抢用户焦点。</span>
 <span class="museum-org-line">  - 检查权限按钮消失后窗口点位是否仍符合阅读预期。</span>
-<span class="museum-org-line">- 判断校准:
-</span>
+<span class="museum-org-line">- 判断校准:</span>
 <span class="museum-org-line">  - 事实: 提交将目标位置写入所有显示该缓冲区的窗口，并处理缓冲区未显示的情况。</span>
 <span class="museum-org-line">  - 推测: 修复会降低漏看权限请求的概率，但不能替代系统级通知。</span>
 <span class="museum-org-line">  - 评论: 权限交互属于代理工作流的安全关键路径，细小的可见性错误也值得跟踪。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Hyperbole 教程展示无需显式链接的“可操作文本” :P1:
-</span></span>
-<span class="museum-org-line">:PROPERTIES:
-</span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:DEDUP_ID:</span> <span class="org-face-org-link org-face-org-property-value">https://www.reddit.com/r/emacs/comments/1v9v935/hyperbole_implicit_buttons_build_your_hyperverse</span><span class="org-face-org-link org-face-org-property-value">/</span><span class="org-face-org-property-value">
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:SOURCE:</span> <span class="org-face-org-link org-face-org-property-value">https://www.chiply.dev/post-hyperbole-implicit-button</span><span class="org-face-org-link org-face-org-property-value">s</span><span class="org-face-org-property-value">
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:PUBLISHED_AT:</span> <span class="org-face-org-property-value">2026-07-29 20:49:15 +08:00
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:VALUE_TYPE:</span> <span class="org-face-org-property-value">tutorial
-</span></span>
-<span class="museum-org-line">:END:
-</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Hyperbole 教程展示无需显式链接的“可操作文本” :P1:</span></span>
+<span class="museum-org-line">:PROPERTIES:</span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:DEDUP_ID:</span> <span class="org-face-org-link org-face-org-property-value">https://www.reddit.com/r/emacs/comments/1v9v935/hyperbole_implicit_buttons_build_your_hyperverse</span><span class="org-face-org-link org-face-org-property-value">/</span><span class="org-face-org-property-value"></span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:SOURCE:</span> <span class="org-face-org-link org-face-org-property-value">https://www.chiply.dev/post-hyperbole-implicit-button</span><span class="org-face-org-link org-face-org-property-value">s</span><span class="org-face-org-property-value"></span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:PUBLISHED_AT:</span> <span class="org-face-org-property-value">2026-07-29 20:49:15 +08:00</span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:VALUE_TYPE:</span> <span class="org-face-org-property-value">tutorial</span></span>
+<span class="museum-org-line">:END:</span>
 <span class="museum-org-line">- 事件: 社区在 7 月 29 日发布 Hyperbole implicit buttons 教程，演示如何把文件路径、URL、提交引用和函数调用等普通文本按模式识别为可执行动作，并用统一 Action Key 触发。</span>
 <span class="museum-org-line">- 影响: 对 Org 之外的邮件、README、日志和源码缓冲区，用户可以在不预先写显式链接的情况下建立导航与操作层；也为“文本即界面”的 Emacs 设计提供具体案例。</span>
 <span class="museum-org-line">- 适用场景: 知识积累、选题、配置评估；适合经常在异构文本中跳转资源、希望统一动作入口的用户。</span>
-<span class="museum-org-line">- 建议关注点:
-</span>
+<span class="museum-org-line">- 建议关注点:</span>
 <span class="museum-org-line">  - 用 C-h A 先检查动作解释，再决定是否启用自定义识别器。</span>
 <span class="museum-org-line">  - 评估隐式匹配误触发与自定义规则维护成本。</span>
 <span class="museum-org-line">  - 对比 Org link、Embark action 与 Hyperbole Action Key 的职责边界。</span>
-<span class="museum-org-line">- 判断校准:
-</span>
+<span class="museum-org-line">- 判断校准:</span>
 <span class="museum-org-line">  - 事实: 教程列出多类内置识别对象，并演示查看及触发隐式按钮的方式。</span>
 <span class="museum-org-line">  - 推测: 其价值更可能体现在跨模式统一操作，而非替代 Org 的持久链接。</span>
 <span class="museum-org-line">  - 评论: 这是一条有认知启发的实践材料，展示 Emacs 如何把普通文本提升为交互界面。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 索引表（本窗口）
-</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-formula">#</span><span class="org-face-org-table"> | 时间        | 优先级 | 标题                         | 类型          | 来源                | 链接                                                                                                         | 价值摘要                              | dedup_id                                                                                           | 
- |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 索引表（本窗口）</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| </span><span class="org-face-org-formula">#</span><span class="org-face-org-table"> | 时间        | 优先级 | 标题                         | 类型          | 来源                | 链接                                                                                                         | 价值摘要                              | dedup_id                                                                                           |  |</span></span>
 <span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|---+-------------+--------+------------------------------+---------------+---------------------+--------------------------------------------------------------------------------------------------------------+---------------------------------------+----------------------------------------------------------------------------------------------------+----|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 1 | 07-30 07:16 | P1     | ECA 光标上下文正确性修复     | ai-emacs      | GitHub commit       | </span><span class="org-face-org-link org-face-org-table">[[https://github.com/editor-code-assistant/eca-emacs/commit/9f198ffd123421e5662a0e1ce731fea022b64a10]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">链</span><span class="org-face-org-link org-face-org-table">接</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table"> | 未知位置不再伪装成空编辑器状态        | </span><span class="org-face-org-link org-face-org-table">https://github.com/editor-code-assistant/eca-emacs/commit/9f198ffd123421e5662a0e1ce731fea022b64a1</span><span class="org-face-org-link org-face-org-table">0</span><span class="org-face-org-table"> | 
- |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 2 | 07-30 00:34 | P1     | Flycheck 现代工具配置补齐    | compatibility | GitHub commit       | </span><span class="org-face-org-link org-face-org-table">[[https://github.com/flycheck/flycheck/commit/e58fc733d4d2c99339940671f76362660cfda354]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">链</span><span class="org-face-org-link org-face-org-table">接</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">               | ESLint 9 与多语言检查器更贴近真实项目 | </span><span class="org-face-org-link org-face-org-table">https://github.com/flycheck/flycheck/commit/e58fc733d4d2c99339940671f76362660cfda35</span><span class="org-face-org-link org-face-org-table">4</span><span class="org-face-org-table">               | 
- |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 3 | 07-29 22:06 | P1     | agent-shell 权限请求定位修复 | ai-emacs      | GitHub commit       | </span><span class="org-face-org-link org-face-org-table">[[https://github.com/xenodium/agent-shell/commit/29699ca26a73767611fbb4a05f9da90aaa4ea943]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">链</span><span class="org-face-org-link org-face-org-table">接</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">            | 后台与多窗口会话更不易漏看授权        | </span><span class="org-face-org-link org-face-org-table">https://github.com/xenodium/agent-shell/commit/29699ca26a73767611fbb4a05f9da90aaa4ea94</span><span class="org-face-org-link org-face-org-table">3</span><span class="org-face-org-table">            | 
- |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 4 | 07-29 20:49 | P1     | Hyperbole 隐式按钮教程       | tutorial      | maintainer tutorial | </span><span class="org-face-org-link org-face-org-table">[[https://www.chiply.dev/post-hyperbole-implicit-buttons]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">链</span><span class="org-face-org-link org-face-org-table">接</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                             | 普通文本可成为统一动作入口            | </span><span class="org-face-org-link org-face-org-table">https://www.reddit.com/r/emacs/comments/1v9v935/hyperbole_implicit_buttons_build_your_hyperverse</span><span class="org-face-org-link org-face-org-table">/</span><span class="org-face-org-table">  | 
- |</span></span>
-<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 简短观察
-</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 1 | 07-30 07:16 | P1     | ECA 光标上下文正确性修复     | ai-emacs      | GitHub commit       | </span><span class="org-face-org-link org-face-org-table">[[https://github.com/editor-code-assistant/eca-emacs/commit/9f198ffd123421e5662a0e1ce731fea022b64a10]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">链</span><span class="org-face-org-link org-face-org-table">接</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table"> | 未知位置不再伪装成空编辑器状态        | </span><span class="org-face-org-link org-face-org-table">https://github.com/editor-code-assistant/eca-emacs/commit/9f198ffd123421e5662a0e1ce731fea022b64a1</span><span class="org-face-org-link org-face-org-table">0</span><span class="org-face-org-table"> |  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 2 | 07-30 00:34 | P1     | Flycheck 现代工具配置补齐    | compatibility | GitHub commit       | </span><span class="org-face-org-link org-face-org-table">[[https://github.com/flycheck/flycheck/commit/e58fc733d4d2c99339940671f76362660cfda354]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">链</span><span class="org-face-org-link org-face-org-table">接</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">               | ESLint 9 与多语言检查器更贴近真实项目 | </span><span class="org-face-org-link org-face-org-table">https://github.com/flycheck/flycheck/commit/e58fc733d4d2c99339940671f76362660cfda35</span><span class="org-face-org-link org-face-org-table">4</span><span class="org-face-org-table">               |  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 3 | 07-29 22:06 | P1     | agent-shell 权限请求定位修复 | ai-emacs      | GitHub commit       | </span><span class="org-face-org-link org-face-org-table">[[https://github.com/xenodium/agent-shell/commit/29699ca26a73767611fbb4a05f9da90aaa4ea943]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">链</span><span class="org-face-org-link org-face-org-table">接</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">            | 后台与多窗口会话更不易漏看授权        | </span><span class="org-face-org-link org-face-org-table">https://github.com/xenodium/agent-shell/commit/29699ca26a73767611fbb4a05f9da90aaa4ea94</span><span class="org-face-org-link org-face-org-table">3</span><span class="org-face-org-table">            |  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 4 | 07-29 20:49 | P1     | Hyperbole 隐式按钮教程       | tutorial      | maintainer tutorial | </span><span class="org-face-org-link org-face-org-table">[[https://www.chiply.dev/post-hyperbole-implicit-buttons]</span><span class="org-face-org-link org-face-org-table">[</span><span class="org-face-org-link org-face-org-table">链</span><span class="org-face-org-link org-face-org-table">接</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-link org-face-org-table">]</span><span class="org-face-org-table">                                             | 普通文本可成为统一动作入口            | </span><span class="org-face-org-link org-face-org-table">https://www.reddit.com/r/emacs/comments/1v9v935/hyperbole_implicit_buttons_build_your_hyperverse</span><span class="org-face-org-link org-face-org-table">/</span><span class="org-face-org-table">  |  |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 简短观察</span></span>
 <span class="museum-org-line">- 事实: 本窗口的高价值增量集中在 AI 上下文正确性、权限可见性、诊断工具现代兼容和可操作文本实践。</span>
 <span class="museum-org-line">- 推测: Emacs 插件竞争正在从功能清单转向“未知状态能否被诚实表达、复杂工具链能否被正确适配”。</span>
 <span class="museum-org-line">- 评论: 本窗口没有核心级重大变化，但四条都能帮助用户判断具体工作流是否值得升级或试用。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)
-</span></span>
-<span class="museum-org-line">:PROPERTIES:
-</span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:ARCHIVED_AT:</span> <span class="org-face-org-property-value">2026-07-30 19:25:49 +08:00
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:ITEM_COUNT:</span> <span class="org-face-org-property-value">7
-</span></span>
-<span class="museum-org-line">:END:
-</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</span></span>
+<span class="museum-org-line">:PROPERTIES:</span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:ARCHIVED_AT:</span> <span class="org-face-org-property-value">2026-07-30 19:25:49 +08:00</span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:ITEM_COUNT:</span> <span class="org-face-org-property-value">7</span></span>
+<span class="museum-org-line">:END:</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 窗口</span></span>
 <span class="museum-org-line">- 本地: 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</span>
 <span class="museum-org-line">- UTC: 2026-07-29T02:55:37Z -&gt; 2026-07-30T02:55:37Z</span>
@@ -957,16 +901,11 @@
 <span class="museum-org-line">- 事实: 本窗口的 core 高价值变化是 Emacs 32 时间戳默认表示切换；AI 侧有一个正式包发布和两个可验证功能提交，分别覆盖工具调用、结构化输出和非文件缓冲区上下文。</span>
 <span class="museum-org-line">- 推测: Emacs 32 pretest 临近时，时间 API 兼容问题会比新功能更需要包维护者投入；AI 插件的可用性竞争则会继续下沉到结构化协议与 buffer 原生上下文。</span>
 <span class="museum-org-line">- 评论: 普通用户可先记录 core 风险而不必立即改配置；包维护者应尽快测试 `current-time-list=nil`，AI 工具用户则按实际 provider 与上下文需求选择升级。</span>
-<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)
-</span></span>
-<span class="museum-org-line">:PROPERTIES:
-</span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:ARCHIVED_AT:</span> <span class="org-face-org-property-value">2026-07-24 18:44:54 +0800
-</span></span>
-<span class="museum-org-line"><span class="org-face-org-special-keyword">:ITEM_COUNT:</span> <span class="org-face-org-property-value">7
-</span></span>
-<span class="museum-org-line">:END:
-</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</span></span>
+<span class="museum-org-line">:PROPERTIES:</span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:ARCHIVED_AT:</span> <span class="org-face-org-property-value">2026-07-24 18:44:54 +0800</span></span>
+<span class="museum-org-line"><span class="org-face-org-special-keyword">:ITEM_COUNT:</span> <span class="org-face-org-property-value">7</span></span>
+<span class="museum-org-line">:END:</span>
 <span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 窗口</span></span>
 <span class="museum-org-line">- 本地: 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</span>
 <span class="museum-org-line">- UTC: 2026-07-15T14:08:20Z -&gt; 2026-07-16T14:08:20Z</span>
@@ -1375,23 +1314,16 @@
 <li><a href="#section-6124d4ef3d86">2.1.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-fe8d5052293d">2.2. 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)
-</a>
+<li><a href="#section-fe8d5052293d">2.2. 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-a50be7ce7196">2.2.1. 窗口
-</a></li>
-<li><a href="#section-425ebc7226d0">2.2.2. 摘要（本窗口）
-</a></li>
-<li><a href="#section-ccd7d4cc0ac2">2.2.3. 中文简报（本窗口）
-</a></li>
-<li><a href="#section-69ce6d1394c8">2.2.4. 索引表（本窗口）
-</a></li>
-<li><a href="#section-016dfa38947f">2.2.5. 简短观察
-</a></li>
+<li><a href="#section-a50be7ce7196">2.2.1. 窗口</a></li>
+<li><a href="#section-425ebc7226d0">2.2.2. 摘要（本窗口）</a></li>
+<li><a href="#section-ccd7d4cc0ac2">2.2.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-69ce6d1394c8">2.2.4. 索引表（本窗口）</a></li>
+<li><a href="#section-016dfa38947f">2.2.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-3b0fab4e3e55">2.3. 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)
-</a>
+<li><a href="#section-3b0fab4e3e55">2.3. 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</a>
 <ul>
 <li><a href="#section-1057eb835af1">2.3.1. 窗口</a></li>
 <li><a href="#section-483a21d5e631">2.3.2. 摘要（本窗口）</a></li>
@@ -1436,8 +1368,7 @@
 <li><a href="#section-24491e7caf70">2.7.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-3e6194c369e8">2.8. 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)
-</a>
+<li><a href="#section-3e6194c369e8">2.8. 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</a>
 <ul>
 <li><a href="#section-39d0e12a0b06">2.8.1. 窗口</a></li>
 <li><a href="#section-79ba91e4f933">2.8.2. 摘要（本窗口）</a></li>
@@ -2052,8 +1983,7 @@
 </div>
 </div>
 <div id="outline-container-section-fe8d5052293d" class="outline-3">
-<h3 id="section-fe8d5052293d"><span class="section-number-3">2.2.</span> <span class="museum-heading-level-2">窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)
-</span></h3>
+<h3 id="section-fe8d5052293d"><span class="section-number-3">2.2.</span> <span class="museum-heading-level-2">窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 :PROPERTIES:
@@ -2063,8 +1993,7 @@
 </p>
 </div>
 <div id="outline-container-section-a50be7ce7196" class="outline-4">
-<h4 id="section-a50be7ce7196"><span class="section-number-4">2.2.1.</span> <span class="museum-heading-level-3">窗口
-</span></h4>
+<h4 id="section-a50be7ce7196"><span class="section-number-4">2.2.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-2-1">
 <ul class="org-ul">
 <li>本地: 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</li>
@@ -2074,8 +2003,7 @@
 </div>
 </div>
 <div id="outline-container-section-425ebc7226d0" class="outline-4">
-<h4 id="section-425ebc7226d0"><span class="section-number-4">2.2.2.</span> <span class="museum-heading-level-3">摘要（本窗口）
-</span></h4>
+<h4 id="section-425ebc7226d0"><span class="section-number-4">2.2.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-2-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=4</li>
@@ -2089,13 +2017,11 @@
 </div>
 </div>
 <div id="outline-container-section-ccd7d4cc0ac2" class="outline-4">
-<h4 id="section-ccd7d4cc0ac2"><span class="section-number-4">2.2.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）
-</span></h4>
+<h4 id="section-ccd7d4cc0ac2"><span class="section-number-4">2.2.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-2-3">
 </div>
 <ol class="org-ol">
-<li><a id="org-museum-ref-29cf573dc8e9"></a><span class="museum-heading-level-4">ECA 不再向代理发送空路径与空位置的光标上下文 :P1:
-</span><br>
+<li><a id="org-museum-ref-29cf573dc8e9"></a><span class="museum-heading-level-4">ECA 不再向代理发送空路径与空位置的光标上下文 :P1:</span><br>
 <div class="outline-text-5" id="text-2-2-3-1">
 <p>
 :PROPERTIES:
@@ -2124,8 +2050,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-4e1e1777a2ce"></a><span class="museum-heading-level-4">Flycheck 38.4 开发线补齐现代检查器配置与 ESLint 9 项目识别 :P1:
-</span><br>
+<li><a id="org-museum-ref-4e1e1777a2ce"></a><span class="museum-heading-level-4">Flycheck 38.4 开发线补齐现代检查器配置与 ESLint 9 项目识别 :P1:</span><br>
 <div class="outline-text-5" id="text-2-2-3-2">
 <p>
 :PROPERTIES:
@@ -2154,8 +2079,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-16ec33bc57a1"></a><span class="museum-heading-level-4">agent-shell 修正后台窗口中的权限请求定位 :P1:
-</span><br>
+<li><a id="org-museum-ref-16ec33bc57a1"></a><span class="museum-heading-level-4">agent-shell 修正后台窗口中的权限请求定位 :P1:</span><br>
 <div class="outline-text-5" id="text-2-2-3-3">
 <p>
 :PROPERTIES:
@@ -2184,8 +2108,7 @@
 </ul>
 </div>
 </li>
-<li><a id="org-museum-ref-6c92a8714470"></a><span class="museum-heading-level-4">Hyperbole 教程展示无需显式链接的“可操作文本” :P1:
-</span><br>
+<li><a id="org-museum-ref-6c92a8714470"></a><span class="museum-heading-level-4">Hyperbole 教程展示无需显式链接的“可操作文本” :P1:</span><br>
 <div class="outline-text-5" id="text-2-2-3-4">
 <p>
 :PROPERTIES:
@@ -2217,8 +2140,7 @@
 </ol>
 </div>
 <div id="outline-container-section-69ce6d1394c8" class="outline-4">
-<h4 id="section-69ce6d1394c8"><span class="section-number-4">2.2.4.</span> <span class="museum-heading-level-3">索引表（本窗口）
-</span></h4>
+<h4 id="section-69ce6d1394c8"><span class="section-number-4">2.2.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-2-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
 
@@ -2315,8 +2237,7 @@
 </div>
 </div>
 <div id="outline-container-section-016dfa38947f" class="outline-4">
-<h4 id="section-016dfa38947f"><span class="section-number-4">2.2.5.</span> <span class="museum-heading-level-3">简短观察
-</span></h4>
+<h4 id="section-016dfa38947f"><span class="section-number-4">2.2.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-2-5">
 <ul class="org-ul">
 <li>事实: 本窗口的高价值增量集中在 AI 上下文正确性、权限可见性、诊断工具现代兼容和可操作文本实践。</li>
@@ -2327,8 +2248,7 @@
 </div>
 </div>
 <div id="outline-container-section-3b0fab4e3e55" class="outline-3">
-<h3 id="section-3b0fab4e3e55"><span class="section-number-3">2.3.</span> <span class="museum-heading-level-2">窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)
-</span></h3>
+<h3 id="section-3b0fab4e3e55"><span class="section-number-3">2.3.</span> <span class="museum-heading-level-2">窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 :PROPERTIES:
@@ -3630,8 +3550,7 @@
 </div>
 </div>
 <div id="outline-container-section-3e6194c369e8" class="outline-3">
-<h3 id="section-3e6194c369e8"><span class="section-number-3">2.8.</span> <span class="museum-heading-level-2">窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)
-</span></h3>
+<h3 id="section-3e6194c369e8"><span class="section-number-3">2.8.</span> <span class="museum-heading-level-2">窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-8">
 <p>
 :PROPERTIES:
@@ -4997,10 +4916,12 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>08</span></div>
     <ul>
       <li><a href="../../sql/duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="../../sql/duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
       <li><a href="../../sql/duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="../../sql/duckdb-ontology-slicing-tutorial.html">DuckDB Ontology Slicing Tutorial</a></li>
       <li><a href="../../sql/sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="../../sql/duckdb-ontology.html">DuckDB 本体建模</a></li>
       <li><a href="../../sql/duckdb-dataset.html">duckdb-dataset</a></li>

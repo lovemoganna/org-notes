@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DuckDB Ontology Slicing Tutorial</title>
+<meta name="generator" content="Org Mode" />
+<meta name="color-scheme" content="dark light">
+<script src="../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
+<link rel="stylesheet" href="../../resources/org-museum.css?v=1d7863d341d2">
+<link rel="icon" href="data:,">
+</head>
+<body class="org-museum-page" data-page-kind="article" data-page-id="duckdb-ontology-slicing-tutorial" data-page-title="DuckDB Ontology Slicing Tutorial" data-page-category="Sql" data-page-tags="sql" data-page-status="published" data-page-modified="2026-10-12" data-hljs-css="../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<header class="museum-topbar" data-home-href="../../index.html">
+  <a class="museum-skip-link" href="#main-content">跳到正文</a>
+  <a class="museum-wordmark museum-topbar-link" href="../../index.html">ORG MUSEUM<span>.el</span></a>
+  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
+  <label class="museum-search-line">
+    <span class="sr-only">全局搜索</span>
+    <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
+    <kbd aria-hidden="true">/</kbd>
+  </label>
+  <nav class="museum-top-links" aria-label="Wiki 导航">
+    <a class="museum-topbar-link museum-nav-timeline" href="../../timeline.html">时间</a>
+    <a class="museum-topbar-link museum-nav-graph" href="../../graph.html">图谱</a>
+    <a class="museum-topbar-link museum-nav-related" href="../../related.html">关联阅读</a>
+    <a class="museum-topbar-link museum-nav-ai" href="../../ai-center.html">AI 中心</a>
+    <a class="museum-topbar-link museum-nav-all" href="../../index.html#recent-updates">索引</a>
+    <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
+    <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
+      <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">外观主题</div>
+          <div class="museum-theme-segmented" role="group">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+            <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
+              <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
+              <span data-theme-label>深色</span></button>
+          </div>
+        </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+        <div class="museum-settings-section museum-settings-ai-section">
+          <div class="museum-settings-section-title">模型设置</div>
+          <form data-browser-config class="museum-settings-config-form">
+            <div class="museum-settings-field">
+              <label>接入方式<select name="provider">
+                <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
+                <option value="ollama">Ollama</option>
+              </select></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
+            </div>
+            <div class="museum-settings-field">
+              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
+              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+            </div>
+            <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
+            <div class="museum-settings-field">
+              <label>选择模型
+                <div class="museum-settings-model-row">
+                  <select name="model_select" data-browser-model-select aria-label="选择模型">
+                    <option value="">(请先读取模型列表或手动输入)</option>
+                  </select>
+                  <button type="button" class="museum-settings-sub-btn" data-browser-cycle-model title="顺序切换至下一个模型" aria-label="顺序切换选择模型">顺序切换</button>
+                </div>
+              </label>
+            </div>
+            <div class="museum-settings-field">
+              <label>模型 ID<input name="model" list="museum-browser-model-list" placeholder="选择已加载模型或输入模型 ID" required></label>
+              <datalist id="museum-browser-model-list"></datalist>
+            </div>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-load>加载并测试模型</button>
+              <button type="button" data-browser-cancel-load hidden>取消加载</button>
+            </div>
+            <div class="museum-settings-status-box">
+              <span class="museum-settings-status-indicator" aria-hidden="true"></span>
+              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+            </div>
+            <details class="museum-settings-details">
+              <summary>回答偏好设置</summary>
+              <div class="museum-settings-field">
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+              </div>
+            </details>
+          </form>
+          <details class="museum-settings-details museum-ai-local-tools">
+            <summary>本地保存与同步</summary>
+            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
+            <div class="museum-ai-action-row">
+              <button type="button" data-browser-backup>导出知识库</button>
+              <button type="button" data-browser-org-export>导出 Org</button>
+              <button type="button" data-browser-sync-preview>预览同步</button>
+            </div>
+            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
+            <div data-browser-sync-result></div>
+          </details>
+        </div>
+      </div>
+    </div></details>
+  </nav>
+</header>
+
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../index.html" class="museum-identity-title">DuckDB Ontology Slicing Tutorial</a><span class="museum-identity-meta">Sql</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="duckdb-ontology-slicing-tutorial" data-page-title="DuckDB Ontology Slicing Tutorial" data-page-category="Sql"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
+  <summary>文章信息</summary>
+<aside class="museum-article-meta" aria-label="文章元数据">
+  <a class="article-category" href="../../index.html?category=Sql#recent-updates">Sql</a>
+  <dl>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-12">2026-10-12</time></dd></div>
+    <div><dt>阅读时间</dt><dd>约 14 分钟</dd></div>
+    <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../index.html?tag=sql#recent-updates" data-tag="sql" title="查看包含标签 #sql 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">sql</span></a></dd></div>
+  </dl>
+  <nav class="article-back-nav" aria-label="文章返回导航">
+    <a data-reading-return href="../../index.html#recent-updates">← 全部笔记</a>
+  </nav>
+</aside>
+</details>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="5f427bdb86ab9044b8a22d599f798ee4f5fe3bc395e108a39efbcc35861455af"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_id: duckdb-ontology-slicing-tutorial</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+category: Sql</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+wiki_status: published</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+filetags: :sql:</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+startup: content align inlineimages indent hidestars</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-1"><span class="org-face-org-level-1">* DuckDB Tutorial</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Overview</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 学习规则</span></span>
+<span class="museum-org-line">一次只学一个概念，执行一条简单 SQL，看到真实结果，再进入下一步。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** Roadmap</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 认识对象</span></span>
+<span class="museum-org-line">从真实的 users 表理解什么是实体、实例、属性。不创建图谱。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 认识关系</span></span>
+<span class="museum-org-line">检查 users 和 fiat_transactions 是否通过真实字段建立关联。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 认识切片</span></span>
+<span class="museum-org-line">根据一个真实业务问题，只提取有关的用户、交易和关系。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 动态展示</span></span>
+<span class="museum-org-line">将真实 SQL 查询结果绘制为局部知识图谱，修改问题后重新计算。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** Content</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 导入数据</span></span>
+<span class="museum-org-line">引用这个 <span class="org-face-org-link">[[file:exchange_funds_flow_dataset.xlsx]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">数据</span><span class="org-face-org-link">集</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>，主要包含四张表，包括 users, fiat_transactions, crypto_transactions, exchange_rates.</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** 校验数据</span></span>
+<span class="museum-org-line">1. 目的: 检查四张指定的数据表是否存在</span>
+<span class="museum-org-line">2. 注意: information_schema.tables 是 DuckDB 的系统目录视图，用来查询当前连接可见的表和视图信息。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    table_schema,           -- 数据表所属的 Schema，例如 main</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    TABLE_NAME              -- 数据表名称</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM information_schema.tables</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  WHERE table_name IN (</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'users',                -- 用户表</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'fiat_transactions',    -- 法币交易表</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'crypto_transactions',  -- 加密货币交易表</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'exchange_rates'        -- 汇率表</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  )</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   ORDER BY TABLE_NAME;     -- 按表名排序</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 练习过程</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Step 1 认识对象</span></span>
+<span class="museum-org-line">理解：数据库里的 users，为什么可以成为本体中的 User 对象？</span>
+<span class="museum-org-line">目标：从真实数据中识别候选业务对象。不让 AI 凭空创建对象。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 本体建模</span></span>
+<span class="museum-org-line">1. 检查实际字段，确认每行是否代表一个用户。确认后，将每行映射为一个 `User` 实例，将字段映射为属性。</span>
+<span class="museum-org-line">2. 注意这只是本体建模的第一步。数据库表不等于本体。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-6"><span class="org-face-org-level-6">****** 查看用户表</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT * FROM main.users LIMIT 3;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+downloaded: screenshot @ 2026-10-11 21:04:24</span></span>
+<span class="museum-org-line"><span class="org-face-org-link">[</span><span class="org-face-org-link">[</span><span class="org-face-org-link">file:../../../../Org/images/2026-10-11-21_04_24-duckdb_tutorial_duckdb_tutorial_content_导入数据_查看用户表.pn</span><span class="org-face-org-link">g</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 简单指标</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    COUNT(*) AS user_count</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.users;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Step 2 认识关系</span></span>
+<span class="museum-org-line">理解如何证明用户与其交易存在关联。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 找表与表之间的关联</span></span>
+<span class="museum-org-line">执行下面的代码，看两张表是否都存在 uid 字段。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-6"><span class="org-face-org-level-6">****** user 表</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -- 查看用户 UID 和用户名</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      uid,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      user_name</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.users</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LIMIT 2;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-6"><span class="org-face-org-level-6">****** fiat 转账表</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -- 查看交易属于哪个 UID</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      fiat_order_id,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      uid,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      amount,</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      status</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.fiat_transactions</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  LIMIT 2;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 查询对象（对象表）的业务行为（关系表）</span></span>
+<span class="museum-org-line">例如，我们要查询用户 Alice Chen 的法币交易记录。对应的 SQL 操作是查找 UID 为 "784231905" 的法币交易。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    u.user_name,		-- 用户名称</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.fiat_order_id,		-- 法币订单号</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.amount,			-- 交易金额</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.status			-- 交易状态</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.users AS u</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    -- 通过共同的 uid 建立关联</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         JOIN main.fiat_transactions AS f</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  	   ON CAST(u.uid AS VARCHAR) = CAST(f.uid AS VARCHAR)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    -- 只查询指定用户</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  WHERE</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      CAST(u.uid AS VARCHAR) = '784231905'</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    -- 按订单号排列</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  ORDER BY</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.fiat_order_id;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">使用 CAST，因为源工作簿的两张表中，UID 分别呈现为文本值和数值。等确认 DuckDB 实际导入类型后，可以统一为更合适的关联类型。更多可以参见 <span class="org-face-org-link">[[file:duckdb-keywords-cast.org]</span><span class="org-face-org-link">[</span><span class="org-face-org-link">关键字 CAST：类型转换与表关</span><span class="org-face-org-link">联</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span>。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 研究本体</span></span>
+<span class="museum-org-line">现在我们发现了一个可验证的事实：一个 用户(User) 可以关联多条 法币转账(FiatTransaction)。它们之间的关系很明显就是一对多。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+downloaded: screenshot @ 2026-10-11 23:24:14</span></span>
+<span class="museum-org-line"><span class="org-face-org-link">[</span><span class="org-face-org-link">[</span><span class="org-face-org-link">file:../../../../Org/images/2026-10-11-23_24_14-duckdb_tutorial_duckdb_tutorial_content_练习过程_step_2_认识关系_研究本体.pn</span><span class="org-face-org-link">g</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 本节学会了什么？</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体概念 | 对应内容                            |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----------+-------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象类型 | </span><span class="org-face-org-verbatim org-face-org-formula">=User, </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-formula">=FiatTransaction=</span><span class="org-face-org-formula">            </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象实例 | Alice Chen 的用户记录、具体交易订单 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象属性 | </span><span class="org-face-org-verbatim org-face-org-formula">=UID, </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-formula">=amount, </span><span class="org-face-org-verbatim org-face-org-verbatim org-face-org-verbatim org-face-org-formula">=status=</span><span class="org-face-org-formula">             </span><span class="org-face-org-table">|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象关系 | 用户拥有交易记录                    |</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Step 3 认识切片</span></span>
+<span class="museum-org-line">从一个用户理解业务关系，并用 SQL 构建局部图谱。从真实 Excel 数据中，找到 Alice Chen 和她的所有法币交易，并把关联结果变成一张小图。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 先找到人</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+name: 查找 Alice Chen 的用户记录</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    uid,          -- 用户唯一编号</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    user_name     -- 用户姓名</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  FROM main.users</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  WHERE user_name = 'Alice Chen';</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这里学到的概念：对象。Alice Chen 是一个真实的 User 对象实例，uid 是识别她的编号。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 找到她的全部交易</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">根据 UID 关联用户和法币交易</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      u.user_name,       </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">用户姓名</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.fiat_order_id,   </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易订单号</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.amount,          </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易金额</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      f.status           </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易状态</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> main.users </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> u</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">JOIN</span><span class="org-face-org-block"> main.fiat_transactions </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> f</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      </span><span class="org-face-font-lock-keyword-face org-face-org-block">ON</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(u.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">) =</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(f.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">WHERE</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(u.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">) = </span><span class="org-face-font-lock-string-face org-face-org-block">'784231905'</span></span>
+<span class="museum-org-line museum-org-block-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">ORDER</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">BY</span><span class="org-face-org-block"> f.fiat_order_id;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">这里学到的概念：关系。</span>
+<span class="museum-org-line">JOIN 利用两张表共有的 uid，证明 Alice Chen 关联了这四笔交易。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 构建局部图谱</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  -- 提取 Alice Chen 的局部图谱关系</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'User:' || CAST(u.uid AS VARCHAR)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      AS source_node,      -- 起点：用户</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'HAS_TRANSACTION'</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      AS relation_type,    -- 关系：拥有交易</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    'FiatTransaction:' || f.fiat_order_id</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">      AS target_node       -- 终点：法币交易</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    FROM main.users AS u</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         JOIN main.fiat_transactions AS f</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  	   ON CAST(u.uid AS VARCHAR) =</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  	      CAST(f.uid AS VARCHAR)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   WHERE CAST(u.uid AS VARCHAR) = '784231905'</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   ORDER BY f.fiat_order_id;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 本节学会了什么？</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 概念                   | 真实操作                           |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|------------------------+------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对象（Entity）         | 找到 Alice Chen                    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 关系（Relation）       | 通过 UID 找到四笔交易              |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体切片（Slicing）    | 只提取 Alice Chen 相关的节点和边   |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 任务投影（Projection） | 将查询结果表示为绘图所需的节点和边 |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">严格来说，本节完成的是基于真实关系数据的局部子图查询。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-4"><span class="org-face-org-level-4">**** Step 4 动态展示</span></span>
+<span class="museum-org-line">只改一个用户名，DuckDB 就自动找到这个用户和他的所有法币交易。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 执行一条 SQL</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">第一步：输入要研究的用户名</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">WITH</span><span class="org-face-org-block"> target </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> (</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">'Alice Chen'</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> user_name</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  )</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">第二步：提取用户与交易之间的关系</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    u.user_name </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> user_node,         </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">用户节点</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-string-face org-face-org-block">'HAS_TRANSACTION'</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> relation,    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">关系类型</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.fiat_order_id </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> trade_node,    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易节点</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.amount,                         </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">金额</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    f.status                          </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">交易状态</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> main.users </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> u</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">第三步：通过 UID 找到真实关联交易</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">         </span><span class="org-face-font-lock-keyword-face org-face-org-block">JOIN</span><span class="org-face-org-block"> main.fiat_transactions </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> f</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-org-block">	</span><span class="org-face-org-block">   </span><span class="org-face-font-lock-keyword-face org-face-org-block">ON</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(u.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">) =</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-org-block">	</span><span class="org-face-org-block">      </span><span class="org-face-font-lock-builtin-face org-face-org-block">CAST</span><span class="org-face-org-block">(f.uid </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-type-face org-face-org-block">VARCHAR</span><span class="org-face-org-block">)</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">    </span><span class="org-face-font-lock-comment-delimiter-face org-face-org-block">-- </span><span class="org-face-font-lock-comment-face org-face-org-block">第四步：只保留指定用户的数据</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   </span><span class="org-face-font-lock-keyword-face org-face-org-block">WHERE</span><span class="org-face-org-block"> u.user_name = (</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">     </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span><span class="org-face-org-block"> user_name </span><span class="org-face-font-lock-keyword-face org-face-org-block">FROM</span><span class="org-face-org-block"> target</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   )</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">   </span><span class="org-face-font-lock-keyword-face org-face-org-block">ORDER</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">BY</span><span class="org-face-org-block"> f.fiat_order_id;</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">只需要理解两个关键动作： target 告诉 DuckDB 当前研究谁；JOIN 找到属于这个用户的所有交易。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 现在只改一个地方</span></span>
+<span class="museum-org-line">把 SQL 第三行：</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src duckdb</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  SELECT 'Alice Chen' AS user_name</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">改成</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-begin-line">#+begin_src sql</span></span>
+<span class="museum-org-line museum-org-block-line"><span class="org-face-org-block">  </span><span class="org-face-font-lock-keyword-face org-face-org-block">SELECT</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-string-face org-face-org-block">'Bob Miller'</span><span class="org-face-org-block"> </span><span class="org-face-font-lock-keyword-face org-face-org-block">AS</span><span class="org-face-org-block"> user_name</span></span>
+<span class="museum-org-line museum-org-block-delimiter"><span class="org-face-org-block-end-line">#+end_src</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">其他内容完全不动，再运行一次。你会发现：SQL 的关联规则没有变，只是当前研究的用户变了。</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-5"><span class="org-face-org-level-5">***** 这跟本体切片有什么关系？</span></span>
+<span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+downloaded: screenshot @ 2026-10-12 01:46:45</span></span>
+<span class="museum-org-line"><span class="org-face-org-link">[</span><span class="org-face-org-link">[</span><span class="org-face-org-link">file:../../../../Org/images/2026-10-12-01_46_45-duckdb_ontology_slicing_tutorial_duckdb_tutorial_content_练习过程_step_4_动态展示_这跟本体切片有什么关系.pn</span><span class="org-face-org-link">g</span><span class="org-face-org-link">]</span><span class="org-face-org-link">]</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">完整数据始终保留。我们只是根据当前用户，挑选相关对象和关系。严格来说，这仍是基于 SQL 的局部子图查询，还不是自动语义本体切片系统。</span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">那接下来该做什么？</span>
+<span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** References</span></span>
+<span class="museum-org-line museum-org-heading museum-org-heading-3"><span class="org-face-org-level-3">*** 术语</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 术语     | 概念                | 一句人话                                     |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|----------+---------------------+----------------------------------------------|</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 不重不漏 | MECE                | 给知识做分类，尽量避免重复和遗漏             |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体     | Ontology            | 定义知识对象、属性以及它们之间的关系         |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体切片 | Ontology Slicing    | 根据问题，只取相关的局部知识                 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本体投影 | Ontology Projection | 把局部知识转换成 SQL、图解或其他可使用的形式 |</span></span>
+<span class="museum-org-line">&nbsp;</span>
+<span class="museum-org-line">用现在的 炼化 Skill 把上面的输出内容优化一轮，以 org mode 的语法整理输出。</span>
+</code></pre></section>
+<h1 class="title">DuckDB Ontology Slicing Tutorial</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#section-78e43530d9c1">1. DuckDB Tutorial</a>
+<ul>
+<li><a href="#section-b4520b4a08ac">1.1. Overview</a>
+<ul>
+<li><a href="#section-68898ffcdf7b">1.1.1. 学习规则</a></li>
+<li><a href="#section-38df96e82cba">1.1.2. Roadmap</a></li>
+</ul>
+</li>
+<li><a href="#section-0fa2994898d3">1.2. Content</a>
+<ul>
+<li><a href="#section-f0fe77f4cff5">1.2.1. 导入数据</a></li>
+<li><a href="#section-303867bf103f">1.2.2. 练习过程</a></li>
+</ul>
+</li>
+<li><a href="#section-056f2b346c25">1.3. References</a>
+<ul>
+<li><a href="#section-b3fe4e51c0b5">1.3.1. 术语</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-section-78e43530d9c1" class="outline-2">
+<h2 id="section-78e43530d9c1"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">DuckDB Tutorial</span></h2>
+<div class="outline-text-2" id="text-1">
+</div>
+<div id="outline-container-section-b4520b4a08ac" class="outline-3">
+<h3 id="section-b4520b4a08ac"><span class="section-number-3">1.1.</span> <span class="museum-heading-level-2">Overview</span></h3>
+<div class="outline-text-3" id="text-1-1">
+</div>
+<div id="outline-container-section-68898ffcdf7b" class="outline-4">
+<h4 id="section-68898ffcdf7b"><span class="section-number-4">1.1.1.</span> <span class="museum-heading-level-3">学习规则</span></h4>
+<div class="outline-text-4" id="text-1-1-1">
+<p>
+一次只学一个概念，执行一条简单 SQL，看到真实结果，再进入下一步。
+</p>
+</div>
+</div>
+<div id="outline-container-section-38df96e82cba" class="outline-4">
+<h4 id="section-38df96e82cba"><span class="section-number-4">1.1.2.</span> <span class="museum-heading-level-3">Roadmap</span></h4>
+<div class="outline-text-4" id="text-1-1-2">
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-a408bf98d48b"></a><span class="museum-heading-level-4">认识对象</span><br>
+<div class="outline-text-5" id="text-1-1-2-1">
+<p>
+从真实的 users 表理解什么是实体、实例、属性。不创建图谱。
+</p>
+</div>
+</li>
+<li><a id="org-museum-ref-50213e8a1f33"></a><span class="museum-heading-level-4">认识关系</span><br>
+<div class="outline-text-5" id="text-1-1-2-2">
+<p>
+检查 users 和 fiat_transactions 是否通过真实字段建立关联。
+</p>
+</div>
+</li>
+<li><a id="org-museum-ref-1bca374a1e79"></a><span class="museum-heading-level-4">认识切片</span><br>
+<div class="outline-text-5" id="text-1-1-2-3">
+<p>
+根据一个真实业务问题，只提取有关的用户、交易和关系。
+</p>
+</div>
+</li>
+<li><a id="org-museum-ref-23682000f63c"></a><span class="museum-heading-level-4">动态展示</span><br>
+<div class="outline-text-5" id="text-1-1-2-4">
+<p>
+将真实 SQL 查询结果绘制为局部知识图谱，修改问题后重新计算。
+</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-section-0fa2994898d3" class="outline-3">
+<h3 id="section-0fa2994898d3"><span class="section-number-3">1.2.</span> <span class="museum-heading-level-2">Content</span></h3>
+<div class="outline-text-3" id="text-1-2">
+</div>
+<div id="outline-container-section-f0fe77f4cff5" class="outline-4">
+<h4 id="section-f0fe77f4cff5"><span class="section-number-4">1.2.1.</span> <span class="museum-heading-level-3">导入数据</span></h4>
+<div class="outline-text-4" id="text-1-2-1">
+<p>
+引用这个 <a href="../../assets/1630f146e0d7e92005881be3a1a4e15fd34d31ba31133de76a7258e2f86bc1fc.xlsx">数据集</a>，主要包含四张表，包括 users, fiat_transactions, crypto_transactions, exchange_rates.
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-5a355e96c133"></a><span class="museum-heading-level-4">校验数据</span><br>
+<div class="outline-text-5" id="text-1-2-1-1">
+<ol class="org-ol">
+<li>目的: 检查四张指定的数据表是否存在</li>
+<li>注意: information_schema.tables 是 DuckDB 的系统目录视图，用来查询当前连接可见的表和视图信息。</li>
+</ol>
+
+<div class="org-src-container">
+<pre class="src src-duckdb"><code class="language-sql">SELECT
+  table_schema,           -- 数据表所属的 Schema，例如 main
+  TABLE_NAME              -- 数据表名称
+FROM information_schema.tables
+WHERE table_name IN (
+  'users',                -- 用户表
+  'fiat_transactions',    -- 法币交易表
+  'crypto_transactions',  -- 加密货币交易表
+  'exchange_rates'        -- 汇率表
+)
+ ORDER BY TABLE_NAME;     -- 按表名排序
+</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div id="outline-container-section-303867bf103f" class="outline-4">
+<h4 id="section-303867bf103f"><span class="section-number-4">1.2.2.</span> <span class="museum-heading-level-3">练习过程</span></h4>
+<div class="outline-text-4" id="text-1-2-2">
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-144a17075455"></a><span class="museum-heading-level-4">Step 1 认识对象</span><br>
+<div class="outline-text-5" id="text-1-2-2-1">
+<p>
+理解：数据库里的 users，为什么可以成为本体中的 User 对象？
+目标：从真实数据中识别候选业务对象。不让 AI 凭空创建对象。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-4a90c0581545"></a><span class="museum-heading-level-5">本体建模</span><br>
+<div class="outline-text-6" id="text-1-2-2-1-1">
+<ol class="org-ol">
+<li>检查实际字段，确认每行是否代表一个用户。确认后，将每行映射为一个 `User` 实例，将字段映射为属性。</li>
+<li>注意这只是本体建模的第一步。数据库表不等于本体。</li>
+</ol>
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-fb5050b1da4b"></a><span class="museum-heading-level-6">查看用户表</span><br>
+<div class="outline-text-7" id="text-1-2-2-1-1-1">
+<div class="org-src-container">
+<pre class="src src-duckdb"><code class="language-sql">SELECT * FROM main.users LIMIT 3;
+</code></pre>
+</div>
+
+<p style="min-width:0;width:100%;max-width:800px;width:600px; display: block; margin-left: 0; margin-right: auto;">
+<figure class="museum-asset museum-asset-image" data-asset-id="7a61a2fee00859d9c288ee65716b750856e134a830e8e68b31938e483a022b6e"><img src="../../assets/7a61a2fee00859d9c288ee65716b750856e134a830e8e68b31938e483a022b6e.png" alt="2026-10-11-21_04_24-duckdb_tutorial_duckdb_tutorial_content_导入数据_查看用户表.png" loading="lazy" decoding="async" style="min-width:0;width:100%;max-width:800px;width:600px; display: block; margin-left: 0; margin-right: auto;" data-lightbox></figure>
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org-museum-ref-8230fc751257"></a><span class="museum-heading-level-5">简单指标</span><br>
+<div class="outline-text-6" id="text-1-2-2-1-2">
+<div class="org-src-container">
+<pre class="src src-duckdb"><code class="language-sql">SELECT
+  COUNT(*) AS user_count
+FROM main.users;
+</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org-museum-ref-2c96d7cc62a2"></a><span class="museum-heading-level-4">Step 2 认识关系</span><br>
+<div class="outline-text-5" id="text-1-2-2-2">
+<p>
+理解如何证明用户与其交易存在关联。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-27092553c32b"></a><span class="museum-heading-level-5">找表与表之间的关联</span><br>
+<div class="outline-text-6" id="text-1-2-2-2-1">
+<p>
+执行下面的代码，看两张表是否都存在 uid 字段。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-988f99e7a7e3"></a><span class="museum-heading-level-6">user 表</span><br>
+<div class="outline-text-7" id="text-1-2-2-2-1-1">
+<div class="org-src-container">
+<pre class="src src-duckdb"><code class="language-sql">-- 查看用户 UID 和用户名
+SELECT
+    uid,
+    user_name
+FROM main.users
+LIMIT 2;
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-2a11cd63b45f"></a><span class="museum-heading-level-6">fiat 转账表</span><br>
+<div class="outline-text-7" id="text-1-2-2-2-1-2">
+<div class="org-src-container">
+<pre class="src src-duckdb"><code class="language-sql">-- 查看交易属于哪个 UID
+SELECT
+    fiat_order_id,
+    uid,
+    amount,
+    status
+FROM main.fiat_transactions
+LIMIT 2;
+</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org-museum-ref-d1b0fe100bc4"></a><span class="museum-heading-level-5">查询对象（对象表）的业务行为（关系表）</span><br>
+<div class="outline-text-6" id="text-1-2-2-2-2">
+<p>
+例如，我们要查询用户 Alice Chen 的法币交易记录。对应的 SQL 操作是查找 UID 为 "784231905" 的法币交易。
+</p>
+
+<div class="org-src-container">
+<pre class="src src-duckdb"><code class="language-sql">SELECT
+  u.user_name,		-- 用户名称
+  f.fiat_order_id,		-- 法币订单号
+  f.amount,			-- 交易金额
+  f.status			-- 交易状态
+FROM main.users AS u
+  -- 通过共同的 uid 建立关联
+       JOIN main.fiat_transactions AS f
+	   ON CAST(u.uid AS VARCHAR) = CAST(f.uid AS VARCHAR)
+  -- 只查询指定用户
+WHERE
+    CAST(u.uid AS VARCHAR) = '784231905'
+  -- 按订单号排列
+ORDER BY
+    f.fiat_order_id;
+</code></pre>
+</div>
+
+<p>
+使用 CAST，因为源工作簿的两张表中，UID 分别呈现为文本值和数值。等确认 DuckDB 实际导入类型后，可以统一为更合适的关联类型。更多可以参见 <a href="duckdb-keywords-cast.html">关键字 CAST：类型转换与表关联</a>。
+</p>
+</div>
+</li>
+<li><a id="org-museum-ref-a90aaf5efe3a"></a><span class="museum-heading-level-5">研究本体</span><br>
+<div class="outline-text-6" id="text-1-2-2-2-3">
+<p>
+现在我们发现了一个可验证的事实：一个 用户(User) 可以关联多条 法币转账(FiatTransaction)。它们之间的关系很明显就是一对多。
+</p>
+
+<p style="min-width:0;width:100%;max-width:500px;width:400px; display: block; margin-left: 0; margin-right: auto;">
+<figure class="museum-asset museum-asset-image" data-asset-id="7a2a9226f0c120126725969822d8e79ef434b2e7ad0fda4559a2ffb081019e3e"><img src="../../assets/7a2a9226f0c120126725969822d8e79ef434b2e7ad0fda4559a2ffb081019e3e.png" alt="2026-10-11-23_24_14-duckdb_tutorial_duckdb_tutorial_content_练习过程_step_2_认识关系_研究本体.png" loading="lazy" decoding="async" style="min-width:0;width:100%;max-width:500px;width:400px; display: block; margin-left: 0; margin-right: auto;" data-lightbox></figure>
+</p>
+</div>
+</li>
+<li><a id="org-museum-ref-2e729677ce04"></a><span class="museum-heading-level-5">本节学会了什么？</span><br>
+<div class="outline-text-6" id="text-1-2-2-2-4">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">本体概念</th>
+<th scope="col" class="org-left">对应内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">对象类型</td>
+<td class="org-left"><code>User, =FiatTransaction</code></td>
+</tr>
+
+<tr>
+<td class="org-left">对象实例</td>
+<td class="org-left">Alice Chen 的用户记录、具体交易订单</td>
+</tr>
+
+<tr>
+<td class="org-left">对象属性</td>
+<td class="org-left"><code>UID, =amount, =status</code></td>
+</tr>
+
+<tr>
+<td class="org-left">对象关系</td>
+<td class="org-left">用户拥有交易记录</td>
+</tr>
+</tbody>
+</table></section>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org-museum-ref-950438226a91"></a><span class="museum-heading-level-4">Step 3 认识切片</span><br>
+<div class="outline-text-5" id="text-1-2-2-3">
+<p>
+从一个用户理解业务关系，并用 SQL 构建局部图谱。从真实 Excel 数据中，找到 Alice Chen 和她的所有法币交易，并把关联结果变成一张小图。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-ea033c7550fd"></a><span class="museum-heading-level-5">先找到人</span><br>
+<div class="outline-text-6" id="text-1-2-2-3-1">
+<div class="org-src-container">
+<pre class="src src-duckdb" id="org-museum-ref-c390a0ccf73d"><code class="language-sql">SELECT
+  uid,          -- 用户唯一编号
+  user_name     -- 用户姓名
+FROM main.users
+WHERE user_name = 'Alice Chen';
+</code></pre>
+</div>
+
+<p>
+这里学到的概念：对象。Alice Chen 是一个真实的 User 对象实例，uid 是识别她的编号。
+</p>
+</div>
+</li>
+<li><a id="org-museum-ref-d5abf1a05c75"></a><span class="museum-heading-level-5">找到她的全部交易</span><br>
+<div class="outline-text-6" id="text-1-2-2-3-2">
+<div class="org-src-container">
+<pre class="src src-sql"><code class="language-sql">-- 根据 UID 关联用户和法币交易
+
+SELECT
+    u.user_name,       -- 用户姓名
+    f.fiat_order_id,   -- 交易订单号
+    f.amount,          -- 交易金额
+    f.status           -- 交易状态
+
+FROM main.users AS u
+
+JOIN main.fiat_transactions AS f
+    ON CAST(u.uid AS VARCHAR) =
+       CAST(f.uid AS VARCHAR)
+
+WHERE CAST(u.uid AS VARCHAR) = '784231905'
+
+ORDER BY f.fiat_order_id;
+</code></pre>
+</div>
+
+<p>
+这里学到的概念：关系。
+JOIN 利用两张表共有的 uid，证明 Alice Chen 关联了这四笔交易。
+</p>
+</div>
+</li>
+<li><a id="org-museum-ref-c2543deee929"></a><span class="museum-heading-level-5">构建局部图谱</span><br>
+<div class="outline-text-6" id="text-1-2-2-3-3">
+<div class="org-src-container">
+<pre class="src src-duckdb"><code class="language-sql">-- 提取 Alice Chen 的局部图谱关系
+SELECT
+  'User:' || CAST(u.uid AS VARCHAR)
+    AS source_node,      -- 起点：用户
+  'HAS_TRANSACTION'
+    AS relation_type,    -- 关系：拥有交易
+  'FiatTransaction:' || f.fiat_order_id
+    AS target_node       -- 终点：法币交易
+  FROM main.users AS u
+       JOIN main.fiat_transactions AS f
+	   ON CAST(u.uid AS VARCHAR) =
+	      CAST(f.uid AS VARCHAR)
+ WHERE CAST(u.uid AS VARCHAR) = '784231905'
+ ORDER BY f.fiat_order_id;
+</code></pre>
+</div>
+</div>
+</li>
+<li><a id="org-museum-ref-e12d3972b52d"></a><span class="museum-heading-level-5">本节学会了什么？</span><br>
+<div class="outline-text-6" id="text-1-2-2-3-4">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 2"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">概念</th>
+<th scope="col" class="org-left">真实操作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">对象（Entity）</td>
+<td class="org-left">找到 Alice Chen</td>
+</tr>
+
+<tr>
+<td class="org-left">关系（Relation）</td>
+<td class="org-left">通过 UID 找到四笔交易</td>
+</tr>
+
+<tr>
+<td class="org-left">本体切片（Slicing）</td>
+<td class="org-left">只提取 Alice Chen 相关的节点和边</td>
+</tr>
+
+<tr>
+<td class="org-left">任务投影（Projection）</td>
+<td class="org-left">将查询结果表示为绘图所需的节点和边</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+严格来说，本节完成的是基于真实关系数据的局部子图查询。
+</p>
+</div>
+</li>
+</ol>
+</li>
+<li><a id="org-museum-ref-8cd137ee1eea"></a><span class="museum-heading-level-4">Step 4 动态展示</span><br>
+<div class="outline-text-5" id="text-1-2-2-4">
+<p>
+只改一个用户名，DuckDB 就自动找到这个用户和他的所有法币交易。
+</p>
+</div>
+<ol class="org-ol">
+<li><a id="org-museum-ref-ad05ac302102"></a><span class="museum-heading-level-5">执行一条 SQL</span><br>
+<div class="outline-text-6" id="text-1-2-2-4-1">
+<div class="org-src-container">
+<pre class="src src-sql"><code class="language-sql">-- 第一步：输入要研究的用户名
+WITH target AS (
+  SELECT 'Alice Chen' AS user_name
+)
+  -- 第二步：提取用户与交易之间的关系
+SELECT
+  u.user_name AS user_node,         -- 用户节点
+  'HAS_TRANSACTION' AS relation,    -- 关系类型
+  f.fiat_order_id AS trade_node,    -- 交易节点
+  f.amount,                         -- 金额
+  f.status                          -- 交易状态
+  FROM main.users AS u
+  -- 第三步：通过 UID 找到真实关联交易
+       JOIN main.fiat_transactions AS f
+	   ON CAST(u.uid AS VARCHAR) =
+	      CAST(f.uid AS VARCHAR)
+  -- 第四步：只保留指定用户的数据
+ WHERE u.user_name = (
+   SELECT user_name FROM target
+ )
+ ORDER BY f.fiat_order_id;
+</code></pre>
+</div>
+
+<p>
+只需要理解两个关键动作： target 告诉 DuckDB 当前研究谁；JOIN 找到属于这个用户的所有交易。
+</p>
+</div>
+</li>
+<li><a id="org-museum-ref-a4c5474f712c"></a><span class="museum-heading-level-5">现在只改一个地方</span><br>
+<div class="outline-text-6" id="text-1-2-2-4-2">
+<p>
+把 SQL 第三行：
+</p>
+<div class="org-src-container">
+<pre class="src src-duckdb"><code class="language-sql">SELECT 'Alice Chen' AS user_name
+</code></pre>
+</div>
+
+<p>
+改成
+</p>
+
+<div class="org-src-container">
+<pre class="src src-sql"><code class="language-sql">SELECT 'Bob Miller' AS user_name
+</code></pre>
+</div>
+
+<p>
+其他内容完全不动，再运行一次。你会发现：SQL 的关联规则没有变，只是当前研究的用户变了。
+</p>
+</div>
+</li>
+<li><a id="org-museum-ref-9c18637c5e86"></a><span class="museum-heading-level-5">这跟本体切片有什么关系？</span><br>
+<div class="outline-text-6" id="text-1-2-2-4-3">
+<p style="min-width:0;width:100%;max-width:500px;width:400px; display: block; margin-left: 0; margin-right: auto;">
+<figure class="museum-asset museum-asset-image" data-asset-id="7392a9b0e486c1ac3489b6ae7fdf7ede8d77dbf570709f589584435e419da0ea"><img src="../../assets/7392a9b0e486c1ac3489b6ae7fdf7ede8d77dbf570709f589584435e419da0ea.png" alt="2026-10-12-01_46_45-duckdb_ontology_slicing_tutorial_duckdb_tutorial_content_练习过程_step_4_动态展示_这跟本体切片有什么关系.png" loading="lazy" decoding="async" style="min-width:0;width:100%;max-width:500px;width:400px; display: block; margin-left: 0; margin-right: auto;" data-lightbox></figure>
+</p>
+
+<p>
+完整数据始终保留。我们只是根据当前用户，挑选相关对象和关系。严格来说，这仍是基于 SQL 的局部子图查询，还不是自动语义本体切片系统。
+</p>
+
+<p>
+那接下来该做什么？
+</p>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-section-056f2b346c25" class="outline-3">
+<h3 id="section-056f2b346c25"><span class="section-number-3">1.3.</span> <span class="museum-heading-level-2">References</span></h3>
+<div class="outline-text-3" id="text-1-3">
+</div>
+<div id="outline-container-section-b3fe4e51c0b5" class="outline-4">
+<h4 id="section-b3fe4e51c0b5"><span class="section-number-4">1.3.1.</span> <span class="museum-heading-level-3">术语</span></h4>
+<div class="outline-text-4" id="text-1-3-1">
+<section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
+
+
+<colgroup>
+<col  class="org-left">
+
+<col  class="org-left">
+
+<col  class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">术语</th>
+<th scope="col" class="org-left">概念</th>
+<th scope="col" class="org-left">一句人话</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">不重不漏</td>
+<td class="org-left">MECE</td>
+<td class="org-left">给知识做分类，尽量避免重复和遗漏</td>
+</tr>
+
+<tr>
+<td class="org-left">本体</td>
+<td class="org-left">Ontology</td>
+<td class="org-left">定义知识对象、属性以及它们之间的关系</td>
+</tr>
+
+<tr>
+<td class="org-left">本体切片</td>
+<td class="org-left">Ontology Slicing</td>
+<td class="org-left">根据问题，只取相关的局部知识</td>
+</tr>
+
+<tr>
+<td class="org-left">本体投影</td>
+<td class="org-left">Ontology Projection</td>
+<td class="org-left">把局部知识转换成 SQL、图解或其他可使用的形式</td>
+</tr>
+</tbody>
+</table></section>
+
+<p>
+用现在的 炼化 Skill 把上面的输出内容优化一轮，以 org mode 的语法整理输出。
+</p>
+</div>
+</div>
+</div>
+</div>
+<section class="museum-page-assets" aria-labelledby="museum-page-assets-title"><div class="museum-section-heading"><p class="eyebrow">资源</p><h2 id="museum-page-assets-title">资源</h2></div><div class="museum-asset-list"><a class="museum-asset-card museum-asset-image" data-asset-id="7a61a2fee00859d9c288ee65716b750856e134a830e8e68b31938e483a022b6e" href="../../assets/7a61a2fee00859d9c288ee65716b750856e134a830e8e68b31938e483a022b6e.png" download="2026-10-11-21_04_24-duckdb_tutorial_duckdb_tutorial_content_导入数据_查看用户表.png"><span class="museum-asset-kind">Image</span><span class="museum-asset-name">2026-10-11-21_04_24-duckdb_tutorial_duckdb_tutorial_content_导入数据_查看用户表.png</span></a><a class="museum-asset-card museum-asset-image" data-asset-id="7a2a9226f0c120126725969822d8e79ef434b2e7ad0fda4559a2ffb081019e3e" href="../../assets/7a2a9226f0c120126725969822d8e79ef434b2e7ad0fda4559a2ffb081019e3e.png" download="2026-10-11-23_24_14-duckdb_tutorial_duckdb_tutorial_content_练习过程_step_2_认识关系_研究本体.png"><span class="museum-asset-kind">Image</span><span class="museum-asset-name">2026-10-11-23_24_14-duckdb_tutorial_duckdb_tutorial_content_练习过程_step_2_认识关系_研究本体.png</span></a><a class="museum-asset-card museum-asset-image" data-asset-id="7392a9b0e486c1ac3489b6ae7fdf7ede8d77dbf570709f589584435e419da0ea" href="../../assets/7392a9b0e486c1ac3489b6ae7fdf7ede8d77dbf570709f589584435e419da0ea.png" download="2026-10-12-01_46_45-duckdb_ontology_slicing_tutorial_duckdb_tutorial_content_练习过程_step_4_动态展示_这跟本体切片有什么关系.png"><span class="museum-asset-kind">Image</span><span class="museum-asset-name">2026-10-12-01_46_45-duckdb_ontology_slicing_tutorial_duckdb_tutorial_content_练习过程_step_4_动态展示_这跟本体切片有什么关系.png</span></a></div></section><nav class="org-museum-nav" aria-label="文章关系">
+<div class="org-museum-nav-links"><span class="org-museum-nav-label">链接到 / 01</span><span class="org-museum-relation-row"><a href="duckdb-keywords-cast.html" class="org-museum-link">DuckDB Keywords | Cast</a><a href="../../related.html?source=duckdb-ontology-slicing-tutorial&amp;target=duckdb-keywords-cast" class="org-museum-compare-link" aria-label="关联阅读：DuckDB Keywords | Cast">对读</a></span></div>
+</nav>
+<section id="local-graph-container" aria-labelledby="local-graph-heading">
+<h3 id="local-graph-heading">局部关系 / 01</h3>
+<ul class="org-museum-related-list">
+<li><a href="duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
+</ul>
+<a class="local-graph-link" href="../../graph.html?focus=duckdb-ontology-slicing-tutorial">查看局部关系 →</a>
+</section>
+
+</article>
+<aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
+<button type="button" class="museum-ai-trigger" data-ai-toggle aria-label="打开 AI Copilot (Ctrl+I)" title="打开 AI Copilot (Ctrl+I)">
+  <span class="museum-ai-trigger-icon" aria-hidden="true"></span>
+  <span class="museum-ai-trigger-text">AI Copilot</span>
+  <span class="museum-ai-trigger-dot" data-ai-trigger-dot data-state="idle" aria-hidden="true"></span>
+  <kbd class="museum-ai-trigger-shortcut" data-ai-trigger-shortcut>Ctrl+I</kbd>
+</button>
+<aside id="museum-ai-panel" class="museum-ai-panel museum-ai-sidebar" aria-label="AI Copilot 协作面板" aria-hidden="true" inert><header class="museum-ai-copilot-header"><div class="museum-ai-copilot-brand"><span class="museum-ai-copilot-brand-icon" aria-hidden="true"></span><div class="museum-ai-copilot-title-group"><h2 class="museum-ai-copilot-title">AI Copilot</h2><select class="museum-ai-copilot-model-select" data-copilot-model-select aria-label="切换 AI 模型" title="切换当前使用的 AI 模型"><option value="">讨论模式</option></select><span class="museum-ai-copilot-badge" data-ai-engine-badge hidden role="button" tabindex="0" title="点击打开全局 AI 模型设置">讨论模式</span></div></div><div class="museum-ai-copilot-header-actions"><button type="button" class="museum-ai-icon-btn" data-copilot-new title="清空并开始新讨论" aria-label="新建讨论">↺</button><a data-ai-center-link class="museum-ai-icon-btn" href="../../ai-center.html?pageId=duckdb-ontology-slicing-tutorial" title="打开完整 AI 中心" aria-label="前往 AI 中心">↗</a><button type="button" class="museum-ai-icon-btn museum-ai-close-btn" data-ai-close title="收起侧边栏 (Esc)" aria-label="收起侧边栏">×</button></div></header><div class="museum-ai-copilot-chat" data-ai-chat-area><div class="museum-ai-copilot-messages" data-ai-chat-turns role="log" aria-live="polite"></div><div class="museum-ai-explore-prompts" data-ai-explore-prompts><div class="museum-ai-explore-prompts-title"><span>💡 探索建议</span></div><div class="museum-ai-explore-chips" data-ai-explore-chips><button type="button" class="museum-ai-chip museum-ai-chip-analyze" data-ai-analyze title="生成或刷新当前笔记结构化分析"><span class="museum-ai-btn-icon" aria-hidden="true"></span><span data-ai-analyze-label>重新分析笔记</span></button></div></div></div><div class="museum-ai-copilot-composer"><form data-ai-chat-form class="museum-ai-composer-form"><textarea data-ai-chat-input name="message" rows="2" placeholder="围绕当前笔记提问、探讨或提炼知识… (Ctrl+Enter 发送)" aria-label="向 AI Copilot 提问"></textarea><div class="museum-ai-composer-bar"><span class="museum-ai-composer-hint"><kbd>Ctrl+Enter</kbd> 发送</span><div class="museum-ai-composer-actions"><button type="button" class="museum-ai-stop-btn" data-ai-chat-stop hidden aria-label="停止生成">■ 停止</button><button type="submit" class="museum-ai-send-btn" data-ai-chat-send aria-label="发送消息">发送 ↑</button></div></div></form></div></aside></div></main>
+<button type="button" id="museum-drawer-backdrop" aria-label="关闭抽屉"></button>
+<p id="museum-article-live-status" class="sr-only" role="status" aria-live="polite"></p>
+<div id="zen-mask"></div>
+<canvas id="org-museum-fx-canvas" aria-hidden="true"></canvas>
+<aside id="org-museum-sidebar" aria-hidden="true" inert aria-label="全部笔记">
+  <div class="sidebar-header"><strong>全部笔记</strong><button type="button" data-drawer-close>关闭</button></div>
+  <a class="sidebar-nav-btn" href="../../index.html">返回首页</a>
+  <a class="sidebar-nav-btn graph" href="../../graph.html">知识图谱</a>
+  <a class="sidebar-nav-btn timeline" href="../../timeline.html">时间阅读</a>
+  <a class="sidebar-nav-btn related" href="../../related.html">关联阅读</a>
+  <a class="sidebar-nav-btn ai" href="../../ai-center.html">AI 中心</a>
+  <div class="sidebar-search">
+    <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
+  </div>
+  <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
+  <details class="sidebar-fx-controls">
+    <summary class="fx-label">背景效果</summary>
+    <div class="fx-buttons">
+      <button type="button" class="fx-btn" data-fx="none">关闭</button>
+      <button type="button" class="fx-btn" data-fx="tubes">轨迹</button>
+      <button type="button" class="fx-btn" data-fx="matrix">矩阵</button>
+      <button type="button" class="fx-btn" data-fx="particles">微粒</button>
+    </div>
+  </details>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
+      <li><a href="../AI/skills/org-skills.html">AI Skills</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <ul>
+      <li><a href="../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
+      <li><a href="../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
+      <li><a href="../AI/learn_with_ai/004-小心使用.html">004-小心使用</a></li>
+      <li><a href="../AI/learn_with_ai/005-信息概括.html">005-信息概括</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <ul>
+      <li><a href="../Data/dataset.html">Dataset</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <ul>
+      <li><a href="../Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Ontology <span>06</span></div>
+    <ul>
+      <li><a href="../ontology/关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
+      <li><a href="../ontology/关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
+      <li><a href="../ontology/关系示例-03-约束反例.html">关系示例 03｜约束反例</a></li>
+      <li><a href="../ontology/本体mvp.html">本体MVP</a></li>
+      <li><a href="../ontology/ontology-evidence-evolution.html">本体治理：从证据追踪到安全演化</a></li>
+      <li><a href="../ontology/ontology-concept-boundaries.html">本体论建模：从概念边界到可计算语义</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Sql <span>08</span></div>
+    <ul>
+      <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
+      <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="duckdb-ontology-slicing-tutorial.html">DuckDB Ontology Slicing Tutorial</a></li>
+      <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
+      <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
+      <li><a href="duckdb-dataset.html">duckdb-dataset</a></li>
+      <li><a href="duckdb-thinking.html">duckdb-thinking</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <ul>
+      <li><a href="../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <ul>
+      <li><a href="../vibe/vibe-coding.html">vibe coding</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <ul>
+      <li><a href="../crypto/intelligence.html">intelligence</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <ul>
+      <li><a href="../lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
+    </ul>
+  </div>
+  <div class="sidebar-category">
+    <div class="sidebar-cat-label">其他笔记 <span>03</span></div>
+    <ul>
+      <li><a href="../Emacs/Org/org-babel-01-execution-foundations.html">Org Babel 01｜执行基础与数据流</a></li>
+      <li><a href="../Emacs/Org/org-babel-02-composition-engineering.html">Org Babel 02｜组合、复用与工程化</a></li>
+      <li><a href="../Emacs/Org/org-babel-03-verification-debugging.html">Org Babel 03｜验证、回归与排错</a></li>
+    </ul>
+  </div>
+</aside>
+
+
+
+
+
+<script defer src="../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
+<script defer src="../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
+<script defer src="../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
+<script defer src="../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
+<script defer src="../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
+
+<script defer src="../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
+</body>
+</html>

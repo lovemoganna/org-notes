@@ -7,7 +7,7 @@
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
-<link rel="stylesheet" href="../../resources/org-museum.css?v=b6d231cd70d8">
+<link rel="stylesheet" href="../../resources/org-museum.css?v=1d7863d341d2">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../resources/org-museum-theme.js?v=4045495a6691"></script>
@@ -217,13 +217,13 @@
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 场景                        | DuckDB 合适？ | 备注                           |</span></span>
 <span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">|-----------------------------+---------------+--------------------------------|</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 分析一个 CSV / Parquet 文件 | ✅ 强项       | 直接 SQL 查询文件，无需导入    |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本地数据探索、ETL           | ✅ 强项       | 比 pandas 更快，比搭 PG 更省事 |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 复杂 GROUP BY / 窗口函数    | ✅ 强项       | 向量化执行，大文件快           |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 应用内嵌入式存储            | 🟡 可以       | SQLite 更成熟                  |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 多人并发写入                | ❌ 不适合     | 不支持多进程并发写             |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 实时事务（转账、登录）      | ❌ 不适合     | 用 MySQL / PostgreSQL          |</span></span>
-<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 分布式大数据                | ❌ 不适合     | 用 BigQuery / Snowflake        |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 分析一个 CSV / Parquet 文件 | ✅ 强项   | 直接 SQL 查询文件，无需导入    |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 本地数据探索、ETL           | ✅ 强项   | 比 pandas 更快，比搭 PG 更省事 |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 复杂 GROUP BY / 窗口函数    | ✅ 强项   | 向量化执行，大文件快           |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 应用内嵌入式存储            | 🟡 可以 | SQLite 更成熟                  |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 多人并发写入                | ❌ 不适合 | 不支持多进程并发写             |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 实时事务（转账、登录）      | ❌ 不适合 | 用 MySQL / PostgreSQL          |</span></span>
+<span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 分布式大数据                | ❌ 不适合 | 用 BigQuery / Snowflake        |</span></span>
 <span class="museum-org-line museum-org-heading museum-org-heading-2"><span class="org-face-org-level-2">** DuckDB vs 常见工具一句话对比</span></span>
 <span class="museum-org-line">&nbsp;</span>
 <span class="museum-org-line museum-org-table-line"><span class="org-face-org-table">| 对比          | 结论                                                       |</span></span>
@@ -5278,10 +5278,12 @@ SELECT COUNT(*) AS count FROM packages;
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">SQL <span>06</span></div>
+    <div class="sidebar-cat-label">SQL <span>08</span></div>
     <ul>
       <li><a href="duckdb.html">00 DuckDB 最小入门</a></li>
+      <li><a href="duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
       <li><a href="duckdb-mpv.html">DuckDB MPV</a></li>
+      <li><a href="duckdb-ontology-slicing-tutorial.html">DuckDB Ontology Slicing Tutorial</a></li>
       <li><a href="sql.html">DuckDB 实战入门：Emacs Package 数据分析</a></li>
       <li><a href="duckdb-ontology.html">DuckDB 本体建模</a></li>
       <li><a href="duckdb-dataset.html">duckdb-dataset</a></li>
