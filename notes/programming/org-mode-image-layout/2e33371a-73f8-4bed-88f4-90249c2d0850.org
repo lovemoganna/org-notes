@@ -53,7 +53,7 @@
 | `C-c C-a o` | 打开附件 |
 | `C-c C-a f` | 打开附件目录 |
 
-附件与标题关联。使用基于 `ID` 的附件管理时，在 Emacs 按 `C-c C-l` 插入链接，目标填写 `attachment:report.pdf` 或 `attachment:screenshot.png`。以下仅展示链接目标，避免发布器把示例误当作实际附件：
+附件与标题关联。使用基于 `ID` 的附件管理时，在 Emacs 按 `C-c C-l` 插入链接。链接目标由类型 `attachment`、冒号以及文件名构成，例如文件名为 `report.pdf` 或 `screenshot.png`。以下仅演示构成方式，避免发布器把不存在的示例附件当作实际资源：
 
 #+begin_example
 * 项目资料
@@ -61,11 +61,12 @@
 :ID: 12345678-1234-1234-1234-123456789abc
 :END:
 
-附件链接目标：attachment:report.pdf
-图片附件目标：attachment:screenshot.png
+附件类型：attachment
+报告文件名：report.pdf
+图片文件名：screenshot.png
 #+end_example
 
-`org-attach` 的实际存储目录可配置。添加附件后应检查文件确实存在，并确认 `attachment:` 链接可在当前 Emacs 配置下打开。不能假设这类本地链接会被网站发布器自动打包。
+`org-attach` 的实际存储目录可配置。添加附件后应检查文件确实存在，并确认使用附件类型的链接可在当前 Emacs 配置下打开。不能假设这类本地链接会被网站发布器自动打包。
 
 ** 普通 Org 文件：相对路径
 如果自行维护图片或 PDF 目录，可以直接使用相对路径：
