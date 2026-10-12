@@ -42,7 +42,7 @@ jobs:
           release=json.loads(Path('_site/museum-release.json').read_text(encoding='utf-8'))
           import re
           from urllib.parse import unquote
-          img=re.search(r'<img\\s+src="([^"]+\\.webp)"',html)
+          img=re.search(r'<img\s+src="([^"]+\.webp)"',html)
           assert img, "webp sketchnote missing from actual rendered page"
           output=(doc.parent/unquote(img.group(1))).resolve()
           assert output.is_file(), "rendered image URL points to missing asset"
