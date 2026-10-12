@@ -136,6 +136,15 @@ def main():
         setup(root)
         write(root, BASE, "* Sample\n#+begin_example\n[[wiki:fake-id][literal]]\n#+end_example")
         assert validate(root)["notes"] == 3
+    # Explicit user deletion: neither legacy index nor log is required.
+    with tempfile.TemporaryDirectory(prefix="wiki-without-navigation-") as t:
+        root = Path(t)
+        setup(root)
+        for identity in (INDEX, LOG):
+            (root / "notes" / "knowledge" / "fixture" / (identity + ".org")).unlink()
+        result = validate(root)
+        assert result["notes"] == 1 and result["index"] == 0 and result["events"] == 0
+    print("PASS G4: optional navigation and log can both be removed safely")
     print("PASS G3: source-code literals are not treated as references")
     # Use the exact publisher checked out by the release workflow, not a local imitation.
     import importlib.util

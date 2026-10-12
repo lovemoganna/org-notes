@@ -85,13 +85,18 @@ def validate(root):
     for rel, target in refs:
         if target not in pages:
             raise ValueError(f"{rel}: dangling wiki link {target}")
-    if INDEX not in published or LOG not in published:
-        raise ValueError("published index and log are required")
-    if len(index_links) != len(set(index_links)):
-        raise ValueError("duplicate index entry")
-    expected = published - {INDEX}
-    if set(index_links) != expected:
-        raise ValueError(f"index mismatch: missing={sorted(expected-set(index_links))}, extra={sorted(set(index_links)-expected)}")
+    # Optional legacy navigation/log pages: the user removed them from this Wiki.
+    # If a navigation page is present, still enforce its full coverage and identity.
+    if INDEX in pages:
+        if INDEX not in published:
+            raise ValueError("index must be published when present")
+        if len(index_links) != len(set(index_links)):
+            raise ValueError("duplicate index entry")
+        expected = published - {INDEX}
+        if set(index_links) != expected:
+            raise ValueError(f"index mismatch: missing={sorted(expected-set(index_links))}, extra={sorted(set(index_links)-expected)}")
+    if LOG in pages and LOG not in published:
+        raise ValueError("log must be published when present")
     return {"notes": len(paths), "published": len(published), "links": len(refs),
             "files": files, "index": len(index_links), "events": len(events)}
 
