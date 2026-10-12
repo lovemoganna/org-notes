@@ -5,7 +5,7 @@
 #+DATE: 2026-10-12
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/3.%E6%8F%90%E7%A4%BA%E5%AE%9E%E8%B7%B5.md
 #+INGEST_ID: eaa9c8c3-aae6-52f9-8a8b-4b52bbbed8f9
-#+WIKI_STATUS: draft
+#+WIKI_STATUS: published
 
 #+CAPTION: 清晰、上下文、精确、角色；图中是编辑归纳，不是已验证的实测结论#+ATTR_HTML: :width 860px
 [[file:../../../note-assets/bc744ff9-f06d-50be-b982-52050123fe5c/sketchnote-header.webp]]

@@ -5,7 +5,7 @@
 #+DATE: 2026-10-12
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md
 #+INGEST_ID: d9cff7ca-f162-5295-8b94-7eff07e499e4
-#+WIKI_STATUS: draft
+#+WIKI_STATUS: published
 
 #+CAPTION: 四个输入要素｜任务、背景、材料、结果；图中是编辑归纳，不是已验证的实测结论
 #+ATTR_HTML: :width 860px

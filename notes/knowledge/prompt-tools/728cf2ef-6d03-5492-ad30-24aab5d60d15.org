@@ -5,7 +5,7 @@
 #+DATE: 2026-10-12
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
 #+INGEST_ID: dda4dd69-03f9-52b7-a406-7fb177d644a4
-#+WIKI_STATUS: draft
+#+WIKI_STATUS: published
 
 #+CAPTION: 按任务选能力，别把旧描述当现状；图中是编辑归纳，不是已验证的实测结论
 #+ATTR_HTML: :width 860px

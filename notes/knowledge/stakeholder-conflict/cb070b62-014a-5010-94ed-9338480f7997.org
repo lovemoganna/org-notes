@@ -5,7 +5,7 @@
 #+DATE: 2026-10-12
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Original/Work/Project/5-%E5%86%B2%E7%AA%81%E9%A2%84%E5%88%A4.md
 #+INGEST_ID: a014ea77-f54a-5392-b334-5a0419eba301
-#+WIKI_STATUS: draft
+#+WIKI_STATUS: published
 
 #+CAPTION: 从利益差异到决策机制；图中是编辑归纳，不是已验证的实测结论
 #+ATTR_HTML: :width 860px
