@@ -28,7 +28,7 @@
 | Spellbook | 原文归为 Scale AI 的通用 IDE | **与官方现状不符**：官方将其定位为法律合同起草和审查工具 |
 | Dust | 原文描述为提示链接与版本管理 | 当前具体功能应重新核对，不能仅凭原笔记定论 |
 | PromptPerfect | 原文称支持多模型提示优化 | 旧脚本/API 与当前可用性未经本次验证 |
-| promp(l)ify | 原文仅提供工具入口 | 未做网站登录、购买或功能实测 |
+| Promplify | 原文仅提供工具入口 | 未做网站登录、购买或功能实测 |
 
 Spellbook 核验：[[https://spellbook.com/about][官方 About]]。IBM 核验：[[https://www.ibm.com/docs/en/watsonx/saas?topic=prompts-prompt-lab][Prompt Lab 文档]]。〔补〕
 
