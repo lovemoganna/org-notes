@@ -1,0 +1,33 @@
+name: Ephemeral E2E static illustration repair
+on:
+  push:
+    branches:
+      - test/e2e-image-repair-20261013
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: true
+          fetch-depth: 1
+      - name: Install diagram dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq fonts-noto-cjk
+          python3 -m pip install --break-system-packages Pillow
+      - name: Render corrected parallel concept images
+        run: python3 tools/ephemeral_render_static_qa.py
+      - name: Verify the exact five changed images and commit only on isolated branch
+        env:
+          TARGET_BRANCH: test/e2e-image-repair-20261013
+        run: |
+          set -euo pipefail
+          test "$(git branch --show-current)" = "$TARGET_BRANCH"
+          git add note-assets/825cb8d4-d667-4b1f-b24a-39af2d78100{1,2,3,4,5}/sketchnote-header.png
+          test "$(git diff --cached --name-only | wc -l)" -eq 5
+          git -c user.name='release-qa-bot' -c user.email='release-qa-bot@users.noreply.github.com' commit -m 'test: repair static illustration semantics in isolated branch'
+          git push origin "HEAD:refs/heads/$TARGET_BRANCH"
