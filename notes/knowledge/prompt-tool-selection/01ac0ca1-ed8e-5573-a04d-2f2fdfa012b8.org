@@ -1,0 +1,39 @@
+#+TITLE: 提示词工具：按任务选择
+#+WIKI_ID: 01ac0ca1-ed8e-5573-a04d-2f2fdfa012b8
+#+CATEGORY: 知识炼化
+#+FILETAGS: :note-reforge:prompt:qa:
+#+DATE: 2026-10-13
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
+#+INGEST_ID: f8a71bed-5b22-53bb-b12f-d6b4fd6f9630
+#+WIKI_STATUS: draft
+
+* 按能力选工具
+原文介绍六种功能：提示建议、结构优化、迭代优化、偏差缓解、领域支持、预定义提示库。先根据任务和约束选择功能，再查询工具本身。〔补〕
+* 历史工具清单
+原文列出 IBM watsonx.ai、Spellbook、Dust、PromptPerfect，并提到 promplify 提示词管理器。这是历史资料列举，不构成当前推荐榜单。
+* 接入检查〔补〕
+1. 核对官方文档、可用性、地区和版本。
+2. 检查价格、权限、数据留存及 API 的具体实现。
+3. 用一组真实任务对比基线，记录失败情况。
+4. 不把营销介绍写成已证实的性能提升。
+* 原始 Python 示例
+历史 API 片段未经当前环境执行；应核对第三方版本后再尝试。
+
+** 原始素材 1
+#+begin_src text
+# 导入PromptPerfect库
+from promptperfect import optimize_prompt
+
+# 定义原始提示
+original_prompt = "Generate a summary of the latest AI trends."
+
+# 优化提示
+optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
+
+# 输出优化结果
+print("Original Prompt:", original_prompt)
+print("Optimized Prompt:", optimized_prompt)
+#+end_src
+
+* 来源与发布边界
+原始材料：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md][固定 Git 版本]]。其中的代码、产品功能和案例仍需真实执行或证据核验。本次为未发布预览稿，图像资源仍处于独立 HTML 评审包，尚未进入 GitHub 仓库。
