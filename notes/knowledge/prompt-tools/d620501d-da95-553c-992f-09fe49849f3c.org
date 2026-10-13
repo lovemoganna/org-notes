@@ -1,0 +1,63 @@
+#+TITLE: 提示词工具选择
+#+WIKI_ID: d620501d-da95-553c-992f-09fe49849f3c
+#+CATEGORY: 提示工程
+#+FILETAGS: :prompt:tools:verification:
+#+DATE: 2026-10-13
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
+#+INGEST_ID: 8c2c0f3e-2984-5547-9f14-7a580f743181
+#+WIKI_STATUS: draft
+
+#+CAPTION: 提示词工具选择：关键判断与操作边界（手绘风知识图）
+#+ATTR_HTML: :width 860px
+[[file:../../../note-assets/d620501d-da95-553c-992f-09fe49849f3c/sketchnote-header.webp]]
+
+先判断任务再验证工具当前能力。此为根据历史笔记整理的下一版草稿；原作者的事实、示例和历史方法保留在同目录的完整原文附件中，不将示例中的指标视为已经实测的结果。
+
+* 先选任务，不先选品牌
+问清楚需求属于哪种：编辑单条提示词、管理模板与版本、做模型对照，还是通过 API 集成到生产流程。先列可检验的能力，再考察工具，不要因为旧笔记里列过产品就认定其功能今天仍可用。
+
+| 需要什么 | 验证动作 | 错误做法 |
+|----------+----------+----------|
+| 试写与调参 | 检查编辑器是否可输入变量、保存、重放 | 把宣传页当实测 |
+| 团队复用 | 检查版本、权限、追踪与导出功能 | 只看生成体验 |
+| 效果对照 | 固定输入与模型，比对真实输出 | 只比回答流畅度 |
+| 程序接入 | 查当前官方 SDK/API 文档并实跑 | 复制未经验证的旧代码 |
+
+* 原文提及的产品
+- IBM watsonx.ai：原文提及面向企业的提示与模型实验；IBM 官方仍有 Prompt Lab 文档，但需要相应项目与权限，不能据此断言当前账户已开通。
+- Spellbook、Dust、PromptPerfect：原文将其作为不同用途的候选工具。*当前价格、功能、访问条件、API 是否仍可用均未核验*。
+- prompify：原文提供了 [[https://promplify.com/dashboard][promplify 提示词管理器]] 链接，但没有实际登录或产品测试记录。
+
+* 一个旧代码样例
+原文附有下列 Python 示范。这段代码 *未运行，包名、接口和依赖关系均未独立证实*；不得直接作为可执行文档交付。
+
+#+begin_src python
+# 导入PromptPerfect库
+from promptperfect import optimize_prompt
+
+# 定义原始提示
+original_prompt = "Generate a summary of the latest AI trends."
+
+# 优化提示
+optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
+
+# 输出优化结果
+print("Original Prompt:", original_prompt)
+print("Optimized Prompt:", optimized_prompt)
+#+end_src
+
+* 每次选型都应留下的证据〔补〕
+1. 官方链接、产品文档与查询日期（区分当前内容和历史笔记）。
+2. 所需操作是否支持；是否需要许可、帐号、密钥或付费。
+3. 用同一小任务跑通前后输出，保存结果和失败日志。
+4. 说明数据隐私边界：敏感提示词进入第三方平台前先评估权限与数据处理要求。
+
+* 边界
+本文是 *候选工具及验证方法*，不是 2026 年的产品排名或价格表。新旧功能以官方文档和真实运行记录为准。
+
+* 原始材料与溯源
+冻结来源：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md][原始 Major/4.提示工具.md]]。
+
+原始文件备份：[[file:../../../note-assets/d620501d-da95-553c-992f-09fe49849f3c/original.txt][完整原文（逐字节保存）]]。
+
+Git Blob: =d9a479eb1f97ea7f195a515067971a496ca8496a=；该校验值用于验证原料没有因复制、改写或排版丢失。

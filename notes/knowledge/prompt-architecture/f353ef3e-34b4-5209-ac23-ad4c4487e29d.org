@@ -1,0 +1,163 @@
+#+TITLE: 提示词设计
+#+WIKI_ID: f353ef3e-34b4-5209-ac23-ad4c4487e29d
+#+CATEGORY: 提示工程
+#+FILETAGS: :prompt:design:template:
+#+DATE: 2026-10-13
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md
+#+INGEST_ID: 2122f450-0401-57c7-b24c-92d00e891818
+#+WIKI_STATUS: draft
+
+#+CAPTION: 提示词设计：关键判断与操作边界（手绘风知识图）
+#+ATTR_HTML: :width 860px
+[[file:../../../note-assets/f353ef3e-34b4-5209-ac23-ad4c4487e29d/sketchnote-header.webp]]
+
+提示词四要素如何指导可验证的输出。此为根据历史笔记整理的下一版草稿；原作者的事实、示例和历史方法保留在同目录的完整原文附件中，不将示例中的指标视为已经实测的结果。
+
+* 先判断任务
+遇到的不是“提示词写得不够长”，而是模型不知道任务、背景、输入与成功标准。先找最缺失的一项，再补对应信息；不必每次都套固定模板。
+
+| 自查问题 | 要填什么 | 不应误写为 |
+|----------+----------+--------------|
+| 要模型做什么？ | 明确动作、对象与边界 | 只有“帮我看看” |
+| 为什么做？ | 读者、场景、已有条件 | 无关背景堆砌 |
+| 基于什么？ | 输入数据、示例、来源 | 模型自行猜测事实 |
+| 怎样算完成？ | 输出格式、可验收指标 | 仅写“高质量” |
+
+* 三种任务梯度
+原文区分基础、进阶和高阶提示。这是 *任务约束递增*，不是“文字越多质量越好”的经验定律。
+
+** 基础：加法函数
+#+begin_example
+写一个简单的Python函数，实现两个数字相加。请包含函数定义和一个使用示例。
+#+end_example
+此时任务明确，但没有指定编程环境与异常输入处理。
+
+** 进阶：CSV 统计
+原文场景：有 3 个月 Python 经验的开发者；使用 pandas 读取 =sales_data.csv= 的 =monthly_revenue= 列，求均值、中位数、标准差，处理缺失值；返回统计字典并附带注释与完整调用示例。这里是 *提示要求*，没有源文件或真实代码运行结果。
+
+** 高阶：实时欺诈检测
+原文设定每秒约 1,000 条交易，每条 25 个特征；提出滑动窗口、至少两种异常检测算法、并行处理、延迟不超过 50ms、配置入口、PEP 8、类型注解和单测等要求。
+
+*注意：* =50ms= 是原始提示设定的 *验收目标*，不是已测得性能；该示例没有证明方案能够实现该延迟。
+
+* 可复制优化器
+下面完整保留原文的 XML 模板及三组调用实例。=prompt_optimizer= 只是原文定义的调用约定，不是本环境已经注册的系统命令。复制到模型时，应连同模板发送，不能只发调用名。
+
+#+begin_src xml
+<!-- 提示词优化助手模板定义 -->
+<template id="prompt_optimizer">
+  <header>
+    <title>提示词优化助手</title>
+    <version>2.0</version>
+    <description>用于分析和优化现有提示词，提高AI响应质量</description>
+    
+    <!-- 简化调用格式说明 -->
+    <usage>
+      复制以下简化格式并填写相应值即可调用此模板:
+      
+      @prompt_optimizer
+      用户级别: [初学者/中级用户/专业用户]
+      任务类型: [您的任务]
+      当前问题: [现有问题]
+      原始提示: [您的提示词]
+      期望输出: [理想输出描述]
+      优化重点: [可选:简洁性/创造性/专业性/教学性]
+      建议数量: [可选:数字]
+      模型目标: [可选:通用/Claude专用/GPT专用]
+      自定义要求: [可选:额外要求]
+    </usage>
+  </header>
+  
+  <instructions>
+    作为提示词优化顾问，我将帮助优化原始提示，使其产生更精确、更符合期望的AI响应。
+  </instructions>
+  
+  <context>
+    <user_level>{user_level}</user_level>
+    <task_type>{task_type}</task_type>
+    <current_issues>{current_issues}</current_issues>
+  </context>
+  
+  <input>
+    <original_prompt>{original_prompt}</original_prompt>
+    <desired_output>{desired_output}</desired_output>
+  </input>
+  
+  <output_requirements>
+    <requirement>诊断原始提示的3个主要问题</requirement>
+    <requirement>提供优化后的提示词，并明确标示出修改</requirement>
+    <requirement>解释每项改动的目的和预期效果</requirement>
+    <requirement>提供{suggestion_count=3}个进一步优化的方向建议</requirement>
+    <custom_requirement>{custom_requirement}</custom_requirement>
+  </output_requirements>
+  
+  <additional_preferences>
+    <optimization_focus>{optimization_focus=专业性}</optimization_focus>
+    <model_target>{model_target=通用}</model_target>
+  </additional_preferences>
+</template>
+
+@prompt_optimizer
+用户级别: 专业用户
+任务类型: 数据科学代码生成
+当前问题: 代码不够优化，缺乏异常处理，注释不清晰，无法处理大规模数据集
+原始提示: 写Python代码分析COVID-19数据集，找出感染率与人口密度的相关性，并生成可视化图表。
+
+期望输出: 一段高效、可扩展的Python代码，包含：
+1. 完整的数据预处理流程
+2. 健壮的异常处理机制
+3. 多种统计分析方法对比
+4. 专业水准的数据可视化
+5. 详细的代码注释和文档字符串
+6. 针对大数据集的性能优化策略
+
+优化重点: 专业性
+建议数量: 5
+模型目标: Claude专用
+自定义要求: 请提供一个评估矩阵，用于比较优化前后提示词在不同维度上的表现差异。同时，添加一个简短的"提示词模板"，方便我未来为类似数据科学任务创建提示词。
+
+---
+
+@prompt_optimizer
+用户级别: 中级用户
+任务类型: 创意小说写作
+当前问题: 角色发展不足，对话平淡，情节缺乏张力
+原始提示: 写一个科幻短篇故事，关于一个宇航员在太空站发现了一个神秘物体。
+
+期望输出: 一个情节紧凑、角色丰满的科幻短篇，包含引人入胜的开场，令人惊讶的转折，以及发人深省的结局。
+
+优化重点: 创造性
+建议数量: 4
+模型目标: 通用
+自定义要求: 包含一个"角色设计模板"部分，帮助我在后续提示中更好地构建复杂角色。
+
+---
+
+@prompt_optimizer
+用户级别: 初学者
+任务类型: 教育内容生成
+当前问题: 解释过于复杂，缺乏实例，不符合目标年龄段认知水平
+原始提示: 解释光合作用原理给小学生听。
+
+期望输出: 一个生动、形象且科学准确的光合作用解释，适合8-10岁儿童理解，包含简单类比、互动问题和有趣事实。
+
+优化重点: 教学性
+建议数量: 3
+模型目标: GPT专用
+自定义要求: 提供一个"知识阶梯"结构，展示如何将复杂概念分解为递进式的学习步骤。另外，标注出哪些部分是基础概念，哪些是拓展内容，以便我灵活调整教学深度。
+#+end_src
+
+* 验证与迭代〔补〕
+1. 固定同一任务、样例输入和目标模型，再比较原提示与优化稿。
+2. 先审查是否遵循约束，再用单元测试或事实比对验证实际输出。示例中的“预期效果”不能替代运行证据。
+3. 记录失败输入和每次改动，只修改引起失败的约束，防止模板膨胀。
+
+* 边界
+原文提到了模型差异、领域条件和伦理风险，但没有进行不同模型的 A/B 测试。若不具备输入事实或可执行验证条件，应保留“未验证”而不是声称提高准确率。
+
+* 原始材料与溯源
+冻结来源：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md][原始 Major/1.什么是提示词.md]]。
+
+原始文件备份：[[file:../../../note-assets/f353ef3e-34b4-5209-ac23-ad4c4487e29d/original.txt][完整原文（逐字节保存）]]。
+
+Git Blob: =1c9ed5231580eb25d96e75da70ed5981dc5a877c=；该校验值用于验证原料没有因复制、改写或排版丢失。
