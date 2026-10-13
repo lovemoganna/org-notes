@@ -5,7 +5,11 @@
 #+DATE: 2026-10-13
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/3.%E6%8F%90%E7%A4%BA%E5%AE%9E%E8%B7%B5.md
 #+INGEST_ID: 8a60ab1c-acb0-54d1-acd0-792cab688bd7
-#+WIKI_STATUS: draft\n#+CAPTION: 提示词实践知识结构图（固定输入、审阅后使用）\n#+ATTR_HTML: :width 860px\n[[file:../../../note-assets/ac1d030f-b7fe-5823-a313-f48d4de5d81c/sketchnote-header.webp]]\n
+#+WIKI_STATUS: draft
+#+CAPTION: 提示词实践知识结构图（固定输入、审阅后使用）
+#+ATTR_HTML: :width 860px
+[[file:../../../note-assets/ac1d030f-b7fe-5823-a313-f48d4de5d81c/sketchnote-header.webp]]
+
 
 * 四个审查维度
 清晰性检查任务是否明确；上下文检查必要的背景；精确性检查要求是否可验收；角色扮演仅在特定视角确实有帮助时采用，不因角色声明而自动拥有专业权威。〔补〕
@@ -67,7 +71,11 @@
 
 * 来源与发布边界
 原始材料：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/3.%E6%8F%90%E7%A4%BA%E5%AE%9E%E8%B7%B5.md][固定 Git 版本]]。其中的代码、产品功能和案例仍需真实执行或证据核验。本次仍为未发布预览稿；配图已随同当前候选提交，未经人工审阅不得公开。
-\n* 来源全文（固定 Git 版本）\n以下保留原始材料的全部文字、模板、代码和已记录的评价；示例块内容不执行。\n#+begin_example\n本节精髓是关于提示词工程（Prompt Engineering）的最佳实践体系化。
+
+* 来源全文（固定 Git 版本）
+以下保留原始材料的全部文字、模板、代码和已记录的评价；示例块内容不执行。
+#+begin_example
+本节精髓是关于提示词工程（Prompt Engineering）的最佳实践体系化。
 
 核心观点是将有效提示词创建归纳为四个关键维度：清晰性（简洁明了的语言）、上下文（提供足够背景信息）、精确性（明确输出类型和示例）和角色扮演（设定特定视角）。
 
@@ -495,4 +503,5 @@ prompts：
 假设你是某科技公司的数据科学家，正在为团队设计一份关于AI模型优化的技术报告。撰写一段介绍，描述该模型的核心优化方向，比如性能提升、适应性增强等。明确列出优化的三个关键点，并说明每项优化对实际应用的意义。
 ```
 
-通过遵循上述方法，提示词编写质量将显著提升，为生成式AI模型的高效应用提供支持。\n#+end_example\n
+通过遵循上述方法，提示词编写质量将显著提升，为生成式AI模型的高效应用提供支持。
+#+end_example

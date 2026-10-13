@@ -5,7 +5,11 @@
 #+DATE: 2026-10-13
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Original/Work/Project/5-%E5%86%B2%E7%AA%81%E9%A2%84%E5%88%A4.md
 #+INGEST_ID: d5ca7c53-020e-55ad-b258-a491593ecea5
-#+WIKI_STATUS: draft\n#+CAPTION: 相关方冲突预判知识结构图（固定输入、审阅后使用）\n#+ATTR_HTML: :width 860px\n[[file:../../../note-assets/74089b46-d15b-50df-8843-cbb05d586394/sketchnote-header.webp]]\n
+#+WIKI_STATUS: draft
+#+CAPTION: 相关方冲突预判知识结构图（固定输入、审阅后使用）
+#+ATTR_HTML: :width 860px
+[[file:../../../note-assets/74089b46-d15b-50df-8843-cbb05d586394/sketchnote-header.webp]]
+
 
 * 何时启动冲突排查
 项目不同相关方的目标、批准权限、进度、资源与安全要求发生张力时，先建立同一事实基础再讨论妥协。〔补〕
@@ -38,7 +42,11 @@
 
 * 来源与发布边界
 原始材料：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Original/Work/Project/5-%E5%86%B2%E7%AA%81%E9%A2%84%E5%88%A4.md][固定 Git 版本]]。其中的代码、产品功能和案例仍需真实执行或证据核验。本次仍为未发布预览稿；配图已随同当前候选提交，未经人工审阅不得公开。
-\n* 来源全文（固定 Git 版本）\n以下保留原始材料的全部文字、模板、代码和已记录的评价；示例块内容不执行。\n#+begin_example\n# 1. 如何平衡不同相关方的利益和期望？
+
+* 来源全文（固定 Git 版本）
+以下保留原始材料的全部文字、模板、代码和已记录的评价；示例块内容不执行。
+#+begin_example
+# 1. 如何平衡不同相关方的利益和期望？
 
 平衡不同相关方利益与期望的系统方法。
 
@@ -528,4 +536,5 @@
 4. **系统化冲突记录**：记录历史冲突及解决方案，形成机构记忆
 5. **定期回顾机制**：定期评估解决方案的有效性，并根据项目进展调整
 
-在deepfunk项目中，内容安全专家需要从"制定标准"转向"协同制定标准"的思维模式，这要求不仅具备专业知识，还需要跨领域沟通与协作能力。\n#+end_example\n
+在deepfunk项目中，内容安全专家需要从"制定标准"转向"协同制定标准"的思维模式，这要求不仅具备专业知识，还需要跨领域沟通与协作能力。
+#+end_example

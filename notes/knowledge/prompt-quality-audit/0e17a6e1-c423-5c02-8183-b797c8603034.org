@@ -5,7 +5,11 @@
 #+DATE: 2026-10-13
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Original/Meta/Prompt_Word_Quality_Inspection_Tools.md
 #+INGEST_ID: 4f60d847-05c6-56c2-8d03-68c67b4ecfdc
-#+WIKI_STATUS: draft\n#+CAPTION: 提示词质量检查知识结构图（固定输入、审阅后使用）\n#+ATTR_HTML: :width 860px\n[[file:../../../note-assets/0e17a6e1-c423-5c02-8183-b797c8603034/sketchnote-header.webp]]\n
+#+WIKI_STATUS: draft
+#+CAPTION: 提示词质量检查知识结构图（固定输入、审阅后使用）
+#+ATTR_HTML: :width 860px
+[[file:../../../note-assets/0e17a6e1-c423-5c02-8183-b797c8603034/sketchnote-header.webp]]
+
 
 * 先判断任务
 本提示用于分析其他提示词的结构、场景、局限和潜在效果，不等于实际对模型准确率或成功率的测量。
@@ -64,7 +68,11 @@
 
 * 来源与发布边界
 原始材料：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Original/Meta/Prompt_Word_Quality_Inspection_Tools.md][固定 Git 版本]]。其中的代码、产品功能和案例仍需真实执行或证据核验。本次仍为未发布预览稿；配图已随同当前候选提交，未经人工审阅不得公开。
-\n* 来源全文（固定 Git 版本）\n以下保留原始材料的全部文字、模板、代码和已记录的评价；示例块内容不执行。\n#+begin_example\n## 类别
+
+* 来源全文（固定 Git 版本）
+以下保留原始材料的全部文字、模板、代码和已记录的评价；示例块内容不执行。
+#+begin_example
+## 类别
 类别：**质量分析**。
 
 ## Prompts
@@ -227,4 +235,5 @@
   2. 引入更客观的质量评估标准，可考虑增加基准测试项目
   3. 增加对提示词安全性和道德影响的评估维度
   4. 考虑添加提示词使用效率（token消耗）评估
-  5. 提供样例分析报告作为参考，使输出更加标准化\n#+end_example\n
+  5. 提供样例分析报告作为参考，使输出更加标准化
+#+end_example

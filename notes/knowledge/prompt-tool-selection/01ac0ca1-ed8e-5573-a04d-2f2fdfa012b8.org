@@ -5,7 +5,11 @@
 #+DATE: 2026-10-13
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
 #+INGEST_ID: f8a71bed-5b22-53bb-b12f-d6b4fd6f9630
-#+WIKI_STATUS: draft\n#+CAPTION: 提示词工具知识结构图（固定输入、审阅后使用）\n#+ATTR_HTML: :width 860px\n[[file:../../../note-assets/01ac0ca1-ed8e-5573-a04d-2f2fdfa012b8/sketchnote-header.webp]]\n
+#+WIKI_STATUS: draft
+#+CAPTION: 提示词工具知识结构图（固定输入、审阅后使用）
+#+ATTR_HTML: :width 860px
+[[file:../../../note-assets/01ac0ca1-ed8e-5573-a04d-2f2fdfa012b8/sketchnote-header.webp]]
+
 
 * 按能力选工具
 原文介绍六种功能：提示建议、结构优化、迭代优化、偏差缓解、领域支持、预定义提示库。先根据任务和约束选择功能，再查询工具本身。〔补〕
@@ -37,7 +41,11 @@ print("Optimized Prompt:", optimized_prompt)
 
 * 来源与发布边界
 原始材料：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md][固定 Git 版本]]。其中的代码、产品功能和案例仍需真实执行或证据核验。本次仍为未发布预览稿；配图已随同当前候选提交，未经人工审阅不得公开。
-\n* 来源全文（固定 Git 版本）\n以下保留原始材料的全部文字、模板、代码和已记录的评价；示例块内容不执行。\n#+begin_example\n本节讨论的是提示工程(Prompt Engineering)工具的技术介绍。文档精髓在于系统性地呈现了提示工程工具的功能特点和主流产品比较，具体包括:
+
+* 来源全文（固定 Git 版本）
+以下保留原始材料的全部文字、模板、代码和已记录的评价；示例块内容不执行。
+#+begin_example
+本节讨论的是提示工程(Prompt Engineering)工具的技术介绍。文档精髓在于系统性地呈现了提示工程工具的功能特点和主流产品比较，具体包括:
 
 1. 提示工程的基本定义及其在生成式AI模型交互中的作用
 2. 提示工程工具的六大常见功能(提示建议、结构优化、迭代优化、偏差缓解等)
@@ -138,4 +146,5 @@ optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality=
 # 输出优化结果
 print("Original Prompt:", original_prompt)
 print("Optimized Prompt:", optimized_prompt)
-```\n#+end_example\n
+```
+#+end_example
