@@ -7,6 +7,10 @@
 #+INGEST_ID: 54e2f485-4861-595f-80d3-0a75f31be0d3
 #+WIKI_STATUS: draft
 
+#+CAPTION: 提示词质量审查 · 中文手绘知识图；原始提示词、例子及来源以正文为准
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/54e2f485-4861-595f-80d3-0a75f31be0d3/sketchnote-header.webp]]
+
 提示词结构合理不等于模型的实际表现已经得到验证。审稿先查任务、输入、约束、执行顺序、输出格式，再评价文本质量；性能结论仍须真实任务测试。
 
 * 五个审查维度

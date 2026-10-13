@@ -7,6 +7,10 @@
 #+INGEST_ID: 647024ee-d234-5c23-b6a9-4f9be4b106ab
 #+WIKI_STATUS: draft
 
+#+CAPTION: 提示词基础 · 中文手绘知识图；原始提示词、例子及来源以正文为准
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/647024ee-d234-5c23-b6a9-4f9be4b106ab/sketchnote-header.webp]]
+
 写提示词先明确要完成的任务，再补齐必需信息。指令、上下文、输入数据、输出要求是四个检查维度，不是每次必须填满的固定表单。
 
 * 先判断缺什么

@@ -7,6 +7,10 @@
 #+INGEST_ID: bf2a4f20-74fe-58e1-8948-d265d720cfea
 #+WIKI_STATUS: draft
 
+#+CAPTION: 提示词实践 · 中文手绘知识图；原始提示词、例子及来源以正文为准
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/bf2a4f20-74fe-58e1-8948-d265d720cfea/sketchnote-header.webp]]
+
 优化提示词先定位具体问题，不要把所有缺陷归为“提示不够好”。清晰性、上下文、精确性和角色扮演处理不同类型的缺口。
 
 * 四维选择

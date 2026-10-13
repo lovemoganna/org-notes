@@ -7,6 +7,10 @@
 #+INGEST_ID: cdd6170c-b560-5135-9871-4c183b2e0652
 #+WIKI_STATUS: draft
 
+#+CAPTION: 相关方冲突预判 · 中文手绘知识图；原始提示词、例子及来源以正文为准
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/cdd6170c-b560-5135-9871-4c183b2e0652/sketchnote-header.webp]]
+
 项目冲突不能只靠“加强沟通”解决。各方对目标、资源、风险和决策权的理解可能不同，先确认分歧，再明确审批与升级路径，才能形成可执行的处置方案。〔补〕
 
 * 先扫描四类差异

@@ -7,6 +7,10 @@
 #+INGEST_ID: ea6a54f7-be6e-5e4b-8b78-cf10f9dd9370
 #+WIKI_STATUS: draft
 
+#+CAPTION: 提示工具选型 · 中文手绘知识图；原始提示词、例子及来源以正文为准
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/ea6a54f7-be6e-5e4b-8b78-cf10f9dd9370/sketchnote-header.webp]]
+
 选择工具先看任务，而不是先看产品名称。模板管理、版本迭代、多模型比较、工作流集成和团队权限是不同的需求，不宜用单一排行榜代替场景判断。
 
 * 使用入口〔补〕
