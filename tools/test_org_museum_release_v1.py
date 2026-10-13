@@ -73,4 +73,28 @@ b=b"five independent real records"
 assert v.blob_sha(b)==hashlib.sha1(b"blob "+str(len(b)).encode()+b"\0"+b).hexdigest()
 assert v.blob_sha(b)!=v.blob_sha(b"tampered")
 checks+=2
+
+# A previously published source is a strong identity signal. Distinct revisions
+# or percent-encoding must not allow silent cloning into a fresh WIKI_ID.
+a="https://github.com/lovemoganna/Prompts/blob/"+"1"*40+"/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md"
+b="https://github.com/lovemoganna/Prompts/blob/"+"2"*40+"/Major/1.什么是提示词.md"
+assert v.source_fingerprint(a)==v.source_fingerprint(b)
+assert v.source_fingerprint(a)!=v.source_fingerprint("https://github.com/lovemoganna/Prompts/blob/"+"1"*40+"/Major/2.提示工程.md")
+assert v.source_fingerprint("https://example.org/article")==None
+assert v.source_fingerprint("anonymous notes")==None
+checks+=4
+
+old="notes/knowledge/old-source/11111111-2222-3333-4444-555555555555.org"
+published=(
+    "#+TITLE: 以前的文章\n"
+    "#+SOURCE: "+b+"\n"
+    "#+WIKI_STATUS: published\n"
+)
+draft=published.replace("published","draft")
+candidate=header.replace("https://example.org/test",a)
+scenario(source=candidate,files={old:published.encode("utf-8")},expect="fail")
+scenario(source=candidate,files={old:draft.encode("utf-8")},expect="PASS")
+scenario(source=candidate.replace(a,"https://github.com/lovemoganna/Prompts/blob/"+"1"*40+"/Major/another.md"),files={old:published.encode("utf-8")},expect="PASS")
+checks+=0
+
 print("PASS V1_RELEASE_NEGATIVE_REGRESSION",checks)

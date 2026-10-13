@@ -106,12 +106,61 @@ def headings(data):
 def parse_header(text):
     return dict((k.upper(),v.strip()) for k,v in re.findall(r"(?m)^#\+([A-Z_]+):\s*(.*)$",text,re.I))
 
+def source_fingerprint(source: str) -> str | None:
+    """Identify a single pinned GitHub source document across revision/URL encoding.
+
+    Deliberately ignore generic prose references: they do not establish an
+    unambiguous source identity and must not be treated as the same document.
+    """
+    match = re.search(r"https://github\.com/[^ \t\n<>]+", source, re.I)
+    if not match:
+        return None
+    parsed=urllib.parse.urlsplit(match.group(0).rstrip(".,;)]"))
+    parts=[urllib.parse.unquote(x) for x in parsed.path.strip("/").split("/")]
+    if len(parts)<5 or parts[2]!="blob":
+        return None
+    owner, repository, _, commit = parts[:4]
+    if not re.fullmatch(r"[0-9a-f]{40}", commit, re.I):
+        return None
+    return "github:"+owner.lower()+"/"+repository.lower()+"/"+"/".join(parts[4:])
+
+
+def find_published_source_collisions(root: Path, added: list[str], candidates: list[dict]) -> list[dict]:
+    """New pages sharing a previously published exact source file need review.
+
+    Existing pages updated in place are not new pages; drafts are not published.
+    """
+    if not added:
+        return []
+    previous={}
+    for p in (root/"notes").rglob("*.org"):
+        relative=p.relative_to(root).as_posix()
+        if relative in added:
+            continue
+        meta=parse_header(p.read_text(encoding="utf-8"))
+        if meta.get("WIKI_STATUS","published")!="published":
+            continue
+        key=source_fingerprint(meta.get("SOURCE",""))
+        if key:
+            previous.setdefault(key,[]).append(relative)
+    collisions=[]
+    for note in candidates:
+        if note["path"] not in added:
+            continue
+        key=source_fingerprint(note.get("source",""))
+        if key and previous.get(key):
+            collisions.append({"candidate":note["path"],"sourceFingerprint":key,
+                               "alreadyPublished":sorted(previous[key])})
+    return collisions
+
+
 def audit(args):
     base=args.base
     if not re.fullmatch(r"[0-9a-f]{40}",base):
         raise ValueError("base must be an exact full git commit SHA")
     head=git("rev-parse","HEAD")
     changes=git("diff","--name-only",base,head).splitlines()
+    added=git("diff","--diff-filter=A","--name-only",base,head).splitlines()
     notes=[f for f in changes if f.endswith(".org") and f.startswith(KEEP)]
     assets=[f for f in changes if f.startswith(ASSETS)]
     infra=[f for f in changes if f not in notes and f not in assets]
@@ -161,6 +210,12 @@ def audit(args):
             report["notes"].append({"path":rel,"id":meta["WIKI_ID"],"title":meta["TITLE"],
               "sha256":hashlib.sha256(path.read_bytes()).hexdigest(),
               "source":meta["SOURCE"],"assets":len(body_assets),"sections":headings(data)})
+    if not args.fixtures and report["notes"]:
+        report["sourceCollisions"]=find_published_source_collisions(ROOT, added, report["notes"])
+        if report["sourceCollisions"]:
+            report["gate"]="BLOCK"
+            for found in report["sourceCollisions"]:
+                print("V1_SOURCE_COLLISION",json.dumps(found,ensure_ascii=False))
     if args.fixtures:
         for x in fixture_data:
             p=ROOT/x["note"]
