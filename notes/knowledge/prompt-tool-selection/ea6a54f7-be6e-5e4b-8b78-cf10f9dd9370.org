@@ -19,7 +19,7 @@
 | 多人维护 | 能否记录作者、审核和版本 |
 
 * 历史工具清单
-IBM watsonx.ai、Spellbook、Dust、PromptPerfect、OpenAI Playground、LangChain、PromptBase、GitHub 和 promp(l)ify 链接，都是历史笔记所列工具或资源。相关功能、价格、服务状态和接口是否仍可用，必须以现行官方说明与真实试用为准。
+IBM watsonx.ai、Spellbook、Dust、PromptPerfect、OpenAI Playground、LangChain、PromptBase、GitHub 和 promplify 链接，都是历史笔记所列工具或资源。相关功能、价格、服务状态和接口是否仍可用，必须以现行官方说明与真实试用为准。
 
 * 示例代码边界
 材料包含 PromptPerfect Python 演示，没有附运行成功记录。导入包、函数名和外部服务权限均需按当前版本核对，不要把演示代码写成已经可运行。原有工具信息、命令和链接完整保存在附录。
