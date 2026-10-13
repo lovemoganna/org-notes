@@ -32,3 +32,10 @@ Testing branch `test/org-museum-release-v1-20261012` runs this case. Full end-to
 python3 tools/org_museum_release_v1.py fixtures
 python3 tools/org_museum_release_v1.py audit --base "$(git rev-parse HEAD^)" --fixtures _review/fixtures.json --site _site
 ```
+
+
+## Provenance collision gate (2026-10-14)
+
+New Org pages must not silently duplicate a **previously published** page derived from the same full GitHub source file, even when the source commit or URL percent-encoding differs. The PR reviewer compares parsed `#+SOURCE` identity for added note files with already published notes. On a collision it emits `V1_SOURCE_COLLISION`, adds `sourceCollisions` to the JSON, and blocks the candidate. The preferred remediation is to **update the existing wiki ID in place** or explicitly resolve a real series/split instead of manufacturing another ID. Existing updates to the same note path and draft-only sources do not trigger this gate. Only unambiguous pinned GitHub URLs can be matched; generic source text is not proof of identity. A passing gate is not proof of non-duplication across all possible source types.
+
+Regression covers same file across revisions and URL-encoded paths, changed file, draft-only source, and unknown source types. The previously published duplicate pages remain unchanged pending a separate, evidence-based consolidation decision.

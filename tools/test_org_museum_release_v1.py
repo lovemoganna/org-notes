@@ -73,4 +73,40 @@ b=b"five independent real records"
 assert v.blob_sha(b)==hashlib.sha1(b"blob "+str(len(b)).encode()+b"\0"+b).hexdigest()
 assert v.blob_sha(b)!=v.blob_sha(b"tampered")
 checks+=2
+
+# A previously published source is a strong identity signal. Distinct revisions
+# or percent-encoding must not allow silent cloning into a fresh WIKI_ID.
+a="https://github.com/lovemoganna/Prompts/blob/"+"1"*40+"/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md"
+b="https://github.com/lovemoganna/Prompts/blob/"+"2"*40+"/Major/1.什么是提示词.md"
+assert v.source_fingerprint(a)==v.source_fingerprint(b)
+assert v.source_fingerprint(a)!=v.source_fingerprint("https://github.com/lovemoganna/Prompts/blob/"+"1"*40+"/Major/2.提示工程.md")
+assert v.source_fingerprint("https://example.org/article")==None
+assert v.source_fingerprint("anonymous notes")==None
+checks+=4
+
+old="notes/knowledge/old-source/11111111-2222-3333-4444-555555555555.org"
+published=(
+    "#+TITLE: 以前的文章\n"
+    "#+SOURCE: "+b+"\n"
+    "#+WIKI_STATUS: published\n"
+)
+draft=published.replace("published","draft")
+candidate=header.replace("https://example.org/test",a)
+scenario(source=candidate,files={old:published.encode("utf-8")},expect="fail")
+scenario(source=candidate,files={old:draft.encode("utf-8")},expect="PASS")
+scenario(source=candidate.replace(a,"https://github.com/lovemoganna/Prompts/blob/"+"1"*40+"/Major/another.md"),files={old:published.encode("utf-8")},expect="PASS")
+checks+=0
+
+
+# Reproduce the actual repository failure: two distinct published wiki IDs
+# already point at the same frozen T01 source file. A third ID must be blocked.
+real_candidate={"path":"notes/knowledge/third-copy/faf7a6d8-bb10-4dde-bbc9-883e7358d199.org",
+                "source":a}
+real_conflicts=v.find_published_source_collisions(
+    v.ROOT,[real_candidate["path"]],[real_candidate])
+assert len(real_conflicts)==1, real_conflicts
+assert len(real_conflicts[0]["alreadyPublished"])>=2, real_conflicts
+assert v.find_published_source_collisions(v.ROOT,[],[real_candidate])==[]
+checks+=3
+
 print("PASS V1_RELEASE_NEGATIVE_REGRESSION",checks)
