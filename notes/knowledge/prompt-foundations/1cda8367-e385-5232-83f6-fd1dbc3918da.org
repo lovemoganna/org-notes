@@ -24,7 +24,6 @@
 * 分层示例
 - *基础*：编写两个数相加的函数并给出使用例子。
 - *进阶*：来源示例处理 =sales_data.csv= 的 =monthly_revenue=，需要 =pandas=、均值、中位数、标准差、缺失值处理、注释和字典结果。它是教学输入，不能据此说实际文件存在。
-- *高阶*：来源构想每秒约 1000 条记录、每条 25 个特征的欺诈检测系统。这些规模参数未经我们执行验证，不能当作真实吞吐量。
 
 * 最小执行流程
 1. 明确动作及对象，不用“分析一下”替代需求。
@@ -39,8 +38,6 @@
 3. *输入缺失*：回答引用了不存在的材料时，列明实际来源、可用字段和禁止推断的范围。
 4. *输出指标缺失*：结果难以使用或验收时，写明格式、长度、计算口径及判断条件。例如要求“600 字论文”，就要明确长度及评估内容。
 
-原来源还以故事创作和山谷日落图像对比简略提示与具体提示。这只能展示描述差异，不能替代同条件的实际模型效果实验。
-
 * 对照实验与验证边界
 在同一个模型、同一配置与同一任务输入下，先运行基础提示，再只补最缺失的一项，分别保存真实输出。检查任务满足度、事实错误和结果可使用性，记录改善与反例。没有实际执行时只能提出待验证的改进方向，不能宣称模型效果已经提升。〔补〕
 
@@ -49,114 +46,10 @@
 [[file:../../../note-assets/1cda8367-e385-5232-83f6-fd1dbc3918da/sketchnote-comparison.webp]]
 
 * 原始优化模板
-来源提供了 XML =prompt_optimizer= 版本 2.0 和数据科学、创意写作、教学三类完整使用例子。以下是原文完整块，不视为已安装工具。
-
-#+begin_src xml :eval never-export
-<!-- 提示词优化助手模板定义 -->
-<template id="prompt_optimizer">
-  <header>
-    <title>提示词优化助手</title>
-    <version>2.0</version>
-    <description>用于分析和优化现有提示词，提高AI响应质量</description>
-    
-    <!-- 简化调用格式说明 -->
-    <usage>
-      复制以下简化格式并填写相应值即可调用此模板:
-      
-      @prompt_optimizer
-      用户级别: [初学者/中级用户/专业用户]
-      任务类型: [您的任务]
-      当前问题: [现有问题]
-      原始提示: [您的提示词]
-      期望输出: [理想输出描述]
-      优化重点: [可选:简洁性/创造性/专业性/教学性]
-      建议数量: [可选:数字]
-      模型目标: [可选:通用/Claude专用/GPT专用]
-      自定义要求: [可选:额外要求]
-    </usage>
-  </header>
-  
-  <instructions>
-    作为提示词优化顾问，我将帮助优化原始提示，使其产生更精确、更符合期望的AI响应。
-  </instructions>
-  
-  <context>
-    <user_level>{user_level}</user_level>
-    <task_type>{task_type}</task_type>
-    <current_issues>{current_issues}</current_issues>
-  </context>
-  
-  <input>
-    <original_prompt>{original_prompt}</original_prompt>
-    <desired_output>{desired_output}</desired_output>
-  </input>
-  
-  <output_requirements>
-    <requirement>诊断原始提示的3个主要问题</requirement>
-    <requirement>提供优化后的提示词，并明确标示出修改</requirement>
-    <requirement>解释每项改动的目的和预期效果</requirement>
-    <requirement>提供{suggestion_count=3}个进一步优化的方向建议</requirement>
-    <custom_requirement>{custom_requirement}</custom_requirement>
-  </output_requirements>
-  
-  <additional_preferences>
-    <optimization_focus>{optimization_focus=专业性}</optimization_focus>
-    <model_target>{model_target=通用}</model_target>
-  </additional_preferences>
-</template>
-
-@prompt_optimizer
-用户级别: 专业用户
-任务类型: 数据科学代码生成
-当前问题: 代码不够优化，缺乏异常处理，注释不清晰，无法处理大规模数据集
-原始提示: 写Python代码分析COVID-19数据集，找出感染率与人口密度的相关性，并生成可视化图表。
-
-期望输出: 一段高效、可扩展的Python代码，包含：
-1. 完整的数据预处理流程
-2. 健壮的异常处理机制
-3. 多种统计分析方法对比
-4. 专业水准的数据可视化
-5. 详细的代码注释和文档字符串
-6. 针对大数据集的性能优化策略
-
-优化重点: 专业性
-建议数量: 5
-模型目标: Claude专用
-自定义要求: 请提供一个评估矩阵，用于比较优化前后提示词在不同维度上的表现差异。同时，添加一个简短的"提示词模板"，方便我未来为类似数据科学任务创建提示词。
-
----
-
-@prompt_optimizer
-用户级别: 中级用户
-任务类型: 创意小说写作
-当前问题: 角色发展不足，对话平淡，情节缺乏张力
-原始提示: 写一个科幻短篇故事，关于一个宇航员在太空站发现了一个神秘物体。
-
-期望输出: 一个情节紧凑、角色丰满的科幻短篇，包含引人入胜的开场，令人惊讶的转折，以及发人深省的结局。
-
-优化重点: 创造性
-建议数量: 4
-模型目标: 通用
-自定义要求: 包含一个"角色设计模板"部分，帮助我在后续提示中更好地构建复杂角色。
-
----
-
-@prompt_optimizer
-用户级别: 初学者
-任务类型: 教育内容生成
-当前问题: 解释过于复杂，缺乏实例，不符合目标年龄段认知水平
-原始提示: 解释光合作用原理给小学生听。
-
-期望输出: 一个生动、形象且科学准确的光合作用解释，适合8-10岁儿童理解，包含简单类比、互动问题和有趣事实。
-
-优化重点: 教学性
-建议数量: 3
-模型目标: GPT专用
-自定义要求: 提供一个"知识阶梯"结构，展示如何将复杂概念分解为递进式的学习步骤。另外，标注出哪些部分是基础概念，哪些是拓展内容，以便我灵活调整教学深度。
-#+end_src
+完整的 XML =prompt_optimizer= 2.0 模板及数据科学、创意写作、教学三类调用示例，见文末“完整原文附件”。它们是参考提示文本，不代表已安装工具。
 
 * 知识边界
-原始 XML 及三种调用案例是提示文本，不是已安装执行的工具。不同模型效果需要同输入复测，不能把提示中的吞吐量写成系统能力。
+XML 模板与三类案例属于原始参考材料，不是已安装工具或真实执行记录。例子中的文件、处理规模及输出效果均不能作为实测结果；比较提示词效果须使用相同输入与实际输出。
 
 * 来源与反查
 原始材料：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md][固定版本]]，Git Blob =1c9ed5231580eb25d96e75da70ed5981dc5a877c=。[[file:../../../note-assets/1cda8367-e385-5232-83f6-fd1dbc3918da/original-source.txt][逐字节完整原文附件]]保留历史代码、原始案例及引用。本文是重新组织后的知识笔记，不能将来源建议、教学假设或个人评分表述为本轮独立实测结果。
