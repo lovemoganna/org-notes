@@ -1,0 +1,20 @@
+name: Single note T01 source capture
+on:
+  push:
+    branches: [review/note-reforge-t01-single-20261015]
+permissions:
+  contents: read
+jobs:
+  source:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - name: Verify and freeze T01 only
+        run: python3 tools/t01_capture.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: t01-source-only
+          path: _single_t01/
+          retention-days: 7
