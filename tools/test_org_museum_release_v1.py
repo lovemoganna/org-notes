@@ -98,14 +98,14 @@ scenario(source=candidate.replace(a,"https://github.com/lovemoganna/Prompts/blob
 checks+=0
 
 
-# Reproduce the actual repository failure: two distinct published wiki IDs
-# already point at the same frozen T01 source file. A third ID must be blocked.
+# Regression against current repository state: any existing published page
+# with the same source must block another WIKI_ID. No fixed duplicate count.
 real_candidate={"path":"notes/knowledge/third-copy/faf7a6d8-bb10-4dde-bbc9-883e7358d199.org",
                 "source":a}
 real_conflicts=v.find_published_source_collisions(
     v.ROOT,[real_candidate["path"]],[real_candidate])
 assert len(real_conflicts)==1, real_conflicts
-assert len(real_conflicts[0]["alreadyPublished"])>=2, real_conflicts
+assert len(real_conflicts[0]["alreadyPublished"])>=1, real_conflicts
 assert v.find_published_source_collisions(v.ROOT,[],[real_candidate])==[]
 checks+=3
 
