@@ -34,15 +34,21 @@ def slug_id(i):
     import uuid
     return str(uuid.uuid5(uuid.NAMESPACE_URL, "org-museum-release-v1-heldout-"+i))
 
-def load_manifest(path):
+def load_manifest(path, case_id):
+    """Select exactly one pinned case. There is no batch mode."""
+    if not re.fullmatch(r"T[0-9]{2}", case_id or ""):
+        raise ValueError("provide exactly one --case TNN; batch and empty selection forbidden")
     obj=json.loads(Path(path).read_text(encoding="utf-8"))
     ids=[x["id"] for x in obj["cases"]]
-    if len(ids)!=5 or len(set(ids))!=5:
-        raise ValueError("fixture manifest must have exactly five distinct cases")
-    return obj
+    if len(ids)!=len(set(ids)):
+        raise ValueError("fixture manifest contains duplicate IDs")
+    selected=[x for x in obj["cases"] if x["id"]==case_id]
+    if len(selected)!=1:
+        raise ValueError("case not found or ambiguous: "+case_id)
+    return {**obj,"cases":selected}
 
 def stage_fixtures(args):
-    m=load_manifest(args.manifest)
+    m=load_manifest(args.manifest,args.case)
     out=[]
     for case in m["cases"]:
         url=("https://raw.githubusercontent.com/"+m["sourceRepository"]+"/"
@@ -167,10 +173,10 @@ def audit(args):
     fixture_data=[]
     if args.fixtures:
         fixture_data=json.loads((ROOT/args.fixtures).read_text(encoding="utf-8"))
-        if len(fixture_data)!=5 or len({x["id"] for x in fixture_data})!=5:
-            raise ValueError("exactly five distinct fixtures required")
+        if len(fixture_data)!=1 or len({x["id"] for x in fixture_data})!=1:
+            raise ValueError("exactly one fixture required; batch run forbidden")
         paths=[x["note"] for x in fixture_data]
-        if len(set(paths))!=5 or any(not x.startswith(KEEP) for x in paths):
+        if len(set(paths))!=1 or any(not x.startswith(KEEP) for x in paths):
             raise ValueError("fixture scope mismatch")
         notes=paths
     allowed_infra={"tools/org_museum_release_v1.py","tools/release-v1-fixtures.json",
@@ -190,6 +196,9 @@ def audit(args):
       "notes":[],"assets":assets,"infra":infra,
       "contentQuality":"REQUIRES_HUMAN_REVIEW","imageQuality":"REQUIRES_HUMAN_REVIEW"}
     if notes:
+        if len(notes)!=1:
+            report["gate"]="BLOCK"
+            report["singleArticleViolation"]=len(notes)
         allowed=all(f.startswith(KEEP) and f.count("/")>=3 for f in notes)
         if not allowed:report["gate"]="BLOCK"
         if infra: report["gate"]="BLOCK"
@@ -223,7 +232,7 @@ def audit(args):
                 raise ValueError("unverified fixture: "+x["id"])
         report["fixtures"]=fixture_data
         # Integration of five real source files is not a release approval.
-        report["gate"]="FIXTURE_PASS" if len(report["notes"])==5 else "BLOCK"
+        report["gate"]="FIXTURE_PASS" if len(report["notes"])==1 else "BLOCK"
     if args.site:
         report["_site"]=args.site
         relobj=ROOT/args.site/"museum-release.json"
@@ -249,7 +258,7 @@ def audit(args):
     # Never call the content quality passed: it remains a separate human/model gate.
     if report["gate"]=="BLOCK":
         raise SystemExit(1)
-    if args.fixtures and (len(report["notes"])!=5 or any(not x.get("exportVerified") for x in report["notes"])):
+    if args.fixtures and (len(report["notes"])!=1 or any(not x.get("exportVerified") for x in report["notes"])):
         raise ValueError("five fixture files have not been independently matched to the exported HTML")
 
 def generate_html(report,folder):
@@ -307,6 +316,7 @@ def main():
     sub=p.add_subparsers(dest="cmd",required=True)
     f=sub.add_parser("fixtures")
     f.add_argument("--manifest",default="tools/release-v1-fixtures.json")
+    f.add_argument("--case",required=True,help="Exactly one manifest ID (e.g. T01); never runs all cases")
     f.add_argument("--output",default="_review/fixtures.json")
     a=sub.add_parser("audit")
     a.add_argument("--base",required=True)

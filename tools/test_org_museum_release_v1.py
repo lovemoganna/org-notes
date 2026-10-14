@@ -109,4 +109,21 @@ assert len(real_conflicts[0]["alreadyPublished"])>=1, real_conflicts
 assert v.find_published_source_collisions(v.ROOT,[],[real_candidate])==[]
 checks+=3
 
-print("PASS V1_RELEASE_NEGATIVE_REGRESSION",checks)
+
+# Serial-only invariant: no implicit iteration over all five manifest entries.
+with tempfile.TemporaryDirectory() as tmp:
+    manifest=Path(tmp)/"cases.json"
+    manifest.write_text(json.dumps({"schemaVersion":1,"sourceRepository":"fixture",
+      "sourceCommit":"a"*40,"cases":[{"id":"T01","sha":"abc"},{"id":"T02","sha":"def"}]}),encoding="utf-8")
+    picked=v.load_manifest(str(manifest),"T01")
+    assert len(picked["cases"])==1 and picked["cases"][0]["id"]=="T01"
+    checks+=1
+    for invalid in ("",None,"T01,T02","ALL","T99"):
+        try:v.load_manifest(str(manifest),invalid)
+        except ValueError:checks+=1
+        else:raise AssertionError("Batch/invalid selector allowed: "+str(invalid))
+second="notes/knowledge/other/22222222-3333-4444-5555-666666666666.org"
+scenario(paths=[rel,second],files={second:header.replace(ident,"22222222-3333-4444-5555-666666666666").encode("utf-8")},expect="fail")
+checks+=0
+print("PASS SERIAL_SINGLE_CASE_REGRESSION",checks)
+

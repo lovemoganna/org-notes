@@ -6,9 +6,10 @@ on:
       - 'note-assets/**'
       - 'tools/org_museum_release_v1.py'
       - 'tools/test_org_museum_release_v1.py'
+      - 'tools/release-v1-fixtures.json'
       - '.github/workflows/org-museum-release-v1.yml'
   push:
-    branches: [test/org-museum-release-v1-20261012]
+    branches: [test/org-museum-serial-t01-20261015]
   workflow_dispatch:
 permissions:
   contents: read
@@ -34,9 +35,9 @@ jobs:
         uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
         with:
           version: '30.2'
-      - name: Stage five real-source smoke fixtures (isolated branch only)
-        if: github.ref == 'refs/heads/test/org-museum-release-v1-20261012'
-        run: python3 tools/org_museum_release_v1.py fixtures
+      - name: Stage T01 ONLY (isolated branch; no batch)
+        if: github.ref == 'refs/heads/test/org-museum-serial-t01-20261015'
+        run: python3 tools/org_museum_release_v1.py fixtures --case T01
       - name: Validate and render with the production publisher
         env:
           LANG: C.UTF-8
