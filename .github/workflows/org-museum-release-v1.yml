@@ -5,6 +5,7 @@ on:
       - 'notes/**'
       - 'note-assets/**'
       - 'tools/org_museum_release_v1.py'
+      - 'tools/test_org_museum_release_v1.py'
       - '.github/workflows/org-museum-release-v1.yml'
   push:
     branches: [test/org-museum-release-v1-20261012]
