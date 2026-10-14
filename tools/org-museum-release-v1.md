@@ -39,3 +39,15 @@ python3 tools/org_museum_release_v1.py audit --base "$(git rev-parse HEAD^)" --f
 New Org pages must not silently duplicate a **previously published** page derived from the same full GitHub source file, even when the source commit or URL percent-encoding differs. The PR reviewer compares parsed `#+SOURCE` identity for added note files with already published notes. On a collision it emits `V1_SOURCE_COLLISION`, adds `sourceCollisions` to the JSON, and blocks the candidate. The preferred remediation is to **update the existing wiki ID in place** or explicitly resolve a real series/split instead of manufacturing another ID. Existing updates to the same note path and draft-only sources do not trigger this gate. Only unambiguous pinned GitHub URLs can be matched; generic source text is not proof of identity. A passing gate is not proof of non-duplication across all possible source types.
 
 Regression covers same file across revisions and URL-encoded paths, changed file, draft-only source, and unknown source types. The previously published duplicate pages remain unchanged pending a separate, evidence-based consolidation decision.
+
+
+## Serial-only hard gate (2026-10-15)
+
+**One article at a time is a mandatory invariant, not a preference.** Work on exactly one ID until its source check, actual note-reforge judgment (including NOOP), optional illustration, real Emacs render, negative checks, and human content review reach an explicit decision. Do not start T02 before T01 reaches a terminal state. A new test case needs a separate run.
+
+- Run exactly one fixture: `python3 tools/org_museum_release_v1.py fixtures --case T01`. Omitting `--case` fails; comma lists or an all-cases mode are unsupported.
+- Machine audit rejects PRs with two or more changed Org notes, even if each is individually valid. Asset changes must belong to that one note and may not be used to smuggle in another article.
+- Five entries in the manifest are an inventory/queue, **not** permission to execute them as one batch.
+- If a pinned original has an already published Wiki ID, do not duplicate it: inspect the existing article; choose the *same-ID original path update* only for a proven material defect, otherwise record NOOP.
+- A successfully fetched fixture is not proof of a successful article: the reviewer must verify exactly one real exported HTML and its original SHA.
+- Quality claims are scoped per ID. Never use an earlier article's green test to approve the next article.
