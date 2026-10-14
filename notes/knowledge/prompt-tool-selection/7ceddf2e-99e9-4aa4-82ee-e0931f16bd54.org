@@ -1,0 +1,57 @@
+#+TITLE: 提示工具怎么选
+#+WIKI_ID: 7ceddf2e-99e9-4aa4-82ee-e0931f16bd54
+#+CATEGORY: 知识炼化
+#+FILETAGS: :note-reforge:prompts:review:
+#+DATE: 2026-10-15
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
+#+INGEST_ID: 7ceddf2e-99e9-4aa4-82ee-e0931f16bd54
+#+WIKI_STATUS: draft
+
+#+CAPTION: 提示工具怎么选手绘知识总览；具体模板和事实以正文与冻结原文为准
+#+ATTR_HTML: :width 100% :style "display:block;max-width:100%;height:auto;margin:0 auto;"
+[[file:../../../note-assets/7ceddf2e-99e9-4aa4-82ee-e0931f16bd54/sketchnote-header.webp]]
+
+这篇笔记面向下一次实际使用。先回答如何选择、验证和执行，再保留作者不可替代的例子、原始代码与证据边界。本篇为发布候选草稿，尚未对外公布。
+
+* 先问用途，再选工具
+| 当前任务 | 优先核查的能力 | 验收方式 |
+|----------+----------------|----------|
+| 快速起草与维护 | 编辑器、模板库、版本历史 | 能否保存并找回指定版本 |
+| 改进模型输出 | 提示对照、迭代、评价器 | 同一任务前后结果是否改善 |
+| 连接现有系统 | API、权限、日志、成本 | 能否在自己的运行环境执行 |
+| 安全或偏差检查 | 测试样本、失败记录与审查 | 是否留下可复核错误证据 |
+
+* 原文列举的工具
+原始材料列出了 IBM watsonx.ai、Spellbook、Dust、PromptPerfect、GitHub、OpenAI Playground、LangChain 与 PromptBase，还提到 promp(l)ify 管理器。这里仅保留为*当时列举的候选名称*，不将其产品归属、版本、定价和可用性当作现时已核验事实。
+
+1. 先打开官方文档核对产品是否仍可用。
+2. 查清支持的模型、数据权限和是否可以导出结果。
+3. 用同一组任务比较正确率、成本、响应时间和错误恢复；不以宣传文案选型。
+4. 对不提供必要证据或无法接入的工具标记为“未验证”。
+
+* 原始 Python 用法（未实测）
+作者提供以下 =PromptPerfect= 示例；本轮没有安装软件包、验证 API 参数或执行代码。请勿将其当作已确认能运行的当前接口。
+
+#+begin_src python
+# 导入PromptPerfect库
+from promptperfect import optimize_prompt
+
+# 定义原始提示
+original_prompt = "Generate a summary of the latest AI trends."
+
+# 优化提示
+optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
+
+# 输出优化结果
+print("Original Prompt:", original_prompt)
+print("Optimized Prompt:", optimized_prompt)
+#+end_src
+
+* 选择边界
+原文对工具功能的介绍具有时间敏感性；不应因为出处在仓库，就推断 2026 年的产品能力和组织归属没有变化。开发者需要以实测与官方 API 说明作为最后依据。
+
+* 原文存档与版本
+- [[file:../../../note-assets/7ceddf2e-99e9-4aa4-82ee-e0931f16bd54/source-original.md.txt][阅读逐字冻结的原始文档]]。附件存放固定提交原文全文，不对原话、代码、数值或例子进行替换。
+- 原始 Git Blob：=d9a479eb1f97ea7f195a515067971a496ca8496a=；原仓库及版本见文件头 =SOURCE=。
+- 产品工具历史列举、六类功能及未经实测的 Python 示例。
+- 新增的执行判断是本轮编辑建议，并不等于对原文举例的真实结果已完成验证。

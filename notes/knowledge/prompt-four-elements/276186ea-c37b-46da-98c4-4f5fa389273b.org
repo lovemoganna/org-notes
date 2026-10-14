@@ -1,0 +1,148 @@
+#+TITLE: 提示词四要素
+#+WIKI_ID: 276186ea-c37b-46da-98c4-4f5fa389273b
+#+CATEGORY: 知识炼化
+#+FILETAGS: :note-reforge:prompts:review:
+#+DATE: 2026-10-15
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md
+#+INGEST_ID: 276186ea-c37b-46da-98c4-4f5fa389273b
+#+WIKI_STATUS: draft
+
+#+CAPTION: 提示词四要素手绘知识总览；具体模板和事实以正文与冻结原文为准
+#+ATTR_HTML: :width 100% :style "display:block;max-width:100%;height:auto;margin:0 auto;"
+[[file:../../../note-assets/276186ea-c37b-46da-98c4-4f5fa389273b/sketchnote-header.webp]]
+
+这篇笔记面向下一次实际使用。先回答如何选择、验证和执行，再保留作者不可替代的例子、原始代码与证据边界。本篇为发布候选草稿，尚未对外公布。
+
+* 最小决策
+需要从原文得到高质量输出时，先检查四件事：任务是否明确、上下文是否必要、已有输入是否可信、输出标准是否能够验收。四项是检查视角，不表示每一条短请求都必须填满四栏。
+
+| 检查项 | 写进提示词什么内容 | 什么情况下省略 |
+|--------+--------------------+----------------|
+| 指令 | 动词、对象、完成标准 | 不可省略核心任务 |
+| 上下文 | 受众、情境、前提、限制 | 问题自足时无需堆背景 |
+| 输入数据 | 真实表格、原话、示例、来源 | 没有数据就说明缺失 |
+| 输出标准 | 格式、数量、错误边界、可验证结果 | 简单问答避免复杂模板 |
+
+* 两分钟实践
+1. 写出要完成的具体任务，避免只给关键词。
+2. 补充会影响正确性的背景与真实输入，不把猜测写成事实。
+3. 指定最少的输出标准，要求保留不确定项。
+4. 检查生成内容是否满足目标；若未满足，先修改失败的输入维度，而不是一味加长提示。
+
+* 作者的优化器
+原文不仅介绍四要素，还提供了 =prompt_optimizer= XML 模板和三个实际填写示例。这是独有可复制素材，应逐字保留；下面是原始 XML 模板全文，未运行其示例。
+
+#+begin_src xml
+<!-- 提示词优化助手模板定义 -->
+<template id="prompt_optimizer">
+  <header>
+    <title>提示词优化助手</title>
+    <version>2.0</version>
+    <description>用于分析和优化现有提示词，提高AI响应质量</description>
+    
+    <!-- 简化调用格式说明 -->
+    <usage>
+      复制以下简化格式并填写相应值即可调用此模板:
+      
+      @prompt_optimizer
+      用户级别: [初学者/中级用户/专业用户]
+      任务类型: [您的任务]
+      当前问题: [现有问题]
+      原始提示: [您的提示词]
+      期望输出: [理想输出描述]
+      优化重点: [可选:简洁性/创造性/专业性/教学性]
+      建议数量: [可选:数字]
+      模型目标: [可选:通用/Claude专用/GPT专用]
+      自定义要求: [可选:额外要求]
+    </usage>
+  </header>
+  
+  <instructions>
+    作为提示词优化顾问，我将帮助优化原始提示，使其产生更精确、更符合期望的AI响应。
+  </instructions>
+  
+  <context>
+    <user_level>{user_level}</user_level>
+    <task_type>{task_type}</task_type>
+    <current_issues>{current_issues}</current_issues>
+  </context>
+  
+  <input>
+    <original_prompt>{original_prompt}</original_prompt>
+    <desired_output>{desired_output}</desired_output>
+  </input>
+  
+  <output_requirements>
+    <requirement>诊断原始提示的3个主要问题</requirement>
+    <requirement>提供优化后的提示词，并明确标示出修改</requirement>
+    <requirement>解释每项改动的目的和预期效果</requirement>
+    <requirement>提供{suggestion_count=3}个进一步优化的方向建议</requirement>
+    <custom_requirement>{custom_requirement}</custom_requirement>
+  </output_requirements>
+  
+  <additional_preferences>
+    <optimization_focus>{optimization_focus=专业性}</optimization_focus>
+    <model_target>{model_target=通用}</model_target>
+  </additional_preferences>
+</template>
+
+@prompt_optimizer
+用户级别: 专业用户
+任务类型: 数据科学代码生成
+当前问题: 代码不够优化，缺乏异常处理，注释不清晰，无法处理大规模数据集
+原始提示: 写Python代码分析COVID-19数据集，找出感染率与人口密度的相关性，并生成可视化图表。
+
+期望输出: 一段高效、可扩展的Python代码，包含：
+1. 完整的数据预处理流程
+2. 健壮的异常处理机制
+3. 多种统计分析方法对比
+4. 专业水准的数据可视化
+5. 详细的代码注释和文档字符串
+6. 针对大数据集的性能优化策略
+
+优化重点: 专业性
+建议数量: 5
+模型目标: Claude专用
+自定义要求: 请提供一个评估矩阵，用于比较优化前后提示词在不同维度上的表现差异。同时，添加一个简短的"提示词模板"，方便我未来为类似数据科学任务创建提示词。
+
+---
+
+@prompt_optimizer
+用户级别: 中级用户
+任务类型: 创意小说写作
+当前问题: 角色发展不足，对话平淡，情节缺乏张力
+原始提示: 写一个科幻短篇故事，关于一个宇航员在太空站发现了一个神秘物体。
+
+期望输出: 一个情节紧凑、角色丰满的科幻短篇，包含引人入胜的开场，令人惊讶的转折，以及发人深省的结局。
+
+优化重点: 创造性
+建议数量: 4
+模型目标: 通用
+自定义要求: 包含一个"角色设计模板"部分，帮助我在后续提示中更好地构建复杂角色。
+
+---
+
+@prompt_optimizer
+用户级别: 初学者
+任务类型: 教育内容生成
+当前问题: 解释过于复杂，缺乏实例，不符合目标年龄段认知水平
+原始提示: 解释光合作用原理给小学生听。
+
+期望输出: 一个生动、形象且科学准确的光合作用解释，适合8-10岁儿童理解，包含简单类比、互动问题和有趣事实。
+
+优化重点: 教学性
+建议数量: 3
+模型目标: GPT专用
+自定义要求: 提供一个"知识阶梯"结构，展示如何将复杂概念分解为递进式的学习步骤。另外，标注出哪些部分是基础概念，哪些是拓展内容，以便我灵活调整教学深度。
+#+end_src
+
+* 使用边界
+- XML 中的 =@prompt_optimizer= 是作者定义的调用约定，并非所有模型原生支持的指令。
+- 文中关于不同模型表现、迭代、领域差异与伦理的四项盲区应保留；目前没有对上述模板做跨模型 A/B 实验。
+- 原文后续还有“故事创作”“图像生成”“600 字论文”等精确范例，已在逐字附件中保存。
+
+* 原文存档与版本
+- [[file:../../../note-assets/276186ea-c37b-46da-98c4-4f5fa389273b/source-original.md.txt][阅读逐字冻结的原始文档]]。附件存放固定提交原文全文，不对原话、代码、数值或例子进行替换。
+- 原始 Git Blob：=1c9ed5231580eb25d96e75da70ed5981dc5a877c=；原仓库及版本见文件头 =SOURCE=。
+- 核心的 XML 提示优化器、不同任务级别范例与原始四要素定义。
+- 新增的执行判断是本轮编辑建议，并不等于对原文举例的真实结果已完成验证。
