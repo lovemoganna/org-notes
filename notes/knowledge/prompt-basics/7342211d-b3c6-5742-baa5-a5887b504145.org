@@ -1,0 +1,302 @@
+#+TITLE: 提示词四要素
+#+WIKI_ID: 7342211d-b3c6-5742-baa5-a5887b504145
+#+CATEGORY: 提示工程
+#+FILETAGS: :prompt:learning:practice:
+#+DATE: 2026-10-14
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md
+#+INGEST_ID: c16f49cb-c53b-555e-aa06-d3ebe17c7152
+#+WIKI_STATUS: draft
+
+#+CAPTION: 提示词基础：四要素、三档任务与迭代检查（手绘示意，不代表任务已执行）
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto
+[[file:../../../note-assets/7342211d-b3c6-5742-baa5-a5887b504145/sketchnote-header.webp]]
+
+真正影响提示词使用效果的，不是堆砌角色或形容词，而是让任务边界清楚、输入充分、输出可检查。写之前先问四件事：要做什么？处于什么情境？依据什么材料？怎样判断结果合格？
+
+* 一张四要素检查表
+| 要素 | 需要交代什么 | 典型遗漏 |
+|------+--------------+----------|
+| 指令 | 完成哪件具体任务 | 只有主题，没有动作 |
+| 上下文 | 读者、场景、目的、限制 | 输出脱离使用环境 |
+| 输入数据 | 已知事实、样本、文件与必要约束 | 模型自己补写材料 |
+| 输出要求 | 格式、范围、质量标准、验证方式 | 文字流畅却难以验收 |
+
+四项是检查维度，不是任何任务都必须凑齐四个字段。简单问题可以简短；复杂任务需要明确输入与验收。原文中的“输出指标”也包括风格、长度和质量预期，不等同于已经执行的性能测量。
+
+* 三档提示：何时加细节
+这三档示例来自原文，按任务复杂度递增；它们是指令示例，不是模型运行记录。
+
+** 基础：两数相加
+#+begin_example
+写一个简单的Python函数，实现两个数字相加。请包含函数定义和一个使用示例。
+#+end_example
+
+只要求任务与交付形式。无需为普通加法虚构业务背景。
+
+** 进阶：CSV 统计
+提供个人背景、读取对象、统计方法、缺失值处理、库及返回格式。原文要求：Pandas、平均值/中位数/标准差、完整使用示例，文件 =sales_data.csv= 与列 =monthly_revenue=。下方原始示例表保留全部细节。
+
+** 高阶：交易异常检测
+原文给出的目标是：约每秒 1000 条交易、25 个特征、滑动窗口、至少两种异常检测算法、并行处理、延迟不超过 50ms、错误处理与日志、配置接口、PEP 8、类型注解、单元测试和复杂度分析。这些是*需求条件*，不是已经实现或测试达标的事实。
+
+* 写好再做一次验证〔补〕
+1. *给最小输入*：先写明任务与可用的真实数据，不要求模型猜背景。
+2. *指定边界*：列出禁止推断、不可修改、必须保留的数字与术语。
+3. *检查样本*：用一个代表性输入试运行，检查关键事实、格式和遗漏。
+4. *根据差异迭代*：只针对真实缺陷增补要求，不因为输出看起来短就加长提示。
+
+上述步骤是对原文“缺少迭代认识”的补充建议，不是原作者已验证的执行结果。
+
+* 原文提出的四个盲区
+1. 未说明如何逐轮优化提示。
+2. 不同模型可能对同一提示响应不同。
+3. 领域差异可能需要不同结构。
+4. 需防范误导性或有害提示。
+
+* 可复制资产
+
+** 提示词优化器 XML 及三种调用（原文保真）
+原文把 XML 样式配置和三段 =@prompt_optimizer= 调用写在同一个代码块中；它是设计与调用示例，不表示存在已安装的可执行解析器。可完整复制后再适配目标工具。不要把其中的 COVID-19 分析示例当作已运行结果。
+
+#+begin_src text
+<!-- 提示词优化助手模板定义 -->
+<template id="prompt_optimizer">
+  <header>
+    <title>提示词优化助手</title>
+    <version>2.0</version>
+    <description>用于分析和优化现有提示词，提高AI响应质量</description>
+    
+    <!-- 简化调用格式说明 -->
+    <usage>
+      复制以下简化格式并填写相应值即可调用此模板:
+      
+      @prompt_optimizer
+      用户级别: [初学者/中级用户/专业用户]
+      任务类型: [您的任务]
+      当前问题: [现有问题]
+      原始提示: [您的提示词]
+      期望输出: [理想输出描述]
+      优化重点: [可选:简洁性/创造性/专业性/教学性]
+      建议数量: [可选:数字]
+      模型目标: [可选:通用/Claude专用/GPT专用]
+      自定义要求: [可选:额外要求]
+    </usage>
+  </header>
+  
+  <instructions>
+    作为提示词优化顾问，我将帮助优化原始提示，使其产生更精确、更符合期望的AI响应。
+  </instructions>
+  
+  <context>
+    <user_level>{user_level}</user_level>
+    <task_type>{task_type}</task_type>
+    <current_issues>{current_issues}</current_issues>
+  </context>
+  
+  <input>
+    <original_prompt>{original_prompt}</original_prompt>
+    <desired_output>{desired_output}</desired_output>
+  </input>
+  
+  <output_requirements>
+    <requirement>诊断原始提示的3个主要问题</requirement>
+    <requirement>提供优化后的提示词，并明确标示出修改</requirement>
+    <requirement>解释每项改动的目的和预期效果</requirement>
+    <requirement>提供{suggestion_count=3}个进一步优化的方向建议</requirement>
+    <custom_requirement>{custom_requirement}</custom_requirement>
+  </output_requirements>
+  
+  <additional_preferences>
+    <optimization_focus>{optimization_focus=专业性}</optimization_focus>
+    <model_target>{model_target=通用}</model_target>
+  </additional_preferences>
+</template>
+
+@prompt_optimizer
+用户级别: 专业用户
+任务类型: 数据科学代码生成
+当前问题: 代码不够优化，缺乏异常处理，注释不清晰，无法处理大规模数据集
+原始提示: 写Python代码分析COVID-19数据集，找出感染率与人口密度的相关性，并生成可视化图表。
+
+期望输出: 一段高效、可扩展的Python代码，包含：
+1. 完整的数据预处理流程
+2. 健壮的异常处理机制
+3. 多种统计分析方法对比
+4. 专业水准的数据可视化
+5. 详细的代码注释和文档字符串
+6. 针对大数据集的性能优化策略
+
+优化重点: 专业性
+建议数量: 5
+模型目标: Claude专用
+自定义要求: 请提供一个评估矩阵，用于比较优化前后提示词在不同维度上的表现差异。同时，添加一个简短的"提示词模板"，方便我未来为类似数据科学任务创建提示词。
+
+---
+
+@prompt_optimizer
+用户级别: 中级用户
+任务类型: 创意小说写作
+当前问题: 角色发展不足，对话平淡，情节缺乏张力
+原始提示: 写一个科幻短篇故事，关于一个宇航员在太空站发现了一个神秘物体。
+
+期望输出: 一个情节紧凑、角色丰满的科幻短篇，包含引人入胜的开场，令人惊讶的转折，以及发人深省的结局。
+
+优化重点: 创造性
+建议数量: 4
+模型目标: 通用
+自定义要求: 包含一个"角色设计模板"部分，帮助我在后续提示中更好地构建复杂角色。
+
+---
+
+@prompt_optimizer
+用户级别: 初学者
+任务类型: 教育内容生成
+当前问题: 解释过于复杂，缺乏实例，不符合目标年龄段认知水平
+原始提示: 解释光合作用原理给小学生听。
+
+期望输出: 一个生动、形象且科学准确的光合作用解释，适合8-10岁儿童理解，包含简单类比、互动问题和有趣事实。
+
+优化重点: 教学性
+建议数量: 3
+模型目标: GPT专用
+自定义要求: 提供一个"知识阶梯"结构，展示如何将复杂概念分解为递进式的学习步骤。另外，标注出哪些部分是基础概念，哪些是拓展内容，以便我灵活调整教学深度。
+#+end_src
+
+** 梯度提示原始 HTML 表（完整保留）
+原材料的多列表格保留在原样块中以供查证；上面的三个场景提供快速阅读入口。表内对“预计效果”的叙述只是预期，并非测量结果。
+
+#+begin_src html
+<html>
+<body>
+<div class="outline-text-4" id="text-org59be3ca">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides" style="width:100%" class="my-table">
+<colgroup>
+<col class="org-center">
+</colgroup>
+<colgroup>
+<col class="org-left">
+</colgroup>
+<colgroup>
+<col class="org-left">
+<col class="org-left">
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-center"><p>
+提示分类
+</p>
+</th>
+<th scope="col" class="org-left"><p>
+提示示例
+</p>
+</th>
+<th scope="col" class="org-left"><p>
+结构分析
+</p>
+</th>
+<th scope="col" class="org-left"><p>
+效果
+</p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-center"><p>
+基础
+</p>
+</td>
+<td class="org-left"><p>
+写一个简单的Python函数，实现两个数字相加。请包含函数定义和一个使用示例。
+</p>
+</td>
+<td class="org-left"><ol class="org-ol">
+<li>指令：写一个Python函数</li>
+<li>上下文：无（基础级通常简化上下文）</li>
+<li>输入数据：两个数字</li>
+<li>输出指标：包含函数定义和使用示例</li>
+</ol>
+</td>
+<td class="org-left"><p>
+生成一个基础的加法函数，适合编程初学者理解函数概念和基本语法。
+</p>
+</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-center"><p>
+进阶
+</p>
+</td>
+<td class="org-left"><p>
+我是一位有3个月Python经验的开发者，正在学习数据处理。请编写一个Python函数，用于处理CSV文件中的数值数据，实现以下功能：
+</p>
+<ol class="org-ol">
+<li>读取指定CSV文件的特定列</li>
+<li>对该列数据进行基本统计分析（平均值、中位数、标准差）</li>
+<li>处理可能存在的缺失值</li>
+</ol>
+<p>
+请使用pandas库实现，并确保代码包含详细注释解释每个关键步骤。函数应该返回一个包含统计结果的字典，并提供一个完整的使用示例，包括如何处理名为 *“sales<sub>data.csv</sub>”* 中的 *“monthly<sub>revenue</sub>”* 列。
+</p>
+</td>
+<td class="org-left"><ol class="org-ol">
+<li>指令：编写具有特定功能的Python函数</li>
+<li>上下文：面向有3个月经验的开发者，学习数据处理</li>
+<li>输入数据：CSV文件的具体场景，文件名和列名示例</li>
+<li>输出指标：使用pandas库，包含详细注释，返回特定格式，附带完整示例</li>
+</ol>
+</td>
+<td class="org-left"><p>
+生成一个实用的数据处理函数，整合多个编程概念，需要理解库的使用和数据处理流程。
+</p>
+</td>
+</tr>
+</tbody>
+<tbody>
+<tr>
+<td class="org-center"><p>
+高阶
+</p>
+</td>
+<td class="org-left"><p>
+作为一家金融科技公司的高级Python工程师，我需要开发一个健壮的数据分析模块，用于实时处理交易数据流并检测潜在的欺诈模式。
+背景：我们的系统每秒接收约1000条交易记录，每条记录包含25个特征（时间戳、金额、地理位置、设备信息等）。历史数据表明，欺诈交易通常表现出特定的时间序列异常模式。
+任务：设计并实现一个高性能Python类，该类应：
+</p>
+<ol class="org-ol">
+<li>使用适当的数据结构维护一个滑动时间窗口内的交易数据</li>
+<li>实现至少两种异常检测算法（可考虑孤立森林、局部异常因子等）</li>
+<li>采用并行处理优化性能，处理延迟不超过50ms</li>
+<li>包含适当的错误处理和日志记录机制</li>
+<li>能适应不同的欺诈模式（提供配置接口）</li>
+</ol>
+<p>
+代码应符合PEP 8标准，包含完整的类型注解，并附带单元测试展示其在不同负载情况下的性能和准确性。
+请特别关注内存使用效率和算法复杂度分析。提供简明的文档说明如何扩展该模块以适应新的欺诈检测算法。
+</p>
+</td>
+<td class="org-left"><ol class="org-ol">
+<li>指令：设计并实现具有特定功能的Python类</li>
+<li>上下文：金融科技公司、高级工程师角色、实时交易数据、欺诈检测需求</li>
+<li>输入数据：详细的系统参数、数据特征、性能要求和历史观察</li>
+<li>输出指标：多重质量标准（PEP 8、类型注解、单元测试）、性能要求、文档要求、扩展性要求</li>
+</ol>
+</td>
+<td class="org-left"><p>
+生成一个复杂的解决方案，需要整合高级编程概念、算法知识、系统设计经验和领域专业知识。
+</p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</body>
+</html>
+#+end_src
+
+* 来源与证据边界
+- 原始材料：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md][《什么是提示词》冻结版本]]。
+- XML、三个调用示例和梯度示例表来自原文；本文新加的迭代检查已单独标记 =〔补〕=。
+- 暂无模型对照执行记录、没有事实性能指标。高阶场景的 =50ms= 等数字只能作为目标条件。
