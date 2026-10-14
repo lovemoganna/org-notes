@@ -1,0 +1,37 @@
+name: T01 only source freeze
+on:
+  push:
+    branches: [test/t01-note-reforge-only-20261014]
+permissions:
+  contents: read
+jobs:
+  freeze:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download exact source and verify git blob
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import urllib.request,urllib.parse,hashlib,json
+          repo='lovemoganna/Prompts'
+          ref='0fdfdde53854523a9bd8704a1ac2c2c785702072'
+          path='Major/1.什么是提示词.md'
+          expected='1c9ed5231580eb25d96e75da70ed5981dc5a877c'
+          url='https://raw.githubusercontent.com/'+repo+'/'+ref+'/'+urllib.parse.quote(path,safe='/')
+          req=urllib.request.Request(url,headers={'User-Agent':'org-museum-t01-fidelity'})
+          with urllib.request.urlopen(req,timeout=40) as resp: raw=resp.read()
+          actual=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+          assert actual==expected,(actual,expected)
+          dest=Path('_t01')
+          dest.mkdir(exist_ok=True)
+          (dest/'original.md').write_bytes(raw)
+          (dest/'source.json').write_text(json.dumps({'repo':repo,'ref':ref,'path':path,'blob':actual,'sha256':hashlib.sha256(raw).hexdigest()},indent=2),encoding='utf-8')
+          print('T01_ONLY_VERIFIED',len(raw),actual)
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: t01-frozen-source
+          path: _t01/
+          retention-days: 5
