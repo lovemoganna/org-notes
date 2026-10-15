@@ -1,0 +1,49 @@
+#+TITLE: 提示工程工具选择
+#+WIKI_ID: 0457b3ed-6239-5414-b196-ad0eabffcb9e
+#+CATEGORY: 知识炼化
+#+FILETAGS: :note-reforge:prompt:knowledge:review:
+#+DATE: 2026-10-15
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
+#+INGEST_ID: 0457b3ed-6239-5414-b196-ad0eabffcb9e
+#+WIKI_STATUS: draft
+
+#+CAPTION: 提示工程工具选择——核对主题与适用边界的中文手绘式示意图
+#+ATTR_HTML: :style "display:block;max-width:100%;height:auto;margin:0 auto"
+[[file:../../../note-assets/0457b3ed-6239-5414-b196-ad0eabffcb9e/sketchnote-header.webp]]
+
+工具选择应从实际任务开始，不应该先按产品名安装。原文是一份历史工具目录，列举 IBM watsonx.ai、Spellbook、Dust、PromptPerfect、PromptBase、LangChain、OpenAI Playground 和 promp(l)ify。*这些名称和能力属于原文记录；本轮没有逐个核验 2026 年的产品状态、版本、价格或可用性。*
+
+* 按任务选择
+| 当前需求 | 优先验证的功能 | 必须现场确认 |
+|-------------------+-----------------------------+---------------------------|
+| 多人管理提示词 | 版本、审核、访问权限 | 实际权限模型和导出方式 |
+| 交互试验 | 单次试验、参数与日志 | 模型版本、费用、保存策略 |
+| 串联步骤 | 变量传递、重试、日志 | 失败处理与上下文隔离 |
+| 自动改写提示 | 前后对比与评分 | 是否有同任务的效果证据 |
+| 在业务系统接入 | API/SDK 与数据安全 | 文档、额度、隐私和服务约束 |
+
+* 六种功能如何核对
+原文归纳了提示建议、结构优化、迭代优化、偏差缓解、领域支持、预定义模板六类能力。选型时不要因为产品简介提到某个功能就判断已经可用：先阅读当期官方文档，再做最小试用。
+
+* 一次小试验
+1. 使用一条已知输入、一个固定目标和可核查的输出标准。
+2. 用产品自身的接口实际执行一次；记录型号、版本、日期、计费和日志。
+3. 逐项检查结果正确性与信息保护；不把“重写更流畅”当作收益。
+4. 对比不使用该产品时的方案；没有实质收益则不迁移。
+
+* 旧示例的执行边界
+原文示例曾使用以下 Python 接口形式，未提供安装记录、官方 API 依据或执行结果，*不得直接称为可运行代码*：
+#+begin_src python :eval never
+from promptperfect import optimize_prompt
+original_prompt = "Generate a summary of the latest AI trends."
+optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
+#+end_src
+
+* 保真说明
+所有原始产品描述及示例代码保存在完整冻结来源中。原文所写产品定位不等于当前产品官方说明；如果选择具体产品，须另开即时资料核验与真实执行测试。
+
+* 来源与版本
+原文固定版本：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md][在 GitHub 查看冻结源文件]]。同时在本次发布候选中保留同字节原文：
+[[file:../../../note-assets/0457b3ed-6239-5414-b196-ad0eabffcb9e/original-source.txt]]
+
+此稿是新建的待审候选，不更改原文，也不冒充原作者实测。版本复核以来源 Git Blob =d9a479eb1f97ea7f195a515067971a496ca8496a= 为准。
