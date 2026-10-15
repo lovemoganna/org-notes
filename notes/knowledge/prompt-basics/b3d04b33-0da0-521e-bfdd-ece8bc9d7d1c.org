@@ -1,0 +1,111 @@
+#+TITLE: 提示词基础
+#+WIKI_ID: b3d04b33-0da0-521e-bfdd-ece8bc9d7d1c
+#+CATEGORY: 基础知识
+#+FILETAGS: :note-reforge:knowledge:review:
+#+DATE: 2026-10-15
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/1.%E4%BB%80%E4%B9%88%E6%98%AF%E6%8F%90%E7%A4%BA%E8%AF%8D.md
+#+INGEST_ID: b3d04b33-0da0-521e-bfdd-ece8bc9d7d1c
+#+WIKI_STATUS: draft
+
+#+CAPTION: 四个提示要素与三档任务要求
+[[file:../../../note-assets/b3d04b33-0da0-521e-bfdd-ece8bc9d7d1c/sketchnote-header.webp]]
+
+一条提示是否有用，取决于任务是否说清、输入是否真实、验收标准是否可操作。提示词复杂度应随任务复杂度调整，不能简单认为字段越多越好。
+
+* 四个输入要素
+| 要素 | 应说明的内容 | 反查问题 |
+|------+--------------+----------|
+| 指令 | 期望执行的具体动作 | 需要解释、编写还是验证？ |
+| 上下文 | 背景、受众与限制 | 哪些条件会改变答案？ |
+| 输入数据 | 已知资料、字段与实例 | 事实、假设是否分离？ |
+| 输出标准 | 形式、质量及失败条件 | 怎样确认结果达标？ |
+
+* 三档案例
+1. *基础*：生成两个数字相加的 Python 函数，附定义与调用示例。
+2. *进阶*：对 =sales_data.csv= 中的 =monthly_revenue= 列用 pandas 做平均值、中位数、标准差统计，并处理缺失值。原始背景为有三个月 Python 经验的开发者。
+3. *高阶*：原文设想每秒约 1000 条、25 个特征的交易异常监测任务，要求至少两种异常检测算法、滑动窗口、并行处理、日志、类型注解和测试，并提出 50ms 延迟上限。*这些均为设计要求，没有实测性能记录。*
+
+* 原始优化模板
+以下 XML 标识和三个应用样例均来自原始资料。它只是供模型理解的文本约定，不代表存在已经安装并运行的外部插件。
+
+#+begin_src xml
+<!-- 提示词优化助手模板定义 -->
+<template id="prompt_optimizer">
+  <header>
+    <title>提示词优化助手</title>
+    <version>2.0</version>
+    <description>用于分析和优化现有提示词，提高AI响应质量</description>
+    <usage>
+      @prompt_optimizer
+      用户级别: [初学者/中级用户/专业用户]
+      任务类型: [您的任务]
+      当前问题: [现有问题]
+      原始提示: [您的提示词]
+      期望输出: [理想输出描述]
+      优化重点: [可选:简洁性/创造性/专业性/教学性]
+      建议数量: [可选:数字]
+      模型目标: [可选:通用/Claude专用/GPT专用]
+      自定义要求: [可选:额外要求]
+    </usage>
+  </header>
+  <instructions>作为提示词优化顾问，我将帮助优化原始提示。</instructions>
+  <context>
+    <user_level>{user_level}</user_level>
+    <task_type>{task_type}</task_type>
+    <current_issues>{current_issues}</current_issues>
+  </context>
+  <input>
+    <original_prompt>{original_prompt}</original_prompt>
+    <desired_output>{desired_output}</desired_output>
+  </input>
+  <output_requirements>
+    <requirement>诊断原始提示的3个主要问题</requirement>
+    <requirement>提供优化后的提示词，并明确标示出修改</requirement>
+    <requirement>解释每项改动的目的和预期效果</requirement>
+    <requirement>提供{suggestion_count=3}个进一步优化的方向建议</requirement>
+    <custom_requirement>{custom_requirement}</custom_requirement>
+  </output_requirements>
+  <additional_preferences>
+    <optimization_focus>{optimization_focus=专业性}</optimization_focus>
+    <model_target>{model_target=通用}</model_target>
+  </additional_preferences>
+</template>
+
+@prompt_optimizer
+用户级别: 专业用户
+任务类型: 数据科学代码生成
+当前问题: 代码不够优化，缺乏异常处理，注释不清晰，无法处理大规模数据集
+原始提示: 写Python代码分析COVID-19数据集，找出感染率与人口密度的相关性，并生成可视化图表。
+期望输出: 高效且可扩展的代码、预处理、异常处理、统计分析、可视化、文档和性能说明。
+优化重点: 专业性
+建议数量: 5
+模型目标: Claude专用
+
+@prompt_optimizer
+用户级别: 中级用户
+任务类型: 创意小说写作
+当前问题: 角色发展不足，对话平淡，情节缺乏张力
+原始提示: 写一个科幻短篇故事，关于一个宇航员在太空站发现了一个神秘物体。
+优化重点: 创造性
+建议数量: 4
+模型目标: 通用
+
+@prompt_optimizer
+用户级别: 初学者
+任务类型: 教育内容生成
+当前问题: 解释过于复杂，缺乏实例，不符合目标年龄段认知水平
+原始提示: 解释光合作用原理给小学生听。
+优化重点: 教学性
+建议数量: 3
+模型目标: GPT专用
+#+end_src
+
+* 使用与验收
+1. 填写任务、背景、原始提示、期望输出；针对当前任务配置必要字段。
+2. 固定代表性测试集和模型参数，对照旧提示与新提示的实际输出。
+3. 记录准确性、结构遗漏、错误推断及重试成本；没有运行记录时只能称“建议”，不能宣称改进有效。
+4. 保留编辑历史。不同模型、数据集或参数要分别验证。
+
+* 来源和边界
+原文另含完整的梯度 HTML 表格、XML 详细模板以及三个应用的全部输入。完整素材请阅读冻结的源文件，不能用本页的精简实例取代原始完整模板。
+新增判断〔补〕：提示结构只是质量条件之一，最终效果必须通过相同任务的结果比较验证。
