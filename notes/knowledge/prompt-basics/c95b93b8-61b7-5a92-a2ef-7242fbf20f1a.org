@@ -9,6 +9,10 @@
 
 不要先追求长提示词。先确定任务是什么、模型能参考什么、最后怎样判断结果合格。原稿把有效提示词归纳为四个要素，并给出三种复杂度的实际提示和一套 XML 优化模板。本版将使用入口置前，保留原样模板与具体示例。原稿中的“效果”是用途与预期描述，不是经测试的模型性能记录。
 
+#+CAPTION: 提示词基础手绘总览：四项信息、三种任务深度与回归检查
+#+ATTR_HTML: :width 100% :style "display:block;max-width:100%;height:auto;margin:0 auto"
+[[file:../../../note-assets/c95b93b8-61b7-5a92-a2ef-7242fbf20f1a/sketchnote-header.webp]]
+
 * 四个必要问题
 
 | 要素 | 使用时先问 | 常见遗漏 |
