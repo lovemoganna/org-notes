@@ -171,5 +171,20 @@ assert existing["decision"]=="UPDATE_OR_NOOP" and existing["existingPublished"]
 assert existing["writeAuthorized"] is False
 checks+=2
 
+
+# Real corpus-only preflight (read-only): all five locked source files already
+# have at least one published canonical note. Counts may change after an
+# approved manual consolidation, so only identity and route are asserted.
+real_manifest=json.loads((v.ROOT/"tools/release-v1-fixtures.json").read_text(encoding="utf-8"))
+for entry in real_manifest["cases"]:
+    source_url=("https://github.com/"+real_manifest["sourceRepository"]+"/blob/"
+                +real_manifest["sourceCommit"]+"/"+entry["path"])
+    result=v.preflight_source(v.ROOT,source_url)
+    assert result["decision"]=="UPDATE_OR_NOOP",(entry["id"],result)
+    assert result["existingPublished"],entry["id"]
+    assert result["newArticleBlocked"] is True
+    assert result["writeAuthorized"] is False
+    checks+=1
+
 print("PASS SERIAL_SINGLE_CASE_REGRESSION",checks)
 
