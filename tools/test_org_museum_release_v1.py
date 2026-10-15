@@ -125,5 +125,66 @@ with tempfile.TemporaryDirectory() as tmp:
 second="notes/knowledge/other/22222222-3333-4444-5555-666666666666.org"
 scenario(paths=[rel,second],files={second:header.replace(ident,"22222222-3333-4444-5555-666666666666").encode("utf-8")},expect="fail")
 checks+=0
+
+# Pre-authoring path: same source at two different published IDs must block a
+# third page before any model or image token is spent.
+with tempfile.TemporaryDirectory() as d:
+    root=Path(d)
+    identA="11111111-1111-1111-1111-111111111111"
+    identB="22222222-2222-2222-2222-222222222222"
+    srcURL="https://github.com/lovemoganna/Prompts/blob/"+"a"*40+"/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md"
+    for idx, ident in enumerate((identA,identB)):
+        p=root/"notes"/"knowledge"/("sample"+str(idx))/(ident+".org")
+        p.parent.mkdir(parents=True)
+        p.write_text("#+TITLE: 现有笔记"+str(idx)+"\n#+WIKI_ID: "+ident+"\n"
+                     "#+WIKI_STATUS: published\n#+SOURCE: "+srcURL+"\n",encoding="utf-8")
+    collision=v.preflight_source(root,srcURL.replace("a"*40,"b"*40))
+    assert collision["decision"]=="UPDATE_OR_NOOP",collision
+    assert collision["newArticleBlocked"] and collision["needsConsolidationReview"]
+    assert len(collision["existingPublished"])==2
+    assert all(x["id"] in (identA,identB) for x in collision["existingPublished"])
+    assert collision["writeAuthorized"] is False and collision["quality"]=="NOT_EVALUATED"
+    checks+=5
+    fresh=v.preflight_source(root,srcURL.replace("/Major/4.","/Major/5."))
+    assert fresh["decision"]=="NEW_CANDIDATE" and fresh["newArticleBlocked"] is False
+    assert fresh["writeAuthorized"] is False
+    checks+=2
+    unknown=v.preflight_source(root,"https://example.org/unknown")
+    assert unknown["decision"]=="SOURCE_UNVERIFIED" and unknown["writeAuthorized"] is False
+    checks+=1
+    draftPath=root/"notes"/"knowledge"/"draft"/("33333333-3333-3333-3333-333333333333.org")
+    draftPath.parent.mkdir(parents=True)
+    draftPath.write_text("#+TITLE: 草稿\n#+WIKI_STATUS: draft\n"
+                         "#+SOURCE: https://github.com/lovemoganna/Prompts/blob/"
+                         +"a"*40+"/Major/6.%E6%8F%90%E7%A4%BA%E8%BF%AD%E4%BB%A3.md\n",encoding="utf-8")
+    in_progress=v.preflight_source(root,draftPath.read_text().split("#+SOURCE: ")[1].strip())
+    assert in_progress["decision"]=="REUSE_DRAFT_OR_REVIEW" and in_progress["newArticleBlocked"]
+    checks+=1
+
+# Real, unmodified knowledge-base check: T01 source was already published,
+# so new WIKI_ID is prohibited; no fixed number of existing pages assumed.
+manifest=v.load_manifest(str(v.ROOT/"tools/release-v1-fixtures.json"),"T01")
+case=manifest["cases"][0]
+full="https://github.com/"+manifest["sourceRepository"]+"/blob/"+manifest["sourceCommit"]+"/"+case["path"]
+existing=v.preflight_source(v.ROOT,full)
+assert existing["decision"]=="UPDATE_OR_NOOP" and existing["existingPublished"]
+assert existing["writeAuthorized"] is False
+checks+=2
+
+
+# Real corpus-only preflight (read-only): all five locked source files already
+# have at least one published canonical note. Counts may change after an
+# approved manual consolidation, so only identity and route are asserted.
+real_manifest=json.loads((v.ROOT/"tools/release-v1-fixtures.json").read_text(encoding="utf-8"))
+for entry in real_manifest["cases"]:
+    source_url=("https://github.com/"+real_manifest["sourceRepository"]+"/blob/"
+                +real_manifest["sourceCommit"]+"/"+entry["path"])
+    result=v.preflight_source(v.ROOT,source_url)
+    assert result["decision"]=="UPDATE_OR_NOOP",(entry["id"],result)
+    assert result["existingPublished"],entry["id"]
+    assert result["newArticleBlocked"] is True
+    assert result["writeAuthorized"] is False
+    checks+=1
+
 print("PASS SERIAL_SINGLE_CASE_REGRESSION",checks)
 

@@ -160,6 +160,63 @@ def find_published_source_collisions(root: Path, added: list[str], candidates: l
     return collisions
 
 
+
+def preflight_source(root: Path, source_url: str) -> dict:
+    """Locate existing canonical notes BEFORE generating new text or illustrations.
+
+    A source collision is a route decision, not permission to delete or overwrite.
+    """
+    key=source_fingerprint(source_url)
+    result={"source":source_url,"sourceFingerprint":key,
+            "decision":"SOURCE_UNVERIFIED" if not key else "NEW_CANDIDATE",
+            "existingPublished":[],"existingDrafts":[],
+            "quality":"NOT_EVALUATED","writeAuthorized":False}
+    if not key:
+        return result
+    for path in sorted((root/"notes").rglob("*.org")):
+        meta=parse_header(path.read_text(encoding="utf-8"))
+        if source_fingerprint(meta.get("SOURCE",""))!=key:
+            continue
+        found={"path":path.relative_to(root).as_posix(),
+               "id":meta.get("WIKI_ID",""),"title":meta.get("TITLE",""),
+               "status":meta.get("WIKI_STATUS","published")}
+        if found["status"]=="published":result["existingPublished"].append(found)
+        else:result["existingDrafts"].append(found)
+    if result["existingPublished"]:
+        result["decision"]="UPDATE_OR_NOOP"
+        result["newArticleBlocked"]=True
+        result["needsConsolidationReview"]=len(result["existingPublished"])>1
+    elif result["existingDrafts"]:
+        result["decision"]="REUSE_DRAFT_OR_REVIEW"
+        result["newArticleBlocked"]=True
+    else:
+        result["newArticleBlocked"]=False
+    return result
+
+
+def preflight_case(args) -> dict:
+    if bool(args.source)==bool(args.case):
+        raise ValueError("specify exactly one --source URL or --case TNN")
+    if args.case:
+        manifest=load_manifest(args.manifest,args.case)
+        row=manifest["cases"][0]
+        uri=("https://github.com/"+manifest["sourceRepository"]+"/blob/"
+             +manifest["sourceCommit"]+"/"+urllib.parse.quote(row["path"],safe="/"))
+    else:
+        uri=args.source
+    outcome=preflight_source(ROOT,uri)
+    if args.case:
+        outcome["case"]=args.case
+    output=ROOT/args.output
+    output.parent.mkdir(parents=True,exist_ok=True)
+    output.write_text(json.dumps(outcome,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+    print("V1_SOURCE_PREFLIGHT "+json.dumps(outcome,ensure_ascii=False))
+    if outcome.get("newArticleBlocked") and not args.report_only:
+        raise SystemExit(3)  # stop BEFORE drafting or image generation
+    if outcome["decision"]=="SOURCE_UNVERIFIED" and not args.report_only:
+        raise SystemExit(4)
+    return outcome
+
 def audit(args):
     base=args.base
     if not re.fullmatch(r"[0-9a-f]{40}",base):
@@ -323,7 +380,15 @@ def main():
     a.add_argument("--output",default="_review")
     a.add_argument("--fixtures",default="")
     a.add_argument("--site",default="")
+    e=sub.add_parser("preflight")
+    e.add_argument("--manifest",default="tools/release-v1-fixtures.json")
+    e.add_argument("--case",default="")
+    e.add_argument("--source",default="")
+    e.add_argument("--output",default="_review/source-preflight.json")
+    e.add_argument("--report-only",action="store_true",
+                   help="Show existing source identities without creating or authorizing pages")
     args=p.parse_args()
     if args.cmd=="fixtures":stage_fixtures(args)
+    elif args.cmd=="preflight":preflight_case(args)
     else:audit(args)
 if __name__=="__main__":main()

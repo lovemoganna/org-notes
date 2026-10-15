@@ -2,6 +2,29 @@
 
 A pre-merge quality gate, not another publishing engine. The existing pinned Org Museum exporter stays the sole renderer; the existing `publish.yml` stays the sole public Pages deploy.
 
+## Pre-authoring source identity gate
+
+Before running `note-reforge` or generating a Sketchnote, check the **exact source file**:
+
+```bash
+python3 tools/org_museum_release_v1.py preflight --case T01
+# Existing published source: exits with code 3 (NO new page).
+# A new source: returns NEW_CANDIDATE; this is not permission to publish.
+```
+
+You can also pass a pinned GitHub file URL using `--source`. The tool normalizes
+the URL-encoded path and exact GitHub blob revision, then compares published and
+draft note sources. It prints matching Wiki IDs and paths. Multiple published
+pages are flagged for **manual consolidation review**, never deleted or merged
+automatically. `--report-only` returns findings without stopping the shell,
+but it never authorizes a write.
+
+If any published match exists, choose `UPDATE_OR_NOOP`: inspect its actual
+content and performance. Modify the **existing note** only when there is a
+demonstrable knowledge gain; preserve its identity, URL and history. A second
+page with the same source is not a valid content E2E success case.
+This is an additional **early gate**: the original PR collision guard remains.
+
 ## Workflow
 
 1. Use the canonical `note-reforge` and `sketchnote-generator` Skills outside GitHub Actions to author the note and its actual illustration. Model generation cannot be faithfully replaced by a deterministic Actions script.
