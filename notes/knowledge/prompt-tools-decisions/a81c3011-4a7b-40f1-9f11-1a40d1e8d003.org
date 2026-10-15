@@ -1,0 +1,66 @@
+#+TITLE: 提示词工具怎么选
+#+WIKI_ID: a81c3011-4a7b-40f1-9f11-1a40d1e8d003
+#+CATEGORY: 知识笔记
+#+FILETAGS: :prompt:tools:selection:
+#+DATE: 2026-10-15
+#+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
+#+INGEST_ID: b71c3011-4a7b-40f1-9f11-1a40d1e8d003
+#+WIKI_STATUS: draft
+
+
+先问工具具体能帮自己完成什么，再查它现在是否可用；不能把某篇旧资料提到的产品功能视为今天仍然有效。很多提示词优化任务也可以直接用版本对照和样本回归完成。
+
+* 不先挑工具，先判任务
+1. *编写和理解一条提示*：先用现有模型直接试写，通常不需要额外平台。
+2. *大量模板统一管理*：重点比较版本、权限、搜索、协作、审计和导出能力。
+3. *系统评估多个版本*：需要固定测试集、指标、成本、重复执行与可复核结果。
+4. *法规或领域数据*：工具是否能接入授权来源、说明证据边界比包装效果更重要。
+
+* 原文六类能力
+| 类别 | 何时有用 | 需要额外验证 |
+|------+----------+--------------|
+| 提示建议 | 没有起始写法 | 产出是否真的更贴合目标 |
+| 结构优化 | 任务背景/输出不清楚 | 是否删掉重要约束 |
+| 迭代优化 | 已有多版候选 | 是否具备可复现实验 |
+| 偏差缓解 | 存在偏差或风险 | 不能替代模型的安全测评 |
+| 领域支持 | 需要行业术语 | 是否有可靠、现行来源 |
+| 预设提示库 | 重复场景多 | 更新、授权与质量 |
+
+* 原文出现过的产品
+- IBM watsonx.ai、Spellbook、Dust、PromptPerfect、PromptBase、promplify 均是*原稿提及的候选*，不能仅凭此笔记断言它们在现在的产品功能、价格或服务状态。
+- 原文给出 promp(l)ify 管理器链接：[[https://promplify.com/dashboard][promplify dashboard]]。使用前需核对当前服务、登录和访问权限。
+- 原文对几家平台的用途描述保存在原始附件；正式选型必须以各服务现行官方文档验证。
+
+* Python 示例：保留但不冒充已运行
+这是原文给出的示例调用，并非实际执行回执。包名、接口与参数是否仍可用，须在当前环境安装和验证：
+
+#+begin_src python
+# 导入PromptPerfect库
+from promptperfect import optimize_prompt
+
+# 定义原始提示
+original_prompt = "Generate a summary of the latest AI trends."
+
+# 优化提示
+optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
+
+# 输出优化结果
+print("Original Prompt:", original_prompt)
+print("Optimized Prompt:", optimized_prompt)
+#+end_src
+
+* 选择时的实际检查
+1. 先用 2–3 个真实任务分别跑“现有方法”和“候选工具”，保存输入及输出。
+2. 核查模板的原样保真、测试可复现性、导出能力和数据权限。
+3. 只有出现明确收益（时间、准确性、协作或质量）才增加工具；若只是重排文字，保持现状。
+
+* 不能凭资料推断的事实
+本笔记没有取得产品的实时 SLA、收费、合规认证或最新 API 状态，也没有执行上述 Python 代码。
+
+* 来源与原始资产
+这里保留的是*下一版知识笔记*，不是原始材料的缩写副本。无法从正文完整复原的原始 HTML 表格、脚本和研究用语均以字节一致的纯文本附件保存；使用、复测或引证具体原话时请先打开原始附件。
+
+- [[file:../../../note-assets/a81c3011-4a7b-40f1-9f11-1a40d1e8d003/original.md.txt][原始材料（逐字存档）]]
+- [[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md][冻结的原始 GitHub 版本]]
+- *未验证范围*：本文中的来源事例、测量值与推荐方法不自动代表当前模型、软件或组织的实测结果。
+
