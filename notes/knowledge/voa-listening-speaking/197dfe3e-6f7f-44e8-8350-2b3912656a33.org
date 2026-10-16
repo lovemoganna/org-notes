@@ -1,0 +1,639 @@
+#+TITLE: VOA 英语听说训练：12 周学完 Level 1 的可执行课程
+#+WIKI_ID: 197dfe3e-6f7f-44e8-8350-2b3912656a33
+#+CATEGORY: 英语学习
+#+FILETAGS: :英语:听力:口语:VOA:学习计划:
+#+DATE: 2026-10-16
+#+SOURCE: VOA Learning English 官方课程 https://learningenglish.voanews.com/p/5644.html；学习安排与训练任务为依据课程主题编写的自主练习
+#+INGEST_ID: f9a0d1c1-0ebb-476f-8305-ef9186182f3a
+#+WIKI_STATUS: published
+
+* 从这里开始
+
+这是一份可以每天照做的英语听说学习计划。适合能看懂简单英文、但难以听懂连续对话或临场回答的人。目标是先听懂、再敢开口，最后能够用简单英文交流。优先练习“听懂问题并回答”，不是背诵单词表。
+
+[[https://learningenglish.voanews.com/p/5644.html][VOA Level 1 官方完整目录]]包含 52 节课程。VOA 原课程按 52 周设计，包含视频、会话、口语和发音练习、测验及相关 PDF 材料。本笔记自定为 12 周加速学习计划，不是 VOA 官方课表：前 4 周每周 5 课，后 8 周每周 4 课。如一课仍听不懂或说不出来，优先重做，不必追赶日期。
+
+每条课程链接都进入 VOA 官方独立课页。在课页依次寻找：主视频、Conversation（对话及文字稿、部分课可下载 MP3）、Speaking / Speaking Practice（口语）、Pronunciation（发音）、Quiz / Listening Quiz（测验）。如网页提示媒体不可播放，先找视频的 Direct link；必要时改用官方目录或 [[https://learningenglish.voanews.com/a/5273645.html][Lessons 1–10 PDF 入口]]。不要依赖第三方搬运视频。
+
+* 每天怎样学（约 30 分钟）
+
+1. 盲听 5 分钟：不看英文稿，回答“谁在说话、在哪里、要做什么”。
+2. 对稿精听 5 分钟：打开 Conversation，只查妨碍理解的关键句，不逐字翻译。
+3. 跟读 7 分钟：播放原声，一句一暂停，模仿重音、连读与语调；至少跟读两轮。
+4. 口语 5 分钟：做 Speaking，遮住文本，换成自己的真实情况回答。
+5. 场景输出 5 分钟：完成每课下方的“口头任务”，录音 30–90 秒。
+6. 检验 3 分钟：做该课 Quiz，记录听错的一句、卡住的一个表达与次日要重练的部分。
+
+* 学完一课的判定
+
+达到以下三项再进入下一课：不看字幕能说出对话主旨；能听懂并回答该课至少 3 个简单问题；能脱稿完成下方口头任务。如果不满足，不要求多学新课，只用第二天的学习时间复习旧课。英语初学阶段不需要追求原声每个词都听懂。
+
+每周最后一天做复习而不是新课：随机抽 3 课重新盲听，完成一段 60 秒录音，比较与上周的差别。每周保留至少一天弹性休息或补课。前四周的安排是周一至周五学新课、周六复习、周日弹性；第 5–12 周是四天新课、一天复习、两天弹性。
+
+* 12 周课程与学习材料
+
+
+** 第 1 周：认识新朋友与基础问答
+
+以问候、个人信息、电话号码和位置表达为主。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 01 课：Welcome!
+
+学习介绍：问候、介绍姓名、确认拼写。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-one/3111026.html][VOA 官方第 1 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：模拟与新同事第一次见面，录音30秒。
+
+
+*** 第 02 课：Hello, I'm Anna!
+
+学习介绍：自我介绍、居住地、介绍他人。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-2-hello/3113733.html][VOA 官方第 2 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：回答Where are you from? 和 Where do you live?。
+
+
+*** 第 03 课：I'm Here!
+
+学习介绍：电话表达、道歉、核对号码。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-3-i-am-here/3126527.html][VOA 官方第 3 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：模拟拨错电话并重新确认号码。
+
+
+*** 第 04 课：What Is It?
+
+学习介绍：常见物品、have 与 don't have。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-4/3168920.html][VOA 官方第 4 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：口头描述身边三件物品。
+
+
+*** 第 05 课：Where Are You?
+
+学习介绍：问人在哪里、位置表达。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-5-where-are-you/3168971.html][VOA 官方第 5 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：画出房间并用英文说明人物所在位置。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。可辅助使用 [[https://learningenglish.voanews.com/a/lets-lear-english-review-lessons-1-5/4053916.html][VOA 官方复习测验]]（官方复习分组与本计划周次并不完全相同）。
+
+
+** 第 2 周：问路、活动、日程与天气
+
+听懂别人在哪里、在做什么、何时有空。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 06 课：Where Is the Gym?
+
+学习介绍：方位词和问路。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-6-where-is-the-gym/3225958.html][VOA 官方第 6 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：说明从入口到健身房的路线。
+
+
+*** 第 07 课：What Are You Doing?
+
+学习介绍：正在做什么、现在进行时。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-7-what-are-you-doing/3240468.html][VOA 官方第 7 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：描述自己和身边人现在做的三件事。
+
+
+*** 第 08 课：Are You Busy?
+
+学习介绍：日程、时间段、简短回答。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-8-are-you-busy/3253185.html][VOA 官方第 8 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：说明今天上午、下午和晚上的安排。
+
+
+*** 第 09 课：Is It Cold?
+
+学习介绍：天气、温度、简单赞同与不同意。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-9-is-it-cold/3261789.html][VOA 官方第 9 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：报告今日天气并回应一个天气问题。
+
+
+*** 第 10 课：Come Over to My Place
+
+学习介绍：邀请、描述路线、there is/are。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-10/3285228.html][VOA 官方第 10 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：邀请朋友到家并解释如何到达。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。可辅助使用 [[https://learningenglish.voanews.com/a/lets-learn-english-review-1-9/3276044.html][VOA 官方复习测验]]（官方复习分组与本计划周次并不完全相同）。
+
+
+** 第 3 周：社区、家庭和日常选择
+
+能描述熟悉的人、住处和常见物品。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 11 课：This Is My Neighborhood
+
+学习介绍：介绍社区、地点和位置关系。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-11-this-is-my-neighborhood/3293986.html][VOA 官方第 11 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：介绍住处附近三个地点。
+
+
+*** 第 12 课：Meet My Family
+
+学习介绍：家庭成员与关系。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-12-meet-my-family/3301733.html][VOA 官方第 12 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：介绍两名家庭成员和他们的关系。
+
+
+*** 第 13 课：Happy Birthday, William Shakespeare!
+
+学习介绍：通常活动、频率与例外。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-13-happy-birthday-william-shakespeare/3312239.html][VOA 官方第 13 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：说三件经常做的事及一件不常做的事。
+
+
+*** 第 14 课：How About This?
+
+学习介绍：服装颜色、尺寸、给出建议。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-14-how-about-this/3323771.html][VOA 官方第 14 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：描述一件衣服并提出替代建议。
+
+
+*** 第 15 课：I Love People-Watching!
+
+学习介绍：人物描述、相同点与差异。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-15-i-love-people-watching/3343720.html][VOA 官方第 15 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：比较两个人的外观或行为。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。可辅助使用 [[https://learningenglish.voanews.com/a/lets-learn-english-review-lessons-10-14/3329289.html][VOA 官方复习测验]]（官方复习分组与本计划周次并不完全相同）。
+
+
+** 第 4 周：国籍、邀约、习惯与能力
+
+能安排时间、说明技能并完成基础互动。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 16 课：Where Are You From?
+
+学习介绍：国家、国籍和语言。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-16-where-are-you-from/3355849.html][VOA 官方第 16 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：介绍自己及两位来自不同国家的人。
+
+
+*** 第 17 课：Are You Free on Friday?
+
+学习介绍：邀约、日程、will 与 going to。
+
+学习材料：[[https://learningenglish.voanews.com/a/are-you-free-on-friday-lets-learn-english/3355785.html][VOA 官方第 17 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：模拟约定周五的活动并确认时间。
+
+
+*** 第 18 课：She Always Does That
+
+学习介绍：行为频率、谈论他人的习惯。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-18-she-always-does-that/3357748.html][VOA 官方第 18 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：描述同事或朋友的两个习惯。
+
+
+*** 第 19 课：When Do I Start?
+
+学习介绍：月份、季节、时间选择。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-19-when-do-you-start/3357760.html][VOA 官方第 19 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：询问活动从哪个月开始并确认计划。
+
+
+*** 第 20 课：What Can You Do?
+
+学习介绍：能力、can 与 can't。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-20-what-can-you-do/3384429.html][VOA 官方第 20 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：说出三项会做的事情和一项需要学习的事情。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。可辅助使用 [[https://learningenglish.voanews.com/a/review-of-lessons-15-19/3384444.html][VOA 官方复习测验]]（官方复习分组与本计划周次并不完全相同）。
+
+
+** 第 5 周：邀请、计划与过去经历
+
+从当下对话过渡到计划和简单过去叙事。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 21 课：Can You Come to the Party?
+
+学习介绍：邀请、接受或拒绝、提供帮助。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-21-can-you-come-to-the-party/3406732.html][VOA 官方第 21 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：用英文邀请朋友参加活动。
+
+
+*** 第 22 课：Next Summer...
+
+学习介绍：未来安排与计划。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-22/3397314.html][VOA 官方第 22 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：介绍明年夏天想做的两件事。
+
+
+*** 第 23 课：What Do You Want?
+
+学习介绍：表达想要与选择。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-23-what-do-you-want/3413753.html][VOA 官方第 23 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：模拟商店对话，说明想买什么。
+
+
+*** 第 24 课：Yesterday Was Amazing!
+
+学习介绍：描述昨天和过去活动。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-24-yesterday-was-amazing/3439164.html][VOA 官方第 24 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：用四句话复述昨天做的事。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。
+
+
+** 第 6 周：提醒、请假与结果反馈
+
+用英文解释原因、请求帮助、提供建议。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 25 课：Watch Out!
+
+学习介绍：提醒危险和给出建议。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-25-watch-out/3431138.html][VOA 官方第 25 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：为常见场景提出两条建议。
+
+
+*** 第 26 课：This Game Is Fun!
+
+学习介绍：介绍游戏与规则。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-26-this-game-is-fun/3457248.html][VOA 官方第 26 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：向朋友介绍一种游戏。
+
+
+*** 第 27 课：I Can't Come In
+
+学习介绍：表达身体不适、请假、建议。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-27-i-cant-come-in/3457316.html][VOA 官方第 27 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：模拟向主管说明不能上班的原因。
+
+
+*** 第 28 课：I Passed It!
+
+学习介绍：说明结果、道歉与解释。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-28-i-passed-it/3487865.html][VOA 官方第 28 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：描述一次考试或任务结果。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。
+
+
+** 第 7 周：出行与兴趣话题
+
+把单句连接成简短故事。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 29 课：A Long Time Ago
+
+学习介绍：过去经历与情绪。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-29-a-long-time-ago/3509519.html][VOA 官方第 29 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：讲述一件很久以前的事情。
+
+
+*** 第 30 课：Rolling on the River
+
+学习介绍：活动经历和行程。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-30-rolling-river/3522798.html][VOA 官方第 30 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：讲述一次外出经历。
+
+
+*** 第 31 课：Take Me Out to the Ball Game
+
+学习介绍：体育活动和邀请。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-31-take-me-out-to-the-ball-game/3535235.html][VOA 官方第 31 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：邀请朋友观看一项运动。
+
+
+*** 第 32 课：Welcome to the Treehouse!
+
+学习介绍：地点介绍与说明。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-32-welcome-treehouse/3547306.html][VOA 官方第 32 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：为一个陌生场所做30秒介绍。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。
+
+
+** 第 8 周：生活协作与礼貌表达
+
+学习分工、求助、表达不同观点。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 33 课：Learning America's Sport
+
+学习介绍：询问规则、谈论体育。
+
+学习材料：[[https://learningenglish.voanews.com/a/lesson-33-learning-americas-sport/3555047.html][VOA 官方第 33 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：询问一项不熟悉运动的规则。
+
+
+*** 第 34 课：What Will I Do?
+
+学习介绍：未来选择与预测。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-34-what-will-i-do/3566043.html][VOA 官方第 34 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：介绍一个未来打算。
+
+
+*** 第 35 课：Let’s Make Dinner!
+
+学习介绍：做饭、分工、请求。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-35-lets-make-dinner/3571922.html][VOA 官方第 35 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：与朋友商量晚餐安排。
+
+
+*** 第 36 课：I Can Fix This!
+
+学习介绍：描述故障、提出帮助。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-36-i-can-fix-this/3568962.html][VOA 官方第 36 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：说明一个日用品出了什么问题。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。
+
+
+** 第 9 周：朋友、感受与叙事
+
+叙述人物关系与意外事件。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 37 课：Let's Agree to Disagree
+
+学习介绍：表达不同意见。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-37-lets-agree-to-disagree/3574029.html][VOA 官方第 37 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：礼貌不同意对方并解释理由。
+
+
+*** 第 38 课：She's My Best Friend!
+
+学习介绍：介绍朋友和关系。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-38-shes-my-best-friend/3591967.html][VOA 官方第 38 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：介绍一位朋友的优点。
+
+
+*** 第 39 课：It’s Unbelievable!
+
+学习介绍：表达惊讶与反应。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-39-its-unbelieveable/3598920.html][VOA 官方第 39 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：复述一件令人意外的小事。
+
+
+*** 第 40 课：The Woods Are Alive
+
+学习介绍：故事与表演。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-40-the-woods-are-alive/3630341.html][VOA 官方第 40 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：用三到五句话复述剧情。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。
+
+
+** 第 10 周：团队合作与计划调整
+
+用简单英文处理工作协作和变化。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 41 课：Teamwork Works Best With a Team
+
+学习介绍：合作和职责分工。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-41-teamwork/3635015.html][VOA 官方第 41 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：说明团队里每个人要做什么。
+
+
+*** 第 42 课：I Was Minding My Own Business
+
+学习介绍：叙述正在发生的过去事件。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-42-i-was-minding-my-own-business/3647264.html][VOA 官方第 42 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：描述一件被打断的经历。
+
+
+*** 第 43 课：Time for Plan B
+
+学习介绍：计划变更与替代方案。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-43-time-for-plan-b/3666458.html][VOA 官方第 43 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：解释计划改变并给出新方案。
+
+
+*** 第 44 课：Making Healthy Choices
+
+学习介绍：饮食习惯和健康选择。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-44-making-healthy-choices/3688552.html][VOA 官方第 44 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：比较两种日常习惯。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。
+
+
+** 第 11 周：旅行、请求与服务
+
+完成请求借用、问答和服务场景交流。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 45 课：This Land is Your Land
+
+学习介绍：旅行、地域与文化描述。
+
+学习材料：[[https://learningenglish.voanews.com/a/lesson-45-this-land-is-your-land/3710209.html][VOA 官方第 45 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：介绍一个想去的地方。
+
+
+*** 第 46 课：May I Borrow That?
+
+学习介绍：礼貌请求与借用。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-46-may-i-borrow-that/3723588.html][VOA 官方第 46 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：请求借用物品并表达感谢。
+
+
+*** 第 47 课：How Can I Help?
+
+学习介绍：提供帮助与服务场景。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-47-how-can-i-help/3737352.html][VOA 官方第 47 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：模拟顾客与工作人员的对话。
+
+
+*** 第 48 课：Have You Ever ...?
+
+学习介绍：询问人生经历。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-48-have-you-ever/3753664.html][VOA 官方第 48 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：提出三句Have you ever开头的问题。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。
+
+
+** 第 12 周：经历、习惯与课程回顾
+
+能提问经历并总结所学。本周目标：不用照着逐字读稿，也能完成下面列出的口头任务。
+
+
+*** 第 49 课：Operation Spy!
+
+学习介绍：听懂事件线索和指令。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-49-operation-spy/3763537.html][VOA 官方第 49 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：用自己的话说明人物的行动。
+
+
+*** 第 50 课：Back to School
+
+学习介绍：学习经历及持续的活动。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-50-back-to-school/3771173.html][VOA 官方第 50 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：介绍最近正在学习什么。
+
+
+*** 第 51 课：A Good Habit
+
+学习介绍：养成习惯与目标。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-51-a-good-habit/3773577.html][VOA 官方第 51 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：介绍一个想长期保持的习惯。
+
+
+*** 第 52 课：Taking Chances
+
+学习介绍：回顾成就、表达下一步打算。
+
+学习材料：[[https://learningenglish.voanews.com/a/lets-learn-english-lesson-52-taking-chances/3805454.html][VOA 官方第 52 课（视频、对话、口语、发音与测验）]]。
+
+口头任务：用90秒总结自己的英语学习经历。
+
+
+本周复习：随机抽三课做盲听；脱稿录制 60 秒，记录“听不懂的关键信息 / 无法立即回答的问题 / 修正后的说法”。
+
+
+* 每四周怎样验收
+
+第 4 周：模拟“第一次认识海外同事”，连续完成问候、姓名、住处、能力、日程邀约五种互动；录音 90 秒。以能否独立交流为主，而不以背出多少单词为主。
+
+第 8 周：模拟“与同事协调工作”，依次说明日程、提出请求、解释故障、礼貌表达不同意见；录音 2 分钟。
+
+第 12 周：随机选两段未复习过的 Level 1 对话，先盲听并总结主旨，再录 2–3 分钟介绍自己的学习、过去经历和未来计划。若仍需要大量字幕，回到相应课群再练，而不是直接跳到 Level 2。
+
+* 第一课：今天就开始
+
+打开 [[https://learningenglish.voanews.com/a/lets-learn-english-lesson-one/3111026.html][Lesson 1: Welcome!]]。重点听：人物怎样确认彼此身份、怎样拼写名字、怎样问候。先不看 Conversation 听一次；再看稿核实。接着跟读，并完成下面的自编练习，不要把它误当 VOA 原文：
+
+#+begin_example
+A: Hi, I'm [your name]. What's your name?
+B: I'm [name]. Nice to meet you.
+A: Nice to meet you, too.
+B: How do you spell your name?
+A: [spell your name].
+#+end_example
+
+先扮演 A，再扮演 B。最后关掉稿件，用自己的真实姓名录制 30 秒；对方问你姓名时，目标是能够立即回答，而不是把句子翻译成中文后再开口。
+
+* 用 ChatGPT 练口语（可直接复制）
+
+#+begin_example
+你是我的英语口语陪练。我正在学 VOA Let's Learn English Level 1 第 [课号] 课，主题是 [课程主题]。
+请使用 A1–A2 难度的自然英语，与我进行 5 轮情景对话。
+每轮只问一个简短问题，等我回答后再继续。
+不要先公布标准答案；如果我听不懂，用更简单的英文重说一次。
+结束后只反馈三个点：最影响理解的错误、一个更自然的表达、下一轮要再练的问题。
+#+end_example
+
+* 资料与学习边界
+
+- [[https://learningenglish.voanews.com/p/5644.html][VOA Level 1 官方课程目录]]：全部 52 课的原始入口。
+- [[https://learningenglish.voanews.com/a/5273645.html][Lessons 1–10 PDF 材料入口]]：需要练习材料时打开。
+- [[https://learningenglish.voanews.com/a/6220041.html][VOA Level 1 Lesson Plans]]：教师教案集合，可用于查语法与教学重点，但个人学习不必从头读完。
+- [[https://learningenglish.voanews.com/p/6765.html][VOA Level 2]]：Level 1 已能较自然交流以后再进入。
+
+本页面是学习路径和自编练习索引，不转载 VOA 的视频、音频或整篇对话。网站是公开静态页面，学习进度不会自动保存；每次完成课程请在个人笔记中记录课号、日期、难句和录音文件位置。官方链接、栏目和媒体可用性可能随时间变化。
