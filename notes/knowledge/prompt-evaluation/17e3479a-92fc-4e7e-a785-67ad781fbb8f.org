@@ -13,6 +13,8 @@
 
 * 00 执行指南
 
+本页保留早期版本的七条提示词。当前版本：[[https://lovemoganna.github.io/org-notes/pages/collected/knowledge/prompt-evaluation/5742d8ab-cc0b-468c-a16a-541cead19b82.html][V4：智能对齐与品质迭代提示链]]。
+
 从可运行版本出发，先对齐目标、确认缺陷，再修复和回归。七条提示词按需调用，不必每轮全部执行。
 
 ** 执行顺序
