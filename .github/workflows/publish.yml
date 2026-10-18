@@ -41,9 +41,11 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: cff1aefefa0544b748d8ee09ae96e260b67b4946
+          ref: e21581192b5386a850d401e190154bea0592ec2c
           path: _publisher
           persist-credentials: false
+      - name: Regression test user-authorized article cleanup
+        run: python3 _publisher/tools/test_museum_update_user_scope.py
       - name: Install batch Emacs
         uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
         with:
