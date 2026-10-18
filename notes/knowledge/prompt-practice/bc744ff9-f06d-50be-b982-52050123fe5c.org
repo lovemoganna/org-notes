@@ -1,7 +1,7 @@
 #+TITLE: 提示词的质检方法
 #+WIKI_ID: bc744ff9-f06d-50be-b982-52050123fe5c
 #+CATEGORY: 知识炼化
-#+FILETAGS: :note-reforge:prompt:original-source:
+#+FILETAGS: :note-reforge:prompt:original-source:knowledge:practice:
 #+DATE: 2026-10-12
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/3.%E6%8F%90%E7%A4%BA%E5%AE%9E%E8%B7%B5.md
 #+INGEST_ID: eaa9c8c3-aae6-52f9-8a8b-4b52bbbed8f9
@@ -81,6 +81,17 @@
 真实输入：[粘贴]
 预期输出：[粘贴]
 #+end_example
+
+* 一轮迭代如何结束
+先记录任务、原提示、输入、模型和验收条件，再用真实输出定位具体失败。原材料建议对同一任务重复运行 =3—5= 次；这是历史测试建议，不是所有任务必须执行的次数。只有输出不稳定时才按风险与成本增加样本；发现缺陷后优先修改一个相关变量，保留前后结果供复核。模型或业务场景变化后再复查。
+
+#+begin_example
+任务：从五条真实客服消息中提取三条投诉。
+每条输出：原话、消息 ID、投诉主题。
+验收：不得编造消息或重复计数；数量不足时明确说明。
+#+end_example
+
+若本轮没有增加事实准确性、约束遵守、可追溯性或失败恢复能力，则保留旧版，不为产生版本变化而重写。
 
 * 边界
 原文中的正反例和代码提示均属示范文字，未附可复核的模型对照运行日志。改写不能把建议指标写成实测结果。

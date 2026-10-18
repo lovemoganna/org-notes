@@ -1,7 +1,7 @@
 #+TITLE: Vibe Coding 智能对齐与品质迭代提示链
 #+WIKI_ID: 5742d8ab-cc0b-468c-a16a-541cead19b82
 #+CATEGORY: 提示词测试
-#+FILETAGS: :knowledge:prompt-testing:org-mode:vibe-coding:
+#+FILETAGS: :knowledge:prompt-testing:org-mode:vibe-coding:ab-testing:
 #+DATE: 2026-10-18
 #+SOURCE: 用户提供的七条 Vibe Coding 提示词及其 V4 修订
 #+INGEST_ID: 38f3c3b0-4b19-42bc-96a6-e3e74bcc542e
@@ -260,3 +260,6 @@ P01 只诊断；P05/P07 负责按缺陷类型修复；P02 只验证；P04 检查
 | 功能稳定、需要进一步打磨体验 | P04 |
 
 每轮保留代码版本、已证实事实、修改差异、测试结果、未验证项和下一步。证据不足就暂停对应问题，不把未验证写成成功。保留现有稳定功能，不实施与目标无关的重构。
+
+* 早期版本与现行入口
+本篇是当前 V4 执行版本。[[https://github.com/lovemoganna/org-notes/blob/9f0dc7bfd9fd2db0345a41cff555f487db2cab3a/notes/knowledge/prompt-evaluation/17e3479a-92fc-4e7e-a785-67ad781fbb8f.org][历史七段提示链]] 用于比较早期编排与版本差异，不应作为并行执行入口；对外调用以本篇的 P06 智能对齐及后续提示顺序为准。

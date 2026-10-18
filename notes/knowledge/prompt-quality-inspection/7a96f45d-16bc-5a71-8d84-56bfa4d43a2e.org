@@ -1,7 +1,7 @@
 #+TITLE: 提示词质量检查
 #+WIKI_ID: 7a96f45d-16bc-5a71-8d84-56bfa4d43a2e
 #+CATEGORY: Prompt 工程
-#+FILETAGS: :prompt:quality:review:evaluation:
+#+FILETAGS: :prompt:quality:review:evaluation:knowledge:note-reforge:practice:original-source:
 #+DATE: 2026-10-13
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Original/Meta/Prompt_Word_Quality_Inspection_Tools.md
 #+INGEST_ID: 50804df5-4298-5d72-b987-9f5b1ddc41b6
@@ -26,6 +26,11 @@
 3. *记录评估*：从相关性、深度、创新性、实用性、完整性五个维度提出判断。若要评分，必须同时注明标准、理由和对应原文证据。
 4. *做真实验证*：使用相同测试样本、模型版本与参数比较结果，保存输入、输出、失败案例。没有运行记录就只写“预测”或“待验证”。
 5. *最小修正*：只修改由失败证据支持的问题，再用原样测试回归；不能把“格式更规整”作为效果改善的唯一证据。
+
+* 真实任务怎样判定效果〔补〕
+先固定输入和验收条件，再运行提示词。至少覆盖正常输入、缺失来源和边界输入；保留模型版本、主要参数、完整输出与错误样本。检查任务是否完成、事实及引用是否准确、硬约束是否遵守，关键错误不能用其他维度的高分抵消。重复测试只用于判断有波动的结果，不能凭自评或一次运行认定普遍有效。
+
+例如模板要求填写“原始来源”，但输入没有提供来源。静态审查能发现编造出处的风险；运行时必须检验是否明确写“未提供”，并核实额外列出的链接。虚构链接即为失败，不因报告结构完整而通过。
 
 * 判断什么
 
@@ -111,6 +116,9 @@
 4. 未提供来源、模型版本、测试样本和效果指标时，如实标注缺口，不虚构。
 
 * 来源
+
+同源历史笔记的完整版本留存于 [[https://github.com/lovemoganna/org-notes/blob/9f0dc7bfd9fd2db0345a41cff555f487db2cab3a/notes/knowledge/prompt-audit-template/9009ec8f-3692-5bd0-88d4-10d562843f9b.org][解构与效能评估]]、[[https://github.com/lovemoganna/org-notes/blob/9f0dc7bfd9fd2db0345a41cff555f487db2cab3a/notes/knowledge/prompt-quality/dd8448f4-783f-5e6c-9be9-cd3c7c5effc8.org][质量评估]]。模板以本篇的逐字版本为唯一现行调用入口，历史自评分仍仅作为来源案例。
+
 
 - 原始笔记：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Original/Meta/Prompt_Word_Quality_Inspection_Tools.md][Prompt Word Quality Inspection Tools]]，固定提交 0fdfdde53854。
 - 文中的原始五步分析与五维评分属于来源材料；本次新增的使用步骤和验收条件以〔补〕标记。
