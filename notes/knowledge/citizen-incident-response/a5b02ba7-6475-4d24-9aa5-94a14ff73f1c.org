@@ -7,6 +7,9 @@
 #+INGEST_ID: c8f9fd36-3902-4ddb-b42f-ccb30ca11f72
 #+WIKI_STATUS: published
 
+#+ATTR_HTML: :alt 公民权利防护：事中避险与程序应对 头图 :width 100%
+[[file:../../../note-assets/a5b02ba7-6475-4d24-9aa5-94a14ff73f1c/civic-safety-incident-cover.webp]]
+
 * 声明
 *AI梳理，仅供参考，无任何政治立场。* 本文是中国大陆普通公民在遭遇现实危险、权益争议或执法调查时的非官方操作建议，不是正式法规，不构成个案法律意见。不同案件适用的法律和期限可能不同，实际处置应按现行有效法律及专业法律意见进行。
 
