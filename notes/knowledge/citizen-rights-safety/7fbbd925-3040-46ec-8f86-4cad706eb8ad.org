@@ -7,6 +7,9 @@
 #+INGEST_ID: ec05a9dd-e3f5-4bcd-9cc2-a93c840ba290
 #+WIKI_STATUS: published
 
+#+ATTR_HTML: :alt 公民权利与安全防护：事前风险隔离 :width 100%
+[[file:../../../note-assets/7fbbd925-3040-46ec-8f86-4cad706eb8ad/civic-safety-cover.webp]]
+
 * 声明
 *AI梳理，仅供参考，无任何政治立场。* 本文为公民安全与权利防护的非官方研究性建议，不是现行法律条例，不构成个案法律意见，不保证任何具体行为零风险。所涉法律适用以现行有效法律、具体事实和专业法律意见为准。
 
@@ -73,3 +76,6 @@
 - [[https://www.12348.gov.cn/][中国法律服务网]]：公共法律服务查询入口。
 
 上述案例说明，最终获得有利法律结论，也可能已经付出无法完全恢复的时间和生活成本。个案不能用于估算全国公民的风险发生率；同样，没有可靠证据支持某一种社会存在方式能够保证绝对安全。
+
+* 事中防护版本
+[[https://lovemoganna.github.io/org-notes/pages/collected/knowledge/citizen-incident-response/a5b02ba7-6475-4d24-9aa5-94a14ff73f1c.html][公民权利防护：事中避险与程序应对（V2.0）]]侧重风险已经发生时的现场避险、证据保全、律师协助与法律救济；本文侧重事前降低不可逆损失。
