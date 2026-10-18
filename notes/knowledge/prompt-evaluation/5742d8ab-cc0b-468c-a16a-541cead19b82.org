@@ -11,6 +11,9 @@
 #+STARTUP: overview
 #+OPTIONS: toc:3 num:nil
 
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/5742d8ab-cc0b-468c-a16a-541cead19b82/vibe-coding-hero.webp]]
+
 * 00 使用与执行顺序
 
 本文件供 Cursor、Antigravity、Codex 等 AI Coding Agent 分轮使用。第一步不是听从用户指定的技术方案，而是用 P06 建立智能对齐原则：目标由用户决定，事实用代码和运行证据核实，方案允许有理有据地反对。
