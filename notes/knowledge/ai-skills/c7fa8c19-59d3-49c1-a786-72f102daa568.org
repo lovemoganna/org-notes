@@ -72,4 +72,4 @@
 
 [[https://github.com/lovemoganna/Org-Skills/commit/bc0d90f0f886b029b914b09868bb20f2a06ed0bc][2026-10-10 拆分提交 bc0d90f]] 和 [[https://github.com/lovemoganna/Org-Skills/blob/2f2f67e37ef79522ac0da3e41b49373dbaec9e1a/skills/sql-business-thinking/SKILL.md][2026-10-12 读取的入口文件]] 显示：=sql-business-thinking= 现在只提供旧调用兼容，不自行执行教学、取数、分析或报告。当前业务问题拆解与候选 SQL 由 =business-reasoning= 负责，独立证据与 SQL／Result 复核由 =analysis-verifier= 负责。只有具备实际数据权限与运行工具时才能声称执行验证。
 
-裁决为版本漂移，不是同一时间同一版本的事实冲突。参见 [[wiki:b31e6f82-9a47-4c05-8d2b-71f6a93e5c20][原测试任务]] 与 [[wiki:e1e502b9-f876-47d6-813f-e4d5ea51983a][23 个历史用例]]。此次只核对源码，不宣称 SQL 已实测。
+裁决为版本漂移，不是同一时间同一版本的事实冲突。参见 [[wiki:e1e502b9-f876-47d6-813f-e4d5ea51983a][包含原测试任务的 23 个历史用例]]。此次只核对源码，不宣称 SQL 已实测。

@@ -108,4 +108,4 @@ python3 skills/llm-wiki-maintainer/scripts/wiki_loop.py plan \
 - [[https://github.com/lovemoganna/Org-Skills/blob/8dbdc7e149938f8d4b3bd2f1cbbd793067de0925/skills/llm-wiki-maintainer/SKILL.md][llm-wiki-maintainer v0.2.0 原始 Skill（私有仓库，需相应权限）]]
 - [[https://github.com/lovemoganna/Org-Skills/blob/8dbdc7e149938f8d4b3bd2f1cbbd793067de0925/skills/llm-wiki-maintainer/references/operations.md][操作规程与预检状态定义（私有仓库，需相应权限）]]
 - [[https://github.com/lovemoganna/Org-Skills/actions/runs/38261421094][2026-10-12 回归测试记录（可见性受仓库权限限制）]]
-- [[wiki:b0f76f51-5884-54b7-9ccc-2d43a989d1a3][延伸：Skill 调试与精简的可执行方法]]
+- [[wiki:92be31b0-806b-42d6-b8cd-61e3b17b58b4][延伸：AI Skill 诊断、修复与回归提示链]]
