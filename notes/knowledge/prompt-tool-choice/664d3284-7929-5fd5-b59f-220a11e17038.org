@@ -7,55 +7,8 @@
 #+INGEST_ID: 664d3284-7929-5fd5-b59f-220a11e17038
 #+WIKI_STATUS: published
 
-#+CAPTION: 提示词工具怎么选——知识图解
-#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/664d3284-7929-5fd5-b59f-220a11e17038/sketchnote-header.webp]]
+* 当前入口
+本主题已归并至 [[wiki:728cf2ef-6d03-5492-ad30-24aab5d60d15][提示词工具的选择]]。本页保留历史入口，不重复现行正文。
 
-* 按实际任务选工具
-来源整理了六类常见功能：提示建议、结构优化、迭代优化、偏差缓解、领域特定支持、模板库。它们用于筛选需求，不证明每款产品现时都提供完整功能。
-
-| 任务 | 核查项 | 实际证据 |
-|------+--------+----------|
-| 重写同一提示 | 版本比较 | 输入一致的 A/B 结果 |
-| 固定输出格式 | 模板与校验 | 格式错误样本 |
-| 多模型测试 | 模型与参数控制 | 模型版本、日志 |
-| 多步骤处理 | API、权限与异常处理 | 分步执行结果 |
-| 专业领域 | 人工审核与数据授权 | 权限及事实来源 |
-
-* 原始候选清单
-- =IBM watsonx.ai / Prompt Lab=：来源描述为提示及模型试验平台。
-- =Spellbook=：来源归类为编辑与测试工具；其现行品牌归属和功能未经本轮核实。
-- =Dust=：来源描述提示链、版本管理和 API 功能。
-- =PromptPerfect=：来源描述自动建议及分步优化。
-- =GitHub=、=OpenAI Playground=、=LangChain=、=PromptBase=、=promplify=：分别涉及知识资源、模型试验、框架、市场与提示管理，不可混为同一类型。
-
-* 真实选型实验
-1. 固定同一个业务输入和验收标准。
-2. 核对官方当前版本、计费、模型、数据权限及接入条件。
-3. 对所有候选运行同一任务，保存完整输出和异常。
-4. 比较实际质量、维护成本与可追溯性，而非宣传页面。
-5. 涉及内部数据时，先确定授权边界。
-
-* 原文 Python 示例（尚未执行）
-来源的 PromptPerfect Python 片段只作为历史示例保存，不宣称目前可运行。运行前需核实该包与 API。
-
-#+begin_src python :eval never-export
-# 导入PromptPerfect库
-from promptperfect import optimize_prompt
-
-# 定义原始提示
-original_prompt = "Generate a summary of the latest AI trends."
-
-# 优化提示
-optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
-
-# 输出优化结果
-print("Original Prompt:", original_prompt)
-print("Optimized Prompt:", optimized_prompt)
-#+end_src
-
-* 使用限制
-软件版本、产品归属、接口、资费和权限会变化。本轮未执行此 Python 示例，也未逐个平台完成实时功能测试。
-
-* 来源与反查
-原始材料：[[https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md][固定版本]]，Git Blob =d9a479eb1f97ea7f195a515067971a496ca8496a=。[[file:../../../note-assets/664d3284-7929-5fd5-b59f-220a11e17038/original-source.txt][逐字节完整原文附件]]保留历史代码、原始案例及引用。本文是重新组织后的知识笔记，不能将来源建议、教学假设或个人评分表述为本轮独立实测结果。
+* 历史全文
+[[https://github.com/lovemoganna/org-notes/blob/81d0beb59ab9f010ca4a4c647690635b341e9ad8/notes/knowledge/prompt-tool-choice/664d3284-7929-5fd5-b59f-220a11e17038.org][合并前 Git 版本]] 可查阅当时的完整原文及证据边界。

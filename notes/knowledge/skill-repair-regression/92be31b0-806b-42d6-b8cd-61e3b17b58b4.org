@@ -1,7 +1,7 @@
 #+TITLE: AI Skill 诊断、修复与回归提示链
 #+WIKI_ID: 92be31b0-806b-42d6-b8cd-61e3b17b58b4
 #+CATEGORY: AI Skill 工程
-#+FILETAGS: :ai:skills:debugging:regression:prompt-chain:
+#+FILETAGS: :ai:skills:debugging:regression:prompt-chain:testing:prompt-engineering:
 #+DATE: 2026-10-18
 #+SOURCE: Org Museum Skill 调试与精简、Skill 仓库测试资产治理、Skill 调用索引；Org-Skills 维护规范及 Anthropic/OpenAI/GitHub 官方资料
 #+INGEST_ID: e315c2b9-295b-4d7f-9e08-726148b74b21
@@ -169,6 +169,13 @@ E 验收标准或用例错误。
 最终简要报告：完成状态、变更文件及原因、实测用例与结果、未验证范围、提交链接（如有）、下次反馈应提供的证据。不强行凑齐阶段或提交。
 #+end_src
 
+* 大型 Skill 的精简原则
+先判断一条规则的删除是否改变行为、判断、异常处理或验收。没有独立约束的重复说明可以合并；只在特定领域、异常或测试时使用的细节可以按需加载；关键安全限制不可因“太长”删除。未能证实冗余的规则先保留为待确认项。
+
+一次任务只选择一个主 Skill：需求交付可用 =bprd-plus=；SQL 业务分析可用 =sql-business-thinking=；本体约束分析可用 =ontology-constrained-analysis=；数据看板可用 =dataset-dashboard-builder=；可执行 Org 教程可用 =org-literate-engineering=；历史笔记可用 =note-reforge=。=loop-engineering-meta= 可辅助根因定位，但不能代替主 Skill。调用前核实当前仓库和工具可用性。
+
+连续两轮没有实质改进或出现重大回归时，停止补规则、保存失败证据并安全回退本轮改动；不得覆盖他人的新提交。
+
 * 失败时的续接入口
 
 | 现象 | 回到 |
@@ -183,6 +190,8 @@ E 验收标准或用例错误。
 不要因为本轮没有代码改动就判定任务失败。若证据表明 Skill 规则正确，维持原版就是有效结论。
 
 * 来源及证据边界
+[[https://github.com/lovemoganna/org-notes/blob/81d0beb59ab9f010ca4a4c647690635b341e9ad8/notes/knowledge/skill-debugging/b0f76f51-5884-54b7-9ccc-2d43a989d1a3.org][历史六阶段可复制提示资产]] 保留供版本反查，当前执行只选用 P00—P06。本提示链尚无一致环境下的跨模型 E2E 成功率证据，不将模板结构完整当作运行结果。
+
 
 来源文章：[[wiki:b0f76f51-5884-54b7-9ccc-2d43a989d1a3][Skill 调试与精简：六阶段可执行提示词资产]]、[[wiki:6cec6b1a-4bfe-589e-a1c7-71be38dc6e85][Skill 仓库测试资产治理]]、[[wiki:c7fa8c19-59d3-49c1-a786-72f102daa568][Skill 调用索引]]。本页把它们整理成可直接分轮发送的七条提示词，不替代原文完整细节。
 

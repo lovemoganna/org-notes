@@ -1,7 +1,7 @@
 #+TITLE: 提示词工具的选择
 #+WIKI_ID: 728cf2ef-6d03-5492-ad30-24aab5d60d15
 #+CATEGORY: 知识炼化
-#+FILETAGS: :note-reforge:prompt:original-source:
+#+FILETAGS: :note-reforge:prompt:original-source:knowledge:practice:
 #+DATE: 2026-10-12
 #+SOURCE: https://github.com/lovemoganna/Prompts/blob/0fdfdde53854523a9bd8704a1ac2c2c785702072/Major/4.%E6%8F%90%E7%A4%BA%E5%B7%A5%E5%85%B7.md
 #+INGEST_ID: dda4dd69-03f9-52b7-a406-7fb177d644a4
@@ -32,15 +32,24 @@
 * 不把演示代码当作可运行事实
 原稿给出如下 Python 片段。它是*未运行的历史演示*，在安装包名、SDK 签名、模型参数获得官方验证前，不应直接作为当前可执行教程。
 
-#+begin_src python
+#+begin_src python :eval never-export
+# 导入PromptPerfect库
 from promptperfect import optimize_prompt
+
+# 定义原始提示
 original_prompt = "Generate a summary of the latest AI trends."
+
+# 优化提示
 optimized_prompt = optimize_prompt(prompt=original_prompt, model="GPT", quality="high")
+
+# 输出优化结果
 print("Original Prompt:", original_prompt)
 print("Optimized Prompt:", optimized_prompt)
 #+end_src
 
 * 一个可复核的选择流程
+多模型比较需核对模型版本、参数和日志；多步骤自动化还要检查 API、权限、异常处理和分步产物。必须证实工具相对直接使用现有模型有实际收益。
+
 1. 提出一个固定任务及合格答案标准。
 2. 阅读产品当前官方说明，核对接入、权限、计费、保留期和版本。
 3. 对同一任务实际测试免费或试用能力，保留输入与输出。
@@ -50,6 +59,8 @@ print("Optimized Prompt:", optimized_prompt)
 没有进行实时产品接入测试，也没有证据支持“某工具今天一定具备某功能”。
 
 * 固定原始来源
+[[https://github.com/lovemoganna/org-notes/blob/81d0beb59ab9f010ca4a4c647690635b341e9ad8/notes/knowledge/prompt-tool-choice/664d3284-7929-5fd5-b59f-220a11e17038.org][旧版工具候选清单与示例]] 作为历史资料保留。上述 Python 示例未经运行；现行接口须另行核对。
+
 
 来源固定在 Git 提交 =0fdfdde5=；原始字节另存为文内附件，可与来源 Git Blob =d9a479eb1f97ea7f195a515067971a496ca8496a= 逐字节复核。
 
