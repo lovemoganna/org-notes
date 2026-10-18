@@ -193,7 +193,7 @@ E 验收标准或用例错误。
 [[https://github.com/lovemoganna/org-notes/blob/81d0beb59ab9f010ca4a4c647690635b341e9ad8/notes/knowledge/skill-debugging/b0f76f51-5884-54b7-9ccc-2d43a989d1a3.org][历史六阶段可复制提示资产]] 保留供版本反查，当前执行只选用 P00—P06。本提示链尚无一致环境下的跨模型 E2E 成功率证据，不将模板结构完整当作运行结果。
 
 
-来源文章：[[wiki:b0f76f51-5884-54b7-9ccc-2d43a989d1a3][Skill 调试与精简：六阶段可执行提示词资产]]、[[wiki:6cec6b1a-4bfe-589e-a1c7-71be38dc6e85][Skill 仓库测试资产治理]]、[[wiki:c7fa8c19-59d3-49c1-a786-72f102daa568][Skill 调用索引]]。本页把它们整理成可直接分轮发送的七条提示词，不替代原文完整细节。
+关联资料：[[wiki:6cec6b1a-4bfe-589e-a1c7-71be38dc6e85][Skill 仓库测试资产治理]]、[[wiki:c7fa8c19-59d3-49c1-a786-72f102daa568][Skill 调用索引]]。本页把它们整理成可直接分轮发送的七条提示词，不替代原文完整细节。
 
 维护依据：[[https://github.com/lovemoganna/Org-Skills/blob/main/MAINTENANCE.md][Org-Skills 维护规范]]。官方参考：[[https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md][Anthropic Skill Creator]]、[[https://developers.openai.com/blog/eval-skills.md][OpenAI Skills Evals]]、[[https://docs.github.com/en/actions/concepts/workflows-and-actions/workflow-artifacts][GitHub Actions Artifacts]]。来源的测试能力是可选参考，不表示本链已经完成真实 Skill 运行或跨模型验证。
 
