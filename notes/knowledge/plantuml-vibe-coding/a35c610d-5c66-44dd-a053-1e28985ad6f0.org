@@ -1,0 +1,228 @@
+#+TITLE: PlantUML Skill 稳定性与扩展：五段 Vibe Coding 提示链
+#+WIKI_ID: a35c610d-5c66-44dd-a053-1e28985ad6f0
+#+CATEGORY: AI Skill 工程
+#+FILETAGS: :plantuml:vibe-coding:skill:testing:regression:prompt-chain:
+#+DATE: 2026-10-19
+#+SOURCE: 2026-10-19 用户与 ChatGPT 关于 plantuml-diagram-engine 的五段 Vibe Coding 提示词对话；Org-Skills 仓库
+#+INGEST_ID: b398c1b7-1903-4aa7-85fa-3d0f28c6c506
+#+WIKI_STATUS: published
+#+SUBTITLE: 项目理解、稳定性测试、图类型扩展、视觉渲染和回归发布
+#+LANGUAGE: zh-CN
+#+STARTUP: overview
+#+OPTIONS: toc:2 num:nil
+
+#+CAPTION: PlantUML Diagram Engine：从需求理解、图形生成到在线 PNG 交付的技术概览。头图为 AI 生成的示意图，节点内容不代表真实调查结果。
+#+ATTR_HTML: :width 100%
+[[file:../../../note-assets/a35c610d-5c66-44dd-a053-1e28985ad6f0/header.webp]]
+
+* 什么时候使用这组提示
+
+这组提示词用于 Cursor、Codex、Gemini Antigravity 等 Coding Agent，针对现有 =plantuml-diagram-engine= 进行评估、扩展和回归。它们是*执行指令*，不是已经完成的测试报告。项目入口：[[https://github.com/lovemoganna/Org-Skills/tree/main/skills/plantuml-diagram-engine][Org-Skills / plantuml-diagram-engine]]。
+
+建议按顺序发送：P01 建立当前代码事实；P02 用真实输入查稳定性；P03 只扩展有实际价值的图类型；P04 验证渲染质量和在线 PNG 直链；P05 修复回归并发布。若 P02 发现关键缺陷，先交给 P05 定向修复，再做 P03。跨会话续接需携带仓库 commit、已确认事实、失败证据、修改 Diff 和未验证事项，不要求一次完成五轮。
+
+P02 的 =54 次= 是建议的完整测试规模（六类图 × 三种难度 × 三次重复），并非已完成的运行次数。无官方 PlantUML 引擎或公共网络条件时，把相关检查标为 =未验证=，不能以编写脚本或 HTTP 200 冒充图像验收。
+
+* 五段可直接复制的提示词
+
+** P01｜项目理解与执行决策
+:PROPERTIES:
+:CUSTOM_ID: p01-baseline
+:END:
+
+#+begin_src markdown
+请接手 GitHub 仓库 lovemoganna/Org-Skills 中的
+skills/plantuml-diagram-engine 项目。
+
+你的角色是具备独立判断能力的软件工程师，而不是机械执行提示词的代理。
+
+任务：
+1. 读取远程最新版 Skill、脚本、测试、示例和维护规范。
+2. 还原项目的真实目标、当前架构、执行流程与验收标准。
+3. 区分已经实现、已经测试、尚未验证、尚未实现的能力。
+4. 分析影响稳定性、可扩展性和视觉质量的主要问题。
+5. 按风险、实际价值和依赖关系制定执行顺序。
+
+决策规则：
+- 用户的目标优先于既有实现方式。
+- 发现用户预设不合理时，必须指出并给出证据。
+- 不为满足字面要求而保留明显错误的设计。
+- 不因为技术复杂就新增不必要的框架。
+- 没有可证明收益的修改不执行。
+- 未确认的问题不得当作事实。
+- 不允许只分析不行动；明确可执行的低风险任务直接推进。
+
+本阶段只做基线审查，不修改代码。
+
+交付：
+项目现状、关键缺陷、执行顺序、验收依据，以及下一步的第一个具体任务。
+#+end_src
+
+** P02｜稳定性测试与缺陷发现
+:PROPERTIES:
+:CUSTOM_ID: p02-stability
+:END:
+
+#+begin_src markdown
+基于当前 GitHub HEAD，对 plantuml-diagram-engine 执行真实稳定性测试。
+
+测试设计：
+1. 覆盖 WBS、Activity、Sequence、State、Component、Class 六类图。
+2. 每类设置简单、复杂、对抗性三种输入。
+3. 每种输入独立执行三次，共 54 次生成。
+4. 将当前未正式支持的图类型标为待扩展能力，不得计入既有能力通过率。
+5. 保持各重复测试的模型、参数和输入条件一致。
+
+分别验证：
+- 图类型选择是否正确。
+- 核心对象、关系和条件是否完整。
+- 是否凭空增加对象或关系。
+- PlantUML 源码能否被官方引擎解析。
+- 在线 PNG URL 是否有效。
+- 图片内容是否出现语法报错。
+- 中文、布局和节点是否可读。
+- 重复生成是否保持语义一致。
+- 敏感内容是否受到保护。
+
+要求：
+必须使用真实执行结果，不得用 Mock 成功代替端到端成功。
+网络故障、语法错误、语义错误、视觉缺陷分别记录。
+
+对每个失败样本保存：
+原始输入、预期结果、实际源码、图片 URL、运行记录、失败原因和修复建议。
+
+禁止为了提高通过率降低测试标准。
+
+本阶段以识别真实问题为主，不提前重构。
+
+最后只报告通过率、主要失败模式、复现证据和修复优先级。
+#+end_src
+
+** P03｜智能扩展 PlantUML 图类型
+:PROPERTIES:
+:CUSTOM_ID: p03-expansion
+:END:
+
+#+begin_src markdown
+基于已有稳定性测试结果，扩展 plantuml-diagram-engine 的图类型支持。
+
+优先研究：
+Sequence、State、Component、Class、Deployment、Gantt、MindMap。
+
+执行协议：
+1. 核实每种图的官方语法、适用场景、视觉能力和限制。
+2. 检查现有 Skill 是否已经部分支持，避免重复实现。
+3. 判断新增图类型解决了什么具体表达问题。
+4. 设计图类型识别与选择规则，避免相邻类型误判。
+5. 增加独立的语法约束、样式配置、示例和测试。
+6. 每完成一个图类型，实际生成 PlantUML 源码并渲染。
+7. 检查表达正确性、中文显示、图形布局及在线 URL。
+8. 重跑已有图类型的回归测试。
+
+不必一次实现全部图类型。
+按照实际价值和测试结果逐个扩展。
+
+硬约束：
+- 不允许为了支持新类型破坏旧类型。
+- 不允许把不同图类型强制套进统一语法模板。
+- 不允许将尚未验证的能力写成已支持。
+- 避免把所有规则堆入 SKILL.md，优先使用独立 Registry。
+- 不得虚构业务对象及关系。
+
+退出条件：
+新增类型的真实样本通过，既有功能无实质回归，相关约束和证据已留存。
+
+最后交付：新增能力、代码差异、测试结果、剩余限制。
+#+end_src
+
+** P04｜视觉优化与在线 PNG 验收
+:PROPERTIES:
+:CUSTOM_ID: p04-visual
+:END:
+
+#+begin_src markdown
+优化 plantuml-diagram-engine 的视觉质量和在线 PNG 交付能力。
+
+默认使用 Editorial Light 设计风格，但不要把固定配色置于语义表达之上。
+
+目标：
+生成清晰、专业、信息密度合理的 PlantUML 图片，并直接返还在线 PNG 图片 URL。
+
+逐项检查：
+1. 图形布局是否符合阅读顺序。
+2. 节点、关系和分支是否准确。
+3. 字体、字号、边框和留白是否一致。
+4. 颜色是否具有明确语义。
+5. 中文文字是否完整可读。
+6. 是否存在节点拥挤、遮挡或多余交叉线。
+7. 大图在移动端查看时是否仍可理解。
+
+渲染优先使用 PlantUML 官方服务。
+失败时尝试 Kroki，分别采用正确编码协议。
+
+在线验收必须区分：
+URL 已生成
+HTTP 响应有效
+PNG 文件有效
+PlantUML 语法正确
+真实图片视觉检查通过
+
+只检查 HTTP 200 不等于渲染成功。
+不允许使用 Graphviz 预览图冒充 PlantUML 渲染结果。
+
+默认交付在线 PNG 直链，不下载文件，不生成 ZIP。
+公共服务不能使用未经授权的敏感数据。
+
+发现视觉问题时，只修正有证据的问题。
+修复后重新渲染并比较，不能为了美观删掉重要节点。
+
+最终直接返还可点击的在线 PNG 链接，以及真实验证状态。
+#+end_src
+
+** P05｜自动修复、回归与 GitHub 发布
+:PROPERTIES:
+:CUSTOM_ID: p05-release
+:END:
+
+#+begin_src markdown
+针对 plantuml-diagram-engine，执行完整的 Loop Engineering 闭环。
+
+工作流程：
+Baseline → Test → Diagnose → Repair → Regression → Release
+
+执行规则：
+1. 读取当前 GitHub HEAD，记录基线版本。
+2. 根据真实测试证据定位最重要的失败原因。
+3. 将问题归类为输入、模型路由、Skill 规则、源码语法、渲染服务或视觉缺陷。
+4. 只修改能够解释失败原因的最小代码范围。
+5. 重新执行原失败样本。
+6. 运行历史通过样本，检查是否产生回归。
+7. 增加能够防止同类缺陷复发的测试。
+8. 重复修复，直到达到退出条件或发现明确阻塞。
+
+决策约束：
+- 不为修复单个样本破坏通用机制。
+- 不通过删除测试、弱化断言实现通过。
+- 不得用模拟结果替代真实执行。
+- 不把外部网络故障错误归因于 Skill。
+- 无新增有效证据时停止重复尝试。
+- 破坏性修改必须先保留回滚路径。
+- 不得静默修改无关文件。
+
+验收通过后：
+更新 Skill、相关示例、测试、README 和验收记录。
+核查 Git Diff。
+提交 GitHub。
+重新读取远程文件，确认内容与提交一致。
+
+最终只返回：
+修改内容、问题根因、真实测试结果、提交链接、未解决问题。
+
+任何未通过的关键验收必须明确标注，不得宣称完整成功。
+#+end_src
+
+* 如何判断模型真的完成了任务
+
+每阶段只接受可复核的文件、命令、输入和实际结果。P02 的 54 次生成是计划规模，必须提供逐次执行证据；P03 需证明新增图类型对实际问题有用；P04 必须给真实在线 PNG 直链并做视觉检查；P05 必须证明旧功能没有被破坏。若缺少网络、权限、引擎或运行记录，报告准确阻塞位置，而不是编造成功率。
+
+在决定要不要修改 Skill 时只追问：*解决了什么真实问题？有什么执行证据？是否破坏原本正确的能力？* 没有有效增益，可以保持旧版。关联：[[https://github.com/lovemoganna/Org-Skills/blob/main/MAINTENANCE.md][Org-Skills 维护规范]]、[[https://github.com/lovemoganna/Org-Skills/tree/main/skills/plantuml-diagram-engine][当前 Skill]]。
