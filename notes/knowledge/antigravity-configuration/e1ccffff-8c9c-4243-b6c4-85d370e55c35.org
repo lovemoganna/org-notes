@@ -1,0 +1,184 @@
+#+TITLE: Antigravity 项目规则、Skills 与评估目录怎么放
+#+WIKI_ID: e1ccffff-8c9c-4243-b6c4-85d370e55c35
+#+CATEGORY: AI Agent 工程
+#+FILETAGS: :ai:antigravity:agents:configuration:skills:
+#+DATE: 2026-10-19
+#+SOURCE: 2026-10-19 本次 ChatGPT 对话中“从项目角度出发，他有不同的默认配置文件？”一轮回答；对照 Google Antigravity 官方 Rules、Skills、Hooks 文档
+#+INGEST_ID: 9649bcb2-33b1-4012-ac7b-56c5478258ca
+#+WIKI_STATUS: published
+
+* 核心原则
+给 Antigravity 配置项目上下文时，把“始终生效的规则”“按条件生效的约束”“按需调用的 Skill”和“实验数据”分开。*不要把全量历史聊天和完整 Skill 正文复制到每个会话的全局提示。*
+
+对于 [[https://github.com/lovemoganna/Org-Skills][Org-Skills]]，现有 =skills/= 是 canonical 内容来源；Antigravity 的 =.agents/skills/= 负责发现或加载入口。只有真实测试证明能可靠发现时，才采用链接、包装入口或部署脚本，避免长期维护两份独立副本。
+
+* 按作用域选择存放位置
+| 类型 | 位置 | 作用 |
+|------+------|------|
+| 全局规则 | =~/.gemini/GEMINI.md= | 跨项目通用行为纪律 |
+| 项目入口 | =AGENTS.md= 或 =GEMINI.md= | 项目目标、事实源与权限 |
+| 条件规则 | =.agents/rules/*.md= | 按任务匹配的专项约束 |
+| 专项能力 | =.agents/skills/<name>/SKILL.md= | 按需加载的多阶段流程 |
+| 评估资料 | =evals/= | 冻结案例、运行轨迹、报告 |
+| 自动检查 | =.agents/hooks.json= | 按事件调用真实脚本，选配 |
+
+Antigravity 可从目录层级加载规则。=AGENTS.md= 与 =GEMINI.md= 是持续生效的目录级规则；=.agents/rules/*.md= 需要有效 YAML 前置元数据。多种规则会叠加，不能把它们视作“后者自动覆盖前者所有内容”。
+
+官方说明：[[https://www.antigravity.google/docs/rules/][Rules]]、[[https://www.antigravity.google/docs/skills][Skills]]、[[https://www.antigravity.google/docs/hooks][Hooks]]。
+
+* 目录结构：区分正式资源与 Agent 入口
+#+begin_src text
+~/.gemini/
+  GEMINI.md                      # 全局规则
+  config/rules/                  # 需要时使用的全局条件规则
+  config/skills/                 # 全局可复用 Skills（选配）
+
+Org-Skills/
+  AGENTS.md                      # 建议新增：项目规则入口
+  README.md                      # 已有：能力导航
+  MAINTENANCE.md                 # 已有：仓库维护约束
+  .agents/
+    rules/
+      evaluation.md              # 仅评估任务匹配
+      publishing.md              # 发布专项规则
+    skills/
+      note-reforge/SKILL.md      # 指向 canonical 的入口
+      skill-creator/SKILL.md     # 指向 canonical 的入口
+    hooks.json                   # 选配，启用前真实测试
+  skills/
+    note-reforge/SKILL.md        # 正式版本唯一来源
+    skill-creator/SKILL.md
+    ...
+  evals/
+    note-reforge/
+      experiment.yaml            # 固定模型、版本和测试条件
+      rubric.yaml                # 评分标准
+      cases/                     # 冻结输入与验收
+      runs/                      # 原始输出、日志
+      report.md                  # 带证据的裁决
+  .github/workflows/             # 现有 CI，优先复用
+#+end_src
+
+这是*建议结构*，不是声称仓库目前已有全部文件。不要一次性创建所有空目录；先在现有项目中实现真实必要的最小集合。
+
+* 全局规则示例
+#+begin_src markdown
+# Global Agent Rules
+
+1. 还原目标、事实、约束与实际授权。
+2. 先检查已有实现，不重复建设。
+3. 以证据判断，不迎合预设结论。
+4. 不制造缺乏实际收益的修改。
+5. 真实执行结果优先于模型自评。
+6. 区分已完成、未验证、失败和受阻。
+7. 不擅自执行未获授权的高风险动作。
+8. 最终只报告结论、证据、决策和必要风险。
+#+end_src
+
+全局规则不存放 Org-Skills 特有的技术栈、工具清单或完整测试数据。
+
+* 项目入口 AGENTS.md
+#+begin_src markdown
+# Org-Skills Project Contract
+
+## 目标
+维护可复用、可验证、可回归的 AI Skills。
+
+## 事实来源
+README.md：能力地图。
+MAINTENANCE.md：维护和回归规范。
+skills/<name>/SKILL.md：正式 Skill 版本。
+以当前仓库 HEAD 为准，不采用历史聊天中的旧副本。
+
+## 行为约束
+修改前读取真实版本和依赖。
+复用已有脚本、测试和仓库约束。
+结构测试不等于真实任务效果。
+不为优化而制造修改。
+未经授权，不推送远程或修改生产 Skill。
+
+## 评估任务
+优先阅读现有 skill-creator。
+冻结原文与测试条件，先完成最小真实对照。
+每项结论必须有可复查的执行证据。
+
+## 输出
+只交付实际结果、证据、处理决策、文件路径和关键阻碍。
+#+end_src
+
+项目入口不要内联完整 =SKILL.md=，只保留权威路径和加载要求。减少规则复制和版本漂移。
+
+* 条件规则示例
+文件：=.agents/rules/evaluation.md=。
+
+#+begin_src markdown
+---
+trigger: model_decision
+description: "Use when evaluating Skills, prompts, A/B experiments, or regression results."
+---
+
+# Evaluation Rules
+1. 先定义实际任务收益，再制定评分。
+2. 保留无 Skill 的受控基础组。
+3. 冻结输入、测试环境与评分标准。
+4. 区分确定性验证、独立语义评估和下游任务验收。
+5. 不把格式合规、字数增加或自评分当作增益。
+6. 没有真实证据就写未知，不自报通过。
+7. 未经授权不得修改生产 Skill。
+#+end_src
+
+条件规则支持 =always_on=、=model_decision=、=glob=、=manual=。触发名称错误或缺失必要前置元数据时，规则可能被忽略。这里选择 =model_decision=，避免每次普通代码开发都加载评估约束。
+
+* Antigravity 的任务调用流程
+图按照 [[https://github.com/lovemoganna/Org-Skills/blob/main/skills/plantuml-diagram-engine/SKILL.md][plantuml-diagram-engine]] 的 Activity 语义生成。公开 PNG 由外部服务按需渲染；不能仅凭 URL 声称图已视觉验收。
+
+#+CAPTION: 全局 / 项目规则、条件规则与专项 Skill 的加载及执行
+#+ATTR_HTML: :width 100%
+[[https://www.plantuml.com/plantuml/png/XPDlJzf07CUVzrLSt1Dy8d73pC63MH0Cq_64lO4RBTXGxanxpEmPn9a05Z3hD3XHHr1qMmOpcKPeoDvCxsZVnTf260bckuVt-tp__7AvDPL0XUHpCgTc9RG35PW3Rs4gcr5m7WaHB6C5F8bvPuOGn3JCooI64Kd0d0WM4fXWa8H81P5Nco0PMPY1rMqeu5q9PK0QogeuC-4L1UzECbu4-6VXrTbXYaZl9F8-Z1L1LFvBpNLUZV6no2EaMth2B3z_kh8Ic67M9PZ3I9WpMmz7-LZq4V2VtJo755QGg83b04Sa8ek0HqJAAD1j0knMVtJQDGs3LbhihZYwEU2yv-22jFB56Wxf_WszBO2DwEju8hwK4m3zg8qrWD-89juadRiG5sHQUUn1jRwzNmLBC2CYelgLl2og_X0dfO7FRXQiJj5yq1qzI6ObMNwv2CYsY82FDNgB7011gsVG-l5KhRgGwWTq_uhMsw6_X6deTA2354GOIIaeW-HcV6lBgo8wxmjyzB3Z6Jgzncsjwm-qTCBArrPBSo0aI6bkOZPgNj3k-TZIVAYnkmEhTyIEVh9grzdC_lnfr376Gjg_Dt-VqHyDgrVqfkvQxBvCwnLMFpG7bwnqR7zlsEsQVVALwLLps9nRaRKBxEAArKhiRCz9eyDRgbSjRO-U_fhsihzfJiB8qDbvqyqSN9h6D5CbU8TRSqZtn_m1.png]]
+
+在线图片直链：[[https://www.plantuml.com/plantuml/png/XPDlJzf07CUVzrLSt1Dy8d73pC63MH0Cq_64lO4RBTXGxanxpEmPn9a05Z3hD3XHHr1qMmOpcKPeoDvCxsZVnTf260bckuVt-tp__7AvDPL0XUHpCgTc9RG35PW3Rs4gcr5m7WaHB6C5F8bvPuOGn3JCooI64Kd0d0WM4fXWa8H81P5Nco0PMPY1rMqeu5q9PK0QogeuC-4L1UzECbu4-6VXrTbXYaZl9F8-Z1L1LFvBpNLUZV6no2EaMth2B3z_kh8Ic67M9PZ3I9WpMmz7-LZq4V2VtJo755QGg83b04Sa8ek0HqJAAD1j0knMVtJQDGs3LbhihZYwEU2yv-22jFB56Wxf_WszBO2DwEju8hwK4m3zg8qrWD-89juadRiG5sHQUUn1jRwzNmLBC2CYelgLl2og_X0dfO7FRXQiJj5yq1qzI6ObMNwv2CYsY82FDNgB7011gsVG-l5KhRgGwWTq_uhMsw6_X6deTA2354GOIIaeW-HcV6lBgo8wxmjyzB3Z6Jgzncsjwm-qTCBArrPBSo0aI6bkOZPgNj3k-TZIVAYnkmEhTyIEVh9grzdC_lnfr376Gjg_Dt-VqHyDgrVqfkvQxBvCwnLMFpG7bwnqR7zlsEsQVVALwLLps9nRaRKBxEAArKhiRCz9eyDRgbSjRO-U_fhsihzfJiB8qDbvqyqSN9h6D5CbU8TRSqZtn_m1][PlantUML PNG]]。
+
+#+begin_src plantuml :eval never-export
+@startuml
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName "Noto Sans CJK SC"
+skinparam shadowing false
+skinparam ArrowColor #94A3B8
+skinparam ActivityBorderColor #94A3B8
+skinparam ActivityBackgroundColor #F8FAFC
+skinparam ActivityFontColor #172554
+skinparam DiamondBackgroundColor #DBEAFE
+skinparam DiamondBorderColor #94A3B8
+skinparam roundcorner 14
+title Antigravity 项目任务流程
+start
+:加载全局 GEMINI.md 和项目 AGENTS.md;
+:按任务匹配 .agents/rules/;
+if (需要专项 Skill?) then (是)
+  :读取 .agents/skills/ 入口;
+  :读取仓库 canonical SKILL.md;
+else (否)
+  :按项目规则执行;
+endif
+:读取真实仓库与测试数据;
+:隔离执行并保存证据;
+if (涉及提交或高风险操作?) then (是)
+  :检查授权与影响范围;
+endif
+:验证结果并交付证据;
+stop
+@enduml
+#+end_src
+
+* 先建什么、先验证什么
+第一轮只需要创建三个必要文件：
+1. =AGENTS.md=：项目入口。
+2. =.agents/rules/evaluation.md=：评估任务约束。
+3. =evals/note-reforge/experiment.yaml=：冻结真实实验条件。
+
+先验证 Antigravity 能否正确发现规则、读取 canonical Skill、执行一个隔离 A/B 案例；不能自动发现就修发现机制，不以“仓库有文件”冒充“模型已加载”。
+
+=.agents/hooks.json= 只在有明确可调用的校验脚本时引入。项目授权和沙箱配置由 Antigravity 的实际环境设置控制，不能靠提示文字取代权限边界。
+
+* 与评估结果规范的关系
+本篇回答“文件和规则放哪里”，评估产物的输出标准、停止条件和质量门禁见 [[wiki:23dccd79-f6a3-4d06-9aaa-347ea2dbe5ba][怎样让 Antigravity 的 Skill 评估结果有意义]]。两篇分工不同，不应合并成一个巨大启动提示。
