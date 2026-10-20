@@ -17,7 +17,7 @@
 
 #+CAPTION: 技术分析五层关系：数据、观察、假设、执行与验证
 #+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-01.svg]]
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-01.png]]
 
 分析应按五个层次区分：*原始数据*（价格、成交量、时间、持仓量、委托与成交明细）；*观察方法*（K 线、趋势、指标、订单流）；*交易假设*（突破延续或假突破回归）；*执行规则*（入场、退出、仓位）；*证据检验*（成本后收益、回撤及样本外表现）。
 
@@ -30,7 +30,7 @@
 
 #+CAPTION: K 线、区间边界与假突破：价格结果不等于参与者意图
 #+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-02.svg]]
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-02.png]]
 
 一根 K 线只有开盘、最高、最低、收盘四项价格摘要。长上影线表明该时间段价格上探后回落；吞没、Pin Bar、内包线等只是多根或单根 K 线的外形描述。它们本身不证明趋势反转，也不能识别买卖双方身份。
 
@@ -43,7 +43,7 @@
 
 #+CAPTION: 上涨、下跌与震荡：结构判断依赖摆动点与时间尺度
 #+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-03.svg]]
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-03.png]]
 
 结构观察重点是高低点的相互关系：更高的高点（HH）与更高的低点（HL）描述上行结构；更低的高点（LH）与更低的低点（LL）描述下行结构；价格在边界之间反复运行则可能属于震荡。日线向上不排斥小时线处于回调。
 
@@ -56,7 +56,7 @@
 
 #+CAPTION: 双顶、头肩与收敛三角：为图形设置确认条件和失效条件
 #+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-04.svg]]
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-04.png]]
 
 双顶、双底、头肩顶、旗形、三角形与通道把多根 K 线压缩为可讨论的结构，不能只凭“看起来像”就认定行情方向。例如双顶候选需事先限定两个高点允许的偏差、间隔、颈线选取方式，以及何种收盘行为构成确认。
 
@@ -69,7 +69,7 @@
 
 #+CAPTION: EMA、RSI、ATR 与 VWAP：同一数据生成的不同观察视角
 #+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-05.svg]]
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-05.png]]
 
 EMA / MA 用于平滑价格，MACD 对均线差及其变化进行计算，RSI 衡量一段时间内涨跌幅的相对关系，ADX 主要反映趋势强度，ATR 描述真实波幅的平均水平，VWAP 则是成交量加权均价。指标是输入数据的变换；计算更复杂并不自动产生预测优势。
 
@@ -82,7 +82,7 @@ EMA / MA 用于平滑价格，MACD 对均线差及其变化进行计算，RSI �
 
 #+CAPTION: 成交量轮廓、时间价格轮廓与主动成交：统计口径不可混用
 #+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-06.svg]]
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-06.png]]
 
 普通成交量回答某段时间成交多少；*Volume Profile* 按价格档位汇总成交量；*Market Profile / TPO* 按时间分段统计价格访问分布。二者可能形状相似，但统计单位不同。所选时间段、价格分档、市场与数据源都会改变结果。
 
@@ -95,7 +95,7 @@ EMA / MA 用于平滑价格，MACD 对均线差及其变化进行计算，RSI �
 
 #+CAPTION: 斐波那契比例、周期与几何假设：观察基准决定分析结果
 #+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-07.svg]]
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-07.png]]
 
 斐波那契回撤与延伸提供比例位置参考；常见的 50% 回撤不属于斐波那契数列比率。谐波形态使用波段比例寻找候选区域，江恩工具尝试建立价格与时间的几何关系，周期分析尝试识别时间上的重复性。这些方法属于假设生成工具，不能凭数学名称推定可靠性。
 
@@ -108,7 +108,7 @@ EMA / MA 用于平滑价格，MACD 对均线差及其变化进行计算，RSI �
 
 #+CAPTION: 交易假设闭环：市场状态、信号、风险、执行、回测与复盘
 #+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-08.svg]]
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-08.png]]
 
 可执行的交易系统必须回答六件事：在什么市场状态下启用；什么数据触发入场；何时认定判断失效；每笔与整个组合能亏多少；订单如何执行与退出；如何证明扣除成本之后存在优势。缺少任何关键规则，就难以一致地执行或回测。
 
@@ -118,6 +118,6 @@ EMA / MA 用于平滑价格，MACD 对均线差及其变化进行计算，RSI �
 
 ** 来源与使用边界
 
-本文基于 [[https://x.com/HaibaraCrypto/status/2112044649762427011][灰原学姐《技术分析全地图》]] 的分类素材重新编排，并补充了信号可计算性、观察与推断的区别、交易成本及验证规则。八幅 SVG 为教学示意图，不是真实行情截图，也不是收益测试结果。
+本文基于 [[https://x.com/HaibaraCrypto/status/2112044649762427011][灰原学姐《技术分析全地图》]] 的分类素材重新编排，并补充了信号可计算性、观察与推断的区别、交易成本及验证规则。八幅配图为教学示意图，不是真实行情截图，也不是收益测试结果。
 
 相关概念可对照 [[https://www.cmegroup.com/trading/about-volume.html][CME：成交量与未平仓量]]、[[https://www.tradingview.com/support/solutions/43000502040-volume-profile-indicators-basic-concepts/][TradingView：Volume Profile]]、[[https://www.tradingview.com/support/solutions/43000713306-time-price-opportunity-tpo-indicator/][TradingView：TPO]]。所有交易假设都需在明确数据源和成本口径后独立检验。
