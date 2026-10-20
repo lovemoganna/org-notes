@@ -1,0 +1,123 @@
+#+TITLE: 技术分析地图：从数据到可验证的交易系统 | Technical Analysis Map
+#+WIKI_ID: 595eb2a8-d945-564d-96b7-150c71cefec9
+#+INGEST_ID: 595eb2a8-d945-564d-96b7-150c71cefec9
+#+WIKI_STATUS: published
+#+CATEGORY: 交易与市场研究
+#+FILETAGS: :trading:technical-analysis:market-structure:risk-management:
+#+DATE: 2026-10-20
+#+SOURCE: https://x.com/HaibaraCrypto/status/2112044649762427011
+#+DESCRIPTION: 区分市场数据、价格行为、结构、图表形态、技术指标、订单流与数学工具，并将分析转成可回测的交易规则。
+
+技术分析的任务不是记住尽可能多的术语，而是把市场数据转化为可证伪的交易假设。掌握一种形态或指标，只意味着会描述市场；只有定义了触发、退出、风险与检验规则，才形成交易系统。本文在原始技术分析知识地图上重组学习顺序，保留有用概念，删除宣传与重复描述。
+
+* 第一章：技术分析的地图
+:PROPERTIES:
+:CUSTOM_ID: ta-map
+:END:
+
+#+CAPTION: 技术分析五层关系：数据、观察、假设、执行与验证
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-01.svg]]
+
+分析应按五个层次区分：*原始数据*（价格、成交量、时间、持仓量、委托与成交明细）；*观察方法*（K 线、趋势、指标、订单流）；*交易假设*（突破延续或假突破回归）；*执行规则*（入场、退出、仓位）；*证据检验*（成本后收益、回撤及样本外表现）。
+
+最常见的混淆，是把描述当解释，把解释当证据。例如“价格刺破前高后回落”是观察；“扫掉机构止损”是推测。没有订单与账户级证据，后者不能升级为事实。成交量、衍生品未平仓量、可见委托、已成交记录也是不同的对象，不能互相替代。
+
+* 第二章：K 线与价格行为
+:PROPERTIES:
+:CUSTOM_ID: price-action
+:END:
+
+#+CAPTION: K 线、区间边界与假突破：价格结果不等于参与者意图
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-02.svg]]
+
+一根 K 线只有开盘、最高、最低、收盘四项价格摘要。长上影线表明该时间段价格上探后回落；吞没、Pin Bar、内包线等只是多根或单根 K 线的外形描述。它们本身不证明趋势反转，也不能识别买卖双方身份。
+
+*价格行为*进一步考虑位置与前后关系，包括突破、失败突破、回调、延续和关键价格反应。一个可检验的假突破候选定义是：本周期最高价高于已固定的前高 H，但本周期收盘价重新低于 H。是否有后续优势，要固定交易市场、K 线周期、参考高点选取规则，再统计信号后的价格分布。不要用事后挑选的成功图形倒推规则。
+
+* 第三章：市场结构
+:PROPERTIES:
+:CUSTOM_ID: market-structure
+:END:
+
+#+CAPTION: 上涨、下跌与震荡：结构判断依赖摆动点与时间尺度
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-03.svg]]
+
+结构观察重点是高低点的相互关系：更高的高点（HH）与更高的低点（HL）描述上行结构；更低的高点（LH）与更低的低点（LL）描述下行结构；价格在边界之间反复运行则可能属于震荡。日线向上不排斥小时线处于回调。
+
+支撑、阻力、趋势线与前高前低用于定位，不是自动成交指令。判定结构之前，必须固定时间周期、摆动高低点筛选算法，以及价格越界的标准。若摆动点需要等待未来若干根 K 线才能确认，回测必须按实际确认时间使用，避免把未来信息提前交给策略。
+
+* 第四章：图表形态
+:PROPERTIES:
+:CUSTOM_ID: chart-patterns
+:END:
+
+#+CAPTION: 双顶、头肩与收敛三角：为图形设置确认条件和失效条件
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-04.svg]]
+
+双顶、双底、头肩顶、旗形、三角形与通道把多根 K 线压缩为可讨论的结构，不能只凭“看起来像”就认定行情方向。例如双顶候选需事先限定两个高点允许的偏差、间隔、颈线选取方式，以及何种收盘行为构成确认。
+
+形态策略至少写清：识别范围、形成条件、确认条件、无效条件和退出条件。V 形反转等事后容易看清的图形，尤其应检查信号在当时能否被识别。不同参数会得到不同形态；先固定定义，再统计胜率和盈亏分布。
+
+* 第五章：技术指标
+:PROPERTIES:
+:CUSTOM_ID: technical-indicators
+:END:
+
+#+CAPTION: EMA、RSI、ATR 与 VWAP：同一数据生成的不同观察视角
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-05.svg]]
+
+EMA / MA 用于平滑价格，MACD 对均线差及其变化进行计算，RSI 衡量一段时间内涨跌幅的相对关系，ADX 主要反映趋势强度，ATR 描述真实波幅的平均水平，VWAP 则是成交量加权均价。指标是输入数据的变换；计算更复杂并不自动产生预测优势。
+
+使用指标先回答三个问题：使用哪些数据和参数、在什么市场状态下可能失效、是否提供了前述信息之外的新增证据。RSI 高于 70 不等于必须做空；ATR 变大不等于必然上涨。RSI、KDJ、MACD 同时指向某个方向，也可能只是重复利用相近的价格信息。
+
+* 第六章：成交量、轮廓与订单流
+:PROPERTIES:
+:CUSTOM_ID: order-flow
+:END:
+
+#+CAPTION: 成交量轮廓、时间价格轮廓与主动成交：统计口径不可混用
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-06.svg]]
+
+普通成交量回答某段时间成交多少；*Volume Profile* 按价格档位汇总成交量；*Market Profile / TPO* 按时间分段统计价格访问分布。二者可能形状相似，但统计单位不同。所选时间段、价格分档、市场与数据源都会改变结果。
+
+逐笔成交与 Footprint 可进一步描述主动成交行为。Delta 通常是归类后的主动买量减主动卖量；它不意味着“买方人数超过卖方”，更不能直接揭示账户身份。可见订单簿记录挂单，挂单可能撤销。主动买量大而价格推进有限，可以提出“上方存在卖方吸收”的假设，但不能仅据此确认机构操盘。加密交易所单一平台的数据也不能自动代表全市场。
+
+* 第七章：时间周期与数学工具
+:PROPERTIES:
+:CUSTOM_ID: mathematical-tools
+:END:
+
+#+CAPTION: 斐波那契比例、周期与几何假设：观察基准决定分析结果
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-07.svg]]
+
+斐波那契回撤与延伸提供比例位置参考；常见的 50% 回撤不属于斐波那契数列比率。谐波形态使用波段比例寻找候选区域，江恩工具尝试建立价格与时间的几何关系，周期分析尝试识别时间上的重复性。这些方法属于假设生成工具，不能凭数学名称推定可靠性。
+
+必须固定起点、终点、比例容差、时间窗口和坐标尺度，再检查轻微改动参数后结论是否仍成立。历史上出现过几次相似周期，不足以证明未来会重演；对照其他简单基准并做样本外检验，才能判断是否增加实际价值。
+
+* 第八章：从分析到交易系统
+:PROPERTIES:
+:CUSTOM_ID: trading-system
+:END:
+
+#+CAPTION: 交易假设闭环：市场状态、信号、风险、执行、回测与复盘
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/595eb2a8-d945-564d-96b7-150c71cefec9/chapter-08.svg]]
+
+可执行的交易系统必须回答六件事：在什么市场状态下启用；什么数据触发入场；何时认定判断失效；每笔与整个组合能亏多少；订单如何执行与退出；如何证明扣除成本之后存在优势。缺少任何关键规则，就难以一致地执行或回测。
+
+*仓位应从损失预算倒推。* 例：假设模拟账户权益 10,000 U、计划单笔价格损失预算 1%（100 U）、止损距离 2%，不计费用时理论名义仓位为 5,000 U。若还要预留手续费、滑点与资金费用，允许的仓位应相应缩小；极端行情中实际损失仍可能超出预算。这里的数字是计算示例，不是适用于所有人的交易建议。
+
+验证流程应先冻结信号定义，再使用历史数据检验成本后的期望收益、盈亏比、最大回撤与连续亏损情况；随后在未用于参数选择的样本上测试，并通过模拟盘观察真实成交偏差。反复修改规则直到历史图形变好，只能提升对旧数据的拟合，不等于未来有效。
+
+** 来源与使用边界
+
+本文基于 [[https://x.com/HaibaraCrypto/status/2112044649762427011][灰原学姐《技术分析全地图》]] 的分类素材重新编排，并补充了信号可计算性、观察与推断的区别、交易成本及验证规则。八幅 SVG 为教学示意图，不是真实行情截图，也不是收益测试结果。
+
+相关概念可对照 [[https://www.cmegroup.com/trading/about-volume.html][CME：成交量与未平仓量]]、[[https://www.tradingview.com/support/solutions/43000502040-volume-profile-indicators-basic-concepts/][TradingView：Volume Profile]]、[[https://www.tradingview.com/support/solutions/43000713306-time-price-opportunity-tpo-indicator/][TradingView：TPO]]。所有交易假设都需在明确数据源和成本口径后独立检验。
