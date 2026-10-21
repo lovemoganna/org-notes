@@ -112,7 +112,7 @@ function bindPanelScroll(panel,index){
 function setActivePane(value){
   activePane=value==='relation'?'relation':value==='target'?'target':'source';
   document.body.dataset.relatedPane=activePane;
-  document.querySelectorAll('[data-related-pane]').forEach(function(button){
+  document.querySelectorAll('button[data-related-pane]').forEach(function(button){
     var active=button.dataset.relatedPane===activePane;
     button.classList.toggle('is-active',active);button.setAttribute('aria-pressed',active?'true':'false');
   });
@@ -138,7 +138,7 @@ function updateMode(nextMode,push){
   if(push)setUrl(mode);
   document.getElementById('related-open-source').href=themed(source.href);
   document.getElementById('related-open-target').href=themed(target.href);
-  document.querySelectorAll('[data-related-mode]').forEach(function(button){
+  document.querySelectorAll('button[data-related-mode]').forEach(function(button){
     var active=button.dataset.relatedMode===mode;button.classList.toggle('is-active',active);
     button.setAttribute('aria-pressed',active?'true':'false');
   });
@@ -190,10 +190,10 @@ function renderDetail(){
     renderPanel('source',source);renderPanel('target',target);
     setActivePane(activePane);
   });
-  document.querySelectorAll('[data-related-mode]').forEach(function(button){
+  document.querySelectorAll('button[data-related-mode]').forEach(function(button){
     button.addEventListener('click',function(){updateMode(button.dataset.relatedMode,true);});
   });
-  document.querySelectorAll('[data-related-pane]').forEach(function(button){
+  document.querySelectorAll('button[data-related-pane]').forEach(function(button){
     button.addEventListener('click',function(){setActivePane(button.dataset.relatedPane);});
   });
   var syncButton=document.querySelector('[data-related-sync]');

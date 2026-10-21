@@ -13,7 +13,7 @@ ORIGINAL = "5c2307711f370c98548d5608b743b0f724d44598"
 FOCUSED = "510d3dea9d6dfc70f0c3518768ca9f5dda74268b"
 
 def git_at(sha):
-    return subprocess.check_output(["git", "show", f"{sha}:{PATH}"], text=True)
+    return subprocess.check_output(["git", "show", f"{sha}:{PATH}"], encoding="utf-8")
 
 original, focused = git_at(ORIGINAL), git_at(FOCUSED)
 scope = {
