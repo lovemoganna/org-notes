@@ -1,0 +1,105 @@
+#+TITLE: 加密货币吸筹：从 K 线识别到验证
+#+WIKI_ID: 8a74a4c2-50ad-4c11-a60e-1180d479ff56
+#+CATEGORY: 加密市场结构
+#+FILETAGS: :crypto:accumulation:wyckoff:kline:market-structure:
+#+DATE: 2026-10-21
+#+SOURCE: Wyckoff Analytics、Glassnode 技术文档；Binance BTCUSDT 现货日 K 数据（2026-06-15 至 2026-08-31）；本次对话整理
+#+INGEST_ID: 17c8a4e0-4097-427f-a25e-b4053cf70f01
+#+WIKI_STATUS: published
+
+* 一句话理解
+
+*吸筹（Accumulation）*：资金在一段时间内持续买入某种资产，逐步增加持仓的过程。
+
+狭义的“主力吸筹”是指大资金分批承接卖盘、建立仓位，尽量降低一次性买入对价格的冲击。但 *K 线只能显示价格与成交行为，不能单独证明是谁买入，也不能证明其持仓增加*。
+
+最重要的判断：*价格跌不动 ≠ 已经吸筹；上涨突破 ≠ 主力已经吸筹完毕*。
+
+* 01｜吸筹常出现在哪里？
+
+#+CAPTION: 底部吸筹与上涨中继再吸筹：两类候选区间（示意图）
+#+ATTR_HTML: :width 1200px
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-01.svg]]
+
+两种常见位置：
+
+- *底部吸筹候选*：持续下跌后进入低位区间，价格反复测试支撑、卖压可能减弱。
+- *再吸筹候选*：上涨途中横盘或回调，价格未破坏中长期上行结构，后续可能继续上涨。
+
+同样是横盘，也可能是下跌中继或顶部派发。不能只看位置下结论。
+
+* 02｜底部吸筹怎样形成？Phase A–B
+
+#+CAPTION: 下跌放缓、反弹、二次测试、形成交易区间（模拟教学图）
+#+ATTR_HTML: :width 1200px
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-02.svg]]
+
+- *Phase A：止跌*。下跌放缓，可能出现大量抛售后的反弹；初步划定支撑和阻力。
+- *Phase B：区间整理*。价格反复震荡；重点比较回落时的成交量、跌幅与支撑表现。
+
+*判断关键*：卖压是否逐步减弱，而不是“横盘多久”。
+
+* 03｜如何测试卖压与验证突破？Phase C–E
+
+#+CAPTION: Spring、SOS 与后续走势：三种不同性质的观察信号（模拟教学图）
+#+ATTR_HTML: :width 1200px
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-03.svg]]
+
+- *Phase C：测试供应*。可能出现 Spring：短暂跌破区间下沿后快速收回；并非每个吸筹结构都会发生。
+- *Phase D：需求转强*。可能出现 SOS（Sign of Strength）：价格向上突破重要阻力，同时上涨幅度和成交量扩大。
+- *Phase E：离开区间*。观察突破是否持续，回踩时阻力能否转为支撑。
+
+*失效条件*：跌破支撑后无法收复、突破迅速失败、持续出现更低低点。不能凭某次插针就认定有人“故意洗盘”。
+
+* 04｜再吸筹还是派发？
+
+#+CAPTION: 同样发生在上涨后的横盘，后续可能继续上涨，也可能转为下跌（模拟对照）
+#+ATTR_HTML: :width 1200px
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-04.svg]]
+
+| 观察 | 偏向再吸筹的线索 | 偏向派发的线索 |
+|-
+| 回调 | 回落缩量，支撑持续有效 | 跌破支撑，卖压扩大 |
+| 反弹 | 能持续突破前高或阻力 | 反弹乏力，突破多次失败 |
+| 方向 | 后续走势维持上行结构 | 后续转入更低高点、低点 |
+
+这些是需要继续核验的价格行为，不是对资金主体的身份或意图的确认。
+
+* 05｜Binance BTC/USDT 真实历史案例
+
+#+CAPTION: 2026 年 6 月 15 日至 8 月 31 日 Binance BTCUSDT 现货真实日 K 与成交量；价格与成交量取整数显示；颜色标记为事后分析
+#+ATTR_HTML: :width 1200px
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-05.svg]]
+
+- *2026-07-01*：当日最低约 =57,800 USDT=，随后收在 =60,024 USDT=，出现低位反弹。
+- *7 月至 8 月中旬*：行情经历整理与反复回落，价格结构并非一路走高。
+- *2026-08-19 至 08-21*：连续上涨，三日的 Binance 现货成交量约为 =29,054 / 35,905 / 44,340 BTC=。
+
+可观察事实是：*下跌后出现低位测试、震荡整理，随后放量上涨*。这适合用于回顾候选吸筹结构，但 *不能倒推当时必有主力在吸筹*。如需进一步判断持仓积累，需要主体级链上净持仓变化，并排除内部转账等干扰。
+
+本图使用 Binance 现货日 K =OHLCV=，不是模拟交易价格；技术图中的 A/B/C 是讲解标记，不是 Binance 提供的交易信号。
+
+* 简单实战检查
+
+1. *先看价格*：下跌是否放缓？支撑是否多次有效？
+2. *再看成交*：回落卖压是否减弱？上涨是否出现有效需求？
+3. *最后查持仓*：链上可识别主体是否持续增持？是否排除了内部转账等原因？
+
+只满足前两项：*疑似吸筹结构*。第三项提供额外支持，但仍未必能确认买入者的真实身份与意图。
+
+* 常见误判
+
+- 横盘不等于吸筹；还可能是派发或下跌中继。
+- 放量不等于买方持仓增加；每笔成交都有买方和卖方。
+- 交易所净流出不等于实际买入；可能是托管迁移或内部划转。
+- 合约多头增加不等于现货筹码积累。
+- Spring 并非必需，放量突破也不保证后续持续上涨。
+
+* 参考资料
+
+- [[https://www.wyckoffanalytics.com/wyckoff-method/][Wyckoff Analytics：威科夫方法、吸筹阶段与 Spring / SOS]]
+- [[https://www.wyckoffanalytics.com/wyckoff-reaccumulation-vs-distribution-how-to-tell-which-one-youre-in][Wyckoff Analytics：再吸筹与派发的区分（2026-09-28）]]
+- [[https://docs.glassnode.com/further-information/metric-guides/accumulation-trend-score][Glassnode：Accumulation Trend Score 技术定义]]
+- [[https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints][Binance Spot API：Kline/Candlestick Data]]
+
+*说明*：本文为交易结构学习笔记，不构成投资建议。前四张配图是模拟示意；第五张按 Binance 历史日 K 数据重绘。矢量图为网站发布适配版，非此前聊天生成 PNG 的二进制原文件。
