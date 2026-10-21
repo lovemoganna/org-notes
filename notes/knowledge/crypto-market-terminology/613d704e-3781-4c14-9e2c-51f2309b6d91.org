@@ -34,7 +34,7 @@
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/01-candle-ohclv.png]]
 
-图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
+图中价格与成交量均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
 
 | 术语 | 它是什么 | 适合解决什么问题 | 不能据此推出什么 |
 |-
@@ -110,7 +110,7 @@
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/04-indicators.png]]
 
-图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
+图中的价格和各指标小图分别使用合成示意曲线；指标小图不是依同一组 OHLCV 实际计算所得，不能用其数值验证策略表现。具体指标含义以术语表的定义为准。
 
 | 指标 | 本质与关键组成 | 适用场景 | 不适用的推断 |
 |-
