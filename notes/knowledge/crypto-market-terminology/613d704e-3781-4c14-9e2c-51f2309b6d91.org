@@ -30,6 +30,12 @@
 :CUSTOM_ID: scene-candle
 :END:
 
+#+CAPTION: 场景 1：OHLCV、长上影线、Pin Bar、吞没、内包线、成交量与主动买量（独立绘制；合成教学数据，非真实行情截图）
+#+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/01-candle-ohclv.png]]
+
+图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
+
 | 术语 | 它是什么 | 适合解决什么问题 | 不能据此推出什么 |
 |-
 | K 线（Candlestick） | 把固定周期的开盘、最高、最低、收盘四个价格画成蜡烛；实体是开收差，影线是极值 | 观察该周期的价格结果 | 不包含买卖双方身份或完整逐笔路径 |
@@ -48,6 +54,12 @@
 :PROPERTIES:
 :CUSTOM_ID: scene-structure
 :END:
+
+#+CAPTION: 场景 2：高低点结构、支撑阻力、失败突破、突破与回踩（独立绘制；合成教学数据，非真实行情截图）
+#+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/02-market-structure.png]]
+
+图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
 
 | 术语 | 它是什么 | 实战观察 | 判定前必须固定什么 |
 |-
@@ -70,6 +82,12 @@
 :CUSTOM_ID: scene-pattern
 :END:
 
+#+CAPTION: 场景 3：双顶、双底、头肩顶、旗形、通道和颈线（独立绘制；合成教学数据，非真实行情截图）
+#+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/03-chart-patterns.png]]
+
+图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
+
 | 术语 | 结构含义 | 常见确认思路 | 易错点 |
 |-
 | 双顶（Double Top） | 两次在相近高位受阻的候选形态 | 固定两峰间隔、容差、谷底颈线及其跌破方式 | 第二个高点出现时不意味着形态已确认 |
@@ -88,6 +106,12 @@
 :CUSTOM_ID: scene-indicators
 :END:
 
+#+CAPTION: 场景 4：K 线与 MA、EMA、VWAP、MACD、RSI、KDJ、ADX、ATR（独立绘制；合成教学数据，非真实行情截图）
+#+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/04-indicators.png]]
+
+图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
+
 | 指标 | 本质与关键组成 | 适用场景 | 不适用的推断 |
 |-
 | MA / SMA（简单移动平均） | 固定窗口内价格算术平均 | 平滑噪声、观察历史方向 | 均线变化具有滞后，不保证拐点 |
@@ -105,6 +129,12 @@
 :PROPERTIES:
 :CUSTOM_ID: scene-flow
 :END:
+
+#+CAPTION: 场景 5：成交量轮廓、TPO、POC 与订单流概念（独立绘制；合成教学数据，非真实行情截图）
+#+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/05-order-flow.png]]
+
+TPO 计量价格被访问的时间档，Volume Profile 计量成交量；Footprint、Delta 和订单簿属于独立数据，不是 K 线直接生成的账户归属信息。
 
 | 术语 | 统计对象 | 能回答的问题 | 不能回答的问题 |
 |-
@@ -125,6 +155,12 @@
 :PROPERTIES:
 :CUSTOM_ID: scene-wyckoff
 :END:
+
+#+CAPTION: 场景 6：威科夫候选吸筹结构、A–E 阶段、Spring、SOS 与 LPS（独立绘制；合成教学数据，非真实行情截图）
+#+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/06-wyckoff.png]]
+
+A–E、Spring、SOS、LPS 为对合成走势的框架化标记；Composite Man、主力与派发意图均不属于可从 K 线核实的事实。
 
 | 术语 | 在威科夫框架中的含义 | 应观察的线索 | 边界 |
 |-
@@ -155,6 +191,12 @@
 :CUSTOM_ID: scene-holdings
 :END:
 
+#+CAPTION: 场景 7：现货 K 线、链上流向、OI、资金费率与积累评分的数据层差异（独立绘制；合成教学数据，非真实行情截图）
+#+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/07-position-evidence.png]]
+
+本图辅助曲线分别表示不同数据对象。链上实体余额、资金费率和未平仓合约量不能由现货 K 线推算。
+
 | 术语 | 实际衡量什么 | 何时查 | 常见误判 |
 |-
 | 现货（Spot） | 资产本身的买卖成交 | 要讨论真实标的资产的交易活动时 | 现货成交记录通常仍不公开真实受益所有人 |
@@ -174,6 +216,12 @@
 :CUSTOM_ID: scene-math
 :END:
 
+#+CAPTION: 场景 8：斐波那契回撤、延伸与固定端点（独立绘制；合成教学数据，非真实行情截图）
+#+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/08-fibonacci-tools.png]]
+
+图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
+
 | 术语 | 机制 | 什么时候参考 | 如何避免自我验证 |
 |-
 | Fibonacci Retracement（斐波那契回撤） | 在固定波段端点之间计算特定比例的价格位置 | 标出候选回调区域 | 先固定起止点；50% 回撤常用，但不是斐波那契数列比率 |
@@ -188,6 +236,12 @@
 :PROPERTIES:
 :CUSTOM_ID: scene-system
 :END:
+
+#+CAPTION: 场景 9：入场、止损、失效边界、目标价与回测要素（独立绘制；合成教学数据，非真实行情截图）
+#+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/09-trading-system.png]]
+
+图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
 
 | 术语 | 可执行定义 | 需要核验的证据 | 常见失败 |
 |-
