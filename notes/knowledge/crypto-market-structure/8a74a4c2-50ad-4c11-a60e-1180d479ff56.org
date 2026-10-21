@@ -3,7 +3,7 @@
 #+CATEGORY: 加密市场结构
 #+FILETAGS: :crypto:accumulation:wyckoff:kline:market-structure:
 #+DATE: 2026-10-21
-#+SOURCE: Wyckoff Analytics、Glassnode 技术文档；Binance BTCUSDT 现货日 K 数据（2026-06-15 至 2026-08-31）；本次对话整理
+#+SOURCE: Wyckoff Analytics、Glassnode；Binance BOMEUSDT 与 GALAUSDT 现货日 K（2026 年 4—8 月）；本次对话真实数据对照
 #+INGEST_ID: 17c8a4e0-4097-427f-a25e-b4053cf70f01
 #+WIKI_STATUS: published
 
@@ -65,19 +65,54 @@
 
 这些是需要继续核验的价格行为，不是对资金主体的身份或意图的确认。
 
-* 05｜Binance BTC/USDT 真实历史案例
+* 05｜中小币实战：疑似吸筹后突破 vs 突破失败
 
-#+CAPTION: 根据 Binance BTCUSDT 历史行情关键数值制作的 AI 教学示意图；非逐根精确重绘的 OHLCV 图
-#+ATTR_HTML: :width 1104px
-[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-05.webp]]
+这两个案例都使用 Binance 的 *现货日 K 原始 OHLCV*，不是 AI 编造的蜡烛。前四张仍是概念教学图，本节是历史行情对照。
 
-- *2026-07-01*：当日最低约 =57,800 USDT=，随后收在 =60,024 USDT=，出现低位反弹。
-- *7 月至 8 月中旬*：行情经历整理与反复回落，价格结构并非一路走高。
-- *2026-08-19 至 08-21*：连续上涨，三日的 Binance 现货成交量约为 =29,054 / 35,905 / 44,340 BTC=。
+为了可比性，两例统一口径：观察 *突破前连续30个 UTC 日的最高价、最低价及平均日成交额*；突破日为日 K 收盘首次明显高于前30日高点的观察节点；再检查之后第25日的收盘与是否跌回原箱体。
 
-可观察事实是：*下跌后出现低位测试、震荡整理，随后放量上涨*。这适合用于回顾候选吸筹结构，但 *不能倒推当时必有主力在吸筹*。如需进一步判断持仓积累，需要主体级链上净持仓变化，并排除内部转账等干扰。
+** 案例 A｜BOME：低位整理后放量突破，后续延续上涨
 
-第五张是参考 Binance 现货日 K =OHLCV= 的关键数值生成的 AI 知识卡片，*并非按 OHLCV 逐根精确绘制的真实 K 线*；图形中的蜡烛、成交量分布和阴影仅作概念说明。需要精确复核请使用原始交易所 K 线数据。A/B/C 是教学标记，不是 Binance 提供的交易信号。
+#+CAPTION: Binance BOME/USDT 真实现货日 K（2026-06-15—08-31），A 为7月26日，B 为8月20日。框线是预先定义的30日观察区间。
+#+ATTR_HTML: :width 1400px
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/case-bome-followthrough.gif]]
+
+- *观察区间*：2026-06-26 至 07-25，最高 =0.0004711 USDT=，最低 =0.0003781 USDT=。
+- *突破日*：2026-07-26 收盘 =0.0005336 USDT=，比箱体上沿高约 =13.3%=。
+- *成交额*：当日约 =411.84万 USDT=，是前30日平均约 =9.12= 倍。
+- *后续验证*：2026-08-20 收盘 =0.0011684 USDT=，相对突破日上涨约 =119.0%=。
+
+*解释*：价格结构与成交额显示买方需求增强，且后续价格得到支持。它符合“候选吸筹结构得到价格层面的后续验证”，但不能确认大户曾经持续净增持，更不能证明有统一“主力”操作。可能还受到事件驱动、投机资金或衍生品行情影响。
+
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/bome-1d-ohlcv.csv][下载 BOME 原始日 K 数据（CSV）]]
+
+** 案例 B｜GALA：放量突破后回落，最终跌破整理区下沿
+
+#+CAPTION: Binance GALA/USDT 真实现货日 K（2026-04-01—06-17），A 为5月8日，B 为6月2日。箱体支撑在后续交易中被收盘跌破。
+#+ATTR_HTML: :width 1400px
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/case-gala-failure.gif]]
+
+- *观察区间*：2026-04-08 至 05-07，最高 =0.00390 USDT=，最低 =0.00287 USDT=。
+- *突破日*：2026-05-08 收盘 =0.00416 USDT=，比箱体上沿高约 =6.7%=。
+- *成交额*：当日约 =4215.20万 USDT=，是前30日平均约 =11.35= 倍。
+- *后续验证*：2026-06-02 收盘 =0.00284 USDT=，相对突破日下跌约 =31.7%=，且 *收盘低于原箱体下沿 =0.00287 USDT=*。
+
+*解释*：突破当日的成交额比 BOME 更显著，却没有得到持续价格支持。后续跌回原区间，最终跌破支撑，说明原先看涨的结构判断失效。不能倒推存在“主力诱多”“故意出货”或市场操纵。
+
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/gala-1d-ohlcv.csv][下载 GALA 原始日 K 数据（CSV）]]
+
+** 对照后应该记住什么？
+
+| 关键问题 | BOME | GALA |
+|-
+| 都有整理后放量突破？ | 是 | 是 |
+| 突破后的价格是否延续？ | 25日后仍明显高于突破日 | 25日后大幅低于突破日 |
+| 原箱体下沿是否失守？ | 在观察期内未见收盘跌破 | 6月2日收盘跌破 |
+| 能否证明主体持续增持？ | 不能 | 不能 |
+
+*真正有用的不是记住哪只币涨过，而是区分“突破信号”与“后续验证”。* 选用历史成功/失败样本属于事后回看，不代表该形态具有已验证的预测胜率。
+
+两张图逐根使用 Binance 现货日 K 开高低收与 *USDT 计价成交额* 绘制；A/B 与箱体是分析标记，并非交易所官方信号。两图只支持价格与成交行为分析，无法证明持仓变化、操盘者身份或主观意图。
 
 * 简单实战检查
 
@@ -100,6 +135,6 @@
 - [[https://www.wyckoffanalytics.com/wyckoff-method/][Wyckoff Analytics：威科夫方法、吸筹阶段与 Spring / SOS]]
 - [[https://www.wyckoffanalytics.com/wyckoff-reaccumulation-vs-distribution-how-to-tell-which-one-youre-in][Wyckoff Analytics：再吸筹与派发的区分（2026-09-28）]]
 - [[https://docs.glassnode.com/further-information/metric-guides/accumulation-trend-score][Glassnode：Accumulation Trend Score 技术定义]]
-- [[https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints][Binance Spot API：Kline/Candlestick Data]]
+- [[https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints][Binance Spot API：Kline/Candlestick Data（两张数据图来自此数据类型）]]
 
-*说明*：本文为交易结构学习笔记，不构成投资建议。配图均为本次 AI 生成的教学图；第五张标注的历史关键数值参考 Binance 行情数据，但图中蜡烛位置和成交量形态不能替代原始 OHLCV 数据。网站图片是这五张生成 PNG 的 WebP 压缩版本，非脚本重新绘图。
+*说明*：本文用于市场结构学习，不构成投资建议。第 1—4 张为 AI 生成的模拟教学图；第 5 节两张图则是根据 Binance 原始日线 OHLCV 数据逐根程序化绘制（并附 CSV 以便复核）。两种情况都不能直接推断有组织的主力吸筹或操纵。nance 行情数据，但图中蜡烛位置和成交量形态不能替代原始 OHLCV 数据。网站图片是这五张生成 PNG 的 WebP 压缩版本，非脚本重新绘图。
