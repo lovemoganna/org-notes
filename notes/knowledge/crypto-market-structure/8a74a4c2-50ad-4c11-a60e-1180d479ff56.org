@@ -65,7 +65,17 @@
 
 这些是需要继续核验的价格行为，不是对资金主体的身份或意图的确认。
 
-* 05｜中小币实战：疑似吸筹后突破 vs 突破失败
+* 05｜BTC 行情结构：第五张原始生图
+
+#+CAPTION: 原始 AI 生成知识卡片（第五张）：BTC 历史结构中的低位测试、区间整理与后续突破；画面为教学示意，不是逐根依据 OHLCV 复刻的实盘图。
+#+ATTR_HTML: :width 1200px
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-05.webp]]
+
+这张图与前四张使用相同的 AI 生图风格，供读者连贯理解 A（低位测试）、B（区间整理）、C（突破与放量）。
+
+*证据边界*：图中呈现的蜡烛、具体价位与成交量造型属于 AI 绘制的教学表现，不能作为逐笔或逐日精确行情依据。要检验真实涨跌与成交量，应参考下一节直接由交易所原始 OHLCV 绘制的案例图及 CSV。
+
+* 06｜中小币实战：疑似吸筹后突破 vs 突破失败
 
 这两个案例都使用 Binance 的 *现货日 K 原始 OHLCV*，不是 AI 编造的蜡烛。前四张仍是概念教学图，本节是历史行情对照。
 
@@ -137,4 +147,4 @@
 - [[https://docs.glassnode.com/further-information/metric-guides/accumulation-trend-score][Glassnode：Accumulation Trend Score 技术定义]]
 - [[https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints][Binance Spot API：Kline/Candlestick Data（两张数据图来自此数据类型）]]
 
-*说明*：本文用于市场结构学习，不构成投资建议。第 1—4 张为 AI 生成的模拟教学图；第 5 节两张图则是根据 Binance 原始日线 OHLCV 数据逐根程序化绘制（并附 CSV 以便复核）。两种情况都不能直接推断有组织的主力吸筹或操纵。nance 行情数据，但图中蜡烛位置和成交量形态不能替代原始 OHLCV 数据。网站图片是这五张生成 PNG 的 WebP 压缩版本，非脚本重新绘图。
+*说明*：本文用于市场结构学习，不构成投资建议。第 1—5 张为 AI 生成的完整五张原始教学图（WebP 为原 PNG 的压缩副本）；第 6 节两张图由 Binance 现货日线 OHLCV 逐根绘制，原始数据 CSV 可供复核。任何图表形态都不足以单独确认大户持续增持、主力身份或操纵意图。
