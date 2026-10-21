@@ -19,7 +19,7 @@
 
 #+CAPTION: 底部吸筹与上涨中继再吸筹两种候选位置（示意图）
 #+ATTR_HTML: :width 1104px
-[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-01.gif]]
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-01.webp]]
 
 两种常见位置：
 
@@ -32,7 +32,7 @@
 
 #+CAPTION: 下跌放缓、反弹、二次测试与整理（模拟教学图）
 #+ATTR_HTML: :width 1104px
-[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-02.gif]]
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-02.webp]]
 
 - *Phase A：止跌*。下跌放缓，可能出现大量抛售后的反弹；初步划定支撑和阻力。
 - *Phase B：区间整理*。价格反复震荡；重点比较回落时的成交量、跌幅与支撑表现。
@@ -43,7 +43,7 @@
 
 #+CAPTION: Spring、SOS 与突破后的验证（模拟教学图）
 #+ATTR_HTML: :width 1104px
-[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-03.gif]]
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-03.webp]]
 
 - *Phase C：测试供应*。可能出现 Spring：短暂跌破区间下沿后快速收回；并非每个吸筹结构都会发生。
 - *Phase D：需求转强*。可能出现 SOS（Sign of Strength）：价格向上突破重要阻力，同时上涨幅度和成交量扩大。
@@ -55,7 +55,7 @@
 
 #+CAPTION: 再吸筹与顶部派发的对照（模拟教学图）
 #+ATTR_HTML: :width 1104px
-[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-04.gif]]
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-04.webp]]
 
 | 观察 | 偏向再吸筹的线索 | 偏向派发的线索 |
 |-
@@ -67,9 +67,9 @@
 
 * 05｜Binance BTC/USDT 真实历史案例
 
-#+CAPTION: Binance BTCUSDT 2026-06-15 至 2026-08-31 历史 OHLCV，非持仓增量证据
+#+CAPTION: 根据 Binance BTCUSDT 历史行情关键数值制作的 AI 教学示意图；非逐根精确重绘的 OHLCV 图
 #+ATTR_HTML: :width 1104px
-[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-05.gif]]
+[[file:../../../note-assets/8a74a4c2-50ad-4c11-a60e-1180d479ff56/card-05.webp]]
 
 - *2026-07-01*：当日最低约 =57,800 USDT=，随后收在 =60,024 USDT=，出现低位反弹。
 - *7 月至 8 月中旬*：行情经历整理与反复回落，价格结构并非一路走高。
@@ -77,7 +77,7 @@
 
 可观察事实是：*下跌后出现低位测试、震荡整理，随后放量上涨*。这适合用于回顾候选吸筹结构，但 *不能倒推当时必有主力在吸筹*。如需进一步判断持仓积累，需要主体级链上净持仓变化，并排除内部转账等干扰。
 
-本图使用 Binance 现货日 K =OHLCV=，不是模拟交易价格；技术图中的 A/B/C 是讲解标记，不是 Binance 提供的交易信号。
+第五张是参考 Binance 现货日 K =OHLCV= 的关键数值生成的 AI 知识卡片，*并非按 OHLCV 逐根精确绘制的真实 K 线*；图形中的蜡烛、成交量分布和阴影仅作概念说明。需要精确复核请使用原始交易所 K 线数据。A/B/C 是教学标记，不是 Binance 提供的交易信号。
 
 * 简单实战检查
 
@@ -102,4 +102,4 @@
 - [[https://docs.glassnode.com/further-information/metric-guides/accumulation-trend-score][Glassnode：Accumulation Trend Score 技术定义]]
 - [[https://developers.binance.com/docs/binance-spot-api-docs/rest-api/market-data-endpoints][Binance Spot API：Kline/Candlestick Data]]
 
-*说明*：本文为交易结构学习笔记，不构成投资建议。前四张配图是模拟示意；第五张按 Binance 历史日 K 数据重绘。矢量图为网站发布适配版，非此前聊天生成 PNG 的二进制原文件。
+*说明*：本文为交易结构学习笔记，不构成投资建议。配图均为本次 AI 生成的教学图；第五张标注的历史关键数值参考 Binance 行情数据，但图中蜡烛位置和成交量形态不能替代原始 OHLCV 数据。网站图片是这五张生成 PNG 的 WebP 压缩版本，非脚本重新绘图。
