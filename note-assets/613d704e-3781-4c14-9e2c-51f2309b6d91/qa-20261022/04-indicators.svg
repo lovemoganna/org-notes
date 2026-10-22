@@ -3,7 +3,7 @@
 <rect x="0" y="0" width="1440" height="7" fill="#52bcff"/>
 <style>text{font-family:"Noto Sans CJK SC","Noto Sans SC","Microsoft YaHei","PingFang SC",sans-serif;letter-spacing:.1px}</style>
 <text x="45" y="55" font-size="34" fill="#f4f8fb" font-weight="800" text-anchor="start" dominant-baseline="middle">场景 4：技术指标：分别测量什么</text>
-<text x="46" y="105" font-size="18" fill="#52bcff" font-weight="500" text-anchor="start" dominant-baseline="middle">同一组 OHLCV 计算 MA／EMA／VWAP／MACD／RSI／KDJ／ADX／ATR</text>
+<text x="46" y="105" font-size="18" fill="#52bcff" font-weight="500" text-anchor="start" dominant-baseline="middle">同源合成价格：MA／EMA／MACD／RSI／KDJ 为计算示例，其余使用近似曲线</text>
 <line x1="45" y1="134" x2="1394" y2="134" stroke="#385268" stroke-width="1.2" />
 <rect x="972" y="156" width="423" height="631" rx="14" fill="#0c2132" stroke="#385268" stroke-width="1.4"/>
 <text x="992" y="189" font-size="21" fill="#f4f8fb" font-weight="800" text-anchor="start" dominant-baseline="middle">术语速查 · 按证据解释</text>
@@ -35,7 +35,7 @@
 <rect x="44" y="801" width="1352" height="44" rx="7" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
 <text x="62" y="824" font-size="15.2" fill="#adc4d4" font-weight="500" text-anchor="start" dominant-baseline="middle">合成教学数据｜只标识现象或候选结构，不推断账户身份和市场意图</text>
 <rect x="44" y="155" width="900" height="624" rx="13" fill="#0c2132" stroke="#385268" stroke-width="1.4"/>
-<text x="61" y="180" font-size="17" fill="#adc4d4" font-weight="650" text-anchor="start" dominant-baseline="middle">计算型示意：全部曲线来自同一组确定性合成数据</text>
+<text x="61" y="180" font-size="17" fill="#adc4d4" font-weight="650" text-anchor="start" dominant-baseline="middle">图中线条为计算与近似混合示意，不等同于交易所正式指标值</text>
 <line x1="82" y1="228" x2="894" y2="228" stroke="#224056" stroke-width="1" />
 <text x="902" y="229" font-size="11" fill="#adc4d4" font-weight="500" text-anchor="start" dominant-baseline="middle">120.0</text>
 <line x1="82" y1="277.5" x2="894" y2="277.5" stroke="#224056" stroke-width="1" />
@@ -144,7 +144,7 @@
 <text x="100" y="204" font-size="15" fill="#f4f8fb" font-weight="500" text-anchor="start" dominant-baseline="middle">K 线</text>
 <text x="179" y="204" font-size="15" fill="#ffd064" font-weight="500" text-anchor="start" dominant-baseline="middle">SMA 9</text>
 <text x="270" y="204" font-size="15" fill="#52bcff" font-weight="500" text-anchor="start" dominant-baseline="middle">EMA 9</text>
-<text x="357" y="204" font-size="15" fill="#b7a0ff" font-weight="500" text-anchor="start" dominant-baseline="middle">累计 VWAP（示意）</text>
+<text x="357" y="204" font-size="15" fill="#b7a0ff" font-weight="500" text-anchor="start" dominant-baseline="middle">收盘量加权（VWAP 近似）</text>
 <rect x="65" y="468" width="267" height="120" rx="9" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
 <text x="79" y="490" font-size="16" fill="#f4f8fb" font-weight="750" text-anchor="start" dominant-baseline="middle">MACD</text>
 <line x1="79" y1="506" x2="318" y2="506" stroke="#385268" stroke-width="1" />
