@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="860" viewBox="0 0 1440 860" role="img" aria-label="确认常见图表形态">
+<rect width="1440" height="860" fill="#071421"/>
+<rect x="0" y="0" width="1440" height="7" fill="#52bcff"/>
+<style>text{font-family:"Noto Sans CJK SC","Noto Sans SC","Microsoft YaHei","PingFang SC",sans-serif;letter-spacing:.1px}</style>
+<text x="45" y="55" font-size="34" fill="#f4f8fb" font-weight="800" text-anchor="start" dominant-baseline="middle">场景 3：确认常见图表形态</text>
+<text x="46" y="105" font-size="18" fill="#52bcff" font-weight="500" text-anchor="start" dominant-baseline="middle">双顶／双底／头肩顶／旗形／三角形／通道／V 形反转／颈线</text>
+<line x1="45" y1="134" x2="1394" y2="134" stroke="#385268" stroke-width="1.2" />
+<rect x="972" y="156" width="423" height="631" rx="14" fill="#0c2132" stroke="#385268" stroke-width="1.4"/>
+<text x="992" y="189" font-size="21" fill="#f4f8fb" font-weight="800" text-anchor="start" dominant-baseline="middle">术语速查 · 按证据解释</text>
+<line x1="992" y1="212" x2="1372" y2="212" stroke="#385268" stroke-width="1" />
+<rect x="990" y="222" width="72" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="237" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">双顶</text>
+<text x="995" y="266" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">两高点相近，颈线跌破后才测试确认。</text>
+<rect x="990" y="289" width="72" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="304" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">双底</text>
+<text x="995" y="333" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">两低点相近，颈线突破后才测试确认。</text>
+<rect x="990" y="356" width="74" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="371" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">头肩顶</text>
+<text x="995" y="400" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">左右肩较低、中间头部较高。</text>
+<rect x="990" y="423" width="72" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="438" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">旗形</text>
+<text x="995" y="467" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">趋势推进后的短期通道整理。</text>
+<rect x="990" y="490" width="74" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="505" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">三角形</text>
+<text x="995" y="534" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">高低点边界逐步收敛。</text>
+<rect x="990" y="557" width="72" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="572" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">通道</text>
+<text x="995" y="601" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">价格围绕近似平行边界运动。</text>
+<rect x="990" y="624" width="94" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="639" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">V 形反转</text>
+<text x="995" y="668" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">急跌后快速回升的路径。</text>
+<rect x="990" y="691" width="72" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="706" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">颈线</text>
+<text x="995" y="735" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">形态确认所依赖的关键边界。</text>
+<rect x="44" y="801" width="1352" height="44" rx="7" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="62" y="824" font-size="15.2" fill="#adc4d4" font-weight="500" text-anchor="start" dominant-baseline="middle">合成教学数据｜只标识现象或候选结构，不推断账户身份和市场意图</text>
+<rect x="44" y="155" width="900" height="624" rx="13" fill="#0c2132" stroke="#385268" stroke-width="1.4"/>
+<text x="61" y="180" font-size="17" fill="#adc4d4" font-weight="650" text-anchor="start" dominant-baseline="middle">独立小图：各形态采用单独价格区间，避免互相干扰</text>
+<rect x="64" y="211" width="262" height="250" rx="9" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="78" y="233" font-size="16" fill="#f4f8fb" font-weight="750" text-anchor="start" dominant-baseline="middle">双顶</text>
+<line x1="78" y1="249" x2="312" y2="249" stroke="#385268" stroke-width="1" />
+<line x1="82" y1="398.8857142857143" x2="82" y2="412.42857142857144" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="79" y="403.4" width="6" height="4.514285714285734" fill="#34d3a0"/>
+<line x1="104.6" y1="367.2857142857143" x2="104.6" y2="407.9142857142857" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="101.6" y="371.8" width="6" height="31.599999999999966" fill="#34d3a0"/>
+<line x1="127.2" y1="322.1428571428571" x2="127.2" y2="376.3142857142857" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="124.2" y="326.65714285714284" width="6" height="45.14285714285717" fill="#34d3a0"/>
+<line x1="149.8" y1="295.0571428571429" x2="149.8" y2="331.1714285714286" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="146.8" y="299.57142857142856" width="6" height="27.08571428571429" fill="#34d3a0"/>
+<line x1="172.4" y1="295.0571428571429" x2="172.4" y2="344.7142857142857" stroke="#f1777c" stroke-width="1.4" />
+<rect x="169.4" y="299.57142857142856" width="6" height="40.62857142857143" fill="#f1777c"/>
+<line x1="195" y1="335.6857142857143" x2="195" y2="376.3142857142857" stroke="#f1777c" stroke-width="1.4" />
+<rect x="192" y="340.2" width="6" height="31.600000000000023" fill="#f1777c"/>
+<line x1="217.6" y1="331.1714285714286" x2="217.6" y2="376.3142857142857" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="214.6" y="335.6857142857143" width="6" height="36.1142857142857" fill="#34d3a0"/>
+<line x1="240.2" y1="295.0571428571429" x2="240.2" y2="340.2" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="237.2" y="299.57142857142856" width="6" height="36.11428571428576" fill="#34d3a0"/>
+<line x1="262.8" y1="295.0571428571429" x2="262.8" y2="349.2285714285714" stroke="#f1777c" stroke-width="1.4" />
+<rect x="259.8" y="299.57142857142856" width="6" height="45.14285714285717" fill="#f1777c"/>
+<line x1="285.4" y1="340.2" x2="285.4" y2="394.37142857142857" stroke="#f1777c" stroke-width="1.4" />
+<rect x="282.4" y="344.7142857142857" width="6" height="45.14285714285717" fill="#f1777c"/>
+<line x1="308" y1="385.34285714285716" x2="308" y2="416.9428571428572" stroke="#f1777c" stroke-width="1.4" />
+<rect x="305" y="389.8571428571429" width="6" height="22.571428571428555" fill="#f1777c"/>
+<line x1="84" y1="367.2857142857143" x2="306" y2="367.2857142857143" stroke="#ffd064" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="88" y="354.2857142857143" font-size="12" fill="#ffd064" font-weight="500" text-anchor="start" dominant-baseline="middle">颈线（预设）</text>
+<rect x="344" y="211" width="262" height="250" rx="9" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="358" y="233" font-size="16" fill="#f4f8fb" font-weight="750" text-anchor="start" dominant-baseline="middle">双底</text>
+<line x1="358" y1="249" x2="592" y2="249" stroke="#385268" stroke-width="1" />
+<line x1="362" y1="314.42105263157896" x2="362" y2="326.89473684210526" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="359" y="318.57894736842104" width="6" height="4.157894736842138" fill="#34d3a0"/>
+<line x1="384.6" y1="314.42105263157896" x2="384.6" y2="351.8421052631579" stroke="#f1777c" stroke-width="1.4" />
+<rect x="381.6" y="318.57894736842104" width="6" height="29.10526315789474" fill="#f1777c"/>
+<line x1="407.2" y1="343.5263157894737" x2="407.2" y2="397.57894736842104" stroke="#f1777c" stroke-width="1.4" />
+<rect x="404.2" y="347.6842105263158" width="6" height="45.73684210526318" fill="#f1777c"/>
+<line x1="429.8" y1="389.2631578947368" x2="429.8" y2="418.36842105263156" stroke="#f1777c" stroke-width="1.4" />
+<rect x="426.8" y="393.42105263157896" width="6" height="20.78947368421052" fill="#f1777c"/>
+<line x1="452.4" y1="376.7894736842105" x2="452.4" y2="418.36842105263156" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="449.4" y="380.94736842105266" width="6" height="33.26315789473682" fill="#34d3a0"/>
+<line x1="475" y1="339.36842105263156" x2="475" y2="385.10526315789474" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="472" y="343.5263157894737" width="6" height="37.42105263157896" fill="#34d3a0"/>
+<line x1="497.6" y1="339.36842105263156" x2="497.6" y2="380.94736842105266" stroke="#f1777c" stroke-width="1.4" />
+<rect x="494.6" y="343.5263157894737" width="6" height="33.26315789473682" fill="#f1777c"/>
+<line x1="520.2" y1="372.63157894736844" x2="520.2" y2="418.36842105263156" stroke="#f1777c" stroke-width="1.4" />
+<rect x="517.2" y="376.7894736842105" width="6" height="37.42105263157896" fill="#f1777c"/>
+<line x1="542.8" y1="364.3157894736842" x2="542.8" y2="418.36842105263156" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="539.8" y="368.4736842105263" width="6" height="45.73684210526318" fill="#34d3a0"/>
+<line x1="565.4" y1="326.89473684210526" x2="565.4" y2="372.63157894736844" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="562.4" y="331.0526315789474" width="6" height="37.4210526315789" fill="#34d3a0"/>
+<line x1="588" y1="293.63157894736844" x2="588" y2="335.2105263157895" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="585" y="297.7894736842105" width="6" height="33.26315789473688" fill="#34d3a0"/>
+<line x1="364" y1="343.5263157894737" x2="586" y2="343.5263157894737" stroke="#ffd064" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="368" y="330.5263157894737" font-size="12" fill="#ffd064" font-weight="500" text-anchor="start" dominant-baseline="middle">颈线（预设）</text>
+<rect x="624" y="211" width="262" height="250" rx="9" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="638" y="233" font-size="16" fill="#f4f8fb" font-weight="750" text-anchor="start" dominant-baseline="middle">头肩顶</text>
+<line x1="638" y1="249" x2="872" y2="249" stroke="#385268" stroke-width="1" />
+<line x1="642" y1="398.53846153846155" x2="642" y2="410.6923076923077" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="639" y="402.5897435897436" width="6" height="4.051282051282044" fill="#34d3a0"/>
+<line x1="660.8333333333334" y1="358.025641025641" x2="660.8333333333334" y2="406.64102564102564" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="657.8333333333334" y="362.0769230769231" width="6" height="40.5128205128205" fill="#34d3a0"/>
+<line x1="679.6666666666666" y1="337.7692307692308" x2="679.6666666666666" y2="366.12820512820514" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="676.6666666666666" y="341.8205128205128" width="6" height="20.256410256410277" fill="#34d3a0"/>
+<line x1="698.5" y1="337.7692307692308" x2="698.5" y2="378.28205128205127" stroke="#f1777c" stroke-width="1.4" />
+<rect x="695.5" y="341.8205128205128" width="6" height="32.41025641025641" fill="#f1777c"/>
+<line x1="717.3333333333334" y1="370.1794871794872" x2="717.3333333333334" y2="398.53846153846155" stroke="#f1777c" stroke-width="1.4" />
+<rect x="714.3333333333334" y="374.2307692307692" width="6" height="20.256410256410277" fill="#f1777c"/>
+<line x1="736.1666666666666" y1="345.87179487179486" x2="736.1666666666666" y2="398.53846153846155" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="733.1666666666666" y="349.9230769230769" width="6" height="44.5641025641026" fill="#34d3a0"/>
+<line x1="755" y1="293.2051282051282" x2="755" y2="353.974358974359" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="752" y="297.2564102564103" width="6" height="52.66666666666663" fill="#34d3a0"/>
+<line x1="773.8333333333334" y1="293.2051282051282" x2="773.8333333333334" y2="366.12820512820514" stroke="#f1777c" stroke-width="1.4" />
+<rect x="770.8333333333334" y="297.2564102564103" width="6" height="64.82051282051282" fill="#f1777c"/>
+<line x1="792.6666666666666" y1="358.025641025641" x2="792.6666666666666" y2="398.53846153846155" stroke="#f1777c" stroke-width="1.4" />
+<rect x="789.6666666666666" y="362.0769230769231" width="6" height="32.41025641025641" fill="#f1777c"/>
+<line x1="811.5" y1="362.0769230769231" x2="811.5" y2="398.53846153846155" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="808.5" y="366.12820512820514" width="6" height="28.358974358974365" fill="#34d3a0"/>
+<line x1="830.3333333333334" y1="337.7692307692308" x2="830.3333333333334" y2="370.1794871794872" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="827.3333333333334" y="341.8205128205128" width="6" height="24.30769230769232" fill="#34d3a0"/>
+<line x1="849.1666666666666" y1="337.7692307692308" x2="849.1666666666666" y2="390.43589743589746" stroke="#f1777c" stroke-width="1.4" />
+<rect x="846.1666666666666" y="341.8205128205128" width="6" height="44.56410256410254" fill="#f1777c"/>
+<line x1="868" y1="382.3333333333333" x2="868" y2="418.7948717948718" stroke="#f1777c" stroke-width="1.4" />
+<rect x="865" y="386.38461538461536" width="6" height="28.358974358974365" fill="#f1777c"/>
+<line x1="644" y1="390.43589743589746" x2="866" y2="390.43589743589746" stroke="#ffd064" stroke-width="2" stroke-dasharray="6 4"/>
+<text x="648" y="377.43589743589746" font-size="12" fill="#ffd064" font-weight="500" text-anchor="start" dominant-baseline="middle">颈线（预设）</text>
+<rect x="64" y="474" width="197" height="270" rx="9" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="78" y="496" font-size="16" fill="#f4f8fb" font-weight="750" text-anchor="start" dominant-baseline="middle">旗形</text>
+<line x1="78" y1="512" x2="247" y2="512" stroke="#385268" stroke-width="1" />
+<line x1="82" y1="693.7272727272727" x2="82" y2="705.8636363636364" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="79" y="697.7727272727273" width="6" height="4.045454545454504" fill="#34d3a0"/>
+<line x1="96.63636363636364" y1="685.6363636363636" x2="96.63636363636364" y2="701.8181818181818" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="93.63636363636364" y="689.6818181818182" width="6" height="8.090909090909008" fill="#34d3a0"/>
+<line x1="111.27272727272728" y1="653.2727272727273" x2="111.27272727272728" y2="693.7272727272727" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="108.27272727272728" y="657.3181818181818" width="6" height="32.36363636363649" fill="#34d3a0"/>
+<line x1="125.9090909090909" y1="600.6818181818181" x2="125.9090909090909" y2="661.3636363636364" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="122.9090909090909" y="604.7272727272727" width="6" height="52.59090909090901" fill="#34d3a0"/>
+<line x1="140.54545454545456" y1="592.5909090909091" x2="140.54545454545456" y2="608.7727272727273" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="137.54545454545456" y="596.6363636363636" width="6" height="8.090909090909122" fill="#34d3a0"/>
+<line x1="155.1818181818182" y1="592.5909090909091" x2="155.1818181818182" y2="612.8181818181819" stroke="#f1777c" stroke-width="1.4" />
+<rect x="152.1818181818182" y="596.6363636363636" width="6" height="12.136363636363626" fill="#f1777c"/>
+<line x1="169.8181818181818" y1="596.6363636363636" x2="169.8181818181818" y2="612.8181818181819" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="166.8181818181818" y="600.6818181818181" width="6" height="8.090909090909122" fill="#34d3a0"/>
+<line x1="184.45454545454544" y1="596.6363636363636" x2="184.45454545454544" y2="616.8636363636364" stroke="#f1777c" stroke-width="1.4" />
+<rect x="181.45454545454544" y="600.6818181818181" width="6" height="12.13636363636374" fill="#f1777c"/>
+<line x1="199.0909090909091" y1="600.6818181818181" x2="199.0909090909091" y2="616.8636363636364" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="196.0909090909091" y="604.7272727272727" width="6" height="8.090909090909122" fill="#34d3a0"/>
+<line x1="213.72727272727272" y1="600.6818181818181" x2="213.72727272727272" y2="612.8181818181819" stroke="#f1777c" stroke-width="1.4" />
+<rect x="210.72727272727272" y="604.7272727272727" width="6" height="4.045454545454504" fill="#f1777c"/>
+<line x1="228.36363636363637" y1="592.5909090909091" x2="228.36363636363637" y2="612.8181818181819" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="225.36363636363637" y="596.6363636363636" width="6" height="12.136363636363626" fill="#34d3a0"/>
+<line x1="243" y1="556.1818181818181" x2="243" y2="600.6818181818181" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="240" y="560.2272727272727" width="6" height="36.40909090909088" fill="#34d3a0"/>
+<line x1="84" y1="676" x2="241" y2="557" stroke="#ffd064" stroke-width="1.6" stroke-dasharray="7 5"/>
+<line x1="84" y1="569" x2="241" y2="690" stroke="#ffd064" stroke-width="1.6" stroke-dasharray="7 5"/>
+<rect x="274" y="474" width="197" height="270" rx="9" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="288" y="496" font-size="16" fill="#f4f8fb" font-weight="750" text-anchor="start" dominant-baseline="middle">三角形</text>
+<line x1="288" y1="512" x2="457" y2="512" stroke="#385268" stroke-width="1" />
+<line x1="292" y1="638.2068965517242" x2="292" y2="656.6206896551724" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="289" y="644.3448275862069" width="6" height="6.13793103448279" fill="#34d3a0"/>
+<line x1="306.6363636363636" y1="564.551724137931" x2="306.6363636363636" y2="650.4827586206897" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="303.6363636363636" y="570.6896551724138" width="6" height="73.65517241379303" fill="#34d3a0"/>
+<line x1="321.27272727272725" y1="564.551724137931" x2="321.27272727272725" y2="693.448275862069" stroke="#f1777c" stroke-width="1.4" />
+<rect x="318.27272727272725" y="570.6896551724138" width="6" height="116.62068965517233" fill="#f1777c"/>
+<line x1="335.9090909090909" y1="595.2413793103449" x2="335.9090909090909" y2="693.448275862069" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="332.9090909090909" y="601.3793103448276" width="6" height="85.9310344827586" fill="#34d3a0"/>
+<line x1="350.54545454545456" y1="595.2413793103449" x2="350.54545454545456" y2="675.0344827586207" stroke="#f1777c" stroke-width="1.4" />
+<rect x="347.54545454545456" y="601.3793103448276" width="6" height="67.51724137931035" fill="#f1777c"/>
+<line x1="365.1818181818182" y1="607.5172413793103" x2="365.1818181818182" y2="675.0344827586207" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="362.1818181818182" y="613.6551724137931" width="6" height="55.24137931034477" fill="#34d3a0"/>
+<line x1="379.8181818181818" y1="607.5172413793103" x2="379.8181818181818" y2="662.7586206896551" stroke="#f1777c" stroke-width="1.4" />
+<rect x="376.8181818181818" y="613.6551724137931" width="6" height="42.9655172413793" fill="#f1777c"/>
+<line x1="394.45454545454544" y1="619.7931034482758" x2="394.45454545454544" y2="662.7586206896551" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="391.45454545454544" y="625.9310344827586" width="6" height="30.689655172413836" fill="#34d3a0"/>
+<line x1="409.0909090909091" y1="619.7931034482758" x2="409.0909090909091" y2="656.6206896551724" stroke="#f1777c" stroke-width="1.4" />
+<rect x="406.0909090909091" y="625.9310344827586" width="6" height="24.551724137931046" fill="#f1777c"/>
+<line x1="423.72727272727275" y1="632.0689655172414" x2="423.72727272727275" y2="656.6206896551724" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="420.72727272727275" y="638.2068965517242" width="6" height="12.275862068965466" fill="#34d3a0"/>
+<line x1="438.3636363636364" y1="607.5172413793103" x2="438.3636363636364" y2="644.3448275862069" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="435.3636363636364" y="613.6551724137931" width="6" height="24.551724137931046" fill="#34d3a0"/>
+<line x1="453" y1="570.6896551724138" x2="453" y2="619.7931034482758" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="450" y="576.8275862068965" width="6" height="36.827586206896626" fill="#34d3a0"/>
+<line x1="294" y1="676" x2="451" y2="557" stroke="#ffd064" stroke-width="1.6" stroke-dasharray="7 5"/>
+<line x1="294" y1="569" x2="451" y2="690" stroke="#ffd064" stroke-width="1.6" stroke-dasharray="7 5"/>
+<rect x="484" y="474" width="197" height="270" rx="9" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="498" y="496" font-size="16" fill="#f4f8fb" font-weight="750" text-anchor="start" dominant-baseline="middle">通道</text>
+<line x1="498" y1="512" x2="667" y2="512" stroke="#385268" stroke-width="1" />
+<line x1="502" y1="683.5483870967741" x2="502" y2="700.7741935483871" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="499" y="689.2903225806451" width="6" height="5.741935483870975" fill="#34d3a0"/>
+<line x1="516.6363636363636" y1="649.0967741935484" x2="516.6363636363636" y2="695.0322580645161" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="513.6363636363636" y="654.8387096774194" width="6" height="34.45161290322574" fill="#34d3a0"/>
+<line x1="531.2727272727273" y1="649.0967741935484" x2="531.2727272727273" y2="677.8064516129032" stroke="#f1777c" stroke-width="1.4" />
+<rect x="528.2727272727273" y="654.8387096774194" width="6" height="17.22580645161281" fill="#f1777c"/>
+<line x1="545.9090909090909" y1="631.8709677419355" x2="545.9090909090909" y2="677.8064516129032" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="542.9090909090909" y="637.6129032258065" width="6" height="34.45161290322574" fill="#34d3a0"/>
+<line x1="560.5454545454545" y1="631.8709677419355" x2="560.5454545454545" y2="660.5806451612904" stroke="#f1777c" stroke-width="1.4" />
+<rect x="557.5454545454545" y="637.6129032258065" width="6" height="17.225806451612925" fill="#f1777c"/>
+<line x1="575.1818181818182" y1="614.6451612903226" x2="575.1818181818182" y2="660.5806451612904" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="572.1818181818182" y="620.3870967741935" width="6" height="34.45161290322585" fill="#34d3a0"/>
+<line x1="589.8181818181818" y1="614.6451612903226" x2="589.8181818181818" y2="649.0967741935484" stroke="#f1777c" stroke-width="1.4" />
+<rect x="586.8181818181818" y="620.3870967741935" width="6" height="22.9677419354839" fill="#f1777c"/>
+<line x1="604.4545454545455" y1="603.1612903225806" x2="604.4545454545455" y2="649.0967741935484" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="601.4545454545455" y="608.9032258064516" width="6" height="34.45161290322585" fill="#34d3a0"/>
+<line x1="619.0909090909091" y1="603.1612903225806" x2="619.0909090909091" y2="631.8709677419355" stroke="#f1777c" stroke-width="1.4" />
+<rect x="616.0909090909091" y="608.9032258064516" width="6" height="17.225806451612925" fill="#f1777c"/>
+<line x1="633.7272727272727" y1="580.1935483870968" x2="633.7272727272727" y2="631.8709677419355" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="630.7272727272727" y="585.9354838709678" width="6" height="40.19354838709671" fill="#34d3a0"/>
+<line x1="648.3636363636364" y1="580.1935483870968" x2="648.3636363636364" y2="614.6451612903226" stroke="#f1777c" stroke-width="1.4" />
+<rect x="645.3636363636364" y="585.9354838709678" width="6" height="22.967741935483787" fill="#f1777c"/>
+<line x1="663" y1="562.9677419354839" x2="663" y2="614.6451612903226" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="660" y="568.7096774193549" width="6" height="40.19354838709671" fill="#34d3a0"/>
+<line x1="504" y1="676" x2="661" y2="557" stroke="#ffd064" stroke-width="1.6" stroke-dasharray="7 5"/>
+<line x1="504" y1="569" x2="661" y2="690" stroke="#ffd064" stroke-width="1.6" stroke-dasharray="7 5"/>
+<rect x="694" y="474" width="197" height="270" rx="9" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="708" y="496" font-size="16" fill="#f4f8fb" font-weight="750" text-anchor="start" dominant-baseline="middle">V 形反转</text>
+<line x1="708" y1="512" x2="877" y2="512" stroke="#385268" stroke-width="1" />
+<line x1="712" y1="553.6923076923077" x2="712" y2="563.9615384615385" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="709" y="557.1153846153846" width="6" height="3.4230769230769056" fill="#34d3a0"/>
+<line x1="729.8888888888889" y1="553.6923076923077" x2="729.8888888888889" y2="591.3461538461538" stroke="#f1777c" stroke-width="1.4" />
+<rect x="726.8888888888889" y="557.1153846153846" width="6" height="30.807692307692264" fill="#f1777c"/>
+<line x1="747.7777777777778" y1="584.5" x2="747.7777777777778" y2="622.1538461538462" stroke="#f1777c" stroke-width="1.4" />
+<rect x="744.7777777777778" y="587.9230769230769" width="6" height="30.807692307692378" fill="#f1777c"/>
+<line x1="765.6666666666666" y1="615.3076923076923" x2="765.6666666666666" y2="649.5384615384615" stroke="#f1777c" stroke-width="1.4" />
+<rect x="762.6666666666666" y="618.7307692307693" width="6" height="27.38461538461536" fill="#f1777c"/>
+<line x1="783.5555555555555" y1="642.6923076923076" x2="783.5555555555555" y2="683.7692307692307" stroke="#f1777c" stroke-width="1.4" />
+<rect x="780.5555555555555" y="646.1153846153846" width="6" height="34.23076923076917" fill="#f1777c"/>
+<line x1="801.4444444444445" y1="676.9230769230769" x2="801.4444444444445" y2="704.3076923076924" stroke="#f1777c" stroke-width="1.4" />
+<rect x="798.4444444444445" y="680.3461538461538" width="6" height="20.538461538461547" fill="#f1777c"/>
+<line x1="819.3333333333334" y1="673.5" x2="819.3333333333334" y2="704.3076923076924" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="816.3333333333334" y="676.9230769230769" width="6" height="23.961538461538453" fill="#34d3a0"/>
+<line x1="837.2222222222222" y1="629" x2="837.2222222222222" y2="680.3461538461538" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="834.2222222222222" y="632.4230769230769" width="6" height="44.5" fill="#34d3a0"/>
+<line x1="855.1111111111111" y1="587.9230769230769" x2="855.1111111111111" y2="635.8461538461538" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="852.1111111111111" y="591.3461538461538" width="6" height="41.076923076923094" fill="#34d3a0"/>
+<line x1="873" y1="563.9615384615385" x2="873" y2="594.7692307692307" stroke="#34d3a0" stroke-width="1.4" />
+<rect x="870" y="567.3846153846154" width="6" height="23.961538461538453" fill="#34d3a0"/>
+<text x="83" y="771" font-size="15" fill="#ffd064" font-weight="500" text-anchor="start" dominant-baseline="middle">仅“像某种形态”不代表确认：应固定形成、触发、失效及样本外核查条件。</text>
+</svg>

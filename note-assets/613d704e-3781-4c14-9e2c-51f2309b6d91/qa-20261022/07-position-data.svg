@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="860" viewBox="0 0 1440 860" role="img" aria-label="区分现货、链上及合约证据">
+<rect width="1440" height="860" fill="#071421"/>
+<rect x="0" y="0" width="1440" height="7" fill="#52bcff"/>
+<style>text{font-family:"Noto Sans CJK SC","Noto Sans SC","Microsoft YaHei","PingFang SC",sans-serif;letter-spacing:.1px}</style>
+<text x="45" y="55" font-size="34" fill="#f4f8fb" font-weight="800" text-anchor="start" dominant-baseline="middle">场景 7：区分现货、链上及合约证据</text>
+<text x="46" y="105" font-size="18" fill="#52bcff" font-weight="500" text-anchor="start" dominant-baseline="middle">现货／地址余额／交易所净流出／积累趋势评分／未平仓量／多空比／资金费率</text>
+<line x1="45" y1="134" x2="1394" y2="134" stroke="#385268" stroke-width="1.2" />
+<rect x="972" y="156" width="423" height="631" rx="14" fill="#0c2132" stroke="#385268" stroke-width="1.4"/>
+<text x="992" y="189" font-size="21" fill="#f4f8fb" font-weight="800" text-anchor="start" dominant-baseline="middle">术语速查 · 按证据解释</text>
+<line x1="992" y1="212" x2="1372" y2="212" stroke="#385268" stroke-width="1" />
+<rect x="990" y="222" width="91" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="237" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">现货成交</text>
+<text x="995" y="266" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">发生了真实交易，通常不披露账户身份。</text>
+<rect x="990" y="289" width="91" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="304" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">地址余额</text>
+<text x="995" y="333" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">链上地址持币，不自动等于实体。</text>
+<rect x="990" y="356" width="125" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="371" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">交易所净流出</text>
+<text x="995" y="400" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">口径为提现减充值，不等于净买入。</text>
+<rect x="990" y="423" width="125" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="438" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">积累趋势评分</text>
+<text x="995" y="467" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">实体余额大小与近月余额变化加权。</text>
+<rect x="990" y="490" width="121" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="505" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">未平仓量 OI</text>
+<text x="995" y="534" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">合约存量；与现货增仓不是一回事。</text>
+<rect x="990" y="557" width="74" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="572" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">多空比</text>
+<text x="995" y="601" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">账户数或仓位比，需注明平台口径。</text>
+<rect x="990" y="624" width="91" height="29" rx="6" fill="#071421" stroke="#52bcff" stroke-width="1.4"/>
+<text x="999" y="639" font-size="15.2" fill="#52bcff" font-weight="700" text-anchor="start" dominant-baseline="middle">资金费率</text>
+<text x="995" y="668" font-size="15" fill="#adc4d4" font-weight="400" text-anchor="start" dominant-baseline="middle">永续合约结算机制下的持有成本。</text>
+<rect x="44" y="801" width="1352" height="44" rx="7" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="62" y="824" font-size="15.2" fill="#adc4d4" font-weight="500" text-anchor="start" dominant-baseline="middle">合成教学数据｜只标识现象或候选结构，不推断账户身份和市场意图</text>
+<rect x="44" y="155" width="900" height="624" rx="13" fill="#0c2132" stroke="#385268" stroke-width="1.4"/>
+<text x="61" y="180" font-size="17" fill="#adc4d4" font-weight="650" text-anchor="start" dominant-baseline="middle">不能跨数据层推导同一账户的买卖或操盘意图</text>
+<line x1="87" y1="224" x2="897" y2="224" stroke="#224056" stroke-width="1" />
+<text x="905" y="225" font-size="11" fill="#adc4d4" font-weight="500" text-anchor="start" dominant-baseline="middle">119.0</text>
+<line x1="87" y1="256.5" x2="897" y2="256.5" stroke="#224056" stroke-width="1" />
+<text x="905" y="257.5" font-size="11" fill="#adc4d4" font-weight="500" text-anchor="start" dominant-baseline="middle">112.5</text>
+<line x1="87" y1="289" x2="897" y2="289" stroke="#224056" stroke-width="1" />
+<text x="905" y="290" font-size="11" fill="#adc4d4" font-weight="500" text-anchor="start" dominant-baseline="middle">106.0</text>
+<line x1="87" y1="321.5" x2="897" y2="321.5" stroke="#224056" stroke-width="1" />
+<text x="905" y="322.5" font-size="11" fill="#adc4d4" font-weight="500" text-anchor="start" dominant-baseline="middle">99.5</text>
+<line x1="87" y1="354" x2="897" y2="354" stroke="#224056" stroke-width="1" />
+<text x="905" y="355" font-size="11" fill="#adc4d4" font-weight="500" text-anchor="start" dominant-baseline="middle">93.0</text>
+<line x1="99.27272727272728" y1="302.00000000000006" x2="99.27272727272728" y2="318.19999999999993" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="92.9" y="307.5" width="12.8" height="5.2" rx="1.6" fill="#34d3a0"/>
+<line x1="123.81818181818181" y1="296.23490052158115" x2="123.81818181818181" y2="315.5" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="117.4" y="303.7" width="12.8" height="3.8" rx="1.6" fill="#34d3a0"/>
+<line x1="148.36363636363637" y1="293.0349005215812" x2="148.36363636363637" y2="308.8782788310765" stroke="#f1777c" stroke-width="1.7" />
+<rect x="142.0" y="302.5" width="12.8" height="2.0" rx="1.6" fill="#f1777c"/>
+<line x1="172.9090909090909" y1="298.6351404495696" x2="172.9090909090909" y2="312.57827883107643" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="166.5" y="304.1" width="12.8" height="2.0" rx="1.6" fill="#34d3a0"/>
+<line x1="197.45454545454544" y1="296.10503924297115" x2="197.45454545454544" y2="309.6351404495695" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="191.1" y="303.6" width="12.8" height="2.0" rx="1.6" fill="#34d3a0"/>
+<line x1="222" y1="291.4199324395209" x2="222" y2="310.40503924297116" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="215.6" y="300.9" width="12.8" height="2.0" rx="1.6" fill="#34d3a0"/>
+<line x1="246.54545454545453" y1="291.84524775538216" x2="246.54545454545453" y2="307.61993243952077" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="240.2" y="297.3" width="12.8" height="4.8" rx="1.6" fill="#34d3a0"/>
+<line x1="271.0909090909091" y1="287.968930978054" x2="271.0909090909091" y2="305.3452477553821" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="264.7" y="295.5" width="12.8" height="2.0" rx="1.6" fill="#34d3a0"/>
+<line x1="295.6363636363636" y1="284.7689309780541" x2="295.6363636363636" y2="302.97657319911417" stroke="#f1777c" stroke-width="1.7" />
+<rect x="289.3" y="294.3" width="12.8" height="3.2" rx="1.6" fill="#f1777c"/>
+<line x1="320.1818181818182" y1="293.1765731991142" x2="320.1818181818182" y2="311.58102483457935" stroke="#f1777c" stroke-width="1.7" />
+<rect x="313.8" y="298.7" width="12.8" height="4.9" rx="1.6" fill="#f1777c"/>
+<line x1="344.72727272727275" y1="296.08102483457935" x2="344.72727272727275" y2="317.09397385653995" stroke="#f1777c" stroke-width="1.7" />
+<rect x="338.3" y="303.6" width="12.8" height="8.0" rx="1.6" fill="#f1777c"/>
+<line x1="369.27272727272725" y1="300.89397385654" x2="369.27272727272725" y2="325.942065845285" stroke="#f1777c" stroke-width="1.7" />
+<rect x="362.9" y="310.4" width="12.8" height="7.5" rx="1.6" fill="#f1777c"/>
+<line x1="393.8181818181818" y1="313.64206584528506" x2="393.8181818181818" y2="325.0556117119009" stroke="#f1777c" stroke-width="1.7" />
+<rect x="387.4" y="319.1" width="12.8" height="2.0" rx="1.6" fill="#f1777c"/>
+<line x1="418.3636363636364" y1="308.0240007964371" x2="418.3636363636364" y2="327.5556117119009" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="412.0" y="315.5" width="12.8" height="4.0" rx="1.6" fill="#34d3a0"/>
+<line x1="442.90909090909093" y1="298.04314646906874" x2="442.90909090909093" y2="319.82400079643713" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="436.5" y="307.5" width="12.8" height="6.8" rx="1.6" fill="#34d3a0"/>
+<line x1="467.45454545454544" y1="293.39851855070924" x2="467.45454545454544" y2="316.7431464690687" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="461.1" y="298.9" width="12.8" height="9.8" rx="1.6" fill="#34d3a0"/>
+<line x1="492" y1="285.0989649574184" x2="492" y2="304.39851855070924" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="485.6" y="292.6" width="12.8" height="6.3" rx="1.6" fill="#34d3a0"/>
+<line x1="516.5454545454545" y1="280.2752387226236" x2="516.5454545454545" y2="299.39896495741834" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="510.2" y="289.8" width="12.8" height="2.0" rx="1.6" fill="#34d3a0"/>
+<line x1="541.090909090909" y1="283.7827535661029" x2="541.090909090909" y2="296.4752387226235" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="534.7" y="289.3" width="12.8" height="2.0" rx="1.6" fill="#34d3a0"/>
+<line x1="565.6363636363636" y1="281.2083485053318" x2="565.6363636363636" y2="297.2827535661028" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="559.3" y="288.7" width="12.8" height="2.0" rx="1.6" fill="#34d3a0"/>
+<line x1="590.1818181818182" y1="276.6257907217084" x2="590.1818181818182" y2="293.0083485053318" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="583.8" y="286.1" width="12.8" height="2.0" rx="1.6" fill="#34d3a0"/>
+<line x1="614.7272727272727" y1="275.9935334650526" x2="614.7272727272727" y2="295.32579072170836" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="608.3" y="281.5" width="12.8" height="5.8" rx="1.6" fill="#34d3a0"/>
+<line x1="639.2727272727273" y1="269.3141489974879" x2="639.2727272727273" y2="286.99353346505256" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="632.9" y="276.8" width="12.8" height="4.7" rx="1.6" fill="#34d3a0"/>
+<line x1="663.8181818181819" y1="265.439575823092" x2="663.8181818181819" y2="283.61414899748786" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="657.4" y="274.9" width="12.8" height="2.0" rx="1.6" fill="#34d3a0"/>
+<line x1="688.3636363636364" y1="270.63957582309195" x2="688.3636363636364" y2="283.24405054190674" stroke="#f1777c" stroke-width="1.7" />
+<rect x="682.0" y="276.1" width="12.8" height="2.0" rx="1.6" fill="#f1777c"/>
+<line x1="712.9090909090909" y1="270.24405054190674" x2="712.9090909090909" y2="292.7868556039856" stroke="#f1777c" stroke-width="1.7" />
+<rect x="706.5" y="277.7" width="12.8" height="7.0" rx="1.6" fill="#f1777c"/>
+<line x1="737.4545454545455" y1="274.08685560398567" x2="737.4545454545455" y2="298.804628519929" stroke="#f1777c" stroke-width="1.7" />
+<rect x="731.1" y="283.6" width="12.8" height="9.7" rx="1.6" fill="#f1777c"/>
+<line x1="762" y1="289.004628519929" x2="762" y2="307.57713555230504" stroke="#f1777c" stroke-width="1.7" />
+<rect x="755.6" y="294.5" width="12.8" height="5.1" rx="1.6" fill="#f1777c"/>
+<line x1="786.5454545454545" y1="292.0771355523051" x2="786.5454545454545" y2="306.38234129577324" stroke="#f1777c" stroke-width="1.7" />
+<rect x="780.2" y="299.6" width="12.8" height="2.0" rx="1.6" fill="#f1777c"/>
+<line x1="811.0909090909091" y1="287.39788099603834" x2="811.0909090909091" y2="307.68234129577326" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="804.7" y="296.9" width="12.8" height="2.8" rx="1.6" fill="#34d3a0"/>
+<line x1="835.6363636363636" y1="284.23444302311805" x2="835.6363636363636" y2="303.59788099603827" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="829.3" y="289.7" width="12.8" height="8.4" rx="1.6" fill="#34d3a0"/>
+<line x1="860.1818181818181" y1="275.10394757561187" x2="860.1818181818181" y2="297.73444302311793" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="853.8" y="282.6" width="12.8" height="7.1" rx="1.6" fill="#34d3a0"/>
+<line x1="884.7272727272727" y1="268.4377349488025" x2="884.7272727272727" y2="286.9039475756119" stroke="#34d3a0" stroke-width="1.7" />
+<rect x="878.3" y="277.9" width="12.8" height="3.5" rx="1.6" fill="#34d3a0"/>
+<text x="87" y="201" font-size="16" fill="#52bcff" font-weight="750" text-anchor="start" dominant-baseline="middle">现货价格（单交易所、单交易对）</text>
+<rect x="68" y="381" width="838" height="56" rx="7" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="83" y="398" font-size="13.6" fill="#adc4d4" font-weight="600" text-anchor="start" dominant-baseline="middle">链上地址余额</text>
+<polyline points="276,427 294.88,424.94 313.75,423.04 332.63,421.45 351.5,420.26 370.38,419.49 389.25,419.11 408.13,419.01 427,419.06 445.88,419.09 464.75,418.92 483.63,418.44 502.5,417.55 521.38,416.23 540.25,414.54 559.13,412.58 578,410.5 596.88,408.47 615.75,406.65 634.63,405.17 653.5,404.1 672.38,403.45 691.25,403.16 710.13,403.13 729,403.19 747.88,403.17 766.75,402.93 785.63,402.33 804.5,401.31 823.38,399.88 842.25,398.1 861.13,396.08 880,394" fill="none" stroke="#52bcff" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="68" y="442" width="838" height="56" rx="7" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="83" y="459" font-size="13.6" fill="#adc4d4" font-weight="600" text-anchor="start" dominant-baseline="middle">交易所净流出</text>
+<polyline points="276,476.05 294.88,468.33 313.75,462.65 332.63,460.96 351.5,463.36 370.38,468.19 389.25,472.77 408.13,474.57 427,472.39 445.88,466.85 464.75,460.22 483.63,455.46 502.5,455 521.38,459.68 540.25,468.29 559.13,478.03 578,485.49 596.88,488 615.75,484.67 634.63,476.71 653.5,467 672.38,458.91 691.25,455.05 710.13,456.27 729,461.45 747.88,467.98 766.75,472.95 785.63,474.34 804.5,471.85 823.38,466.99 842.25,462.38 861.13,460.63 880,463.13" fill="none" stroke="#34d3a0" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="68" y="503" width="838" height="56" rx="7" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="83" y="520" font-size="13.6" fill="#adc4d4" font-weight="600" text-anchor="start" dominant-baseline="middle">积累趋势评分</text>
+<polyline points="276,532.53 294.88,528.92 313.75,525.49 332.63,522.39 351.5,519.78 370.38,517.79 389.25,516.51 408.13,516 427,516.29 445.88,517.36 464.75,519.16 483.63,521.61 502.5,524.58 521.38,527.94 540.25,531.51 559.13,535.14 578,538.64 596.88,541.85 615.75,544.61 634.63,546.78 653.5,548.27 672.38,549 691.25,548.94 710.13,548.08 729,546.48 747.88,544.2 766.75,541.36 785.63,538.1 804.5,534.56 823.38,530.93 842.25,527.38 861.13,524.07 880,521.18" fill="none" stroke="#b7a0ff" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="68" y="564" width="838" height="56" rx="7" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="83" y="581" font-size="13.6" fill="#adc4d4" font-weight="600" text-anchor="start" dominant-baseline="middle">未平仓量 OI</text>
+<polyline points="276,610 294.88,608.14 313.75,606.31 332.63,604.54 351.5,602.85 370.38,601.27 389.25,599.81 408.13,598.48 427,597.31 445.88,596.29 464.75,595.42 483.63,594.69 502.5,594.09 521.38,593.61 540.25,593.23 559.13,592.91 578,592.64 596.88,592.39 615.75,592.12 634.63,591.81 653.5,591.43 672.38,590.96 691.25,590.37 710.13,589.65 729,588.79 747.88,587.78 766.75,586.62 785.63,585.3 804.5,583.85 823.38,582.28 842.25,580.59 861.13,578.83 880,577" fill="none" stroke="#ffd064" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="68" y="625" width="838" height="56" rx="7" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="83" y="642" font-size="13.6" fill="#adc4d4" font-weight="600" text-anchor="start" dominant-baseline="middle">多空比（指定口径）</text>
+<polyline points="276,654.5 294.88,648.23 313.75,642.9 332.63,639.31 351.5,638 370.38,639.17 389.25,642.65 408.13,647.9 427,654.15 445.88,660.45 464.75,665.86 483.63,669.56 502.5,671 521.38,669.96 540.25,666.61 559.13,661.43 578,655.22 596.88,648.89 615.75,643.41 634.63,639.6 653.5,638.02 672.38,638.92 691.25,642.16 710.13,647.25 729,653.44 747.88,659.78 766.75,665.33 785.63,669.25 804.5,670.96 823.38,670.2 842.25,667.08 861.13,662.07 880,655.93" fill="none" stroke="#ffb875" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" />
+<rect x="68" y="686" width="838" height="56" rx="7" fill="#10293e" stroke="#385268" stroke-width="1.4"/>
+<text x="83" y="703" font-size="13.6" fill="#adc4d4" font-weight="600" text-anchor="start" dominant-baseline="middle">资金费率</text>
+<polyline points="276,715.45 294.88,708.55 313.75,702.9 332.63,699.54 351.5,699.08 370.38,701.59 389.25,706.63 408.13,713.28 427,720.31 445.88,726.47 464.75,730.61 483.63,732 502.5,730.37 521.38,726.03 540.25,719.75 559.13,712.7 578,706.14 596.88,701.28 615.75,699 634.63,699.71 653.5,703.29 672.38,709.08 691.25,716.03 710.13,722.87 729,728.37 747.88,731.51 766.75,731.72 785.63,728.97 804.5,723.76 823.38,717.04 842.25,710.03 861.13,704 880,700.06" fill="none" stroke="#f1777c" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round" />
+<text x="87" y="768" font-size="13.5" fill="#ffd064" font-weight="500" text-anchor="start" dominant-baseline="middle">Glassnode 评分：实体规模与约 30 天余额变化；矿工与交易所实体按其方法口径排除。</text>
+</svg>
