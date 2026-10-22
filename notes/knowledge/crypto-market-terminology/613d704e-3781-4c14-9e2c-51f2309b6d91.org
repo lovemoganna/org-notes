@@ -30,7 +30,7 @@
 :CUSTOM_ID: scene-candle
 :END:
 
-#+CAPTION: 场景 1：OHLCV、长上影线、Pin Bar、吞没、内包线、成交量与主动买量（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 1：OHLCV、长上影线、Pin Bar、吞没、内包线、成交量与主动买量（2026-10-21 重绘版 1/9；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/01-candle-ohclv.png]]
 
@@ -55,7 +55,7 @@
 :CUSTOM_ID: scene-structure
 :END:
 
-#+CAPTION: 场景 2：高低点结构、支撑阻力、失败突破、突破与回踩（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 2：高低点结构、支撑阻力、失败突破、突破与回踩（2026-10-21 重绘版 2/9；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/02-market-structure.png]]
 
@@ -82,7 +82,7 @@
 :CUSTOM_ID: scene-pattern
 :END:
 
-#+CAPTION: 场景 3：双顶、双底、头肩顶、旗形、通道和颈线（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 3：双顶、双底、头肩顶、旗形、通道和颈线（2026-10-21 重绘版 3/9；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/03-chart-patterns.png]]
 
@@ -106,7 +106,7 @@
 :CUSTOM_ID: scene-indicators
 :END:
 
-#+CAPTION: 场景 4：K 线与 MA、EMA、VWAP、MACD、RSI、KDJ、ADX、ATR（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 4：K 线与 MA、EMA、VWAP、MACD、RSI、KDJ、ADX、ATR（2026-10-21 重绘版 4/9；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/04-indicators.png]]
 
@@ -130,7 +130,7 @@
 :CUSTOM_ID: scene-flow
 :END:
 
-#+CAPTION: 场景 5：成交量轮廓、TPO、POC 与订单流概念（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 5：成交量轮廓、TPO、POC 与订单流概念（2026-10-21 重绘版 5/9；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/05-order-flow.png]]
 
@@ -156,7 +156,7 @@ TPO 计量价格被访问的时间档，Volume Profile 计量成交量；Footpri
 :CUSTOM_ID: scene-wyckoff
 :END:
 
-#+CAPTION: 场景 6：威科夫候选吸筹结构、A–E 阶段、Spring、SOS 与 LPS（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 6：威科夫候选吸筹结构、A–E 阶段、Spring、SOS 与 LPS（2026-10-21 重绘版 6/9；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/06-wyckoff.png]]
 
@@ -191,7 +191,7 @@ A–E、Spring、SOS、LPS 为对合成走势的框架化标记；Composite Man�
 :CUSTOM_ID: scene-holdings
 :END:
 
-#+CAPTION: 场景 7：现货 K 线、链上流向、OI、资金费率与积累评分的数据层差异（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 7：现货 K 线、链上流向、OI、资金费率与积累评分的数据层差异（2026-10-21 重绘版 7/9；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/07-position-evidence.png]]
 
@@ -216,7 +216,7 @@ A–E、Spring、SOS、LPS 为对合成走势的框架化标记；Composite Man�
 :CUSTOM_ID: scene-math
 :END:
 
-#+CAPTION: 场景 8：斐波那契回撤、延伸与固定端点（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 8：斐波那契回撤、延伸与固定端点（2026-10-21 重绘版 8/9；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/08-fibonacci-tools.png]]
 
@@ -237,7 +237,7 @@ A–E、Spring、SOS、LPS 为对合成走势的框架化标记；Composite Man�
 :CUSTOM_ID: scene-system
 :END:
 
-#+CAPTION: 场景 9：入场、止损、失效边界、目标价与回测要素（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 9：入场、止损、失效边界、目标价与回测要素（2026-10-21 重绘版 9/9；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/09-trading-system.png]]
 
