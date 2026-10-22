@@ -1,0 +1,37 @@
+name: Render scenario 10 Chinese chart
+on:
+  push:
+    paths:
+      - ".github/workflows/render-scene10-verified.yml"
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  render:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: true
+      - name: Render with Chinese fonts
+        run: |
+          set -euo pipefail
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends librsvg2-bin fonts-noto-cjk
+          rsvg-convert -w 1580 -h 970 -f png -o "note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/10-three-week-spring-breakout.png" "diagrams/sources/technical-analysis-scene10-verified.svg"
+          python3 - <<'PY'
+          from pathlib import Path
+          b=Path("note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/10-three-week-spring-breakout.png").read_bytes()
+          assert b[:8] == b"\\x89PNG\\r\\n\\x1a\\n".decode("unicode_escape").encode("latin1") and 10000 < len(b) < 20971520
+          print("Verified Chinese scene 10 PNG:",len(b),"bytes")
+          PY
+      - name: Publish verified PNG to repository
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add "note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/10-three-week-spring-breakout.png"
+          if ! git diff --cached --quiet; then
+            git commit -m "Render verified Chinese three-week candlestick teaching diagram"
+            git push origin HEAD:main
+          fi

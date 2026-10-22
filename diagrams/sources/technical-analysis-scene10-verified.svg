@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1580" height="970" viewBox="0 0 1580 970" role="img" aria-label="场景十：某币横盘三周，插针收回与放量突破的中文K线教学示意图"><rect width="1580" height="970" fill="#061725"/><rect width="1580" height="7" fill="#4fbbff"/><style>text{font-family:"Noto Sans CJK SC","Noto Sans SC","Microsoft YaHei","PingFang SC",sans-serif}</style>
+<text x="42" y="70" font-family="Noto Sans CJK SC, sans-serif" font-size="43" fill="#f4f8ff" font-weight="850">场景 10：三周横盘、插针收回与放量突破</text>
+<text x="44" y="115" font-family="Noto Sans CJK SC, sans-serif" font-size="22" fill="#4fbbff" font-weight="600">日线 OHLCV · 精确 21 根区间 K 线 · Spring / SOS / LPS 均为候选解释</text>
+<line x1="43" y1="144" x2="1537" y2="144" stroke="#244457" stroke-width="2" />
+<rect x="35" y="161" width="1072" height="741" rx="14" fill="#0c2639" stroke="#244457" stroke-width="2"/>
+<text x="61" y="199" font-family="Noto Sans CJK SC, sans-serif" font-size="19" fill="#b5c9d7" font-weight="600">合成数据：ABC/USDT（日线）｜区间 D1–D21，突破 D22，回踩 D23</text>
+<line x1="90" y1="668" x2="1024" y2="668" stroke="#244457" stroke-width="1" />
+<text x="1032" y="674" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#b5c9d7" font-weight="500">94</text>
+<line x1="90" y1="585" x2="1024" y2="585" stroke="#244457" stroke-width="1" />
+<text x="1032" y="591" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#b5c9d7" font-weight="500">99</text>
+<line x1="90" y1="502" x2="1024" y2="502" stroke="#244457" stroke-width="1" />
+<text x="1032" y="508" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#b5c9d7" font-weight="500">104</text>
+<line x1="90" y1="419" x2="1024" y2="419" stroke="#244457" stroke-width="1" />
+<text x="1032" y="425" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#b5c9d7" font-weight="500">109</text>
+<line x1="90" y1="336" x2="1024" y2="336" stroke="#244457" stroke-width="1" />
+<text x="1032" y="342" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#b5c9d7" font-weight="500">114</text>
+<line x1="90" y1="253" x2="1024" y2="253" stroke="#244457" stroke-width="1" />
+<text x="1032" y="259" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#b5c9d7" font-weight="500">119</text>
+<rect x="92.45833333333333" y="402.4" width="815.3333333333333" height="166" rx="7" fill="#103749" stroke="none" stroke-width="1"/>
+<line x1="90" y1="568.4" x2="1024" y2="568.4" stroke="#39cea8" stroke-width="2" stroke-dasharray="9 6"/>
+<text x="62" y="559.4" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#39cea8" font-weight="700">支撑 100</text>
+<line x1="90" y1="402.4" x2="1024" y2="402.4" stroke="#f47578" stroke-width="2" stroke-dasharray="9 6"/>
+<text x="62" y="393.4" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#f47578" font-weight="700">阻力 110</text>
+<line x1="99.45833333333333" y1="240" x2="898.7916666666666" y2="240" stroke="#4fbbff" stroke-width="3" />
+<line x1="99.45833333333333" y1="233" x2="99.45833333333333" y2="247" stroke="#4fbbff" stroke-width="2" />
+<line x1="898.7916666666666" y1="233" x2="898.7916666666666" y2="247" stroke="#4fbbff" stroke-width="2" />
+<text x="325" y="229" font-family="Noto Sans CJK SC, sans-serif" font-size="21" fill="#4fbbff" font-weight="800">横盘 21 天（D1–D21）</text>
+<line x1="109.45833333333333" y1="488.72" x2="109.45833333333333" y2="522.75" stroke="#39cea8" stroke-width="2" />
+<rect x="100.95833333333333" y="502" width="17" height="8.300000000000011" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="100.95833333333333" y="780.84" width="17" height="42.160000000000004" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<text x="97.45833333333333" y="859" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="550">D1</text>
+<line x1="148.375" y1="451.37" x2="148.375" y2="516.94" stroke="#39cea8" stroke-width="2" />
+<rect x="139.875" y="468.8" width="17" height="33.19999999999999" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="139.875" y="776.5" width="17" height="46.5" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="187.29166666666669" y1="414.02000000000004" x2="187.29166666666669" y2="481.25" stroke="#39cea8" stroke-width="2" />
+<rect x="178.79166666666669" y="435.59999999999997" width="17" height="33.200000000000045" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="178.79166666666669" y="778.36" width="17" height="44.64" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="226.20833333333334" y1="422.32000000000005" x2="226.20833333333334" y2="467.1400000000001" stroke="#f47578" stroke-width="2" />
+<rect x="217.70833333333334" y="435.59999999999997" width="17" height="16.600000000000023" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<rect x="217.70833333333334" y="774.02" width="17" height="48.980000000000004" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<line x1="265.125" y1="434.7700000000001" x2="265.125" y2="531.05" stroke="#f47578" stroke-width="2" />
+<rect x="256.625" y="452.2" width="17" height="66.40000000000003" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<rect x="256.625" y="782.7" width="17" height="40.300000000000004" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<text x="253.125" y="859" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="550">D5</text>
+<line x1="304.04166666666663" y1="497.0200000000001" x2="304.04166666666663" y2="550.1400000000001" stroke="#f47578" stroke-width="2" />
+<rect x="295.54166666666663" y="518.6" width="17" height="16.600000000000023" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<rect x="295.54166666666663" y="784.56" width="17" height="38.44" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<line x1="342.95833333333337" y1="472.12000000000006" x2="342.95833333333337" y2="547.65" stroke="#39cea8" stroke-width="2" />
+<rect x="334.45833333333337" y="485.4" width="17" height="49.80000000000007" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="334.45833333333337" y="775.26" width="17" height="47.74" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="381.875" y1="401.57000000000005" x2="381.875" y2="500.34000000000015" stroke="#39cea8" stroke-width="2" />
+<rect x="373.375" y="419" width="17" height="66.39999999999998" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="373.375" y="769.68" width="17" height="53.32" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="420.7916666666667" y1="397.42" x2="420.7916666666667" y2="464.65" stroke="#f47578" stroke-width="2" />
+<rect x="412.2916666666667" y="419" width="17" height="33.19999999999999" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<rect x="412.2916666666667" y="778.36" width="17" height="44.64" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<line x1="459.7083333333333" y1="438.92" x2="459.7083333333333" y2="533.5400000000001" stroke="#f47578" stroke-width="2" />
+<rect x="451.2083333333333" y="452.2" width="17" height="66.40000000000003" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<rect x="451.2083333333333" y="787.04" width="17" height="35.96" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<text x="447.7083333333333" y="859" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="550">D10</text>
+<line x1="498.625" y1="501.1700000000001" x2="498.625" y2="557.6099999999999" stroke="#f47578" stroke-width="2" />
+<rect x="490.125" y="518.6" width="17" height="26.55999999999983" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<rect x="490.125" y="780.84" width="17" height="42.160000000000004" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<line x1="537.5416666666667" y1="480.4200000000001" x2="537.5416666666667" y2="560.1" stroke="#39cea8" stroke-width="2" />
+<rect x="529.0416666666667" y="502" width="17" height="43.159999999999854" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="529.0416666666667" y="773.4" width="17" height="49.6" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="576.4583333333333" y1="455.52000000000004" x2="576.4583333333333" y2="514.45" stroke="#39cea8" stroke-width="2" />
+<rect x="567.9583333333333" y="468.8" width="17" height="33.19999999999999" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="567.9583333333333" y="775.88" width="17" height="47.12" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="615.375" y1="418.1700000000001" x2="615.375" y2="483.7400000000001" stroke="#39cea8" stroke-width="2" />
+<rect x="606.875" y="435.59999999999997" width="17" height="33.200000000000045" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="606.875" y="782.08" width="17" height="40.92" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="654.2916666666666" y1="414.02000000000004" x2="654.2916666666666" y2="497.85" stroke="#f47578" stroke-width="2" />
+<rect x="645.7916666666666" y="435.59999999999997" width="17" height="49.80000000000001" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<rect x="645.7916666666666" y="776.5" width="17" height="46.5" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<text x="642.2916666666666" y="859" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="550">D15</text>
+<line x1="693.2083333333334" y1="472.12000000000006" x2="693.2083333333334" y2="541.8400000000001" stroke="#f47578" stroke-width="2" />
+<rect x="684.7083333333334" y="485.4" width="17" height="41.5" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<rect x="684.7083333333334" y="778.98" width="17" height="44.019999999999996" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<line x1="732.125" y1="500.34000000000015" x2="732.125" y2="608.2400000000001" stroke="#39cea8" stroke-width="2" />
+<rect x="723.625" y="508.6400000000001" width="17" height="16.600000000000023" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="723.625" y="757.9" width="17" height="65.10000000000001" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<text x="720.125" y="859" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#ffd467" font-weight="550">D17</text>
+<line x1="771.0416666666666" y1="477.1" x2="771.0416666666666" y2="523.5800000000002" stroke="#39cea8" stroke-width="2" />
+<rect x="762.5416666666666" y="498.67999999999995" width="17" height="9.96000000000015" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="762.5416666666666" y="775.26" width="17" height="47.74" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="809.9583333333334" y1="453.8600000000001" x2="809.9583333333334" y2="511.12999999999994" stroke="#39cea8" stroke-width="2" />
+<rect x="801.4583333333334" y="467.1400000000001" width="17" height="31.53999999999985" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="801.4583333333334" y="784.56" width="17" height="38.44" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="848.875" y1="428.13" x2="848.875" y2="482.08000000000015" stroke="#39cea8" stroke-width="2" />
+<rect x="840.375" y="445.5599999999999" width="17" height="21.58000000000021" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="840.375" y="782.08" width="17" height="40.92" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<line x1="887.7916666666666" y1="394.09999999999997" x2="887.7916666666666" y2="458.0099999999999" stroke="#39cea8" stroke-width="2" />
+<rect x="879.2916666666666" y="415.67999999999995" width="17" height="29.87999999999994" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="879.2916666666666" y="778.36" width="17" height="44.64" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<text x="875.7916666666666" y="859" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="550">D21</text>
+<line x1="926.7083333333334" y1="336" x2="926.7083333333334" y2="422.32000000000005" stroke="#39cea8" stroke-width="2" />
+<rect x="918.2083333333334" y="355.9200000000001" width="17" height="59.75999999999988" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="918.2083333333334" y="708.3" width="17" height="114.7" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<text x="914.7083333333334" y="859" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#ffd467" font-weight="550">D22</text>
+<line x1="965.625" y1="344.3" x2="965.625" y2="405.72" stroke="#f47578" stroke-width="2" />
+<rect x="957.125" y="355.9200000000001" width="17" height="28.220000000000027" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<rect x="957.125" y="768.44" width="17" height="54.56" rx="0" fill="#f47578" stroke="none" stroke-width="1"/>
+<text x="953.625" y="859" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="550">D23</text>
+<line x1="1004.5416666666666" y1="314.4200000000001" x2="1004.5416666666666" y2="392.44000000000005" stroke="#39cea8" stroke-width="2" />
+<rect x="996.0416666666666" y="326.04000000000013" width="17" height="58.099999999999966" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<rect x="996.0416666666666" y="751.7" width="17" height="71.3" rx="0" fill="#39cea8" stroke="none" stroke-width="1"/>
+<text x="992.5416666666666" y="859" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="550">D24</text>
+<text x="65" y="713" font-family="Noto Sans CJK SC, sans-serif" font-size="19" fill="#b5c9d7" font-weight="650">成交量（同一单位：千枚／日）</text>
+<line x1="90" y1="823" x2="1024" y2="823" stroke="#244457" stroke-width="2" />
+<text x="1010" y="731" font-family="Noto Sans CJK SC, sans-serif" font-size="13" fill="#b5c9d7" font-weight="500">200</text>
+<text x="1010" y="806" font-family="Noto Sans CJK SC, sans-serif" font-size="13" fill="#b5c9d7" font-weight="500">0</text>
+<line x1="732.125" y1="624.8400000000001" x2="732.125" y2="823" stroke="#ffd467" stroke-width="1.2" stroke-dasharray="5 7"/>
+<line x1="926.7083333333334" y1="352.6" x2="926.7083333333334" y2="823" stroke="#ffd467" stroke-width="1.2" stroke-dasharray="5 7"/>
+<rect x="425" y="548" width="190" height="40" rx="8" fill="#061725" stroke="#ffd467" stroke-width="2"/>
+<text x="437" y="575" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#ffd467" font-weight="750">插针回收：D17</text>
+<line x1="520" y1="588" x2="732.125" y2="608.2400000000001" stroke="#ffd467" stroke-width="2" />
+<circle cx="732.125" cy="608.2400000000001" r="5" fill="#ffd467" stroke="#061725" stroke-width="2"/>
+<rect x="790" y="303" width="150" height="40" rx="8" fill="#061725" stroke="#ffd467" stroke-width="2"/>
+<text x="802" y="330" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#ffd467" font-weight="750">突破：D22</text>
+<line x1="865" y1="343" x2="926.7083333333334" y2="355.9200000000001" stroke="#ffd467" stroke-width="2" />
+<circle cx="926.7083333333334" cy="355.9200000000001" r="5" fill="#ffd467" stroke="#061725" stroke-width="2"/>
+<rect x="790" y="538" width="150" height="40" rx="8" fill="#061725" stroke="#4fbbff" stroke-width="2"/>
+<text x="802" y="565" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#4fbbff" font-weight="750">回踩：D23</text>
+<line x1="865" y1="578" x2="965.625" y2="405.72" stroke="#4fbbff" stroke-width="2" />
+<circle cx="965.625" cy="405.72" r="5" fill="#4fbbff" stroke="#061725" stroke-width="2"/>
+<rect x="455" y="715" width="326" height="55" rx="8" fill="#061725" stroke="#39cea8" stroke-width="1"/>
+<text x="470" y="738" font-family="Noto Sans CJK SC, sans-serif" font-size="17" fill="#39cea8" font-weight="700">突破量 185 / 区间中位量 72</text>
+<text x="470" y="760" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="450">约 2.57 倍（相对量，不等于净买）</text>
+<text x="62" y="890" font-family="Noto Sans CJK SC, sans-serif" font-size="16" fill="#ffd467" font-weight="650">图示不是实时行情；插针、突破、回踩都是价格事件，不构成已证实吸筹。</text>
+<rect x="1127" y="161" width="418" height="741" rx="14" fill="#0c2639" stroke="#244457" stroke-width="2"/>
+<text x="1151" y="205" font-family="Noto Sans CJK SC, sans-serif" font-size="27" fill="#f4f8ff" font-weight="750">术语速查 · 证据分级</text>
+<line x1="1152" y1="225" x2="1518" y2="225" stroke="#244457" stroke-width="1" />
+<rect x="1146" y="251" width="379" height="90" rx="9" fill="#0e2d43" stroke="#244457" stroke-width="1"/>
+<text x="1161" y="282" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#4fbbff" font-weight="800">交易区间</text>
+<text x="1161" y="309" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">前 21 个日 K 在预设边界附近反复波动</text>
+<text x="1161" y="329" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">。</text>
+<rect x="1146" y="352" width="379" height="90" rx="9" fill="#0e2d43" stroke="#244457" stroke-width="1"/>
+<text x="1161" y="383" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#4fbbff" font-weight="800">Spring 候选</text>
+<text x="1161" y="410" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">D17 最低 97.6，收盘 103.6，</text>
+<text x="1161" y="430" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">重回支撑上方。</text>
+<rect x="1146" y="453" width="379" height="90" rx="9" fill="#0e2d43" stroke="#244457" stroke-width="1"/>
+<text x="1161" y="484" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#4fbbff" font-weight="800">放量突破候选</text>
+<text x="1161" y="511" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">D22 收盘 112.8 高于 110，量</text>
+<text x="1161" y="531" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">约为基准 2.57 倍。</text>
+<rect x="1146" y="554" width="379" height="90" rx="9" fill="#0e2d43" stroke="#244457" stroke-width="1"/>
+<text x="1161" y="585" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#4fbbff" font-weight="800">回踩（观察）</text>
+<text x="1161" y="612" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">D23 最低 109.8，收盘 111.1</text>
+<text x="1161" y="632" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">；是否有效需继续看。</text>
+<rect x="1146" y="655" width="379" height="90" rx="9" fill="#0e2d43" stroke="#244457" stroke-width="1"/>
+<text x="1161" y="686" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#4fbbff" font-weight="800">成交量 ≠ 净买入</text>
+<text x="1161" y="713" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">每笔现货成交同时有买方与卖方。</text>
+<rect x="1146" y="756" width="379" height="90" rx="9" fill="#0e2d43" stroke="#244457" stroke-width="1"/>
+<text x="1161" y="787" font-family="Noto Sans CJK SC, sans-serif" font-size="20" fill="#ffd467" font-weight="800">吸筹判断边界</text>
+<text x="1161" y="814" font-family="Noto Sans CJK SC, sans-serif" font-size="14" fill="#b5c9d7" font-weight="500">无账户归属与净持仓变化，不证明主力吸筹。</text>
+<rect x="35" y="921" width="1510" height="32" rx="6" fill="#0e2d43" stroke="#244457" stroke-width="1"/>
+<text x="57" y="944" font-family="Noto Sans CJK SC, sans-serif" font-size="17" fill="#b5c9d7" font-weight="500">合成教学数据｜价格与交易活动可观察；主体身份、操盘意图与未来行情须有独立证据</text>
+</svg>
