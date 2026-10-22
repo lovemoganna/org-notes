@@ -33,7 +33,7 @@
 
 #+CAPTION: 场景 1：OHLCV、长上影线、Pin Bar、吞没、内包线、成交量与主动买量（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/01-price-action.svg]]
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/01-price-action.png]]
 
 图中价格与成交量均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
 
@@ -58,7 +58,7 @@
 
 #+CAPTION: 场景 2：高低点结构、支撑阻力、失败突破、突破与回踩（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/02-market-structure.svg]]
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/02-market-structure.png]]
 
 图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
 
@@ -85,7 +85,7 @@
 
 #+CAPTION: 场景 3：双顶、双底、头肩顶、旗形、通道和颈线（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/03-patterns.svg]]
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/03-patterns.png]]
 
 图中价格、成交量与指标均为合成教学数据，标注的是形态及候选区域，不代表真实市场主体意图或预测结果。
 
@@ -109,7 +109,7 @@
 
 #+CAPTION: 场景 4：K 线与 MA、EMA、VWAP、MACD、RSI、KDJ、ADX、ATR（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/04-indicators.svg]]
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/04-indicators.png]]
 
 MA、EMA、MACD、RSI、KDJ 由同一组合成收盘价计算；VWAP 为收盘价与合成量构造的近似值，ADX／ATR 为简化代理曲线而非生产级实现。要做回测须换成正确公式、真实 OHLCV 和明确参数。本图只解释测量对象，不构成交易证据。
 
@@ -133,7 +133,7 @@ MA、EMA、MACD、RSI、KDJ 由同一组合成收盘价计算；VWAP 为收盘�
 
 #+CAPTION: 场景 5：成交量轮廓、TPO、POC 与订单流概念（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/05-orderflow.svg]]
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/05-orderflow.png]]
 
 TPO 计量价格被访问的时间档，Volume Profile 计量成交量；Footprint、Delta 和订单簿属于独立数据，不是 K 线直接生成的账户归属信息。
 
@@ -159,7 +159,7 @@ TPO 计量价格被访问的时间档，Volume Profile 计量成交量；Footpri
 
 #+CAPTION: 场景 6：威科夫候选吸筹结构、A–E 阶段、Spring、SOS 与 LPS（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/06-wyckoff.svg]]
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/06-wyckoff.png]]
 
 A–E、Spring、SOS、LPS 是对合成走势的候选结构标记。Spring 必须先跌破区间支撑再回到区间；随后 SOS 观察上冲幅度与相对量，LPS 观察回调是否收缩。Spring 非必需，Composite Man 是分析模型，不能据此确认庄家或市场操纵。
 
@@ -194,7 +194,7 @@ A–E、Spring、SOS、LPS 是对合成走势的候选结构标记。Spring 必�
 
 #+CAPTION: 场景 7：现货 K 线、链上流向、OI、资金费率与积累评分的数据层差异（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/07-position-data.svg]]
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/07-position-data.png]]
 
 本图辅助曲线代表不同数据对象，不能从现货 K 线反推。Glassnode 的 Accumulation Trend Score 结合实体规模及约 30 天余额变动，并依其口径排除矿工及交易所实体；并非简单把交易所净流出、合约 OI 合成一个指标。
 
@@ -219,7 +219,7 @@ A–E、Spring、SOS、LPS 是对合成走势的候选结构标记。Spring 必�
 
 #+CAPTION: 场景 8：斐波那契回撤、延伸与固定端点（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/08-fibonacci.svg]]
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/08-fibonacci.png]]
 
 本图固定低点 80、高点 120、波幅 40：38.2% 回撤为 104.72；61.8% 回撤为 95.28；自低点起算的 1.618 延伸为 144.72。其他延伸锚定方式须另列公式，不混用。
 
@@ -240,7 +240,7 @@ A–E、Spring、SOS、LPS 是对合成走势的候选结构标记。Spring 必�
 
 #+CAPTION: 场景 9：入场、止损、失效边界、目标价与回测要素（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/09-risk-system.svg]]
+[[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/09-risk-system.png]]
 
 本图交易示例：入场 105、止损 101，单单位风险 4，目标 109／113／117 分别为 1R／2R／3R；账户 100,000 U、单笔预算 1,000 U 时理论数量为 250 单位。若胜率 45%、平均盈利 2.5R、平均亏损 1R，期望为 0.575R，未计滑点、手续费及极端成交。所有回测结果均需样本外及成本后验证。
 
