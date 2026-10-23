@@ -4,6 +4,15 @@
 function init(){
   var inp=document.getElementById('org-museum-search-input');if(!inp)return;
   var empty=document.querySelector('[data-sidebar-search-empty]');
+  if(inp.addEventListener){
+    inp.addEventListener('keydown',function(e){
+      if(e.key==='Escape'&&this.value){
+        e.stopPropagation();
+        this.value='';
+        this.dispatchEvent(new Event('input'));
+      }
+    });
+  }
   inp.addEventListener('input',function(){
     var t=this.value.toLowerCase().trim();
     var matches=0;
@@ -34,6 +43,16 @@ function init(){
     });
     if(empty)empty.hidden=!t||matches>0;
   });
+  try {
+    var curFile = (location.pathname||'').split('/').pop() || 'index.html';
+    document.querySelectorAll('#org-museum-sidebar .sidebar-category li a').forEach(function(a){
+      var targetFile = (a.getAttribute('href')||'').split('/').pop();
+      if(targetFile && targetFile === curFile){
+        a.parentElement.classList.add('is-current-page');
+        a.setAttribute('aria-current', 'page');
+      }
+    });
+  } catch(e) {}
 }
 if(document.readyState==='loading')
   document.addEventListener('DOMContentLoaded',init);
@@ -332,7 +351,9 @@ document.addEventListener('keydown',function(e){
   if(!readingShortcutBlocked(e)&&e.key==='z'){e.preventDefault();toggleZen();}
 });
 function toggleZen(){
-  var enabled=document.body.classList.toggle('zen-mode');
+  var enabled=document.documentElement.dataset.zenMode!=='true';
+  if(window.orgMuseumSetZen)window.orgMuseumSetZen(enabled);
+  else document.body.classList.toggle('zen-mode',enabled);
   var button=document.querySelector('[data-reading-zen]');
   if(button){button.setAttribute('aria-pressed',String(enabled));button.textContent=enabled?'退出专注':'专注阅读';}
   if(enabled)updZ();
@@ -600,8 +621,49 @@ function initHeadingAnchors(){
   });
 }
 
+function initLearningHub(){
+  var hub=document.querySelector('.museum-next-learning-hub');
+  if(!hub)return;
+  var mark=hub.querySelector('[data-hub-action="mark-studied"]');
+  var quiz=hub.querySelector('[data-hub-action="quiz"]');
+  var pageId=document.body.dataset.pageId;
+  function studiedPages(){
+    try{var list=JSON.parse(localStorage.getItem('org-museum-studied-pages')||'[]');return Array.isArray(list)?list:[];}
+    catch(_error){return [];}
+  }
+  function syncStudied(){
+    if(!mark)return;
+    var studied=studiedPages().includes(pageId);
+    mark.classList.toggle('is-studied',studied);mark.setAttribute('aria-pressed',String(studied));
+    var label=mark.querySelector('[data-hub-studied-text]');
+    var hint=mark.querySelector('[data-hub-studied-hint]');
+    if(label)label.textContent=studied?'已研读掌握':'标记为已研读';
+    if(hint)hint.textContent=studied?'已记录学习足迹，点击可取消':'记录学习足迹，点亮本课掌握徽章';
+  }
+  if(mark)mark.addEventListener('click',function(){
+    if(!pageId)return;
+    var list=studiedPages(),position=list.indexOf(pageId);
+    if(position<0)list.push(pageId);else list.splice(position,1);
+    try{localStorage.setItem('org-museum-studied-pages',JSON.stringify(list));}
+    catch(_error){var hint=mark.querySelector('[data-hub-studied-hint]');if(hint)hint.textContent='无法保存，请检查浏览器存储权限';return;}
+    syncStudied();
+  });
+  if(quiz)quiz.addEventListener('click',function(){
+    var panel=document.getElementById('museum-ai-panel');
+    var trigger=document.querySelector('[data-ai-toggle]');
+    if(!panel||!trigger)return;
+    if(panel.getAttribute('aria-hidden')!=='false')trigger.click();
+    var input=panel.querySelector('[data-ai-chat-input]');
+    var title=document.querySelector('h1.title');
+    if(input){input.value='请根据当前笔记《'+(title?title.textContent.trim():document.title)+'》，生成 3 道渐进式自测题，先给题目，再给参考答案与解析。';input.dispatchEvent(new Event('input',{bubbles:true}));input.focus();}
+  });
+  window.addEventListener('storage',function(event){if(event.key==='org-museum-studied-pages')syncStudied();});
+  syncStudied();
+}
+
 window.addEventListener('load',function(){
   initReadingActions();
+  initLearningHub();
   initHeadingAnchors();
   initScrollSpy();
   initCodeBlocks();

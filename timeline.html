@@ -5,15 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="color-scheme" content="dark light">
   <title>Org Museum · 知识时间轴</title>
-  <script src="resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
-  <link rel="stylesheet" href="resources/org-museum.css?v=1d7863d341d2">
+  <script src="resources/org-museum-theme.js?v=b28a6434934a"></script>
+  <link rel="stylesheet" href="resources/org-museum.css?v=4512a3d60ec4">
   <link rel="icon" href="data:,">
 </head>
 <body class="timeline-page" data-page-kind="timeline">
 <header class="museum-topbar" data-home-href="index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
+  <time class="museum-today" datetime="2026-10-22" title="导出于 2026.10.22">2026.10.22</time>
   <label class="museum-search-line">
     <span class="sr-only">搜索时间轴</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索时间轴…" autocomplete="off" spellcheck="false" aria-label="搜索时间轴" aria-keyshortcuts="/">
@@ -28,26 +28,196 @@
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
     <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
       <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
-        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
-        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0"><span class="tab-icon">🎨</span> 外观排版</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="learning" role="tab" aria-selected="false" tabindex="-1"><span class="tab-icon">📚</span> 学习辅助</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1"><span class="tab-icon">🤖</span> AI 助教</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="data" role="tab" aria-selected="false" tabindex="-1"><span class="tab-icon">💾</span> 数据备份</button>
       </div>
-      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance" role="tabpanel" aria-label="外观与排版设置">
         <div class="museum-settings-section">
-          <div class="museum-settings-section-title">外观主题</div>
-          <div class="museum-theme-segmented" role="group">
-            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+          <div class="museum-settings-section-title">阅读场景推荐预设</div>
+          <div class="museum-theme-segmented museum-settings-segmented-3" role="group" aria-label="场景预设推荐">
+            <button type="button" class="museum-settings-segment-btn" data-preset-scene="eyecare" title="护眼长读：暖杏纸张 + 18px + 人文宋体 + 宽松行距">☕ 护眼长读</button>
+            <button type="button" class="museum-settings-segment-btn" data-preset-scene="standard" title="标准通读：默认基调 + 15.5px + 现代黑体 + 标准行距">💡 标准通读</button>
+            <button type="button" class="museum-settings-segment-btn" data-preset-scene="dense" title="密集对照：柔和冷灰 + 13.5px + 现代黑体 + 栏宽 1180px">💻 密集对照</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">界面主题与护眼色调</div>
+          <div class="museum-theme-segmented" role="group" aria-label="主题切换">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true"><span class="museum-theme-icon-sys" aria-hidden="true"></span>跟随系统</button>
             <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
               <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
               <span data-theme-label>深色</span></button>
           </div>
+          <div class="museum-theme-segmented museum-settings-segmented-3" role="group" aria-label="阅读纸张色调">
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-tone="default" aria-pressed="true" title="明亮通透纸张">默认基调</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-tone="warm" aria-pressed="false" title="羊皮纸暖杏色，温润护眼">护眼暖杏</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-tone="slate" aria-pressed="false" title="低饱和柔和冷灰">柔和冷灰</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">阅读字号</div>
+          <div class="museum-theme-segmented museum-settings-segmented-4" role="group" aria-label="正文字号选择">
+            <button type="button" class="museum-settings-segment-btn" data-reading-size="sm" aria-pressed="false" title="紧凑字号 13.5px">紧凑</button>
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-size="md" aria-pressed="true" title="标准字号 15.5px">标准</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-size="lg" aria-pressed="false" title="适度放大 18px">适度</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-size="xl" aria-pressed="false" title="清晰特大 21px">放大</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">阅读栏宽</div>
+          <div class="museum-theme-segmented museum-settings-segmented-4" role="group" aria-label="正文宽度选择">
+            <button type="button" class="museum-settings-segment-btn" data-reading-width="980" aria-pressed="false" title="紧凑阅读 980px">980</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-width="1024" aria-pressed="false" title="标准阅读 1024px">1024</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-width="1180" aria-pressed="false" title="宽幅阅读 1180px">1180</button>
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-width="1320" aria-pressed="true" title="超宽阅读 1320px">1320</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">字体偏好</div>
+          <div class="museum-theme-segmented" role="group" aria-label="字体族选择">
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-font="sans" aria-pressed="true">现代黑体 (Sans)</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-font="serif" aria-pressed="false">人文宋体 (Serif)</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">行距与信息密度</div>
+          <div class="museum-theme-segmented museum-settings-segmented-3" role="group" aria-label="行距选择">
+            <button type="button" class="museum-settings-segment-btn" data-reading-line="compact" aria-pressed="false" title="紧凑行距 1.55">紧凑 1.55</button>
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-line="standard" aria-pressed="true" title="标准行距 1.8">标准 1.8</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-line="relaxed" aria-pressed="false" title="松弛行距 2.15，降低认知负担">宽松 2.15</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">专注阅读沉浸模式</div>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🎯 专注阅读沉浸模式 (Zen Mode)</span>
+              <span class="toggle-desc">淡化顶栏与周边视觉噪点，按 Esc 或快捷键 z 随时唤回</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-zen-mode-toggle>
+          </label>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-preview-card" data-reading-preview aria-label="即时排版预览效果">
+            <div class="preview-card-header">
+              <span class="preview-tag">即时排版预览</span>
+              <span class="preview-metrics" data-preview-metrics>标准 · 15.5px · 现代黑体</span>
+            </div>
+            <p class="preview-sample-text" data-preview-sample>「工欲善其事，必先利其器。」笔记是思考的脚手架，让零散认知逐步生长为互联网络。</p>
+          </div>
         </div>
       </div>
-      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+<div class="museum-settings-tab-panel" data-settings-panel="learning" role="tabpanel" aria-label="学习与认知辅助设置" hidden>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">入门辅导与认知支持</div>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">💡 零基础概念浅释 (Beginner Mode)</span>
+              <span class="toggle-desc">在专业术语旁标注入门释义，浅白解读双链、草稿、抽屉与拓扑关系</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-beginner-mode-toggle checked>
+          </label>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🔍 双链悬浮速览卡片 (Hover Preview)</span>
+              <span class="toggle-desc">鼠标移至笔记链接即可速览目标标题，免去频繁跳页与上下文迷失</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-hover-preview-toggle checked>
+          </label>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🔢 代码行号与结构对照 (Code Line Numbers)</span>
+              <span class="toggle-desc">代码块清晰展示左侧行号，方便对照教程逐行理解与向 AI 提问</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-code-lineno-toggle checked>
+          </label>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🧠 渐进式主动回忆 (Active Recall 自测)</span>
+              <span class="toggle-desc">将笔记中的核心重点挖空模糊，悬停或轻触时显现，强化记忆提取</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-active-recall-toggle>
+          </label>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">随身笔记概念速查词典</div>
+          <details class="museum-glossary-details">
+            <summary>📖 点击展开核心术语白话释义 (Pocket Glossary)</summary>
+            <div class="museum-glossary-list">
+              <div class="glossary-item">
+                <span class="glossary-term">📎 双向链接 (Bi-directional Links)</span>
+                <p class="glossary-def">笔记互相引用的超链接网络。正向链接指向深入分支，反向链接回溯来源，无需死板的目录层级。</p>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-term">🗂️ 属性抽屉 (Properties Drawer)</span>
+                <p class="glossary-def">笔记顶部的元数据保险盒，记录创建时间、唯一编号（ID）与分类标签，用于构建知识网络。</p>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-term">📝 草稿演练 (Interactive Practice)</span>
+                <p class="glossary-def">内容仍在整理与验证的笔记状态。网页提供阅读与源码查看；代码需在相应执行环境中运行。</p>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-term">🕸️ 知识图谱 (Knowledge Graph)</span>
+                <p class="glossary-def">知识库的宏观星空全景图。节点越大表示引用越密集，连线密集处即为知识枢纽。</p>
+              </div>
+            </div>
+          </details>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">新手实战学习任务卡</div>
+          <div class="museum-quest-card" data-learning-quest-card>
+            <div class="quest-card-header">
+              <span class="quest-card-badge">🌱 今日实战路线</span>
+              <span class="quest-progress-text" data-quest-progress-text>已完成 0 / 3 项</span>
+            </div>
+            <div class="quest-list">
+              <label class="quest-item" data-quest-item="explore_links">
+                <input type="checkbox" data-quest-checkbox="explore_links">
+                <span class="quest-title">1. 建立直觉：在正文中悬浮速览一个双链卡片</span>
+              </label>
+              <label class="quest-item" data-quest-item="ai_dialogue">
+                <input type="checkbox" data-quest-checkbox="ai_dialogue">
+                <span class="quest-title">2. 助教互动：使用「零基础助教」提问一个概念</span>
+              </label>
+              <label class="quest-item" data-quest-item="active_recall">
+                <input type="checkbox" data-quest-checkbox="active_recall">
+                <span class="quest-title">3. 主动巩固：开启主动回忆并点击揭晓一个重点</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">新手向导与快捷键速查</div>
+          <div class="museum-ai-action-row">
+            <button type="button" class="museum-action-btn" data-restore-guides title="重新激活全站各页面的入门学习向导横幅">🔄 重新激活全站新手引导</button>
+          </div>
+          <div class="museum-shortcuts-grid" aria-label="核心快捷键速查">
+            <div class="shortcut-item"><kbd>/</kbd><span>全局搜索</span></div>
+            <div class="shortcut-item"><kbd>Esc</kbd><span>关闭弹窗/抽屉</span></div>
+            <div class="shortcut-item"><kbd>g g</kbd><span>正文回到顶部</span></div>
+            <div class="shortcut-item"><kbd>j / k</kbd><span>正文切换章节</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" role="tabpanel" aria-label="AI 模型与助教设置" hidden>
         <div class="museum-settings-section museum-settings-ai-section">
-          <div class="museum-settings-section-title">模型设置</div>
+          <div class="museum-settings-section-title">模型设置与服务预设</div>
+          <div class="museum-settings-field">
+            <label>快速预设（一键填入常用服务）
+              <select data-ai-preset-select aria-label="快速预设服务">
+                <option value="">-- 选择常用服务或自定义 --</option>
+                <option value="lmstudio">LM Studio (本地 127.0.0.1:1234)</option>
+                <option value="ollama">Ollama (本地 127.0.0.1:11434)</option>
+                <option value="siliconflow">SiliconFlow 硅基流动 (DeepSeek 云端)</option>
+                <option value="openai">OpenAI 官方 API</option>
+              </select>
+            </label>
+          </div>
           <form data-browser-config class="museum-settings-config-form">
             <div class="museum-settings-field">
-              <label>接入方式<select name="provider">
+              <label>接入协议<select name="provider">
                 <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
                 <option value="ollama">Ollama</option>
               </select></label>
@@ -56,8 +226,15 @@
               <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
             </div>
             <div class="museum-settings-field">
-              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
-              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+              <label>API 密钥（本机服务可留空）
+                <div class="museum-settings-input-group">
+                  <input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入 API Key">
+                  <button type="button" class="museum-key-eye-btn" data-toggle-key-visibility title="显示/隐藏密钥" aria-label="显示或隐藏密钥">👁️</button>
+                </div>
+              </label>
+              <div class="museum-settings-sub-toggle">
+                <label><input type="checkbox" data-remember-key> 在此浏览器安全保存密钥</label>
+              </div>
             </div>
             <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
             <div class="museum-settings-field">
@@ -77,29 +254,61 @@
             <div class="museum-ai-action-row">
               <button type="button" data-browser-load>加载并测试模型</button>
               <button type="button" data-browser-cancel-load hidden>取消加载</button>
+              <button type="button" class="museum-settings-sub-btn" data-browser-quick-test title="向当前模型发送一条简短打招呼测试">⚡ 一键测试问候</button>
             </div>
             <div class="museum-settings-status-box">
               <span class="museum-settings-status-indicator" aria-hidden="true"></span>
-              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+              <div class="museum-settings-status-content">
+                <span class="museum-settings-status-label">连接状态</span>
+                <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+              </div>
             </div>
             <details class="museum-settings-details">
-              <summary>回答偏好设置</summary>
+              <summary>助教角色与系统提示词</summary>
+              <div class="prompt-preset-row">
+                <span class="prompt-preset-label">角色模板：</span>
+                <button type="button" class="prompt-preset-btn" data-prompt-preset="beginner">🎓 零基础助教</button>
+                <button type="button" class="prompt-preset-btn" data-prompt-preset="socratic">💡 启发导师</button>
+                <button type="button" class="prompt-preset-btn" data-prompt-preset="summary">📝 重点提炼</button>
+              </div>
               <div class="museum-settings-field">
-                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文，尽量用通俗易懂的语言帮助初学者理解。</textarea></label>
               </div>
             </details>
           </form>
-          <details class="museum-settings-details museum-ai-local-tools">
-            <summary>本地保存与同步</summary>
-            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
-            <div class="museum-ai-action-row">
-              <button type="button" data-browser-backup>导出知识库</button>
-              <button type="button" data-browser-org-export>导出 Org</button>
-              <button type="button" data-browser-sync-preview>预览同步</button>
-            </div>
-            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
-            <div data-browser-sync-result></div>
-          </details>
+        </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="data" role="tabpanel" aria-label="存储与重置" hidden>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">本地存储与学习记录</div>
+          <div class="museum-storage-card">
+            <div class="storage-metric-row"><span class="storage-label">本地知识库缓存</span><strong class="storage-val" data-storage-count>0 项记录</strong></div>
+            <div class="storage-metric-row"><span class="storage-label">占用浏览器空间</span><strong class="storage-val" data-storage-size>~0 KB</strong></div>
+            <div class="storage-metric-row"><span class="storage-label">对读学习进度</span><strong class="storage-val" data-storage-progress>0 组已研读</strong></div>
+            <div class="storage-metric-row"><span class="storage-label">API 密钥本地存储</span><strong class="storage-val" data-storage-key-status>未保存</strong></div>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">数据导出与同步</div>
+          <p class="museum-settings-note">在浏览器中探索的会话、学习笔记心得与增补关系均保存在本机，可导出或同步到 Emacs。</p>
+          <div class="museum-ai-action-row">
+            <button type="button" data-browser-backup>导出知识库备份</button>
+            <button type="button" data-copy-backup title="复制备份 JSON 到剪贴板">复制备份数据</button>
+            <button type="button" data-browser-org-export>导出 Org 笔记</button>
+            <button type="button" data-browser-sync-preview>预览同步到 Emacs</button>
+          </div>
+          <label class="museum-settings-file-label">导入知识库备份文件
+            <input type="file" data-browser-import accept="application/json,.json">
+          </label>
+          <div data-browser-sync-result class="museum-sync-result-box"></div>
+        </div>
+        <div class="museum-settings-section museum-danger-zone">
+          <div class="museum-settings-section-title">重置与安全兜底</div>
+          <p class="museum-settings-note">如果不小心改乱了排版或希望重新体验初始设置，可选择分级安全重置。</p>
+          <div class="museum-reset-row">
+            <button type="button" class="museum-reset-appearance-btn" data-reset-appearance-only title="仅重置字体、排版与主题，保留学习记录与密钥">重置排版样式 (保留学习记录)</button>
+            <button type="button" class="museum-reset-danger-btn" data-reset-all-settings title="完全清空本地缓存，恢复初始状态">恢复出厂预设 (清除全部)</button>
+          </div>
         </div>
       </div>
     </div></details>
@@ -116,6 +325,14 @@
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
   <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
+  <div class="sidebar-starter-section">
+    <div class="sidebar-starter-header"><span class="starter-tag">推荐新手起点</span></div>
+    <div class="sidebar-starter-pills">
+      <a class="sidebar-starter-pill" href="pages/sql/duckdb.html"><span>🦆</span> DuckDB 实战入门</a>
+      <a class="sidebar-starter-pill" href="pages/Emacs/Org/org-babel-01-execution-foundations.html"><span>⚡</span> Org Babel 计算笔记</a>
+      <a class="sidebar-starter-pill" href="pages/ontology/ontology-concept-boundaries.html"><span>🏛</span> 概念边界与本体建模</a>
+    </div>
+  </div>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -126,14 +343,14 @@
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <div class="sidebar-cat-label">AI 智能 <span>02</span></div>
     <ul>
       <li><a href="pages/AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
       <li><a href="pages/AI/skills/org-skills.html">AI Skills</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <div class="sidebar-cat-label">AI 辅助学习 <span>04</span></div>
     <ul>
       <li><a href="pages/AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
       <li><a href="pages/AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
@@ -142,19 +359,19 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <div class="sidebar-cat-label">数据工程 <span>01</span></div>
     <ul>
       <li><a href="pages/Data/dataset.html">Dataset</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <div class="sidebar-cat-label">Emacs 生态 <span>01</span></div>
     <ul>
       <li><a href="pages/Emacs/PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Ontology <span>06</span></div>
+    <div class="sidebar-cat-label">知识本体建模 <span>06</span></div>
     <ul>
       <li><a href="pages/ontology/关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
       <li><a href="pages/ontology/关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
@@ -165,7 +382,7 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Sql <span>08</span></div>
+    <div class="sidebar-cat-label">SQL <span>08</span></div>
     <ul>
       <li><a href="pages/sql/duckdb.html">00 DuckDB 最小入门</a></li>
       <li><a href="pages/sql/duckdb-keywords-cast.html">DuckDB Keywords | Cast</a></li>
@@ -178,25 +395,25 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <div class="sidebar-cat-label">界面主题设计 <span>01</span></div>
     <ul>
       <li><a href="pages/theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <div class="sidebar-cat-label">Vibe Coding <span>01</span></div>
     <ul>
       <li><a href="pages/vibe/vibe-coding.html">vibe coding</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <div class="sidebar-cat-label">智能与密码 <span>01</span></div>
     <ul>
       <li><a href="pages/crypto/intelligence.html">intelligence</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">lisp <span>01</span></div>
+    <div class="sidebar-cat-label">Lisp <span>01</span></div>
     <ul>
       <li><a href="pages/lisp/sicp.html">SICP Lisp 过程抽象练习：平方根迭代逼近器</a></li>
     </ul>
@@ -213,22 +430,29 @@
 <main id="main-content" class="museum-timeline-shell" tabindex="-1">
   <header class="timeline-hero"><p>时间阅读</p><h1>知识的长河</h1><span>按创建时间浏览已发布笔记，在选择中展开知识的更新轨迹</span></header>
   <section class="timeline-scope-bar" aria-label="当前时间范围"><button id="timeline-filter-toggle" class="timeline-filter-toggle" type="button" aria-expanded="false" aria-controls="timeline-filter-sheet">筛选</button><div id="timeline-view-selector" class="timeline-view-selector" role="group" aria-label="视图模式"><button type="button" data-view="timeline" class="is-active" aria-pressed="true">时间轴</button><button type="button" data-view="calendar" aria-pressed="false">日历</button></div><strong class="timeline-scope-label">当前范围</strong><span id="timeline-scope-summary">已发布笔记</span><span>/ <b id="timeline-total">00</b></span><p id="timeline-match-status" role="status" aria-live="polite">0 个时间节点</p></section>
+  <div id="timeline-stats-bar" class="timeline-stats-bar" role="region" aria-label="时序沉淀里程碑">
+    <span class="timeline-stat-pill" id="timeline-stat-span" title="当前可见笔记跨越的自然时间跨度"><span class="stat-icon" aria-hidden="true">📅</span><span class="stat-label">时间跨度</span><strong class="stat-val" id="timeline-val-span">-- 天</strong></span>
+    <span class="timeline-stat-pill" id="timeline-stat-evolution" title="经历了后续更新与迭代深化的笔记比例"><span class="stat-icon" aria-hidden="true">🌱</span><span class="stat-label">知识演进率</span><strong class="stat-val" id="timeline-val-evolution">--%</strong></span>
+    <span class="timeline-stat-pill" id="timeline-stat-network" title="已与其它笔记建立互联双链的比例"><span class="stat-icon" aria-hidden="true">🕸️</span><span class="stat-label">网络联结率</span><strong class="stat-val" id="timeline-val-network">--%</strong></span>
+    <span class="timeline-stat-pill" id="timeline-stat-reviewed" title="当前已完成时序复盘的笔记比例"><span class="stat-icon" aria-hidden="true">✓</span><span class="stat-label">复盘进度</span><strong class="stat-val" id="timeline-val-reviewed">0 / --</strong></span>
+    <span class="timeline-stat-pill" id="timeline-stat-topcat" title="当前范围内记录最集中的主题领域"><span class="stat-icon" aria-hidden="true">🏷️</span><span class="stat-label">核心主题</span><strong class="stat-val" id="timeline-val-topcat">--</strong></span>
+  </div>
   <div id="timeline-filter-backdrop" class="timeline-filter-backdrop" hidden></div>
   <aside id="timeline-filter-sheet" class="timeline-filter-sheet" aria-label="时间轴筛选" aria-modal="false" data-open="false" role="dialog" tabindex="-1"><div class="timeline-filter-sheet-head"><div><strong>筛选时间轨迹</strong><span id="timeline-filter-result" role="status" aria-live="polite">0 个时间节点</span></div><button id="timeline-filter-close" class="timeline-filter-close" type="button">完成</button></div><section class="timeline-filter-section-grain" aria-label="展示刻度"><h3>时间维度</h3><div id="timeline-grain-selector" class="timeline-grain-selector-wrapper"><div id="timeline-grain-filters" class="timeline-filter-list timeline-grain-options" role="group"><button type="button" data-grain="day" class="is-active" aria-pressed="true">天维度 (默认)</button><button type="button" data-grain="month" aria-pressed="false">月维度</button><button type="button" data-grain="year" aria-pressed="false">年维度</button></div></div></section><section class="timeline-filter-section-time" aria-label="按时间范围筛选"><h3>时间范围</h3><div id="timeline-time-filters" class="timeline-filter-list timeline-date-shortcuts"></div><div class="timeline-date-fields"><label>从<input type="date" id="timeline-date-start" aria-label="开始日期"></label><label>到<input type="date" id="timeline-date-end" aria-label="结束日期" aria-describedby="timeline-date-feedback"></label><button type="button" id="timeline-date-clear" class="timeline-date-clear" hidden>清除</button></div><p id="timeline-date-feedback" class="timeline-date-feedback" role="alert" hidden></p></section><section class="timeline-filter-section-category"><h3>主题</h3><div id="timeline-category-filters" class="timeline-filter-list"></div></section><section class="timeline-filter-section-status"><h3>数据边界</h3><p id="timeline-status-filters" class="timeline-filter-note">当前时间轴仅展示已发布笔记。</p></section></aside>
   <div class="timeline-layout">
     <section class="timeline-workspace" aria-label="知识时间轴">
       <div class="timeline-legend"><span>● 创建</span><span>○ 选择后显示更新</span><span>↗ 显式 Org 链接</span></div>
-      <div id="timeline-canvas"><div id="timeline-svg"></div><div id="timeline-tooltip" role="tooltip" hidden></div></div>
+      <div id="timeline-canvas"><div id="timeline-svg"></div><div id="timeline-tooltip" role="tooltip" hidden></div><div class="timeline-canvas-toolbar" role="toolbar" aria-label="时间轴画布控制"><button type="button" class="timeline-tool-btn" id="timeline-zoom-in" title="放大时间轴 (+)" aria-label="放大时间轴"><span aria-hidden="true">＋</span></button><button type="button" class="timeline-tool-btn" id="timeline-zoom-out" title="缩小时间轴 (-)" aria-label="缩小时间轴"><span aria-hidden="true">－</span></button><button type="button" class="timeline-tool-btn" id="timeline-zoom-reset" title="复位时间轴 (1:1)" aria-label="复位时间轴"><span>1:1</span></button><span class="timeline-tool-divider" aria-hidden="true"></span><button type="button" class="timeline-tool-btn timeline-tool-text-btn" id="timeline-jump-oldest" title="跳转至最早记录" aria-label="跳转至最早记录"><span>最早</span></button><button type="button" class="timeline-tool-btn timeline-tool-text-btn" id="timeline-jump-latest" title="跳转至最新记录" aria-label="跳转至最新记录"><span>最新</span></button><button type="button" class="timeline-tool-btn timeline-tool-text-btn" id="timeline-explore-random" title="随机漫游一条笔记" aria-label="随机漫游一条笔记"><span>🎲 漫游</span></button></div></div>
       <ol id="timeline-mobile-list"></ol>
       <div id="timeline-calendar-view" class="timeline-calendar-view" hidden></div>
-      <details class="timeline-isolated"><summary>孤立笔记 <span id="timeline-isolated-count">00</span></summary><div id="timeline-isolated-list"></div></details>
+      <details class="timeline-isolated"><summary>孤立笔记 <span id="timeline-isolated-count">00</span></summary><p class="timeline-isolated-intro">💡 <strong>零基础认知</strong>：孤立笔记是尚未与其它笔记建立链接的单点记录。知识在互联中生长——点击「对读串联」或「图谱定位」，把单点想法编织入知识体系。</p><div id="timeline-isolated-list"></div></details>
     </section>
     <aside id="timeline-focus-card" class="timeline-focus-card" aria-label="当前笔记" tabindex="-1" hidden></aside>
   </div>
 </main>
 <script src="resources/d3.v7.min.js?v=f2094bbf6141"></script>
-<script type="application/json" id="timeline-data">{"schemaVersion":1,"generatedAt":"2026-10-12T14:57:27+0000","today":"2026-10-12","pages":[{"id":"pages-Emacs-PluginWatch-emacs-plugin-watch","title":"Emacs 插件高价值增量观察（滚动）","category":"Emacs","categoryLabel":"Emacs","tags":["emacs","plugin-watch","rolling","org-roam"],"status":"published","description":"暂无可用简介。","created":1779692400.0,"createdDate":"2026-05-25","dateSource":"org-date","modified":1791035180.0315056,"modifiedDate":"2026-10-03","ageDays":131,"linksTo":[],"linkedFrom":[],"href":"pages/Emacs/PluginWatch/emacs-plugin-watch.html"},{"id":"001-学习的牛逼之处","title":"001-学习的牛逼之处","category":"AI","categoryLabel":"AI","tags":["ail"],"status":"published","description":"任何人现在面对复杂世界会失控，而“会学习”是重新获得控制感的核心武器。\nLLM 不是替代老师和书，而是让你拥有一个随时可用的学习增幅器。但前提是你\n要学会正确使用它，所以你需要这门课。","created":1780815600.0,"createdDate":"2026-06-07","dateSource":"org-date","modified":1791566116.309994,"modifiedDate":"2026-10-09","ageDays":124,"linksTo":[],"linkedFrom":[],"href":"pages/AI/learn_with_ai/001-学习的牛逼之处.html"},{"id":"本体mvp","title":"本体MVP","category":"Ontology","categoryLabel":"Ontology","tags":["ontology"],"status":"published","description":"本报告基于家庭用餐场景，按照“本体驱动数据建模（增强版）”七阶段流程完成\n领域建模、指标设计、交叉审计、数据库设计及模型验证。","created":1783753200.0,"createdDate":"2026-07-11","dateSource":"org-date","modified":1791035202.7985299,"modifiedDate":"2026-10-03","ageDays":84,"linksTo":["ontology-evidence-evolution"],"linkedFrom":["ontology-evidence-evolution"],"href":"pages/ontology/本体mvp.html"},{"id":"ontology-evidence-evolution","title":"本体治理：从证据追踪到安全演化","category":"Ontology","categoryLabel":"Ontology","tags":["ontology","governance","provenance","evolution"],"status":"published","description":"面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。","created":1786777200.0,"createdDate":"2026-08-15","dateSource":"org-date","modified":1791035197.099364,"modifiedDate":"2026-10-03","ageDays":49,"linksTo":["本体mvp","ontology-concept-boundaries"],"linkedFrom":["本体mvp","ontology-concept-boundaries"],"href":"pages/ontology/ontology-evidence-evolution.html"},{"id":"ontology-concept-boundaries","title":"本体论建模：从概念边界到可计算语义","category":"Ontology","categoryLabel":"Ontology","tags":["ontology","knowledge-graph","semantic-modeling"],"status":"published","description":"一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。","created":1786777200.0,"createdDate":"2026-08-15","dateSource":"org-date","modified":1791035195.4176133,"modifiedDate":"2026-10-03","ageDays":49,"linksTo":["ontology-evidence-evolution"],"linkedFrom":["ontology-evidence-evolution"],"href":"pages/ontology/ontology-concept-boundaries.html"},{"id":"ontology-example-model","title":"关系示例 01｜本体模型","category":"Ontology","categoryLabel":"Ontology","tags":["ontology","关系示例"],"status":"published","description":"用一个课程模型展示自定义“依赖”关系，以及类型、标签、权重与线条样式。","created":1791010800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1791035198.6983519,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":[],"linkedFrom":[],"href":"pages/ontology/关系示例-01-本体模型.html"},{"id":"duckdb-practice","title":"关系示例 02｜DuckDB 实践","category":"Ontology","categoryLabel":"Ontology","tags":["ontology","duckdb","关系示例"],"status":"published","description":"用课程数据库的验证用例展示自定义“包含”关系。","created":1791010800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1791035200.0167072,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":[],"linkedFrom":[],"href":"pages/ontology/关系示例-02-DuckDB实践.html"},{"id":"ontology-example-counterexample","title":"关系示例 03｜约束反例","category":"Ontology","categoryLabel":"Ontology","tags":["ontology","validation","关系示例"],"status":"published","description":"用无效选课记录展示自定义“反例”关系，形成可阅读的三节点闭环。","created":1791010800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1791035201.385707,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":[],"linkedFrom":[],"href":"pages/ontology/关系示例-03-约束反例.html"},{"id":"pages-AI-skills-org-skills","title":"AI Skills","category":"AI","categoryLabel":"AI","tags":["Emacs","Org","Skills","Foundation"],"status":"published","description":"ORG JOURNAL Recording","created":1791035143.078795,"createdDate":"2026-10-03","dateSource":"modified-fallback","modified":1791035143.078795,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":[],"linkedFrom":[],"href":"pages/AI/skills/org-skills.html"},{"id":"pages-Emacs-Org-org-babel-01-execution-foundations","title":"Org Babel 01｜执行基础与数据流","category":"uncategorized","categoryLabel":"其他笔记","tags":["Emacs","Org","Babel","Foundation"],"status":"published","description":"ORG JOURNAL Recording","created":1791035170.9438093,"createdDate":"2026-10-03","dateSource":"modified-fallback","modified":1791035170.9438093,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-02-composition-engineering"],"linkedFrom":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-02-composition-engineering"],"href":"pages/Emacs/Org/org-babel-01-execution-foundations.html"},{"id":"pages-Emacs-Org-org-babel-02-composition-engineering","title":"Org Babel 02｜组合、复用与工程化","category":"uncategorized","categoryLabel":"其他笔记","tags":["Emacs","Org","Babel","Engineering"],"status":"published","description":"本文件承载“把会运行的 Block 变成工程系统”。订单案例、Contract 与 Golden Regression 放在同一模块，避免验证逻辑与被测实现被拆散。","created":1791039386.2738173,"createdDate":"2026-10-03","dateSource":"modified-fallback","modified":1791039386.2738173,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-01-execution-foundations"],"linkedFrom":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-01-execution-foundations"],"href":"pages/Emacs/Org/org-babel-02-composition-engineering.html"},{"id":"pages-Emacs-Org-org-babel-03-verification-debugging","title":"Org Babel 03｜验证、回归与排错","category":"uncategorized","categoryLabel":"其他笔记","tags":["Emacs","Org","Babel","Verification"],"status":"published","description":"本文件只处理“如何证明正确、如何定位错误、如何避免假 PASS”。不重复讲基础语法和工程机制。","created":1791039386.277829,"createdDate":"2026-10-03","dateSource":"modified-fallback","modified":1791039386.277829,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":["pages-Emacs-Org-org-babel-02-composition-engineering","pages-Emacs-Org-org-babel-01-execution-foundations"],"linkedFrom":["pages-Emacs-Org-org-babel-02-composition-engineering","pages-Emacs-Org-org-babel-01-execution-foundations"],"href":"pages/Emacs/Org/org-babel-03-verification-debugging.html"},{"id":"duckdb-ontology-slicing-tutorial","title":"DuckDB Ontology Slicing Tutorial","category":"Sql","categoryLabel":"Sql","tags":["sql"],"status":"published","description":"一次只学一个概念，执行一条简单 SQL，看到真实结果，再进入下一步。","created":1791702000.0,"createdDate":"2026-10-11","dateSource":"org-date","modified":1791817047.14773,"modifiedDate":"2026-10-12","ageDays":1,"linksTo":["duckdb-keywords-cast"],"linkedFrom":[],"href":"pages/sql/duckdb-ontology-slicing-tutorial.html"}],"edges":[{"source":"pages-Emacs-Org-org-babel-01-execution-foundations","target":"pages-Emacs-Org-org-babel-03-verification-debugging","bidirectional":true},{"source":"pages-Emacs-Org-org-babel-01-execution-foundations","target":"pages-Emacs-Org-org-babel-02-composition-engineering","bidirectional":true},{"source":"pages-Emacs-Org-org-babel-02-composition-engineering","target":"pages-Emacs-Org-org-babel-03-verification-debugging","bidirectional":true},{"source":"本体mvp","target":"ontology-evidence-evolution","bidirectional":true},{"source":"ontology-evidence-evolution","target":"ontology-concept-boundaries","bidirectional":true}],"palette":["var(--museum-category-1)","var(--museum-category-2)","var(--museum-category-3)","var(--museum-category-4)","var(--museum-category-5)","var(--museum-category-6)","var(--museum-category-7)"]}</script>
+<script type="application/json" id="timeline-data">{"schemaVersion":1,"generatedAt":"2026-10-22T14:18:00+0000","today":"2026-10-22","pages":[{"id":"pages-Emacs-PluginWatch-emacs-plugin-watch","title":"Emacs 插件高价值增量观察（滚动）","category":"Emacs","categoryLabel":"Emacs 生态","tags":["emacs","plugin-watch","rolling","org-roam"],"status":"published","description":"暂无可用简介。","created":1779710400.0,"createdDate":"2026-05-25","dateSource":"org-date","modified":1792678680.6719804,"modifiedDate":"2026-10-22","ageDays":150,"linksTo":[],"linkedFrom":[],"href":"pages/Emacs/PluginWatch/emacs-plugin-watch.html"},{"id":"001-学习的牛逼之处","title":"001-学习的牛逼之处","category":"AI","categoryLabel":"AI 智能","tags":["ail"],"status":"published","description":"任何人现在面对复杂世界会失控，而“会学习”是重新获得控制感的核心武器。\nLLM 不是替代老师和书，而是让你拥有一个随时可用的学习增幅器。但前提是你\n要学会正确使用它，所以你需要这门课。","created":1780833600.0,"createdDate":"2026-06-07","dateSource":"org-date","modified":1791566116.309994,"modifiedDate":"2026-10-09","ageDays":124,"linksTo":[],"linkedFrom":[],"href":"pages/AI/learn_with_ai/001-学习的牛逼之处.html"},{"id":"本体mvp","title":"本体MVP","category":"Ontology","categoryLabel":"知识本体建模","tags":["ontology"],"status":"published","description":"本报告基于家庭用餐场景，按照“本体驱动数据建模（增强版）”七阶段流程完成\n领域建模、指标设计、交叉审计、数据库设计及模型验证。","created":1783771200.0,"createdDate":"2026-07-11","dateSource":"org-date","modified":1791035202.7985299,"modifiedDate":"2026-10-03","ageDays":84,"linksTo":["ontology-evidence-evolution"],"linkedFrom":["ontology-evidence-evolution"],"href":"pages/ontology/本体mvp.html"},{"id":"ontology-evidence-evolution","title":"本体治理：从证据追踪到安全演化","category":"Ontology","categoryLabel":"知识本体建模","tags":["ontology","governance","provenance","evolution"],"status":"published","description":"面向生产系统的本体治理方法，覆盖证据溯源、冲突处理、版本迁移、质量门禁、反证测试和可回滚发布。","created":1786795200.0,"createdDate":"2026-08-15","dateSource":"org-date","modified":1791035197.099364,"modifiedDate":"2026-10-03","ageDays":49,"linksTo":["本体mvp","ontology-concept-boundaries"],"linkedFrom":["本体mvp","ontology-concept-boundaries"],"href":"pages/ontology/ontology-evidence-evolution.html"},{"id":"ontology-concept-boundaries","title":"本体论建模：从概念边界到可计算语义","category":"Ontology","categoryLabel":"知识本体建模","tags":["ontology","knowledge-graph","semantic-modeling"],"status":"published","description":"一套把领域语言转化为类、关系、约束和可验证问题的本体建模方法，重点处理概念边界、身份、关系方向与能力声明。","created":1786795200.0,"createdDate":"2026-08-15","dateSource":"org-date","modified":1791035195.4176133,"modifiedDate":"2026-10-03","ageDays":49,"linksTo":["ontology-evidence-evolution"],"linkedFrom":["ontology-evidence-evolution"],"href":"pages/ontology/ontology-concept-boundaries.html"},{"id":"pages-AI-skills-org-skills","title":"AI Skills","category":"AI","categoryLabel":"AI 智能","tags":["Emacs","Org","Skills","Foundation"],"status":"published","description":"ORG JOURNAL Recording","created":1791028800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1792166570.5921936,"modifiedDate":"2026-10-16","ageDays":13,"linksTo":[],"linkedFrom":[],"href":"pages/AI/skills/org-skills.html"},{"id":"pages-Emacs-Org-org-babel-01-execution-foundations","title":"Org Babel 01｜执行基础与数据流","category":"uncategorized","categoryLabel":"其他笔记","tags":["Emacs","Org","Babel","Foundation"],"status":"published","description":"ORG JOURNAL Recording","created":1791028800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1792166579.709249,"modifiedDate":"2026-10-16","ageDays":13,"linksTo":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-02-composition-engineering"],"linkedFrom":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-02-composition-engineering"],"href":"pages/Emacs/Org/org-babel-01-execution-foundations.html"},{"id":"pages-Emacs-Org-org-babel-02-composition-engineering","title":"Org Babel 02｜组合、复用与工程化","category":"uncategorized","categoryLabel":"其他笔记","tags":["Emacs","Org","Babel","Engineering"],"status":"published","description":"本文件承载“把会运行的 Block 变成工程系统”。订单案例、Contract 与 Golden Regression 放在同一模块，避免验证逻辑与被测实现被拆散。","created":1791028800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1792166587.793017,"modifiedDate":"2026-10-16","ageDays":13,"linksTo":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-01-execution-foundations"],"linkedFrom":["pages-Emacs-Org-org-babel-03-verification-debugging","pages-Emacs-Org-org-babel-01-execution-foundations"],"href":"pages/Emacs/Org/org-babel-02-composition-engineering.html"},{"id":"pages-Emacs-Org-org-babel-03-verification-debugging","title":"Org Babel 03｜验证、回归与排错","category":"uncategorized","categoryLabel":"其他笔记","tags":["Emacs","Org","Babel","Verification"],"status":"published","description":"本文件只处理“如何证明正确、如何定位错误、如何避免假 PASS”。不重复讲基础语法和工程机制。","created":1791028800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1792166599.6833396,"modifiedDate":"2026-10-16","ageDays":13,"linksTo":["pages-Emacs-Org-org-babel-02-composition-engineering","pages-Emacs-Org-org-babel-01-execution-foundations"],"linkedFrom":["pages-Emacs-Org-org-babel-02-composition-engineering","pages-Emacs-Org-org-babel-01-execution-foundations"],"href":"pages/Emacs/Org/org-babel-03-verification-debugging.html"},{"id":"ontology-example-model","title":"关系示例 01｜本体模型","category":"Ontology","categoryLabel":"知识本体建模","tags":["ontology","关系示例"],"status":"published","description":"用一个课程模型展示自定义“依赖”关系，以及类型、标签、权重与线条样式。","created":1791028800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1791035198.6983519,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":[],"linkedFrom":[],"href":"pages/ontology/关系示例-01-本体模型.html"},{"id":"duckdb-practice","title":"关系示例 02｜DuckDB 实践","category":"Ontology","categoryLabel":"知识本体建模","tags":["ontology","duckdb","关系示例"],"status":"published","description":"用课程数据库的验证用例展示自定义“包含”关系。","created":1791028800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1791035200.0167072,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":[],"linkedFrom":[],"href":"pages/ontology/关系示例-02-DuckDB实践.html"},{"id":"ontology-example-counterexample","title":"关系示例 03｜约束反例","category":"Ontology","categoryLabel":"知识本体建模","tags":["ontology","validation","关系示例"],"status":"published","description":"用无效选课记录展示自定义“反例”关系，形成可阅读的三节点闭环。","created":1791028800.0,"createdDate":"2026-10-03","dateSource":"org-date","modified":1791035201.385707,"modifiedDate":"2026-10-03","ageDays":0,"linksTo":[],"linkedFrom":[],"href":"pages/ontology/关系示例-03-约束反例.html"},{"id":"duckdb-ontology-slicing-tutorial","title":"DuckDB Ontology Slicing Tutorial","category":"Sql","categoryLabel":"SQL","tags":["sql"],"status":"published","description":"一次只学一个概念，执行一条简单 SQL，看到真实结果，再进入下一步。","created":1791720000.0,"createdDate":"2026-10-11","dateSource":"org-date","modified":1791817047.14773,"modifiedDate":"2026-10-12","ageDays":1,"linksTo":["duckdb-keywords-cast"],"linkedFrom":[],"href":"pages/sql/duckdb-ontology-slicing-tutorial.html"}],"edges":[{"source":"pages-Emacs-Org-org-babel-01-execution-foundations","target":"pages-Emacs-Org-org-babel-03-verification-debugging","bidirectional":true},{"source":"pages-Emacs-Org-org-babel-01-execution-foundations","target":"pages-Emacs-Org-org-babel-02-composition-engineering","bidirectional":true},{"source":"pages-Emacs-Org-org-babel-02-composition-engineering","target":"pages-Emacs-Org-org-babel-03-verification-debugging","bidirectional":true},{"source":"本体mvp","target":"ontology-evidence-evolution","bidirectional":true},{"source":"ontology-evidence-evolution","target":"ontology-concept-boundaries","bidirectional":true}],"palette":["var(--museum-category-1)","var(--museum-category-2)","var(--museum-category-3)","var(--museum-category-4)","var(--museum-category-5)","var(--museum-category-6)","var(--museum-category-7)"]}</script>
 
-<script defer src="resources/org-museum-timeline.js?v=146e0ee1efb8"></script>
+<script defer src="resources/org-museum-timeline.js?v=d171ca7289a8"></script>
 </body>
 </html>

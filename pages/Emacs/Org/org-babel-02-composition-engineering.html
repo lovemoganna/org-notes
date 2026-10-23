@@ -6,19 +6,19 @@
 <title>Org Babel 02｜组合、复用与工程化</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
-<link rel="stylesheet" href="../../../resources/org-museum.css?v=1d7863d341d2">
+<script src="../../../resources/org-museum-theme.js?v=b28a6434934a"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=4512a3d60ec4">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../../resources/org-museum-theme.js?v=4045495a6691"></script>
 <link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-Org-org-babel-02-composition-engineering" data-page-title="Org Babel 02｜组合、复用与工程化" data-page-category="uncategorized" data-page-tags="Emacs,Org,Babel,Engineering" data-page-status="published" data-page-modified="2026-10-03" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-Org-org-babel-02-composition-engineering" data-page-title="Org Babel 02｜组合、复用与工程化" data-page-category="uncategorized" data-page-tags="Emacs,Org,Babel,Engineering" data-page-status="published" data-page-modified="2026-10-16" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
+  <time class="museum-today" datetime="2026-10-22" title="导出于 2026.10.22">2026.10.22</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -33,26 +33,196 @@
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
     <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
       <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
-        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
-        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0"><span class="tab-icon">🎨</span> 外观排版</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="learning" role="tab" aria-selected="false" tabindex="-1"><span class="tab-icon">📚</span> 学习辅助</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1"><span class="tab-icon">🤖</span> AI 助教</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="data" role="tab" aria-selected="false" tabindex="-1"><span class="tab-icon">💾</span> 数据备份</button>
       </div>
-      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance" role="tabpanel" aria-label="外观与排版设置">
         <div class="museum-settings-section">
-          <div class="museum-settings-section-title">外观主题</div>
-          <div class="museum-theme-segmented" role="group">
-            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+          <div class="museum-settings-section-title">阅读场景推荐预设</div>
+          <div class="museum-theme-segmented museum-settings-segmented-3" role="group" aria-label="场景预设推荐">
+            <button type="button" class="museum-settings-segment-btn" data-preset-scene="eyecare" title="护眼长读：暖杏纸张 + 18px + 人文宋体 + 宽松行距">☕ 护眼长读</button>
+            <button type="button" class="museum-settings-segment-btn" data-preset-scene="standard" title="标准通读：默认基调 + 15.5px + 现代黑体 + 标准行距">💡 标准通读</button>
+            <button type="button" class="museum-settings-segment-btn" data-preset-scene="dense" title="密集对照：柔和冷灰 + 13.5px + 现代黑体 + 栏宽 1180px">💻 密集对照</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">界面主题与护眼色调</div>
+          <div class="museum-theme-segmented" role="group" aria-label="主题切换">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true"><span class="museum-theme-icon-sys" aria-hidden="true"></span>跟随系统</button>
             <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
               <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
               <span data-theme-label>深色</span></button>
           </div>
+          <div class="museum-theme-segmented museum-settings-segmented-3" role="group" aria-label="阅读纸张色调">
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-tone="default" aria-pressed="true" title="明亮通透纸张">默认基调</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-tone="warm" aria-pressed="false" title="羊皮纸暖杏色，温润护眼">护眼暖杏</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-tone="slate" aria-pressed="false" title="低饱和柔和冷灰">柔和冷灰</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">阅读字号</div>
+          <div class="museum-theme-segmented museum-settings-segmented-4" role="group" aria-label="正文字号选择">
+            <button type="button" class="museum-settings-segment-btn" data-reading-size="sm" aria-pressed="false" title="紧凑字号 13.5px">紧凑</button>
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-size="md" aria-pressed="true" title="标准字号 15.5px">标准</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-size="lg" aria-pressed="false" title="适度放大 18px">适度</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-size="xl" aria-pressed="false" title="清晰特大 21px">放大</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">阅读栏宽</div>
+          <div class="museum-theme-segmented museum-settings-segmented-4" role="group" aria-label="正文宽度选择">
+            <button type="button" class="museum-settings-segment-btn" data-reading-width="980" aria-pressed="false" title="紧凑阅读 980px">980</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-width="1024" aria-pressed="false" title="标准阅读 1024px">1024</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-width="1180" aria-pressed="false" title="宽幅阅读 1180px">1180</button>
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-width="1320" aria-pressed="true" title="超宽阅读 1320px">1320</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">字体偏好</div>
+          <div class="museum-theme-segmented" role="group" aria-label="字体族选择">
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-font="sans" aria-pressed="true">现代黑体 (Sans)</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-font="serif" aria-pressed="false">人文宋体 (Serif)</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">行距与信息密度</div>
+          <div class="museum-theme-segmented museum-settings-segmented-3" role="group" aria-label="行距选择">
+            <button type="button" class="museum-settings-segment-btn" data-reading-line="compact" aria-pressed="false" title="紧凑行距 1.55">紧凑 1.55</button>
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-line="standard" aria-pressed="true" title="标准行距 1.8">标准 1.8</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-line="relaxed" aria-pressed="false" title="松弛行距 2.15，降低认知负担">宽松 2.15</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">专注阅读沉浸模式</div>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🎯 专注阅读沉浸模式 (Zen Mode)</span>
+              <span class="toggle-desc">淡化顶栏与周边视觉噪点，按 Esc 或快捷键 z 随时唤回</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-zen-mode-toggle>
+          </label>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-preview-card" data-reading-preview aria-label="即时排版预览效果">
+            <div class="preview-card-header">
+              <span class="preview-tag">即时排版预览</span>
+              <span class="preview-metrics" data-preview-metrics>标准 · 15.5px · 现代黑体</span>
+            </div>
+            <p class="preview-sample-text" data-preview-sample>「工欲善其事，必先利其器。」笔记是思考的脚手架，让零散认知逐步生长为互联网络。</p>
+          </div>
         </div>
       </div>
-      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+<div class="museum-settings-tab-panel" data-settings-panel="learning" role="tabpanel" aria-label="学习与认知辅助设置" hidden>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">入门辅导与认知支持</div>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">💡 零基础概念浅释 (Beginner Mode)</span>
+              <span class="toggle-desc">在专业术语旁标注入门释义，浅白解读双链、草稿、抽屉与拓扑关系</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-beginner-mode-toggle checked>
+          </label>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🔍 双链悬浮速览卡片 (Hover Preview)</span>
+              <span class="toggle-desc">鼠标移至笔记链接即可速览目标标题，免去频繁跳页与上下文迷失</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-hover-preview-toggle checked>
+          </label>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🔢 代码行号与结构对照 (Code Line Numbers)</span>
+              <span class="toggle-desc">代码块清晰展示左侧行号，方便对照教程逐行理解与向 AI 提问</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-code-lineno-toggle checked>
+          </label>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🧠 渐进式主动回忆 (Active Recall 自测)</span>
+              <span class="toggle-desc">将笔记中的核心重点挖空模糊，悬停或轻触时显现，强化记忆提取</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-active-recall-toggle>
+          </label>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">随身笔记概念速查词典</div>
+          <details class="museum-glossary-details">
+            <summary>📖 点击展开核心术语白话释义 (Pocket Glossary)</summary>
+            <div class="museum-glossary-list">
+              <div class="glossary-item">
+                <span class="glossary-term">📎 双向链接 (Bi-directional Links)</span>
+                <p class="glossary-def">笔记互相引用的超链接网络。正向链接指向深入分支，反向链接回溯来源，无需死板的目录层级。</p>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-term">🗂️ 属性抽屉 (Properties Drawer)</span>
+                <p class="glossary-def">笔记顶部的元数据保险盒，记录创建时间、唯一编号（ID）与分类标签，用于构建知识网络。</p>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-term">📝 草稿演练 (Interactive Practice)</span>
+                <p class="glossary-def">内容仍在整理与验证的笔记状态。网页提供阅读与源码查看；代码需在相应执行环境中运行。</p>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-term">🕸️ 知识图谱 (Knowledge Graph)</span>
+                <p class="glossary-def">知识库的宏观星空全景图。节点越大表示引用越密集，连线密集处即为知识枢纽。</p>
+              </div>
+            </div>
+          </details>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">新手实战学习任务卡</div>
+          <div class="museum-quest-card" data-learning-quest-card>
+            <div class="quest-card-header">
+              <span class="quest-card-badge">🌱 今日实战路线</span>
+              <span class="quest-progress-text" data-quest-progress-text>已完成 0 / 3 项</span>
+            </div>
+            <div class="quest-list">
+              <label class="quest-item" data-quest-item="explore_links">
+                <input type="checkbox" data-quest-checkbox="explore_links">
+                <span class="quest-title">1. 建立直觉：在正文中悬浮速览一个双链卡片</span>
+              </label>
+              <label class="quest-item" data-quest-item="ai_dialogue">
+                <input type="checkbox" data-quest-checkbox="ai_dialogue">
+                <span class="quest-title">2. 助教互动：使用「零基础助教」提问一个概念</span>
+              </label>
+              <label class="quest-item" data-quest-item="active_recall">
+                <input type="checkbox" data-quest-checkbox="active_recall">
+                <span class="quest-title">3. 主动巩固：开启主动回忆并点击揭晓一个重点</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">新手向导与快捷键速查</div>
+          <div class="museum-ai-action-row">
+            <button type="button" class="museum-action-btn" data-restore-guides title="重新激活全站各页面的入门学习向导横幅">🔄 重新激活全站新手引导</button>
+          </div>
+          <div class="museum-shortcuts-grid" aria-label="核心快捷键速查">
+            <div class="shortcut-item"><kbd>/</kbd><span>全局搜索</span></div>
+            <div class="shortcut-item"><kbd>Esc</kbd><span>关闭弹窗/抽屉</span></div>
+            <div class="shortcut-item"><kbd>g g</kbd><span>正文回到顶部</span></div>
+            <div class="shortcut-item"><kbd>j / k</kbd><span>正文切换章节</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" role="tabpanel" aria-label="AI 模型与助教设置" hidden>
         <div class="museum-settings-section museum-settings-ai-section">
-          <div class="museum-settings-section-title">模型设置</div>
+          <div class="museum-settings-section-title">模型设置与服务预设</div>
+          <div class="museum-settings-field">
+            <label>快速预设（一键填入常用服务）
+              <select data-ai-preset-select aria-label="快速预设服务">
+                <option value="">-- 选择常用服务或自定义 --</option>
+                <option value="lmstudio">LM Studio (本地 127.0.0.1:1234)</option>
+                <option value="ollama">Ollama (本地 127.0.0.1:11434)</option>
+                <option value="siliconflow">SiliconFlow 硅基流动 (DeepSeek 云端)</option>
+                <option value="openai">OpenAI 官方 API</option>
+              </select>
+            </label>
+          </div>
           <form data-browser-config class="museum-settings-config-form">
             <div class="museum-settings-field">
-              <label>接入方式<select name="provider">
+              <label>接入协议<select name="provider">
                 <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
                 <option value="ollama">Ollama</option>
               </select></label>
@@ -61,8 +231,15 @@
               <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
             </div>
             <div class="museum-settings-field">
-              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
-              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+              <label>API 密钥（本机服务可留空）
+                <div class="museum-settings-input-group">
+                  <input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入 API Key">
+                  <button type="button" class="museum-key-eye-btn" data-toggle-key-visibility title="显示/隐藏密钥" aria-label="显示或隐藏密钥">👁️</button>
+                </div>
+              </label>
+              <div class="museum-settings-sub-toggle">
+                <label><input type="checkbox" data-remember-key> 在此浏览器安全保存密钥</label>
+              </div>
             </div>
             <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
             <div class="museum-settings-field">
@@ -82,42 +259,75 @@
             <div class="museum-ai-action-row">
               <button type="button" data-browser-load>加载并测试模型</button>
               <button type="button" data-browser-cancel-load hidden>取消加载</button>
+              <button type="button" class="museum-settings-sub-btn" data-browser-quick-test title="向当前模型发送一条简短打招呼测试">⚡ 一键测试问候</button>
             </div>
             <div class="museum-settings-status-box">
               <span class="museum-settings-status-indicator" aria-hidden="true"></span>
-              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+              <div class="museum-settings-status-content">
+                <span class="museum-settings-status-label">连接状态</span>
+                <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+              </div>
             </div>
             <details class="museum-settings-details">
-              <summary>回答偏好设置</summary>
+              <summary>助教角色与系统提示词</summary>
+              <div class="prompt-preset-row">
+                <span class="prompt-preset-label">角色模板：</span>
+                <button type="button" class="prompt-preset-btn" data-prompt-preset="beginner">🎓 零基础助教</button>
+                <button type="button" class="prompt-preset-btn" data-prompt-preset="socratic">💡 启发导师</button>
+                <button type="button" class="prompt-preset-btn" data-prompt-preset="summary">📝 重点提炼</button>
+              </div>
               <div class="museum-settings-field">
-                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文，尽量用通俗易懂的语言帮助初学者理解。</textarea></label>
               </div>
             </details>
           </form>
-          <details class="museum-settings-details museum-ai-local-tools">
-            <summary>本地保存与同步</summary>
-            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
-            <div class="museum-ai-action-row">
-              <button type="button" data-browser-backup>导出知识库</button>
-              <button type="button" data-browser-org-export>导出 Org</button>
-              <button type="button" data-browser-sync-preview>预览同步</button>
-            </div>
-            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
-            <div data-browser-sync-result></div>
-          </details>
+        </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="data" role="tabpanel" aria-label="存储与重置" hidden>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">本地存储与学习记录</div>
+          <div class="museum-storage-card">
+            <div class="storage-metric-row"><span class="storage-label">本地知识库缓存</span><strong class="storage-val" data-storage-count>0 项记录</strong></div>
+            <div class="storage-metric-row"><span class="storage-label">占用浏览器空间</span><strong class="storage-val" data-storage-size>~0 KB</strong></div>
+            <div class="storage-metric-row"><span class="storage-label">对读学习进度</span><strong class="storage-val" data-storage-progress>0 组已研读</strong></div>
+            <div class="storage-metric-row"><span class="storage-label">API 密钥本地存储</span><strong class="storage-val" data-storage-key-status>未保存</strong></div>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">数据导出与同步</div>
+          <p class="museum-settings-note">在浏览器中探索的会话、学习笔记心得与增补关系均保存在本机，可导出或同步到 Emacs。</p>
+          <div class="museum-ai-action-row">
+            <button type="button" data-browser-backup>导出知识库备份</button>
+            <button type="button" data-copy-backup title="复制备份 JSON 到剪贴板">复制备份数据</button>
+            <button type="button" data-browser-org-export>导出 Org 笔记</button>
+            <button type="button" data-browser-sync-preview>预览同步到 Emacs</button>
+          </div>
+          <label class="museum-settings-file-label">导入知识库备份文件
+            <input type="file" data-browser-import accept="application/json,.json">
+          </label>
+          <div data-browser-sync-result class="museum-sync-result-box"></div>
+        </div>
+        <div class="museum-settings-section museum-danger-zone">
+          <div class="museum-settings-section-title">重置与安全兜底</div>
+          <p class="museum-settings-note">如果不小心改乱了排版或希望重新体验初始设置，可选择分级安全重置。</p>
+          <div class="museum-reset-row">
+            <button type="button" class="museum-reset-appearance-btn" data-reset-appearance-only title="仅重置字体、排版与主题，保留学习记录与密钥">重置排版样式 (保留学习记录)</button>
+            <button type="button" class="museum-reset-danger-btn" data-reset-all-settings title="完全清空本地缓存，恢复初始状态">恢复出厂预设 (清除全部)</button>
+          </div>
         </div>
       </div>
     </div></details>
   </nav>
 </header>
 
-<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../../index.html" class="museum-identity-title">Org Babel 02｜组合、复用与工程化</a><span class="museum-identity-meta">其他笔记</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../../index.html" class="museum-identity-title">Org Babel 02｜组合、复用与工程化</a><span class="museum-identity-meta">其他笔记</span><span class="museum-studied-badge" data-identity-studied-badge hidden>✓ 已掌握</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
 <div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="pages-Emacs-Org-org-babel-02-composition-engineering" data-page-title="Org Babel 02｜组合、复用与工程化" data-page-category="uncategorized"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
   <a class="article-category" href="../../../index.html?category=uncategorized#recent-updates">其他笔记</a>
+  <span class="museum-studied-badge" data-studied-badge hidden>✓ 已掌握</span>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-10-03">2026-10-03</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-16">2026-10-16</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 22 分钟</dd></div>
     <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../../index.html?tag=Emacs#recent-updates" data-tag="Emacs" title="查看包含标签 #Emacs 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Emacs</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Org#recent-updates" data-tag="Org" title="查看包含标签 #Org 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Org</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Babel#recent-updates" data-tag="Babel" title="查看包含标签 #Babel 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Babel</span></a><a class="museum-tag-chip" href="../../../index.html?tag=Engineering#recent-updates" data-tag="Engineering" title="查看包含标签 #Engineering 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">Engineering</span></a></dd></div>
   </dl>
@@ -126,7 +336,7 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="c568e463685e827adb20ed8db16614f56ab6de522fea21630f1e203f9f491702"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;meta name="color-scheme" content="dark light"&gt;</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="cda3dd2aa79e152bda7cacb114d329bf4e6f7db19f677a23f7a7988deca1905d"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;meta name="color-scheme" content="dark light"&gt;</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;script src="../../../resources/org-museum-theme.js?v=4045495a6691"&gt;&lt;/script&gt;</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500"&gt;</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="icon" href="data:,"&gt;</span></span>
@@ -508,30 +718,30 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-8460361bdb08">1. 关系导航</a></li>
-<li><a href="#section-eeb81fb8a642">2. 1. 贯穿模型</a></li>
-<li><a href="#section-78033e101669">3. 2. Noweb：组合源码，而不是复制源码</a></li>
-<li><a href="#section-c53193e0af99">4. 3. Session：共享状态要显式</a></li>
-<li><a href="#section-6ffb2fed9911">5. 4. Cache：只缓存纯计算</a></li>
-<li><a href="#section-12f6aff46ab5">6. 5. Tangle：Org 才是 Source of Truth</a></li>
+<li><a href="#section-da2c6151d691">1. 关系导航</a></li>
+<li><a href="#section-543f1a098282">2. 1. 贯穿模型</a></li>
+<li><a href="#section-278301a31626">3. 2. Noweb：组合源码，而不是复制源码</a></li>
+<li><a href="#section-211d87638076">4. 3. Session：共享状态要显式</a></li>
+<li><a href="#section-cffc07b1e603">5. 4. Cache：只缓存纯计算</a></li>
+<li><a href="#section-905e763a1fc9">6. 5. Tangle：Org 才是 Source of Truth</a></li>
 <li><a href="#library-of-babel">7. 6. Library of Babel：跨文件复用</a></li>
 <li><a href="#order-pipeline">8. 7. 完整案例：订单分析流水线</a>
 <ul>
-<li><a href="#section-d15e5cfea79d">8.1. 7.1 Parameters</a></li>
-<li><a href="#section-501691343286">8.2. 7.2 Block Contract：filter-orders</a></li>
-<li><a href="#section-366babce6746">8.3. 7.3 Block Contract：summarize-orders</a></li>
-<li><a href="#section-c50c8fd9f7e5">8.4. 7.4 Minimal Call</a></li>
-<li><a href="#section-3d337f1d70f3">8.5. 7.5 报告文本</a></li>
+<li><a href="#section-2841a7a14860">8.1. 7.1 Parameters</a></li>
+<li><a href="#section-4a28296b1d5c">8.2. 7.2 Block Contract：filter-orders</a></li>
+<li><a href="#section-d2ff3820e4fa">8.3. 7.3 Block Contract：summarize-orders</a></li>
+<li><a href="#section-082821444acc">8.4. 7.4 Minimal Call</a></li>
+<li><a href="#section-83a7b72f0fb5">8.5. 7.5 报告文本</a></li>
 </ul>
 </li>
-<li><a href="#section-e68adf80a1a2">9. 8. Golden Regression：修当前问题不能破坏历史能力</a></li>
-<li><a href="#section-2f0dcc842f67">10. 9. Library、Tangle、Session 应该怎么选</a></li>
-<li><a href="#section-22f13e8fd80d">11. 10. 三层练习</a></li>
+<li><a href="#section-b3608b27ee2f">9. 8. Golden Regression：修当前问题不能破坏历史能力</a></li>
+<li><a href="#section-3e089a23fcc1">10. 9. Library、Tangle、Session 应该怎么选</a></li>
+<li><a href="#section-eef8d7be4612">11. 10. 三层练习</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-section-8460361bdb08" class="outline-2">
-<h2 id="section-8460361bdb08"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">关系导航</span></h2>
+<div id="outline-container-section-da2c6151d691" class="outline-2">
+<h2 id="section-da2c6151d691"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">关系导航</span></h2>
 <div class="outline-text-2" id="text-1">
 <p>
 本文件承载“把会运行的 Block 变成工程系统”。订单案例、Contract 与 Golden Regression 放在同一模块，避免验证逻辑与被测实现被拆散。
@@ -588,8 +798,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-eeb81fb8a642" class="outline-2">
-<h2 id="section-eeb81fb8a642"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">1. 贯穿模型</span></h2>
+<div id="outline-container-section-543f1a098282" class="outline-2">
+<h2 id="section-543f1a098282"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">1. 贯穿模型</span></h2>
 <div class="outline-text-2" id="text-2">
 <p>
 贯穿案例：从订单表中过滤指定国家、状态和最低金额，再汇总并生成报告。
@@ -662,8 +872,8 @@
 </p>
 </div>
 </div>
-<div id="outline-container-section-78033e101669" class="outline-2">
-<h2 id="section-78033e101669"><span class="section-number-2">3.</span> <span class="museum-heading-level-1">2. Noweb：组合源码，而不是复制源码</span></h2>
+<div id="outline-container-section-278301a31626" class="outline-2">
+<h2 id="section-278301a31626"><span class="section-number-2">3.</span> <span class="museum-heading-level-1">2. Noweb：组合源码，而不是复制源码</span></h2>
 <div class="outline-text-2" id="text-3">
 <p>
 Noweb 解决“把多个代码片段组合成一段最终源码”的问题。
@@ -707,8 +917,8 @@ return round(value, 2)
 </p>
 </div>
 </div>
-<div id="outline-container-section-c53193e0af99" class="outline-2">
-<h2 id="section-c53193e0af99"><span class="section-number-2">4.</span> <span class="museum-heading-level-1">3. Session：共享状态要显式</span></h2>
+<div id="outline-container-section-211d87638076" class="outline-2">
+<h2 id="section-211d87638076"><span class="section-number-2">4.</span> <span class="museum-heading-level-1">3. Session：共享状态要显式</span></h2>
 <div class="outline-text-2" id="text-4">
 <p>
 默认使用无状态 Block；它更容易单独重跑、缓存和回归。
@@ -747,8 +957,8 @@ print(x)
 </p>
 </div>
 </div>
-<div id="outline-container-section-6ffb2fed9911" class="outline-2">
-<h2 id="section-6ffb2fed9911"><span class="section-number-2">5.</span> <span class="museum-heading-level-1">4. Cache：只缓存纯计算</span></h2>
+<div id="outline-container-section-cffc07b1e603" class="outline-2">
+<h2 id="section-cffc07b1e603"><span class="section-number-2">5.</span> <span class="museum-heading-level-1">4. Cache：只缓存纯计算</span></h2>
 <div class="outline-text-2" id="text-5">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-8c9828c6bdd2"><code class="language-python">return n * n
@@ -772,8 +982,8 @@ print(x)
 </p>
 </div>
 </div>
-<div id="outline-container-section-12f6aff46ab5" class="outline-2">
-<h2 id="section-12f6aff46ab5"><span class="section-number-2">6.</span> <span class="museum-heading-level-1">5. Tangle：Org 才是 Source of Truth</span></h2>
+<div id="outline-container-section-905e763a1fc9" class="outline-2">
+<h2 id="section-905e763a1fc9"><span class="section-number-2">6.</span> <span class="museum-heading-level-1">5. Tangle：Org 才是 Source of Truth</span></h2>
 <div class="outline-text-2" id="text-6">
 <p>
 Tangle 把 Org 中的代码抽取为正常源码文件。
@@ -835,7 +1045,7 @@ Runtime Error
 </div>
 </div>
 <div id="outline-container-library-of-babel" class="outline-2">
-<span id="section-26225e24bcf3" class="museum-heading-alias"></span><h2 id="library-of-babel"><span class="section-number-2">7.</span> <span class="museum-heading-level-1">6. Library of Babel：跨文件复用</span></h2>
+<span id="section-fdbcef86f6d2" class="museum-heading-alias"></span><h2 id="library-of-babel"><span class="section-number-2">7.</span> <span class="museum-heading-level-1">6. Library of Babel：跨文件复用</span></h2>
 <div class="outline-text-2" id="text-library-of-babel">
 <p>
 当某个 Block 已稳定并被多个 Org 文件复用，把它放入公共 Org 文件，例如 <code>babel/core.org</code>：
@@ -903,14 +1113,14 @@ return 0 if total == 0 else round(part / total * 100, 2)
 </div>
 </div>
 <div id="outline-container-order-pipeline" class="outline-2">
-<span id="section-61114a9dc118" class="museum-heading-alias"></span><h2 id="order-pipeline"><span class="section-number-2">8.</span> <span class="museum-heading-level-1">7. 完整案例：订单分析流水线</span></h2>
+<span id="section-aafab16c1947" class="museum-heading-alias"></span><h2 id="order-pipeline"><span class="section-number-2">8.</span> <span class="museum-heading-level-1">7. 完整案例：订单分析流水线</span></h2>
 <div class="outline-text-2" id="text-order-pipeline">
 <p>
 现在把 01 模块的执行基础与本文件的组合机制串起来。
 </p>
 </div>
-<div id="outline-container-section-d15e5cfea79d" class="outline-3">
-<h3 id="section-d15e5cfea79d"><span class="section-number-3">8.1.</span> <span class="museum-heading-level-2">7.1 Parameters</span></h3>
+<div id="outline-container-section-2841a7a14860" class="outline-3">
+<h3 id="section-2841a7a14860"><span class="section-number-3">8.1.</span> <span class="museum-heading-level-2">7.1 Parameters</span></h3>
 <div class="outline-text-3" id="text-8-1">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
 
@@ -957,8 +1167,8 @@ return 0 if total == 0 else round(part / total * 100, 2)
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-501691343286" class="outline-3">
-<h3 id="section-501691343286"><span class="section-number-3">8.2.</span> <span class="museum-heading-level-2">7.2 Block Contract：filter-orders</span></h3>
+<div id="outline-container-section-4a28296b1d5c" class="outline-3">
+<h3 id="section-4a28296b1d5c"><span class="section-number-3">8.2.</span> <span class="museum-heading-level-2">7.2 Block Contract：filter-orders</span></h3>
 <div class="outline-text-3" id="text-8-2">
 <p>
 Input Contract：
@@ -1020,8 +1230,8 @@ return selected
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-366babce6746" class="outline-3">
-<h3 id="section-366babce6746"><span class="section-number-3">8.3.</span> <span class="museum-heading-level-2">7.3 Block Contract：summarize-orders</span></h3>
+<div id="outline-container-section-d2ff3820e4fa" class="outline-3">
+<h3 id="section-d2ff3820e4fa"><span class="section-number-3">8.3.</span> <span class="museum-heading-level-2">7.3 Block Contract：summarize-orders</span></h3>
 <div class="outline-text-3" id="text-8-3">
 <p>
 Input：经过过滤的订单行。
@@ -1053,8 +1263,8 @@ return [[count, total]]
 </code></pre>
 </div>
 </div>
-<div id="outline-container-section-c50c8fd9f7e5" class="outline-3">
-<h3 id="section-c50c8fd9f7e5"><span class="section-number-3">8.4.</span> <span class="museum-heading-level-2">7.4 Minimal Call</span></h3>
+<div id="outline-container-section-082821444acc" class="outline-3">
+<h3 id="section-082821444acc"><span class="section-number-3">8.4.</span> <span class="museum-heading-level-2">7.4 Minimal Call</span></h3>
 <div class="outline-text-3" id="text-8-4">
 <p>
 正常使用时只改这一行：
@@ -1069,8 +1279,8 @@ return [[count, total]]
 </p>
 </div>
 </div>
-<div id="outline-container-section-3d337f1d70f3" class="outline-3">
-<h3 id="section-3d337f1d70f3"><span class="section-number-3">8.5.</span> <span class="museum-heading-level-2">7.5 报告文本</span></h3>
+<div id="outline-container-section-83a7b72f0fb5" class="outline-3">
+<h3 id="section-83a7b72f0fb5"><span class="section-number-3">8.5.</span> <span class="museum-heading-level-2">7.5 报告文本</span></h3>
 <div class="outline-text-3" id="text-8-5">
 <div class="org-src-container">
 <pre class="src src-python" id="org-museum-ref-316a9fe00494"><code class="language-python">count, total = summary[0]
@@ -1105,8 +1315,8 @@ orders + country + status + min_amount
 </div>
 </div>
 </div>
-<div id="outline-container-section-e68adf80a1a2" class="outline-2">
-<h2 id="section-e68adf80a1a2"><span class="section-number-2">9.</span> <span class="museum-heading-level-1">8. Golden Regression：修当前问题不能破坏历史能力</span></h2>
+<div id="outline-container-section-b3608b27ee2f" class="outline-2">
+<h2 id="section-b3608b27ee2f"><span class="section-number-2">9.</span> <span class="museum-heading-level-1">8. Golden Regression：修当前问题不能破坏历史能力</span></h2>
 <div class="outline-text-2" id="text-9">
 <p>
 维护四个稳定 Case：
@@ -1182,8 +1392,8 @@ GOLDEN_PASS
 </p>
 </div>
 </div>
-<div id="outline-container-section-2f0dcc842f67" class="outline-2">
-<h2 id="section-2f0dcc842f67"><span class="section-number-2">10.</span> <span class="museum-heading-level-1">9. Library、Tangle、Session 应该怎么选</span></h2>
+<div id="outline-container-section-3e089a23fcc1" class="outline-2">
+<h2 id="section-3e089a23fcc1"><span class="section-number-2">10.</span> <span class="museum-heading-level-1">9. Library、Tangle、Session 应该怎么选</span></h2>
 <div class="outline-text-2" id="text-10">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table>
 
@@ -1237,8 +1447,8 @@ GOLDEN_PASS
 </p>
 </div>
 </div>
-<div id="outline-container-section-22f13e8fd80d" class="outline-2">
-<h2 id="section-22f13e8fd80d"><span class="section-number-2">11.</span> <span class="museum-heading-level-1">10. 三层练习</span></h2>
+<div id="outline-container-section-eef8d7be4612" class="outline-2">
+<h2 id="section-eef8d7be4612"><span class="section-number-2">11.</span> <span class="museum-heading-level-1">10. 三层练习</span></h2>
 <div class="outline-text-2" id="text-11">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 6"><table>
 
@@ -1293,6 +1503,36 @@ GOLDEN_PASS
 </ul>
 <a class="local-graph-link" href="../../../graph.html?focus=pages-Emacs-Org-org-babel-02-composition-engineering">查看局部关系 →</a>
 </section>
+<section class="museum-next-learning-hub" aria-label="学习闭环与下一步行动">
+  <div class="learning-hub-header">
+    <span class="hub-badge">🎯 本课研读闭环</span>
+    <h3 class="hub-title">本篇学习任务是否已掌握？</h3>
+  </div>
+  <p class="hub-desc">知识需要主动提取与关联实践。点击下方卡片，检验本篇掌握度或探索相连知识：</p>
+  <div class="learning-hub-actions">
+    <button type="button" class="hub-action-card" data-hub-action="quiz" title="让 AI 助教针对当前笔记出 3 道自测思考题">
+      <span class="action-icon">📝</span>
+      <div class="action-info">
+        <strong>生成本篇自测题</strong>
+        <small>AI 助教提炼 3 道核心概念题检测理解深度</small>
+      </div>
+    </button>
+    <button type="button" class="hub-action-card" data-hub-action="mark-studied" title="标记本篇笔记已研读掌握">
+      <span class="action-icon hub-studied-check">✓</span>
+      <div class="action-info">
+        <strong data-hub-studied-text>标记为已研读</strong>
+        <small data-hub-studied-hint>记录学习足迹，点亮本课掌握徽章</small>
+      </div>
+    </button>
+    <a class="hub-action-card" href="../../../related.html" title="进入关联阅读对读模式">
+      <span class="action-icon">🔗</span>
+      <div class="action-info">
+        <strong>对比关联笔记</strong>
+        <small>并排双栏阅读，构建网状认知</small>
+      </div>
+    </a>
+  </div>
+</section>
 
 </article>
 <aside id="org-museum-right-sidebar" aria-label="本文目录"><div class="toc-sidebar-header"><h4>本文目录</h4><span data-toc-count role="status" aria-live="polite">/ 00</span><button type="button" data-toc-close aria-label="关闭本文目录">关闭</button></div><div class="toc-search-tools"><label class="toc-search"><span class="sr-only">搜索目录</span><input type="search" data-toc-search placeholder="搜索目录…" aria-label="搜索目录"></label><button type="button" data-toc-clear hidden>清除</button></div><p class="toc-empty" data-toc-empty hidden>没有匹配的章节。</p></aside>
@@ -1318,6 +1558,14 @@ GOLDEN_PASS
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
   <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
+  <div class="sidebar-starter-section">
+    <div class="sidebar-starter-header"><span class="starter-tag">推荐新手起点</span></div>
+    <div class="sidebar-starter-pills">
+      <a class="sidebar-starter-pill" href="../../sql/duckdb.html"><span>🦆</span> DuckDB 实战入门</a>
+      <a class="sidebar-starter-pill" href="org-babel-01-execution-foundations.html"><span>⚡</span> Org Babel 计算笔记</a>
+      <a class="sidebar-starter-pill" href="../../ontology/ontology-concept-boundaries.html"><span>🏛</span> 概念边界与本体建模</a>
+    </div>
+  </div>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -1328,14 +1576,14 @@ GOLDEN_PASS
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <div class="sidebar-cat-label">AI 智能 <span>02</span></div>
     <ul>
       <li><a href="../../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
       <li><a href="../../AI/skills/org-skills.html">AI Skills</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <div class="sidebar-cat-label">AI 辅助学习 <span>04</span></div>
     <ul>
       <li><a href="../../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
       <li><a href="../../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
@@ -1344,19 +1592,19 @@ GOLDEN_PASS
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <div class="sidebar-cat-label">数据工程 <span>01</span></div>
     <ul>
       <li><a href="../../Data/dataset.html">Dataset</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <div class="sidebar-cat-label">Emacs 生态 <span>01</span></div>
     <ul>
       <li><a href="../PluginWatch/emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Ontology <span>06</span></div>
+    <div class="sidebar-cat-label">知识本体建模 <span>06</span></div>
     <ul>
       <li><a href="../../ontology/关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
       <li><a href="../../ontology/关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
@@ -1380,19 +1628,19 @@ GOLDEN_PASS
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <div class="sidebar-cat-label">界面主题设计 <span>01</span></div>
     <ul>
       <li><a href="../../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <div class="sidebar-cat-label">Vibe Coding <span>01</span></div>
     <ul>
       <li><a href="../../vibe/vibe-coding.html">vibe coding</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <div class="sidebar-cat-label">智能与密码 <span>01</span></div>
     <ul>
       <li><a href="../../crypto/intelligence.html">intelligence</a></li>
     </ul>
@@ -1420,9 +1668,9 @@ GOLDEN_PASS
 <script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
 <script defer src="../../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
-<script defer src="../../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
-<script defer src="../../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
+<script defer src="../../../resources/org-museum-ai-browser.js?v=0b8b3b0c2040"></script>
+<script defer src="../../../resources/org-museum-ai.js?v=5df13c6c725f"></script>
 
-<script defer src="../../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
+<script defer src="../../../resources/org-museum-article.js?v=f0adcb1453c0"></script>
 </body>
 </html>

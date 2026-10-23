@@ -6,19 +6,19 @@
 <title>Emacs 插件高价值增量观察（滚动）</title>
 <meta name="generator" content="Org Mode" />
 <meta name="color-scheme" content="dark light">
-<script src="../../../resources/org-museum-theme.js?v=04a5a8f2e13e"></script>
-<link rel="stylesheet" href="../../../resources/org-museum.css?v=1d7863d341d2">
+<script src="../../../resources/org-museum-theme.js?v=b28a6434934a"></script>
+<link rel="stylesheet" href="../../../resources/org-museum.css?v=4512a3d60ec4">
 <link rel="icon" href="data:,">
 <meta name="color-scheme" content="dark light">
 <script src="../../../resources/org-museum-theme.js?v=4045495a6691"></script>
 <link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500">
 <link rel="icon" href="data:,">
 </head>
-<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-PluginWatch-emacs-plugin-watch" data-page-title="Emacs 插件高价值增量观察（滚动）" data-page-category="Emacs" data-page-tags="emacs,plugin-watch,rolling,org-roam" data-page-status="published" data-page-modified="2026-10-03" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
+<body class="org-museum-page" data-page-kind="article" data-page-id="pages-Emacs-PluginWatch-emacs-plugin-watch" data-page-title="Emacs 插件高价值增量观察（滚动）" data-page-category="Emacs" data-page-tags="emacs,plugin-watch,rolling,org-roam" data-page-status="published" data-page-modified="2026-10-22" data-hljs-css="../../../resources/highlight.monokai.min.css?v=f0e099837087" data-hljs-js="../../../resources/highlight.min.js?v=846267d84aaa" data-hljs-lisp="../../../resources/highlight-lisp.min.js?v=9e0c7e2e7682">
 <header class="museum-topbar" data-home-href="../../../index.html">
   <a class="museum-skip-link" href="#main-content">跳到正文</a>
   <a class="museum-wordmark museum-topbar-link" href="../../../index.html">ORG MUSEUM<span>.el</span></a>
-  <time class="museum-today" datetime="2026-10-12" title="导出于 2026.10.12">2026.10.12</time>
+  <time class="museum-today" datetime="2026-10-22" title="导出于 2026.10.22">2026.10.22</time>
   <label class="museum-search-line">
     <span class="sr-only">全局搜索</span>
     <input id="org-museum-global-search" type="search" placeholder="搜索此 Wiki…" autocomplete="off" spellcheck="false" aria-label="全局搜索" aria-keyshortcuts="/">
@@ -33,26 +33,196 @@
     <button type="button" class="museum-drawer-toggle" data-drawer-toggle aria-expanded="false" aria-controls="org-museum-sidebar" aria-label="打开全部笔记">书架</button>
     <details class="museum-theme-menu museum-settings-menu"><summary class="museum-nav-settings" aria-label="设置与外观" title="设置与外观"><span class="museum-settings-label">设置</span></summary>    <div class="museum-settings-panel has-ai">
       <div class="museum-settings-tabs" role="tablist" aria-label="设置类别">
-        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0">外观</button>
-        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1">AI 模型</button>
+        <button type="button" class="museum-settings-tab-btn is-active" data-settings-tab="appearance" role="tab" aria-selected="true" tabindex="0"><span class="tab-icon">🎨</span> 外观排版</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="learning" role="tab" aria-selected="false" tabindex="-1"><span class="tab-icon">📚</span> 学习辅助</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="ai" role="tab" aria-selected="false" tabindex="-1"><span class="tab-icon">🤖</span> AI 助教</button>
+        <button type="button" class="museum-settings-tab-btn" data-settings-tab="data" role="tab" aria-selected="false" tabindex="-1"><span class="tab-icon">💾</span> 数据备份</button>
       </div>
-      <div class="museum-settings-tab-panel" data-settings-panel="appearance">
+      <div class="museum-settings-tab-panel" data-settings-panel="appearance" role="tabpanel" aria-label="外观与排版设置">
         <div class="museum-settings-section">
-          <div class="museum-settings-section-title">外观主题</div>
-          <div class="museum-theme-segmented" role="group">
-            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true">跟随系统</button>
+          <div class="museum-settings-section-title">阅读场景推荐预设</div>
+          <div class="museum-theme-segmented museum-settings-segmented-3" role="group" aria-label="场景预设推荐">
+            <button type="button" class="museum-settings-segment-btn" data-preset-scene="eyecare" title="护眼长读：暖杏纸张 + 18px + 人文宋体 + 宽松行距">☕ 护眼长读</button>
+            <button type="button" class="museum-settings-segment-btn" data-preset-scene="standard" title="标准通读：默认基调 + 15.5px + 现代黑体 + 标准行距">💡 标准通读</button>
+            <button type="button" class="museum-settings-segment-btn" data-preset-scene="dense" title="密集对照：柔和冷灰 + 13.5px + 现代黑体 + 栏宽 1180px">💻 密集对照</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">界面主题与护眼色调</div>
+          <div class="museum-theme-segmented" role="group" aria-label="主题切换">
+            <button type="button" class="museum-theme-segment-btn" data-theme-system aria-pressed="true"><span class="museum-theme-icon-sys" aria-hidden="true"></span>跟随系统</button>
             <button type="button" class="museum-theme-segment-btn museum-theme-toggle" data-theme-toggle aria-label="切换为深色主题">
               <span aria-hidden="true" data-theme-icon data-theme-icon-state="moon"></span>
               <span data-theme-label>深色</span></button>
           </div>
+          <div class="museum-theme-segmented museum-settings-segmented-3" role="group" aria-label="阅读纸张色调">
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-tone="default" aria-pressed="true" title="明亮通透纸张">默认基调</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-tone="warm" aria-pressed="false" title="羊皮纸暖杏色，温润护眼">护眼暖杏</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-tone="slate" aria-pressed="false" title="低饱和柔和冷灰">柔和冷灰</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">阅读字号</div>
+          <div class="museum-theme-segmented museum-settings-segmented-4" role="group" aria-label="正文字号选择">
+            <button type="button" class="museum-settings-segment-btn" data-reading-size="sm" aria-pressed="false" title="紧凑字号 13.5px">紧凑</button>
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-size="md" aria-pressed="true" title="标准字号 15.5px">标准</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-size="lg" aria-pressed="false" title="适度放大 18px">适度</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-size="xl" aria-pressed="false" title="清晰特大 21px">放大</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">阅读栏宽</div>
+          <div class="museum-theme-segmented museum-settings-segmented-4" role="group" aria-label="正文宽度选择">
+            <button type="button" class="museum-settings-segment-btn" data-reading-width="980" aria-pressed="false" title="紧凑阅读 980px">980</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-width="1024" aria-pressed="false" title="标准阅读 1024px">1024</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-width="1180" aria-pressed="false" title="宽幅阅读 1180px">1180</button>
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-width="1320" aria-pressed="true" title="超宽阅读 1320px">1320</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">字体偏好</div>
+          <div class="museum-theme-segmented" role="group" aria-label="字体族选择">
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-font="sans" aria-pressed="true">现代黑体 (Sans)</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-font="serif" aria-pressed="false">人文宋体 (Serif)</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">行距与信息密度</div>
+          <div class="museum-theme-segmented museum-settings-segmented-3" role="group" aria-label="行距选择">
+            <button type="button" class="museum-settings-segment-btn" data-reading-line="compact" aria-pressed="false" title="紧凑行距 1.55">紧凑 1.55</button>
+            <button type="button" class="museum-settings-segment-btn is-active" data-reading-line="standard" aria-pressed="true" title="标准行距 1.8">标准 1.8</button>
+            <button type="button" class="museum-settings-segment-btn" data-reading-line="relaxed" aria-pressed="false" title="松弛行距 2.15，降低认知负担">宽松 2.15</button>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">专注阅读沉浸模式</div>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🎯 专注阅读沉浸模式 (Zen Mode)</span>
+              <span class="toggle-desc">淡化顶栏与周边视觉噪点，按 Esc 或快捷键 z 随时唤回</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-zen-mode-toggle>
+          </label>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-preview-card" data-reading-preview aria-label="即时排版预览效果">
+            <div class="preview-card-header">
+              <span class="preview-tag">即时排版预览</span>
+              <span class="preview-metrics" data-preview-metrics>标准 · 15.5px · 现代黑体</span>
+            </div>
+            <p class="preview-sample-text" data-preview-sample>「工欲善其事，必先利其器。」笔记是思考的脚手架，让零散认知逐步生长为互联网络。</p>
+          </div>
         </div>
       </div>
-      <div class="museum-settings-tab-panel" data-settings-panel="ai" hidden>
+<div class="museum-settings-tab-panel" data-settings-panel="learning" role="tabpanel" aria-label="学习与认知辅助设置" hidden>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">入门辅导与认知支持</div>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">💡 零基础概念浅释 (Beginner Mode)</span>
+              <span class="toggle-desc">在专业术语旁标注入门释义，浅白解读双链、草稿、抽屉与拓扑关系</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-beginner-mode-toggle checked>
+          </label>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🔍 双链悬浮速览卡片 (Hover Preview)</span>
+              <span class="toggle-desc">鼠标移至笔记链接即可速览目标标题，免去频繁跳页与上下文迷失</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-hover-preview-toggle checked>
+          </label>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🔢 代码行号与结构对照 (Code Line Numbers)</span>
+              <span class="toggle-desc">代码块清晰展示左侧行号，方便对照教程逐行理解与向 AI 提问</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-code-lineno-toggle checked>
+          </label>
+          <label class="museum-settings-toggle-row">
+            <div class="museum-toggle-text">
+              <span class="toggle-title">🧠 渐进式主动回忆 (Active Recall 自测)</span>
+              <span class="toggle-desc">将笔记中的核心重点挖空模糊，悬停或轻触时显现，强化记忆提取</span>
+            </div>
+            <input type="checkbox" class="museum-switch-input" data-active-recall-toggle>
+          </label>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">随身笔记概念速查词典</div>
+          <details class="museum-glossary-details">
+            <summary>📖 点击展开核心术语白话释义 (Pocket Glossary)</summary>
+            <div class="museum-glossary-list">
+              <div class="glossary-item">
+                <span class="glossary-term">📎 双向链接 (Bi-directional Links)</span>
+                <p class="glossary-def">笔记互相引用的超链接网络。正向链接指向深入分支，反向链接回溯来源，无需死板的目录层级。</p>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-term">🗂️ 属性抽屉 (Properties Drawer)</span>
+                <p class="glossary-def">笔记顶部的元数据保险盒，记录创建时间、唯一编号（ID）与分类标签，用于构建知识网络。</p>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-term">📝 草稿演练 (Interactive Practice)</span>
+                <p class="glossary-def">内容仍在整理与验证的笔记状态。网页提供阅读与源码查看；代码需在相应执行环境中运行。</p>
+              </div>
+              <div class="glossary-item">
+                <span class="glossary-term">🕸️ 知识图谱 (Knowledge Graph)</span>
+                <p class="glossary-def">知识库的宏观星空全景图。节点越大表示引用越密集，连线密集处即为知识枢纽。</p>
+              </div>
+            </div>
+          </details>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">新手实战学习任务卡</div>
+          <div class="museum-quest-card" data-learning-quest-card>
+            <div class="quest-card-header">
+              <span class="quest-card-badge">🌱 今日实战路线</span>
+              <span class="quest-progress-text" data-quest-progress-text>已完成 0 / 3 项</span>
+            </div>
+            <div class="quest-list">
+              <label class="quest-item" data-quest-item="explore_links">
+                <input type="checkbox" data-quest-checkbox="explore_links">
+                <span class="quest-title">1. 建立直觉：在正文中悬浮速览一个双链卡片</span>
+              </label>
+              <label class="quest-item" data-quest-item="ai_dialogue">
+                <input type="checkbox" data-quest-checkbox="ai_dialogue">
+                <span class="quest-title">2. 助教互动：使用「零基础助教」提问一个概念</span>
+              </label>
+              <label class="quest-item" data-quest-item="active_recall">
+                <input type="checkbox" data-quest-checkbox="active_recall">
+                <span class="quest-title">3. 主动巩固：开启主动回忆并点击揭晓一个重点</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">新手向导与快捷键速查</div>
+          <div class="museum-ai-action-row">
+            <button type="button" class="museum-action-btn" data-restore-guides title="重新激活全站各页面的入门学习向导横幅">🔄 重新激活全站新手引导</button>
+          </div>
+          <div class="museum-shortcuts-grid" aria-label="核心快捷键速查">
+            <div class="shortcut-item"><kbd>/</kbd><span>全局搜索</span></div>
+            <div class="shortcut-item"><kbd>Esc</kbd><span>关闭弹窗/抽屉</span></div>
+            <div class="shortcut-item"><kbd>g g</kbd><span>正文回到顶部</span></div>
+            <div class="shortcut-item"><kbd>j / k</kbd><span>正文切换章节</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="ai" role="tabpanel" aria-label="AI 模型与助教设置" hidden>
         <div class="museum-settings-section museum-settings-ai-section">
-          <div class="museum-settings-section-title">模型设置</div>
+          <div class="museum-settings-section-title">模型设置与服务预设</div>
+          <div class="museum-settings-field">
+            <label>快速预设（一键填入常用服务）
+              <select data-ai-preset-select aria-label="快速预设服务">
+                <option value="">-- 选择常用服务或自定义 --</option>
+                <option value="lmstudio">LM Studio (本地 127.0.0.1:1234)</option>
+                <option value="ollama">Ollama (本地 127.0.0.1:11434)</option>
+                <option value="siliconflow">SiliconFlow 硅基流动 (DeepSeek 云端)</option>
+                <option value="openai">OpenAI 官方 API</option>
+              </select>
+            </label>
+          </div>
           <form data-browser-config class="museum-settings-config-form">
             <div class="museum-settings-field">
-              <label>接入方式<select name="provider">
+              <label>接入协议<select name="provider">
                 <option value="compatible">兼容 OpenAI 的 API / LM Studio</option>
                 <option value="ollama">Ollama</option>
               </select></label>
@@ -61,8 +231,15 @@
               <label>服务地址<input name="endpoint" type="url" required placeholder="http://127.0.0.1:1234/v1"></label>
             </div>
             <div class="museum-settings-field">
-              <label>API 密钥（本机服务可留空）<input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入密钥"></label>
-              <small class="museum-settings-note">密钥仅在当前页面有效，不写入笔记。</small>
+              <label>API 密钥（本机服务可留空）
+                <div class="museum-settings-input-group">
+                  <input name="key" type="password" autocomplete="off" spellcheck="false" placeholder="留空或输入 API Key">
+                  <button type="button" class="museum-key-eye-btn" data-toggle-key-visibility title="显示/隐藏密钥" aria-label="显示或隐藏密钥">👁️</button>
+                </div>
+              </label>
+              <div class="museum-settings-sub-toggle">
+                <label><input type="checkbox" data-remember-key> 在此浏览器安全保存密钥</label>
+              </div>
             </div>
             <div class="museum-ai-action-row"><button type="submit" data-browser-models>读取模型列表</button></div>
             <div class="museum-settings-field">
@@ -82,42 +259,75 @@
             <div class="museum-ai-action-row">
               <button type="button" data-browser-load>加载并测试模型</button>
               <button type="button" data-browser-cancel-load hidden>取消加载</button>
+              <button type="button" class="museum-settings-sub-btn" data-browser-quick-test title="向当前模型发送一条简短打招呼测试">⚡ 一键测试问候</button>
             </div>
             <div class="museum-settings-status-box">
               <span class="museum-settings-status-indicator" aria-hidden="true"></span>
-              <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+              <div class="museum-settings-status-content">
+                <span class="museum-settings-status-label">连接状态</span>
+                <p data-browser-connection role="status" aria-live="polite">尚未连接模型</p>
+              </div>
             </div>
             <details class="museum-settings-details">
-              <summary>回答偏好设置</summary>
+              <summary>助教角色与系统提示词</summary>
+              <div class="prompt-preset-row">
+                <span class="prompt-preset-label">角色模板：</span>
+                <button type="button" class="prompt-preset-btn" data-prompt-preset="beginner">🎓 零基础助教</button>
+                <button type="button" class="prompt-preset-btn" data-prompt-preset="socratic">💡 启发导师</button>
+                <button type="button" class="prompt-preset-btn" data-prompt-preset="summary">📝 重点提炼</button>
+              </div>
               <div class="museum-settings-field">
-                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文。</textarea></label>
+                <label>系统提示词<textarea name="system" rows="3">依据提供的资料回答，引用笔记标题，区分原文事实与推断；资料不足时明确说明。使用中文，尽量用通俗易懂的语言帮助初学者理解。</textarea></label>
               </div>
             </details>
           </form>
-          <details class="museum-settings-details museum-ai-local-tools">
-            <summary>本地保存与同步</summary>
-            <p class="museum-settings-note">会话与结论保存在此浏览器；确认后可同步到 Emacs。</p>
-            <div class="museum-ai-action-row">
-              <button type="button" data-browser-backup>导出知识库</button>
-              <button type="button" data-browser-org-export>导出 Org</button>
-              <button type="button" data-browser-sync-preview>预览同步</button>
-            </div>
-            <label class="museum-settings-file-label">导入知识库备份<input type="file" data-browser-import accept="application/json,.json"></label>
-            <div data-browser-sync-result></div>
-          </details>
+        </div>
+      </div>
+      <div class="museum-settings-tab-panel" data-settings-panel="data" role="tabpanel" aria-label="存储与重置" hidden>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">本地存储与学习记录</div>
+          <div class="museum-storage-card">
+            <div class="storage-metric-row"><span class="storage-label">本地知识库缓存</span><strong class="storage-val" data-storage-count>0 项记录</strong></div>
+            <div class="storage-metric-row"><span class="storage-label">占用浏览器空间</span><strong class="storage-val" data-storage-size>~0 KB</strong></div>
+            <div class="storage-metric-row"><span class="storage-label">对读学习进度</span><strong class="storage-val" data-storage-progress>0 组已研读</strong></div>
+            <div class="storage-metric-row"><span class="storage-label">API 密钥本地存储</span><strong class="storage-val" data-storage-key-status>未保存</strong></div>
+          </div>
+        </div>
+        <div class="museum-settings-section">
+          <div class="museum-settings-section-title">数据导出与同步</div>
+          <p class="museum-settings-note">在浏览器中探索的会话、学习笔记心得与增补关系均保存在本机，可导出或同步到 Emacs。</p>
+          <div class="museum-ai-action-row">
+            <button type="button" data-browser-backup>导出知识库备份</button>
+            <button type="button" data-copy-backup title="复制备份 JSON 到剪贴板">复制备份数据</button>
+            <button type="button" data-browser-org-export>导出 Org 笔记</button>
+            <button type="button" data-browser-sync-preview>预览同步到 Emacs</button>
+          </div>
+          <label class="museum-settings-file-label">导入知识库备份文件
+            <input type="file" data-browser-import accept="application/json,.json">
+          </label>
+          <div data-browser-sync-result class="museum-sync-result-box"></div>
+        </div>
+        <div class="museum-settings-section museum-danger-zone">
+          <div class="museum-settings-section-title">重置与安全兜底</div>
+          <p class="museum-settings-note">如果不小心改乱了排版或希望重新体验初始设置，可选择分级安全重置。</p>
+          <div class="museum-reset-row">
+            <button type="button" class="museum-reset-appearance-btn" data-reset-appearance-only title="仅重置字体、排版与主题，保留学习记录与密钥">重置排版样式 (保留学习记录)</button>
+            <button type="button" class="museum-reset-danger-btn" data-reset-all-settings title="完全清空本地缓存，恢复初始状态">恢复出厂预设 (清除全部)</button>
+          </div>
         </div>
       </div>
     </div></details>
   </nav>
 </header>
 
-<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../../index.html" class="museum-identity-title">Emacs 插件高价值增量观察（滚动）</a><span class="museum-identity-meta">Emacs</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
+<main id="main-scroll"><span id="main-content" class="museum-main-anchor" tabindex="-1"></span><div id="museum-article-identity" class="museum-article-identity" hidden><a href="../../../index.html" class="museum-identity-title">Emacs 插件高价值增量观察（滚动）</a><span class="museum-identity-meta">Emacs 生态</span><span class="museum-studied-badge" data-identity-studied-badge hidden>✓ 已掌握</span><span class="museum-identity-divider" aria-hidden="true">·</span><span class="museum-identity-section" data-current-section aria-live="polite">文章开头</span><button type="button" class="museum-identity-toc" data-toc-toggle aria-label="打开本文目录">目录</button></div>
 <div id="content" class="museum-article-layout" style="--museum-article-max-width: 1320px"><article class="article-container" data-page-id="pages-Emacs-PluginWatch-emacs-plugin-watch" data-page-title="Emacs 插件高价值增量观察（滚动）" data-page-category="Emacs"><button type="button" class="museum-article-toc-trigger" data-toc-toggle>打开目录</button><details class="museum-article-meta-disclosure" open>
   <summary>文章信息</summary>
 <aside class="museum-article-meta" aria-label="文章元数据">
-  <a class="article-category" href="../../../index.html?category=Emacs#recent-updates">Emacs</a>
+  <a class="article-category" href="../../../index.html?category=Emacs#recent-updates">Emacs 生态</a>
+  <span class="museum-studied-badge" data-studied-badge hidden>✓ 已掌握</span>
   <dl>
-    <div><dt>修改日期</dt><dd><time datetime="2026-10-03">2026-10-03</time></dd></div>
+    <div><dt>修改日期</dt><dd><time datetime="2026-10-22">2026-10-22</time></dd></div>
     <div><dt>阅读时间</dt><dd>约 145 分钟</dd></div>
     <div class="museum-meta-tags-item"><dt>标签</dt><dd class="museum-meta-tags"><a class="museum-tag-chip" href="../../../index.html?tag=emacs#recent-updates" data-tag="emacs" title="查看包含标签 #emacs 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">emacs</span></a><a class="museum-tag-chip" href="../../../index.html?tag=plugin-watch#recent-updates" data-tag="plugin-watch" title="查看包含标签 #plugin-watch 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">plugin-watch</span></a><a class="museum-tag-chip" href="../../../index.html?tag=rolling#recent-updates" data-tag="rolling" title="查看包含标签 #rolling 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">rolling</span></a><a class="museum-tag-chip" href="../../../index.html?tag=org-roam#recent-updates" data-tag="org-roam" title="查看包含标签 #org-roam 的笔记"><span class="museum-tag-hash" aria-hidden="true">#</span><span class="museum-tag-name">org-roam</span></a></dd></div>
   </dl>
@@ -126,7 +336,7 @@
   </nav>
 </aside>
 </details>
-<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="23285d4ac527dcba48c5c86eb30906bb0d42eda706bff5fdae91c7b41d471b2d"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;meta name="color-scheme" content="dark light"&gt;</span></span>
+<div class="museum-article-view-toolbar" role="group" aria-label="正文显示方式"><button type="button" data-article-syntax aria-pressed="false">切换为 Org Mode</button><button type="button" data-org-copy hidden>复制 Org 正文</button><button type="button" data-org-toggle-blocks aria-pressed="false" hidden>展开全部代码</button><button type="button" data-org-wrap aria-pressed="true" hidden>自动换行</button><span data-org-view-status role="status" aria-live="polite"></span></div><section class="museum-org-view" hidden aria-label="Org Mode 正文" data-source-hash="d3a469f7f1e4b5db3c9ee92ec5ce4f5d229b89659f9ae214a8f1254521459ddf"><pre class="museum-org-source" tabindex="0"><code><span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;meta name="color-scheme" content="dark light"&gt;</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;script src="../../../resources/org-museum-theme.js?v=4045495a6691"&gt;&lt;/script&gt;</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="stylesheet" href="../../../resources/org-museum.css?v=bbc462c9a500"&gt;</span></span>
 <span class="museum-org-line museum-org-meta-line"><span class="org-face-org-meta-line">#+html_head: &lt;link rel="icon" href="data:,"&gt;</span></span>
@@ -1285,149 +1495,149 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents" role="doc-toc">
 <ul>
-<li><a href="#section-f45de1e0c0c4">1. 最近窗口</a>
+<li><a href="#section-6ff83651db5c">1. 最近窗口</a>
 <ul>
-<li><a href="#section-91d089088476">1.1. 窗口</a></li>
-<li><a href="#section-ca396298b2ae">1.2. 摘要（本窗口）</a></li>
-<li><a href="#section-a48c275d3286">1.3. 中文简报（本窗口）</a>
+<li><a href="#section-65637875c8a6">1.1. 窗口</a></li>
+<li><a href="#section-1241c0203621">1.2. 摘要（本窗口）</a></li>
+<li><a href="#section-5b70ce26a727">1.3. 中文简报（本窗口）</a>
 <ul>
-<li><a href="#section-bcbf1d018d75">1.3.1. agent-shell 暴露逐块流式消息事件&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-c626fcb5b6bd">1.3.2. Emacs 修复 Windows GUI 的 CJK 模糊宽度显示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-fde8268d4e18">1.3.3. Emacs 防止异常编码规则在加载 Unicode 表时导致崩溃&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-ee82ccc3fe01">1.3.4. Org 为 XeLaTeX 与 LuaLaTeX 增加结构化 fontspec 配置&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-1f9b484db9b1">1.3.5. package.el 改善批量升级的完成反馈与阻塞问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
-<li><a href="#section-45cefdd64753">1.3.6. 维护者用内置 project 与 Org 回应“Emacs 缺少会话”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-5ebb74138873">1.3.1. agent-shell 暴露逐块流式消息事件&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-4504ce104714">1.3.2. Emacs 修复 Windows GUI 的 CJK 模糊宽度显示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-dd620f8caf1c">1.3.3. Emacs 防止异常编码规则在加载 Unicode 表时导致崩溃&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-ea135fe6886f">1.3.4. Org 为 XeLaTeX 与 LuaLaTeX 增加结构化 fontspec 配置&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-d1bb2e944bbf">1.3.5. package.el 改善批量升级的完成反馈与阻塞问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
+<li><a href="#section-88151681b8c3">1.3.6. 维护者用内置 project 与 Org 回应“Emacs 缺少会话”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></a></li>
 </ul>
 </li>
-<li><a href="#section-0f4afc3d12e3">1.4. 索引表（本窗口）</a></li>
-<li><a href="#section-bed4fb2e2660">1.5. 简短观察</a></li>
+<li><a href="#section-0eb202bf2051">1.4. 索引表（本窗口）</a></li>
+<li><a href="#section-bf02f830e57f">1.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-0744bf2d7582">2. 历史归档</a>
+<li><a href="#section-6ff83651db5c">2. 历史归档</a>
 <ul>
-<li><a href="#section-e09dab3c5fb4">2.1. 归档窗口 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00</a>
+<li><a href="#section-c2460fdc139e">2.1. 归档窗口 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00</a>
 <ul>
-<li><a href="#section-0c071ac3541b">2.1.1. 窗口</a></li>
-<li><a href="#section-209ddb5d25ed">2.1.2. 摘要（本窗口）</a></li>
-<li><a href="#section-aeb140e6f1ee">2.1.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-e2789ce81488">2.1.4. 索引表（本窗口）</a></li>
-<li><a href="#section-6124d4ef3d86">2.1.5. 简短观察</a></li>
+<li><a href="#section-9870fda79a7e">2.1.1. 窗口</a></li>
+<li><a href="#section-005b053bad00">2.1.2. 摘要（本窗口）</a></li>
+<li><a href="#section-2f92f8d19c75">2.1.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-629d3f0798ae">2.1.4. 索引表（本窗口）</a></li>
+<li><a href="#section-9cf25911b4c2">2.1.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-fe8d5052293d">2.2. 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</a>
+<li><a href="#section-7136f3d77f8c">2.2. 窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-a50be7ce7196">2.2.1. 窗口</a></li>
-<li><a href="#section-425ebc7226d0">2.2.2. 摘要（本窗口）</a></li>
-<li><a href="#section-ccd7d4cc0ac2">2.2.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-69ce6d1394c8">2.2.4. 索引表（本窗口）</a></li>
-<li><a href="#section-016dfa38947f">2.2.5. 简短观察</a></li>
+<li><a href="#section-03282fdcf8ac">2.2.1. 窗口</a></li>
+<li><a href="#section-82022e0497e8">2.2.2. 摘要（本窗口）</a></li>
+<li><a href="#section-a9c0f3eeab52">2.2.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-7ef7b7c4672a">2.2.4. 索引表（本窗口）</a></li>
+<li><a href="#section-a783ec6e22fa">2.2.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-3b0fab4e3e55">2.3. 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</a>
+<li><a href="#section-8907f7b35ffb">2.3. 窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-1057eb835af1">2.3.1. 窗口</a></li>
-<li><a href="#section-483a21d5e631">2.3.2. 摘要（本窗口）</a></li>
-<li><a href="#section-fe46c90ac84d">2.3.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-e58bc0595d19">2.3.4. 索引表（本窗口）</a></li>
-<li><a href="#section-88b4f0fe8e9d">2.3.5. 简短观察</a></li>
+<li><a href="#section-f655257116ae">2.3.1. 窗口</a></li>
+<li><a href="#section-6e6053bd7e3a">2.3.2. 摘要（本窗口）</a></li>
+<li><a href="#section-f28ecf4e0000">2.3.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-f372d03de175">2.3.4. 索引表（本窗口）</a></li>
+<li><a href="#section-e3d1676f529e">2.3.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-5e26d52c4d77">2.4. 窗口 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</a>
+<li><a href="#section-06d3f0b5735a">2.4. 窗口 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-7588c03a8be7">2.4.1. 窗口</a></li>
-<li><a href="#section-69a44f3a4d61">2.4.2. 摘要（本窗口）</a></li>
-<li><a href="#section-70497f44a5a7">2.4.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-2c7822515c47">2.4.4. 索引表（本窗口）</a></li>
-<li><a href="#section-c9372c5b1565">2.4.5. 简短观察</a></li>
+<li><a href="#section-edff0f3b14ca">2.4.1. 窗口</a></li>
+<li><a href="#section-43cfac5fd712">2.4.2. 摘要（本窗口）</a></li>
+<li><a href="#section-fcd052f80b77">2.4.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-834ad7523122">2.4.4. 索引表（本窗口）</a></li>
+<li><a href="#section-39cab896fc45">2.4.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-fe42759e2aa2">2.5. 窗口 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</a>
+<li><a href="#section-98fccc9828c6">2.5. 窗口 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-c101bf0ca054">2.5.1. 窗口</a></li>
-<li><a href="#section-5ae198870f2f">2.5.2. 摘要（本窗口）</a></li>
-<li><a href="#section-028bab678248">2.5.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-542f5de1f592">2.5.4. 索引表（本窗口）</a></li>
-<li><a href="#section-70fcae3f064a">2.5.5. 简短观察</a></li>
+<li><a href="#section-28e193070034">2.5.1. 窗口</a></li>
+<li><a href="#section-4b1f9c1810dd">2.5.2. 摘要（本窗口）</a></li>
+<li><a href="#section-382802dfcbbf">2.5.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-a07402d5f818">2.5.4. 索引表（本窗口）</a></li>
+<li><a href="#section-950aa583aa36">2.5.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-8ef5930d9e20">2.6. 窗口 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</a>
+<li><a href="#section-894888673fe2">2.6. 窗口 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-59cd3a31c678">2.6.1. 窗口</a></li>
-<li><a href="#section-9170cc501eaf">2.6.2. 摘要（本窗口）</a></li>
-<li><a href="#section-48d38301d770">2.6.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-b7df1da73597">2.6.4. 索引表（本窗口）</a></li>
-<li><a href="#section-0b297333a9b5">2.6.5. 简短观察</a></li>
+<li><a href="#section-8e2a0bfb35d2">2.6.1. 窗口</a></li>
+<li><a href="#section-43d5a28c8b57">2.6.2. 摘要（本窗口）</a></li>
+<li><a href="#section-850e68312abc">2.6.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-b80b6bdea1de">2.6.4. 索引表（本窗口）</a></li>
+<li><a href="#section-f236c394e93e">2.6.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-5525675ee160">2.7. 窗口 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</a>
+<li><a href="#section-c2f228ac596a">2.7. 窗口 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</a>
 <ul>
-<li><a href="#section-5dbec7e38726">2.7.1. 窗口</a></li>
-<li><a href="#section-2fbf1ef1f936">2.7.2. 摘要（本窗口）</a></li>
-<li><a href="#section-bd0a117cb188">2.7.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-fef97c452782">2.7.4. 索引表（本窗口）</a></li>
-<li><a href="#section-24491e7caf70">2.7.5. 简短观察</a></li>
+<li><a href="#section-c2d0c6b3c3ee">2.7.1. 窗口</a></li>
+<li><a href="#section-9d7cd055f942">2.7.2. 摘要（本窗口）</a></li>
+<li><a href="#section-17d0b8ec42b5">2.7.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-4c0bffb067f6">2.7.4. 索引表（本窗口）</a></li>
+<li><a href="#section-4d2d8d59a334">2.7.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-3e6194c369e8">2.8. 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</a>
+<li><a href="#section-644cb72cf3f6">2.8. 窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</a>
 <ul>
-<li><a href="#section-39d0e12a0b06">2.8.1. 窗口</a></li>
-<li><a href="#section-79ba91e4f933">2.8.2. 摘要（本窗口）</a></li>
-<li><a href="#section-1790668a1057">2.8.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-07da1ad4c0cb">2.8.4. 索引表（本窗口）</a></li>
-<li><a href="#section-a4b3fb293cda">2.8.5. 简短观察</a></li>
+<li><a href="#section-00f4bbbe4c31">2.8.1. 窗口</a></li>
+<li><a href="#section-59276e9d8735">2.8.2. 摘要（本窗口）</a></li>
+<li><a href="#section-27dbefdb24bf">2.8.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-e8c081900178">2.8.4. 索引表（本窗口）</a></li>
+<li><a href="#section-aacd64e98f58">2.8.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-77ef29359431">2.9. 窗口 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</a>
+<li><a href="#section-467b353013ae">2.9. 窗口 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</a>
 <ul>
-<li><a href="#section-cda796e14b26">2.9.1. 窗口</a></li>
-<li><a href="#section-5d3e3e986767">2.9.2. 摘要</a></li>
-<li><a href="#section-8af59f0c656e">2.9.3. 中文简报</a></li>
-<li><a href="#section-14319a84a075">2.9.4. 简短观察</a></li>
+<li><a href="#section-d85e93500411">2.9.1. 窗口</a></li>
+<li><a href="#section-d85e93500411">2.9.2. 摘要</a></li>
+<li><a href="#section-f88116901e01">2.9.3. 中文简报</a></li>
+<li><a href="#section-f88116901e01">2.9.4. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-87ac98c6315c">2.10. 窗口 2026-06-07 13:20:26 +0800 前旧最近窗口</a>
+<li><a href="#section-981473055bbd">2.10. 窗口 2026-06-07 13:20:26 +0800 前旧最近窗口</a>
 <ul>
-<li><a href="#section-322cfc9b1b03">2.10.1. 窗口</a></li>
-<li><a href="#section-f6ebb6f2250f">2.10.2. 摘要（本窗口）</a></li>
-<li><a href="#section-2c8112cdf7af">2.10.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-54f8f9167525">2.10.4. 索引表（本窗口）</a></li>
-<li><a href="#section-df8f13e4ce9d">2.10.5. 简短观察</a></li>
+<li><a href="#section-d38664c26e97">2.10.1. 窗口</a></li>
+<li><a href="#section-c721dd27a5ee">2.10.2. 摘要（本窗口）</a></li>
+<li><a href="#section-595666c7344a">2.10.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-ea19741c8ebf">2.10.4. 索引表（本窗口）</a></li>
+<li><a href="#section-9c8df8174720">2.10.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-8fc31fab10c9">2.11. 窗口 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</a>
+<li><a href="#section-8239b5a5a3c7">2.11. 窗口 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</a>
 <ul>
-<li><a href="#section-7e17af04d3ba">2.11.1. 窗口</a></li>
-<li><a href="#section-63052a727f3e">2.11.2. 摘要（本窗口）</a></li>
-<li><a href="#section-a4302445d820">2.11.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-3619d74098b6">2.11.4. 索引表（本窗口）</a></li>
-<li><a href="#section-71cbc73ab9fb">2.11.5. 简短观察</a></li>
+<li><a href="#section-63fe0a34dd4d">2.11.1. 窗口</a></li>
+<li><a href="#section-fb1fde3a8243">2.11.2. 摘要（本窗口）</a></li>
+<li><a href="#section-9fc6e4e73cbf">2.11.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-68fc523f56e8">2.11.4. 索引表（本窗口）</a></li>
+<li><a href="#section-1a5bbed7a318">2.11.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-eaa541234f04">2.12. 窗口 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</a></li>
-<li><a href="#section-b03cac711b18">2.13. 窗口 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</a>
+<li><a href="#section-b45fd1ae8ab1">2.12. 窗口 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</a></li>
+<li><a href="#section-e68401598be0">2.13. 窗口 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-4eb158bff129">2.13.1. 窗口</a></li>
-<li><a href="#section-5b9371a38604">2.13.2. 摘要（本窗口）</a></li>
-<li><a href="#section-c919afbd9b06">2.13.3. 中文简报（本窗口）</a></li>
-<li><a href="#section-3e4b0e10e31c">2.13.4. 索引表（本窗口）</a></li>
-<li><a href="#section-4b97d593d6f2">2.13.5. 简短观察</a></li>
+<li><a href="#section-f76aa2b426d3">2.13.1. 窗口</a></li>
+<li><a href="#section-5c34cb792d45">2.13.2. 摘要（本窗口）</a></li>
+<li><a href="#section-1dab574c2f45">2.13.3. 中文简报（本窗口）</a></li>
+<li><a href="#section-8df6297525ac">2.13.4. 索引表（本窗口）</a></li>
+<li><a href="#section-59f14ba2a249">2.13.5. 简短观察</a></li>
 </ul>
 </li>
-<li><a href="#section-78fa7f12d662">2.14. 窗口 (未知窗口)</a>
+<li><a href="#section-e3c0b128b148">2.14. 窗口 (未知窗口)</a>
 <ul>
-<li><a href="#section-69e0948e6a3d">2.14.1. 窗口</a></li>
-<li><a href="#section-34d8d21518bd">2.14.2. 摘要（本窗口）</a></li>
-<li><a href="#section-f0cffe26f68a">2.14.3. 条目表（本窗口）</a></li>
-<li><a href="#section-34aa5719f0e5">2.14.4. 简短观察</a></li>
-<li><a href="#section-6ebef025542a">2.14.5. 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</a></li>
+<li><a href="#section-342c12e07219">2.14.1. 窗口</a></li>
+<li><a href="#section-52f9cecd6dc1">2.14.2. 摘要（本窗口）</a></li>
+<li><a href="#section-498be4505f64">2.14.3. 条目表（本窗口）</a></li>
+<li><a href="#section-9c2faba58bef">2.14.4. 简短观察</a></li>
+<li><a href="#section-b95c63420118">2.14.5. 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</a></li>
 </ul>
 </li>
-<li><a href="#section-edffade2a427">2.15. 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</a>
+<li><a href="#section-adcd715d6058">2.15. 窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</a>
 <ul>
-<li><a href="#section-a4de09c82b1a">2.15.1. 窗口</a></li>
-<li><a href="#section-f8f89b54a104">2.15.2. 摘要（本窗口）</a></li>
-<li><a href="#section-bffa898f3d33">2.15.3. 条目表（本窗口）</a></li>
-<li><a href="#section-f6d96f2ce482">2.15.4. 简短观察</a></li>
+<li><a href="#section-0651627d3e1a">2.15.1. 窗口</a></li>
+<li><a href="#section-3eeea0750c1d">2.15.2. 摘要（本窗口）</a></li>
+<li><a href="#section-dbbc44d4ef33">2.15.3. 条目表（本窗口）</a></li>
+<li><a href="#section-e62e943f9871">2.15.4. 简短观察</a></li>
 </ul>
 </li>
 </ul>
@@ -1435,12 +1645,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-f45de1e0c0c4" class="outline-2">
-<h2 id="section-f45de1e0c0c4"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">最近窗口</span></h2>
+<div id="outline-container-section-6ff83651db5c" class="outline-2">
+<h2 id="section-6ff83651db5c"><span class="section-number-2">1.</span> <span class="museum-heading-level-1">最近窗口</span></h2>
 <div class="outline-text-2" id="text-1">
 </div>
-<div id="outline-container-section-91d089088476" class="outline-3">
-<h3 id="section-91d089088476"><span class="section-number-3">1.1.</span> <span class="museum-heading-level-2">窗口</span></h3>
+<div id="outline-container-section-65637875c8a6" class="outline-3">
+<h3 id="section-65637875c8a6"><span class="section-number-3">1.1.</span> <span class="museum-heading-level-2">窗口</span></h3>
 <div class="outline-text-3" id="text-1-1">
 <ul class="org-ul">
 <li>本地: 2026-07-31 19:54:34 +08:00 -&gt; 2026-08-01 19:54:34 +08:00 (+08:00)</li>
@@ -1449,8 +1659,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-ca396298b2ae" class="outline-3">
-<h3 id="section-ca396298b2ae"><span class="section-number-3">1.2.</span> <span class="museum-heading-level-2">摘要（本窗口）</span></h3>
+<div id="outline-container-section-1241c0203621" class="outline-3">
+<h3 id="section-1241c0203621"><span class="section-number-3">1.2.</span> <span class="museum-heading-level-2">摘要（本窗口）</span></h3>
 <div class="outline-text-3" id="text-1-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=6</li>
@@ -1463,12 +1673,12 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-a48c275d3286" class="outline-3">
-<h3 id="section-a48c275d3286"><span class="section-number-3">1.3.</span> <span class="museum-heading-level-2">中文简报（本窗口）</span></h3>
+<div id="outline-container-section-5b70ce26a727" class="outline-3">
+<h3 id="section-5b70ce26a727"><span class="section-number-3">1.3.</span> <span class="museum-heading-level-2">中文简报（本窗口）</span></h3>
 <div class="outline-text-3" id="text-1-3">
 </div>
-<div id="outline-container-section-bcbf1d018d75" class="outline-4">
-<h4 id="section-bcbf1d018d75"><span class="section-number-4">1.3.1.</span> <span class="museum-heading-level-3">agent-shell 暴露逐块流式消息事件&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
+<div id="outline-container-section-5ebb74138873" class="outline-4">
+<h4 id="section-5ebb74138873"><span class="section-number-4">1.3.1.</span> <span class="museum-heading-level-3">agent-shell 暴露逐块流式消息事件&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
 <div class="outline-text-4" id="text-1-3-1">
 <ul class="org-ul">
 <li>事件: agent-shell 于 8 月 1 日新增 `agent-message-chunk` 会话事件；每收到一段代理文本就发出原始 `text-chunk`，图片等非文本块为 nil，插件本身不在该事件中累积或渲染内容。</li>
@@ -1489,8 +1699,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-c626fcb5b6bd" class="outline-4">
-<h4 id="section-c626fcb5b6bd"><span class="section-number-4">1.3.2.</span> <span class="museum-heading-level-3">Emacs 修复 Windows GUI 的 CJK 模糊宽度显示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
+<div id="outline-container-section-4504ce104714" class="outline-4">
+<h4 id="section-4504ce104714"><span class="section-number-4">1.3.2.</span> <span class="museum-heading-level-3">Emacs 修复 Windows GUI 的 CJK 模糊宽度显示&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
 <div class="outline-text-4" id="text-1-3-2">
 <ul class="org-ul">
 <li>事件: Emacs core 于 8 月 1 日修复 `use-cjk-char-width-table` 在 Windows GUI 会话中的判断：启动早期 `window-system` 可能仍为 nil，现改用 `initial-window-system` 区分图形会话与 Windows Terminal。</li>
@@ -1511,8 +1721,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-fde8268d4e18" class="outline-4">
-<h4 id="section-fde8268d4e18"><span class="section-number-4">1.3.3.</span> <span class="museum-heading-level-3">Emacs 防止异常编码规则在加载 Unicode 表时导致崩溃&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
+<div id="outline-container-section-dd620f8caf1c" class="outline-4">
+<h4 id="section-dd620f8caf1c"><span class="section-number-4">1.3.3.</span> <span class="museum-heading-level-3">Emacs 防止异常编码规则在加载 Unicode 表时导致崩溃&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
 <div class="outline-text-4" id="text-1-3-3">
 <ul class="org-ul">
 <li>事件: Emacs core 于 8 月 1 日在加载内部 `uni-*.el` Unicode 属性表时强制使用 `utf-8-emacs-unix`，避免异常的 `auto-coding-regexp-alist` 覆盖编码 cookie 并触发崩溃（bug#81445）。</li>
@@ -1533,8 +1743,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-ee82ccc3fe01" class="outline-4">
-<h4 id="section-ee82ccc3fe01"><span class="section-number-4">1.3.4.</span> <span class="museum-heading-level-3">Org 为 XeLaTeX 与 LuaLaTeX 增加结构化 fontspec 配置&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
+<div id="outline-container-section-ea135fe6886f" class="outline-4">
+<h4 id="section-ea135fe6886f"><span class="section-number-4">1.3.4.</span> <span class="museum-heading-level-3">Org 为 XeLaTeX 与 LuaLaTeX 增加结构化 fontspec 配置&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
 <div class="outline-text-4" id="text-1-3-4">
 <ul class="org-ul">
 <li>事件: Org Mode 于 8 月 1 日合入 `org-latex-fontspec-config`，可为 XeLaTeX/LuaLaTeX 配置主字体、无衬线、等宽、数学及回退字体；实现会检测正文脚本，并在 CJK 字体与编译器不匹配时给出提示，随后又连续修正文档、fontspec 可选参数匹配和警告措辞。</li>
@@ -1555,8 +1765,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-1f9b484db9b1" class="outline-4">
-<h4 id="section-1f9b484db9b1"><span class="section-number-4">1.3.5.</span> <span class="museum-heading-level-3">package.el 改善批量升级的完成反馈与阻塞问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
+<div id="outline-container-section-d1bb2e944bbf" class="outline-4">
+<h4 id="section-d1bb2e944bbf"><span class="section-number-4">1.3.5.</span> <span class="museum-heading-level-3">package.el 改善批量升级的完成反馈与阻塞问题&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
 <div class="outline-text-4" id="text-1-3-5">
 <ul class="org-ul">
 <li>事件: Emacs core 于 8 月 1 日让 `package-upgrade-all` 在结束时汇总成功与被拒绝的包，因为逐包消息会淹没在 Messages 中；紧邻提交还修复了 `package-retention-policy` 命中时升级标记循环不前进、界面可能阻塞的问题。</li>
@@ -1577,8 +1787,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-45cefdd64753" class="outline-4">
-<h4 id="section-45cefdd64753"><span class="section-number-4">1.3.6.</span> <span class="museum-heading-level-3">维护者用内置 project 与 Org 回应“Emacs 缺少会话”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
+<div id="outline-container-section-88151681b8c3" class="outline-4">
+<h4 id="section-88151681b8c3"><span class="section-number-4">1.3.6.</span> <span class="museum-heading-level-3">维护者用内置 project 与 Org 回应“Emacs 缺少会话”&nbsp;&nbsp;&nbsp;<span class="tag"><span class="P1">P1</span></span></span></h4>
 <div class="outline-text-4" id="text-1-3-6">
 <ul class="org-ul">
 <li>事件: Protesilaos Stavrou 在 7 月 31 日的文章中回应一段“我需要 Emacs 提供什么”的视频，将 Kitty 的 session 需求拆解为 Emacs 内置 project、tab/frame、desktop/bufferlo、`org-capture` 与 org-roam dailies，并强调从需求和默认能力逐步组合，而非一次复制整套工作流。</li>
@@ -1600,8 +1810,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-0f4afc3d12e3" class="outline-3">
-<h3 id="section-0f4afc3d12e3"><span class="section-number-3">1.4.</span> <span class="museum-heading-level-2">索引表（本窗口）</span></h3>
+<div id="outline-container-section-0eb202bf2051" class="outline-3">
+<h3 id="section-0eb202bf2051"><span class="section-number-3">1.4.</span> <span class="museum-heading-level-2">索引表（本窗口）</span></h3>
 <div class="outline-text-3" id="text-1-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 1"><table>
 
@@ -1714,8 +1924,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-bed4fb2e2660" class="outline-3">
-<h3 id="section-bed4fb2e2660"><span class="section-number-3">1.5.</span> <span class="museum-heading-level-2">简短观察</span></h3>
+<div id="outline-container-section-bf02f830e57f" class="outline-3">
+<h3 id="section-bf02f830e57f"><span class="section-number-3">1.5.</span> <span class="museum-heading-level-2">简短观察</span></h3>
 <div class="outline-text-3" id="text-1-5">
 <ul class="org-ul">
 <li>事实: 本窗口的高价值增量集中在 Windows/CJK 正确性、Unicode 稳定性、Org 多语种导出、内置包升级以及 AI 前端事件接口。</li>
@@ -1725,16 +1935,16 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-0744bf2d7582" class="outline-2">
-<h2 id="section-0744bf2d7582"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">历史归档</span></h2>
+<div id="outline-container-section-6ff83651db5c" class="outline-2">
+<h2 id="section-6ff83651db5c"><span class="section-number-2">2.</span> <span class="museum-heading-level-1">历史归档</span></h2>
 <div class="outline-text-2" id="text-2">
 </div>
-<div id="outline-container-section-e09dab3c5fb4" class="outline-3">
-<h3 id="section-e09dab3c5fb4"><span class="section-number-3">2.1.</span> <span class="museum-heading-level-2">归档窗口 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00</span></h3>
+<div id="outline-container-section-c2460fdc139e" class="outline-3">
+<h3 id="section-c2460fdc139e"><span class="section-number-3">2.1.</span> <span class="museum-heading-level-2">归档窗口 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00</span></h3>
 <div class="outline-text-3" id="text-2-1">
 </div>
-<div id="outline-container-section-0c071ac3541b" class="outline-4">
-<h4 id="section-0c071ac3541b"><span class="section-number-4">2.1.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-9870fda79a7e" class="outline-4">
+<h4 id="section-9870fda79a7e"><span class="section-number-4">2.1.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-1-1">
 <ul class="org-ul">
 <li>本地: 2026-07-31 11:54:29 +08:00 -&gt; 2026-08-01 11:54:29 +08:00 (+08:00)</li>
@@ -1743,8 +1953,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-209ddb5d25ed" class="outline-4">
-<h4 id="section-209ddb5d25ed"><span class="section-number-4">2.1.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-005b053bad00" class="outline-4">
+<h4 id="section-005b053bad00"><span class="section-number-4">2.1.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-1-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=5</li>
@@ -1757,8 +1967,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-aeb140e6f1ee" class="outline-4">
-<h4 id="section-aeb140e6f1ee"><span class="section-number-4">2.1.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-2f92f8d19c75" class="outline-4">
+<h4 id="section-2f92f8d19c75"><span class="section-number-4">2.1.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-1-3">
 </div>
 <ol class="org-ol">
@@ -1869,8 +2079,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-e2789ce81488" class="outline-4">
-<h4 id="section-e2789ce81488"><span class="section-number-4">2.1.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-629d3f0798ae" class="outline-4">
+<h4 id="section-629d3f0798ae"><span class="section-number-4">2.1.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-1-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 2"><table>
 
@@ -1971,8 +2181,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-6124d4ef3d86" class="outline-4">
-<h4 id="section-6124d4ef3d86"><span class="section-number-4">2.1.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-9cf25911b4c2" class="outline-4">
+<h4 id="section-9cf25911b4c2"><span class="section-number-4">2.1.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-1-5">
 <ul class="org-ul">
 <li>事实: 本窗口有一个常用包正式版本、三个直接修复交互或兼容性的提交，以及一个围绕 Emacs 原生 Canvas 的社区演示。</li>
@@ -1982,8 +2192,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-fe8d5052293d" class="outline-3">
-<h3 id="section-fe8d5052293d"><span class="section-number-3">2.2.</span> <span class="museum-heading-level-2">窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</span></h3>
+<div id="outline-container-section-7136f3d77f8c" class="outline-3">
+<h3 id="section-7136f3d77f8c"><span class="section-number-3">2.2.</span> <span class="museum-heading-level-2">窗口 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-2">
 <p>
 :PROPERTIES:
@@ -1992,8 +2202,8 @@
 :END:
 </p>
 </div>
-<div id="outline-container-section-a50be7ce7196" class="outline-4">
-<h4 id="section-a50be7ce7196"><span class="section-number-4">2.2.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-03282fdcf8ac" class="outline-4">
+<h4 id="section-03282fdcf8ac"><span class="section-number-4">2.2.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-2-1">
 <ul class="org-ul">
 <li>本地: 2026-07-29 19:25:49 +08:00 -&gt; 2026-07-30 19:25:49 +08:00 (+08:00)</li>
@@ -2002,8 +2212,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-425ebc7226d0" class="outline-4">
-<h4 id="section-425ebc7226d0"><span class="section-number-4">2.2.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-82022e0497e8" class="outline-4">
+<h4 id="section-82022e0497e8"><span class="section-number-4">2.2.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-2-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=4</li>
@@ -2016,8 +2226,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-ccd7d4cc0ac2" class="outline-4">
-<h4 id="section-ccd7d4cc0ac2"><span class="section-number-4">2.2.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-a9c0f3eeab52" class="outline-4">
+<h4 id="section-a9c0f3eeab52"><span class="section-number-4">2.2.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-2-3">
 </div>
 <ol class="org-ol">
@@ -2139,8 +2349,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-69ce6d1394c8" class="outline-4">
-<h4 id="section-69ce6d1394c8"><span class="section-number-4">2.2.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-7ef7b7c4672a" class="outline-4">
+<h4 id="section-7ef7b7c4672a"><span class="section-number-4">2.2.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-2-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 3"><table>
 
@@ -2236,8 +2446,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-016dfa38947f" class="outline-4">
-<h4 id="section-016dfa38947f"><span class="section-number-4">2.2.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-a783ec6e22fa" class="outline-4">
+<h4 id="section-a783ec6e22fa"><span class="section-number-4">2.2.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-2-5">
 <ul class="org-ul">
 <li>事实: 本窗口的高价值增量集中在 AI 上下文正确性、权限可见性、诊断工具现代兼容和可操作文本实践。</li>
@@ -2247,8 +2457,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-3b0fab4e3e55" class="outline-3">
-<h3 id="section-3b0fab4e3e55"><span class="section-number-3">2.3.</span> <span class="museum-heading-level-2">窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</span></h3>
+<div id="outline-container-section-8907f7b35ffb" class="outline-3">
+<h3 id="section-8907f7b35ffb"><span class="section-number-3">2.3.</span> <span class="museum-heading-level-2">窗口 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-3">
 <p>
 :PROPERTIES:
@@ -2257,8 +2467,8 @@
 :END:
 </p>
 </div>
-<div id="outline-container-section-1057eb835af1" class="outline-4">
-<h4 id="section-1057eb835af1"><span class="section-number-4">2.3.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-f655257116ae" class="outline-4">
+<h4 id="section-f655257116ae"><span class="section-number-4">2.3.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-3-1">
 <ul class="org-ul">
 <li>本地: 2026-07-29 10:55:37 +08:00 -&gt; 2026-07-30 10:55:37 +08:00 (+08:00)</li>
@@ -2267,8 +2477,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-483a21d5e631" class="outline-4">
-<h4 id="section-483a21d5e631"><span class="section-number-4">2.3.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-6e6053bd7e3a" class="outline-4">
+<h4 id="section-6e6053bd7e3a"><span class="section-number-4">2.3.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-3-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=7</li>
@@ -2281,8 +2491,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-fe46c90ac84d" class="outline-4">
-<h4 id="section-fe46c90ac84d"><span class="section-number-4">2.3.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-f28ecf4e0000" class="outline-4">
+<h4 id="section-f28ecf4e0000"><span class="section-number-4">2.3.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-3-3">
 </div>
 <ol class="org-ol">
@@ -2435,8 +2645,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-e58bc0595d19" class="outline-4">
-<h4 id="section-e58bc0595d19"><span class="section-number-4">2.3.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-f372d03de175" class="outline-4">
+<h4 id="section-f372d03de175"><span class="section-number-4">2.3.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-3-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 4"><table>
 
@@ -2561,8 +2771,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-88b4f0fe8e9d" class="outline-4">
-<h4 id="section-88b4f0fe8e9d"><span class="section-number-4">2.3.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-e3d1676f529e" class="outline-4">
+<h4 id="section-e3d1676f529e"><span class="section-number-4">2.3.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-3-5">
 <ul class="org-ul">
 <li>事实: 本窗口有一个重要发布链、一个 core 跨模式语义调整、两项 ECA 可靠性修复，以及三项工作流与渲染增量。</li>
@@ -2572,12 +2782,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-5e26d52c4d77" class="outline-3">
-<h3 id="section-5e26d52c4d77"><span class="section-number-3">2.4.</span> <span class="museum-heading-level-2">窗口 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</span></h3>
+<div id="outline-container-section-06d3f0b5735a" class="outline-3">
+<h3 id="section-06d3f0b5735a"><span class="section-number-3">2.4.</span> <span class="museum-heading-level-2">窗口 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-4">
 </div>
-<div id="outline-container-section-7588c03a8be7" class="outline-4">
-<h4 id="section-7588c03a8be7"><span class="section-number-4">2.4.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-edff0f3b14ca" class="outline-4">
+<h4 id="section-edff0f3b14ca"><span class="section-number-4">2.4.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-4-1">
 <ul class="org-ul">
 <li>本地: 2026-07-25 11:45:00 +08:00 -&gt; 2026-07-26 11:45:00 +08:00 (+08:00)</li>
@@ -2586,8 +2796,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-69a44f3a4d61" class="outline-4">
-<h4 id="section-69a44f3a4d61"><span class="section-number-4">2.4.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-43cfac5fd712" class="outline-4">
+<h4 id="section-43cfac5fd712"><span class="section-number-4">2.4.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-4-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=2</li>
@@ -2600,8 +2810,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-70497f44a5a7" class="outline-4">
-<h4 id="section-70497f44a5a7"><span class="section-number-4">2.4.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-fcd052f80b77" class="outline-4">
+<h4 id="section-fcd052f80b77"><span class="section-number-4">2.4.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-4-3">
 </div>
 <ol class="org-ol">
@@ -2649,8 +2859,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-2c7822515c47" class="outline-4">
-<h4 id="section-2c7822515c47"><span class="section-number-4">2.4.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-834ad7523122" class="outline-4">
+<h4 id="section-834ad7523122"><span class="section-number-4">2.4.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-4-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 5"><table>
 
@@ -2715,8 +2925,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-c9372c5b1565" class="outline-4">
-<h4 id="section-c9372c5b1565"><span class="section-number-4">2.4.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-39cab896fc45" class="outline-4">
+<h4 id="section-39cab896fc45"><span class="section-number-4">2.4.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-4-5">
 <ul class="org-ul">
 <li>事实: 本窗口的高价值增量分别来自 gptel 的后端消息兼容修复和 nano-mu4e 的邮件界面公开发布。</li>
@@ -2726,12 +2936,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-fe42759e2aa2" class="outline-3">
-<h3 id="section-fe42759e2aa2"><span class="section-number-3">2.5.</span> <span class="museum-heading-level-2">窗口 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</span></h3>
+<div id="outline-container-section-98fccc9828c6" class="outline-3">
+<h3 id="section-98fccc9828c6"><span class="section-number-3">2.5.</span> <span class="museum-heading-level-2">窗口 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-5">
 </div>
-<div id="outline-container-section-c101bf0ca054" class="outline-4">
-<h4 id="section-c101bf0ca054"><span class="section-number-4">2.5.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-28e193070034" class="outline-4">
+<h4 id="section-28e193070034"><span class="section-number-4">2.5.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-5-1">
 <ul class="org-ul">
 <li>本地: 2026-07-24 19:11:14 +08:00 -&gt; 2026-07-25 19:11:14 +08:00 (+08:00)</li>
@@ -2740,8 +2950,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-5ae198870f2f" class="outline-4">
-<h4 id="section-5ae198870f2f"><span class="section-number-4">2.5.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-4b1f9c1810dd" class="outline-4">
+<h4 id="section-4b1f9c1810dd"><span class="section-number-4">2.5.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-5-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=6</li>
@@ -2754,8 +2964,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-028bab678248" class="outline-4">
-<h4 id="section-028bab678248"><span class="section-number-4">2.5.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-382802dfcbbf" class="outline-4">
+<h4 id="section-382802dfcbbf"><span class="section-number-4">2.5.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-5-3">
 </div>
 <ol class="org-ol">
@@ -2887,8 +3097,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-542f5de1f592" class="outline-4">
-<h4 id="section-542f5de1f592"><span class="section-number-4">2.5.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-a07402d5f818" class="outline-4">
+<h4 id="section-a07402d5f818"><span class="section-number-4">2.5.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-5-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 6"><table>
 
@@ -3001,8 +3211,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-70fcae3f064a" class="outline-4">
-<h4 id="section-70fcae3f064a"><span class="section-number-4">2.5.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-950aa583aa36" class="outline-4">
+<h4 id="section-950aa583aa36"><span class="section-number-4">2.5.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-5-5">
 <ul class="org-ul">
 <li>事实: 本窗口有一个正式 pretest 分发事件和五个由维护者文章或代码提交直接支持的工作流增量。</li>
@@ -3012,12 +3222,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-8ef5930d9e20" class="outline-3">
-<h3 id="section-8ef5930d9e20"><span class="section-number-3">2.6.</span> <span class="museum-heading-level-2">窗口 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</span></h3>
+<div id="outline-container-section-894888673fe2" class="outline-3">
+<h3 id="section-894888673fe2"><span class="section-number-3">2.6.</span> <span class="museum-heading-level-2">窗口 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-6">
 </div>
-<div id="outline-container-section-59cd3a31c678" class="outline-4">
-<h4 id="section-59cd3a31c678"><span class="section-number-4">2.6.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-8e2a0bfb35d2" class="outline-4">
+<h4 id="section-8e2a0bfb35d2"><span class="section-number-4">2.6.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-6-1">
 <ul class="org-ul">
 <li>本地: 2026-07-24 11:08:07 +08:00 -&gt; 2026-07-25 11:08:07 +08:00 (+08:00)</li>
@@ -3026,8 +3236,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-9170cc501eaf" class="outline-4">
-<h4 id="section-9170cc501eaf"><span class="section-number-4">2.6.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-43d5a28c8b57" class="outline-4">
+<h4 id="section-43d5a28c8b57"><span class="section-number-4">2.6.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-6-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=7</li>
@@ -3040,8 +3250,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-48d38301d770" class="outline-4">
-<h4 id="section-48d38301d770"><span class="section-number-4">2.6.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-850e68312abc" class="outline-4">
+<h4 id="section-850e68312abc"><span class="section-number-4">2.6.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-6-3">
 </div>
 <ol class="org-ol">
@@ -3194,8 +3404,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-b7df1da73597" class="outline-4">
-<h4 id="section-b7df1da73597"><span class="section-number-4">2.6.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-b80b6bdea1de" class="outline-4">
+<h4 id="section-b80b6bdea1de"><span class="section-number-4">2.6.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-6-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 7"><table>
 
@@ -3319,8 +3529,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-0b297333a9b5" class="outline-4">
-<h4 id="section-0b297333a9b5"><span class="section-number-4">2.6.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-f236c394e93e" class="outline-4">
+<h4 id="section-f236c394e93e"><span class="section-number-4">2.6.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-6-5">
 <ul class="org-ul">
 <li>事实: 本窗口写入 7 条 P1，覆盖 Magit pull/push、core dabbrev、llm 默认模型、ECA 流式显示、社区工作流边界和极简写作机实践。</li>
@@ -3330,12 +3540,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-5525675ee160" class="outline-3">
-<h3 id="section-5525675ee160"><span class="section-number-3">2.7.</span> <span class="museum-heading-level-2">窗口 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</span></h3>
+<div id="outline-container-section-c2f228ac596a" class="outline-3">
+<h3 id="section-c2f228ac596a"><span class="section-number-3">2.7.</span> <span class="museum-heading-level-2">窗口 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-7">
 </div>
-<div id="outline-container-section-5dbec7e38726" class="outline-4">
-<h4 id="section-5dbec7e38726"><span class="section-number-4">2.7.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-c2d0c6b3c3ee" class="outline-4">
+<h4 id="section-c2d0c6b3c3ee"><span class="section-number-4">2.7.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-7-1">
 <ul class="org-ul">
 <li>本地: 2026-07-23 18:44:54 +0800 -&gt; 2026-07-24 18:44:54 +0800 (+08:00)</li>
@@ -3344,8 +3554,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-2fbf1ef1f936" class="outline-4">
-<h4 id="section-2fbf1ef1f936"><span class="section-number-4">2.7.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-9d7cd055f942" class="outline-4">
+<h4 id="section-9d7cd055f942"><span class="section-number-4">2.7.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-7-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=4</li>
@@ -3358,8 +3568,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-bd0a117cb188" class="outline-4">
-<h4 id="section-bd0a117cb188"><span class="section-number-4">2.7.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-17d0b8ec42b5" class="outline-4">
+<h4 id="section-17d0b8ec42b5"><span class="section-number-4">2.7.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-7-3">
 </div>
 <ol class="org-ol">
@@ -3449,8 +3659,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-fef97c452782" class="outline-4">
-<h4 id="section-fef97c452782"><span class="section-number-4">2.7.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-4c0bffb067f6" class="outline-4">
+<h4 id="section-4c0bffb067f6"><span class="section-number-4">2.7.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-7-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 8"><table>
 
@@ -3538,8 +3748,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-24491e7caf70" class="outline-4">
-<h4 id="section-24491e7caf70"><span class="section-number-4">2.7.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-4d2d8d59a334" class="outline-4">
+<h4 id="section-4d2d8d59a334"><span class="section-number-4">2.7.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-7-5">
 <ul class="org-ul">
 <li>事实: 本窗口的 core 高价值变化是 Emacs 32 时间戳默认表示切换；AI 侧有一个正式包发布和两个可验证功能提交，分别覆盖工具调用、结构化输出和非文件缓冲区上下文。</li>
@@ -3549,8 +3759,8 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-3e6194c369e8" class="outline-3">
-<h3 id="section-3e6194c369e8"><span class="section-number-3">2.8.</span> <span class="museum-heading-level-2">窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</span></h3>
+<div id="outline-container-section-644cb72cf3f6" class="outline-3">
+<h3 id="section-644cb72cf3f6"><span class="section-number-3">2.8.</span> <span class="museum-heading-level-2">窗口 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-8">
 <p>
 :PROPERTIES:
@@ -3559,8 +3769,8 @@
 :END:
 </p>
 </div>
-<div id="outline-container-section-39d0e12a0b06" class="outline-4">
-<h4 id="section-39d0e12a0b06"><span class="section-number-4">2.8.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-00f4bbbe4c31" class="outline-4">
+<h4 id="section-00f4bbbe4c31"><span class="section-number-4">2.8.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-8-1">
 <ul class="org-ul">
 <li>本地: 2026-07-15 22:08:20 +0800 -&gt; 2026-07-16 22:08:20 +0800 (+08:00)</li>
@@ -3569,8 +3779,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-79ba91e4f933" class="outline-4">
-<h4 id="section-79ba91e4f933"><span class="section-number-4">2.8.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-59276e9d8735" class="outline-4">
+<h4 id="section-59276e9d8735"><span class="section-number-4">2.8.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-8-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=7</li>
@@ -3583,8 +3793,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-1790668a1057" class="outline-4">
-<h4 id="section-1790668a1057"><span class="section-number-4">2.8.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-27dbefdb24bf" class="outline-4">
+<h4 id="section-27dbefdb24bf"><span class="section-number-4">2.8.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-8-3">
 </div>
 <ol class="org-ol">
@@ -3737,8 +3947,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-07da1ad4c0cb" class="outline-4">
-<h4 id="section-07da1ad4c0cb"><span class="section-number-4">2.8.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-e8c081900178" class="outline-4">
+<h4 id="section-e8c081900178"><span class="section-number-4">2.8.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-8-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 9"><table>
 
@@ -3862,8 +4072,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-a4b3fb293cda" class="outline-4">
-<h4 id="section-a4b3fb293cda"><span class="section-number-4">2.8.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-aacd64e98f58" class="outline-4">
+<h4 id="section-aacd64e98f58"><span class="section-number-4">2.8.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-8-5">
 <ul class="org-ul">
 <li>事实: 本窗口没有新的 Emacs、Org、Org-roam、gptel 或主流 completion 包正式 release；高价值增量集中在 core/语言客户端的定向修复，以及 AI 插件的状态与事件处理。</li>
@@ -3873,12 +4083,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-77ef29359431" class="outline-3">
-<h3 id="section-77ef29359431"><span class="section-number-3">2.9.</span> <span class="museum-heading-level-2">窗口 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</span></h3>
+<div id="outline-container-section-467b353013ae" class="outline-3">
+<h3 id="section-467b353013ae"><span class="section-number-3">2.9.</span> <span class="museum-heading-level-2">窗口 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-9">
 </div>
-<div id="outline-container-section-cda796e14b26" class="outline-4">
-<h4 id="section-cda796e14b26"><span class="section-number-4">2.9.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-d85e93500411" class="outline-4">
+<h4 id="section-d85e93500411"><span class="section-number-4">2.9.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-9-1">
 <ul class="org-ul">
 <li>本地: 2026-06-07 13:20:26 +0800 → 2026-06-08 13:20:26 +0800 (+08:00)</li>
@@ -3886,8 +4096,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-5d3e3e986767" class="outline-4">
-<h4 id="section-5d3e3e986767"><span class="section-number-4">2.9.2.</span> <span class="museum-heading-level-3">摘要</span></h4>
+<div id="outline-container-section-d85e93500411" class="outline-4">
+<h4 id="section-d85e93500411"><span class="section-number-4">2.9.2.</span> <span class="museum-heading-level-3">摘要</span></h4>
 <div class="outline-text-4" id="text-2-9-2">
 <ul class="org-ul">
 <li>新增: P0=0 P1=3 P2=0 | 去重=0 | 采集失败=1</li>
@@ -3896,8 +4106,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-8af59f0c656e" class="outline-4">
-<h4 id="section-8af59f0c656e"><span class="section-number-4">2.9.3.</span> <span class="museum-heading-level-3">中文简报</span></h4>
+<div id="outline-container-section-f88116901e01" class="outline-4">
+<h4 id="section-f88116901e01"><span class="section-number-4">2.9.3.</span> <span class="museum-heading-level-3">中文简报</span></h4>
 <div class="outline-text-4" id="text-2-9-3">
 </div>
 <ol class="org-ol">
@@ -3948,8 +4158,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-14319a84a075" class="outline-4">
-<h4 id="section-14319a84a075"><span class="section-number-4">2.9.4.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-f88116901e01" class="outline-4">
+<h4 id="section-f88116901e01"><span class="section-number-4">2.9.4.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-9-4">
 <ul class="org-ul">
 <li>事实: 本窗口内未发现 Emacs core、Org-roam、Eglot/LSP、consult/corfu/company、gptel/ellama/copilot.el 的 P0/P1 发布或稳定性修复；GitHub release 检查为 0，核心仓库提交检查未命中高价值项。</li>
@@ -3959,12 +4169,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-87ac98c6315c" class="outline-3">
-<h3 id="section-87ac98c6315c"><span class="section-number-3">2.10.</span> <span class="museum-heading-level-2">窗口 2026-06-07 13:20:26 +0800 前旧最近窗口</span></h3>
+<div id="outline-container-section-981473055bbd" class="outline-3">
+<h3 id="section-981473055bbd"><span class="section-number-3">2.10.</span> <span class="museum-heading-level-2">窗口 2026-06-07 13:20:26 +0800 前旧最近窗口</span></h3>
 <div class="outline-text-3" id="text-2-10">
 </div>
-<div id="outline-container-section-322cfc9b1b03" class="outline-4">
-<h4 id="section-322cfc9b1b03"><span class="section-number-4">2.10.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-d38664c26e97" class="outline-4">
+<h4 id="section-d38664c26e97"><span class="section-number-4">2.10.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-10-1">
 <ul class="org-ul">
 <li>本地: 2026-05-27 23:59:58 +0800 -&gt; 2026-05-28 23:59:58 +0800 (+08:00)</li>
@@ -3973,8 +4183,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-f6ebb6f2250f" class="outline-4">
-<h4 id="section-f6ebb6f2250f"><span class="section-number-4">2.10.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-c721dd27a5ee" class="outline-4">
+<h4 id="section-c721dd27a5ee"><span class="section-number-4">2.10.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-10-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=1</li>
@@ -3987,8 +4197,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-2c8112cdf7af" class="outline-4">
-<h4 id="section-2c8112cdf7af"><span class="section-number-4">2.10.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-595666c7344a" class="outline-4">
+<h4 id="section-595666c7344a"><span class="section-number-4">2.10.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-10-3">
 </div>
 <ol class="org-ol">
@@ -4015,8 +4225,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-54f8f9167525" class="outline-4">
-<h4 id="section-54f8f9167525"><span class="section-number-4">2.10.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-ea19741c8ebf" class="outline-4">
+<h4 id="section-ea19741c8ebf"><span class="section-number-4">2.10.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-10-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 10"><table>
 
@@ -4069,8 +4279,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-df8f13e4ce9d" class="outline-4">
-<h4 id="section-df8f13e4ce9d"><span class="section-number-4">2.10.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-9c8df8174720" class="outline-4">
+<h4 id="section-9c8df8174720"><span class="section-number-4">2.10.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-10-5">
 <ul class="org-ul">
 <li>事实: 本窗口内可验证增量偏向基础技巧类，而非 core/package 发布。</li>
@@ -4080,12 +4290,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-8fc31fab10c9" class="outline-3">
-<h3 id="section-8fc31fab10c9"><span class="section-number-3">2.11.</span> <span class="museum-heading-level-2">窗口 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</span></h3>
+<div id="outline-container-section-8239b5a5a3c7" class="outline-3">
+<h3 id="section-8239b5a5a3c7"><span class="section-number-3">2.11.</span> <span class="museum-heading-level-2">窗口 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-11">
 </div>
-<div id="outline-container-section-7e17af04d3ba" class="outline-4">
-<h4 id="section-7e17af04d3ba"><span class="section-number-4">2.11.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-63fe0a34dd4d" class="outline-4">
+<h4 id="section-63fe0a34dd4d"><span class="section-number-4">2.11.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-11-1">
 <ul class="org-ul">
 <li>本地: 2026-05-24 20:30:07 +0800 -&gt; 2026-05-25 20:30:07 +0800 (+08:00)</li>
@@ -4094,8 +4304,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-63052a727f3e" class="outline-4">
-<h4 id="section-63052a727f3e"><span class="section-number-4">2.11.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-fb1fde3a8243" class="outline-4">
+<h4 id="section-fb1fde3a8243"><span class="section-number-4">2.11.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-11-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=1</li>
@@ -4108,8 +4318,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-a4302445d820" class="outline-4">
-<h4 id="section-a4302445d820"><span class="section-number-4">2.11.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-9fc6e4e73cbf" class="outline-4">
+<h4 id="section-9fc6e4e73cbf"><span class="section-number-4">2.11.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-11-3">
 </div>
 <ol class="org-ol">
@@ -4136,8 +4346,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-3619d74098b6" class="outline-4">
-<h4 id="section-3619d74098b6"><span class="section-number-4">2.11.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-68fc523f56e8" class="outline-4">
+<h4 id="section-68fc523f56e8"><span class="section-number-4">2.11.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-11-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 11"><table>
 
@@ -4190,8 +4400,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-71cbc73ab9fb" class="outline-4">
-<h4 id="section-71cbc73ab9fb"><span class="section-number-4">2.11.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-1a5bbed7a318" class="outline-4">
+<h4 id="section-1a5bbed7a318"><span class="section-number-4">2.11.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-11-5">
 <ul class="org-ul">
 <li>事实: Savannah 当前对 Emacs 相关页面返回异常内容/状态码。</li>
@@ -4201,16 +4411,16 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-eaa541234f04" class="outline-3">
-<h3 id="section-eaa541234f04"><span class="section-number-3">2.12.</span> <span class="museum-heading-level-2">窗口 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</span></h3>
+<div id="outline-container-section-b45fd1ae8ab1" class="outline-3">
+<h3 id="section-b45fd1ae8ab1"><span class="section-number-3">2.12.</span> <span class="museum-heading-level-2">窗口 2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</span></h3>
 </div>
 
-<div id="outline-container-section-b03cac711b18" class="outline-3">
-<h3 id="section-b03cac711b18"><span class="section-number-3">2.13.</span> <span class="museum-heading-level-2">窗口 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</span></h3>
+<div id="outline-container-section-e68401598be0" class="outline-3">
+<h3 id="section-e68401598be0"><span class="section-number-3">2.13.</span> <span class="museum-heading-level-2">窗口 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-13">
 </div>
-<div id="outline-container-section-4eb158bff129" class="outline-4">
-<h4 id="section-4eb158bff129"><span class="section-number-4">2.13.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-f76aa2b426d3" class="outline-4">
+<h4 id="section-f76aa2b426d3"><span class="section-number-4">2.13.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-13-1">
 <ul class="org-ul">
 <li>本地: 2026-05-24 12:25:44 +08:00 -&gt; 2026-05-25 12:25:44 +08:00 (+08:00)</li>
@@ -4219,8 +4429,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-5b9371a38604" class="outline-4">
-<h4 id="section-5b9371a38604"><span class="section-number-4">2.13.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-5c34cb792d45" class="outline-4">
+<h4 id="section-5c34cb792d45"><span class="section-number-4">2.13.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-13-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=5</li>
@@ -4233,8 +4443,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-c919afbd9b06" class="outline-4">
-<h4 id="section-c919afbd9b06"><span class="section-number-4">2.13.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
+<div id="outline-container-section-1dab574c2f45" class="outline-4">
+<h4 id="section-1dab574c2f45"><span class="section-number-4">2.13.3.</span> <span class="museum-heading-level-3">中文简报（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-13-3">
 </div>
 <ol class="org-ol">
@@ -4345,8 +4555,8 @@
 </li>
 </ol>
 </div>
-<div id="outline-container-section-3e4b0e10e31c" class="outline-4">
-<h4 id="section-3e4b0e10e31c"><span class="section-number-4">2.13.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
+<div id="outline-container-section-8df6297525ac" class="outline-4">
+<h4 id="section-8df6297525ac"><span class="section-number-4">2.13.4.</span> <span class="museum-heading-level-3">索引表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-13-4">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 12"><table>
 
@@ -4446,8 +4656,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-4b97d593d6f2" class="outline-4">
-<h4 id="section-4b97d593d6f2"><span class="section-number-4">2.13.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-59f14ba2a249" class="outline-4">
+<h4 id="section-59f14ba2a249"><span class="section-number-4">2.13.5.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-13-5">
 <ul class="org-ul">
 <li>事实: 本次采集覆盖 GitHub、Reddit、HN 查询；写入条目均有窗口内时间戳和来源链接。</li>
@@ -4457,12 +4667,12 @@
 </div>
 </div>
 </div>
-<div id="outline-container-section-78fa7f12d662" class="outline-3">
-<h3 id="section-78fa7f12d662"><span class="section-number-3">2.14.</span> <span class="museum-heading-level-2">窗口 (未知窗口)</span></h3>
+<div id="outline-container-section-e3c0b128b148" class="outline-3">
+<h3 id="section-e3c0b128b148"><span class="section-number-3">2.14.</span> <span class="museum-heading-level-2">窗口 (未知窗口)</span></h3>
 <div class="outline-text-3" id="text-2-14">
 </div>
-<div id="outline-container-section-69e0948e6a3d" class="outline-4">
-<h4 id="section-69e0948e6a3d"><span class="section-number-4">2.14.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-342c12e07219" class="outline-4">
+<h4 id="section-342c12e07219"><span class="section-number-4">2.14.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-14-1">
 <ul class="org-ul">
 <li>2026-05-24 10:58:05 +08:00 -&gt; 2026-05-25 10:58:05 +08:00 (+08:00)</li>
@@ -4470,8 +4680,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-34d8d21518bd" class="outline-4">
-<h4 id="section-34d8d21518bd"><span class="section-number-4">2.14.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-52f9cecd6dc1" class="outline-4">
+<h4 id="section-52f9cecd6dc1"><span class="section-number-4">2.14.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-14-2">
 <ul class="org-ul">
 <li>本窗口新增条目：Emacs=10（严格 24h 内 10/10，无需补足）。</li>
@@ -4481,8 +4691,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-f0cffe26f68a" class="outline-4">
-<h4 id="section-f0cffe26f68a"><span class="section-number-4">2.14.3.</span> <span class="museum-heading-level-3">条目表（本窗口）</span></h4>
+<div id="outline-container-section-498be4505f64" class="outline-4">
+<h4 id="section-498be4505f64"><span class="section-number-4">2.14.3.</span> <span class="museum-heading-level-3">条目表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-14-3">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 13"><table>
 
@@ -4642,8 +4852,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-34aa5719f0e5" class="outline-4">
-<h4 id="section-34aa5719f0e5"><span class="section-number-4">2.14.4.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-9c2faba58bef" class="outline-4">
+<h4 id="section-9c2faba58bef"><span class="section-number-4">2.14.4.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-14-4">
 <ul class="org-ul">
 <li>事实：本窗口包含 Emacs core 与插件/社区混合信息源；其中 core 变更集中在“可用性/稳定性”类点上。</li>
@@ -4651,16 +4861,16 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-6ebef025542a" class="outline-4">
-<h4 id="section-6ebef025542a"><span class="section-number-4">2.14.5.</span> <span class="museum-heading-level-3">窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</span></h4>
+<div id="outline-container-section-b95c63420118" class="outline-4">
+<h4 id="section-b95c63420118"><span class="section-number-4">2.14.5.</span> <span class="museum-heading-level-3">窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</span></h4>
 </div>
 </div>
-<div id="outline-container-section-edffade2a427" class="outline-3">
-<h3 id="section-edffade2a427"><span class="section-number-3">2.15.</span> <span class="museum-heading-level-2">窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</span></h3>
+<div id="outline-container-section-adcd715d6058" class="outline-3">
+<h3 id="section-adcd715d6058"><span class="section-number-3">2.15.</span> <span class="museum-heading-level-2">窗口 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</span></h3>
 <div class="outline-text-3" id="text-2-15">
 </div>
-<div id="outline-container-section-a4de09c82b1a" class="outline-4">
-<h4 id="section-a4de09c82b1a"><span class="section-number-4">2.15.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
+<div id="outline-container-section-0651627d3e1a" class="outline-4">
+<h4 id="section-0651627d3e1a"><span class="section-number-4">2.15.1.</span> <span class="museum-heading-level-3">窗口</span></h4>
 <div class="outline-text-4" id="text-2-15-1">
 <ul class="org-ul">
 <li>本地: 2026-05-24 11:28:09 +08:00 -&gt; 2026-05-25 11:28:09 +08:00 (+08:00)</li>
@@ -4669,8 +4879,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-f8f89b54a104" class="outline-4">
-<h4 id="section-f8f89b54a104"><span class="section-number-4">2.15.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
+<div id="outline-container-section-3eeea0750c1d" class="outline-4">
+<h4 id="section-3eeea0750c1d"><span class="section-number-4">2.15.2.</span> <span class="museum-heading-level-3">摘要（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-15-2">
 <ul class="org-ul">
 <li>新增条目: Emacs=8</li>
@@ -4688,8 +4898,8 @@
 </ul>
 </div>
 </div>
-<div id="outline-container-section-bffa898f3d33" class="outline-4">
-<h4 id="section-bffa898f3d33"><span class="section-number-4">2.15.3.</span> <span class="museum-heading-level-3">条目表（本窗口）</span></h4>
+<div id="outline-container-section-dbbc44d4ef33" class="outline-4">
+<h4 id="section-dbbc44d4ef33"><span class="section-number-4">2.15.3.</span> <span class="museum-heading-level-3">条目表（本窗口）</span></h4>
 <div class="outline-text-4" id="text-2-15-3">
 <section class="museum-table-scroll" tabindex="0" aria-label="可横向滚动的表格 14"><table>
 
@@ -4825,8 +5035,8 @@
 </table></section>
 </div>
 </div>
-<div id="outline-container-section-f6d96f2ce482" class="outline-4">
-<h4 id="section-f6d96f2ce482"><span class="section-number-4">2.15.4.</span> <span class="museum-heading-level-3">简短观察</span></h4>
+<div id="outline-container-section-e62e943f9871" class="outline-4">
+<h4 id="section-e62e943f9871"><span class="section-number-4">2.15.4.</span> <span class="museum-heading-level-3">简短观察</span></h4>
 <div class="outline-text-4" id="text-2-15-4">
 <ul class="org-ul">
 <li>事实: 本窗口新增条目全部来自可验证 GitHub commit 时间戳，并在严格 24h 内。</li>
@@ -4841,6 +5051,36 @@
 <h3 id="local-graph-heading">局部关系 / 00</h3>
 <p class="org-museum-related-empty">这篇笔记还没有可导出的关联页面。</p>
 <a class="local-graph-link" href="../../../graph.html?focus=pages-Emacs-PluginWatch-emacs-plugin-watch">查看局部关系 →</a>
+</section>
+<section class="museum-next-learning-hub" aria-label="学习闭环与下一步行动">
+  <div class="learning-hub-header">
+    <span class="hub-badge">🎯 本课研读闭环</span>
+    <h3 class="hub-title">本篇学习任务是否已掌握？</h3>
+  </div>
+  <p class="hub-desc">知识需要主动提取与关联实践。点击下方卡片，检验本篇掌握度或探索相连知识：</p>
+  <div class="learning-hub-actions">
+    <button type="button" class="hub-action-card" data-hub-action="quiz" title="让 AI 助教针对当前笔记出 3 道自测思考题">
+      <span class="action-icon">📝</span>
+      <div class="action-info">
+        <strong>生成本篇自测题</strong>
+        <small>AI 助教提炼 3 道核心概念题检测理解深度</small>
+      </div>
+    </button>
+    <button type="button" class="hub-action-card" data-hub-action="mark-studied" title="标记本篇笔记已研读掌握">
+      <span class="action-icon hub-studied-check">✓</span>
+      <div class="action-info">
+        <strong data-hub-studied-text>标记为已研读</strong>
+        <small data-hub-studied-hint>记录学习足迹，点亮本课掌握徽章</small>
+      </div>
+    </button>
+    <a class="hub-action-card" href="../../../related.html" title="进入关联阅读对读模式">
+      <span class="action-icon">🔗</span>
+      <div class="action-info">
+        <strong>对比关联笔记</strong>
+        <small>并排双栏阅读，构建网状认知</small>
+      </div>
+    </a>
+  </div>
 </section>
 
 </article>
@@ -4867,6 +5107,14 @@
     <input type="search" id="org-museum-search-input" placeholder="筛选标题…" aria-label="筛选页面">
   </div>
   <p class="museum-empty-copy" data-sidebar-search-empty role="status" hidden>没有匹配的笔记。请调整或清空搜索。</p>
+  <div class="sidebar-starter-section">
+    <div class="sidebar-starter-header"><span class="starter-tag">推荐新手起点</span></div>
+    <div class="sidebar-starter-pills">
+      <a class="sidebar-starter-pill" href="../../sql/duckdb.html"><span>🦆</span> DuckDB 实战入门</a>
+      <a class="sidebar-starter-pill" href="../Org/org-babel-01-execution-foundations.html"><span>⚡</span> Org Babel 计算笔记</a>
+      <a class="sidebar-starter-pill" href="../../ontology/ontology-concept-boundaries.html"><span>🏛</span> 概念边界与本体建模</a>
+    </div>
+  </div>
   <details class="sidebar-fx-controls">
     <summary class="fx-label">背景效果</summary>
     <div class="fx-buttons">
@@ -4877,14 +5125,14 @@
     </div>
   </details>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AI <span>02</span></div>
+    <div class="sidebar-cat-label">AI 智能 <span>02</span></div>
     <ul>
       <li><a href="../../AI/learn_with_ai/001-学习的牛逼之处.html">001-学习的牛逼之处</a></li>
       <li><a href="../../AI/skills/org-skills.html">AI Skills</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">AIL <span>04</span></div>
+    <div class="sidebar-cat-label">AI 辅助学习 <span>04</span></div>
     <ul>
       <li><a href="../../AI/learn_with_ai/002-学习需要被设计.html">002-学习需要被设计</a></li>
       <li><a href="../../AI/learn_with_ai/003-有效的ai工具.html">003-有效的AI工具</a></li>
@@ -4893,19 +5141,19 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Data <span>01</span></div>
+    <div class="sidebar-cat-label">数据工程 <span>01</span></div>
     <ul>
       <li><a href="../../Data/dataset.html">Dataset</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Emacs <span>01</span></div>
+    <div class="sidebar-cat-label">Emacs 生态 <span>01</span></div>
     <ul>
       <li><a href="emacs-plugin-watch.html">Emacs 插件高价值增量观察（滚动）</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Ontology <span>06</span></div>
+    <div class="sidebar-cat-label">知识本体建模 <span>06</span></div>
     <ul>
       <li><a href="../../ontology/关系示例-01-本体模型.html">关系示例 01｜本体模型</a></li>
       <li><a href="../../ontology/关系示例-02-DuckDB实践.html">关系示例 02｜DuckDB 实践</a></li>
@@ -4929,19 +5177,19 @@
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Theme <span>01</span></div>
+    <div class="sidebar-cat-label">界面主题设计 <span>01</span></div>
     <ul>
       <li><a href="../../theme/orgtheme.html">OrgTheme 专业版主题开发系统</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">Vibe <span>01</span></div>
+    <div class="sidebar-cat-label">Vibe Coding <span>01</span></div>
     <ul>
       <li><a href="../../vibe/vibe-coding.html">vibe coding</a></li>
     </ul>
   </div>
   <div class="sidebar-category">
-    <div class="sidebar-cat-label">crypto <span>01</span></div>
+    <div class="sidebar-cat-label">智能与密码 <span>01</span></div>
     <ul>
       <li><a href="../../crypto/intelligence.html">intelligence</a></li>
     </ul>
@@ -4969,9 +5217,9 @@
 <script defer src="../../../resources/vendor/markdown-it.umd.min.js?v=635972b98522"></script>
 <script defer src="../../../resources/org-museum-markdown.js?v=1968d6f6b7f6"></script>
 <script defer src="../../../resources/org-museum-org-view.js?v=dd89403207b9"></script>
-<script defer src="../../../resources/org-museum-ai-browser.js?v=af137a279c2c"></script>
-<script defer src="../../../resources/org-museum-ai.js?v=b406ff1e71eb"></script>
+<script defer src="../../../resources/org-museum-ai-browser.js?v=0b8b3b0c2040"></script>
+<script defer src="../../../resources/org-museum-ai.js?v=5df13c6c725f"></script>
 
-<script defer src="../../../resources/org-museum-article.js?v=a32e24d7ce8f"></script>
+<script defer src="../../../resources/org-museum-article.js?v=f0adcb1453c0"></script>
 </body>
 </html>
