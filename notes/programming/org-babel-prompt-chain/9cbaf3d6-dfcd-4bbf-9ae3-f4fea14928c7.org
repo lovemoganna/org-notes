@@ -1,0 +1,163 @@
+#+TITLE: Org-Babel 提示链 002：真实任务双提示自动执行实验
+#+WIKI_ID: 9cbaf3d6-dfcd-4bbf-9ae3-f4fea14928c7
+#+CATEGORY: Org 可执行提示链
+#+FILETAGS: :org-mode:org-babel:prompt-chain:gemini:experiment:
+#+DATE: 2026-10-23
+#+SOURCE: 用户提供的 PivotStudio UI 布局痛点；本实验继承提示链 001 的公开文本任务
+#+INGEST_ID: 79173df2-ea36-43b3-8f7a-d59849ab9d3c
+#+WIKI_STATUS: published
+
+* 做什么
+用 Org-Babel 的一段 Python 执行块连续调用两次 Gemini API：Prompt A 提取问题，Prompt B 消费 A 的原始输出并生成开发任务单。执行后的结果由 Org-Babel 写入当前 Org 文件，保存并提交 Git 后由原笔记网站发布。
+
+旧版 [[https://lovemoganna.github.io/org-notes/pages/collected/programming/prompt-chain-org/0fa57c1e-9f62-4b7a-a760-8933e856bf17.html][提示链 001 历史文章]] 保持不变。本篇有独立 WIKI_ID 与固定网址。
+
+* 任务输入与独立提示
+** 原始输入
+#+begin_example
+透视结构放置区现在占据的空间很大，而且随着放置的维度和度量越多，高度就会越高，此外左边的侧边栏有一部分还空着，想办法合理调整下布局。
+#+end_example
+
+** Prompt A：提取问题
+#+begin_example
+阅读真实 UI 改进需求，只输出：已确认的现象、用户目标、明确的改动约束和仍需核实的信息。短句表达；不推测源码、布局尺寸或实现细节，不提出实施完成的声明。
+#+end_example
+
+** Prompt B：生成开发任务
+#+begin_example
+根据原始 UI 需求及 Prompt A 的完整原始输出，生成可直接交给开发者的最小任务单。只包含目标与问题、需要检查的界面区域、一个低风险的优先调整方向、真实可测的验收条件、不能破坏的既有能力和需要现场核实的内容。保留事实与假设的区分。不要宣称软件已经被修改。
+#+end_example
+
+* 执行方法
+1. 在本地 Emacs 打开本 Org 文件，确保 Python 3 可用，并按常规方式启用 =ob-python=；保持 Org 源文件已保存。
+2. 在本机凭据管理方式中提供环境变量 =GEMINI_API_KEY=；可选 =GEMINI_MODEL=（默认 =gemini-2.5-flash=）。不要把密钥写入本文件、终端历史或 Git。只公开不敏感的任务材料及输出。
+3. 在下方 =run-prompt-chain= 代码块按 =C-c C-c=，检查授权确认。Org-Babel 将原文件绝对路径传入 Python，执行两次真实模型调用，且 B 完整接收 A 的原始文本。
+4. Babel 自动把输出写入代码块下方的 =#+RESULTS=。检查内容后保存 Org，提交同一篇新笔记的 Git 路径；站点现有 CI 只导出，不执行 API 代码。
+5. 没有凭据、网络或模型返回文本时，保留 =BLOCKED= 或失败记录，不把模拟数据当真实结果。不重复发布新文章。
+
+* 测试记录
+** Test 001：当前环境检查（2026-10-23）
+- 已准备：两个独立提示、输入、一个 Org-Babel Python 执行块及 GitHub Pages 发布入口。
+- 当前 Chat 运行环境：Python 3 可用；Emacs 未安装，且无 =GEMINI_API_KEY= 可供执行器调用。
+- 原生 Org-Babel 执行：=BLOCKED=。以下代码尚未在当前环境中由 Emacs 运行。
+- 这是工程准备与降级测试结果，不能当作 Gemini 的真实输出或提示质量证明。
+
+本次只用 Python 在独立沙箱做了编译、自检及假传输交接测试。以下是测试程序的原始摘要，=EXTERNAL_HTTP_CALLS=0= 表示没有发生远程模型调用。
+#+begin_example
+STATIC_SOURCE_BLOCK_COMPILE=PASS
+BLOCKED_WITHOUT_KEY=PASS
+LOCAL_FAKE_TRANSPORT_A_TO_B=PASS (not a real model call)
+EXTERNAL_HTTP_CALLS=0
+NATIVE_BABEL=BLOCKED (emacs unavailable)
+CREDENTIAL_REAL_API=BLOCKED (no GEMINI_API_KEY)
+#+end_example
+
+** Test 002：在本地 Emacs 执行后自动记录
+下面只有执行器代码；有实际运行才会由 Org-Babel 写入 =#+RESULTS=，结果将追加在本节，不手动编造。
+
+#+name: run-prompt-chain
+#+begin_src python :var org_file=(buffer-file-name) :results output drawer append :exports both :eval never-export
+from datetime import datetime, timezone
+from pathlib import Path
+import hashlib
+import json
+import os
+import re
+import subprocess
+import sys
+import urllib.error
+import urllib.request
+
+
+def example_in_section(lines, title):
+    """Read the literal prompt body directly from its Org section."""
+    start = lines.index(title)
+    begin = next((i for i in range(start + 1, len(lines)) if lines[i] == "#+begin_example"), -1)
+    if begin < 0 or any(lines[i].startswith("** ") for i in range(start + 1, begin)):
+        raise ValueError("Missing example in " + title)
+    end = next((i for i in range(begin + 1, len(lines)) if lines[i] == "#+end_example"), -1)
+    if end < 0:
+        raise ValueError("Unclosed example in " + title)
+    return "\n".join(lines[begin + 1:end]).strip()
+
+
+def gemini(prompt, key, model):
+    # No key ever appears in the URL, payload, output or versioned Org file.
+    if not re.fullmatch(r"[A-Za-z0-9._-]{1,100}", model):
+        raise ValueError("Invalid GEMINI_MODEL")
+    url = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent"
+    request_body = {
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {"temperature": 0.2, "maxOutputTokens": 2048},
+    }
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(request_body, ensure_ascii=False).encode("utf-8"),
+        headers={"Content-Type": "application/json", "x-goog-api-key": key},
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=90) as response:
+            payload = json.load(response)
+    except urllib.error.HTTPError as exc:
+        raise RuntimeError("HTTP " + str(exc.code) + " from Gemini API") from None
+    except (urllib.error.URLError, TimeoutError) as exc:
+        raise RuntimeError("Gemini API network or timeout failure") from None
+    choices = payload.get("candidates") or []
+    parts = choices[0].get("content", {}).get("parts", []) if choices else []
+    output = "".join(item.get("text", "") for item in parts)
+    if not output.strip():
+        raise RuntimeError("Gemini returned no text; check safety/finish reason separately")
+    return output, payload.get("modelVersion", model)
+
+
+source_path = Path(org_file).expanduser().resolve()
+source_bytes = source_path.read_bytes()
+sections = source_bytes.decode("utf-8").splitlines()
+input_text = example_in_section(sections, "** 原始输入")
+a_prompt = example_in_section(sections, "** Prompt A：提取问题")
+b_prompt = example_in_section(sections, "** Prompt B：生成开发任务")
+run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+model = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
+commit = "unavailable"
+try:
+    commit = subprocess.run(["git", "-C", str(source_path.parent), "rev-parse", "HEAD"], capture_output=True, text=True, timeout=5).stdout.strip() or "unavailable"
+except (OSError, subprocess.TimeoutExpired):
+    pass
+print("RUN_ID:", run_id)
+print("SOURCE_SHA256:", hashlib.sha256(source_bytes).hexdigest())
+print("SOURCE_COMMIT:", commit)
+print("MODEL:", model)
+print("TEMPERATURE: 0.2")
+print("MAX_OUTPUT_TOKENS: 2048")
+print("ORIGINAL_INPUT:")
+print(input_text)
+
+key = os.environ.get("GEMINI_API_KEY", "")
+if not key:
+    print("STATUS: BLOCKED")
+    print("ERROR: GEMINI_API_KEY unavailable; no remote model invocation was made.")
+    sys.exit(0)
+
+try:
+    a_output, a_model = gemini(a_prompt + "\n\n【原始输入】\n" + input_text, key, model)
+    print("PROMPT_A_MODEL:", a_model)
+    print("PROMPT_A_RAW_OUTPUT:")
+    print(a_output)
+    b_input = "【原始需求】\n" + input_text + "\n\n【Prompt A 完整原始输出】\n" + a_output
+    print("B_INPUT_SHA256:", hashlib.sha256(b_input.encode("utf-8")).hexdigest())
+    b_output, b_model = gemini(b_prompt + "\n\n" + b_input, key, model)
+    print("PROMPT_B_MODEL:", b_model)
+    print("PROMPT_B_RAW_OUTPUT:")
+    print(b_output)
+    print("STATUS: EXECUTED_TWO_CALLS_NOT_QUALITY_GRADED")
+except (RuntimeError, ValueError) as exc:
+    print("STATUS: BLOCKED_OR_FAILED")
+    print("ERROR:", str(exc))
+#+end_src
+
+* 复现边界
+- 该实验验证调用与记录链路，不替代 PivotStudio 实际代码修改。
+- =:eval never-export= 阻止网站构建执行这段代码；执行应在授权的本地 Emacs 内进行。
+- 每次调用都可能产生模型 API 使用费用；当前不自动重试。
+- Babel 原生结果写入同一份新 Org 文件。变更应在 Git 提交后才会出现在网站上。
