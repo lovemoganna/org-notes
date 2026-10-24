@@ -1,4 +1,4 @@
-#+TITLE: 提示链 002：用 Org 测试纯文本提示 A → B
+#+TITLE: Org-Babel 提示链 002：真实任务双提示自动执行实验
 #+WIKI_ID: 9cbaf3d6-dfcd-4bbf-9ae3-f4fea14928c7
 #+CATEGORY: Org 可执行提示链
 #+FILETAGS: :org-mode:org-babel:prompt-chain:gemini:experiment:
