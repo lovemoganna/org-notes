@@ -18,7 +18,7 @@
   },
   "publisher": {
     "repository": "lovemoganna/org-museum.el",
-    "commit": "9973d1346991febb3afac3d44a4c102db75a0e3d",
+    "commit": "77c3eb8c5a1f61e2c4accde1ac7fd60d3ef93370",
     "entry": "tools/museum_pipeline.py"
   }
 }
