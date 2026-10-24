@@ -1,4 +1,4 @@
-#+TITLE: Org-Babel 提示链 002：真实任务双提示自动执行实验
+#+TITLE: 提示链 002：AI 执行、Org 留证
 #+WIKI_ID: 9cbaf3d6-dfcd-4bbf-9ae3-f4fea14928c7
 #+CATEGORY: Org 可执行提示链
 #+FILETAGS: :org-mode:org-babel:prompt-chain:gemini:experiment:
@@ -7,21 +7,23 @@
 #+INGEST_ID: 79173df2-ea36-43b3-8f7a-d59849ab9d3c
 #+WIKI_STATUS: published
 
-* 实验 002：只测试纯文本提示
-本实验不学习编程、不生成代码，也不开发 Python/API 调用器。目标是把两段纯文本指令放进 Org-Babel，让 A 的实际回复直接成为 B 的上下文，结果写回同一份 Org 文件。
+* 核心思想
+这篇实验不以“收藏更多提示词”为目标，而是把真实问题的处理方法变成可执行、可追溯、能持续积累的个人能力。
 
-使用现成的 [[https://github.com/jwiegley/ob-gptel][ob-gptel]]（Org-Babel 的 gptel 后端）；提示词本身保持纯文本。[[https://lovemoganna.github.io/org-notes/pages/collected/programming/prompt-chain-org/0fa57c1e-9f62-4b7a-a760-8933e856bf17.html][提示链 001 历史文章]] 不做修改。
+职责只有三层：*用户提出任务；AI 按 A → B 顺序执行纯文本提示；Org 保存提示、输入和原始输出*。Git 负责版本历史，笔记网站负责公开展示。复杂的调用过程不应转嫁给使用者，也不需要另建提示词管理平台。
+
+最小闭环：真实任务 → Prompt A 提炼问题 → Prompt B 使用 A 的完整结果交付任务单 → 写回同一 Org 文件 → 更新同一篇文章。本轮只证明 ChatGPT 完成了这条文本链路与远程回写；尚不能据此认定提示链效果优于单提示，也不能称为原生 Org-Babel 模型执行。
 
 * 一、真实任务
-原始问题：透视结构放置区占据很大空间；维度和度量越多，放置区高度越高；左侧边栏还有空余位置。需要合理调整布局。
+原始需求：透视结构放置区现在占据的空间很大，而且随着放置的维度和度量越多，高度就会越高，此外左边的侧边栏有一部分还空着，想办法合理调整下布局。
 
-交付物：一份可以直接交给开发者的简洁布局修改任务单。本轮只验证文本输入和输出，不冒充已经修改过 PivotStudio。
+期望交付：一份简短、可供开发者检查与实施的布局修改任务单；本实验不修改 PivotStudio。
 
 * 二、Prompt A：识别用户真正的问题
-只负责提取事实和约束，不设计方案。
+只提取事实、目标、限制和证据缺口；不提前提出解决方案。
 
 #+name: prompt-a
-#+begin_src gptel :eval never-export :exports both
+#+begin_src text :eval never :exports code
 阅读下面这段真实 UI 需求，只输出四项：
 1. 已确认的现象；
 2. 用户希望达到的效果；
@@ -34,10 +36,10 @@
 #+end_src
 
 * 三、Prompt B：交付可执行任务单
-只负责把原始需求和 A 的结果转换为实际任务。=:prompt prompt-a= 是由 ob-gptel 提供的前后轮传递机制，不属于提示词正文。
+由 AI 将 Prompt A 的完整原始输出连同原始需求交给 B；组合关系在提示词之外，不写入提示指令。
 
 #+name: prompt-b
-#+begin_src gptel :prompt prompt-a :eval never-export :exports both
+#+begin_src text :eval never :exports code
 基于上一轮中的原始需求与问题摘要，直接输出一份最小开发任务单：
 - 要解决的具体问题；
 - 应检查的界面区域；
@@ -47,39 +49,12 @@
 用人能直接读懂的短句。区分事实和建议，不假装已经查看或修改源码。
 #+end_src
 
-* 四、怎样测试
-前提：本地 Emacs 已有可正常调用模型的 =gptel=，并安装、启用 =ob-gptel= 的 =gptel= Babel 后端。无需在 Org 文件中编写 API 请求代码或保存密钥。
-
-1. 将光标放到 =prompt-a= 块内，按 =C-c C-c=；模型的原始响应应写入 =#+RESULTS: prompt-a=。
-2. 确认 A 真的返回文本后，在 =prompt-b= 块内按 =C-c C-c=。ob-gptel 的 =:prompt prompt-a= 将 A 的提示和实际结果作为前一轮对话上下文交给 B。
-3. 查看 =#+RESULTS: prompt-b=，确认它是实际任务单而不是操作说明。保存文件并提交 Git；现有网站发布器更新此文章，不生成新文章。
-4. 两个结果应保留在本 Org 文件内。重复运行前，另存原始结果到下方新增的测试记录，避免覆盖前一次实验。
-
-若尚未安装 =ob-gptel=，或当前模型连接不可用，本实验标记 =BLOCKED=；不得人工制造 =#+RESULTS= 冒充模型调用。站点构建时不会调用模型（=:eval never-export=）。 首次运行前可先用普通 gptel 对话确认模型连接可用；必须先得到 A 的真实结果，再运行 B。
-
-* 五、测试记录
-** Test 001｜执行状态
-- 源提示版本：本文件本次 Git 提交；后续修改由 Git 历史定位。
-- 执行情况：=BLOCKED=（当前 Chat 环境没有本机 Emacs / ob-gptel 模型连接，未执行 Org-Babel 模型请求）。
-- Prompt A 实际输出：待本地运行生成 =#+RESULTS: prompt-a=。
-- Prompt B 实际输出：待本地运行生成 =#+RESULTS: prompt-b=。
-- 验收范围：只证明两段纯文本提示能够运行、交接并记录；暂不评价质量。
-
-* 约束
-不引入 Python、Shell、API 调用脚本、Agent Router 或自动评分。使用已有 gptel/ob-gptel 能力，不改原站点。此前被废弃的 Python 方案仍能从本文 Git 历史恢复。
-
-* 六、Test 002｜ChatGPT 自主执行纯文本提示 A → B
-本次测试在 ChatGPT 中由 GPT-6 直接执行，不依赖用户本地 Emacs、API 密钥或手工复制。执行内容来自本文件已发布的两个纯文本提示：先执行 Prompt A，再将其完整输出与原始任务交给 Prompt B。
-
-- 记录日期：2026-10-24。
-- 冻结来源提交：=5305c17fa2e2c51b830e13cd478d6120d6538646=。
-- 冻结来源文件 Git Blob：=bfba23a8b7b8c51b0e81a4cf85748be0bad482ff=。
-- 执行模型：GPT-6（当前 ChatGPT 文本会话）。
-- 执行方式：当前对话中连续两步的实际模型生成；不是独立 API 请求，不是运行本地 =ob-gptel=。
-- 采样参数与模型随机种子：当前会话不可读取，未作推测。
-- 提示定义与已有 Test 001：全部保留，未覆盖。
-- 结果状态：=PASS（单次纯文本 A→B 执行及结果回写）=；原生 Org-Babel 模型调用仍为 =NOT TESTED=。
-- 软件实施状态：未修改 PivotStudio 源码或 UI；本轮仅生成开发任务单。
+* 四、真实测试记录
+- 测试：=Test 002=，2026-10-24。
+- 模型：=GPT-6=（ChatGPT 当前文本会话）；先执行 A，再根据其完整输出执行 B。
+- 提示来源提交：=5305c17fa2e2c51b830e13cd478d6120d6538646=；来源文件 Git Blob：=bfba23a8b7b8c51b830e13cd478d6120d6538646=。
+- 实际执行：同一 ChatGPT 会话连续生成，不是两次独立 API 调用；模型采样参数未提供。
+- 结果：两步均生成文本，并已写回 Org、提交 Git、重新发布。未经软件代码实施验证。
 
 ** Prompt A 实际回复（原样记录）
 #+begin_example
@@ -90,9 +65,9 @@
 #+end_example
 
 ** Prompt B 实际输入
-- 原始任务：见本文“一、真实任务”及 Prompt A 内的原始需求原文。
-- 原样传入的 A 输出：上方 Prompt A 实际回复的完整文本。
-- B 指令：本文现有 =prompt-b= 代码块中的纯文本指令，未修改。
+- 原始需求：见本文“一、真实任务”，其原文已经写在 Prompt A 中。
+- A 输出：上方“Prompt A 实际回复”的完整文本，未另行总结。
+- B 指令：上方 Prompt B 纯文本正文。
 
 ** Prompt B 实际回复（原样记录）
 #+begin_example
@@ -113,6 +88,6 @@
 #+end_example
 
 ** 结论与证据边界
-- 本轮证明：GPT-6 能以这两段实际提示顺序生成 A、B 结果，B 的任务单以 A 的问题摘要为依据；原始输出已写回此 Org 文件。
-- 本轮未证明：两个独立模型请求的稳定性、原生 ob-gptel 的 A→B 自动传递、实际 UI 实施结果，或提示链对单提示的质量增益。
-- 公开网页展示本次实验记录；不能把 GitHub Pages 成功发布误读为 ob-gptel 模型调用成功。
+这次证明两条独立的纯文本提示能在 ChatGPT 中顺序生成结果，并将实验保存和发布到原文章。尚未验证多次运行的稳定性、两次独立模型调用、原生 Org-Babel 执行，以及相对单提示的质量提升；也没有实际修改 PivotStudio。
+
+[[https://lovemoganna.github.io/org-notes/pages/collected/programming/prompt-chain-org/0fa57c1e-9f62-4b7a-a760-8933e856bf17.html][实验 001 历史文章]] 独立保留。被替换的本地 Emacs/ob-gptel 方案仍可从 Git 历史追溯。后续实验只需追加下一次真实输出，不覆盖已有记录。
