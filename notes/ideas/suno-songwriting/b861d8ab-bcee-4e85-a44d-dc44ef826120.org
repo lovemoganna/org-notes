@@ -1,30 +1,60 @@
-#+TITLE: 《不喜欢》｜歌曲与歌词
+#+TITLE: 《不喜欢》v1.1：Suno 成品与创作稿归档
 #+WIKI_ID: b861d8ab-bcee-4e85-a44d-dc44ef826120
 #+CATEGORY: 音乐创作
-#+FILETAGS: :音乐:流行:RNB:讽刺:
+#+FILETAGS: :音乐:流行:RNB:讽刺:Suno:
 #+DATE: 2026-10-25
-#+SOURCE: 本次对话中形成的《不喜欢》歌词创作稿，以及用户于 2026-10-25 提供的歌曲 MP3
+#+SOURCE: 本次对话的《不喜欢》v1.1 原创歌词与 Suno Style 草稿；用户于 2026-10-25 上传 MP3 文件供归档
 #+INGEST_ID: e91893b6-f537-453e-8fe1-f17cbcd694d2
 #+WIKI_STATUS: published
 
-* 封面
+* 横版头图
 #+ATTR_HTML: :width 100%
 [[file:../../../note-assets/b861d8ab-bcee-4e85-a44d-dc44ef826120/banner.png]]
 
-* 作品简介
-分手以后，人人都劝你体面退场，把心碎叫作成长，把眼泪藏进一句“I'm fine”。可电影票仍是两张，面馆里仍会下意识多拿一双筷子。《不喜欢》用温暖的都市 R&B 律动，唱出成熟背后的逞强：拒绝把悲伤包装得漂亮，也允许自己不必立刻放下。直到那句“I'm not fine”终于说出口，承认难过才成为真正的释然。
+* 归档结论
+这是一首关于“失恋后的情绪表演”的都市 R&B：别人催促向前走，主人公重复 =I am fine=，最终选择承认仍会难过。歌词反讽把心碎叫作成长、把逞强包装成体面。
 
-* 在线试听与下载
-[[file:../../../note-assets/b861d8ab-bcee-4e85-a44d-dc44ef826120/buxihuan.mp3][《不喜欢》完整音频（MP3）]]
+* 在线播放与下载（本站 MP3）
+[[file:../../../note-assets/b861d8ab-bcee-4e85-a44d-dc44ef826120/buxihuan.mp3][不喜欢 · Suno 生成音频（MP3）]]
 
-时长约 3 分 52 秒。
+原始音频时长约 3 分 51.79 秒，大小 5,128,694 字节。源文件 SHA-256：=63f92e6eb9517b4b2783672f2b0e496374015a4951e2362fb646a16dd9dbdeb2=。本文件为用户上传的 Suno 成品，经哈希核验后一字节未改。
 
-* 歌词（创作稿）
-以下是创作阶段的歌词，可能与最终录音中的实际唱词不完全一致。
+* 原曲试听（Suno）
+[[https://suno.com/song/a855497b-3c18-4a64-acbb-52bcc06c3d08][在 Suno 打开《不喜欢》原曲]]
 
-#+begin_verse
+这条链接来自用户上传 MP3 的 =WOAS= 元数据；已核对页面标题及曲风，属于外部站点播放，不是本站自托管音频。
+
+* 已上传音频的事实边界
+- 用户上传的文件名：=不喜欢(1).mp3=，MP3 标题标签：《不喜欢》。
+- 文件时长：约 3 分 51.79 秒；文件大小：5,128,694 字节。
+- 上传音频的标题标签与演唱内容均对应《不喜欢》，不涉及其他歌曲。
+- Org Museum 支持 =audio/mpeg= 原生播放器，发布管线已补齐 MP3 的附件校验白名单。本站已收录经完整哈希校验的源 MP3；请使用上方音频播放器试听与下载。
+- MP3 内含的 Suno 原曲链接已经核实对应《不喜欢》；提供外部试听入口，音源访问情况仍取决于 Suno 站点权限。
+- 下方 =Lyrics= 是此前创作草稿，不可称为本次 MP3 的完整逐字转写；任何版本差异需要后续专门核对。
+
+* 创作简介
+一场分手以后，他学会了在电梯镜子里练习微笑，也学会了在朋友面前熟练回答没事。所有人都夸他成熟，广告甚至承诺几天就能忘记旧爱，仿佛悲伤也该提交一份漂亮的成绩单。然而电影院的空位与面馆里多拿的一双筷子，还在揭穿这场体面的表演。歌曲以都市流行R&B的温暖律动包裹尖锐反讽，让一句反复说出的我不喜欢，最终变成允许自己难过的坦白。
+
+* Suno 曲风参数
+Genre: Mandarin Pop, Contemporary R&B, Neo-Soul
+Mood: Bittersweet, Introspective, Subtly Satirical
+Tempo: 84 BPM (suggested), 4/4
+Instrumentation: Rhodes, Clean Electric Guitar, Deep Bass, R&B Drums, Subtle Strings
+Vocal Style: Warm Expressive Male Tenor, Breathy Verses, Controlled Falsetto
+Production: Warm Analog Texture, Humanized Timing, Dynamic Final Chorus
+
+* Style of Music
+#+begin_src text
+Mandarin Pop, Contemporary R&B, Neo-Soul, Emotional Urban Ballad, 84 BPM, 4/4, Bittersweet, Melancholic, Subtly Satirical. Warm Expressive Male Tenor, Intimate Breathy Verses, Soulful Phrasing, Smooth Vocal Runs, Controlled Falsetto, Clear Mandarin-English Code Switching. Rhodes Piano, Clean Electric Guitar, Deep Bass, Tight R&B Drums, Syncopated Hi-Hats, Atmospheric Synth Pads, Cinematic Strings. Minimal Storytelling Verses, Rising Pre-Chorus, Catchy Repetitive "Wo Bu Xi Huan" Hook, English Narrative Hooks "I'm Fine", "Move On", "I'm Not Fine". Piano-Only Vulnerable Bridge, Dramatic Pause, Expansive Final Chorus, Layered Harmonies, Gentle Acoustic Outro. Warm Analog Texture, Modern Clear Mix, Humanized Timing, Spacious Reverb, Raw Vocal Emotion. Avoid EDM Drops, Aggressive Rap and Heavy Autotune.
+#+end_src
+
+* Lyrics
+#+begin_src text
+[Intro]
+[Soft Rhodes, Quiet City Ambience]
 I'm fine...
 
+[Verse 1]
 电梯镜子照见我的慌
 嘴角练习体面的模样
 朋友说放手才算成长
@@ -35,11 +65,14 @@ I'm fine...
 我说没事一切都正常
 说完手心还偷偷发烫
 
+[Pre-Chorus]
 他们夸我分手很漂亮
 没哭没闹值得被表扬
 原来懂事是一张奖状
 奖给最会藏伤的模样
 
+[Chorus]
+[Catchy, Soulful R&B Hook]
 我不喜欢 不喜欢
 把心碎说成一种成长
 我不喜欢 不喜欢
@@ -49,6 +82,7 @@ They say move on, move on
 我说着 I'm fine, I'm fine
 却没人问我真的怎样
 
+[Verse 2]
 广告推来疗伤的秘方
 承诺三天就能把你忘
 评论夸我终于很坚强
@@ -59,12 +93,17 @@ They say move on, move on
 抬头才见对面空荡荡
 我把多的放回原地方
 
+[Bridge]
+[Drums Drop, Piano Only]
 如果流泪就算不够大方
 凭什么伤口也要化好妆
+[Pause]
 No, I'm not fine.
 我只是终于敢承认受伤
 不再把眼泪说成坚强
 
+[Final Chorus]
+[Full Strings, Emotional Release]
 我不喜欢 不喜欢
 把心碎说成一种成长
 我不喜欢 不喜欢
@@ -74,7 +113,16 @@ They say move on, move on
 今天我不说 I'm fine
 我也有资格慢慢悲伤
 
+[Outro]
+[Soft Guitar, Fading Rhodes]
 那张旧票还留在手上
 我终于不必装作无恙
 I'm not fine, and that's alright.
-#+end_verse
+[End]
+#+end_src
+
+* 旋律与编曲说明
+副歌以短句“我不喜欢”做切分音型；桥段抽掉鼓点，用 “I'm not fine” 推翻开头的伪装；终副歌在同一 Hook 上转向允许自己悲伤。主押 ang 韵，英文句只承担叙事节点。
+
+* 迭代记录
+保留《不喜欢》的成人情感反讽与城市生活意象；把抽象控诉升级为奖状、广告、成绩单三个可感知的场景；“I'm fine / Move on / I'm not fine”组成情绪逻辑。已收到 Suno 生成音频；草稿与实际演唱的逐句差异、听感质量仍待专门核验。
