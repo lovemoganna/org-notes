@@ -19,28 +19,37 @@
 
 时长约 3 分 52 秒。
 
-* 创作过程：从“不喜欢”到“我终于不再伪装”
-** 主题起点：反对的不是那个人
-歌名听起来像拒绝一个人，真正要写的却是分手后被要求“成熟”“体面”“赶紧向前走”的压力。第一稿先建立人物处境：电梯镜前练习笑容，手机留着双人票，明明还痛却习惯说“没事”。歌词的矛盾不是要挽回谁，而是“不该连伤心都得表现正确”。
+* 创作回溯与快捷复用
+** 当时实际怎么创作
+1. 先提交《Suno 音乐创作元提示体系统 v2.0》，再说“用这个元提示创建一首名为 [不喜欢] 的歌曲”，得到 v1.0。
+2. 接着要求升级 v1.1：保持立意，曲风为“流行 R&B：旋律与情感并重”，重点强化“歌词讽刺力度”，语言选“国语+英文”。
+3. 最后要求“把上面的 Suno Style Prompt 压缩至1000字符以内”，随后在 Suno 生成作品并上传 MP3。
 
-** 歌词从 v1.0 到 v1.1：把批判落到物件
-v1.0 以失恋后的逞强和习惯为叙事主线；v1.1 加强对情绪绩效化的反讽：懂事仿佛能换“奖状”，疗伤广告承诺三天忘记，悲伤仿佛也要交“成绩单”。旧电影票、面馆里多拿的一双筷子，则负责把抽象的痛落实到生活细节。写法上不直接训斥世界，让小动作揭穿人物那句“我很好”。
+=suno-songwriting= Skill 是这首歌创作完成后，才由元提示封装、经 Loop 质检并收录到远程仓库；v1.0 并非通过该 Skill 调用。
 
-** 副歌与双语 Hook：让一句话自己推翻自己
-反复使用“我不喜欢，不喜欢”作为短旋律动机；“把心碎说成一种成长”是整首歌最明确的冲突。英文并非点缀：开头 =I'm fine= 是伪装；=They say move on= 是他人的催促；桥段 =I'm not fine= 才是主人公自己的声音。末尾允许自己悲伤，才完成情感反转。
+** 核心创作选择
+“不喜欢”的对象不是旧爱，而是被要求体面、快速痊愈的失恋者角色。v1.1 用“奖状”“疗伤广告”“成绩单”讽刺情绪绩效化，以双人票、面馆多拿的一双筷子留住生活感。副歌重复“我不喜欢”；英文 =I'm fine=（伪装）→ =Move on=（催促）→ =I'm not fine=（承认难过）构成反转。
 
-** 曲风与编曲设计
-创作时选择都市华语流行、Contemporary R&B 与 Neo-Soul 的融合，建议速度为 84 BPM、4/4。配器以 Rhodes 电钢琴、干净电吉他、温暖贝斯和克制鼓组为底，弦乐服务于终副歌；主歌压低情绪，预副歌逐渐抬升，桥段设想抽掉鼓点，只留钢琴和脆弱人声，然后让终副歌释放。这里记录的是*生成前的制作设计*，并非对成品的 BPM、调性或实际轨道做了仪器测量。
+曲风设计是华语流行 R&B／Neo-Soul，建议 84 BPM，Rhodes 电钢琴、温暖贝斯和克制鼓组打底，Bridge 留白、终副歌释放。这些是制作设想，不是对录音的实测数据。
 
-** Suno Style Prompt（v1.1 留档）
-以下是本次创作使用的 808 字符曲风提示词，保留给需要复现或二次创作时使用：
+** 下次一条指令启动
+#+begin_example
+用 suno-songwriting 创作一首《[歌名]》。
+主题：[一句话冲突 + 具体画面]；曲风：[流派/情绪]；
+语言：[国语/国语+英文]；重点：[Hook/讽刺/情感]。
+输出完整分段歌词、1000字符以内的 Suno Style Prompt 和质量检查。
+#+end_example
+
+本曲示例：歌名《不喜欢》；主题“失恋后被迫把心碎叫作成长”；曲风“流行 R&B，旋律与情感并重”；重点“讽刺力度”；语言“国语+英文”。
+
+[[https://github.com/lovemoganna/Org-Skills/blob/main/skills/suno-songwriting/SKILL.md][suno-songwriting Skill 规则]]
+
+** Style Prompt（v1.1 文本留档）
+以下是对话中整理的 808 字符曲风提示词；尚未核实它与 Suno 后台最终使用的文本逐字一致。
 
 #+begin_src text
 Mandarin Pop, Contemporary R&B, Neo-Soul, Emotional Urban Ballad, 84 BPM, 4/4, Bittersweet, Melancholic, Subtly Satirical. Warm Expressive Male Tenor, Intimate Breathy Verses, Soulful Phrasing, Smooth Vocal Runs, Controlled Falsetto, Clear Mandarin-English Code Switching. Rhodes Piano, Clean Electric Guitar, Deep Bass, Tight R&B Drums, Syncopated Hi-Hats, Atmospheric Synth Pads, Cinematic Strings. Minimal Storytelling Verses, Rising Pre-Chorus, Catchy Repetitive "Wo Bu Xi Huan" Hook, English Narrative Hooks "I'm Fine", "Move On", "I'm Not Fine". Piano-Only Vulnerable Bridge, Dramatic Pause, Expansive Final Chorus, Layered Harmonies, Gentle Acoustic Outro. Warm Analog Texture, Modern Clear Mix, Humanized Timing, Spacious Reverb, Raw Vocal Emotion. Avoid EDM Drops, Aggressive Rap and Heavy Autotune.
 #+end_src
-
-** 生成版本与歌词边界
-已收到一份《不喜欢》MP3 成品，约 3 分 52 秒，原文件与站内音频已做字节哈希核验。下方歌词是 v1.1 创作稿，并非对演唱音频的逐字转写；重复、副歌呼应和具体字词可能以实际录音为准。
 
 * 歌词（创作稿）
 以下是创作阶段的歌词，可能与最终录音中的实际唱词不完全一致。
