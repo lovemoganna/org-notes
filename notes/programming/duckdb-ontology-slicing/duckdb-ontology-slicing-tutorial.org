@@ -1,0 +1,277 @@
+#+TITLE: DuckDB Ontology Slicing Tutorial
+#+WIKI_ID: duckdb-ontology-slicing-tutorial
+#+CATEGORY: DuckDB / SQL
+#+FILETAGS: :duckdb:sql:ontology:tutorial:
+#+DATE: 2026-10-11
+#+SOURCE: 用户提供的《DuckDB 概念切片实战教程》，来自本地知识库归档
+#+INGEST_ID: 3572220e-7c4f-45fd-af24-4e4ae2cddea2
+#+WIKI_STATUS: published
+
+* DuckDB Tutorial
+
+** Overview
+*** 学习规则
+一次只学一个概念，执行一条简单 SQL，看到真实结果，再进入下一步。
+*** Roadmap
+**** 认识对象
+从真实的 users 表理解什么是实体、实例、属性。不创建图谱。
+**** 认识关系
+检查 users 和 fiat_transactions 是否通过真实字段建立关联。
+**** 认识切片
+根据一个真实业务问题，只提取有关的用户、交易和关系。
+**** 动态展示
+将真实 SQL 查询结果绘制为局部知识图谱，修改问题后重新计算。
+** Content
+*** 导入数据
+引用这个 《交易资金流数据集》（=exchange_funds_flow_dataset.xlsx=），主要包含四张表，包括 users, fiat_transactions, crypto_transactions, exchange_rates.
+
+**** 校验数据
+1. 目的: 检查四张指定的数据表是否存在
+2. 注意: information_schema.tables 是 DuckDB 的系统目录视图，用来查询当前连接可见的表和视图信息。
+
+#+begin_src duckdb
+SELECT
+  table_schema,           -- 数据表所属的 Schema，例如 main
+  TABLE_NAME              -- 数据表名称
+FROM information_schema.tables
+WHERE table_name IN (
+  'users',                -- 用户表
+  'fiat_transactions',    -- 法币交易表
+  'crypto_transactions',  -- 加密货币交易表
+  'exchange_rates'        -- 汇率表
+)
+ ORDER BY TABLE_NAME;     -- 按表名排序
+#+end_src
+
+*** 练习过程
+**** Step 1 认识对象
+理解：数据库里的 users，为什么可以成为本体中的 User 对象？
+目标：从真实数据中识别候选业务对象。不让 AI 凭空创建对象。
+
+***** 本体建模
+1. 检查实际字段，确认每行是否代表一个用户。确认后，将每行映射为一个 `User` 实例，将字段映射为属性。
+2. 注意这只是本体建模的第一步。数据库表不等于本体。
+
+****** 查看用户表
+:PROPERTIES:
+:ID:       e43843d5-efa9-4d1f-86e6-93571e554e7c
+:END:
+
+#+begin_src duckdb
+SELECT * FROM main.users LIMIT 3;
+#+end_src
+
+#+NAME: 本体对象理解
+#+DOWNLOADED: screenshot @ 2026-10-11 21:04:24
+#+ATTR_HTML: :style min-width:0;width:100%;max-width:800px;width:600px; display: block; margin-left: 0; margin-right: auto;
+[[[[file:../../../note-assets/duckdb-ontology-slicing-tutorial/step-1-users-table.png][查看用户表]]]]
+
+***** 简单指标
+
+#+begin_src duckdb
+SELECT
+  COUNT(*) AS user_count
+FROM main.users;
+#+end_src
+
+**** Step 2 认识关系
+理解如何证明用户与其交易存在关联。
+***** 找表与表之间的关联
+执行下面的代码，看两张表是否都存在 uid 字段。
+****** user 表
+#+begin_src duckdb
+-- 查看用户 UID 和用户名
+SELECT
+    uid,
+    user_name
+FROM main.users
+LIMIT 2;
+#+end_src
+
+****** fiat 转账表
+#+begin_src duckdb
+-- 查看交易属于哪个 UID
+SELECT
+    fiat_order_id,
+    uid,
+    amount,
+    status
+FROM main.fiat_transactions
+LIMIT 2;
+#+end_src
+
+***** 查询对象（对象表）的业务行为（关系表）
+例如，我们要查询用户 Alice Chen 的法币交易记录。对应的 SQL 操作是查找 UID 为 "784231905" 的法币交易。
+
+#+begin_src duckdb
+SELECT
+  u.user_name,		-- 用户名称
+  f.fiat_order_id,		-- 法币订单号
+  f.amount,			-- 交易金额
+  f.status			-- 交易状态
+FROM main.users AS u
+  -- 通过共同的 uid 建立关联
+       JOIN main.fiat_transactions AS f
+	   ON CAST(u.uid AS VARCHAR) = CAST(f.uid AS VARCHAR)
+  -- 只查询指定用户
+WHERE
+    CAST(u.uid AS VARCHAR) = '784231905'
+  -- 按订单号排列
+ORDER BY
+    f.fiat_order_id;
+#+end_src
+
+使用 CAST，因为源工作簿的两张表中，UID 分别呈现为文本值和数值。等确认 DuckDB 实际导入类型后，可以统一为更合适的关联类型。更多可以参见 《关键字 CAST：类型转换与表关联》。
+
+***** 研究本体
+:PROPERTIES:
+:ID:       26e4d2e2-4b40-4103-9f04-a74018a47290
+:END:
+现在我们发现了一个可验证的事实：一个 用户(User) 可以关联多条 法币转账(FiatTransaction)。它们之间的关系很明显就是一对多。
+
+#+NAME: 本体关系理解
+#+DOWNLOADED: screenshot @ 2026-10-11 23:24:14
+#+ATTR_HTML: :style min-width:0;width:100%;max-width:500px;width:400px; display: block; margin-left: 0; margin-right: auto;
+[[[[file:../../../note-assets/duckdb-ontology-slicing-tutorial/step-2-relations.png][认识关系与研究本体]]]]
+
+***** 本节学会了什么？
+
+| 本体概念 | 对应内容                            |
+|----------+-------------------------------------|
+| 对象类型 | =User, =FiatTransaction=               |
+| 对象实例 | Alice Chen 的用户记录、具体交易订单 |
+| 对象属性 | =UID, =amount, =status=                 |
+| 对象关系 | 用户拥有交易记录                    |
+
+**** Step 3 认识切片
+从一个用户理解业务关系，并用 SQL 构建局部图谱。从真实 Excel 数据中，找到 Alice Chen 和她的所有法币交易，并把关联结果变成一张小图。
+
+***** 先找到人
+#+NAME: 查找 Alice Chen 的用户记录
+#+begin_src duckdb
+SELECT
+  uid,          -- 用户唯一编号
+  user_name     -- 用户姓名
+FROM main.users
+WHERE user_name = 'Alice Chen';
+#+end_src
+
+这里学到的概念：对象。Alice Chen 是一个真实的 User 对象实例，uid 是识别她的编号。
+
+***** 找到她的全部交易
+#+begin_src sql 
+-- 根据 UID 关联用户和法币交易
+
+SELECT
+    u.user_name,       -- 用户姓名
+    f.fiat_order_id,   -- 交易订单号
+    f.amount,          -- 交易金额
+    f.status           -- 交易状态
+
+FROM main.users AS u
+
+JOIN main.fiat_transactions AS f
+    ON CAST(u.uid AS VARCHAR) =
+       CAST(f.uid AS VARCHAR)
+
+WHERE CAST(u.uid AS VARCHAR) = '784231905'
+
+ORDER BY f.fiat_order_id;
+#+end_src
+
+这里学到的概念：关系。
+JOIN 利用两张表共有的 uid，证明 Alice Chen 关联了这四笔交易。
+
+***** 构建局部图谱
+#+begin_src duckdb
+-- 提取 Alice Chen 的局部图谱关系
+SELECT
+  'User:' || CAST(u.uid AS VARCHAR)
+    AS source_node,      -- 起点：用户
+  'HAS_TRANSACTION'
+    AS relation_type,    -- 关系：拥有交易
+  'FiatTransaction:' || f.fiat_order_id
+    AS target_node       -- 终点：法币交易
+  FROM main.users AS u
+       JOIN main.fiat_transactions AS f
+	   ON CAST(u.uid AS VARCHAR) =
+	      CAST(f.uid AS VARCHAR)
+ WHERE CAST(u.uid AS VARCHAR) = '784231905'
+ ORDER BY f.fiat_order_id;
+#+end_src
+
+***** 本节学会了什么？
+
+| 概念                   | 真实操作                           |
+|------------------------+------------------------------------|
+| 对象（Entity）         | 找到 Alice Chen                    |
+| 关系（Relation）       | 通过 UID 找到四笔交易              |
+| 本体切片（Slicing）    | 只提取 Alice Chen 相关的节点和边   |
+| 任务投影（Projection） | 将查询结果表示为绘图所需的节点和边 |
+
+严格来说，本节完成的是基于真实关系数据的局部子图查询。
+**** Step 4 动态展示
+只改一个用户名，DuckDB 就自动找到这个用户和他的所有法币交易。
+***** 执行一条 SQL
+#+begin_src sql
+-- 第一步：输入要研究的用户名
+WITH target AS (
+  SELECT 'Alice Chen' AS user_name
+)
+  -- 第二步：提取用户与交易之间的关系
+SELECT
+  u.user_name AS user_node,         -- 用户节点
+  'HAS_TRANSACTION' AS relation,    -- 关系类型
+  f.fiat_order_id AS trade_node,    -- 交易节点
+  f.amount,                         -- 金额
+  f.status                          -- 交易状态
+  FROM main.users AS u
+  -- 第三步：通过 UID 找到真实关联交易
+       JOIN main.fiat_transactions AS f
+	   ON CAST(u.uid AS VARCHAR) =
+	      CAST(f.uid AS VARCHAR)
+  -- 第四步：只保留指定用户的数据
+ WHERE u.user_name = (
+   SELECT user_name FROM target
+ )
+ ORDER BY f.fiat_order_id;
+#+end_src
+
+只需要理解两个关键动作： target 告诉 DuckDB 当前研究谁；JOIN 找到属于这个用户的所有交易。
+***** 现在只改一个地方
+把 SQL 第三行：
+#+begin_src duckdb
+SELECT 'Alice Chen' AS user_name
+#+end_src
+
+改成
+
+#+begin_src sql
+SELECT 'Bob Miller' AS user_name
+#+end_src
+
+其他内容完全不动，再运行一次。你会发现：SQL 的关联规则没有变，只是当前研究的用户变了。
+***** 这跟本体切片有什么关系？
+:PROPERTIES:
+:ID:       3b06f1c3-2e26-4ca2-8259-17df131ddd0e
+:END:
+
+#+NAME: 局部子图提取理解。
+#+DOWNLOADED: screenshot @ 2026-10-12 01:46:45
+#+ATTR_HTML: :style min-width:0;width:100%;max-width:500px;width:400px; display: block; margin-left: 0; margin-right: auto;
+[[[[file:../../../note-assets/duckdb-ontology-slicing-tutorial/step-4-graph-relation.png][动态展示与切片图谱]]]]
+
+完整数据始终保留。我们只是根据当前用户，挑选相关对象和关系。严格来说，这仍是基于 SQL 的局部子图查询，还不是自动语义本体切片系统。
+
+那接下来该做什么？
+
+** References
+*** 术语
+| 术语     | 概念                 | 一句人话                               |
+|---------+---------------------+---------------------------------------|
+| 不重不漏 | MECE                | 给知识做分类，尽量避免重复和遗漏           |
+| 本体     | Ontology            | 定义知识对象、属性以及它们之间的关系        |
+| 本体切片 | Ontology Slicing    | 根据问题，只取相关的局部知识               |
+| 本体投影 | Ontology Projection | 把局部知识转换成 SQL、图解或其他可使用的形式 |
+
+用现在的 炼化 Skill 把上面的输出内容优化一轮，以 org mode 的语法整理输出。
