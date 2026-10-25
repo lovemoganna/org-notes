@@ -1,0 +1,155 @@
+#+TITLE: 《一念人间》：王林人物主题歌创作档案 v1.0
+#+WIKI_ID: 0c239267-92e2-47f9-bf57-684793b8a1d0
+#+CATEGORY: 音乐创作
+#+FILETAGS: :音乐:仙侠:仙逆:王林:Suno:
+#+DATE: 2026-10-25
+#+SOURCE: 用户本次对话提供的《仙逆》王林创作要求与生成的歌词/Style 草稿；人物素材源自耳根《仙逆》；创作提示来自 suno-songwriting Skill
+#+INGEST_ID: e91893b6-f537-453e-8fe1-f17cbcd694d2
+#+WIKI_STATUS: published
+
+* 作品状态
+当前为 =v1.0= 原创歌词与 Suno 制作规格，尚未提供与本歌对应的 Suno 音频。本批次另上传的 MP3 标签、演唱主题均是《不喜欢》，不能当作本歌录音。
+
+* 横版头图
+#+ATTR_HTML: :width 100%
+[[file:../../../note-assets/0c239267-92e2-47f9-bf57-684793b8a1d0/banner.png]]
+
+* 创作定位
+王林对抗天命并非为了空洞的长生。歌曲用父亲的木屑、母亲的灯、化凡木雕与李慕婉的丹火推进，从修仙传奇回到人间牵挂。故事参考耳根小说《仙逆》，歌词为本次独立创作，非小说或改编动画的原声歌词。
+
+* 阅读与后续
+- 复制下方 =Style of Music= 至 Suno Style，复制 =Lyrics= 至 Lyrics 区域。
+- 生成后核对实际发音、段落顺序、音色与旋律；本稿中的速度和调性只是设计值，并非实测。
+- 另一首作品：[[wiki:b861d8ab-bcee-4e85-a44d-dc44ef826120][《不喜欢》v1.1 创作与上传音频归档]]。
+
+
+* 创作简介
+王林从赵国山村走向恒岳，偶得天逆珠，却在修行途中失去故乡的灯火。复仇能清算血债，却带不回双亲；神通可以撼动天地，也挽不住李慕婉消逝的年华。歌曲以木屑、丹火、玉简和一盏灯串起他的仙途，把“逆天”从强者宣言写成凡人的执念。主歌如寒夜低语，副歌以“一念逆天，一念人间”反复回响，终章从独行走向重逢，悲壮中留一缕温暖。
+
+* Suno 曲风参数
+Genre: Chinese Xianxia Guofeng Ballad, Cinematic Mandopop
+Mood: Solemn, Wistful, Heroic
+Tempo: 78 BPM, 4/4, D Minor, Pentatonic Melodic Phrasing
+Instrumentation: Guqin, Guzheng, Xiao, Dizi, Erhu, Pipa, Cinematic Strings, Chinese War Drums, Soft Sub Bass
+Vocal Style: Expressive Warm Male Tenor-Baritone, Clear Mandarin, Controlled High Notes, Natural Vibrato
+Production: Spacious Cinematic Dynamics, Organic Acoustic Texture, Restrained Verses, Soaring Final Chorus
+
+* Style of Music
+#+begin_src text
+Chinese Xianxia Guofeng Ballad, Cinematic Mandopop, 78 BPM, 4/4, D Minor, pentatonic-inflected melody. Solemn, wistful, heroic, deeply tender. Warm resonant male tenor-baritone, clear standard Mandarin diction, restrained intimate verses, expressive sustained high notes, subtle natural vibrato, no English vocals. Guqin arpeggios, guzheng glissandos, low xiao flute, dizi accents, erhu countermelody, pipa tremolo, cinematic strings, deep Chinese war drums, soft sub bass, wind ambience. Sparse storytelling intro, gradually rising pre-chorus, soaring singable chorus repeating "Yi Nian Ni Tian, Yi Nian Ren Jian", orchestral climax, stripped guqin bridge, dramatic breath pause, final chorus shifting from grief to reunion, fading xiao and guqin outro. Organic acoustic texture, spacious reverberation, emotionally human timing, wide but uncluttered mix. No rap, trap beats, EDM drops, English singing, or heavy autotune.
+#+end_src
+
+* Lyrics
+#+begin_src text
+[Intro]
+[Wind Ambience, Solo Xiao, Sparse Guqin]
+
+山外长风 吹过人间
+谁家灯火 还照少年
+
+[Verse 1]
+[Low Intimate Male Vocal, Guqin]
+
+父亲木屑落满旧衣衫
+母亲把灯守到夜深寒
+恒岳山门说我仙缘浅
+少年踏雪偏要闯山关
+
+崖底天逆映亮我眉间
+此后天命不肯放我还
+后来故乡一夜成劫难
+再无灯火照我过重山
+
+[Pre-Chorus]
+[Erhu Enters, Rising Strings]
+
+藤家的血债终有偿还
+可空屋依旧不见炊烟
+我把双亲刻进木纹间
+刀锋刻不回那句平安
+
+[Chorus]
+[Full Strings, Chinese Drums, Soaring Melody]
+
+一念逆天 一念人间
+我不求那万载的仙缘
+若能换回窗前一盏灯
+甘愿把这长生归还
+
+一念逆天 一念人间
+万里星河不及你眉眼
+踏破生死 踏遍流年
+只求故人再与我看月圆
+
+[Instrumental Interlude]
+[Pipa Tremolo, Dizi Answering Erhu]
+
+[Verse 2]
+[Warm Guqin, Soft Percussion]
+
+修魔海中丹火照长夜
+青龙玉简耗去你流年
+我曾护你走过刀光险
+却没护住发白的鬓边
+
+后来化凡街巷起炊烟
+我将思念雕成你容颜
+世人只说我敢争天命
+不知我怕你一去不还
+
+[Pre-Chorus]
+[Growing Tension, Sustained Strings]
+
+长生若是孤身的彼岸
+谁来问我这一生悲欢
+我向生死借一场团圆
+纵使轮回不肯说成全
+
+[Chorus]
+[Full Arrangement, More Urgent Vocal]
+
+一念逆天 一念人间
+我不求那万载的仙缘
+若能换回窗前一盏灯
+甘愿把这长生归还
+
+一念逆天 一念人间
+万里星河不及你眉眼
+踏破生死 踏遍流年
+只求故人再与我看月圆
+
+[Bridge]
+[Drums Stop, Solo Guqin, Close Vocal]
+
+我曾以为走到九重天
+就能让旧时光再倒转
+可最难胜过的不是劫
+是木雕始终不会开言
+
+[Pause]
+[Almost Whispered]
+
+若天道要我学会忘却
+我偏要替你记得人间
+
+[Final Chorus]
+[Explosive Strings and Drums, Emotional Release]
+
+一念逆天 一念人间
+不枉我与天争这万年
+若你终于走出那长夜
+请再唤我旧时的少年
+
+一念逆天 一念人间
+踏过九桥仍想看炊烟
+我这一生赢过千万劫
+只为和你共守一盏灯
+
+[Outro]
+[Drums Fade, Xiao and Guqin Only]
+
+木屑静静落在灯火前
+终于有人唤我回人间
+
+[End]
+#+end_src

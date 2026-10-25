@@ -1,0 +1,117 @@
+#+TITLE: 《不喜欢》v1.1：Suno 成品与创作稿归档
+#+WIKI_ID: b861d8ab-bcee-4e85-a44d-dc44ef826120
+#+CATEGORY: 音乐创作
+#+FILETAGS: :音乐:流行:RNB:讽刺:Suno:
+#+DATE: 2026-10-25
+#+SOURCE: 本次对话的《不喜欢》v1.1 原创歌词与 Suno Style 草稿；用户于 2026-10-25 上传 MP3 文件供归档
+#+INGEST_ID: e91893b6-f537-453e-8fe1-f17cbcd694d2
+#+WIKI_STATUS: published
+
+* 归档结论
+这是一首关于“失恋后的情绪表演”的都市 R&B：别人催促向前走，主人公重复 =I am fine=，最终选择承认仍会难过。歌词反讽把心碎叫作成长、把逞强包装成体面。
+
+* 已上传音频的事实边界
+- 用户上传的文件名：=不喜欢(1).mp3=，MP3 标题标签：《不喜欢》。
+- 文件时长：约 3 分 51.79 秒；文件大小：5,128,694 字节。
+- 音频确属《不喜欢》相关演唱内容，并非《一念人间》。
+- 现有 org-museum-ingest 附件协议不接收 =.mp3=；故本站本次只收录创作规格和歌词草稿，*未上传音频本体，也未提供在线播放链接*。如需在线收听，请另提供可公开的 Suno 分享 URL 或更新站点媒体支持并验证。
+- 下方 =Lyrics= 是此前创作草稿，不可称为本次 MP3 的完整逐字转写；任何版本差异需要后续专门核对。
+
+* 另一首作品
+[[wiki:0c239267-92e2-47f9-bf57-684793b8a1d0][《一念人间》：王林主题歌草稿（待生成音频）]]
+
+
+* 创作简介
+一场分手以后，他学会了在电梯镜子里练习微笑，也学会了在朋友面前熟练回答没事。所有人都夸他成熟，广告甚至承诺几天就能忘记旧爱，仿佛悲伤也该提交一份漂亮的成绩单。然而电影院的空位与面馆里多拿的一双筷子，还在揭穿这场体面的表演。歌曲以都市流行R&B的温暖律动包裹尖锐反讽，让一句反复说出的我不喜欢，最终变成允许自己难过的坦白。
+
+* Suno 曲风参数
+Genre: Mandarin Pop, Contemporary R&B, Neo-Soul
+Mood: Bittersweet, Introspective, Subtly Satirical
+Tempo: 84 BPM (suggested), 4/4
+Instrumentation: Rhodes, Clean Electric Guitar, Deep Bass, R&B Drums, Subtle Strings
+Vocal Style: Warm Expressive Male Tenor, Breathy Verses, Controlled Falsetto
+Production: Warm Analog Texture, Humanized Timing, Dynamic Final Chorus
+
+* Style of Music
+#+begin_src text
+Mandarin Pop, Contemporary R&B, Neo-Soul, Emotional Urban Ballad, 84 BPM, 4/4, Bittersweet, Melancholic, Subtly Satirical. Warm Expressive Male Tenor, Intimate Breathy Verses, Soulful Phrasing, Smooth Vocal Runs, Controlled Falsetto, Clear Mandarin-English Code Switching. Rhodes Piano, Clean Electric Guitar, Deep Bass, Tight R&B Drums, Syncopated Hi-Hats, Atmospheric Synth Pads, Cinematic Strings. Minimal Storytelling Verses, Rising Pre-Chorus, Catchy Repetitive "Wo Bu Xi Huan" Hook, English Narrative Hooks "I'm Fine", "Move On", "I'm Not Fine". Piano-Only Vulnerable Bridge, Dramatic Pause, Expansive Final Chorus, Layered Harmonies, Gentle Acoustic Outro. Warm Analog Texture, Modern Clear Mix, Humanized Timing, Spacious Reverb, Raw Vocal Emotion. Avoid EDM Drops, Aggressive Rap and Heavy Autotune.
+#+end_src
+
+* Lyrics
+#+begin_src text
+[Intro]
+[Soft Rhodes, Quiet City Ambience]
+I'm fine...
+
+[Verse 1]
+电梯镜子照见我的慌
+嘴角练习体面的模样
+朋友说放手才算成长
+仿佛心碎也值得鼓掌
+
+手机还存着旧票两张
+座位挨着人却已散场
+我说没事一切都正常
+说完手心还偷偷发烫
+
+[Pre-Chorus]
+他们夸我分手很漂亮
+没哭没闹值得被表扬
+原来懂事是一张奖状
+奖给最会藏伤的模样
+
+[Chorus]
+[Catchy, Soulful R&B Hook]
+我不喜欢 不喜欢
+把心碎说成一种成长
+我不喜欢 不喜欢
+把逞强说得那么漂亮
+They say move on, move on
+连难过都要准时退场
+我说着 I'm fine, I'm fine
+却没人问我真的怎样
+
+[Verse 2]
+广告推来疗伤的秘方
+承诺三天就能把你忘
+评论夸我终于很坚强
+像悲伤也得交出成绩单
+
+路过那家熟悉的面馆
+习惯拿起筷子又一双
+抬头才见对面空荡荡
+我把多的放回原地方
+
+[Bridge]
+[Drums Drop, Piano Only]
+如果流泪就算不够大方
+凭什么伤口也要化好妆
+[Pause]
+No, I'm not fine.
+我只是终于敢承认受伤
+不再把眼泪说成坚强
+
+[Final Chorus]
+[Full Strings, Emotional Release]
+我不喜欢 不喜欢
+把心碎说成一种成长
+我不喜欢 不喜欢
+把逞强说得那么漂亮
+They say move on, move on
+可伤口哪有统一时长
+今天我不说 I'm fine
+我也有资格慢慢悲伤
+
+[Outro]
+[Soft Guitar, Fading Rhodes]
+那张旧票还留在手上
+我终于不必装作无恙
+I'm not fine, and that's alright.
+[End]
+#+end_src
+
+* 旋律与编曲说明
+副歌以短句“我不喜欢”做切分音型；桥段抽掉鼓点，用 “I'm not fine” 推翻开头的伪装；终副歌在同一 Hook 上转向允许自己悲伤。主押 ang 韵，英文句只承担叙事节点。
+
+* 迭代记录
+保留《不喜欢》的成人情感反讽与城市生活意象；把抽象控诉升级为奖状、广告、成绩单三个可感知的场景；“I'm fine / Move on / I'm not fine”组成情绪逻辑。演唱顺口与音频效果待实际生成后试听。
