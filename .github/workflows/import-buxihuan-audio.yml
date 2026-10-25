@@ -1,0 +1,50 @@
+name: Import verified Bu Xihuan MP3
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'media-source/suno/b861d8ab-bcee-4e85-a44d-dc44ef826120/**'
+      - '.github/workflows/import-buxihuan-audio.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-audio:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          fetch-depth: 0
+      - name: Reconstruct MP3 and verify original bytes
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64
+          import hashlib
+          src = Path('media-source/suno/b861d8ab-bcee-4e85-a44d-dc44ef826120')
+          parts = sorted(src.glob('part-*.b64'))
+          expected_names = [f'part-{i:02d}.b64' for i in range(1, 15)]
+          assert [p.name for p in parts] == expected_names, 'missing or extra audio chunk'
+          encoded = ''.join(''.join(p.read_text(encoding='ascii').split()) for p in parts)
+          data = base64.b64decode(encoded, validate=True)
+          assert len(data) == 5128694, 'audio length mismatch'
+          digest = hashlib.sha256(data).hexdigest()
+          assert digest == '63f92e6eb9517b4b2783672f2b0e496374015a4951e2362fb646a16dd9dbdeb2', 'audio sha256 mismatch'
+          assert data[:3] == b'ID3', 'not original ID3 MP3'
+          out = Path('note-assets/b861d8ab-bcee-4e85-a44d-dc44ef826120/buxihuan.mp3')
+          assert not out.exists(), 'audio already exists, refusing overwrite'
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_bytes(data)
+          print(f'RECONSTRUCTED_VERIFIED_AUDIO sha256={digest} bytes={len(data)} path={out}')
+          PY
+      - name: Commit verified MP3 to source repository
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- 'note-assets/b861d8ab-bcee-4e85-a44d-dc44ef826120/buxihuan.mp3'
+          git commit -m 'feat(music): store checksum-verified Bu Xihuan MP3'
+          git push origin HEAD:main
