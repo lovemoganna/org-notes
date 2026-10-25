@@ -9,7 +9,7 @@
 
 * 封面
 #+ATTR_HTML: :width 100%
-[[file:../../../note-assets/b861d8ab-bcee-4e85-a44d-dc44ef826120/banner.png]]
+[[file:../../../note-assets/b861d8ab-bcee-4e85-a44d-dc44ef826120/banner-20261025-v2.webp][《不喜欢》雨夜都市横版头图]]
 
 * 作品简介
 分手以后，人人都劝你体面退场，把心碎叫作成长，把眼泪藏进一句“I'm fine”。可电影票仍是两张，面馆里仍会下意识多拿一双筷子。《不喜欢》用温暖的都市 R&B 律动，唱出成熟背后的逞强：拒绝把悲伤包装得漂亮，也允许自己不必立刻放下。直到那句“I'm not fine”终于说出口，承认难过才成为真正的释然。
@@ -18,6 +18,29 @@
 [[file:../../../note-assets/b861d8ab-bcee-4e85-a44d-dc44ef826120/buxihuan.mp3][《不喜欢》完整音频（MP3）]]
 
 时长约 3 分 52 秒。
+
+* 创作过程：从“不喜欢”到“我终于不再伪装”
+** 主题起点：反对的不是那个人
+歌名听起来像拒绝一个人，真正要写的却是分手后被要求“成熟”“体面”“赶紧向前走”的压力。第一稿先建立人物处境：电梯镜前练习笑容，手机留着双人票，明明还痛却习惯说“没事”。歌词的矛盾不是要挽回谁，而是“不该连伤心都得表现正确”。
+
+** 歌词从 v1.0 到 v1.1：把批判落到物件
+v1.0 以失恋后的逞强和习惯为叙事主线；v1.1 加强对情绪绩效化的反讽：懂事仿佛能换“奖状”，疗伤广告承诺三天忘记，悲伤仿佛也要交“成绩单”。旧电影票、面馆里多拿的一双筷子，则负责把抽象的痛落实到生活细节。写法上不直接训斥世界，让小动作揭穿人物那句“我很好”。
+
+** 副歌与双语 Hook：让一句话自己推翻自己
+反复使用“我不喜欢，不喜欢”作为短旋律动机；“把心碎说成一种成长”是整首歌最明确的冲突。英文并非点缀：开头 =I'm fine= 是伪装；=They say move on= 是他人的催促；桥段 =I'm not fine= 才是主人公自己的声音。末尾允许自己悲伤，才完成情感反转。
+
+** 曲风与编曲设计
+创作时选择都市华语流行、Contemporary R&B 与 Neo-Soul 的融合，建议速度为 84 BPM、4/4。配器以 Rhodes 电钢琴、干净电吉他、温暖贝斯和克制鼓组为底，弦乐服务于终副歌；主歌压低情绪，预副歌逐渐抬升，桥段设想抽掉鼓点，只留钢琴和脆弱人声，然后让终副歌释放。这里记录的是*生成前的制作设计*，并非对成品的 BPM、调性或实际轨道做了仪器测量。
+
+** Suno Style Prompt（v1.1 留档）
+以下是本次创作使用的 808 字符曲风提示词，保留给需要复现或二次创作时使用：
+
+#+begin_src text
+Mandarin Pop, Contemporary R&B, Neo-Soul, Emotional Urban Ballad, 84 BPM, 4/4, Bittersweet, Melancholic, Subtly Satirical. Warm Expressive Male Tenor, Intimate Breathy Verses, Soulful Phrasing, Smooth Vocal Runs, Controlled Falsetto, Clear Mandarin-English Code Switching. Rhodes Piano, Clean Electric Guitar, Deep Bass, Tight R&B Drums, Syncopated Hi-Hats, Atmospheric Synth Pads, Cinematic Strings. Minimal Storytelling Verses, Rising Pre-Chorus, Catchy Repetitive "Wo Bu Xi Huan" Hook, English Narrative Hooks "I'm Fine", "Move On", "I'm Not Fine". Piano-Only Vulnerable Bridge, Dramatic Pause, Expansive Final Chorus, Layered Harmonies, Gentle Acoustic Outro. Warm Analog Texture, Modern Clear Mix, Humanized Timing, Spacious Reverb, Raw Vocal Emotion. Avoid EDM Drops, Aggressive Rap and Heavy Autotune.
+#+end_src
+
+** 生成版本与歌词边界
+已收到一份《不喜欢》MP3 成品，约 3 分 52 秒，原文件与站内音频已做字节哈希核验。下方歌词是 v1.1 创作稿，并非对演唱音频的逐字转写；重复、副歌呼应和具体字词可能以实际录音为准。
 
 * 歌词（创作稿）
 以下是创作阶段的歌词，可能与最终录音中的实际唱词不完全一致。
