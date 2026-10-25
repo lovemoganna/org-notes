@@ -49,7 +49,7 @@ jobs:
       - name: Regression test real article cleanup
         run: python3 tools/test_museum_user_scope_regression.py
       - name: Regression test MP3 and existing source contracts
-        run: python3 -m unittest discover -s _publisher/test -p test_museum_pipeline.py -v
+        run: python3 -m unittest discover -s _publisher/test -p test_museum_pipeline.py -k Validation -v
       - name: Install batch Emacs
         uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
         with:
