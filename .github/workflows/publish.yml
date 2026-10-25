@@ -82,6 +82,20 @@ jobs:
         env:
           LANG: C.UTF-8
         run: python3 _publisher/tools/museum_pipeline.py build --root . --engine _publisher --output _site
+      - name: Verify built Bu Xihuan MP3 and native player
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          expected = "63f92e6eb9517b4b2783672f2b0e496374015a4951e2362fb646a16dd9dbdeb2"
+          page = Path("_site/pages/collected/ideas/suno-songwriting/b861d8ab-bcee-4e85-a44d-dc44ef826120.html")
+          assert page.is_file(), "song page missing"
+          html = page.read_text(encoding="utf-8")
+          assert "<audio" in html.lower(), "native audio player missing"
+          files = [p for p in Path("_site").rglob("*.mp3") if hashlib.sha256(p.read_bytes()).hexdigest() == expected]
+          assert files, "published MP3 does not match uploaded audio"
+          print("VERIFIED_BUILT_MP3", files[0], files[0].stat().st_size, expected)
+          PY
       - name: Record source and build provenance
         env:
           SOURCE_COMMIT: ${{ github.sha }}
@@ -134,6 +148,50 @@ jobs:
           fetch-depth: 0
           path: _source
           persist-credentials: false
+      - name: Verify public Bu Xihuan MP3 bytes and player
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, time, urllib.parse, urllib.request
+          from html.parser import HTMLParser
+          from pathlib import Path
+          expected = "63f92e6eb9517b4b2783672f2b0e496374015a4951e2362fb646a16dd9dbdeb2"
+          file = Path("_source/notes/ideas/suno-songwriting/b861d8ab-bcee-4e85-a44d-dc44ef826120.org")
+          if not file.is_file() or "buxihuan.mp3" not in file.read_text(encoding="utf-8"):
+              print("Audio note is absent; no archived song to verify")
+              raise SystemExit(0)
+          page_url = "https://lovemoganna.github.io/org-notes/pages/collected/ideas/suno-songwriting/b861d8ab-bcee-4e85-a44d-dc44ef826120.html"
+          class AudioSources(HTMLParser):
+              def __init__(self): super().__init__(); self.inside = False; self.urls = []
+              def handle_starttag(self, tag, attrs):
+                  a = dict(attrs)
+                  if tag == "audio":
+                      self.inside = True
+                      if a.get("src"): self.urls.append(a["src"])
+                  if tag == "source" and self.inside and a.get("src"): self.urls.append(a["src"])
+              def handle_endtag(self, tag):
+                  if tag == "audio": self.inside = False
+          last = None
+          for attempt in range(4):
+              try:
+                  req = urllib.request.Request(page_url, headers={"User-Agent": "Org-Museum-Audio-Verification/1.0"})
+                  with urllib.request.urlopen(req, timeout=20) as result:
+                      html = result.read().decode("utf-8", errors="replace")
+                  parser = AudioSources(); parser.feed(html)
+                  urls = [urllib.parse.urljoin(page_url, s) for s in parser.urls]
+                  urls = [u for u in urls if urllib.parse.urlsplit(u).hostname == "lovemoganna.github.io" and urllib.parse.urlsplit(u).path.lower().endswith(".mp3")]
+                  assert urls, "no native site-hosted MP3 source found in article"
+                  audio_url = urls[0]
+                  with urllib.request.urlopen(urllib.request.Request(audio_url, headers={"User-Agent": "Org-Museum-Audio-Verification/1.0"}), timeout=30) as result:
+                      data = result.read()
+                  digest = hashlib.sha256(data).hexdigest()
+                  assert digest == expected, f"published audio SHA256 mismatch: {digest}"
+                  print("MUSEUM-AUDIO-PUBLISHED-RECEIPT " + json.dumps({"url": audio_url, "bytes": len(data), "sha256": digest}))
+                  break
+              except Exception as error:
+                  last = str(error)
+                  if attempt < 3: time.sleep(6)
+          else: raise RuntimeError("live audio verification failed: " + str(last))
+          PY
       - name: Record verified URL source bindings for Chat
         run: |
           python3 - <<'PY'
