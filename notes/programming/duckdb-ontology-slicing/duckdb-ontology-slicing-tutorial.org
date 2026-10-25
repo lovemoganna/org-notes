@@ -64,7 +64,7 @@ SELECT * FROM main.users LIMIT 3;
 #+NAME: 本体对象理解
 #+DOWNLOADED: screenshot @ 2026-10-11 21:04:24
 #+ATTR_HTML: :style min-width:0;width:100%;max-width:800px;width:600px; display: block; margin-left: 0; margin-right: auto;
-[[[[file:../../../note-assets/duckdb-ontology-slicing-tutorial/step-1-users-table.png][查看用户表]]]]
+[[file:../../../note-assets/duckdb-ontology-slicing-tutorial/step-1-users-table.png][查看用户表]]
 
 ***** 简单指标
 
@@ -132,7 +132,7 @@ ORDER BY
 #+NAME: 本体关系理解
 #+DOWNLOADED: screenshot @ 2026-10-11 23:24:14
 #+ATTR_HTML: :style min-width:0;width:100%;max-width:500px;width:400px; display: block; margin-left: 0; margin-right: auto;
-[[[[file:../../../note-assets/duckdb-ontology-slicing-tutorial/step-2-relations.png][认识关系与研究本体]]]]
+[[file:../../../note-assets/duckdb-ontology-slicing-tutorial/step-2-relations.png][认识关系与研究本体]]
 
 ***** 本节学会了什么？
 
@@ -259,7 +259,7 @@ SELECT 'Bob Miller' AS user_name
 #+NAME: 局部子图提取理解。
 #+DOWNLOADED: screenshot @ 2026-10-12 01:46:45
 #+ATTR_HTML: :style min-width:0;width:100%;max-width:500px;width:400px; display: block; margin-left: 0; margin-right: auto;
-[[[[file:../../../note-assets/duckdb-ontology-slicing-tutorial/step-4-graph-relation.png][动态展示与切片图谱]]]]
+[[file:../../../note-assets/duckdb-ontology-slicing-tutorial/step-4-graph-relation.png][动态展示与切片图谱]]
 
 完整数据始终保留。我们只是根据当前用户，挑选相关对象和关系。严格来说，这仍是基于 SQL 的局部子图查询，还不是自动语义本体切片系统。
 
