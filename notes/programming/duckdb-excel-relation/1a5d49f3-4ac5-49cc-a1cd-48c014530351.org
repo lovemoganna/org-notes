@@ -128,7 +128,7 @@ DuckDB 概念：WHERE Clause (行级前置过滤)。SQL 入口：WHERE condition
 Relation：N 行输入 Relation → ≤N 行过滤结果 Relation（列结构不变，按行条件快速收敛）
 
 #+CAPTION: 小节 06｜SQL 运算机制与中文注释
-[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-06-where.png]]
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-06-where.webp]]
 
 #+begin_src sql :exports code
 SELECT *
@@ -541,7 +541,7 @@ DuckDB 概念：LEFT JOIN (左外连接)。SQL 入口：a LEFT JOIN b ON cond。
 Relation：主 Relation (左) + 辅 Relation (右) → 维持主表行数基数且横向扩充新属性列
 
 #+CAPTION: 小节 25｜SQL 运算机制与中文注释
-[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-25-left-join.png]]
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-25-left-join.webp]]
 
 #+begin_src sql :exports code
 SELECT l.id, l.name, r.bonus
@@ -1165,7 +1165,7 @@ DuckDB 概念：Temporary Table (连接级临时表)。SQL 入口：CREATE TEMP 
 Relation：输入 Relation → 写入当前会话专属临时物理表存储 (temp.main)
 
 #+CAPTION: 小节 51｜SQL 运算机制与中文注释
-[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-51-create-temp-table.png]]
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-51-create-temp-table.webp]]
 
 #+begin_src sql :exports code
 CREATE TEMP TABLE tt AS SELECT *
