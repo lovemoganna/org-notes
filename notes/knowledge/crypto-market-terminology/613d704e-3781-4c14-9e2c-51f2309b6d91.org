@@ -9,36 +9,34 @@
 
 * 使用方式
 
-按问题选场景：先看图中位置，再查术语定义与不能推出的结论。所有配图为合成教学数据，非真实账户或交易记录。
+按场景查定义及判断边界。图示为教学绘制或历史快照，不代表实时行情。
 
 关联阅读：[[https://lovemoganna.github.io/org-notes/pages/collected/knowledge/technical-analysis/595eb2a8-d945-564d-96b7-150c71cefec9.html][《技术分析地图：从数据到可验证的交易系统》]] 和 [[wiki:8a74a4c2-50ad-4c11-a60e-1180d479ff56][《加密货币吸筹：从 K 线识别到验证》]]。
 
 | 要解决的问题 | 直达场景 |
 |-
-| 打开 Binance／OKX，看不懂盘口、标记价和持仓数据 | [[#scene-screen][看盘术语：交易界面速读]] |
-| 看不懂 K 线、影线、成交量 | [[#scene-candle][价格与 K 线]] |
-| 不知道是上涨、下跌还是震荡 | [[#scene-structure][趋势与结构]] |
-| 看到双顶、头肩、三角形却不知道何时确认 | [[#scene-pattern][形态识别]] |
-| 指标太多，容易信号冲突 | [[#scene-indicators][指标选择]] |
-| 想知道哪个价格成交最多、谁在主动成交 | [[#scene-flow][成交与订单流]] |
-| 判断横盘是否吸筹或顶部派发 | [[#scene-wyckoff][吸筹与派发]] |
-| 想区分主力买入、链上资金流与合约多头 | [[#scene-holdings][持仓证据]] |
-| 图上充满斐波那契和各种时间线 | [[#scene-math][比例与周期]] |
-| 想把图形判断变成可验证策略 | [[#scene-system][交易系统]] |
-| 横盘三周、插针收回又放量上涨 | [[#scene-case-three-weeks][综合案例]] |
+| 看盘界面：价格、盘口与合约数据 | [[#scene-screen][看盘术语：交易界面速读]] |
+| K 线与成交量 | [[#scene-candle][价格与 K 线]] |
+| 趋势、区间与突破 | [[#scene-structure][趋势与结构]] |
+| 双顶、头肩、三角形 | [[#scene-pattern][形态识别]] |
+| 技术指标选择 | [[#scene-indicators][指标选择]] |
+| 成交分布与订单流 | [[#scene-flow][成交与订单流]] |
+| 吸筹、派发与威科夫 | [[#scene-wyckoff][吸筹与派发]] |
+| 现货、链上与合约持仓 | [[#scene-holdings][持仓证据]] |
+| 斐波那契、江恩与周期 | [[#scene-math][比例与周期]] |
+| 交易规则与回测 | [[#scene-system][交易系统]] |
+| 三周横盘综合案例 | [[#scene-case-three-weeks][综合案例]] |
 
 ** 看盘术语：从交易界面读到市场状态〔补〕
 :PROPERTIES:
 :CUSTOM_ID: scene-screen
 :END:
 
-看盘时先分开三类对象：=*成交事实*=（K 线、最新成交、成交量）、=*待成交意愿*=（订单簿挂单）与=*风险参考值*=（标记价、资金费率、未平仓量）。它们不能直接互相替代。以下以 Binance／OKX 常见现货和永续合约界面为例，字段名称与单位须以具体产品页面为准。
-
-下面三张横版矢量图按 K 线结构、盘口撮合、看盘步骤分别放置在相应小节。图中价格与结构均为非实时教学示意；不得把静态图当作当前行情或成交证据。
+区分已成交数据（K 线、最新价、成交量）、未成交委托（订单簿）和合约参考数据（标记价、OI、资金费率）。不同平台、现货及永续合约的字段口径可能不同。
 
 *** 顶部行情与图表
 
-#+CAPTION: 图 1：BTCUSDT K 线、周期、均线与成交量的屏幕位置（静态示意；非实时报价）
+#+CAPTION: 图 1：BTCUSDT K 线、周期、均线与成交量的屏幕位置
 #+ATTR_HTML: :width 100% :style max-width:1200px;height:auto;display:block;margin:0 auto
 [[https://raw.githubusercontent.com/lovemoganna/org-notes/main/assets/market-anatomy/613d704e-3781-4c14-9e2c-51f2309b6d91/01-chart-anatomy.svg]]
 
@@ -56,7 +54,7 @@
 
 *** 盘口、逐笔成交与流动性
 
-#+CAPTION: 图 2：BTCUSDT 买一卖一、买卖价差与挂单深度（历史快照示例；非实时）
+#+CAPTION: 图 2：BTCUSDT 买一卖一、买卖价差与挂单深度（历史快照）
 #+ATTR_HTML: :width 100% :style max-width:1200px;height:auto;display:block;margin:0 auto
 [[https://raw.githubusercontent.com/lovemoganna/org-notes/main/assets/market-anatomy/613d704e-3781-4c14-9e2c-51f2309b6d91/02-orderbook.svg]]
 
@@ -83,7 +81,7 @@
 
 *** 五步看盘：把术语连成判断
 
-#+CAPTION: 图 3：行情定位、价格结构、成交确认与盘口观察的关系（教学流程图）
+#+CAPTION: 图 3：行情定位、价格结构、成交确认与盘口观察的关系
 #+ATTR_HTML: :width 100% :style max-width:1200px;height:auto;display:block;margin:0 auto
 [[https://raw.githubusercontent.com/lovemoganna/org-notes/main/assets/market-anatomy/613d704e-3781-4c14-9e2c-51f2309b6d91/03-reading-flow.svg]]
 
@@ -93,16 +91,14 @@
 4. *核盘口与合约证据*：区分买卖挂单和主动成交；若使用 OI、资金费率或多空比，先确认平台与统计窗口一致。
 5. *写可证伪结论*：例如“15 分钟 K 线收于预设支撑下方，且成交量高于既定基准”为观察；下一步须写明重新收回支撑时该判断如何失效，而不是直接推断“庄家砸盘”。
 
-*典型误读*：价格下跌同时盘口显示“买盘 56%”并不矛盾。下跌来自已成交订单的价格变化，56% 来自某个瞬间的可见待成交委托。若不连续观察主动成交、撤单与补单，无法判断这些挂单是否形成真实承接。
-
-*核验入口*：[[https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data][Binance USDⓈ-M 期货行情字段]]；[[https://www.binance.com/en/academy/glossary/bid-ask-spread][Binance 买卖价差]]；[[https://www.okx.com/en-us/help/ii-mark-price-and-last-price][OKX 标记价与最新价]]。不同交易所的数据不可仅凭字段同名就视为口径相同。
+*数据口径*：[[https://developers.binance.com/en/docs/catalog/core-trading-derivatives-trading-usd-s-m-futures/api/rest-api/market-data][Binance USDⓈ-M]]；[[https://www.binance.com/en/academy/glossary/bid-ask-spread][Binance 价差]]；[[https://www.okx.com/en-us/help/ii-mark-price-and-last-price][OKX 标记价]]。
 
 * 场景：看懂 K 线与价格反应
 :PROPERTIES:
 :CUSTOM_ID: scene-candle
 :END:
 
-#+CAPTION: 场景 1：OHLCV、长上影线、Pin Bar、吞没、内包线、成交量与主动买量（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 1：OHLCV、长上影线、Pin Bar、吞没、内包线、成交量与主动买量
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/01-price-action.png]]
 
@@ -123,7 +119,7 @@
 :CUSTOM_ID: scene-structure
 :END:
 
-#+CAPTION: 场景 2：高低点结构、支撑阻力、失败突破、突破与回踩（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 2：高低点结构、支撑阻力、失败突破、突破与回踩
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/02-market-structure.png]]
 
@@ -148,7 +144,7 @@
 :CUSTOM_ID: scene-pattern
 :END:
 
-#+CAPTION: 场景 3：双顶、双底、头肩顶、旗形、通道和颈线（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 3：双顶、双底、头肩顶、旗形、通道和颈线
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/03-patterns.png]]
 
@@ -170,7 +166,7 @@
 :CUSTOM_ID: scene-indicators
 :END:
 
-#+CAPTION: 场景 4：K 线与 MA、EMA、VWAP、MACD、RSI、KDJ、ADX、ATR（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 4：K 线与 MA、EMA、VWAP、MACD、RSI、KDJ、ADX、ATR
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/04-indicators.png]]
 
@@ -194,7 +190,7 @@
 :CUSTOM_ID: scene-flow
 :END:
 
-#+CAPTION: 场景 5：成交量轮廓、TPO、POC 与订单流概念（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 5：成交量轮廓、TPO、POC 与订单流概念
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/05-orderflow.png]]
 
@@ -216,7 +212,7 @@
 :CUSTOM_ID: scene-wyckoff
 :END:
 
-#+CAPTION: 场景 6：威科夫候选吸筹结构、A–E 阶段、Spring、SOS 与 LPS（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 6：威科夫候选吸筹结构、A–E 阶段、Spring、SOS 与 LPS
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/06-wyckoff.png]]
 
@@ -247,7 +243,7 @@
 :CUSTOM_ID: scene-wyckoff-post-review
 :END:
 
-*材料与边界*：2024-12-27，X 账号“看不懂的SOL”发表 [[https://x.com/DtDt666/status/1872628083347615960][《威科夫操盘法》读后感]]，以“耗（时间）、震（空间）、迷（信息）”概括其对市场参与者行为的理解。这是帖文作者的解释框架，并非交易所数据能够直接验证的“庄家三种操盘方式”，也不能未经核对视作该书原文。用于看盘时，应把可见的成交事实与对参与者动机的叙事拆开。
+*材料来源*：2024-12-27，[[https://x.com/DtDt666/status/1872628083347615960][看不懂的SOL《威科夫操盘法》读后感]]提出“耗／震／迷”。这是帖文作者对市场行为的归纳，不是已证实的操纵行为，也不能直接当作威科夫原著表述。
 
 *** 三条量价法则：观察、解释、反证
 
@@ -257,34 +253,26 @@
 | 因果（Cause and Effect） | 区间形成的持续时间、宽度及其后实际脱离区间的走势；经典方法可另参考点数图（P&F）计数 | 整理区间可被看作潜在“因”，但区间长短并不自动给出未来涨幅；先确认边界和有效突破，再比较事后结果 |
 | 努力与结果（Effort versus Result） | *努力*主要以成交量作代理；*结果*是同周期价格波幅、收盘位置及价格推进 | 放量却不能推进，提示可能存在对手盘承接／阻挡；还需观察后续测试与突破方向，不能仅凭“高量小实体”断言有人吸筹或派发 |
 
-三条法则属于 Wyckoff 分析体系的通用解释工具；其量价解释可与 [[https://chartschool.stockcharts.com/table-of-contents/market-analysis/wyckoff-analysis-articles/the-wyckoff-method-a-tutorial][StockCharts 的 Wyckoff Method 教程]]及 [[https://www.wyckoffanalytics.com/wyckoff-method][Wyckoff Analytics 方法说明]]对照，不构成经过本笔记回测的交易信号。
+三条法则见 [[https://chartschool.stockcharts.com/table-of-contents/market-analysis/wyckoff-analysis-articles/the-wyckoff-method-a-tutorial][StockCharts 教程]]、[[https://www.wyckoffanalytics.com/wyckoff-method][Wyckoff Analytics]]；以上判断未做交易回测。
 
 *** 将帖文中的 A–E 叙事转成阶段检验
 
-| 候选阶段 | 先观察什么 | 不成立／需重新分类的迹象 |
-|-
-| A：止跌 | 前期下跌之后，出现抛售高潮（SC）或减速迹象、反弹（AR）并初步形成区间 | 新低持续扩展，尚无明确止跌和区间；A 不是“必然先加速下跌” |
-| B：区间建构 | 多次测试区间上下沿，比较回测时的量、价差与回收幅度 | 区间尚未形成或频繁被有效突破；横盘不等于必然吸筹 |
-| C：供应测试 | 可有 Spring（破下沿后收回），也可能不出现 Spring；重点检查后续测试质量 | 跌破下沿后持续收于区间之外，不能只因一次插针就认定“洗盘成功” |
-| D：需求增强 | SOS 候选上冲、LPS 回踩、阻力转支撑，以及上冲和回踩的相对量价 | 回踩持续失守、反弹乏力或量价不支持，则需求增强假设被削弱 |
-| E：趋势离开区间 | 价格有效离开区间并延续 HH／HL 或其他预设趋势结构 | 快速跌回原区间，需考虑失败突破，而非强行坚持主升浪叙事 |
-
-*关键纠偏*：上述为“吸筹候选”的阶段阅读，不是所有币对都必须按 A→B→C→D→E 排队。Spring、ST 等事件并非每次必有；相似的横盘也可能演变为下跌中继或派发。与上方术语表及 [[#scene-case-three-weeks][三周横盘综合案例]]对照使用，不按事后图形倒填实时信号。
+A–E 定义见上方术语表。重点核查 *C 阶段的供应测试*（Spring 并非必需）、*D 阶段的 SOS／LPS 量价*、*E 阶段突破后的延续*。跌回区间则需重新分类，参见 [[#scene-case-three-weeks][三周横盘案例]]。
 
 *** 把“耗、震、迷”转换为可记录而非读心的证据
 
-- *耗*：记录区间持续时间、波动收敛程度、假突破次数；无法仅凭横盘持续时间推出有人故意消耗散户耐心。
-- *震*：记录瞬时波幅、放量大阴阳、破位后回收速度及后续测试；不能以“插针后回收”推断存在某一操纵账户。
-- *迷*：新闻和舆情可以另作时间戳对照，但没有传播链路、账户与持仓证据时，不可把价格异动归因于有人操纵消息。
+- *耗（时间）*：记录区间时长、波动收敛和假突破次数；不能推断交易者意图。
+- *震（价格）*：记录放量波幅、破位收复速度及后续测试；插针不证明操纵。
+- *迷（信息）*：对齐消息发布时间和价格波动；操纵归因需要传播链及账户证据。
 
-*默认使用顺序*：在高周期画出边界 → 固定 K 线周期和量能比较基准 → 对比关键价位处“量（努力）／价格推进（结果）” → 等待 Spring、SOS、LPS 等候选现象的后续验证 → 写下失效条件与风险预算。帖文中的“无量阴线＝供应耗尽”“量价背离＝即将反转”“吸筹越久反弹越高”都只能当待检验假设，不能单独作为入场触发。止损可能遭遇跳空和滑点，分批建仓也不能消除方向判断错误。
+*使用顺序*：定高周期边界及量能基准 → 比较关键价位的量与价格推进 → 等待后续测试 → 预设失效条件和风险预算。“无量阴线”“量价背离”“区间持续时间”均不能单独触发交易；止损仍可能产生滑点。
 
 * 场景：区分现货、链上与合约持仓
 :PROPERTIES:
 :CUSTOM_ID: scene-holdings
 :END:
 
-#+CAPTION: 场景 7：现货 K 线、链上流向、OI、资金费率与积累评分的数据层差异（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 7：现货 K 线、链上流向、OI、资金费率与积累评分的数据层差异
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/07-position-data.png]]
 
@@ -307,7 +295,7 @@
 :CUSTOM_ID: scene-math
 :END:
 
-#+CAPTION: 场景 8：斐波那契回撤、延伸与固定端点（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 8：斐波那契回撤、延伸与固定端点
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/08-fibonacci.png]]
 
@@ -326,7 +314,7 @@
 :CUSTOM_ID: scene-system
 :END:
 
-#+CAPTION: 场景 9：入场、止损、失效边界、目标价与回测要素（独立绘制；合成教学数据，非真实行情截图）
+#+CAPTION: 场景 9：入场、止损、失效边界、目标价与回测要素
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/09-risk-system.png]]
 
