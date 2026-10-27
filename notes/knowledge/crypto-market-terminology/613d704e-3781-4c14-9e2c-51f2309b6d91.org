@@ -36,7 +36,7 @@
 
 *** 顶部行情与图表
 
-#+CAPTION: 图 1：BTCUSDT K 线、周期、均线与成交量的屏幕位置
+#+CAPTION: 图 1：BTCUSDT K 线、周期、均线与成交量的屏幕位置（静态示意；非实时报价）
 #+ATTR_HTML: :width 100% :style max-width:1200px;height:auto;display:block;margin:0 auto
 [[https://raw.githubusercontent.com/lovemoganna/org-notes/main/assets/market-anatomy/613d704e-3781-4c14-9e2c-51f2309b6d91/01-chart-anatomy.svg]]
 
@@ -54,7 +54,7 @@
 
 *** 盘口、逐笔成交与流动性
 
-#+CAPTION: 图 2：BTCUSDT 买一卖一、买卖价差与挂单深度（历史快照）
+#+CAPTION: 图 2：BTCUSDT 买一卖一、买卖价差与挂单深度（历史快照示例；非实时）
 #+ATTR_HTML: :width 100% :style max-width:1200px;height:auto;display:block;margin:0 auto
 [[https://raw.githubusercontent.com/lovemoganna/org-notes/main/assets/market-anatomy/613d704e-3781-4c14-9e2c-51f2309b6d91/02-orderbook.svg]]
 
@@ -81,7 +81,7 @@
 
 *** 五步看盘：把术语连成判断
 
-#+CAPTION: 图 3：行情定位、价格结构、成交确认与盘口观察的关系
+#+CAPTION: 图 3：行情定位、价格结构、成交确认与盘口观察的关系（教学流程图）
 #+ATTR_HTML: :width 100% :style max-width:1200px;height:auto;display:block;margin:0 auto
 [[https://raw.githubusercontent.com/lovemoganna/org-notes/main/assets/market-anatomy/613d704e-3781-4c14-9e2c-51f2309b6d91/03-reading-flow.svg]]
 
@@ -98,7 +98,7 @@
 :CUSTOM_ID: scene-candle
 :END:
 
-#+CAPTION: 场景 1：OHLCV、长上影线、Pin Bar、吞没、内包线、成交量与主动买量
+#+CAPTION: 场景 1：OHLCV、长上影线、Pin Bar、吞没、内包线、成交量与主动买量（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/01-price-action.png]]
 
@@ -119,7 +119,7 @@
 :CUSTOM_ID: scene-structure
 :END:
 
-#+CAPTION: 场景 2：高低点结构、支撑阻力、失败突破、突破与回踩
+#+CAPTION: 场景 2：高低点结构、支撑阻力、失败突破、突破与回踩（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/02-market-structure.png]]
 
@@ -144,7 +144,7 @@
 :CUSTOM_ID: scene-pattern
 :END:
 
-#+CAPTION: 场景 3：双顶、双底、头肩顶、旗形、通道和颈线
+#+CAPTION: 场景 3：双顶、双底、头肩顶、旗形、通道和颈线（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/03-patterns.png]]
 
@@ -166,7 +166,7 @@
 :CUSTOM_ID: scene-indicators
 :END:
 
-#+CAPTION: 场景 4：K 线与 MA、EMA、VWAP、MACD、RSI、KDJ、ADX、ATR
+#+CAPTION: 场景 4：K 线与 MA、EMA、VWAP、MACD、RSI、KDJ、ADX、ATR（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/04-indicators.png]]
 
@@ -190,7 +190,7 @@
 :CUSTOM_ID: scene-flow
 :END:
 
-#+CAPTION: 场景 5：成交量轮廓、TPO、POC 与订单流概念
+#+CAPTION: 场景 5：成交量轮廓、TPO、POC 与订单流概念（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/05-orderflow.png]]
 
@@ -212,7 +212,7 @@
 :CUSTOM_ID: scene-wyckoff
 :END:
 
-#+CAPTION: 场景 6：威科夫候选吸筹结构、A–E 阶段、Spring、SOS 与 LPS
+#+CAPTION: 场景 6：威科夫候选吸筹结构、A–E 阶段、Spring、SOS 与 LPS（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/06-wyckoff.png]]
 
@@ -272,7 +272,7 @@ A–E 定义见上方术语表。重点核查 *C 阶段的供应测试*（Spring
 :CUSTOM_ID: scene-holdings
 :END:
 
-#+CAPTION: 场景 7：现货 K 线、链上流向、OI、资金费率与积累评分的数据层差异
+#+CAPTION: 场景 7：现货 K 线、链上流向、OI、资金费率与积累评分的数据层差异（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/07-position-data.png]]
 
@@ -295,7 +295,7 @@ A–E 定义见上方术语表。重点核查 *C 阶段的供应测试*（Spring
 :CUSTOM_ID: scene-math
 :END:
 
-#+CAPTION: 场景 8：斐波那契回撤、延伸与固定端点
+#+CAPTION: 场景 8：斐波那契回撤、延伸与固定端点（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/08-fibonacci.png]]
 
@@ -314,7 +314,7 @@ A–E 定义见上方术语表。重点核查 *C 阶段的供应测试*（Spring
 :CUSTOM_ID: scene-system
 :END:
 
-#+CAPTION: 场景 9：入场、止损、失效边界、目标价与回测要素
+#+CAPTION: 场景 9：入场、止损、失效边界、目标价与回测要素（独立绘制；合成教学数据，非真实行情截图）
 #+ATTR_HTML: :width 100% :style max-width:1180px;height:auto;display:block;margin:0 auto
 [[file:../../../note-assets/613d704e-3781-4c14-9e2c-51f2309b6d91/qa-20261022/09-risk-system.png]]
 
