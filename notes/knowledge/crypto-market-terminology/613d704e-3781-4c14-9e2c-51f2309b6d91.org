@@ -9,7 +9,7 @@
 
 * 使用方式
 
-按场景查定义及判断边界。图示为教学绘制或历史快照，不代表实时行情。
+按场景查术语及判断边界。图示非实时行情。
 
 关联阅读：[[https://lovemoganna.github.io/org-notes/pages/collected/knowledge/technical-analysis/595eb2a8-d945-564d-96b7-150c71cefec9.html][《技术分析地图：从数据到可验证的交易系统》]] 和 [[wiki:8a74a4c2-50ad-4c11-a60e-1180d479ff56][《加密货币吸筹：从 K 线识别到验证》]]。
 
