@@ -36,6 +36,10 @@
 
 *** 顶部行情与图表
 
+#+CAPTION: 图 1：BTCUSDT K 线、周期、均线与成交量的屏幕位置（静态示意；非实时报价）
+#+ATTR_HTML: :width 100% :style max-width:1200px;height:auto;display:block;margin:0 auto
+[[https://raw.githubusercontent.com/lovemoganna/org-notes/main/assets/market-anatomy/613d704e-3781-4c14-9e2c-51f2309b6d91/01-chart-anatomy.svg]]
+
 | 看盘术语 | 通常在哪儿 | 表示什么 | 不能据此推出什么 |
 |-
 | 交易对（Symbol）／产品类型 | 顶部，如 =ETHUSDT · 永续= | 先固定基础资产、计价资产、现货或合约、保证金种类 | 不同产品的价格、成交量和仓位口径不能直接混算 |
@@ -49,6 +53,10 @@
 | MA／EMA 与 VOL | K 线叠加曲线、下方成交量柱 | MA／EMA 平滑历史价格；VOL 衡量指定周期的交易规模 | 均线粘合不必然反转；放量不直接表明净买入 |
 
 *** 盘口、逐笔成交与流动性
+
+#+CAPTION: 图 2：BTCUSDT 买一卖一、买卖价差与挂单深度（历史快照示例；非实时）
+#+ATTR_HTML: :width 100% :style max-width:1200px;height:auto;display:block;margin:0 auto
+[[https://raw.githubusercontent.com/lovemoganna/org-notes/main/assets/market-anatomy/613d704e-3781-4c14-9e2c-51f2309b6d91/02-orderbook.svg]]
 
 | 看盘术语 | 通常在哪儿 | 表示什么 | 不能据此推出什么 |
 |-
@@ -72,6 +80,10 @@
 | 限价单／市价单（Limit／Market） | 下单区 | 限价单约束价格但可能不成交；市价单优先立即按可用深度撮合 | 市价单无法保证最终成交价；限价单也不保证全部成交 |
 
 *** 五步看盘：把术语连成判断
+
+#+CAPTION: 图 3：行情定位、价格结构、成交确认与盘口观察的关系（教学流程图）
+#+ATTR_HTML: :width 100% :style max-width:1200px;height:auto;display:block;margin:0 auto
+[[https://raw.githubusercontent.com/lovemoganna/org-notes/main/assets/market-anatomy/613d704e-3781-4c14-9e2c-51f2309b6d91/03-reading-flow.svg]]
 
 1. *锁定口径*：记录平台、币对、现货／永续、计价单位、时区和 K 线周期。
 2. *读价格结构*：先用较高周期识别 HH／HL、LH／LL、区间上下沿，再看当前价离关键价位多远。
