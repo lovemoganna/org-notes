@@ -29,6 +29,9 @@ DuckDB 概念：SELECT Statement (全量查询语句)。SQL 入口：SELECT ...�
 
 Relation：输入源 Relation → 全量扫描输出查询结果 Relation
 
+#+CAPTION: 小节 01｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-01-select.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM (
@@ -43,6 +46,9 @@ DuckDB 概念：Projection / SELECT Clause (列级投影)。SQL 入口：SELECT 
 对应在 Excel 中隐藏不需要的列或仅复制目标列；SQL 在 SELECT 子句按需指定输出列表达式。
 
 Relation：N 列输入 Relation → M 列目标投影 Relation（行数不变，列宽缩减或表达式新增）
+
+#+CAPTION: 小节 02｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-02-select-columns.png]]
 
 #+begin_src sql :exports code
 SELECT name, salary
@@ -59,6 +65,9 @@ DuckDB 概念：VALUES Clause (固定行构造器)。SQL 入口：VALUES (...), 
 
 Relation：无输入数据源 → 生成 N 行 M 列内存临时 Relation 数据流
 
+#+CAPTION: 小节 03｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-03-values.png]]
+
 #+begin_src sql :exports code
 VALUES (1, 'Alice', 'Sales'), (2, 'Bob', 'Tech'), (3, 'Charlie', 'Sales');
 #+end_src
@@ -69,6 +78,9 @@ DuckDB 概念：FROM Clause (数据源子句)。SQL 入口：FROM relation。
 对应在 Excel 公式中指定具体引用的工作表或数据透视表源；为当前 Query 管道提供底层关系输入流。
 
 Relation：物理表/视图/宏/文件 → 进入当前查询执行引擎的输入 Relation
+
+#+CAPTION: 小节 04｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-04-from.png]]
 
 #+begin_src sql :exports code
 SELECT x
@@ -91,6 +103,9 @@ DuckDB 概念：Table Alias / AS alias (关系别名)。SQL 入口：FROM (...) 
 
 Relation：匿名/复杂嵌套 Relation → 赋予当前 Query 局部符号绑定的命名 Relation
 
+#+CAPTION: 小节 05｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-05-as-alias.png]]
+
 #+begin_src sql :exports code
 SELECT t.name
 FROM (
@@ -112,6 +127,9 @@ DuckDB 概念：WHERE Clause (行级前置过滤)。SQL 入口：WHERE condition
 
 Relation：N 行输入 Relation → ≤N 行过滤结果 Relation（列结构不变，按行条件快速收敛）
 
+#+CAPTION: 小节 06｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-06-where.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM (
@@ -127,6 +145,9 @@ DuckDB 概念：HAVING Clause (聚合组后置过滤)。SQL 入口：HAVING aggr
 对应在 Excel 透视表中对汇总结果进行“值筛选”（如部门总薪资 > 8000）；必须且只能针对聚合后的组结果做过滤。
 
 Relation：G 组聚合 Relation → ≤G 组满足条件的聚合 Relation（仅保留符合组指标的记录）
+
+#+CAPTION: 小节 07｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-07-having.png]]
 
 #+begin_src sql :exports code
 SELECT dept, SUM(salary) AS total
@@ -145,6 +166,9 @@ DuckDB 概念：QUALIFY Clause (窗口专用过滤)。SQL 入口：QUALIFY windo
 DuckDB 标志性极简语法！对应在 Excel 组内排名后勾选“前 1 名”；无需编写多层嵌套子查询，直接依窗口函数过滤。
 
 Relation：窗口计算 Relation → 依窗口排名/序号过滤的子集 Relation（极大消除嵌套开销）
+
+#+CAPTION: 小节 08｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-08-qualify.png]]
 
 #+begin_src sql :exports code
 SELECT *
@@ -170,6 +194,9 @@ DuckDB 概念：ORDER BY Clause (排序子句)。SQL 入口：ORDER BY col [ASC|
 
 Relation：无序输入 Relation → 具有确定性物理/逻辑展现次序的有序 Relation
 
+#+CAPTION: 小节 09｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-09-order-by.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM (
@@ -185,6 +212,9 @@ DuckDB 概念：LIMIT Clause (行数限制子句)。SQL 入口：LIMIT n [OFFSET
 对应在 Excel 中筛选“前 10 项”或手动截取头部数据行；截断数据流，仅输出指定数量的前 N 条记录。
 
 Relation：N 行 Relation → min(N, n) 行截取 Relation（与 ORDER BY 结合极速生成榜单）
+
+#+CAPTION: 小节 10｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-10-limit.png]]
 
 #+begin_src sql :exports code
 SELECT *
@@ -210,6 +240,9 @@ DuckDB 概念：DISTINCT Clause (结果集去重)。SQL 入口：SELECT DISTINCT
 
 Relation：含冗余行 Relation → 行组合完全唯一的紧凑 Relation（基于选定列收敛基数）
 
+#+CAPTION: 小节 11｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-11-distinct.png]]
+
 #+begin_src sql :exports code
 SELECT DISTINCT dept
 FROM (
@@ -233,6 +266,9 @@ DuckDB 概念：GROUP BY Clause (分组子句)。SQL 入口：GROUP BY expr。
 
 Relation：N 行明细记录 Relation → G 个独立分组的中间聚合态 Relation
 
+#+CAPTION: 小节 12｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-12-group-by.png]]
+
 #+begin_src sql :exports code
 SELECT dept
 FROM (
@@ -249,6 +285,9 @@ DuckDB 概念：COUNT Aggregate Function (计数聚合函数)。SQL 入口：COU
 对应在 Excel 中使用 =COUNTA() 公式或透视表计数字段；统计组内总行数或指定表达式非 NULL 值数量。
 
 Relation：多行/组内多值输入 → 单个整数统计标量（将多行明细折叠压缩为单个汇总数值）
+
+#+CAPTION: 小节 13｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-13-count.png]]
 
 #+begin_src sql :exports code
 SELECT dept, COUNT(*) AS head_count
@@ -267,6 +306,9 @@ DuckDB 概念：SUM Aggregate Function (求和聚合函数)。SQL 入口：SUM(e
 
 Relation：多行数值序列 → 单一求和标量（配合 GROUP BY 产生组级总和列）
 
+#+CAPTION: 小节 14｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-14-sum.png]]
+
 #+begin_src sql :exports code
 SELECT dept, SUM(salary) AS total_salary
 FROM (
@@ -283,6 +325,9 @@ DuckDB 概念：AVG Aggregate Function (均值聚合函数)。SQL 入口：AVG(e
 对应在 Excel 中使用 =AVERAGE() 公式；计算指定列非空数值的平均水平，自动忽略 NULL 空值。
 
 Relation：多行数值序列 → 单一浮点平均值标量（折叠多行样本为集中趋势指标）
+
+#+CAPTION: 小节 15｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-15-avg.png]]
 
 #+begin_src sql :exports code
 SELECT dept, AVG(salary) AS avg_salary
@@ -301,6 +346,9 @@ DuckDB 概念：MIN Aggregate Function (极小值聚合函数)。SQL 入口：MI
 
 Relation：多行字段样本 → 对应数据类型的单个极小值标量
 
+#+CAPTION: 小节 16｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-16-min.png]]
+
 #+begin_src sql :exports code
 SELECT dept, MIN(salary) AS min_sal
 FROM (
@@ -317,6 +365,9 @@ DuckDB 概念：MAX Aggregate Function (极大值聚合函数)。SQL 入口：MA
 对应在 Excel 中使用 =MAX() 公式；扫描组内或整表记录，返回对应字段数值、日期或文本的最大值。
 
 Relation：多行字段样本 → 对应数据类型的单个极大值标量
+
+#+CAPTION: 小节 17｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-17-max.png]]
 
 #+begin_src sql :exports code
 SELECT dept, MAX(salary) AS max_sal
@@ -341,6 +392,9 @@ DuckDB 概念：OVER Clause (窗口子句)。SQL 入口：function() OVER (...)�
 
 Relation：明细 Relation → 附加计算上下文属性（行数保持 1:1，绝不折叠底层数据行）
 
+#+CAPTION: 小节 18｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-18-over.png]]
+
 #+begin_src sql :exports code
 SELECT name, salary, SUM(salary) OVER (
   ORDER BY salary) AS run_sum
@@ -356,6 +410,9 @@ DuckDB 概念：WINDOW Clause (命名窗口子句)。SQL 入口：WINDOW w AS (.
 对应在 Excel 中定义命名区域供多个公式复用；在查询末尾集中命名窗口，消除重复冗余的 OVER 定义。
 
 Relation：查询语法修饰 → 为窗口分区排序定义命名别名，执行期零额外开销
+
+#+CAPTION: 小节 19｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-19-window.png]]
 
 #+begin_src sql :exports code
 SELECT name, SUM(salary) OVER w, AVG(salary) OVER w
@@ -374,6 +431,9 @@ DuckDB 概念：ROW_NUMBER Window Function (行号窗口函数)。SQL 入口：R
 
 Relation：原始 Relation → 新增连续整数序列列（行数严格保持不变，标定绝对物理位次）
 
+#+CAPTION: 小节 20｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-20-row-number.png]]
+
 #+begin_src sql :exports code
 SELECT name, dept, ROW_NUMBER() OVER (PARTITION BY dept
   ORDER BY salary DESC) AS seq
@@ -390,6 +450,9 @@ DuckDB 概念：RANK Window Function (排名窗口函数)。SQL 入口：RANK() 
 完全对应 Excel =RANK.EQ() 公式；同分记录共享相同排名，后续名次自动产生跳号（如 1, 1, 3），维持业务名次公信力。
 
 Relation：原始 Relation → 新增业务名次列（行数保持 1:1，建立严谨的竞争评级）
+
+#+CAPTION: 小节 21｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-21-rank.png]]
 
 #+begin_src sql :exports code
 SELECT name, salary, RANK() OVER (
@@ -408,6 +471,9 @@ DuckDB 概念：LAG Window Function (前行取值窗口函数)。SQL 入口：LA
 
 Relation：原始明细 Relation → 新增时序历史回溯列（首行或越界自动填充 NULL）
 
+#+CAPTION: 小节 22｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-22-lag.png]]
+
 #+begin_src sql :exports code
 SELECT name, salary, LAG(salary) OVER (
   ORDER BY salary) AS prev_sal, salary - LAG(salary) OVER (
@@ -425,6 +491,9 @@ DuckDB 概念：LEAD Window Function (后行取值窗口函数)。SQL 入口：L
 对应在 Excel 单元格中直接引用下一行公式 =C3-C4；依指定业务时序向后抓取未来行数据，进行预测对齐。
 
 Relation：原始明细 Relation → 新增时序未来前瞻列（尾行或越界自动填充 NULL）
+
+#+CAPTION: 小节 23｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-23-lead.png]]
 
 #+begin_src sql :exports code
 SELECT name, salary, LEAD(salary) OVER (
@@ -449,6 +518,9 @@ DuckDB 概念：INNER JOIN (内连接)。SQL 入口：a INNER JOIN b ON cond。
 
 Relation：两张独立 Relation → 仅保留两侧匹配键交叉项的复合宽表 Relation
 
+#+CAPTION: 小节 24｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-24-inner-join.png]]
+
 #+begin_src sql :exports code
 SELECT l.id, l.name, r.bonus
 FROM (
@@ -468,6 +540,9 @@ DuckDB 概念：LEFT JOIN (左外连接)。SQL 入口：a LEFT JOIN b ON cond。
 
 Relation：主 Relation (左) + 辅 Relation (右) → 维持主表行数基数且横向扩充新属性列
 
+#+CAPTION: 小节 25｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-25-left-join.png]]
+
 #+begin_src sql :exports code
 SELECT l.id, l.name, r.bonus
 FROM (
@@ -486,6 +561,9 @@ DuckDB 概念：RIGHT JOIN (右外连接)。SQL 入口：a RIGHT JOIN b ON cond�
 
 Relation：左 Relation + 右 Relation → 维持右表行数基数且横向补全左表匹配属性
 
+#+CAPTION: 小节 26｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-26-right-join.png]]
+
 #+begin_src sql :exports code
 SELECT COALESCE(l.id, r.id) AS id, l.name, r.dept
 FROM (
@@ -503,6 +581,9 @@ DuckDB 概念：FULL JOIN (全外连接)。SQL 入口：a FULL JOIN b ON cond。
 对应 Power Query 中的“完全外部联接”；合并两表全部记录，任何一侧未对齐时另一侧属性字段均填充 NULL。
 
 Relation：两个输入 Relation → 包含双方全部键值的最全宽表 Relation（不丢弃任何单边记录）
+
+#+CAPTION: 小节 27｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-27-full-join.png]]
 
 #+begin_src sql :exports code
 SELECT COALESCE(l.id, r.id) AS id, l.name, r.dept
@@ -529,6 +610,9 @@ DuckDB 概念：UNION (并集去重)。SQL 入口：q1 UNION q2。
 
 Relation：两个同构 Relation → 纵向合并且全局去重的单一 Relation（行数 ≤ 两表总和）
 
+#+CAPTION: 小节 28｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-28-union.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM (
@@ -549,6 +633,9 @@ DuckDB 概念：UNION ALL (并集保留重复)。SQL 入口：q1 UNION ALL q2。
 完全对应 Power Query 中的“追加查询”；原样上下拼接合并多个表格的全部数据行，不执行去重，性能最高。
 
 Relation：两个同构 Relation → 纵向全量追加累加 Relation（行数严格等于两表行数之和）
+
+#+CAPTION: 小节 29｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-29-union-all.png]]
 
 #+begin_src sql :exports code
 SELECT *
@@ -571,6 +658,9 @@ DuckDB 概念：INTERSECT (交集去重)。SQL 入口：q1 INTERSECT q2。
 
 Relation：两个同构 Relation → 仅包含双方完全重合行的唯一 Relation（集合语义）
 
+#+CAPTION: 小节 30｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-30-intersect.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM (
@@ -591,6 +681,9 @@ DuckDB 概念：INTERSECT ALL (交集保留重复)。SQL 入口：q1 INTERSECT A
 对应带频次权重的重合项核对；按多重集 (Bag) 最小出现次数保留交集行，精准反映重复出现的交集基数。
 
 Relation：两个同构 Relation → 按最小重合次数输出共有行的多重集 Relation
+
+#+CAPTION: 小节 31｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-31-except.png]]
 
 #+begin_src sql :exports code
 SELECT *
@@ -616,6 +709,9 @@ DuckDB 概念：EXCEPT (差集去重)。SQL 入口：q1 EXCEPT q2。
 
 Relation：两个同构 Relation → 仅包含左表独有行的唯一 Relation（精准识别单边差异）
 
+#+CAPTION: 小节 32｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-32-intersect-all.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM (
@@ -637,6 +733,9 @@ DuckDB 概念：EXCEPT ALL (差集保留重复)。SQL 入口：q1 EXCEPT ALL q2�
 对应严谨的账目与库存对账（如A表出库2次B表入库1次差1次）；按多重集频次逐一相减，找出未平账条目。
 
 Relation：两个同构 Relation → 按频次差值输出差异行的 Relation（自动化回归与对账利器）
+
+#+CAPTION: 小节 33｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-33-except-all.png]]
 
 #+begin_src sql :exports code
 SELECT *
@@ -667,6 +766,9 @@ DuckDB 概念：WITH Clause (WITH 子句)。SQL 入口：WITH cte AS (...) SELEC
 
 Relation：查询语法前置声明 → 建立后续执行上下文中的具名子查询空间
 
+#+CAPTION: 小节 34｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-34-with.png]]
+
 #+begin_src sql :exports code
 WITH cte(x) AS (
   VALUES (1),
@@ -683,6 +785,9 @@ DuckDB 概念：CTE (公用表表达式 / CTE)。SQL 入口：WITH cte_a AS (...
 对应在 Excel 中新建独立的“辅助 Sheet”并命名区域；让多阶段复杂计算自顶向下线性流水线编排，条理清晰。
 
 Relation：命名查询逻辑 → 在当前 Query 生命周期内生成可多次安全引用的中间 Relation
+
+#+CAPTION: 小节 35｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-35-cte.png]]
 
 #+begin_src sql :exports code
 WITH high_pay AS (
@@ -702,6 +807,9 @@ DuckDB 概念：Subquery (子查询 / 内联临时关系)。SQL 入口：FROM (S
 对应在 Excel 单元格中公式层层嵌套（如 =INDEX(MATCH())）；内层子查询瞬时输出中间数据集供外层直接消费。
 
 Relation：局部嵌套执行 → 输出匿名瞬时 Relation 直接供给外层子句消费
+
+#+CAPTION: 小节 36｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-36-subquery.png]]
 
 #+begin_src sql :exports code
 SELECT AVG(salary) AS avg_sal
@@ -727,6 +835,9 @@ DuckDB 概念：Table Function Call (表函数调用)。SQL 入口：FROM range(
 
 Relation：参数化算法输入 → 动态生成由计算规则驱动的结构化 Relation 数据源
 
+#+CAPTION: 小节 37｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-37-range.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM range(3) t(x);
@@ -745,6 +856,9 @@ DuckDB 概念：read_csv Table Function (CSV 表函数读取)。SQL 入口：FRO
 
 Relation：磁盘/远程 CSV 纯文本文件 → 强类型二维关系流 Relation（零预建表成本）
 
+#+CAPTION: 小节 38｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-38-read-csv.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM read_csv('fixtures/users.csv');
@@ -756,6 +870,9 @@ DuckDB 概念：read_parquet Table Function (Parquet 列存表函数读取)。SQ
 对应在 Excel 中打开现代大数据标准列存文件；支持列裁剪与谓词下推，仅加载所需字段，秒级分析海量数据。
 
 Relation：二进制 Parquet 列存文件 → 内存向量化 Relation（零转换开销，工业级分析）
+
+#+CAPTION: 小节 39｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-39-read-parquet.png]]
 
 #+begin_src sql :exports code
 SELECT *
@@ -774,6 +891,9 @@ DuckDB 概念：SAMPLE Clause (抽样子句)。SQL 入口：USING SAMPLE n [ROWS
 
 Relation：N 行输入 Relation → K 行样本 Relation（列结构不变；按采样方法、比例或行数缩减）
 
+#+CAPTION: 小节 40｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-40-using-sample.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM range(100) t(x) USING SAMPLE 5 ROWS;
@@ -790,6 +910,9 @@ DuckDB 概念：CROSS JOIN (交叉连接)。SQL 入口：a CROSS JOIN b。
 用于两组数据做全组合展开；不使用匹配条件，返回左右 Relation 的所有行组合。补齐“无条件连接”边界，与 INNER/OUTER JOIN 的条件匹配语义不同。
 
 Relation：L 行 × R 行 → L×R 行组合 Relation（横向拼接双方列）
+
+#+CAPTION: 小节 41｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-41-cross-join.png]]
 
 #+begin_src sql :exports code
 SELECT *
@@ -810,6 +933,9 @@ DuckDB 概念：SEMI JOIN (半连接)。SQL 入口：a SEMI JOIN b USING(key)。
 
 Relation：左 Relation + 右 Relation → 左表匹配子集 Relation（列结构保持左表，行数 ≤ 左表）
 
+#+CAPTION: 小节 42｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-42-semi-join.png]]
+
 #+begin_src sql :exports code
 SELECT *
 FROM (
@@ -829,6 +955,9 @@ DuckDB 概念：ANTI JOIN (反连接)。SQL 入口：a ANTI JOIN b USING(key)。
 对应 Excel 中筛出“主表有、名单表没有”的记录；只返回左表未匹配行。补齐“反存在性筛选”边界，并与 EXCEPT 的整行集合差保持区分。
 
 Relation：左 Relation + 右 Relation → 左表未匹配子集 Relation（列结构保持左表，行数 ≤ 左表）
+
+#+CAPTION: 小节 43｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-43-anti-join.png]]
 
 #+begin_src sql :exports code
 SELECT *
@@ -855,6 +984,9 @@ DuckDB 概念：Recursive CTE (递归公用表表达式)。SQL 入口：WITH REC
 
 Relation：Anchor Relation → 递归迭代追加 → 最终递归 Relation
 
+#+CAPTION: 小节 44｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-44-with-recursive.png]]
+
 #+begin_src sql :exports code
 WITH RECURSIVE t(n) AS (
   VALUES (1)
@@ -880,6 +1012,9 @@ DuckDB 概念：PIVOT Statement (透视语句)。SQL 入口：PIVOT dataset ON .
 
 Relation：长表 Relation → 按类别展开列并聚合的宽表 Relation
 
+#+CAPTION: 小节 45｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-45-pivot.png]]
+
 #+begin_src sql :exports code
 WITH s(item, q, amt) AS (
   VALUES ('A', 'Q1', 10),
@@ -898,6 +1033,9 @@ DuckDB 概念：UNPIVOT Statement (逆透视语句)。SQL 入口：UNPIVOT datas
 对应 Excel / Power Query 的“取消透视列”；把多个列堆叠为名称列和值列。它是 PIVOT 的逆变换，补齐宽表恢复成长表的独立边界。
 
 Relation：宽表 Relation → 多列堆叠为名称 / 值字段的长表 Relation
+
+#+CAPTION: 小节 46｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-46-unpivot.png]]
 
 #+begin_src sql :exports code
 WITH s(id, q1, q2) AS (
@@ -921,6 +1059,9 @@ DuckDB 概念：OFFSET Clause (结果偏移子句)。SQL 入口：OFFSET n。
 对应分页或跳过前几行；OFFSET 逻辑上在查询末尾应用，通常与 ORDER BY、LIMIT 配合。补齐 LIMIT 只控制返回数量、不控制起始位置的边界。
 
 Relation：N 行有序 Relation → 跳过前 n 行 → 从指定起点继续输出 Relation
+
+#+CAPTION: 小节 47｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-47-offset.png]]
 
 #+begin_src sql :exports code
 SELECT x
@@ -946,6 +1087,9 @@ DuckDB 概念：DISTINCT ON Clause (按键保留单行)。SQL 入口：SELECT DI
 
 Relation：N 行 Relation → 按 Key 分组 → 每个 Key 保留排序首行的 Relation
 
+#+CAPTION: 小节 48｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-48-distinct-on.png]]
+
 #+begin_src sql :exports code
 SELECT DISTINCT ON (k) k, v
 FROM (
@@ -968,6 +1112,9 @@ DuckDB 概念：UNION [ALL] BY NAME (按列名纵向合并)。SQL 入口：q1 UN
 
 Relation：不同列布局的 Relation A + B → 按列名对齐 / 缺失补 NULL → 单一纵向 Relation
 
+#+CAPTION: 小节 49｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-49-union-all-by-name.png]]
+
 #+begin_src sql :exports code
 SELECT 1 AS a
 UNION ALL BY NAME
@@ -985,6 +1132,9 @@ DuckDB 概念：ASOF JOIN (时序近邻连接)。SQL 入口：a ASOF [LEFT] JOIN
 用于行情、价格、状态快照等时序近邻匹配；按时间或有序字段为左侧每行寻找满足条件的最近一条右侧记录。补齐普通等值 JOIN 无法直接表达最近历史值的边界。
 
 Relation：左 Relation + 有序右 Relation → 每个左行最多匹配一个最近右行 → 时序对齐 Relation
+
+#+CAPTION: 小节 50｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-50-asof-left-join.png]]
 
 #+begin_src sql :exports code
 SELECT l.t, r.v
@@ -1014,6 +1164,9 @@ DuckDB 概念：Temporary Table (连接级临时表)。SQL 入口：CREATE TEMP 
 
 Relation：输入 Relation → 写入当前会话专属临时物理表存储 (temp.main)
 
+#+CAPTION: 小节 51｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-51-create-temp-table.png]]
+
 #+begin_src sql :exports code
 CREATE TEMP TABLE tt AS SELECT *
 FROM (
@@ -1032,6 +1185,9 @@ DuckDB 概念：Temporary View (连接级临时视图)。SQL 入口：CREATE TEM
 在当前连接中为复杂查询建立临时逻辑别名；类似打开工作簿时的临时动态区域，每次引用实时计算，不占磁盘。
 
 Relation：Query 逻辑定义 → 注册为会话内动态计算虚拟关系 (零物理存储开销)
+
+#+CAPTION: 小节 52｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-52-create-temp-view.png]]
 
 #+begin_src sql :exports code
 CREATE TEMP VIEW tv AS SELECT *
@@ -1052,6 +1208,9 @@ DuckDB 概念：Temporary Scalar Macro (连接级临时标量宏)。SQL 入口�
 
 Relation：标量表达式定义 → 注入会话表达式引擎 (用于 SELECT/WHERE 逐行计算，不直接产生 Relation)
 
+#+CAPTION: 小节 53｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-53-create-temp-macro.png]]
+
 #+begin_src sql :exports code
 CREATE TEMP MACRO add_tax(p) AS p * 1.1;
 
@@ -1067,6 +1226,9 @@ DuckDB 概念：Temporary Table Macro (连接级临时表宏)。SQL 入口：CRE
 在当前连接中定义接收参数并返回关系行集的动态表宏；类似 Excel 动态溢出数组函数，会话结束自动清空。
 
 Relation：参数化查询定义 → 封装为可传入参数并输出动态 Relation 的会话级函数流
+
+#+CAPTION: 小节 54｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-54-create-temp-macro-as-table.png]]
 
 #+begin_src sql :exports code
 CREATE TEMP MACRO get_dept(d) AS TABLE
@@ -1088,6 +1250,9 @@ DuckDB 概念：Temporary Sequence (连接级临时序列)。SQL 入口：CREATE
 
 Relation：序列定义 → 会话级状态对象；nextval() 每次返回一个 BIGINT 标量，不直接生成 Relation
 
+#+CAPTION: 小节 55｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-55-create-temp-sequence.png]]
+
 #+begin_src sql :exports code
 CREATE TEMP SEQUENCE tmp_seq START 1;
 
@@ -1100,6 +1265,9 @@ DuckDB 概念：Prepared Statement (连接级预备语句)。SQL 入口：PREPAR
 把参数化 SQL 在当前连接中注册为具名预备语句，再用不同参数重复执行；类似固定公式模板反复代入参数。
 
 Relation：SQL 模板 + 参数位 → 会话级已准备语句；EXECUTE 时才产生标量或 Relation 结果
+
+#+CAPTION: 小节 56｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-56-prepare-execute.png]]
 
 #+begin_src sql :exports code
 PREPARE q AS SELECT *
@@ -1121,6 +1289,9 @@ DuckDB 概念：Attached Database (会话级附加数据库)。SQL 入口：ATTA
 
 Relation：数据库文件 → 加入当前会话可解析 Catalog 集合；DETACH 后从名称空间移除
 
+#+CAPTION: 小节 57｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-57-attach-detach.png]]
+
 #+begin_src sql :exports code
 ATTACH ':memory:' AS aux;
 
@@ -1139,6 +1310,9 @@ DuckDB 概念：Default Database / Schema (会话级默认命名空间)。SQL �
 
 Relation：会话命名空间状态切换 → 后续未限定对象名解析目标改变；Relation 本身不变化
 
+#+CAPTION: 小节 58｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-58-use-catalog-schema.png]]
+
 #+begin_src sql :exports code
 ATTACH ':memory:' AS aux2;
 
@@ -1155,6 +1329,9 @@ DuckDB 概念：Catalog Search Path (会话级搜索路径)。SQL 入口：SET s
 定义未限定对象名的查找顺序；适合同时挂载多个数据库时减少 catalog.schema 前缀。与 USE 的单一默认上下文不同，search_path 可包含多个解析位置。
 
 Relation：会话名称解析规则更新 → 后续对象引用按路径顺序绑定；不直接改变 Relation
+
+#+CAPTION: 小节 59｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-59-set-search-path.png]]
 
 #+begin_src sql :exports code
 ATTACH ':memory:' AS db1;
@@ -1178,6 +1355,9 @@ DuckDB 概念：Table (持久化物理基表)。SQL 入口：CREATE TABLE。
 
 Relation：输入 Relation / 结构定义 → 写入数据库持久化存储文件 (物理持久化)
 
+#+CAPTION: 小节 60｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-60-create-table.png]]
+
 #+begin_src sql :exports code
 CREATE TABLE t AS SELECT *
 FROM (
@@ -1196,6 +1376,9 @@ DuckDB 概念：View (持久化逻辑视图)。SQL 入口：CREATE VIEW。
 将查询逻辑注册为全局持久化逻辑关系对象；对应 Power Query 仅创建连接，底层数据更新时自动同步最新结果。
 
 Relation：Query 逻辑定义 → 注册为库级 Schema 虚拟关系对象 (动态执行，杜绝冗余副本)
+
+#+CAPTION: 小节 61｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-61-create-view.png]]
 
 #+begin_src sql :exports code
 CREATE VIEW v AS SELECT *
@@ -1216,6 +1399,9 @@ DuckDB 概念：Scalar Macro (持久化标量宏)。SQL 入口：CREATE MACRO。
 
 Relation：标量表达式定义 → 持久化登记至数据库 Catalog (全局标量计算规则，不直接产生 Relation)
 
+#+CAPTION: 小节 62｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-62-create-macro.png]]
+
 #+begin_src sql :exports code
 CREATE MACRO bonus_calc(s) AS s * 0.15;
 
@@ -1231,6 +1417,9 @@ DuckDB 概念：Table Macro (持久化表宏)。SQL 入口：CREATE MACRO ... AS
 在数据库 Catalog 中永久保存参数化表宏；所有连接均可传入参数动态生成关系数据流，实现报表逻辑复用。
 
 Relation：参数化查询定义 → 持久化登记至 Catalog 作为全局参数化 Relation 生成器
+
+#+CAPTION: 小节 63｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-63-create-macro-as-table.png]]
 
 #+begin_src sql :exports code
 CREATE MACRO filter_by_min_sal(ms) AS TABLE
@@ -1252,6 +1441,9 @@ DuckDB 概念：Schema (持久化命名空间)。SQL 入口：CREATE SCHEMA。
 
 Relation：Catalog 结构 → 新增持久 Schema 命名空间；不直接产生 Relation
 
+#+CAPTION: 小节 64｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-64-create-schema.png]]
+
 #+begin_src sql :exports code
 CREATE SCHEMA analytics;
 
@@ -1264,6 +1456,9 @@ DuckDB 概念：Sequence (持久化序列)。SQL 入口：CREATE SEQUENCE。
 在 Catalog 中持久保存 BIGINT 序列生成器，可通过 nextval()/currval() 取值，并常用于表字段 DEFAULT 主键编号。
 
 Relation：序列状态持久化 → nextval() 推进并返回标量；不直接生成 Relation
+
+#+CAPTION: 小节 65｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-65-create-sequence.png]]
 
 #+begin_src sql :exports code
 CREATE SEQUENCE id_seq START 1;
@@ -1278,6 +1473,9 @@ DuckDB 概念：Index (持久化二级索引)。SQL 入口：CREATE [UNIQUE] IND
 
 Relation：Table 数据 → 建立持久索引访问路径；输出 Relation 结构不变，优化器可改变扫描方式
 
+#+CAPTION: 小节 66｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-66-create-index.png]]
+
 #+begin_src sql :exports code
 CREATE TABLE idx_demo(id INTEGER, name VARCHAR);
 
@@ -1290,6 +1488,9 @@ DuckDB 概念：User-Defined Type (持久化自定义类型)。SQL 入口：CREA
 在 Catalog 中定义可复用数据类型，如 ENUM、STRUCT、UNION 或类型别名；让多个表共享一致的字段语义与结构定义。
 
 Relation：类型定义 → 注册为 Catalog 数据类型；不产生 Relation，后续表列可直接引用
+
+#+CAPTION: 小节 67｜SQL 运算机制与中文注释
+[[file:../../../note-assets/1a5d49f3-4ac5-49cc-a1cd-48c014530351/section-67-create-type.png]]
 
 #+begin_src sql :exports code
 CREATE TYPE mood AS ENUM('happy', 'sad');
