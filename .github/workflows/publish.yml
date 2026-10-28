@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: 5c4e5dd2f2cf27251e800e69cbf2d006a383f143
+          ref: b4a62448f36abca5d728558d3cacbce2aa5364eb
           path: _publisher
           persist-credentials: false
       - name: Regression test user-authorized article cleanup
@@ -56,6 +56,8 @@ jobs:
         uses: purcell/setup-emacs@34c6ded44899fd1bf74d2889558befd1750e61a7
         with:
           version: '30.2'
+      - name: Regression test native Org table cell breaks
+        run: emacs -Q --batch -L _publisher -l _publisher/test/org-museum-table-test.el -f ert-run-tests-batch-and-exit
       - name: Verify source contract and publisher pin
         run: |
           python3 - <<'PY'
@@ -137,7 +139,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: 5c4e5dd2f2cf27251e800e69cbf2d006a383f143
+          ref: b4a62448f36abca5d728558d3cacbce2aa5364eb
           path: _publisher
           persist-credentials: false
       - name: Verify live published content
