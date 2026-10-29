@@ -67,7 +67,7 @@
 
 ** 并行提示链：三视角独立评审
 
-#+CAPTION: 三视角独立评审与结果汇总示意图，非模型运行截图。
+下图展示三个独立评审分支及其结果汇总，不是模型运行截图。
 #+ATTR_HTML: :width 100%
 [[file:../../../note-assets/c596dd07-857d-4bff-b7e3-b3b9f5e1571d/parallel-prompt-chain-section-v2.webp]]
 
