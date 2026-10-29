@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: b4a62448f36abca5d728558d3cacbce2aa5364eb
+          ref: cd6a10a5387850a385e6872f4983665d4ab27706
           path: _publisher
           persist-credentials: false
       - name: Regression test user-authorized article cleanup
@@ -139,7 +139,7 @@ jobs:
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           repository: lovemoganna/org-museum.el
-          ref: b4a62448f36abca5d728558d3cacbce2aa5364eb
+          ref: cd6a10a5387850a385e6872f4983665d4ab27706
           path: _publisher
           persist-credentials: false
       - name: Verify live published content
