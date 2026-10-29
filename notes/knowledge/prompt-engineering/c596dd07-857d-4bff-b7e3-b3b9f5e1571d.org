@@ -20,7 +20,7 @@
 
 #+CAPTION: 三步提示链示意图。头图不是 Gemini 实际运行回执。
 #+ATTR_HTML: :width 100%
-[[file:../../../note-assets/c596dd07-857d-4bff-b7e3-b3b9f5e1571d/sequential-prompt-chain-section-v3.webp]]
+[[file:../../../note-assets/c596dd07-857d-4bff-b7e3-b3b9f5e1571d/sequential-prompt-chain-section-v4.webp]]
 
 下表直接取自 [[https://docs.google.com/spreadsheets/d/1eV1Eg9KO0aTEuhhaN2cFVPVhjwk2zclBuPeCW4eLeP8/edit][Google Sheet《提示链》]] 的「1 顺序提示链」。B 列保留原始文字或公式。调用公式是重测时填入 C 列的公式；右列是表格当前显示的历史结果，并非本次重测。
 
