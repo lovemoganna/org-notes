@@ -18,7 +18,7 @@
 
 案例把“介绍提示词的四种基本要素”拆成三步。每条提示只完成一个任务：提取事实、生成文案、核查新增事实。提示由指令、上下文、输入数据、输出格式组成；这些是提示内部的要素，不是四次调用。
 
-#+CAPTION: 三步提示链示意图。头图不是 Gemini 实际运行回执。
+#+CAPTION: 顺序提示链示意图：提取事实、生成文案、核查事实；非 Gemini 实际运行回执。
 #+ATTR_HTML: :width 100%
 [[file:../../../note-assets/c596dd07-857d-4bff-b7e3-b3b9f5e1571d/sequential-prompt-chain-section-v3.webp]]
 
