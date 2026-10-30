@@ -1,0 +1,181 @@
+#+TITLE: Hallmark 与 Impeccable：AI 前端设计 Skill 安装、调用与实战
+#+WIKI_ID: 9e27962b-93f1-4927-be38-41be57bed930
+#+CATEGORY: AI Skills
+#+FILETAGS: :ai:skills:frontend:design:agent:
+#+DATE: 2026-10-30
+#+SOURCE: https://x.com/waveking1314/status/2115804480709263538；Nutlope/hallmark 与 pbakaus/impeccable 官方 README（详见文末）
+#+INGEST_ID: ae7a51eb-8fc9-4365-842a-290409cc8b21
+#+WIKI_STATUS: published
+
+怎样让 AI 编码工具做出的网页更清晰、更有辨识度，同时不破坏原有功能？先分清任务：需要从零构建或大幅改版，优先评估 Hallmark；已有页面需要逐项审查和精修，先用 Impeccable。两者是 Agent 的设计工作流，不是安装后就能自动消除“AI 味”的魔法开关。
+
+* 先判断用哪个
+
+| 现在要解决什么问题 | 优先工具 | 对应动作 |
+|--------------------+----------+----------|
+| 新页面缺少明确视觉方向 | Hallmark | 构建页面，选择主题或 custom |
+| 已有页面需要整体重新设计 | Hallmark | =redesign=；先保留原页面作对照 |
+| 只想审查现有页面，不改代码 | Hallmark | =audit= |
+| 现有界面信息层级、间距、文案不清晰 | Impeccable | =critique=、=layout=、=typeset=、=clarify= |
+| 卡片太多、功能入口拥挤 | Impeccable | =distill= |
+| 交付前检查响应式、可访问性和边界问题 | Impeccable | =audit=、=adapt=、=harden=、=detect= |
+
+不要同时让两个 Skill 整站重做。先固定一个待解决的问题和原始页面，再选择对应工具，比较实际结果。
+
+* Hallmark：搭建或重设计网页
+
+项目：[[https://github.com/Nutlope/hallmark][Nutlope/hallmark]]；主题预览：[[https://www.usehallmark.com/][usehallmark.com]]。
+
+Hallmark v2 提供 50 种视觉主题，也允许要求 =custom= 跳过预设主题。它会围绕访问者真正要完成的任务组织页面，再检查模型容易产生的模板化设计：无意义的标签、重复卡片、缺乏功能的表单、布局与视口不匹配等。检查分为底线问题（例如对比度、焦点、移动端布局）、可解释的默认模式，以及不阻塞发布的细节。
+
+** 安装
+
+在项目根目录执行以下命令。需要 Node.js 18 或更新版本。
+
+#+begin_src sh :eval never-export
+# 仅在当前项目安装
+npx skills add nutlope/hallmark
+
+# 或在用户级安装，供多个项目使用
+npx skills add nutlope/hallmark -g
+#+end_src
+
+使用 Claude Code 时可以输入 =/hallmark=；使用 Codex CLI 时通过 =$hallmark= 调用。Cursor 和 OpenCode 按各自的 Skill 发现机制调用。若没有自动触发，明确说“使用 hallmark 处理当前任务”。
+
+** 用法一：新建页面
+
+在支持 Hallmark 的 Agent 对话中输入：
+
+#+begin_example
+使用 Hallmark，为数据分析产品设计一个“导入数据”页面。
+目标：零基础用户能找到导入入口，完成文件上传，并知道接下来怎样配置行、列和指标。
+要求：先确认页面的真实业务动作，不编造功能和数据；提供适合该任务的视觉方向；完成后检查桌面与手机布局。
+#+end_example
+
+主题是视觉材料，不是页面内容和功能清单。应先确定产品任务和真实控件，再确定视觉样式；要突破现成主题时明确要求 =custom=。
+
+** 用法二：审查已有页面或重设计
+
+#+begin_example
+/hallmark audit ./index.html
+/hallmark redesign ./src/app
+#+end_example
+
+第一条只出审查报告；第二条会修改目标页面。=./index.html= 与 =./src/app= 是示例路径，运行前须替换成项目中真实存在的文件或目录。对现有产品，先用 =audit=，确认要改的范围，再做 =redesign=。
+
+重设计默认保留内容及交互连接；若只想换视觉样式，明确要求 =keep the layout=；若只修典型模板化细节，使用 =polish= 限定改动。最终仍需测试真实交互，不能把工具声称“保留”当作通过验收。
+
+** 浏览器检查的前提
+
+项目提供 =sloplint= 静态检查。浏览器渲染、截图和多视口检查还需要 Chrome 及 =puppeteer-core=。缺少这些依赖时，静态检查可以运行，但不能声称完成了浏览器级验收。
+
+#+begin_src sh :eval never-export
+npm i -g puppeteer-core
+# 在 Hallmark 仓库中运行的示例
+node skills/hallmark/scripts/sloplint.mjs ./index.html --render
+#+end_src
+
+* Impeccable：检查并精修已有界面
+
+项目：[[https://github.com/pbakaus/impeccable][pbakaus/impeccable]]；文档：[[https://impeccable.style/docs][impeccable.style/docs]]。
+
+Impeccable 将“更高级一点”“看起来专业些”等模糊要求拆为可调用的设计动作。官方提供 24 个命令，包括对页面做设计评审、检查技术问题、压缩复杂度、优化排版和适配屏幕。其检测器提供 62 条确定性规则；这些规则与模型做的审美判断不是一回事。
+
+** 安装与初始化
+
+#+begin_src sh :eval never-export
+# 在项目根目录安装，并按提示选择适配的编码工具
+npx impeccable install
+
+# 以后更新
+npx impeccable update
+#+end_src
+
+重新加载编码工具后，在 Agent 对话中执行：
+
+#+begin_example
+/impeccable init
+/impeccable document
+#+end_example
+
+=init= 读取现有项目，补充必要的产品背景并创建 =PRODUCT.md=；=document= 把现有视觉设计约束整理为 =DESIGN.md=。这两个文件的作用是让后续修改尽量遵守真实产品目标及当前设计语言，而不是每次从空白设计开始。
+
+Codex 用户通过 =/skills= 或 =$impeccable= 进入技能，不应机械照搬其他工具的斜杠命令。安装器支持的自动设计检查 Hook 要在工具内授予相应信任或权限；先审阅 Hook 再允许执行。安装成功不等于 Hook 已启用。
+
+** 高频命令与使用时机
+
+| 命令 | 何时使用 |
+|------+----------|
+| =/impeccable critique= | 先做 UX 评审，按问题严重程度排序 |
+| =/impeccable audit= | 检查可访问性、性能、主题和响应式等技术问题 |
+| =/impeccable layout= | 修复布局、间距与视觉节奏 |
+| =/impeccable typeset= | 调整字体、字号与文字层级 |
+| =/impeccable distill= | 删去影响主任务的复杂组件与冗余界面 |
+| =/impeccable clarify= | 改善标签、提示和操作文案的可理解性 |
+| =/impeccable adapt= | 处理不同屏幕及设备尺寸 |
+| =/impeccable harden= | 排查错误状态、溢出、国际化及边界情况 |
+| =/impeccable polish= | 发布前的细节精修 |
+
+可以将目标范围直接接在命令后面。例如：
+
+#+begin_example
+/impeccable critique the data import page
+/impeccable layout the pivot table workspace
+/impeccable distill the filter panel
+/impeccable polish the main dashboard
+#+end_example
+
+关键是指定真实页面或组件，而不是一上来要求“提升整个产品的品质”。单次只针对一个目标，才方便观察修改是否有效。
+
+** 不通过 Agent 也能做确定性检查
+
+#+begin_src sh :eval never-export
+# 检查源码中的规则问题
+npx impeccable detect src/
+
+# 检查渲染中的开发页面（需要 Chrome 或 Edge）
+npx impeccable detect http://localhost:5173
+
+# 输出可供脚本处理的 JSON
+npx impeccable detect --json .
+
+# 列出全部规则
+npx impeccable detect --list-rules
+#+end_src
+
+=src/= 和开发服务器地址是示例，需替换成真实目标。源码检查不等同于渲染检查；颜色对比度和过小字体等需要在真实渲染页面上检测。检测退出码 =2= 表示发现问题，=1= 表示扫描目标失败，不能混为一谈。
+
+* 一个真实产品怎样操作
+
+以数据透视表产品为例。假设现有界面中“行、列、指标”的放置区占据太多空间，但还没有证据说明哪个布局最合适。
+
+1. 保存原始页面与关键操作截图，冻结功能基线。
+2. 先让 Impeccable =critique= 目标工作区，具体指出信息层级、面积占用和交互路径上的问题。
+3. 用 =distill= 或 =layout= 修改该工作区，明确保留拖拽、指标配置、结果展示及现有数据行为。
+4. 用 =audit= 和 =detect= 检查改动后的页面，补做不同视口和真实交互测试。
+5. 只有明确需要整体换视觉体系时，再单独使用 Hallmark =audit= 和 =redesign=，且保留对照版本。
+
+可直接复制给 Agent 的任务提示：
+
+#+begin_example
+使用 Impeccable 检查当前数据透视表工作区。
+问题：行、列、指标放置区占用空间过大，影响数据结果阅读。
+先读取真实代码和界面，找出问题，不预设设计方案。
+只优化该区域的布局与视觉层级，保留现有拖拽和字段配置功能。
+完成后给出修改前后截图，在桌面与手机宽度下验证布局，
+实际测试字段拖放、切换数据集和结果刷新。
+列出已通过、失败和未运行的验证项，不以截图好看代替功能正确。
+#+end_example
+
+* 怎样验收，而不是凭感觉宣布成功
+
+对同一页面保留修改前后证据：页面截图与主要任务步骤、文字和控件可读性、不同视口的溢出情况、原有功能回归、检测器输出及新增问题。优先修复阻断任务和破坏功能的问题，最后再处理美观细节。
+
+如果页面视觉变化很大，却增加了点击次数、遮挡了表格、损坏了拖拽或引入无法提交的表单，就不算改进。Skill 只是给 Agent 提供方法和检查项；它不能替代产品理解、测试环境和实际结果。
+
+* 边界与来源
+
+本文基于 2026-10-30 检索的项目官方 README 整理，命令以当时的官方仓库为准；没有在同一个实际项目中对两个 Skill 执行前后对照实验，因此不提供“谁提升百分之几”的结论。执行第三方安装器及 Hook 前，应检查仓库、依赖、下载行为和权限；涉及真实用户数据时优先使用脱敏或测试环境。
+
+原始分享：[[https://x.com/waveking1314/status/2115804480709263538][WaveKing 的 X 帖子]]。
+官方依据：[[https://github.com/Nutlope/hallmark/blob/main/README.md][Hallmark README]]、[[https://github.com/pbakaus/impeccable/blob/main/README.md][Impeccable README]]。
