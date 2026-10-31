@@ -124,7 +124,7 @@
 #+ATTR_HTML: :width 100%
 [[file:../../../note-assets/c596dd07-857d-4bff-b7e3-b3b9f5e1571d/orchestrator-workers-prompt-section-v1.webp]]
 
-下表逐格取自 [[https://docs.google.com/spreadsheets/d/1eV1Eg9KO0aTEuhhaN2cFVPVhjwk2zclBuPeCW4eLeP8/edit#gid=1561099394][Google Sheet「4 编排者-执行者」]] 的 =A1:C6=。C 列保存了 =AI()= 公式与当前显示值，但显示值仍涉及旧案例，不能视为新版提示的有效测试结果。表内仅将换行转为网页换行，保留文本原意。
+下表逐格取自 [[https://docs.google.com/spreadsheets/d/1eV1Eg9KO0aTEuhhaN2cFVPVhjwk2zclBuPeCW4eLeP8/edit#gid=1561099394][Google Sheet「4 编排者-执行者」]] 的 =A1:C6=。C 列保存了 =AI()= 公式与当前显示值，但其中存在与新输入无关的旧案例内容，不能视为新版提示的有效测试结果。表内仅将换行转为网页换行，保留文本原意。
 
 | 步骤 | B 列提示 / 公式 | C 列调用公式 | 当前 C 列显示结果（与新输入失配） |
 |------+--------------------+------------------+----------------------------------------|
