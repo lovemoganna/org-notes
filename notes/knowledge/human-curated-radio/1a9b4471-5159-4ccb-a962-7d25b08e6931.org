@@ -1,0 +1,95 @@
+#+TITLE: 人工策展互联网电台：全球精选清单与使用指南
+#+WIKI_ID: 1a9b4471-5159-4ccb-a962-7d25b08e6931
+#+CATEGORY: 音乐发现
+#+FILETAGS: :music:radio:human-curated:music-discovery:ambient:indie:electronic:
+#+DATE: 2026-10-31
+#+SOURCE: KEXP、BBC Radio 6 Music、KCRW、NTS、Worldwide FM、dublab、FIP、SomaFM、Radio Paradise、WFMU 与新增资源的官方网站（2026-10-31 核对）；评价和推荐场景为编辑判断
+#+INGEST_ID: 5bb7b3c0-c36e-4331-91a0-c5991e42b700
+#+WIKI_STATUS: published
+
+人工策展电台不是算法播放列表的全面替代品。它最大的用途，是让听众接触自己原本不会主动搜索的音乐。选台时先分清三件事：是要发现新音乐、跟随专业 DJ 理解某类音乐，还是不被打断地听背景音。这些目标需要不同的电台。
+
+* 首选入口：按任务找电台
+
+| 目标 | 优先打开 | 选择理由 |
+|------+----------+----------|
+| 发现陌生音乐类型 | [[https://www.nts.live/radio][NTS Radio]] | 按风格、情绪、DJ 专题深入档案 |
+| 发现新锐独立乐队和现场演出 | [[https://www.kexp.org/][KEXP]] | 专业节目、现场录制及短期节目回听 |
+| 不指定风格，直接听好的音乐 | [[https://www.radiofrance.fr/fip][FIP]] | 多风格连续策展、无商业广告 |
+| 写代码或阅读 | [[https://somafm.com/][SomaFM]] | Groove Salad、Drone Zone 等固定风格频道 |
+| 重视音质及连贯聆听 | [[https://radioparadise.com/][Radio Paradise]] | 人工编排、多种混音和 FLAC 播放选项 |
+| 学电子舞曲的场景与流派 | [[https://www.rinse.fm/][Rinse FM]] | 英国俱乐部音乐、Grime、Garage、D&B |
+| 按年代及国家探索音乐 | [[https://radiooooo.com/][Radiooooo]] | 不按个人历史推荐，而是从时空切入 |
+
+* 一、原名单：10 家值得保留的电台
+
+下表“价值”是用途判断，不是音质测评或全球客观排名。
+
+| 电台 | 主要方向 | 值得听的内容 | 适合场景 | 官方入口 |
+|------+----------+--------------+----------+----------|
+| KEXP（美国西雅图） | Indie、Alternative、现场 | 新锐乐队、Live on KEXP、节目回听 | 主动挖掘音乐人 | [[https://www.kexp.org/][收听]] |
+| BBC Radio 6 Music（英国） | Alternative、英国音乐、新唱片 | 主题节目、主持人选曲、英国音乐场景 | 跟踪新作品 | [[https://www.bbc.co.uk/sounds/play/live/bbc_6music][收听]] |
+| KCRW Eclectic24（美国） | Indie Pop、Soul、Electronic | Chris Douridas 策展的全天音乐流 | 随机发现、日常播放 | [[https://www.kcrw.com/shows/eclectic24][收听]] |
+| NTS Radio（英国／全球） | Underground、实验、跨流派 | 按 Genre/Mood 检索的节目档案与 DJ 专题 | 深挖冷门音乐 | [[https://www.nts.live/radio][收听]] |
+| Worldwide FM（英国／全球） | Jazz、Soul、Afrobeat、Global | Gilles Peterson 与全球策展人节目 | 跨文化音乐溯源 | [[https://www.worldwidefm.net/][收听]] |
+| dublab（美国洛杉矶） | 实验电子、Ambient、另类 | 社区 DJ、旧节目归档、非主流声音 | 探索先锋音乐 | [[https://www.dublab.com/][收听]] |
+| FIP（法国） | Jazz、Rock、Classical、World | 跨风格顺滑编排、主题频道 | 长时间不费力聆听 | [[https://www.radiofrance.fr/fip][收听]] |
+| SomaFM（美国旧金山） | Downtempo、Ambient、电子 | Groove Salad、Drone Zone、Secret Agent | 工作、专注、环境音 | [[https://somafm.com/][收听]] |
+| Radio Paradise（美国） | Rock、World、Eclectic | Main、Mellow、Global 等混音及 FLAC 选项 | 长时间、高音质播放 | [[https://radioparadise.com/][收听]] |
+| WFMU（美国新泽西） | Freeform、Garage、实验 | DJ 自主选曲、历史节目、不可预测的风格组合 | 寻找意外发现 | [[https://www.wfmu.org/][收听]] |
+
+* 二、新增：原名单漏掉的 6 家
+
+| 电台 | 主要方向 | 与原名单相比的增量 | 适合场景 | 官方入口 |
+|------+----------+--------------------+----------+----------|
+| Rinse FM（英国伦敦） | Garage、Grime、Dubstep、D&B | 更聚焦英国地下俱乐部和舞曲生态 | 学习 Bass 音乐分支 | [[https://www.rinse.fm/][收听]] |
+| The Lot Radio（美国纽约） | House、Disco、Hip-Hop、Leftfield | 布鲁克林本地 DJ 与现场感更强的演出文化 | 观察纽约独立音乐现场 | [[https://www.thelotradio.com/][收听]] |
+| Kiosk Radio（比利时布鲁塞尔） | Eclectic、House、Jazz、Experimental | 公园木亭电台、DJ 表演和跨流派混音 | 按 DJ 探索欧洲音乐场景 | [[https://www.kioskradio.com/][收听]] |
+| Refuge Worldwide（德国柏林） | Electronic、Jazz、Global、Talk | 柏林社区文化与多元国际音乐人的节目 | 兼听音乐与文化背景 | [[https://refugeworldwide.com/radio][收听]] |
+| Radio Alhara（巴勒斯坦伯利恒） | 地域音乐、实验、文化节目 | 非欧美中心的音乐和社区声音 | 扩展地域音乐视野 | [[https://radioalhara.net/][收听]] |
+| Jazz24（美国西雅图／塔科马） | Jazz | 相比跨流派电台，更稳定的 24 小时爵士专题 | 专心听爵士、工作伴奏 | [[https://www.jazz24.org/listening][收听]] |
+
+* 三、不是传统电台，但更适合“主动找歌”的 2 个工具
+
+| 工具 | 怎么用 | 最有价值的用途 | 官方入口 |
+|------+------+------------------+----------|
+| Radiooooo | 选择国家、年代后听曲目 | 避免只在熟悉的流派里循环；例如研究 1970 年代不同国家的流行音乐 | [[https://radiooooo.com/][探索]] |
+| Radio Garden | 在世界地图上选择城市的实时电台 | 寻找地方文化、语言和当地广播；不是统一质量的人工策展库 | [[https://radio.garden/][探索]] |
+
+* 四、开始听：一周的低成本实验
+
+不必同时订阅十几家。先按需求保留四个入口：
+
+1. 工作时：SomaFM 的 [[https://somafm.com/groovesalad/][Groove Salad]]；如节奏妨碍专注，切换 [[https://somafm.com/dronezone/][Drone Zone]]。
+2. 随机听：FIP 主频道与 Radio Paradise Mellow，比较哪一个更适合长时间播放。
+3. 主动找新歌：KEXP 的 [[https://kexp.org/podcasts/live-on-kexp][Live on KEXP]]；记录喜欢的音乐人及演出日期。
+4. 跳出固有审美：从 NTS 选择一个完全不熟悉的 Genre，听完一整期再决定是否继续。
+
+每次只记录三个字段：=电台/节目=、=喜欢的歌曲或艺术家=、=为什么收藏=。七天后检查哪一个电台产生了最多真正想重听的作品。由此决定保留哪些频道，比追求所谓“全球最高评分”有效。
+
+* 五、使用边界与事实修正
+
+- *KEXP：* 官方 [[https://kexp.org/archive/][节目回听]]提供过去两周内容；Live on KEXP 的录音另有播客与视频归档。不要把所有历史直播都当成永久可回听。
+- *BBC Radio 6 Music：* BBC Sounds 对英国境外听众的访问政策已经调整；国际听众可能需使用新的 BBC 入口，具体服务与节目权限依地区而异。参考 [[https://www.bbc.co.uk/sounds/help/questions/listening-outside-the-uk/outside-uk-changes][BBC 海外收听说明]]。不要将原 BBC Sounds 页面能够打开等同于所有节目均能播放。
+- *NTS：* 直播与大量节目档案可浏览，增强型曲目时间戳和部分高级筛选属 [[https://www.nts.live/supporters][Supporter 会员]]功能。
+- *FIP：* Radio France 官方明确宣传无广告、无算法策展；并不等于全天绝对没有主持人播报。
+- *SomaFM：* 听众捐助支持、无商业广告，频道主要服务于不同音乐风格和使用情境，不应与现场发现型电台简单比较。
+- *Radio Paradise：* [[https://radioparadise.com/listen/stream-links][官方串流选项]]提供多种编码、码率与 FLAC；音质表现还取决于设备和连接，不应把“FLAC”直接等同于每首录音都更好听。
+- *WFMU：* 官方的准确表述是“美国持续运营时间最长的 Freeform 电台”，不是“全球历史最久”。
+- *Radio Garden：* 它是地理广播入口，涵盖商业、公共与独立电台；不能把其收录电台统一视为“人工策展”。
+- *运营核查：* 本清单依据截至 2026-10-31 的官方站点、节目与文档核对。网站可访问不等于已经对每一条直播流完成地区和设备上的实际播放测试。音乐评价为主观选择依据。
+
+* 官方资料入口
+
+| 事项 | 官方资料 |
+|------+----------|
+| KEXP 直播码率与外部播放器 | [[https://www.kexp.org/streaming-urls][Streaming URLs]] |
+| KEXP 回听期限 | [[https://kexp.org/archive/][Streaming Archive]] |
+| NTS 归档与节目索引 | [[https://www.nts.live/radio][NTS Radio]] |
+| NTS 会员功能 | [[https://www.nts.live/supporters][NTS Supporters]] |
+| FIP 策展原则 | [[https://www.radiofrance.fr/fip/evenements/hello-fip-bringing-french-listening-culture-to-the-world-3754877][Hello FIP]] |
+| SomaFM 频道目录 | [[https://somafm.com/][SomaFM]] |
+| Radio Paradise 可用音频流 | [[https://radioparadise.com/listen/stream-links][Stream Links]] |
+| WFMU 历史与定位 | [[https://www.wfmu.org/about][About WFMU]] |
+| Worldwide FM 独立策展与广播 | [[https://www.worldwidefm.net/about][About Worldwide FM]] |
+| Jazz24 在线广播 | [[https://www.jazz24.org/listening][Streaming]] |
