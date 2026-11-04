@@ -1,0 +1,50 @@
+#+TITLE: AMEPOnline：澳大利亚政府的免费日常英语课程
+#+WIKI_ID: 4e2751b5-bc04-496b-8e13-dc2af60806a5
+#+CATEGORY: 英语学习
+#+FILETAGS: :英语:英语学习:AMEPOnline:免费课程:听力:口语:
+#+DATE: 2026-11-04
+#+SOURCE: 澳大利亚内政部 AMEPOnline 官网 https://ameponline.homeaffairs.gov.au/；AMEP 项目说明 https://immi.homeaffairs.gov.au/settling-in-australia/amep/overview；AMEP 资源页 https://immi.homeaffairs.gov.au/settling-in-australia/amep/resources；泊舟 2026-11-03 X 帖文 https://x.com/bozhou_ai/status/2117445644470370657（2026-11-04 核对）
+#+INGEST_ID: 943ce94a-b07b-4c14-b80f-4a1c2cbc58df
+#+WIKI_STATUS: published
+
+想免费练习生活英语，可以先用 *AMEPOnline*。它是澳大利亚内政部提供的线上学习资源。内政部明确表示：无论身在何处，任何人都可以用手机或电脑免费自学；不要求有澳大利亚移民身份。
+
+课程的优势是*从生活场景学表达*，例如与人交流、工作和处理日常事务。它适合打基础，但不是针对雅思、托福或专业求职面试的专项课程。
+
+* 直接开始
+
+| 想做什么 | 官方入口 |
+|----------+----------|
+| 打开课程首页 | [[https://ameponline.homeaffairs.gov.au/][AMEPOnline]] |
+| 判断自己的起始级别 | [[https://ameponline.homeaffairs.gov.au/course/view.php?id=82][Find Your Level]] |
+| 从基础开始 | [[https://ameponline.homeaffairs.gov.au/course/index.php?categoryid=2][Level 1]] |
+| 查看更高难度课程 | [[https://ameponline.homeaffairs.gov.au/course/index.php?categoryid=6][Level 5]] |
+| 查看课程与移动端说明 | [[https://immi.homeaffairs.gov.au/settling-in-australia/amep/resources][内政部资源页]] |
+
+官网共有 *Level 1–5* 五个英语学习级别，也提供与澳大利亚生活、安全、入籍有关的专题。按能力选课即可，不需要从第一级全部重学；这些 Level 不能未经换算就当作雅思分数或欧洲语言等级。
+
+* 一次 20 分钟的练法〔补〕
+
+以下是便于执行的自练安排，不是澳大利亚政府规定的学习方法。
+
+1. *选一课（2 分钟）：* 先用 Find Your Level 判断起点；选择自己有机会真实使用的生活主题。
+2. *听懂（8 分钟）：* 听材料并完成相应练习，用一句中文概括场景，再找出两句自己会用的英语。
+3. *开口（7 分钟）：* 关掉文字提示，模仿对话；再把人物、地点或目的换成自己的实际情况，录下 30–60 秒。
+4. *复测（3 分钟）：* 不看原句重说一遍，记下最影响表达的一处问题；第二天先重说，再学新课。
+
+如果看着课文能懂、关掉却说不出，就少刷新课、多练无稿回答；如果连场景主旨都听不懂，先降一级或换更短的材料。学完一个单元不等于已经能在真实对话中使用。
+
+* 使用边界
+
+- *公开自学和正式授课不是一回事。* AMEPOnline 对全球使用者免费开放；澳大利亚 AMEP 的教师授课、面授及远程教学支持另有移民及签证等资格条件。
+- *内容偏向澳大利亚生活。* 它适合日常英语基础训练，不能直接替代专业岗位面试、行业沟通或考试备考。
+- *练习效果需要自己验证。* 最简单的检验是：离开课程提示，能否在新场景里独立说清一件事。
+
+如果已经能看懂基本对话，但听不清或说不出，可继续参考站内 [[wiki:c3ae7d9d-ca29-48e3-9e7e-e4074f3fce78][英语听说学习：把自然输入转成主动表达]]；希望有连续的初级课程，可选 [[wiki:197dfe3e-6f7f-44e8-8350-2b3912656a33][VOA Level 1：52 课英语听说学习总表]]。
+
+* 来源
+
+- [[https://immi.homeaffairs.gov.au/settling-in-australia/amep/overview][澳大利亚内政部：AMEP 概览]]：确认 AMEPOnline 对全球免费开放，并说明正式 AMEP 教学服务的适用对象。
+- [[https://immi.homeaffairs.gov.au/settling-in-australia/amep/resources][澳大利亚内政部：AMEP 学习资源]]：确认五个级别、学习内容与移动端。
+- [[https://ameponline.homeaffairs.gov.au/][AMEPOnline 官方课程首页]]：直接查看课程、分级入口。
+- [[https://x.com/bozhou_ai/status/2117445644470370657][泊舟原始 X 帖文（2026-11-03）]]：发现线索；事实以澳大利亚政府官网为准。
