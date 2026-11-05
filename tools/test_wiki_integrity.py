@@ -53,7 +53,7 @@ def rejected(label, mutate, fragment):
 def add_event_once(root, identity, event):
     index = root / "notes" / "knowledge" / "fixture" / (INDEX + ".org")
     log = root / "notes" / "knowledge" / "fixture" / (LOG + ".org")
-    index_text, log_text = index.read_text(), log.read_text()
+    index_text, log_text = index.read_text(encoding="utf-8"), log.read_text(encoding="utf-8")
     if f":CUSTOM_ID: {event}" in log_text or f"[[wiki:{identity}]" in index_text:
         return "NOOP"
     # Controlled fixture: supplement the existing concept, not only a standalone page.

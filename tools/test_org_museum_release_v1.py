@@ -157,7 +157,7 @@ with tempfile.TemporaryDirectory() as d:
     draftPath.write_text("#+TITLE: 草稿\n#+WIKI_STATUS: draft\n"
                          "#+SOURCE: https://github.com/lovemoganna/Prompts/blob/"
                          +"a"*40+"/Major/6.%E6%8F%90%E7%A4%BA%E8%BF%AD%E4%BB%A3.md\n",encoding="utf-8")
-    in_progress=v.preflight_source(root,draftPath.read_text().split("#+SOURCE: ")[1].strip())
+    in_progress=v.preflight_source(root,draftPath.read_text(encoding="utf-8").split("#+SOURCE: ")[1].strip())
     assert in_progress["decision"]=="REUSE_DRAFT_OR_REVIEW" and in_progress["newArticleBlocked"]
     checks+=1
 
