@@ -4,6 +4,7 @@
 #+FILETAGS: :prompt-engineering:prompt-chain:agents:skills:
 #+DATE: 2026-11-08
 #+SOURCE: 基于提示链讨论中的九种模式重新编写；方法依据见文末“来源”。所有对话示例均为教学设计，未经独立多轮实测。
+#+INGEST_ID: 5e9937e7-47bd-4da8-a720-b7ac57d37fb1
 #+WIKI_STATUS: published
 
 想让 AI 稳定完成复杂任务，光说“认真思考、反复优化”没有用。要告诉它什么时候搜索、何时换方案、凭什么接受结果，以及失败后从哪里继续。这些规则组合起来，才是一条能重复调用的提示链。
