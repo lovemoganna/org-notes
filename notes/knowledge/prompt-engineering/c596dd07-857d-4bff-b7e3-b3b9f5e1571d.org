@@ -118,25 +118,7 @@
 
 这条工作流先填写任务与验收标准（=B2:B7=），再列六组测试输入及预期（=B25:C30=）。流程是生成 → 初评 → 必要时修订 → 同例复评；最多修订两轮。
 
-#+begin_export html
-<figure style="margin:1.5em 0">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 470" width="100%" role="img" aria-label="评估者优化者：有失败证据才修订">
-<rect x="2" y="2" width="1596" height="466" rx="26" fill="#FBFCFE" stroke="#D4DFEA" stroke-width="3"/>
-<rect x="55" y="36" width="128" height="8" rx="4" fill="#DF5890"/>
-<text x="205" y="50" font-size="22" font-family="sans-serif" fill="#697A90">PROMPT CHAIN / 可验证工作流</text>
-<text x="56" y="129" font-size="48" font-family="sans-serif" font-weight="700" fill="#162B4A">评估者–优化者：有失败证据才修订</text>
-<text x="58" y="168" font-size="24" font-family="sans-serif" fill="#728196">先核对要求，找出具体问题，再决定是否进入修订流程。</text>
-<g fill="#FFFFFF" stroke="#D7E1EC" stroke-width="2"><rect x="55" y="207" width="445" height="145" rx="20"/><rect x="575" y="207" width="445" height="145" rx="20"/><rect x="1095" y="207" width="445" height="145" rx="20"/></g>
-<g font-size="29" font-family="sans-serif" font-weight="700"><text x="80" y="258" fill="#317FCF">① 生成初稿</text><text x="600" y="258" fill="#169B80">② 评估检查</text><text x="1120" y="258" fill="#7956BD">③ 决定下一步</text></g>
-<g font-size="23" font-family="sans-serif" fill="#64758C"><text x="80" y="310">C12｜任务与约束</text><text x="600" y="310">C13 + C19｜案例和规则</text><text x="1120" y="310">B9｜通过即停止</text></g>
-<path d="M506 275 H561 L543 263 V287 Z M1026 275 H1081 L1063 263 V287 Z" fill="#819AB5"/>
-<rect x="55" y="376" width="1485" height="65" rx="17" fill="#EAF3FB" stroke="#D3E3F0"/>
-<text x="82" y="417" font-size="27" font-family="sans-serif" font-weight="700" fill="#172C4C">不通过才继续：</text>
-<text x="342" y="417" font-size="26" font-family="sans-serif" font-weight="700" fill="#3777B5">C14 修订 → C15 复评 → C16 再修订 → C17 最终复评</text>
-</svg>
-<figcaption style="font-size:.85em;text-align:center;color:#718198">最多修订两轮。流程图不代表这些修订已经实际发生。</figcaption>
-</figure>
-#+end_export
+流程：=C12= 生成初稿 → =C13= 评估 → =B9= 判断。通过即停止；有失败证据才进入 =C14/C15= 修订复评，必要时继续 =C16/C17=，最多两轮。
 
 | 作用 | 工作表位置 | 触发条件 |
 |------+------------+----------|
