@@ -1,0 +1,80 @@
+## 15.1 生成全部组合（笛卡尔积）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1),
+   (2)
+) a(x)
+CROSS JOIN (
+  VALUES ('A'),
+   ('B')
+) b(y);
+```
+
+运行结果
+
+```text
+x | y
+1 | A
+1 | B
+2 | A
+2 | B
+```
+
+## 15.2 只判断右表是否存在匹配
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1),
+   (2),
+   (3)
+) a(id)
+SEMI JOIN (
+  VALUES (2),
+   (3)
+) b(id) USING (id);
+```
+
+运行结果
+
+```text
+id
+2
+3
+```
+
+## 15.3 只保留右表不存在的记录
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1),
+   (2),
+   (3)
+) a(id)
+ANTI JOIN (
+  VALUES (2),
+   (3)
+) b(id) USING (id);
+```
+
+运行结果
+
+```text
+id
+1
+```

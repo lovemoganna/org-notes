@@ -1,0 +1,21 @@
+## 3.1 用别名引用来源
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT t.name
+FROM (
+  VALUES ('Alice'),
+   ('Bob')
+) AS t(name);
+```
+
+运行结果
+
+```text
+name
+Alice
+Bob
+```

@@ -1,0 +1,147 @@
+## 8.1 声明窗口分析上下文
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT name, salary, SUM(salary) OVER (
+  ORDER BY salary) AS run_sum
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000)
+) t(name, salary);
+```
+
+运行结果
+
+```text
+name | salary | run_sum
+Alice | 5000 | 5000
+Bob | 7000 | 12000
+```
+
+## 8.2 窗口规则命名与复用
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT name, SUM(salary) OVER w, AVG(salary) OVER w
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000)
+) t(name, salary)
+WINDOW w AS (
+  ORDER BY salary);
+```
+
+运行结果
+
+```text
+name | sum(salary) OVER (ORDER BY salary) | avg(salary) OVER (ORDER BY salary)
+Alice | 5000 | 5000.0
+Bob | 12000 | 6000.0
+```
+
+## 8.3 连续自然序号（组内流水号）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT name, dept, ROW_NUMBER() OVER (PARTITION BY dept
+  ORDER BY salary DESC) AS seq
+FROM (
+  VALUES ('Alice', 'Sales', 5000),
+   ('Charlie', 'Sales', 6000),
+   ('Bob', 'Tech', 7000)
+) t(name, dept, salary);
+```
+
+运行结果
+
+```text
+name | dept | seq
+Bob | Tech | 1
+Charlie | Sales | 1
+Alice | Sales | 2
+```
+
+## 8.4 业务名次（支持同分跳号）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT name, salary, RANK() OVER (
+  ORDER BY salary DESC) AS rank_no
+FROM (
+  VALUES ('Alice', 6000),
+   ('Bob', 7000),
+   ('Charlie', 6000)
+) t(name, salary);
+```
+
+运行结果
+
+```text
+name | salary | rank_no
+Bob | 7000 | 1
+Alice | 6000 | 2
+Charlie | 6000 | 2
+```
+
+## 8.5 抓取上期数值做增量环比
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT name, salary, LAG(salary) OVER (
+  ORDER BY salary) AS prev_sal, salary - LAG(salary) OVER (
+  ORDER BY salary) AS diff
+FROM (
+  VALUES ('Alice', 5000),
+   ('Charlie', 6000),
+   ('Bob', 7000)
+) t(name, salary);
+```
+
+运行结果
+
+```text
+name | salary | prev_sal | diff
+Alice | 5000 | NULL | NULL
+Charlie | 6000 | 5000 | 1000
+Bob | 7000 | 6000 | 1000
+```
+
+## 8.6 抓取下期数值做前瞻比对
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT name, salary, LEAD(salary) OVER (
+  ORDER BY salary) AS next_sal
+FROM (
+  VALUES ('Alice', 5000),
+   ('Charlie', 6000),
+   ('Bob', 7000)
+) t(name, salary);
+```
+
+运行结果
+
+```text
+name | salary | next_sal
+Alice | 5000 | 6000
+Charlie | 6000 | 7000
+Bob | 7000 | NULL
+```

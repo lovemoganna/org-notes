@@ -1,0 +1,49 @@
+## 17.1 长表转宽表（动态透视）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+WITH s(item, q, amt) AS (
+  VALUES ('A', 'Q1', 10),
+   ('A', 'Q2', 20)
+)
+SELECT *
+FROM (
+  PIVOT s ON q USING SUM(amt)
+  GROUP BY item
+);
+```
+
+运行结果
+
+```text
+item | Q1 | Q2
+A | 10 | 20
+```
+
+## 17.2 宽表转长表（列堆叠）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+WITH s(id, q1, q2) AS (
+  VALUES (1, 10, 20)
+)
+SELECT *
+FROM (
+  UNPIVOT s ON q1,
+  q2 INTO NAME quarter VALUE amount
+);
+```
+
+运行结果
+
+```text
+id | quarter | amount
+1 | q1 | 10
+1 | q2 | 20
+```

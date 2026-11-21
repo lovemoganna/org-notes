@@ -1,0 +1,19 @@
+## 20.1 按列名对齐追加
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT 1 AS a
+UNION ALL BY NAME
+SELECT 2 AS b;
+```
+
+运行结果
+
+```text
+a | b
+1 | NULL
+NULL | 2
+```

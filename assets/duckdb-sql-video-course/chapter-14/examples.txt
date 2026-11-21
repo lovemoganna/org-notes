@@ -1,0 +1,21 @@
+## 14.1 从关系中抽样
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM range(100) t(x) USING SAMPLE 5 ROWS;
+```
+
+运行结果
+
+```text
+x
+24
+40
+67
+98
+51
+```

@@ -1,0 +1,23 @@
+## 6.1 提取唯一不重复清单
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT DISTINCT dept
+FROM (
+  VALUES ('Sales'),
+   ('Tech'),
+   ('Sales'),
+   ('Tech')
+) t(dept);
+```
+
+运行结果
+
+```text
+dept
+Tech
+Sales
+```

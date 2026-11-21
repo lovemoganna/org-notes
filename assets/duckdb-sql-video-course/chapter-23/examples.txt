@@ -1,0 +1,224 @@
+## 23.1 持久表
+
+使用一个全新的练习数据库文件。先执行本节脚本，再关闭并重新连接同一个文件进行验证。
+
+原文 SQL
+
+```sql
+CREATE TABLE t AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) v(id, name);
+
+SELECT *
+FROM t
+ORDER BY id;
+```
+
+补充验证 SQL
+
+```sql
+SELECT * FROM t ORDER BY id;
+```
+
+重连验证结果
+
+```text
+id | name
+1 | Alice
+2 | Bob
+```
+
+## 23.2 持久视图
+
+使用一个全新的练习数据库文件。先执行本节脚本，再关闭并重新连接同一个文件进行验证。
+
+原文 SQL
+
+```sql
+CREATE VIEW v AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name);
+
+SELECT *
+FROM v
+ORDER BY id;
+```
+
+补充验证 SQL
+
+```sql
+SELECT * FROM v ORDER BY id;
+```
+
+重连验证结果
+
+```text
+id | name
+1 | Alice
+2 | Bob
+```
+
+## 23.3 持久标量宏
+
+使用一个全新的练习数据库文件。先执行本节脚本，再关闭并重新连接同一个文件进行验证。
+
+原文 SQL
+
+```sql
+CREATE MACRO bonus_calc(s) AS s * 0.15;
+
+SELECT name, bonus_calc(salary) AS bonus
+FROM (
+  VALUES ('Alice', 5000)
+) t(name, salary);
+```
+
+补充验证 SQL
+
+```sql
+SELECT bonus_calc(5000) AS bonus;
+```
+
+重连验证结果
+
+```text
+bonus
+750.00
+```
+
+## 23.4 持久表宏
+
+使用一个全新的练习数据库文件。先执行本节脚本，再关闭并重新连接同一个文件进行验证。
+
+原文 SQL
+
+```sql
+CREATE MACRO filter_by_min_sal(ms) AS TABLE
+SELECT *
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000)
+) t(name, salary)
+WHERE salary >= ms;
+
+SELECT *
+FROM filter_by_min_sal(6000);
+```
+
+补充验证 SQL
+
+```sql
+SELECT * FROM filter_by_min_sal(6000);
+```
+
+重连验证结果
+
+```text
+name | salary
+Bob | 7000
+```
+
+## 23.5 创建命名空间
+
+使用一个全新的练习数据库文件。先执行本节脚本，再关闭并重新连接同一个文件进行验证。
+
+原文 SQL
+
+```sql
+CREATE SCHEMA analytics;
+
+CREATE TABLE analytics.t(i INTEGER);
+```
+
+补充验证 SQL
+
+```sql
+SELECT schema_name, table_name FROM duckdb_tables() WHERE schema_name = 'analytics';
+```
+
+重连验证结果
+
+```text
+schema_name | table_name
+analytics | t
+```
+
+## 23.6 持久序列
+
+使用一个全新的练习数据库文件。先执行本节脚本，再关闭并重新连接同一个文件进行验证。
+
+原文 SQL
+
+```sql
+CREATE SEQUENCE id_seq START 1;
+
+SELECT nextval('id_seq') AS id;
+```
+
+补充验证 SQL
+
+```sql
+SELECT nextval('id_seq') AS next_id;
+```
+
+重连验证结果
+
+```text
+next_id
+2
+```
+
+## 23.7 创建索引
+
+使用一个全新的练习数据库文件。先执行本节脚本，再关闭并重新连接同一个文件进行验证。
+
+原文 SQL
+
+```sql
+CREATE TABLE idx_demo(id INTEGER, name VARCHAR);
+
+CREATE INDEX idx_demo_id ON idx_demo(id);
+```
+
+补充验证 SQL
+
+```sql
+SELECT index_name FROM duckdb_indexes() WHERE table_name = 'idx_demo';
+```
+
+重连验证结果
+
+```text
+index_name
+idx_demo_id
+```
+
+## 23.8 创建并引用枚举类型
+
+使用一个全新的练习数据库文件。先执行本节脚本，再关闭并重新连接同一个文件进行验证。
+
+原文 SQL
+
+```sql
+CREATE TYPE mood AS ENUM('happy', 'sad');
+
+CREATE TABLE people(id INTEGER, state mood);
+```
+
+补充验证 SQL
+
+```sql
+DESCRIBE people;
+```
+
+重连验证结果
+
+```text
+column_name | column_type | null | key | default | extra
+id | INTEGER | YES | NULL | NULL | NULL
+state | ENUM('happy', 'sad') | YES | NULL | NULL | NULL
+```

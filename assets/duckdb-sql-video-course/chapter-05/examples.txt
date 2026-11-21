@@ -1,0 +1,47 @@
+## 5.1 确定性展示次序（升序/降序）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (2, 'Bob'),
+   (1, 'Alice')
+) t(id, name)
+ORDER BY id ASC;
+```
+
+运行结果
+
+```text
+id | name
+1 | Alice
+2 | Bob
+```
+
+## 5.2 截取最高/头部数据（Top N）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000),
+   ('Charlie', 6000)
+) t(name, salary)
+ORDER BY salary DESC
+LIMIT 2;
+```
+
+运行结果
+
+```text
+name | salary
+Bob | 7000
+Charlie | 6000
+```

@@ -1,0 +1,72 @@
+## 11.1 声明式公用表表达式入口
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+WITH cte(x) AS (
+  VALUES (1),
+   (2)
+)
+SELECT *
+FROM cte
+ORDER BY x;
+```
+
+运行结果
+
+```text
+x
+1
+2
+```
+
+## 11.2 命名辅助工作表（链式编排）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+WITH high_pay AS (
+  SELECT *
+  FROM (
+    VALUES ('Bob', 'Tech', 7000), ('David', 'Tech', 8000)
+) t(name, dept, salary)
+)
+SELECT dept, COUNT(*)
+FROM high_pay
+GROUP BY dept;
+```
+
+运行结果
+
+```text
+dept | count_star()
+Tech | 2
+```
+
+## 11.3 公式嵌套（内联瞬时计算）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT AVG(salary) AS avg_sal
+FROM (
+  SELECT salary
+  FROM (
+    VALUES (5000), (7000), (8000)
+) t(salary)
+  WHERE salary >= 6000
+) s;
+```
+
+运行结果
+
+```text
+avg_sal
+7500.0
+```

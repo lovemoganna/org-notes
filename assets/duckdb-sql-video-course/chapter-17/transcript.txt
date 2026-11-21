@@ -1,0 +1,44 @@
+# 第 17 章｜行列重塑与透视
+
+## 0:00 本章目录
+
+这一章先解决一个问题：季度在多行里，能不能把它们摆成列？先看长表转宽表，再看宽表转长表，最后动手练习。
+
+## 0:11 01  长表转宽表
+
+PIVOT 把季度值变成列。每个商品一行，季度列里放该季度的金额合计。
+
+```sql
+WITH s(item, q, amt) AS (
+  VALUES ('A', 'Q1', 10),
+   ('A', 'Q2', 20)
+)
+SELECT *
+FROM (
+  PIVOT s ON q USING SUM(amt)
+  GROUP BY item
+);
+```
+
+## 0:18 02  宽表转长表
+
+UNPIVOT 把两个季度列拆成两条记录。原列名放到 quarter，原数值放到 amount。
+
+```sql
+WITH s(id, q1, q2) AS (
+  VALUES (1, 10, 20)
+)
+SELECT *
+FROM (
+  UNPIVOT s ON q1,
+  q2 INTO NAME quarter VALUE amount
+);
+```
+
+## 0:27 03  动手练习
+
+暂停一下，试着做这个核对。宽表里季度是列，长表里季度标签和值都成为单独字段。
+
+## 0:36 回顾与总结
+
+回想刚才的例子。PIVOT 把类别值转为列名，UNPIVOT 把列名与原值拆成多行。

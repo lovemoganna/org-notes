@@ -1,0 +1,97 @@
+# 第 8 章｜组内排名与时序分析
+
+## 0:00 本章目录
+
+这一章先解决一个问题：先后和名次都想算出来，怎样保留原来的明细？跟着画面上的章节，从窗口范围一路看到下一行，最后做一个小练习。
+
+## 0:12 01  窗口范围
+
+OVER 定义为当前行计算时参考的范围。这里按工资顺序累加，每条原始记录仍有一行输出。
+
+```sql
+SELECT name, salary, SUM(salary) OVER (
+  ORDER BY salary) AS run_sum
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000)
+) t(name, salary);
+```
+
+## 0:21 02  复用窗口规则
+
+WINDOW 把同一套窗口规则命名为 w。累计求和和平均值共用这套排序规则。
+
+```sql
+SELECT name, SUM(salary) OVER w, AVG(salary) OVER w
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000)
+) t(name, salary)
+WINDOW w AS (
+  ORDER BY salary);
+```
+
+## 0:29 03  连续编号
+
+ROW_NUMBER 为每个部门单独从一开始编号。Sales 工资更高的 Charlie 得到一号。
+
+```sql
+SELECT name, dept, ROW_NUMBER() OVER (PARTITION BY dept
+  ORDER BY salary DESC) AS seq
+FROM (
+  VALUES ('Alice', 'Sales', 5000),
+   ('Charlie', 'Sales', 6000),
+   ('Bob', 'Tech', 7000)
+) t(name, dept, salary);
+```
+
+## 0:38 04  并列排名
+
+RANK 给同分记录相同名次。Bob 第一，Alice 和 Charlie 的工资相同，都是第二。
+
+```sql
+SELECT name, salary, RANK() OVER (
+  ORDER BY salary DESC) AS rank_no
+FROM (
+  VALUES ('Alice', 6000),
+   ('Bob', 7000),
+   ('Charlie', 6000)
+) t(name, salary);
+```
+
+## 0:46 05  上一行
+
+LAG 取排序中的上一行。这里按工资排序，求的是相邻工资差。第一行没有上一行。
+
+```sql
+SELECT name, salary, LAG(salary) OVER (
+  ORDER BY salary) AS prev_sal, salary - LAG(salary) OVER (
+  ORDER BY salary) AS diff
+FROM (
+  VALUES ('Alice', 5000),
+   ('Charlie', 6000),
+   ('Bob', 7000)
+) t(name, salary);
+```
+
+## 0:55 06  下一行
+
+LEAD 取排序中的下一行。最后一行之后没有记录，因此下一值为空。
+
+```sql
+SELECT name, salary, LEAD(salary) OVER (
+  ORDER BY salary) AS next_sal
+FROM (
+  VALUES ('Alice', 5000),
+   ('Charlie', 6000),
+   ('Bob', 7000)
+) t(name, salary);
+```
+
+## 1:02 07  动手练习
+
+暂停一下，试着做这个核对。第一行没有上一行，最后一行没有下一行，原例的缺值都是 NULL。
+
+## 1:12 回顾与总结
+
+回想刚才的例子。窗口在现有行上加计算结果，先定分组和顺序，再选函数。

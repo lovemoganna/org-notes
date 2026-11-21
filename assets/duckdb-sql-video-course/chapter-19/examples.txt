@@ -1,0 +1,23 @@
+## 19.1 按键保留排序第一条
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT DISTINCT ON (k) k, v
+FROM (
+  VALUES ('a', 2),
+   ('a', 1),
+   ('b', 3)
+) t(k, v)
+ORDER BY k, v;
+```
+
+运行结果
+
+```text
+k | v
+a | 1
+b | 3
+```

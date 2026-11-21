@@ -1,0 +1,19 @@
+## 12.1 用 range 生成序列
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM range(3) t(x);
+```
+
+运行结果
+
+```text
+x
+0
+1
+2
+```

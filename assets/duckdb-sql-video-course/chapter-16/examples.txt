@@ -1,0 +1,26 @@
+## 16.1 递归展开层级 / 路径
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+WITH RECURSIVE t(n) AS (
+  VALUES (1)
+  UNION ALL
+  SELECT n + 1
+  FROM t
+  WHERE n < 3
+)
+SELECT *
+FROM t;
+```
+
+运行结果
+
+```text
+n
+1
+2
+3
+```

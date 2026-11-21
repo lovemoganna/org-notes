@@ -1,0 +1,97 @@
+# 第 7 章｜分类汇总与聚合
+
+## 0:00 本章目录
+
+这一章先解决一个问题：同一个部门有多条记录，怎样让每个部门只出一行？跟着画面上的章节，从按部门分组一路看到找最大值，最后做一个小练习。
+
+## 0:12 01  按部门分组
+
+GROUP BY 用指定字段把输入划成组。这个查询每组只输出部门名，先看清分组的粒度。
+
+```sql
+SELECT dept
+FROM (
+  VALUES ('Sales'),
+   ('Sales'),
+   ('Tech')
+) t(dept)
+GROUP BY dept;
+```
+
+## 0:21 02  计数
+
+COUNT 星号按部门数行数。Sales 有两行，Tech 有一行。改用 COUNT 加列名时，只数该列有值的行。
+
+```sql
+SELECT dept, COUNT(*) AS head_count
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+## 0:31 03  求和
+
+SUM 把组内的工资相加。Sales 的两个数相加得到一万一千，Tech 只有七千。
+
+```sql
+SELECT dept, SUM(salary) AS total_salary
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+## 0:39 04  求平均
+
+AVG 求组内工资的算术平均。Sales 的五千和六千得到五千五百。
+
+```sql
+SELECT dept, AVG(salary) AS avg_salary
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+## 0:47 05  找最小值
+
+MIN 从每组取最小工资。Sales 的两条记录中，五千更小。
+
+```sql
+SELECT dept, MIN(salary) AS min_sal
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+## 0:53 06  找最大值
+
+MAX 从每组取最大工资。Sales 的两条记录中，六千更大。
+
+```sql
+SELECT dept, MAX(salary) AS max_sal
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+## 1:00 07  动手练习
+
+暂停一下，试着做这个核对。五千加六千等于一万一千，再对照 SUM 的结果。
+
+## 1:08 回顾与总结
+
+回想刚才的例子。先用 GROUP BY 决定每组是什么，再问要数、加、取平均还是找极值。

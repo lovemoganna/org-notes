@@ -1,0 +1,174 @@
+## 10.1 多表纵向堆叠并全局去重
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+UNION
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (3, 'Charlie')
+) u(id, name);
+```
+
+运行结果
+
+```text
+id | name
+2 | Bob
+3 | Charlie
+1 | Alice
+```
+
+## 10.2 极速无损堆叠（追加查询）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+UNION ALL
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (3, 'Charlie')
+) u(id, name);
+```
+
+运行结果
+
+```text
+id | name
+1 | Alice
+2 | Bob
+1 | Alice
+3 | Charlie
+```
+
+## 10.3 提取两表共同记录（求交集）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+INTERSECT
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (3, 'Charlie')
+) u(id, name);
+```
+
+运行结果
+
+```text
+id | name
+1 | Alice
+```
+
+## 10.4 提取共有行且保留频次
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1),
+   (1),
+   (2)
+) t(x)
+INTERSECT ALL
+SELECT *
+FROM (
+  VALUES (1),
+   (1),
+   (1),
+   (3)
+) u(x);
+```
+
+运行结果
+
+```text
+x
+1
+1
+```
+
+## 10.5 提取左表独有项（核对差异丢件）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob'),
+   (3, 'Charlie')
+) t(id, name)
+EXCEPT
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) u(id, name);
+```
+
+运行结果
+
+```text
+id | name
+3 | Charlie
+```
+
+## 10.6 账目核对（按频次扣减找差）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1),
+   (1),
+   (2),
+   (3)
+) t(x)
+EXCEPT ALL
+SELECT *
+FROM (
+  VALUES (1),
+   (2)
+) u(x);
+```
+
+运行结果
+
+```text
+x
+3
+1
+```

@@ -1,0 +1,235 @@
+## 22.1 临时表
+
+本节请在独立的新连接中运行。
+
+原文 SQL
+
+```sql
+CREATE TEMP TABLE tt AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name);
+
+SELECT *
+FROM tt
+ORDER BY id;
+```
+
+补充验证 SQL
+
+```sql
+SELECT temporary FROM duckdb_tables() WHERE table_name = 'tt';
+```
+
+运行结果
+
+```text
+id | name
+1 | Alice
+2 | Bob
+```
+
+## 22.2 临时视图
+
+本节请在独立的新连接中运行。
+
+原文 SQL
+
+```sql
+CREATE TEMP VIEW tv AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name);
+
+SELECT *
+FROM tv
+ORDER BY id;
+```
+
+运行结果
+
+```text
+id | name
+1 | Alice
+2 | Bob
+```
+
+## 22.3 临时标量宏
+
+本节请在独立的新连接中运行。
+
+原文 SQL
+
+```sql
+CREATE TEMP MACRO add_tax(p) AS p * 1.1;
+
+SELECT name, add_tax(salary) AS total
+FROM (
+  VALUES ('Alice', 5000)
+) t(name, salary);
+```
+
+运行结果
+
+```text
+name | total
+Alice | 5500.0
+```
+
+## 22.4 临时表宏
+
+本节请在独立的新连接中运行。
+
+原文 SQL
+
+```sql
+CREATE TEMP MACRO get_dept(d) AS TABLE
+SELECT *
+FROM (
+  VALUES ('Sales', 'Alice'),
+   ('Tech', 'Bob')
+) t(dept, name)
+WHERE dept = d;
+
+SELECT *
+FROM get_dept('Sales');
+```
+
+运行结果
+
+```text
+dept | name
+Sales | Alice
+```
+
+## 22.5 临时序列
+
+本节请在独立的新连接中运行。
+
+原文 SQL
+
+```sql
+CREATE TEMP SEQUENCE tmp_seq START 1;
+
+SELECT nextval('tmp_seq') AS id;
+```
+
+运行结果
+
+```text
+id
+1
+```
+
+## 22.6 准备并执行参数化查询
+
+本节请在独立的新连接中运行。
+
+原文 SQL
+
+```sql
+PREPARE q AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+WHERE id >= $1;
+
+EXECUTE q(2);
+
+DEALLOCATE q;
+```
+
+运行结果
+
+```text
+id | name
+2 | Bob
+```
+
+## 22.7 挂载和卸载数据库
+
+本节请在独立的新连接中运行。
+
+原文 SQL
+
+```sql
+ATTACH ':memory:' AS aux;
+
+CREATE TABLE aux.t(i INTEGER);
+
+SELECT *
+FROM aux.t;
+
+DETACH aux;
+```
+
+补充验证 SQL
+
+```sql
+SELECT database_name FROM duckdb_databases() WHERE database_name = 'aux';
+```
+
+运行结果
+
+```text
+i
+```
+
+## 22.8 切换默认数据库和模式
+
+本节请在独立的新连接中运行。
+
+原文 SQL
+
+```sql
+ATTACH ':memory:' AS aux2;
+
+CREATE SCHEMA aux2.s;
+
+USE aux2.s;
+
+CREATE TABLE t(i INTEGER);
+```
+
+补充验证 SQL
+
+```sql
+SELECT current_database() AS db, current_schema() AS schema_name;
+```
+
+运行结果
+
+```text
+db | schema_name
+aux2 | s
+```
+
+## 22.9 设置查找路径
+
+本节请在独立的新连接中运行。
+
+原文 SQL
+
+```sql
+ATTACH ':memory:' AS db1;
+
+ATTACH ':memory:' AS db2;
+
+SET search_path = 'db1,db2';
+```
+
+补充验证 SQL
+
+```sql
+SELECT current_setting('search_path') AS lookup_order;
+```
+
+运行结果
+
+```text
+lookup_order
+db1.main,db2.main
+```

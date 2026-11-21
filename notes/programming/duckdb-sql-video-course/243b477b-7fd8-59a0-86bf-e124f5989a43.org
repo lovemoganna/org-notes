@@ -1,0 +1,52 @@
+#+TITLE: DuckDB SQL 视频课：从 Excel 到 Relation（24 章）
+#+WIKI_ID: 243b477b-7fd8-59a0-86bf-e124f5989a43
+#+CATEGORY: DuckDB 视频教程
+#+FILETAGS: :DuckDB:SQL:视频课:
+#+DATE: 2026-11-20
+#+SOURCE: https://lovemoganna.github.io/org-notes/pages/collected/programming/duckdb-excel-relation/1a5d49f3-4ac5-49cc-a1cd-48c014530351.html
+#+INGEST_ID: 2a27f9c8-59fa-5b10-a44f-13dac020ffd9
+#+WIKI_STATUS: published
+
+这套课沿用原教程的 SQL 示例，按原章顺序讲解。适合会用 Excel 看表、筛选和汇总，想把这些操作改写为可重跑 SQL 的读者。共 24 章，约 25 分钟。每章从目录开始，可以直接跳到小节，片尾留有回顾和总结。
+
+- [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/][打开课程播放器]]
+- [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/duckdb-sql-exercises.zip][下载 SQL 跟练包（67 条原例与实测结果）]]
+- [[wiki:1a5d49f3-4ac5-49cc-a1cd-48c014530351][查看原教程《DuckDB SQL：从 Excel 到 Relation（全景教程）》]]
+
+* 怎么跟练
+
+先选一章，在播放器里看原例输入、关键 SQL 和实际输出。暂停后打开跟练包中对应的小节，运行 =run.sql=，再和 =result.json= 对照。=original.sql= 保留原文代码。
+
+- 普通查询的样本大多写在 =VALUES= 里，可直接复制到 DuckDB 运行。
+- CSV 和 Parquet 两节从跟练包根目录运行。脚本会先把内嵌样本写入 =fixtures/=，再用原文查询读取。
+- 创建或挂载对象时用独立练习连接。验证持久化时，关闭并重开同一个练习数据库文件，再运行 =verify-reopen.sql=。
+- 配套原例使用 DuckDB 1.4.0 验证。随机抽样小节核对样本量和取值范围，未指定排序的查询按行集合核对。
+
+* 课程目录
+
+| 章 | 视频 | 时长 | 学习目标 |
+|----+------+------+----------|
+| 01 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-1][阅读与执行约束]] | 1:12 | 选对运行方式：内嵌数据、文件还是独立连接 |
+| 02 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-2][查看与选择数据]] | 1:59 | 看整表、只选部分列、写 VALUES、用 FROM 指定来源 |
+| 03 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-3][关系命名与别名]] | 0:49 | 用表别名说明列从哪里来 |
+| 04 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-4][筛选与行过滤]] | 0:57 | 分清对原始行、分组结果、窗口结果进行过滤 |
+| 05 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-5][排序与取前 N 行]] | 0:42 | 先指定顺序，再取头部记录 |
+| 06 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-6][消除重复]] | 0:51 | 按整行去重，得到唯一值清单 |
+| 07 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-7][分类汇总与聚合]] | 1:19 | 先决定每组是什么，再选择计数、求和、平均或极值 |
+| 08 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-8][组内排名与时序分析]] | 1:22 | 理解窗口规则、组内编号、并列排名及上一行和下一行 |
+| 09 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-9][横向关联与匹配]] | 1:04 | 按匹配要求选择 INNER、LEFT、RIGHT 或 FULL JOIN |
+| 10 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-10][纵向追加与集合计算]] | 1:20 | 区分追加、交集与差集，再判断是否保留重复频次 |
+| 11 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-11][模块化分步与中间结果]] | 0:57 | 用 CTE 或子查询组织中间结果 |
+| 12 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-12][原生动态表生成]] | 0:44 | 用 range 生成一张可查询的序列表 |
+| 13 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-13][外部文件直读]] | 0:50 | 把内嵌样本写成 CSV / Parquet，再原样执行读取语句 |
+| 14 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-14][查看与选择数据：抽样]] | 0:48 | 对较多行快速抽样，按样本量与范围核对 |
+| 15 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-15][横向关联与匹配：组合与存在性]] | 0:57 | 辨别全部配对、只保留有匹配、只保留无匹配 |
+| 16 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-16][模块化分步：递归]] | 0:47 | 从起点、递推和停止条件理解递归查询 |
+| 17 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-17][行列重塑与透视]] | 0:47 | 在长表与宽表之间转换 |
+| 18 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-18][排序与取前 N 行：分页]] | 0:46 | 在排序后的结果中跳过若干行再取一页 |
+| 19 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-19][消除重复：按键保留一行]] | 0:47 | 按指定键去重，并决定每个键留哪一行 |
+| 20 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-20][纵向追加：按列名对齐]] | 0:45 | 按列名追加，识别缺失列的空值 |
+| 21 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-21][横向关联：时序最近值]] | 0:48 | 用 ASOF 找符合时间方向的最近记录 |
+| 22 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-22][连接级操作]] | 1:51 | 在独立连接中演示临时对象、参数、挂载、命名空间和查找路径 |
+| 23 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-23][库级持久化对象]] | 1:40 | 通过重新连接证明表、视图、宏、序列等对象的持久性 |
+| 24 | [[https://lovemoganna.github.io/org-notes/assets/duckdb-sql-video-course/#chapter-24][验收边界]] | 1:02 | 用行数、列数、关联基数、空值、重复项和生命周期验收结果 |

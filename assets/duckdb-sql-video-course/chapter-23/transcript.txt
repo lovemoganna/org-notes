@@ -1,0 +1,115 @@
+# 第 23 章｜库级持久化对象
+
+## 0:00 本章目录
+
+这一章先解决一个问题：关闭连接后，表、视图和业务规则还能再用吗？跟着画面上的章节，从持久表一路看到枚举类型，最后做一个小练习。
+
+## 0:13 01  持久表
+
+CREATE TABLE AS 把查询结果存为一张表。用文件数据库运行后，关闭连接再重开，仍可读取两行数据。
+
+```sql
+CREATE TABLE t AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) v(id, name);
+
+SELECT *
+FROM t
+ORDER BY id;
+```
+
+## 0:23 02  持久视图
+
+持久视图存下查询定义。重新连接同一个数据库文件后，还可以通过视图名读取这两行。
+
+```sql
+CREATE VIEW v AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name);
+
+SELECT *
+FROM v
+ORDER BY id;
+```
+
+## 0:32 03  持久标量宏
+
+库级标量宏把表达式保存在数据库里。重新连接后，同一公式仍可用来计算奖金。
+
+```sql
+CREATE MACRO bonus_calc(s) AS s * 0.15;
+
+SELECT name, bonus_calc(salary) AS bonus
+FROM (
+  VALUES ('Alice', 5000)
+) t(name, salary);
+```
+
+## 0:40 04  持久表宏
+
+库级表宏把带参数的查询存到库里。传入最低工资六千，只返回 Bob。
+
+```sql
+CREATE MACRO filter_by_min_sal(ms) AS TABLE
+SELECT *
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000)
+) t(name, salary)
+WHERE salary >= ms;
+
+SELECT *
+FROM filter_by_min_sal(6000);
+```
+
+## 0:48 05  命名空间
+
+Schema 是数据库内的命名空间。原例创建 analytics，并将表 t 放进这个命名空间。
+
+```sql
+CREATE SCHEMA analytics;
+
+CREATE TABLE analytics.t(i INTEGER);
+```
+
+## 0:57 06  持久序列
+
+持久序列提供可继续使用的编号来源。原脚本首次取号得到一。
+
+```sql
+CREATE SEQUENCE id_seq START 1;
+
+SELECT nextval('id_seq') AS id;
+```
+
+## 1:04 07  索引
+
+CREATE INDEX 为指定字段创建索引。这个小例子验证索引已经创建，课堂不据此推断加速幅度。
+
+```sql
+CREATE TABLE idx_demo(id INTEGER, name VARCHAR);
+
+CREATE INDEX idx_demo_id ON idx_demo(id);
+```
+
+## 1:14 08  枚举类型
+
+枚举类型定义允许的值。原例把 happy 和 sad 定义为 mood，再把它用在表的一列上。
+
+```sql
+CREATE TYPE mood AS ENUM('happy', 'sad');
+
+CREATE TABLE people(id INTEGER, state mood);
+```
+
+## 1:22 09  动手练习
+
+暂停一下，试着做这个核对。先把表建在磁盘文件里，关闭后重开同一文件，仍应查到两行。
+
+## 1:31 回顾与总结
+
+回想刚才的例子。把对象写入磁盘库，再重连同一个文件用查询核对。

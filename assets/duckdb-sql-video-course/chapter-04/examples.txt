@@ -1,0 +1,70 @@
+## 4.1 基础行过滤（多条件勾选）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES (1, 'Alice', 5000),
+   (2, 'Bob', 7000)
+) t(id, name, salary)
+WHERE salary >= 6000;
+```
+
+运行结果
+
+```text
+id | name | salary
+2 | Bob | 7000
+```
+
+## 4.2 汇总指标过滤（透视表值筛选）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT dept, SUM(salary) AS total
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept
+HAVING SUM(salary) > 8000;
+```
+
+运行结果
+
+```text
+dept | total
+Sales | 11000
+```
+
+## 4.3 排名位次筛选（每组前 N 名）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT *
+FROM (
+  VALUES ('Alice', 'Sales', 5000),
+   ('Charlie', 'Sales', 6000),
+   ('Bob', 'Tech', 7000)
+) t(name, dept, salary)
+QUALIFY ROW_NUMBER() OVER (PARTITION BY dept
+  ORDER BY salary DESC) = 1;
+```
+
+运行结果
+
+```text
+name | dept | salary
+Bob | Tech | 7000
+Charlie | Sales | 6000
+```

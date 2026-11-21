@@ -1,0 +1,127 @@
+# 第 10 章｜纵向追加与集合计算
+
+## 0:00 本章目录
+
+这一章先解决一个问题：把两张表合到一起，还是只找相同和不同的行？跟着画面上的章节，从追加去重一路看到按次数扣减，最后做一个小练习。
+
+## 0:13 01  追加去重
+
+UNION 先合并两边的行，再消除整行重复。两边相同的 Alice 只出现一次。
+
+```sql
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+UNION
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (3, 'Charlie')
+) u(id, name);
+```
+
+## 0:21 02  原样追加
+
+UNION ALL 直接把左右结果接在一起。两条完全相同的 Alice 记录仍然保留。
+
+```sql
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+UNION ALL
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (3, 'Charlie')
+) u(id, name);
+```
+
+## 0:29 03  去重交集
+
+INTERSECT 返回同时在两边出现的完整行，并去重。本例交集只有 Alice。
+
+```sql
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+INTERSECT
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (3, 'Charlie')
+) u(id, name);
+```
+
+## 0:37 04  按次数求交
+
+INTERSECT ALL 比较各行在两边出现的次数，保留较小的次数。数字一保留两次。
+
+```sql
+SELECT *
+FROM (
+  VALUES (1),
+   (1),
+   (2)
+) t(x)
+INTERSECT ALL
+SELECT *
+FROM (
+  VALUES (1),
+   (1),
+   (1),
+   (3)
+) u(x);
+```
+
+## 0:45 05  去重差集
+
+EXCEPT 返回只在左边出现的完整行，并去重。Alice 和 Bob 都在右侧出现，所以只留下 Charlie。
+
+```sql
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob'),
+   (3, 'Charlie')
+) t(id, name)
+EXCEPT
+SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) u(id, name);
+```
+
+## 0:55 06  按次数扣减
+
+EXCEPT ALL 逐个扣减右侧的同值记录。左边两个一，扣掉一个之后还剩一个。
+
+```sql
+SELECT *
+FROM (
+  VALUES (1),
+   (1),
+   (2),
+   (3)
+) t(x)
+EXCEPT ALL
+SELECT *
+FROM (
+  VALUES (1),
+   (2)
+) u(x);
+```
+
+## 1:03 07  动手练习
+
+暂停一下，试着做这个核对。去重版出现一次，原样追加版出现两次。
+
+## 1:10 回顾与总结
+
+回想刚才的例子。先选追加、交集或差集，再决定重复行是否参与计数。

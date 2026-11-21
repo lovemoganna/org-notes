@@ -1,0 +1,143 @@
+## 7.1 按维度折叠（透视表行标签）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT dept
+FROM (
+  VALUES ('Sales'),
+   ('Sales'),
+   ('Tech')
+) t(dept)
+GROUP BY dept;
+```
+
+运行结果
+
+```text
+dept
+Tech
+Sales
+```
+
+## 7.2 统计行数/非空计数
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT dept, COUNT(*) AS head_count
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+运行结果
+
+```text
+dept | head_count
+Tech | 1
+Sales | 2
+```
+
+## 7.3 数值累加求和
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT dept, SUM(salary) AS total_salary
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+运行结果
+
+```text
+dept | total_salary
+Sales | 11000
+Tech | 7000
+```
+
+## 7.4 计算算术平均值
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT dept, AVG(salary) AS avg_salary
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+运行结果
+
+```text
+dept | avg_salary
+Tech | 7000.0
+Sales | 5500.0
+```
+
+## 7.5 提取组内/全表极小值
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT dept, MIN(salary) AS min_sal
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+运行结果
+
+```text
+dept | min_sal
+Tech | 7000
+Sales | 5000
+```
+
+## 7.6 提取组内/全表极大值
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT dept, MAX(salary) AS max_sal
+FROM (
+  VALUES ('Sales', 5000),
+   ('Sales', 6000),
+   ('Tech', 7000)
+) t(dept, salary)
+GROUP BY dept;
+```
+
+运行结果
+
+```text
+dept | max_sal
+Tech | 7000
+Sales | 6000
+```

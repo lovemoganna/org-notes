@@ -1,0 +1,25 @@
+## 18.1 分页跳过前 N 行
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT x
+FROM (
+  VALUES (1),
+   (2),
+   (3)
+) t(x)
+ORDER BY x
+LIMIT 2
+OFFSET 1;
+```
+
+运行结果
+
+```text
+x
+2
+3
+```

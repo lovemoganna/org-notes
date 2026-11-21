@@ -1,0 +1,101 @@
+## 9.1 仅保留双方完全匹配记录
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT l.id, l.name, r.bonus
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) l(id, name)
+INNER JOIN (
+  VALUES (2, 800),
+   (3, 500)
+) r(id, bonus) USING (id);
+```
+
+运行结果
+
+```text
+id | name | bonus
+2 | Bob | 800
+```
+
+## 9.2 跨表匹配补充属性（查表补列）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT l.id, l.name, r.bonus
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) l(id, name)
+LEFT JOIN (
+  VALUES (2, 800)
+) r(id, bonus) USING (id);
+```
+
+运行结果
+
+```text
+id | name | bonus
+2 | Bob | 800
+1 | Alice | NULL
+```
+
+## 9.3 反向对齐（保留右表全量）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT COALESCE(l.id, r.id) AS id, l.name, r.dept
+FROM (
+  VALUES (1, 'Alice')
+) l(id, name)
+RIGHT JOIN (
+  VALUES (1, 'Sales'),
+   (2, 'Tech')
+) r(id, dept) USING (id);
+```
+
+运行结果
+
+```text
+id | name | dept
+1 | Alice | Sales
+2 | NULL | Tech
+```
+
+## 9.4 双方全景对齐（两表合并差集）
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT COALESCE(l.id, r.id) AS id, l.name, r.dept
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) l(id, name)
+FULL JOIN (
+  VALUES (2, 'Tech'),
+   (3, 'HR')
+) r(id, dept) USING (id);
+```
+
+运行结果
+
+```text
+id | name | dept
+2 | Bob | Tech
+1 | Alice | NULL
+3 | NULL | HR
+```

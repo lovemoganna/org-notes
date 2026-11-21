@@ -1,0 +1,143 @@
+# 第 22 章｜连接级操作
+
+## 0:00 本章目录
+
+这一章先解决一个问题：临时对象和连接状态，关掉再打开会发生什么？跟着画面上的章节，从临时表一路看到设置查找路径，最后做一个小练习。
+
+## 0:13 01  临时表
+
+临时表把查询结果保存为当前连接中的表。后续语句可读取它。关闭连接后，新连接无法读取这张临时表。
+
+```sql
+CREATE TEMP TABLE tt AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name);
+
+SELECT *
+FROM tt
+ORDER BY id;
+```
+
+## 0:23 02  临时视图
+
+临时视图给查询取名。读取视图时使用它定义的查询，这个名称只在当前连接有效。
+
+```sql
+CREATE TEMP VIEW tv AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name);
+
+SELECT *
+FROM tv
+ORDER BY id;
+```
+
+## 0:33 03  临时标量宏
+
+标量宏给表达式取名。这里传入工资五千，乘一点一得到五千五百。
+
+```sql
+CREATE TEMP MACRO add_tax(p) AS p * 1.1;
+
+SELECT name, add_tax(salary) AS total
+FROM (
+  VALUES ('Alice', 5000)
+) t(name, salary);
+```
+
+## 0:40 04  临时表宏
+
+表宏可以接受参数并返回行集。传入 Sales 后，只输出这个部门的 Alice。
+
+```sql
+CREATE TEMP MACRO get_dept(d) AS TABLE
+SELECT *
+FROM (
+  VALUES ('Sales', 'Alice'),
+   ('Tech', 'Bob')
+) t(dept, name)
+WHERE dept = d;
+
+SELECT *
+FROM get_dept('Sales');
+```
+
+## 0:48 05  临时序列
+
+临时序列为当前连接提供编号。第一次调用 next value 得到一。
+
+```sql
+CREATE TEMP SEQUENCE tmp_seq START 1;
+
+SELECT nextval('tmp_seq') AS id;
+```
+
+## 0:55 06  准备语句
+
+PREPARE 先保存一条含参数的查询。EXECUTE 传入二，查询返回 Bob。最后释放已准备的语句。
+
+```sql
+PREPARE q AS SELECT *
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) t(id, name)
+WHERE id >= $1;
+
+EXECUTE q(2);
+
+DEALLOCATE q;
+```
+
+## 1:05 07  挂载与卸载
+
+ATTACH 给当前连接挂载一个额外数据库。这里挂的是内存库，创建的表仍是空的，最后用 DETACH 卸载。
+
+```sql
+ATTACH ':memory:' AS aux;
+
+CREATE TABLE aux.t(i INTEGER);
+
+SELECT *
+FROM aux.t;
+
+DETACH aux;
+```
+
+## 1:14 08  设置默认位置
+
+USE 改变默认命名空间。执行后，不带前缀创建的 t 位于 aux2 的 s 模式。
+
+```sql
+ATTACH ':memory:' AS aux2;
+
+CREATE SCHEMA aux2.s;
+
+USE aux2.s;
+
+CREATE TABLE t(i INTEGER);
+```
+
+## 1:23 09  设置查找路径
+
+search path 控制省略库名和模式名时的查找顺序。原例先挂载两个库，再设置第一个库优先。
+
+```sql
+ATTACH ':memory:' AS db1;
+
+ATTACH ':memory:' AS db2;
+
+SET search_path = 'db1,db2';
+```
+
+## 1:32 10  动手练习
+
+暂停一下，试着做这个核对。重新连接后验证它是否还存在，再对照持久化章节。
+
+## 1:41 回顾与总结
+
+回想刚才的例子。先确定命令修改的是连接内的对象、参数还是名称查找范围。

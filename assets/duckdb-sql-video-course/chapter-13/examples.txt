@@ -1,0 +1,51 @@
+## 13.1 直接解析 CSV 文件
+
+先在当前目录创建 fixtures 文件夹。随后执行完整脚本。
+
+准备 SQL
+
+```sql
+COPY (SELECT * FROM (VALUES (1, 'Alice'), (2, 'Bob')) AS t(id, name))
+TO 'fixtures/users.csv' (FORMAT CSV, HEADER TRUE);
+```
+
+原文 SQL
+
+```sql
+SELECT *
+FROM read_csv('fixtures/users.csv');
+```
+
+运行结果
+
+```text
+id | name
+1 | Alice
+2 | Bob
+```
+
+## 13.2 直接解析分析型 Parquet 列存
+
+先在当前目录创建 fixtures 文件夹。随后执行完整脚本。
+
+准备 SQL
+
+```sql
+COPY (SELECT * FROM (VALUES (1, 'Alice'), (2, 'Bob')) AS t(id, name))
+TO 'fixtures/users.parquet' (FORMAT PARQUET);
+```
+
+原文 SQL
+
+```sql
+SELECT *
+FROM read_parquet('fixtures/users.parquet');
+```
+
+运行结果
+
+```text
+id | name
+1 | Alice
+2 | Bob
+```

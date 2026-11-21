@@ -1,0 +1,27 @@
+## 21.1 时序最近值匹配
+
+打开一个 DuckDB 连接即可运行。
+
+原文 SQL
+
+```sql
+SELECT l.t, r.v
+FROM (
+  VALUES (5),
+   (10)
+) l(t)
+ASOF
+LEFT JOIN (
+  VALUES (3, 'a'),
+   (8, 'b')
+) r(t, v) ON l.t >= r.t
+ORDER BY l.t;
+```
+
+运行结果
+
+```text
+t | v
+5 | a
+10 | b
+```

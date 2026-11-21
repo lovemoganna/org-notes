@@ -1,0 +1,58 @@
+# 第 11 章｜模块化分步与中间结果
+
+## 0:00 本章目录
+
+这一章先解决一个问题：查询越写越长，怎样知道错在哪一步？先看给中间结果命名，再看把明细交给汇总，再看使用子查询，最后动手练习。
+
+## 0:12 01  给中间结果命名
+
+WITH 在当前语句里给一个中间结果取名。主查询通过 cte 读到这两行。
+
+```sql
+WITH cte(x) AS (
+  VALUES (1),
+   (2)
+)
+SELECT *
+FROM cte
+ORDER BY x;
+```
+
+## 0:20 02  把明细交给汇总
+
+把人员明细写成有名字的中间关系，再交给主查询做部门计数。这里的 high pay 已经直接提供两条明细。
+
+```sql
+WITH high_pay AS (
+  SELECT *
+  FROM (
+    VALUES ('Bob', 'Tech', 7000), ('David', 'Tech', 8000)
+) t(name, dept, salary)
+)
+SELECT dept, COUNT(*)
+FROM high_pay
+GROUP BY dept;
+```
+
+## 0:30 03  使用子查询
+
+把一段查询放到 FROM 的括号里，可以先求出一张中间表。内层保留两条高工资，外层再求平均。
+
+```sql
+SELECT AVG(salary) AS avg_sal
+FROM (
+  SELECT salary
+  FROM (
+    VALUES (5000), (7000), (8000)
+) t(salary)
+  WHERE salary >= 6000
+) s;
+```
+
+## 0:39 04  动手练习
+
+暂停一下，试着做这个核对。先看到工资七千和八千两条明细，外层平均得到七千五百。
+
+## 0:49 回顾与总结
+
+回想刚才的例子。中间结果可用 WITH 命名，也可放在 FROM 的子查询里。

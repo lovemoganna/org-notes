@@ -1,0 +1,75 @@
+# 第 9 章｜横向关联与匹配
+
+## 0:00 本章目录
+
+这一章先解决一个问题：两个表按编号配对，找不到另一边的那行怎么办？先看只保留匹配，再看保留左表，再看保留右表，再看两边都保留，最后动手练习。
+
+## 0:14 01  只保留匹配
+
+INNER JOIN 只输出两边按编号匹配成功的记录。两张表的共同编号只有二。
+
+```sql
+SELECT l.id, l.name, r.bonus
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) l(id, name)
+INNER JOIN (
+  VALUES (2, 800),
+   (3, 500)
+) r(id, bonus) USING (id);
+```
+
+## 0:22 02  保留左表
+
+LEFT JOIN 保留左表每条记录。Alice 没有匹配的奖金，奖金列显示空值。
+
+```sql
+SELECT l.id, l.name, r.bonus
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) l(id, name)
+LEFT JOIN (
+  VALUES (2, 800)
+) r(id, bonus) USING (id);
+```
+
+## 0:30 03  保留右表
+
+RIGHT JOIN 保留右表记录。编号二在左表没有姓名，但仍带着右表部门出现。
+
+```sql
+SELECT COALESCE(l.id, r.id) AS id, l.name, r.dept
+FROM (
+  VALUES (1, 'Alice')
+) l(id, name)
+RIGHT JOIN (
+  VALUES (1, 'Sales'),
+   (2, 'Tech')
+) r(id, dept) USING (id);
+```
+
+## 0:38 04  两边都保留
+
+FULL JOIN 保留双方未匹配的记录，并将匹配行合在一起。三个编号都会出现。
+
+```sql
+SELECT COALESCE(l.id, r.id) AS id, l.name, r.dept
+FROM (
+  VALUES (1, 'Alice'),
+   (2, 'Bob')
+) l(id, name)
+FULL JOIN (
+  VALUES (2, 'Tech'),
+   (3, 'HR')
+) r(id, dept) USING (id);
+```
+
+## 0:45 05  动手练习
+
+暂停一下，试着做这个核对。只有 LEFT JOIN 保留左表没有匹配的 Alice，她的奖金为空。
+
+## 0:55 回顾与总结
+
+回想刚才的例子。选 JOIN 时先决定哪一侧的未匹配行要保留，再检查空值。

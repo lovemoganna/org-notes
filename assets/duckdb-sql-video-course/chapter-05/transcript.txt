@@ -1,0 +1,41 @@
+# 第 5 章｜排序与取前 N 行
+
+## 0:00 本章目录
+
+这一章先解决一个问题：要找工资最高的两个人，应该先写哪一步？先看指定展示次序，再看排序后取前 N 行，最后动手练习。
+
+## 0:11 01  指定展示次序
+
+ORDER BY 改变结果的展示次序。这里按编号从小到大，Alice 出现在 Bob 前面。
+
+```sql
+SELECT *
+FROM (
+  VALUES (2, 'Bob'),
+   (1, 'Alice')
+) t(id, name)
+ORDER BY id ASC;
+```
+
+## 0:19 02  排序后取前 N 行
+
+先按工资从高到低排列，再用 LIMIT 取前两行。结果是 Bob 和 Charlie。
+
+```sql
+SELECT *
+FROM (
+  VALUES ('Alice', 5000),
+   ('Bob', 7000),
+   ('Charlie', 6000)
+) t(name, salary)
+ORDER BY salary DESC
+LIMIT 2;
+```
+
+## 0:27 03  动手练习
+
+暂停一下，试着做这个核对。排序仍按工资降序，留下 Bob。
+
+## 0:34 回顾与总结
+
+回想刚才的例子。ORDER BY 决定顺序，LIMIT 决定拿走多少行。
