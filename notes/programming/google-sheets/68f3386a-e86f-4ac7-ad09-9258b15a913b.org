@@ -1,0 +1,100 @@
+#+TITLE: 按订单号查找，再用 FILTER 和 QUERY 生成地区报表
+#+WIKI_ID: 68f3386a-e86f-4ac7-ad09-9258b15a913b
+#+CATEGORY: 电子表格
+#+FILETAGS: :GoogleSheets:电子表格:查找筛选:
+#+DATE: 2026-11-21
+#+SOURCE: 课程练习中的模拟数据与示例；Google Sheets 官方函数目录 https://support.google.com/docs/table/25273?hl=en
+#+INGEST_ID: 00db5a33-6a42-4c9d-a7bd-90d7c6266d5a
+#+WIKI_STATUS: published
+
+订单号查找和条件筛选回答不同问题。前者给你某笔订单的客户或金额。后者取回一组明细。需要每个地区一条合计时，再把明细交给 QUERY。以下例子只用一张空白 Google Sheets。
+
+例题使用 Google Sheets 的英文函数名，以逗号分隔参数。若工作簿使用不同的地区设置，请在文件设置中切换到美国地区，或相应调整参数分隔符和小数格式。
+
+* 粘贴订单，再选一个查询键
+
+把数据贴到 A1:E7，把 O-203 输入 G2。金额留在 E 列，A 列订单号作为唯一键。
+
+#+begin_example
+订单号	客户	区域	商品	金额
+O-201	小陈	东区	茶	120
+O-202	小林	西区	茶	90
+O-203	小陈	东区	咖啡	220
+O-204	小郑	西区	咖啡	160
+O-205	小何	南区	茶	70
+O-206	小林	西区	茶	50
+#+end_example
+
+在 H2 输入 XLOOKUP。先把它读成「用 G2 在 A 列找订单号，找到后取同一行 B 列。缺失则显示未找到」。
+
+#+begin_example
+=XLOOKUP(G2,A2:A7,B2:B7,"未找到",0)
+#+end_example
+
+结果为小陈。最后的 0 要求精确匹配。将 G2 改为 O-999，结果为未找到。再改回 O-203。查到结果也要确认键唯一：用 ~=COUNTIF(A2:A7,G2)~ 恰好返回 1，才有理由把该键当成唯一订单。若为 2，先决定保留哪条记录或改用组合键。不要用第一个匹配掩盖重复。
+
+VLOOKUP 能读懂旧工作簿中常见的结构。它从范围第一列找键，返回选定范围的第几列：
+
+#+begin_example
+=IFNA(VLOOKUP(G2,A2:E7,5,FALSE),"未找到")
+#+end_example
+
+返回 220。第 5 列按 A:E 这段范围数，FALSE 指精确。回传列在键列左边，或表结构会插列时，优先用能明确写出返回范围的 XLOOKUP。
+
+如果想看出「第几项」怎样变成查找结果，分开写 MATCH 与 INDEX：
+
+#+begin_example
+=MATCH(G2,A2:A7,0)
+=INDEX(B2:B7,3)
+=INDEX(B2:B7,MATCH(G2,A2:A7,0))
+#+end_example
+
+第一条是 3。它从 A2 开始计数，A4 对应第 3 项。第二条取 B2:B7 第 3 项，第三条把位置自动交给 INDEX。两段范围应从同一行开始、包含同一批订单。
+
+* 把符合条件的记录全部取出来
+
+选择空白区，例如 J2，输入下面的式子。右侧及下方留出可展开的空间。
+
+#+begin_example
+=FILTER(A2:E7,C2:C7="西区",E2:E7>=100)
+#+end_example
+
+结果是一整行 O-204、小郑、西区、咖啡、160。两个条件逐行测试，范围必须与返回区同高。把 100 改成 50，会返回 O-202、O-204、O-206 三行。改成 200 会出现没有匹配的 #N/A。想把这个预期边界显示得清楚，可写：
+
+#+begin_example
+=IFNA(FILTER(A2:E7,C2:C7="西区",E2:E7>=200),"无匹配")
+#+end_example
+
+若提示展开会覆盖已有数据，先清空输出区或移动公式。IFNA 用于正常的查无结果，无法解决空间占用。只需第一笔订单号时，可以用 ~=INDEX(FILTER(A2:A7,C2:C7="西区",E2:E7>=100),1,1)~。要交付明细时，保留整个结果区。
+
+* 去重、排序和保留表头
+
+在彼此不重叠的空区试以下三条：
+
+#+begin_example
+=UNIQUE(B2:B7)
+=SORT(A2:E7,5,FALSE)
+=VSTACK(A1:E1,FILTER(A2:E7,C2:C7="西区"))
+#+end_example
+
+第一条得到小陈、小林、小郑、小何四个客户。第二条按范围内第 5 列金额降序，首笔是 O-203。第三条先得到三笔西区明细，再把标题加到上方。如果客户名带有普通空格，先 TRIM，再对清洗后的列去重。对整行用 UNIQUE 时，同名但金额不同的两行仍是不同数据。
+
+* 从明细做出地区合计
+
+手算东区 120＋220＝340，西区 90＋160＋50＝300，南区 70。再到空白区输入：
+
+#+begin_example
+=QUERY(A1:E7,"select C,sum(E) group by C order by sum(E) desc label sum(E) '合计'",1)
+#+end_example
+
+引号内按 C 列地区分组，用 sum(E) 合计 E 列，再按合计降序排。外层最后一个 1 指输入里有一行表头。输出也有表头，因此用 INDEX 取第一条地区数据时，行号填 2。标准 QUERY 是 Google Sheets 的写法。转给 Excel 用户时，可以交付数据透视表或按地区使用 SUMIFS。
+
+* 独立练习
+
+取金额至少 100 的订单后再按地区合计，试在 group by 前加入 where E >= 100。结果应只有东区 340 和西区 160。再用 FILTER 拉出参与汇总的三行，用笔验证地区合计。如果地区存在却没有金额，先核对金额列是不是数字，再查 where 条件。
+
+[[https://support.google.com/docs/answer/3093197?hl=en][Google Sheets FILTER]] · [[https://support.google.com/docs/answer/12405947?hl=en][Google Sheets XLOOKUP]] · [[https://support.google.com/docs/answer/3093343?hl=en][Google Sheets QUERY]] · [[https://developers.google.com/chart/interactive/docs/querylanguage][查询语言语法]]。
+
+* 同系列
+
+[[wiki:3d838704-2b32-4298-83ac-ac3069b03ae8][日期与类型检查]] · [[wiki:eb0c5597-0216-4ee3-a72d-86d5c7190ad0][复合公式与成交清洗]]
