@@ -11,6 +11,9 @@
 
 例题使用 Google Sheets 的英文函数名，以逗号分隔参数。若工作簿使用不同的地区设置，请在文件设置中切换到美国地区，或相应调整参数分隔符和小数格式。
 
+
+在桌面 Excel 跟做时，打开 [[#excel-course][Excel 365 对照讲解与视频]]。
+
 * 把值填到指定位置
 
 打开空白 Google Sheets，按下表填写。带等号的内容直接键入格内。D2 和 D3 开头的单引号用于保留文本类型，它不会显示在格内。
@@ -84,6 +87,154 @@ E2 的 0 有内容，G2 有一条公式，只有空的 F2 通过 ISBLANK。EXACT
 假设 23 日是新的指定假日，且 18 日恢复工作。先用手指数 16 至 23 日剩哪些工作日，再改变 C2。工作日应仍为 5，自然日仍为 7。随后在 F2 先填 0、再填 ~=""~，最后清空。逐步预测 ISBLANK 的三个结果，应依次为 FALSE、FALSE、TRUE。
 
 [[https://support.google.com/docs/table/25273?hl=en][Google Sheets 官方函数目录]]。
+
+* Excel 365 公式对照与视频
+:PROPERTIES:
+:CUSTOM_ID: excel-course
+:END:
+
+核算两个日期的间隔时算自然日。做排期时把额外假日单列，再算工作日。导入数据异常时，先确认日期和金额实际以什么类型储存。
+
+下载[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E8%B7%9F%E7%BB%83.xlsx][Excel 跟练工作簿]]或[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88.xlsx][参考答案]]。代码、输入和结果对应工作簿同编号的工作表。
+公式在桌面 Excel 16.0 Build 20625.0 核对。多行展示按计算关系缩进。录入时可从参考答案工作簿的编辑栏复制完整原式。
+
+** 12 DATE / WEEKDAY / DATEDIF / NETWORKDAYS · 自然日与工作日：同一段日期有两个答案
+:PROPERTIES:
+:CUSTOM_ID: excel-12
+:END:
+
+在跟练工作簿打开工作表 =12=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#12][观看这节课]]（2:24）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/12/lesson.mp4][MP4]]。
+
+*** H2 用年、月、日生成可计算的日期
+
+#+begin_src excel :eval never
+=DATE(2026,11,21)
+#+end_src
+
+- ~2026 / 11 / 21~  依次传入年、月、日。
+- ~DATE~  返回日期序列值，显示格式可以改成日期。
+
+外部数据把年月日分成三列时，可以先合成一个真正的日期。Excel 回读为 2026-11-21（日期序列值 46347）。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#12][查看彩色公式及参数讲解]]（0:59）。
+
+*** H3 把日期转换成星期编号
+
+#+begin_src excel :eval never
+=WEEKDAY(A3,2)
+#+end_src
+
+- ~A3~  要检查的日期。
+- ~2~  采用周一为 1、周日为 7 的编号。
+- ~WEEKDAY~  本例周六返回 6。
+
+要找出周末或按星期分组时，先看每个日期对应哪一天。Excel 回读为 6。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#12][查看彩色公式及参数讲解]]（1:17）。
+
+*** H4 计算两个日期之间相隔的自然日
+
+#+begin_src excel :eval never
+=DATEDIF(A2,B2,"D")
+#+end_src
+
+- ~A2 / B2~  起日和止日。
+- ~"D"~  以天为单位。
+- ~DATEDIF~  计算两日期的整天差，本例相隔 7 天。
+
+例如核对合同间隔或等待了多少天，周末照常算。Excel 回读为 7。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#12][查看彩色公式及参数讲解]]（1:34）。
+
+*** H5 算这段区间内实际有几个工作日
+
+#+begin_src excel :eval never
+=NETWORKDAYS(A2,B2,C2)
+#+end_src
+
+- ~A2 / B2~  起止日期，落在工作日也计入。
+- ~C2~  额外假日。
+- ~NETWORKDAYS~  排除周六、周日和指定假日。
+
+安排排期或核算工期时，用它排除周末与指定假日。Excel 回读为 5。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H5#12][查看彩色公式及参数讲解]]（1:53）。
+
+*** 动手改一次，再核对
+
+把指定假日改成周六 11 月 21 日。工作日会变成多少？
+
+- 核对 6。周六已经被工作日规则排除，自然日仍为 7。
+
+** 13 ISNUMBER / VALUE / ISBLANK / TEXT · 看起来一样的空格和数字，怎样判定类型？
+:PROPERTIES:
+:CUSTOM_ID: excel-13
+:END:
+
+在跟练工作簿打开工作表 =13=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#13][观看这节课]]（2:48）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/13/lesson.mp4][MP4]]。
+
+*** H2 判断导入的金额底层是不是数字
+
+#+begin_src excel :eval never
+=ISNUMBER(D2)
+#+end_src
+
+- ~D2~  看起来像数字的文本金额。
+- ~ISNUMBER~  只判断是否是数值，所以本例为 FALSE。
+
+有金额看得见却没参加计算时，先检查它是否以文本存储。Excel 回读为 FALSE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#13][查看彩色公式及参数讲解]]（0:56）。
+
+*** H3 把文本金额转成数字后加一
+
+#+begin_src excel :eval never
+=VALUE(D2)+1
+#+end_src
+
+- ~VALUE(D2)~  将金额字符串解释为数字 125.5。
+- ~+1~  对实际数值执行加法，而不是把字符拼起来。
+
+适合把导入金额恢复为可计算值。有前导零的编号可保留文本。Excel 回读为 126.5。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#13][查看彩色公式及参数讲解]]（1:13）。
+
+*** H4 判断 F2 是真正的空单元格
+
+#+begin_src excel :eval never
+=ISBLANK(F2)
+#+end_src
+
+- ~F2~  当前未填任何内容。
+- ~ISBLANK~  真空返回 TRUE，填入 0 或公式后就会变成 FALSE。
+
+检查输入是否填写时，可用它判断该格有没有内容。Excel 回读为 TRUE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#13][查看彩色公式及参数讲解]]（1:34）。
+
+*** H5 识别看着空、实际含有公式的格子
+
+#+begin_src excel :eval never
+=ISBLANK(G2)
+#+end_src
+
+- ~G2~  放着返回空文本的公式。
+- ~ISBLANK~  有公式就返回 FALSE，显示为空也一样。
+
+找数据缺失原因时，区分没填与公式返回空文本这两种情况。Excel 回读为 FALSE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H5#13][查看彩色公式及参数讲解]]（1:52）。
+
+*** H6 把数值做成统一格式的展示文字
+
+#+begin_src excel :eval never
+=TEXT(VALUE(D2),"#,##0.00")
+#+end_src
+
+- ~VALUE(D2)~  先把原始文本转成数字。
+- ~"#,##0.00"~  千位分组并固定两位小数。
+- ~TEXT~  按格式输出文字。
+
+在标签或报表摘要中固定两位小数，后续计算仍引用原数值。Excel 回读为 125.50。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H6#13][查看彩色公式及参数讲解]]（2:10）。
+
+*** 动手改一次，再核对
+
+在 F2 先填 0，再填 =""，最后清空，ISBLANK 分别返回什么？
+
+- 核对 FALSE、FALSE、TRUE。空文本由公式产生，单元格仍有内容。
 
 * 同系列
 

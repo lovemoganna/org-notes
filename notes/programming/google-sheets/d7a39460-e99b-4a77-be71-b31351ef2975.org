@@ -11,6 +11,9 @@
 
 例题使用 Google Sheets 的英文函数名，以逗号分隔参数。若工作簿使用不同的地区设置，请在文件设置中切换到美国地区，或相应调整参数分隔符和小数格式。
 
+
+在桌面 Excel 跟做时，打开 [[#excel-course][Excel 365 对照讲解与视频]]。
+
 * 准备数据
 
 把以下内容粘贴到 A1，标题应占 A1:G1。F 列存放客户名或备注。粘贴后给 F2 输入 ~="  王  小明  "~，保证样例确实含有待清理的空格。
@@ -87,6 +90,183 @@ E5 为 85，先没通过 90，再通过 60，因此显示达标。把「>=60」�
 用第 6 行 T05 写一个须同时满足「金额达到门槛」和「状态待处理」的规则。先写两个比较式，再组合。初始应显示需人工复核。把 C6 改成已结案，应显示正常。另把正则样例的 ORD-307 改为 ORD-9001，确认你的写法没有固定数字位数。
 
 [[https://support.google.com/docs/table/25273?hl=en][Google Sheets 官方函数目录]]。
+
+* Excel 365 公式对照与视频
+:PROPERTIES:
+:CUSTOM_ID: excel-course
+:END:
+
+给工单打标签时，先把每个条件单独验证，再决定如何组合。提取字段时，先辨认边界来自固定长度还是斜杠、空格等分隔符。
+
+下载[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E8%B7%9F%E7%BB%83.xlsx][Excel 跟练工作簿]]或[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88.xlsx][参考答案]]。代码、输入和结果对应工作簿同编号的工作表。
+公式在桌面 Excel 16.0 Build 20625.0 核对。多行展示按计算关系缩进。录入时可从参考答案工作簿的编辑栏复制完整原式。
+
+** 09 IF / AND / IFS · 把业务规则写成 IF、AND 与 IFS
+:PROPERTIES:
+:CUSTOM_ID: excel-09
+:END:
+
+在跟练工作簿打开工作表 =09=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#09][观看这节课]]（2:10）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/09/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~200~。
+
+*** H2 用两个同时成立的条件决定复核标签
+
+#+begin_src excel :eval never
+=IF(AND(B2>=$G$2,C2="待处理"),"需复核","正常")
+#+end_src
+
+- ~B2>=$G$2~  金额达到固定门槛。
+- ~C2="待处理"~  状态符合要求。
+- ~AND~  两项都真才进入 IF 的“需复核”分支，否则显示“正常”。
+
+适合复核规则有多项要求，例如金额够高且尚未处理。Excel 回读为 需复核。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#09][查看彩色公式及参数讲解]]（1:01）。
+
+*** H6 判断等于门槛的工单是否需复核
+
+#+begin_src excel :eval never
+=IF(AND(B6>=$G$2,C6="待处理"),"需复核","正常")
+#+end_src
+
+- ~B6>=$G$2~  包含等于 200。
+- ~C6="待处理"~  检查同一行的状态。
+- ~AND / IF~  两个判断合成真假，再选需复核或正常。
+
+用边界记录验证规则。本行恰好 200 且为待处理，所以要复核。Excel 回读为 需复核。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H6#09][查看彩色公式及参数讲解]]（1:23）。
+
+*** H8 按照从高到低的阈值给成绩分档
+
+#+begin_src excel :eval never
+=IFS(E5>=90,"优秀",E5>=60,"达标",TRUE,"待提升")
+#+end_src
+
+- ~E5>=90 / "优秀"~  先检查优秀档。
+- ~E5>=60 / "达标"~  再检查达标档。
+- ~TRUE / "待提升"~  前面都未命中时兜底，IFS 取第一个为真的分支。
+
+有三个或更多互斥档位时，先列严格条件，再放通用兜底。Excel 回读为 达标。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H8#09][查看彩色公式及参数讲解]]（1:44）。
+
+*** 动手改一次，再核对
+
+把 T05 的状态改为已结案，复核标签应变成什么？
+
+- 核对 正常。金额正好达标，但状态不满足。
+
+** 10 TRIM / LEN · 客户名看起来一样，先处理多余空格
+:PROPERTIES:
+:CUSTOM_ID: excel-10
+:END:
+
+在跟练工作簿打开工作表 =10=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#10][观看这节课]]（2:02）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/10/lesson.mp4][MP4]]。
+
+*** H2 去掉客户名两头多余的普通空格
+
+#+begin_src excel :eval never
+=TRIM(C2)
+#+end_src
+
+- ~C2~  原始姓名。
+- ~TRIM~  去首尾普通空格，把词间连续普通空格压成一个。
+
+合并来自不同系统的客户名单之前，先把姓名格式统一。Excel 回读为 王明。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#10][查看彩色公式及参数讲解]]（0:58）。
+
+*** H3 查看原始文本到底有几个字符
+
+#+begin_src excel :eval never
+=LEN(C2)
+#+end_src
+
+- ~C2~  原始文本。
+- ~LEN~  数字符，普通空格也算，本例两个字加四个空格。
+
+两个值看起来一样却匹配不上时，用长度找隐藏空格。Excel 回读为 6。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#10][查看彩色公式及参数讲解]]（1:15）。
+
+*** H4 直接检查清洗后的姓名长度
+
+#+begin_src excel :eval never
+=LEN(TRIM(C2))
+#+end_src
+
+- ~TRIM(C2)~  内层先清理普通空格。
+- ~LEN~  外层再数清洗结果里的字符，本例只剩两个字。
+
+核对清洗是否生效时，把它和原始长度放在一起看。Excel 回读为 2。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#10][查看彩色公式及参数讲解]]（1:32）。
+
+*** 动手改一次，再核对
+
+将 C2 改成“  李  小雪  ”，TRIM 之后应保留几个词间空格？
+
+- 核对 一个，结果是“李 小雪”。
+
+** 11 TEXTSPLIT / TEXTBEFORE / TEXTAFTER / LEFT / FIND · 拆开交易对，从备注中提取订单号
+:PROPERTIES:
+:CUSTOM_ID: excel-11
+:END:
+
+在跟练工作簿打开工作表 =11=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#11][观看这节课]]（2:25）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/11/lesson.mp4][MP4]]。
+
+*** H2:I2 将交易对拆成两个格子
+
+#+begin_src excel :eval never
+=TEXTSPLIT(A2,"/")
+#+end_src
+
+- ~A2~  待拆文本 BTC/USDT。
+- ~"/"~  列分隔符。
+- ~TEXTSPLIT~  将两部分向右展开，右边要留空。
+
+处理斜杠分隔的品种代码时，可以拆成基础币和报价币。Excel 回读为 1 行 × 2 列。按行读取，BTC、USDT。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2%3AI2#11][查看彩色公式及参数讲解]]（1:02）。
+
+*** H4 从备注中取出两个空格之间的订单号
+
+#+begin_src excel :eval never
+=TEXTBEFORE(TEXTAFTER(B2," ")," ")
+#+end_src
+
+- ~TEXTAFTER(B2," ")~  先取第一个空格后面的内容。
+- ~TEXTBEFORE(...," ")~  再取下一个空格前面的内容，留下订单号。
+
+备注头尾文字固定，用分隔符提取比按固定字数灵活。Excel 回读为 ORD-307。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#11][查看彩色公式及参数讲解]]（1:20）。
+
+*** H5 截取交易代码最左侧的三个字符
+
+#+begin_src excel :eval never
+=LEFT(A2,3)
+#+end_src
+
+- ~A2~  原交易文本。
+- ~3~  从左侧取三个字符。
+- ~LEFT~  本例取到 BTC。
+
+字段长度确定时适用。代号长度会变时，可以按分隔符拆。Excel 回读为 BTC。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H5#11][查看彩色公式及参数讲解]]（1:37）。
+
+*** H6 找出斜杠在文本中的位置
+
+#+begin_src excel :eval never
+=FIND("/",A2)
+#+end_src
+
+- ~"/"~  要找的字符。
+- ~A2~  被搜索的文本。
+- ~FIND~  从 1 开始计位置，本例斜杠在第 4 位。
+
+先确认分隔符在哪里，再决定如何截取可变长度字段。Excel 回读为 4。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H6#11][查看彩色公式及参数讲解]]（1:55）。
+
+*** 动手改一次，再核对
+
+把 A2 换成 ETH/USD，拆分后的两格是什么？
+
+- 核对 ETH 和 USD。用相同分隔符即可。
 
 * 同系列
 

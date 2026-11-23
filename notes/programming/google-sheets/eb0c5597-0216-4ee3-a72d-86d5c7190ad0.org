@@ -11,6 +11,9 @@
 
 例题使用 Google Sheets 的英文函数名，以逗号分隔参数。若工作簿使用不同的地区设置，请在文件设置中切换到美国地区，或相应调整参数分隔符和小数格式。
 
+
+在桌面 Excel 跟做时，打开 [[#excel-course][Excel 365 对照讲解与视频]]。
+
 * 建一张有反例的练习表
 
 新建 Google Sheets，把下面数据粘贴到 A1:E7。A 列四个有等号的值是日期时间公式。如果粘贴后显示为公式文字，逐格重新键入。把 A2:A7 设成日期时间格式，保留 A5 的底层数字 7。设成日期格式后，它看上去像个旧日期，正好可以用来测试业务校验。
@@ -83,6 +86,330 @@ FILTER 先返回有效行，IFNA 只在没有匹配时返回一行五列的提�
 把 H2 改为 ~=DATE(2026,11,18)+TIME(10,15,0)~，把 H3 改为同一天的 10:30。这里直接用 DATE 与 TIME 构造两个边界，使 10:15 的输入与窗口条件按同样方式生成。再次核对：应只有 B102，买入金额 200，买入成交 1 笔，买入订单 1 个。再把窗口设为当天 10:30 至 10:45，确认买入金额与去重订单数都为 0。若窗口之间重复计数，先检查上一窗的上界是否写成 <=。若订单数跳高，检查内层是否排除了空 ID，以及是否误把一笔成交当成一个订单。
 
 [[https://support.google.com/docs/answer/3093197?hl=en][Google Sheets FILTER]] · [[https://support.google.com/docs/table/25273?hl=en][Google Sheets 官方函数目录]]。
+
+* Excel 365 公式对照与视频
+:PROPERTIES:
+:CUSTOM_ID: excel-course
+:END:
+
+先验证成交时间和输入状态，再用同一组条件算金额、笔数和订单数。时间窗含起点、不含终点。复核订单数时，先查看 FILTER 筛出的订单号，再检查 LET 命名和去重后的中间结果。
+
+下载[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E8%B7%9F%E7%BB%83.xlsx][Excel 跟练工作簿]]或[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88.xlsx][参考答案]]。代码、输入和结果对应工作簿同编号的工作表。
+公式在桌面 Excel 16.0 Build 20625.0 核对。多行展示按计算关系缩进。录入时可从参考答案工作簿的编辑栏复制完整原式。
+
+** 20 IF / IFNA / XLOOKUP / IFERROR · 把空键、查不到和真正计算错误分开
+:PROPERTIES:
+:CUSTOM_ID: excel-20
+:END:
+
+在跟练工作簿打开工作表 =20=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#20][观看这节课]]（2:10）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/20/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~O-203~，G3 为 ~0~。
+
+*** H2 让空输入、查找失败和查到结果走不同路径
+
+#+begin_src excel :eval never
+=IF(G2="","请输入订单号",IFNA(XLOOKUP(G2,A2:A7,B2:B7),"未找到"))
+#+end_src
+
+- ~G2="" / "请输入订单号"~  IF 先判断输入是否空。
+- ~XLOOKUP(G2,A2:A7,B2:B7)~  有输入才按订单号精确查找并返回客户。
+- ~IFNA(...,"未找到")~  只把查无结果的错误替换成提示。
+
+制作查询界面时，让使用者知道是该补填，还是该查订单号。Excel 回读为 小陈。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#20][查看彩色公式及参数讲解]]（1:00）。
+
+*** H4 算除法并在出错时提示检查分母
+
+#+begin_src excel :eval never
+=IFERROR(E2/G3,"检查分母")
+#+end_src
+
+- ~E2/G3~  金额除以分母。
+- ~"检查分母"~  整个表达式出错时的提示。
+- ~IFERROR~  有正常结果就保留，否则用提示。它可捕获多类错误。
+
+比率、单价或人均值的分母可能是零时，用清晰提示代替错误码。Excel 回读为 检查分母。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#20][查看彩色公式及参数讲解]]（1:23）。
+
+*** 动手改一次，再核对
+
+清空 G2 和填 O-999，两个提示是否相同？
+
+- 核对 空白显示请输入订单号。O-999 显示未找到。
+
+** 21 VSTACK / FILTER · 筛好明细，再用 VSTACK 补回表头
+:PROPERTIES:
+:CUSTOM_ID: excel-21
+:END:
+
+在跟练工作簿打开工作表 =21=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#21][观看这节课]]（1:44）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/21/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~西区~。
+
+*** H2:L5 把原表表头放在筛选结果的上面
+
+#+begin_src excel :eval never
+=VSTACK(A1:E1,FILTER(A2:E7,C2:C7=G2,{"无匹配","","","",""}))
+#+end_src
+
+- ~A1:E1~  原表五列表头，作为 VSTACK 第一部分。
+- ~FILTER(A2:E7,C2:C7=G2,...)~  筛出目标区域的五列明细。
+- ~{"无匹配","","","",""}~  用同宽的五列备用行承接空结果。
+
+要交付会随筛选变化的清单时，让列名和数据一起更新。Excel 回读为 4 行 × 5 列。按行读取，订单号、客户、区域、商品、金额 / O-202、小林、西区、茶、90 / O-204、小郑、西区、咖啡、160 / O-206、小林、西区、茶、50。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2%3AL5#21][查看彩色公式及参数讲解]]（0:58）。
+
+*** H8:L10 单独筛出目标地区的订单明细
+
+#+begin_src excel :eval never
+=FILTER(A2:E7,C2:C7=G2,{"无匹配","","","",""})
+#+end_src
+
+- ~A2:E7~  只取明细，数据从第二行开始。
+- ~C2:C7=G2~  只留下目标地区的行。
+- ~{"无匹配","","","",""}~  无匹配时返回一个五列宽的提示行。
+
+适合先确认筛选行数，再决定是否拼表头或做汇总。Excel 回读为 3 行 × 5 列。按行读取，O-202、小林、西区、茶、90 / O-204、小郑、西区、咖啡、160 / O-206、小林、西区、茶、50。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H8%3AL10#21][查看彩色公式及参数讲解]]（1:19）。
+
+*** 动手改一次，再核对
+
+把 G2 改成北区。输出第一、二行分别是什么？
+
+- 核对 第一行保留表头，第二行出现无匹配，其余列为空文本。
+
+** 22 ISNUMBER / IF / AND / DATE · 验证成交时间 · 数字 7 也会通过 ISNUMBER
+:PROPERTIES:
+:CUSTOM_ID: excel-22
+:END:
+
+在跟练工作簿打开工作表 =22=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#22][观看这节课]]（3:46）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/22/lesson.mp4][MP4]]。
+
+*** H2 先证明普通数字也能通过类型检查
+
+#+begin_src excel :eval never
+=ISNUMBER(A5)
+#+end_src
+
+- ~A5~  表中普通数字 7。
+- ~ISNUMBER~  7 是数字，所以返回 TRUE，它还没有检查年份范围。
+
+校验导入时间时，单靠 ISNUMBER 找不出业务年份是否合理。Excel 回读为 TRUE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#22][查看彩色公式及参数讲解]]（1:02）。
+
+*** F2 给成交时间加上类型与年份两道检查
+
+#+begin_src excel :eval never
+=IF(ISNUMBER(A2),AND(A2>=DATE(2026,1,1),A2<DATE(2027,1,1)),FALSE)
+#+end_src
+
+- ~ISNUMBER(A2)~  先确认该行是数值。
+- ~AND(A2>=DATE(2026,1,1),A2<DATE(2027,1,1))~  同时满足年份起止边界。
+- ~FALSE~  遇到文字等非数值时直接判为不通过。
+
+适合清洗整列时间。先写在 F2，再向下填到每条记录。Excel 回读为 TRUE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=F2#22][查看彩色公式及参数讲解]]（1:21）。
+
+*** F3 检查第 3 行的成交时间是否合格
+
+#+begin_src excel :eval never
+=IF(ISNUMBER(A3),AND(A3>=DATE(2026,1,1),A3<DATE(2027,1,1)),FALSE)
+#+end_src
+
+- ~ISNUMBER(A3)~  查看第三行自己的时间类型。
+- ~AND / DATE~  只接受 2026 年窗口，起点包含、终点排除。
+- ~FALSE~  非数值直接判为不通过。
+
+用相邻的正常记录检查向下填充后的引用是否跟着行号走。Excel 回读为 TRUE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=F3#22][查看彩色公式及参数讲解]]（1:43）。
+
+*** F4 检查第 4 行的成交时间是否合格
+
+#+begin_src excel :eval never
+=IF(ISNUMBER(A4),AND(A4>=DATE(2026,1,1),A4<DATE(2027,1,1)),FALSE)
+#+end_src
+
+- ~ISNUMBER(A4)~  先检查本行类型。
+- ~A4>=DATE(2026,1,1) / A4<DATE(2027,1,1)~  判断年份是否在界内。
+- ~FALSE~  不是数值就走兜底分支。
+
+对另一笔正常交易重复同一校验，验证规则与买卖方向无关。Excel 回读为 TRUE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=F4#22][查看彩色公式及参数讲解]]（2:05）。
+
+*** F5 拦住类型合格、但年份不合格的数字
+
+#+begin_src excel :eval never
+=IF(ISNUMBER(A5),AND(A5>=DATE(2026,1,1),A5<DATE(2027,1,1)),FALSE)
+#+end_src
+
+- ~ISNUMBER(A5)~  7 会先通过类型检查。
+- ~AND / DATE~  7 不在 2026 年的日期序列范围，所以不通过。
+- ~FALSE~  非数值也会被拒绝。
+
+遇到导入时间列的 7 之类的异常数，可以从范围检查找原因。Excel 回读为 FALSE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=F5#22][查看彩色公式及参数讲解]]（2:24）。
+
+*** F6 检查第 6 行的成交时间是否合格
+
+#+begin_src excel :eval never
+=IF(ISNUMBER(A6),AND(A6>=DATE(2026,1,1),A6<DATE(2027,1,1)),FALSE)
+#+end_src
+
+- ~ISNUMBER(A6)~  本行时间为数值。
+- ~A6>=DATE(2026,1,1) / A6<DATE(2027,1,1)~  再检查上下界。
+- ~FALSE~  非数值直接被挡掉。
+
+用于确认后续时间窗口汇总前，这一笔属于合法的业务年份。Excel 回读为 TRUE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=F6#22][查看彩色公式及参数讲解]]（2:44）。
+
+*** F7 拦住时间列里的非数字文字
+
+#+begin_src excel :eval never
+=IF(ISNUMBER(A7),AND(A7>=DATE(2026,1,1),A7<DATE(2027,1,1)),FALSE)
+#+end_src
+
+- ~ISNUMBER(A7)~  “坏时间”是文字，返回假。
+- ~FALSE~  IF 直接给不通过。
+- ~AND / DATE~  年份检查只用于通过类型判断的行。
+
+遇到脏文本时先检查来源。这个例子在第一道关就被拦下。Excel 回读为 FALSE。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=F7#22][查看彩色公式及参数讲解]]（3:02）。
+
+*** 动手改一次，再核对
+
+把 A5 改成 2026-11-18 10:10。第 5 行的校验结果应该怎样？
+
+- 核对 F5 变成 TRUE。它是数值而且落在允许年份范围内。
+
+** 23 SUMIFS / COUNTIFS / LET / FILTER / IF / INDEX / ROWS / UNIQUE · 按 15 分钟汇总：10:15 应该属于哪一窗？
+:PROPERTIES:
+:CUSTOM_ID: excel-23
+:END:
+
+在跟练工作簿打开工作表 =23=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#23][观看这节课]]（2:17）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/23/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~=DATE(2026,11,18)+TIME(10,0,0)~，G3 为 ~=DATE(2026,11,18)+TIME(10,15,0)~。
+
+*** H2 汇总窗口内买入成交的金额
+
+#+begin_src excel :eval never
+=SUMIFS(D2:D7,B2:B7,"买入",A2:A7,">="&G2,A2:A7,"<"&G3)
+#+end_src
+
+- ~D2:D7~  要相加的金额列。
+- ~B2:B7 / "买入"~  限定方向。
+- ~">="&G2 / "<"&G3~  对 A 列分别检查含起点和不含结束时间。
+
+做 15 分钟成交统计时，两个相邻窗口共享边界也只计一次。Excel 回读为 200。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#23][查看彩色公式及参数讲解]]（1:02）。
+
+*** H3 数同一窗口内发生了几笔买入成交
+
+#+begin_src excel :eval never
+=COUNTIFS(B2:B7,"买入",A2:A7,">="&G2,A2:A7,"<"&G3)
+#+end_src
+
+- ~B2:B7 / "买入"~  检查成交方向。
+- ~A2:A7 / ">="&G2~  检查开始时刻及之后。
+- ~A2:A7 / "<"&G3~  截止时刻本身留给下一窗。
+
+在金额之外加一列笔数时，沿用同样的方向和时间边界。Excel 回读为 2。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#23][查看彩色公式及参数讲解]]（1:21）。
+
+*** H4 数窗口内有几张不同的买入订单
+
+#+begin_src excel :eval never
+=LET(keys,FILTER(C2:C7,
+  (B2:B7="买入")*(A2:A7>=G2)*(A2:A7<G3)*
+  (C2:C7<>""),
+  ""),IF(INDEX(keys,1)="",0,
+  ROWS(UNIQUE(keys))))
+#+end_src
+
+- ~FILTER(...) / * / ""~  从 C 列筛买入且在时间窗内的非空订单号，星号要求各条件同时成立，没有匹配就返回空文本。
+- ~LET(keys,...)~  给筛出的名单起名 keys，后面重复使用。
+- ~IF / INDEX / ROWS / UNIQUE~  INDEX 读首项，IF 遇空返回 0，UNIQUE 去重，ROWS 数行。
+
+同一订单可以分成多笔成交。计算订单数时要先按订单号去重。Excel 回读为 1。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#23][查看彩色公式及参数讲解]]（1:39）。
+
+*** 动手改一次，再核对
+
+把窗口上界从 10:15 改到 10:16，买入金额、成交笔数和订单数各变成多少？
+
+- 核对 金额 400，3 笔成交，2 个订单。10:15 的 B102 进入扩大后的窗口。
+
+** 24 SUMIFS / COUNTIFS / LET / FILTER / IF / INDEX / ROWS / UNIQUE · 独立做报表：一套条件驱动金额、笔数和订单数
+:PROPERTIES:
+:CUSTOM_ID: excel-24
+:END:
+
+在跟练工作簿打开工作表 =24=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#24][观看这节课]]（3:02）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/24/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~=DATE(2026,11,18)+TIME(10,0,0)~，G3 为 ~=DATE(2026,11,18)+TIME(10,15,0)~，G4 为 ~买入~。
+
+*** H2 汇总指定时间和方向下的成交金额
+
+#+begin_src excel :eval never
+=SUMIFS(D2:D7,B2:B7,G4,A2:A7,">="&G2,A2:A7,"<"&G3)
+#+end_src
+
+- ~D2:D7~  成交金额列。
+- ~B2:B7 / G4~  按 G4 的方向匹配成交。
+- ~">="&G2 / "<"&G3~  在 A 列检查含起点、不含结束时刻的时间窗。
+
+做可切换买入、卖出等方向的报表时，改输入即可刷新金额。Excel 回读为 200。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#24][查看彩色公式及参数讲解]]（1:07）。
+
+*** H3 数指定条件下的成交笔数
+
+#+begin_src excel :eval never
+=COUNTIFS(B2:B7,G4,A2:A7,">="&G2,A2:A7,"<"&G3)
+#+end_src
+
+- ~B2:B7 / G4~  匹配方向。
+- ~A2:A7 / ">="&G2~  确认在开始时刻或之后。
+- ~A2:A7 / "<"&G3~  使用不含终点的边界，COUNTIFS 数命中行。
+
+报表要同时展示金额和笔数时，这条公式提供相同筛选口径的笔数。Excel 回读为 2。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#24][查看彩色公式及参数讲解]]（1:27）。
+
+*** H4 数指定条件下的独立订单
+
+#+begin_src excel :eval never
+=LET(keys,FILTER(C2:C7,
+  (B2:B7=G4)*(A2:A7>=G2)*(A2:A7<G3)*
+  (C2:C7<>""),
+  ""),IF(INDEX(keys,1)="",0,
+  ROWS(UNIQUE(keys))))
+#+end_src
+
+- ~FILTER(...) / * / ""~  按 G4 方向、G2 到 G3 时间窗筛 C 列的非空订单号，星号要求条件同真，无匹配返回空文本。
+- ~LET(keys,...)~  把筛出的订单号列表命名为 keys。
+- ~IF / INDEX / ROWS / UNIQUE~  INDEX 读首项，IF 遇空返回 0，UNIQUE 去重，ROWS 数行。
+
+一个订单可能分成多笔成交。用它核对笔数和订单数是否相同。Excel 回读为 1。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#24][查看彩色公式及参数讲解]]（1:47）。
+
+*** H5 根据成交笔数和订单数生成对账标签
+
+#+begin_src excel :eval never
+=IF(H3=0,"无成交",IF(H3=H4,"逐笔对应","有拆单"))
+#+end_src
+
+- ~H3=0 / "无成交"~  先处理零笔成交。
+- ~H3=H4 / "逐笔对应"~  有成交时比较笔数与独立订单数。
+- ~"有拆单"~  两者不相等时用这个标签。
+
+需要让读报表的人知道窗口内是否有拆单时，用这条规则输出可读标签。Excel 回读为 有拆单。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H5#24][查看彩色公式及参数讲解]]（2:18）。
+
+*** 动手改一次，再核对
+
+方向换成卖出，再换成退款。四个输出怎样变化？
+
+- 核对 卖出为 150、1 笔、1 单、逐笔对应。退款为 0、0、0、无成交。
 
 * 同系列
 

@@ -11,6 +11,9 @@
 
 例题使用 Google Sheets 的英文函数名，以逗号分隔参数。若工作簿使用不同的地区设置，请在文件设置中切换到美国地区，或相应调整参数分隔符和小数格式。
 
+
+在桌面 Excel 跟做时，打开 [[#excel-course][Excel 365 对照讲解与视频]]。
+
 * 粘贴订单，再选一个查询键
 
 把数据贴到 A1:E7，把 O-203 输入 G2。金额留在 E 列，A 列订单号作为唯一键。
@@ -94,6 +97,304 @@ VLOOKUP 能读懂旧工作簿中常见的结构。它从范围第一列找键，
 取金额至少 100 的订单后再按地区合计，试在 group by 前加入 where E >= 100。结果应只有东区 340 和西区 160。再用 FILTER 拉出参与汇总的三行，用笔验证地区合计。如果地区存在却没有金额，先核对金额列是不是数字，再查 where 条件。
 
 [[https://support.google.com/docs/answer/3093197?hl=en][Google Sheets FILTER]] · [[https://support.google.com/docs/answer/12405947?hl=en][Google Sheets XLOOKUP]] · [[https://support.google.com/docs/answer/3093343?hl=en][Google Sheets QUERY]] · [[https://developers.google.com/chart/interactive/docs/querylanguage][查询语言语法]]。
+
+* Excel 365 公式对照与视频
+:PROPERTIES:
+:CUSTOM_ID: excel-course
+:END:
+
+找某笔订单的一个字段时用精确查找。要取回全部符合条件的订单时用 FILTER。Google Sheets 正文里的 QUERY 有自己的语法。Excel 练习用 UNIQUE、SUMIF 和 SORT 分步得出地区小计和排名。
+
+下载[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E8%B7%9F%E7%BB%83.xlsx][Excel 跟练工作簿]]或[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88.xlsx][参考答案]]。代码、输入和结果对应工作簿同编号的工作表。
+公式在桌面 Excel 16.0 Build 20625.0 核对。多行展示按计算关系缩进。录入时可从参考答案工作簿的编辑栏复制完整原式。
+
+** 14 XLOOKUP / COUNTIF · 精确查找订单：找到、缺失和重复怎么分？
+:PROPERTIES:
+:CUSTOM_ID: excel-14
+:END:
+
+在跟练工作簿打开工作表 =14=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#14][观看这节课]]（2:16）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/14/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~O-203~。
+
+*** H2 用订单号精确查出客户
+
+#+begin_src excel :eval never
+=XLOOKUP(G2,A2:A7,B2:B7,"未找到",0)
+#+end_src
+
+- ~G2~  查找的订单号。
+- ~A2:A7 / B2:B7~  在订单列找，从对齐的客户列取值。
+- ~"未找到" / 0~  无匹配提示与精确匹配模式。
+
+客服知道订单号、要查客户时，用它从对应行取回姓名。Excel 回读为 小陈。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#14][查看彩色公式及参数讲解]]（0:59）。
+
+*** H3 用订单号精确查出这笔金额
+
+#+begin_src excel :eval never
+=XLOOKUP(G2,A2:A7,E2:E7,"未找到",0)
+#+end_src
+
+- ~G2~  原订单号。
+- ~A2:A7 / E2:E7~  查找范围仍是订单列，改从金额列返回。
+- ~"未找到" / 0~  无匹配提示与精确匹配模式。
+
+同一个订单号要查多个字段时，换返回范围就可以。Excel 回读为 220。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#14][查看彩色公式及参数讲解]]（1:19）。
+
+*** H4 检查订单号出现了几次
+
+#+begin_src excel :eval never
+=COUNTIF(A2:A7,G2)
+#+end_src
+
+- ~A2:A7~  全部订单号。
+- ~G2~  要核对的订单号。
+- ~COUNTIF~  返回匹配次数，等于 1 代表本范围中只有一笔。
+
+引用其他表之前先核对唯一性，出现多次就要再检查选哪笔。Excel 回读为 1。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#14][查看彩色公式及参数讲解]]（1:38）。
+
+*** 动手改一次，再核对
+
+把 G2 改为 O-999。若原表还出现重复 O-203，分别怎样判断？
+
+- 核对 缺失键显示未找到。COUNTIF 大于 1 说明键重复，需要处理记录归属。
+
+** 15 IFNA / VLOOKUP / MATCH / INDEX · 读懂 VLOOKUP，再把查找拆成 MATCH 和 INDEX
+:PROPERTIES:
+:CUSTOM_ID: excel-15
+:END:
+
+在跟练工作簿打开工作表 =15=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#15][观看这节课]]（2:28）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/15/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~O-203~。
+
+*** H2 在旧表结构里按订单号查金额
+
+#+begin_src excel :eval never
+=IFNA(VLOOKUP(G2,A2:E7,5,FALSE),"未找到")
+#+end_src
+
+- ~G2 / A2:E7~  在所选范围第一列找订单号。
+- ~5 / FALSE~  从所选范围左侧数第 5 列，使用精确匹配。
+- ~IFNA~  查无订单时用“未找到”替换缺失错误。
+
+维护沿用 VLOOKUP 的表时，核对查找列和返回列是否正确。Excel 回读为 220。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#15][查看彩色公式及参数讲解]]（0:59）。
+
+*** H3 找到订单在查找范围里的相对位置
+
+#+begin_src excel :eval never
+=MATCH(G2,A2:A7,0)
+#+end_src
+
+- ~G2~  要找的订单号。
+- ~A2:A7~  从 A2 开始计位置。
+- ~0~  精确匹配，返回范围内第 3 项。
+
+想把查找拆开核对时，先确认这里返回的是第几项。Excel 回读为 3。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#15][查看彩色公式及参数讲解]]（1:21）。
+
+*** H4 用查到的位置取回客户名
+
+#+begin_src excel :eval never
+=INDEX(B2:B7,H3)
+#+end_src
+
+- ~B2:B7~  要取值的客户列。
+- ~H3~  由 MATCH 算出的相对位置，第 3 项是小陈。
+
+当位置已经由另一条公式求出时，可以据此读出其他列。Excel 回读为 小陈。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#15][查看彩色公式及参数讲解]]（1:39）。
+
+*** H5 先找订单位置，再取对应客户
+
+#+begin_src excel :eval never
+=IFNA(INDEX(B2:B7,MATCH(G2,A2:A7,0)),"未找到")
+#+end_src
+
+- ~MATCH(G2,A2:A7,0)~  先精确找到相对位置。
+- ~INDEX(B2:B7,...)~  再从客户列按位置取值。
+- ~IFNA~  找不到时显示“未找到”。
+
+想把按位置查找合成一条时使用，查找列与返回列仍要对齐。Excel 回读为 小陈。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H5#15][查看彩色公式及参数讲解]]（1:56）。
+
+*** 动手改一次，再核对
+
+用 MATCH 找 O-204，它在范围 A2:A7 的第几项？
+
+- 核对 第 4 项。INDEX 用同一个位置可取得小郑。
+
+** 16 FILTER · 用 FILTER 取回满足两项条件的多行明细
+:PROPERTIES:
+:CUSTOM_ID: excel-16
+:END:
+
+在跟练工作簿打开工作表 =16=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#16][观看这节课]]（1:33）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/16/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~西区~，G3 为 ~100~。
+
+*** H2:L2 取回同时符合区域与金额条件的全部明细
+
+#+begin_src excel :eval never
+=FILTER(A2:E7,(C2:C7=G2)*(E2:E7>=G3),"无匹配")
+#+end_src
+
+- ~A2:E7~  返回完整明细的五列。
+- ~(C2:C7=G2)*(E2:E7>=G3)~  逐行检查区域和金额，乘号要求两项都真。
+- ~"无匹配"~  没有任何符合的行时显示的文字。
+
+适合交付符合条件的订单清单，结果会随门槛调整。Excel 回读为 1 行 × 5 列。按行读取，O-204、小郑、西区、咖啡、160。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2%3AL2#16][查看彩色公式及参数讲解]]（1:00）。
+
+*** 动手改一次，再核对
+
+把最低金额改成 50。西区命中哪三行？
+
+- 核对 O-202、O-204、O-206。门槛 200 时显示无匹配。
+
+** 17 UNIQUE / SUMIF / SORT · 用 UNIQUE、SUMIF 和 SORT 做地区汇总
+:PROPERTIES:
+:CUSTOM_ID: excel-17
+:END:
+
+在跟练工作簿打开工作表 =17=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#17][观看这节课]]（2:26）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/17/lesson.mp4][MP4]]。
+
+*** H2:H5 生成去重后的客户名单
+
+#+begin_src excel :eval never
+=UNIQUE(B2:B7)
+#+end_src
+
+- ~B2:B7~  原客户列。
+- ~UNIQUE~  去掉重复值，按首次出现顺序向下展开。
+
+一名客户有多笔订单时，可用它列出各客户一次。Excel 回读为 4 行 × 1 列。按行读取，小陈 / 小林 / 小郑 / 小何。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2%3AH5#17][查看彩色公式及参数讲解]]（1:03）。
+
+*** H7:H9 生成用于小计的地区列表
+
+#+begin_src excel :eval never
+=UNIQUE(C2:C7)
+#+end_src
+
+- ~C2:C7~  原始地区列。
+- ~UNIQUE~  每个不同地区只保留一项，为后续小计提供条件。
+
+做分组报表的第一步，确定地区都有哪些。Excel 回读为 3 行 × 1 列。按行读取，东区 / 西区 / 南区。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H7%3AH9#17][查看彩色公式及参数讲解]]（1:19）。
+
+*** I7:I9 一次计算每个地区的销售小计
+
+#+begin_src excel :eval never
+=SUMIF(C2:C7,H7#,E2:E7)
+#+end_src
+
+- ~C2:C7~  在原表检查地区。
+- ~H7#~  取 H7 开始的整个展开地区列表。
+- ~E2:E7~  按每个地区把金额列相加。
+
+地区列表会因数据变化而增长时，用溢出引用让小计自动跟随。Excel 回读为 3 行 × 1 列。按行读取，340 / 300 / 70。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=I7%3AI9#17][查看彩色公式及参数讲解]]（1:34）。
+
+*** H10:I12 把地区与小计一起降序排列
+
+#+begin_src excel :eval never
+=SORT(H7:I9,2,-1)
+#+end_src
+
+- ~H7:I9~  地区与金额两列一起排序。
+- ~2~  按这块区域的第 2 列，也就是金额。
+- ~-1~  从高到低。
+
+做地区排名时把名称和金额作为整行排序，保持对应。Excel 回读为 3 行 × 2 列。按行读取，东区、340 / 西区、300 / 南区、70。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H10%3AI12#17][查看彩色公式及参数讲解]]（1:55）。
+
+*** 动手改一次，再核对
+
+把东区第一笔从 120 改成 10。排序后的第一名是哪区？
+
+- 核对 西区 300，东区变成 230。
+
+** 18 FILTER · 动态数组出现 #SPILL!，该检查哪里？
+:PROPERTIES:
+:CUSTOM_ID: excel-18
+:END:
+
+在跟练工作簿打开工作表 =18=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#18][观看这节课]]（1:32）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/18/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~西区~。
+
+*** H2:L2 筛选五列明细，并观察结果如何向右溢出
+
+#+begin_src excel :eval never
+=FILTER(A2:E7,(C2:C7=G2)*(E2:E7>=100),"无匹配")
+#+end_src
+
+- ~A2:E7~  返回五列，所以 H2 右侧需要空间。
+- ~(C2:C7=G2)*(E2:E7>=100)~  地区相同且金额至少 100。
+- ~"无匹配"~  有空间但筛不到行时的备用提示。
+
+若结果格右边有旧数据，会出现溢出错误。本例可用 I2 验证。Excel 回读为 1 行 × 5 列。按行读取，O-204、小郑、西区、咖啡、160。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2%3AL2#18][查看彩色公式及参数讲解]]（0:56）。
+
+*** 动手改一次，再核对
+
+在 I2 写占位再输入 H2 的公式。你要清除哪个位置？
+
+- 核对 I2。恢复空白后 H2:L2 返回一整笔记录。
+
+** 19 UNIQUE / TRIM / ROWS · 先清洗再去重：同一个客户如何只出现一次？
+:PROPERTIES:
+:CUSTOM_ID: excel-19
+:END:
+
+在跟练工作簿打开工作表 =19=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#19][观看这节课]]（1:55）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/19/lesson.mp4][MP4]]。
+
+*** H2:H3 先清洗客户名，再生成唯一名单
+
+#+begin_src excel :eval never
+=UNIQUE(TRIM(C2:C5))
+#+end_src
+
+- ~TRIM(C2:C5)~  内层先清理整列名字的普通空格。
+- ~UNIQUE~  外层再根据清洗后的名字去重。
+
+从多个来源收集名单时，用来合并因普通空格产生的重复名字。Excel 回读为 2 行 × 1 列。按行读取，王明 / 李雪。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2%3AH3#19][查看彩色公式及参数讲解]]（0:55）。
+
+*** J2:J5 展示清洗之后、去重之前的中间名单
+
+#+begin_src excel :eval never
+=TRIM(C2:C5)
+#+end_src
+
+- ~C2:C5~  要清洗的全部原姓名。
+- ~TRIM~  逐个清理并保留原来行数，这一步还没去重。
+
+去重人数不对时，用它核对哪些名字清洗后会变成同一个。Excel 回读为 4 行 × 1 列。按行读取，王明 / 王明 / 李雪 / 李雪。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=J2%3AJ5#19][查看彩色公式及参数讲解]]（1:13）。
+
+*** H6 统计未经清洗的唯一名字数量
+
+#+begin_src excel :eval never
+=ROWS(UNIQUE(C2:C5))
+#+end_src
+
+- ~UNIQUE(C2:C5)~  先按原始字符去重，带空格的名字仍会不同。
+- ~ROWS~  统计去重数组有几行，本例是 4。
+
+对照清洗前后的人数，找出因为隐藏空格造成的重复。Excel 回读为 4。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H6#19][查看彩色公式及参数讲解]]（1:31）。
+
+*** 动手改一次，再核对
+
+把 C3 改成“赵敏”，去重后的客户名单还有哪些人？
+
+- 核对 王明、赵敏、李雪，共 3 人。
 
 * 同系列
 

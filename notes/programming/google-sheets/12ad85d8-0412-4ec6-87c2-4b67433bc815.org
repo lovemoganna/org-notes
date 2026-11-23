@@ -11,6 +11,9 @@
 
 例题使用 Google Sheets 的英文函数名，以逗号分隔参数。若工作簿使用不同的地区设置，请在文件设置中切换到美国地区，或相应调整参数分隔符和小数格式。
 
+
+在桌面 Excel 跟做时，打开 [[#excel-course][Excel 365 对照讲解与视频]]。
+
 * 输入第一条公式
 
 把下面的制表符分隔数据粘贴到 A1。第五笔订单的金额和单价留空。粘贴后检查标题分别在 A1:F1。如果内容都挤进 A 列，选中它并用「数据 → 将文本拆分为列」，分隔符选制表符。
@@ -96,6 +99,446 @@
 把条件改为「西区、已付」。先列出命中行，再写出订单数和金额两个公式。核对时看第 4、7 行，应为 2 笔、150 元。如果金额正确但笔数偏大，检查是否漏了状态条件。若两者都偏小，检查范围是否覆盖第 7 行。
 
 [[https://support.google.com/docs/table/25273?hl=en][Google Sheets 官方函数目录]]。
+
+* Excel 365 公式对照与视频
+:PROPERTIES:
+:CUSTOM_ID: excel-course
+:END:
+
+先定统计口径。数记录用 COUNTIF 或 COUNTIFS。加金额用 SUMIF 或 SUMIFS，金额列和条件列要逐行对齐。验证时，把零、空格和等于门槛的记录各试一次。
+
+下载[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E8%B7%9F%E7%BB%83.xlsx][Excel 跟练工作簿]]或[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/%E5%85%AC%E5%BC%8F%E5%8F%82%E8%80%83%E7%AD%94%E6%A1%88.xlsx][参考答案]]。代码、输入和结果对应工作簿同编号的工作表。
+公式在桌面 Excel 16.0 Build 20625.0 核对。多行展示按计算关系缩进。录入时可从参考答案工作簿的编辑栏复制完整原式。
+
+** 01 加法 + / SUM · 第一条公式 · 从两格相加到整列求和
+:PROPERTIES:
+:CUSTOM_ID: excel-01
+:END:
+
+在跟练工作簿打开工作表 =01=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#01][观看这节课]]（1:35）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/01/lesson.mp4][MP4]]。
+
+*** H2 把两笔订单金额直接相加
+
+#+begin_src excel :eval never
+=C2+C4
+#+end_src
+
+- ~C2~  第一笔金额 120。
+- ~C4~  另一笔金额 90。
+- ~+~  把两格中的数相加。
+
+常用于手头只有几笔、位置不相邻的记录。Excel 回读为 210。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#01][查看彩色公式及参数讲解]]（0:57）。
+
+*** H3 把连续一列中的金额加起来
+
+#+begin_src excel :eval never
+=SUM(C2:C7)
+#+end_src
+
+- ~C2:C7~  从 C2 到 C7，首尾都算。
+- ~SUM~  将范围内的数字相加，跳过空格。
+
+订单一多，就用范围求总额，尤其适合每天核对流水。Excel 回读为 410。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#01][查看彩色公式及参数讲解]]（1:12）。
+
+*** 动手改一次，再核对
+
+把第一笔金额改成 150。两格相加与总额各是多少？
+
+- 核对 两格相加 240，总额 440。把 C2 改回 120。
+
+** 02 绝对引用 $ / IF · 向下复制时，怎样把门槛固定在一格？
+:PROPERTIES:
+:CUSTOM_ID: excel-02
+:END:
+
+在跟练工作簿打开工作表 =02=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#02][观看这节课]]（2:14）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/02/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~200~。
+
+*** H2 达到门槛就标记为需复核
+
+#+begin_src excel :eval never
+=IF(B2>=$G$2,"需复核","正常")
+#+end_src
+
+- ~B2>=$G$2~  本行金额大于或等于门槛。
+- ~$G$2~  锁住列和行，往下复制时仍读 G2。
+- ~"需复核" / "正常"~  判断成立和不成立时分别显示的文字。
+
+适合让很多订单共用同一个可调整的复核门槛。Excel 回读为 需复核。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#02][查看彩色公式及参数讲解]]（0:58）。
+
+*** H6 检查刚好达到门槛的订单
+
+#+begin_src excel :eval never
+=IF(B6>=$G$2,"需复核","正常")
+#+end_src
+
+- ~B6~  向下复制后，金额引用移到第六行。
+- ~>=$G$2~  仍比较同一个门槛，等于也成立。
+- ~"需复核" / "正常"~  条件为真取前一项，为假取后一项。
+
+适合测试规则的边界。本行是 200，等于门槛也算达到。Excel 回读为 需复核。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H6#02][查看彩色公式及参数讲解]]（1:18）。
+
+*** H7 低于门槛就显示正常
+
+#+begin_src excel :eval never
+=IF(B7>=$G$2,"需复核","正常")
+#+end_src
+
+- ~B7~  第七行自己的金额，随复制移动。
+- ~$G$2~  本行仍然引用同一个 200 元门槛。
+- ~"需复核" / "正常"~  低于门槛时选第二个标签。
+
+用略低于门槛的一笔核对复制后的规则。本行 199，显示正常。Excel 回读为 正常。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H7#02][查看彩色公式及参数讲解]]（1:39）。
+
+*** 动手改一次，再核对
+
+把 G2 的 200 改成 250，为什么 200 元订单的标签变了？
+
+- 核对 第 6 行从需复核变成正常。250 元订单仍因使用大于等于而触发。
+
+** 03 AVERAGE / COUNT / COUNTBLANK · 金额一样，为什么平均值变了？
+:PROPERTIES:
+:CUSTOM_ID: excel-03
+:END:
+
+在跟练工作簿打开工作表 =03=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#03][观看这节课]]（2:02）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/03/lesson.mp4][MP4]]。
+
+*** H2 求平均订单金额
+
+#+begin_src excel :eval never
+=AVERAGE(C2:C7)
+#+end_src
+
+- ~C2:C7~  要算均值的金额范围。
+- ~AVERAGE~  数字求和后除以数字个数，零算一个，空白跳过。
+
+想比较典型客单价时，用它求均值，并先确认零和空白的含义。Excel 回读为 82。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#03][查看彩色公式及参数讲解]]（0:57）。
+
+*** H3 数有多少个金额已录为数字
+
+#+begin_src excel :eval never
+=COUNT(C2:C7)
+#+end_src
+
+- ~C2:C7~  同一段金额列。
+- ~COUNT~  只数数值单元格，包含零，跳过空白和文字。
+
+平均值变化时，用它检查分母，找出有多少笔真正参与计算。Excel 回读为 5。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#03][查看彩色公式及参数讲解]]（1:15）。
+
+*** H4 数出金额列里有几个空白
+
+#+begin_src excel :eval never
+=COUNTBLANK(C2:C7)
+#+end_src
+
+- ~C2:C7~  要检查的金额范围。
+- ~COUNTBLANK~  数空白格，也会计入返回空文本的公式。
+
+用来找还没登记的金额，避免把空白当成一笔零元记录。Excel 回读为 1。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#03][查看彩色公式及参数讲解]]（1:33）。
+
+*** 动手改一次，再核对
+
+清空 0 元记录 C3，均值从 82 变成多少？
+
+- 核对 变成 102.5。总额仍为 410，进入平均的数字变成 4 个。
+
+** 04 ROUND / ROUNDDOWN / INT / ROUNDUP / ABS / MOD / FLOOR · 负数怎样取整？区分四舍五入、截断和向下
+:PROPERTIES:
+:CUSTOM_ID: excel-04
+:END:
+
+在跟练工作簿打开工作表 =04=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#04][观看这节课]]（3:21）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/04/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~-12.349~。
+
+*** H2 按四舍五入保留两位小数
+
+#+begin_src excel :eval never
+=ROUND(G2,2)
+#+end_src
+
+- ~G2~  原金额负 12.349。
+- ~2~  保留两位小数。
+- ~ROUND~  看下一位决定是否进位，本例得到负 12.35。
+
+退款按分结算时，得到可继续参与计算的两位小数。Excel 回读为 -12.35。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#04][查看彩色公式及参数讲解]]（0:57）。
+
+*** H3 把两位小数之后直接截掉
+
+#+begin_src excel :eval never
+=ROUNDDOWN(G2,2)
+#+end_src
+
+- ~G2~  要处理的负数。
+- ~2~  保留两位。
+- ~ROUNDDOWN~  朝零舍去，得到负 12.34。
+
+业务明确要求截断时使用，例如只保留精度以内的数字。Excel 回读为 -12.34。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#04][查看彩色公式及参数讲解]]（1:16）。
+
+*** H4 取不大于原数的最大整数
+
+#+begin_src excel :eval never
+=INT(G2)
+#+end_src
+
+- ~G2~  输入负 12.349。
+- ~INT~  取小于或等于该值的最大整数，本例是负 13。
+
+做下界分组时使用。负数尤其要留意结果会往更小的方向取。Excel 回读为 -13。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#04][查看彩色公式及参数讲解]]（1:33）。
+
+*** H5 朝离零更远的方向舍入
+
+#+begin_src excel :eval never
+=ROUNDUP(G2,2)
+#+end_src
+
+- ~G2~  原金额负 12.349。
+- ~2~  保留两位。
+- ~ROUNDUP~  舍掉的位有非零值时向远离零的方向进位。
+
+规则要求有余数就给足时，可用它处理金额或数量。Excel 回读为 -12.35。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H5#04][查看彩色公式及参数讲解]]（1:51）。
+
+*** H6 取金额的绝对值
+
+#+begin_src excel :eval never
+=ABS(G2)
+#+end_src
+
+- ~G2~  有正负符号的原金额。
+- ~ABS~  取到零的距离，结果始终非负。
+
+只想比较退款和支出的金额大小时使用。Excel 回读为 12.349。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H6#04][查看彩色公式及参数讲解]]（2:09）。
+
+*** H7 求整除之后还剩多少
+
+#+begin_src excel :eval never
+=MOD(17,5)
+#+end_src
+
+- ~17~  被除数。
+- ~5~  除数。
+- ~MOD~  返回余数，本例剩 2。
+
+例如把 17 件货每 5 件装一盒，想知道最后还散着几件。Excel 回读为 2。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H7#04][查看彩色公式及参数讲解]]（2:23）。
+
+*** H8 把金额归到所在区间的下限
+
+#+begin_src excel :eval never
+=FLOOR(127,10)
+#+end_src
+
+- ~127~  原始金额。
+- ~10~  档位步长。
+- ~FLOOR~  本例向下取到 10 的倍数，即 120。
+
+按十元分组统计金额时，127 要落在从 120 开始的那档。Excel 回读为 120。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H8#04][查看彩色公式及参数讲解]]（2:39）。
+
+*** 动手改一次，再核对
+
+把待处理金额改成 -1.2。INT 与 ROUNDDOWN 到个位分别是多少？
+
+- 核对 -2 和 -1。INT 朝负无穷，ROUNDDOWN 朝 0。
+
+** 05 COUNTIF / SUMIF · 只有一个条件时 · 计数和求和怎么选？
+:PROPERTIES:
+:CUSTOM_ID: excel-05
+:END:
+
+在跟练工作簿打开工作表 =05=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#05][观看这节课]]（2:05）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/05/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~100~。
+
+*** H2 统计已付款的订单笔数
+
+#+begin_src excel :eval never
+=COUNTIF(D2:D7,"已付")
+#+end_src
+
+- ~D2:D7~  要逐格检查的状态列。
+- ~"已付"~  只数与这个文字匹配的格子。
+
+只想看状态分布和进度时使用，金额多大都不影响笔数。Excel 回读为 4。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#05][查看彩色公式及参数讲解]]（1:01）。
+
+*** H3 只汇总严格超过门槛的金额
+
+#+begin_src excel :eval never
+=SUMIF(C2:C7,">"&G2)
+#+end_src
+
+- ~C2:C7~  同时作为判断范围和求和范围。
+- ~">"&G2~  用连接符把大于号与门槛拼成条件。
+- ~SUMIF~  只加符合条件的金额。
+
+筛选大额订单时，如果等于门槛不算，就用这个写法。Excel 回读为 260。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#05][查看彩色公式及参数讲解]]（1:16）。
+
+*** H4 汇总达到或超过门槛的金额
+
+#+begin_src excel :eval never
+=SUMIF(C2:C7,">="&G2)
+#+end_src
+
+- ~C2:C7~  要检查并相加的金额。
+- ~">="&G2~  把大于等于和门槛拼接，包含等值。
+
+如果等于门槛也达标，用大于等于，避免漏算边界上的一笔。Excel 回读为 260。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#05][查看彩色公式及参数讲解]]（1:35）。
+
+*** 动手改一次，再核对
+
+门槛从 100 改成 120。大于和大于等于的结果分别是多少？
+
+- 核对 严格大于得到 140。大于等于得到 260。
+
+** 06 COUNTIFS · 多条件计数：每个条件必须命中同一行
+:PROPERTIES:
+:CUSTOM_ID: excel-06
+:END:
+
+在跟练工作簿打开工作表 =06=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#06][观看这节课]]（1:50）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/06/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~东区~，G3 为 ~已付~，G4 为 ~茶~。
+
+*** H2 数出同时属于东区、且已经付款的订单
+
+#+begin_src excel :eval never
+=COUNTIFS(A2:A7,G2,D2:D7,G3)
+#+end_src
+
+- ~A2:A7 / G2~  区域列和目标区域配成一组。
+- ~D2:D7 / G3~  状态列和目标状态配成一组。
+- ~COUNTIFS~  每行要同时通过两组条件，范围首尾对齐。
+
+做分地区付款进度表时使用，条件必须在同一笔上成立。Excel 回读为 2。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#06][查看彩色公式及参数讲解]]（1:03）。
+
+*** H3 只数指定地区、状态和商品的订单
+
+#+begin_src excel :eval never
+=COUNTIFS(A2:A7,G2,D2:D7,G3,B2:B7,G4)
+#+end_src
+
+- ~A2:A7 / G2~  核对区域。
+- ~D2:D7 / G3~  核对状态。
+- ~B2:B7 / G4~  再核对商品，三组都成立才计数。
+
+已做地区或状态统计，还想细分到某个商品时，可以追加条件。Excel 回读为 1。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#06][查看彩色公式及参数讲解]]（1:25）。
+
+*** 动手改一次，再核对
+
+在东区、已付之外，再限定商品为茶，还剩几笔？
+
+- 核对 只剩第 2 行，结果是 1。
+
+** 07 SUMIFS / COUNTIFS · 东区已付订单到底有多少钱？
+:PROPERTIES:
+:CUSTOM_ID: excel-07
+:END:
+
+在跟练工作簿打开工作表 =07=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#07][观看这节课]]（1:45）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/07/lesson.mp4][MP4]]。
+
+本例起始输入为 G2 为 ~东区~，G3 为 ~已付~。
+
+*** H2 汇总东区已经付款的订单金额
+
+#+begin_src excel :eval never
+=SUMIFS(C2:C7,A2:A7,G2,D2:D7,G3)
+#+end_src
+
+- ~C2:C7~  最前面是要相加的金额列。
+- ~A2:A7 / G2~  区域列与东区条件。
+- ~D2:D7 / G3~  状态列与已付条件，同一行两项都得成立。
+
+做地区回款报表时用它，只加满足所有条件的金额。Excel 回读为 260。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#07][查看彩色公式及参数讲解]]（1:01）。
+
+*** H3 数东区已付款的订单有几笔
+
+#+begin_src excel :eval never
+=COUNTIFS(A2:A7,G2,D2:D7,G3)
+#+end_src
+
+- ~A2:A7 / G2~  第一组检查区域。
+- ~D2:D7 / G3~  第二组检查状态。
+- ~COUNTIFS~  只传条件对，返回命中的行数。
+
+在同一份回款报表里增加笔数字段，筛选口径与金额保持一致。Excel 回读为 2。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#07][查看彩色公式及参数讲解]]（1:21）。
+
+*** 动手改一次，再核对
+
+改成西区后，金额是多少？如果想数东区有几笔，应该换哪一个函数？
+
+- 核对 西区 150 元。要数东区已付订单，用 COUNTIFS，结果是 2 笔。
+
+** 08 乘法 × / SUMPRODUCT / SUM · 先逐行乘，再相加：用 SUMPRODUCT 复核金额
+:PROPERTIES:
+:CUSTOM_ID: excel-08
+:END:
+
+在跟练工作簿打开工作表 =08=。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html#08][观看这节课]]（2:06）。[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/lessons/08/lesson.mp4][MP4]]。
+
+*** H2 用数量乘单价算一笔订单的金额
+
+#+begin_src excel :eval never
+=E2*F2
+#+end_src
+
+- ~E2~  数量 2。
+- ~F2~  单价 60。
+- ~*~  将同一行的数量与单价相乘，得到 120。
+
+计算每一笔订单的应收金额时使用，数量和单价来自同一行。Excel 回读为 120。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H2#08][查看彩色公式及参数讲解]]（0:58）。
+
+*** H3 每行先乘，再把所有乘积相加
+
+#+begin_src excel :eval never
+=SUMPRODUCT(E2:E7,F2:F7)
+#+end_src
+
+- ~E2:E7~  第一组是数量。
+- ~F2:F7~  第二组是单价，起止行与数量对齐。
+- ~SUMPRODUCT~  对应位置相乘，再加总各项乘积。
+
+用数量和单价复算整张表的总额，快速发现少录金额的订单。Excel 回读为 410。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H3#08][查看彩色公式及参数讲解]]（1:17）。
+
+*** H4 汇总已经登记的金额
+
+#+begin_src excel :eval never
+=SUM(C2:C7)
+#+end_src
+
+- ~C2:C7~  已登记金额列。
+- ~SUM~  只加列里的数字，修改单价列不会直接改变这个合计。
+
+与按数量和单价算出来的合计对照，用来发现登记差额。Excel 回读为 410。
+[[https://lovemoganna.github.io/org-notes/assets/excel-formula-video-course/index.html?formula=H4#08][查看彩色公式及参数讲解]]（1:37）。
+
+*** 动手改一次，再核对
+
+给待补订单补上 20 元单价，乘积合计会变成多少？
+
+- 核对 430。第 6 行数量是 1，新贡献为 20。
 
 * 同系列
 
