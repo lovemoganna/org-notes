@@ -1,0 +1,71 @@
+#+TITLE: KYC、CDD 与 EDD：客户尽调到底要查什么？
+#+WIKI_ID: df9bb5a2-88b3-4a52-9ee5-658f5e7ad6c1
+#+CATEGORY: AML
+#+FILETAGS: :AML:KYC:CDD:EDD:
+#+DATE: 2026-11-25
+#+SOURCE: Annies Kanikode, MBA, CAMS；https://www.linkedin.com/posts/annies-kanikode_cdd-edd-aml-activity-7530900165940146177-I1R3；FATF Recommendations 10、12、15
+#+INGEST_ID: ba5c826e-4db4-48d0-9bd2-c0f3ec881574
+#+WIKI_STATUS: published
+
+* 三者的区别
+
+身份真实不代表资金合法，客户完成 KYC 也不代表尽调结束。CDD 要解决的是客户身份、业务目的、经济背景和实际交易之间是否一致；EDD 则针对较高风险增加调查深度和管控强度。
+
+| 概念 | 核心问题 | 主要调查内容 |
+|------+----------+--------------|
+| KYC（Know Your Customer） | 客户是谁？ | 身份识别、证件核验、身份真实性 |
+| CDD（Customer Due Diligence） | 客户为何使用服务，行为是否符合预期？ | 身份及受益所有人、业务目的、客户画像、风险评级、持续尽调 |
+| EDD（Enhanced Due Diligence） | 较高风险来自哪里，能否解释和控制？ | 资金与财富来源、补充证明、强化审批和持续监控等 |
+
+这里将 KYC 按狭义的身份识别与核验理解。实际机构也可能将 KYC 用作整个客户识别和尽调流程的统称。
+
+KYC 是 CDD 的基础，EDD 是较高风险情形下强化 CDD 的措施，并非三个互不相干的审批阶段。
+
+* CDD：建立客户画像并持续验证
+
+按照 FATF 第 10 项建议，CDD 的核心不只包括开户时的身份核验，还包括：
+
+- 识别客户并利用可靠、独立的信息核验身份。
+- 识别受益所有人（Beneficial Owner），采取合理措施核验其身份；对法人和法律安排了解所有权及控制结构。
+- 了解业务关系的目的和预期性质，按需要取得相关信息。
+- 持续审查业务关系及交易，判断交易是否与已掌握的客户、业务和风险画像一致，必要时核查资金来源并更新客户资料。
+
+职业、收入、预期交易规模、资金来源和使用目的都是构建客户画像的常见信息。具体收集深度应与风险及适用法规相匹配，而非要求所有客户提交同样多的材料。
+
+* EDD：风险较高时进一步查证
+
+高风险行业、异常资金流、无法解释的经济背景等因素可能触发强化尽调。PEP（政治公众人物）还应适用相应的专门要求。
+
+- SOF（Source of Funds，资金来源）：本次或相关交易使用的资金从哪里来，如何取得？
+- SOW（Source of Wealth，财富来源）：客户总体财富通过什么经济活动积累形成？
+- 负面媒体筛查：核实报道涉及的主体、事件和可信度，避免同名误判。
+- 补充证据：根据具体疑点取得必要的交易记录、收入证明或其他支持材料。
+- 强化审批与持续监控：根据适用要求和剩余风险决定审批层级、监控强度与复核频率。
+
+PEP 并不等于犯罪。FATF 第 12 项建议对外国 PEP 要求额外措施；对本国及国际组织 PEP，在业务关系风险较高时采取相应强化措施。家庭成员和密切关系人也适用相关要求。具体执行以当地法律为准。
+
+* 在加密货币交易所如何应用〔补〕
+
+| 环节 | 调查重点 | 可用证据示例 |
+|------+----------+--------------|
+| KYC | 账户主体是否真实 | 证件、身份核验结果 |
+| CDD | 交易和资金行为是否符合客户画像 | 充值提现记录、交易记录、风险评级、链上暴露 |
+| EDD | 已识别的较高风险能否得到充分解释 | RFI 回复、SOF/SOW 证明、链上资金路径、关联账户证据 |
+
+例如（假设场景）：客户身份验证通过，但短时间内收到多笔来源不明的链上资金，换币后迅速提现，且金额与已掌握的经济背景存在明显差异。
+
+- 先核对交易事实：金额、时间、资金路径、地址归因及是否存在数据错误。
+- 再对照客户画像：判断资金流与客户经济背景、服务使用目的是否一致，并考虑正常解释。
+- 若存在尚未解释的较高风险，按制度开展 RFI 或强化尽调，针对具体疑点补充证据。
+- 根据事实、反证及剩余风险更新评级，决定是否强化监控、升级审批或按适用法规评估可疑交易报告（STR）。
+
+RFI（Request for Information）是获取补充信息的手段，不等同于 EDD。链上风险标签、交易异常和 PEP 身份均不能单独证明洗钱。STR 的判断应依据适用的可疑标准，不必等待犯罪事实得到司法确认。
+
+* 参考资料
+
+- [[https://www.linkedin.com/posts/annies-kanikode_cdd-edd-aml-activity-7530900165940146177-I1R3][Annies Kanikode：KYC vs CDD vs EDD]]。原帖为银行开户场景的概念说明，具体发布日期未独立确认。
+- [[https://www.fatf-gafi.org/en/publications/Fatfrecommendations/Fatf-recommendations.html][FATF Recommendations]]：第 10、12、15 项建议及相关解释性说明。
+- [[https://www.fatf-gafi.org/en/publications/fatfrecommendations/documents/peps-r12-r22.html][FATF Guidance: Politically Exposed Persons]]：不同类型 PEP 的风险管理要求。
+- [[https://www.fatf-gafi.org/content/dam/fatf-gafi/guidance/Updated-Guidance-VA-VASP.pdf][FATF：Updated Guidance for a Risk-Based Approach for Virtual Assets and Virtual Asset Service Providers（2021）]]：虚拟资产服务提供商的风险为本尽调。
+
+本文是概念与调查方法笔记，不替代具体法域的监管规定或机构内部制度。
