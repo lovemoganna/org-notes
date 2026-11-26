@@ -57,7 +57,7 @@
 
 #+CAPTION: 四要素的另一种编辑图解；不代表经过独立实验验证的模型效果
 #+ATTR_HTML: :width 480px :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/1cda8367-e385-5232-83f6-fd1dbc3918da/sketchnote-comparison.webp]]
+[[file:../../../note-assets/1cda8367-e385-5232-83f6-fd1dbc3918da/prompt-ab-comparison-v2.webp]]
 
 ** 实际案例：更新一篇已经发布的文章
 “优化这篇文章”没有说明修改范围、依据和验收条件。可改为：
