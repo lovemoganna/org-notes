@@ -9,7 +9,7 @@
 
 #+CAPTION: 提示词的四要素——知识图解
 #+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
-[[file:../../../note-assets/1cda8367-e385-5232-83f6-fd1dbc3918da/sketchnote-header.webp]]
+[[file:../../../note-assets/1cda8367-e385-5232-83f6-fd1dbc3918da/sketchnote-header.png]]
 
 * 四要素：先明确任务
 有效的提示应说明指令、上下文、输入数据和输出指标。没有必要的背景无需硬加；复杂任务需要的是可判断、可追溯的限制，而非更长的标题。
