@@ -7,9 +7,15 @@
 #+INGEST_ID: 693de39d-c542-4728-abf4-30cc0fce5a85
 #+WIKI_STATUS: published
 
+#+CAPTION: 英语自然语流训练：听辨、模仿与主动表达
+#+ATTR_HTML: :width 100% :style max-width:100%;height:auto;display:block;margin:0 auto
+[[file:../../../note-assets/c3ae7d9d-ca29-48e3-9e7e-e4074f3fce78/english-shadowing-cover.webp]]
+
 英语听力练习最容易出现的错觉，是把“听过很多”当作“听懂了”，再把“听懂了”当作“能开口”。这其实是三个不同的任务：听到连续语音、理解对方意思、独立组织自己的表达。只完成前一项，不能保证后一项自然发生。
 
 [[https://youtu.be/797i57sGhEY][English Podcast 1: Learning Languages]] 是 BeeLikeNative 在 2026 年 9 月 17 日发布的约 18 分钟自然语速英语播客。它围绕语言学习的动机、材料、学习方法、持续性与开口交流展开。讲者使用接近日常交谈的节奏，鼓励学习者在需要时利用字幕重听。这个视频适合作为真实语速练习材料，但不应把讲者的个人学习经验直接当成已验证的普适教学规律。
+
+[[https://youtu.be/797i57sGhEY][English Podcast 1: Learning Languages]]
 
 * 学习任务的三道关
 
